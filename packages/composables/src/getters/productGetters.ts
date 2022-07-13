@@ -7,7 +7,6 @@ import {
   AgnosticBreadcrumb
 } from '@vue-storefront/core';
 import type { Category, Product, ProductFilter } from '@vue-storefront/plentymarkets-api';
-import { languageHelper } from 'src/helpers/language';
 
 function getName(product: Product): string {
   return product?.texts?.name1 ?? '';
@@ -44,7 +43,7 @@ function getBreadcrumbs(product: Product, categoryPath?: Category[]): AgnosticBr
       const categoryDetails = categoryGetters.getCategoryDetails(category.details);
       return {
         text: categoryDetails.name,
-        link: `/${languageHelper.langPrefix}/c/` + categoryDetails.nameUrl
+        link: categoryDetails.nameUrl
       };
     }),
     {

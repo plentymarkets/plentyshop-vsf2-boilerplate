@@ -9,7 +9,6 @@ import {
   AgnosticFacet
 } from '@vue-storefront/core';
 import type { Category, Facet, FacetSearchCriteria, Product } from '@vue-storefront/plentymarkets-api';
-import { languageHelper } from 'src/helpers/language';
 import { categoryGetters } from './categoryGetters';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -101,7 +100,7 @@ function getPagination(params: FacetSearchResult<Facet>): AgnosticPagination {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getBreadcrumbs(params: FacetSearchResult<Facet>): AgnosticBreadcrumb[] {
   let categoryPath = params.data?.categoryPath;
-  categoryPath = categoryPath.length ? categoryPath : [];
+  categoryPath = categoryPath?.length ? categoryPath : [];
 
   return [
     {
@@ -113,7 +112,7 @@ function getBreadcrumbs(params: FacetSearchResult<Facet>): AgnosticBreadcrumb[] 
       const categoryDetails = categoryGetters.getCategoryDetails(category.details);
       return {
         text: categoryDetails.name,
-        link: `/${languageHelper.langPrefix}/c/` + categoryDetails.nameUrl
+        link: categoryDetails.nameUrl
       };
     })
   ];
