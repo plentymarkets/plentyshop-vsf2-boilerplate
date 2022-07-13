@@ -18,10 +18,9 @@ const factoryParams = {
   search: async (context: Context, params: FacetSearchResult<SearchParams>) => {
 
     const { categories } = useCategory('categories');
-
     const category = categoryGetters.findCategoryBySlug(categories.value, params.input.categorySlug);
-
     const tree: AgnosticCategoryTree = categoryGetters.getTree(category);
+    const categoryPath = categoryGetters.findCategoryPathById(categories.value, category.id);
 
     if (category) {
       params.input.categoryId = category.id;
@@ -31,6 +30,7 @@ const factoryParams = {
       products: data.products,
       tree,
       facets: data.facets,
+      categoryPath,
       pagination: {
         perPageOptioons: ITEMS_PER_PAGE,
         total: data.pagination.totals

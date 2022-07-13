@@ -212,6 +212,7 @@ export type Facet = {
   products: Product[],
   tree: AgnosticCategoryTree,
   facets: FilterGroup [],
+  categoryPath: Category[];
   pagination: any
 };
 
