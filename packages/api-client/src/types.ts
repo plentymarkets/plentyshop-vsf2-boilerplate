@@ -212,7 +212,7 @@ export type Facet = {
   products: Product[],
   tree: AgnosticCategoryTree,
   facets: FilterGroup [],
-  pagination: any
+  pagination: any,
 };
 
 export type CategoryPage = {
@@ -268,7 +268,10 @@ export interface PlentymarketsApiMethods {
 
   getReview(
     prams: ReviewSearchParams
-  ): Review
+  ): Review,
+  getBreadcrumbs(
+    params: any
+  ): Promise<Category[]>
 }
 
 export type Context = IntegrationContext<ClientInstance, Settings, ApiClientMethods<PlentymarketsApiMethods>>;

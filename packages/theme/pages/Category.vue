@@ -210,8 +210,8 @@ import {
   SfColor,
   SfProperty
 } from '@storefront-ui/vue';
-import { computed, ref } from '@nuxtjs/composition-api';
-import { useCart, useWishlist, productGetters, useFacet, facetGetters, wishlistGetters } from '@vue-storefront/plentymarkets';
+import { computed, ref, onBeforeMount } from '@nuxtjs/composition-api';
+import { useCart, useWishlist, productGetters, useFacet, facetGetters, wishlistGetters, useBreadcrumbs } from '@vue-storefront/plentymarkets';
 import { useUiHelpers, useUiState } from '~/composables';
 import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
@@ -227,11 +227,12 @@ export default {
     const { addItem: addItemToCart, isInCart } = useCart();
     const { result, search, loading, error } = useFacet();
     const { addItem: addItemToWishlist, isInWishlist, removeItem: removeItemFromWishlist, wishlist } = useWishlist();
+    const { search: breadcrumbSearch, breadcrumbs: breadcrumbPath} = useBreadcrumbs();
 
     const productsQuantity = ref({});
     const products = computed(() => facetGetters.getProducts(result.value));
     const categoryTree = computed(() => facetGetters.getCategoryTree(result.value));
-    const breadcrumbs = computed(() => facetGetters.getBreadcrumbs(result.value));
+    const breadcrumbs = computed(() => facetGetters.getBreadcrumbs(null, breadcrumbPath.value));
     const pagination = computed(() => facetGetters.getPagination(result.value));
     const activeCategory = computed(() => {
       const items = categoryTree.value.items;
@@ -258,6 +259,10 @@ export default {
         quantity
       });
     };
+
+    onBeforeMount(() => {
+      breadcrumbSearch({ variationId: 1007 });
+    });
 
     onSSR(async () => {
       await search(th.getFacetsFromURL());

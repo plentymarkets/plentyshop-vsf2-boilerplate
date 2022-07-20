@@ -5,6 +5,7 @@ import { getProduct } from './api/getProduct';
 import { getCategory } from './api/getCategory';
 import { getFacet } from './api/getFacet';
 import { getReview } from './api/getReview';
+import { getBreadcrumbs } from './api/getBreadcrumbs';
 
 function onCreate(settings: Settings) {
   const client = axios.create({
@@ -22,7 +23,8 @@ const { createApiClient } = apiClientFactory<Settings, Endpoints>({
     getProduct,
     getCategory,
     getFacet,
-    getReview
+    getReview,
+    getBreadcrumbs
   }
 });
 
