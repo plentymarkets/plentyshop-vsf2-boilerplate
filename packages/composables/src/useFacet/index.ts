@@ -22,14 +22,18 @@ const factoryParams = {
     const category = categoryGetters.findCategoryBySlug(categories.value, params.input.categorySlug);
 
     const tree: AgnosticCategoryTree = categoryGetters.getTree(category);
-
+    const treeWrapper: AgnosticCategoryTree = {
+      label: '',
+      items: [tree],
+      isCurrent: false
+    };
     if (category) {
       params.input.categoryId = category.id;
     }
     const data = await context.$plentymarkets.api.getFacet(params.input);
     return {
       products: data.products,
-      tree,
+      tree: treeWrapper,
       facets: data.facets,
       pagination: {
         perPageOptioons: ITEMS_PER_PAGE,

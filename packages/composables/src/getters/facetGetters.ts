@@ -10,6 +10,7 @@ import {
   AgnosticFacet
 } from '@vue-storefront/core';
 import type { Category, Facet, FacetSearchCriteria, Product } from '@vue-storefront/plentymarkets-api';
+import { useContext } from '@nuxtjs/composition-api';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getAll(params: FacetSearchResult<Facet>, criteria?: FacetSearchCriteria): AgnosticFacet[] {
@@ -43,25 +44,27 @@ function getGrouped(params: FacetSearchResult<Facet>, criteria?: FacetSearchCrit
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getSortOptions(params: FacetSearchResult<Facet>): AgnosticSort {
+
+  const { app } = useContext();
   const options = [
     {
       id: 'texts.name1_asc',
-      value: 'Name A-Z',
+      value: app.i18n.t('name-a-z'),
       type: 'sort'
     },
     {
       id: 'texts.name1_desc',
-      value: 'Name Z-A',
+      value: app.i18n.t('name-z-a'),
       type: 'sort'
     },
     {
       id: 'sorting.price.avg_asc',
-      value: 'Preis ⬆',
+      value: app.i18n.t('price-up'),
       type: 'sort'
     },
     {
       id: 'sorting.price.avg_desc',
-      value: 'Preis ⬇',
+      value: app.i18n.t('price-down'),
       type: 'sort'
     }
   ].map(o => ({ ...o, selected: o.id === params.input.sort }));

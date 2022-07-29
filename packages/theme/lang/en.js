@@ -154,5 +154,9 @@ export default {
   'show more': 'show more',
   'hide': 'hide',
   'Change to grid view': 'Change to grid view',
-  'Change to list view': 'Change to list view'
+  'Change to list view': 'Change to list view',
+  'name-a-z': 'Name A-Z',
+  'name-z-a': 'Name Z-A',
+  'price-up': 'Price ⬆',
+  'price-down': 'Price ⬇'
 };
