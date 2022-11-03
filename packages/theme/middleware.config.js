@@ -8,6 +8,14 @@ module.exports = {
         }
       },
       extensions: extensions => [...extensions]
+    },
+    pp: {
+      location: '@vue-storefront/pp-plentymarkets/server',
+      configuration: {
+        api: {
+          url: 'https://mevofvd5omld.c01-14.plentymarkets.com'
+        }
+      }
     }
   }
 };

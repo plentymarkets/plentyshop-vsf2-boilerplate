@@ -1,12 +1,12 @@
 import { useVSFContext, sharedRef, Logger } from '@vue-storefront/core';
 import { VSFContext } from '../../types';
-import { useCart } from '@vsf-enterprise/plentymarkets';
+import { useCart } from '@vue-storefront/plentymarkets';
 import { computed } from '@nuxtjs/composition-api';
 import { LOGGER_PREFIX } from '../../consts';
 
 interface UsePaypalErrors {
   exampleEndpoint: Error
-};
+}
 
 const usePaypal = () => {
   const error = sharedRef<UsePaypalErrors>({
@@ -27,7 +27,7 @@ const usePaypal = () => {
       const response = await api.SOME_METHOD();
       paymentObject.value = response;
     } catch (err) {
-      Logger.error(`${LOGGER_PREFIX} ${err.message}`)
+      Logger.error(`${LOGGER_PREFIX} ${err.message}`);
       error.value.exampleEndpoint = _getError(err);
     } finally {
       loading.value = false;

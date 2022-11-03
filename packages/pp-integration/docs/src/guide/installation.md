@@ -5,20 +5,20 @@ To install PayPal integration for the plentymarkets module in your Vue Storefron
 <code-group>
   <code-block title="YARN">
   ```bash
-  yarn add @vsf-enterprise/pp-plentymarkets
+  yarn add @vue-storefront/pp-plentymarkets
   ```
   </code-block>
 
   <code-block title="NPM">
   ```bash
-  npm install @vsf-enterprise/pp-plentymarkets --save
+  npm install @vue-storefront/pp-plentymarkets --save
   ```
   </code-block>
 </code-group>
 
 ## Setup
 
-Add `@vsf-enterprise/pp-plentymarkets` to `dev` and `prod` arrays in `useRawSource` object:
+Add `@vue-storefront/pp-plentymarkets` to `dev` and `prod` arrays in `useRawSource` object:
 
 ```javascript{11,16}
 // nuxt.config.js
@@ -31,12 +31,12 @@ export default {
         dev: [
           '@vue-storefront/plentymarkets',
           '@vue-storefront/core',
-          '@vsf-enterprise/pp-plentymarkets'
+          '@vue-storefront/pp-plentymarkets'
         ],
         prod: [
           '@vue-storefront/plentymarkets',
           '@vue-storefront/core',
-          '@vsf-enterprise/pp-plentymarkets'
+          '@vue-storefront/pp-plentymarkets'
         ]
       }
     }]

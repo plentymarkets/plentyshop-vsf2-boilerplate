@@ -53,11 +53,13 @@ export default {
       useRawSource: {
         dev: [
           '@vue-storefront/plentymarkets',
-          '@vue-storefront/core'
+          '@vue-storefront/core',
+          '@vue-storefront/pp-plentymarkets'
         ],
         prod: [
           '@vue-storefront/plentymarkets',
-          '@vue-storefront/core'
+          '@vue-storefront/core',
+          '@vue-storefront/pp-plentymarkets'
         ]
       }
     }],
@@ -79,6 +81,7 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    ['@vue-storefront/pp-plentymarkets/nuxt', {}],
     ['nuxt-i18n', {
       baseUrl: process.env.BASE_URL || 'http://localhost:3000'
     }],
