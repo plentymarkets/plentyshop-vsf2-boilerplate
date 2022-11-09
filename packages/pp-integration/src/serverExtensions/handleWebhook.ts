@@ -15,7 +15,7 @@ const handleWebhook = (client: WebhookClient, config: any /** TODO */) => {
     }
 
     return response.send({});
-  }
+  };
 };
 
 export default handleWebhook;

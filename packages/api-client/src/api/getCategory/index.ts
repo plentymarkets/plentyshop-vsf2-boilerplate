@@ -7,6 +7,5 @@ export async function getCategory(context: Context, params: any): Promise<Catego
   const url: URL = new URL('/rest/storefront/categories', context.config.api.url);
   url.searchParams.set('level', '5');
   const { data } = await context.client.get(url.href);
-  // TODO why is the response [..cats, 200]?
-  return data[0];
+  return data;
 }

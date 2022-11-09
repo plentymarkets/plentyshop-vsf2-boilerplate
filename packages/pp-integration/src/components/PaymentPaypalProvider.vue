@@ -14,7 +14,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { onMounted, ref } from '@vue/composition-api';
 import { MALFORMED_PRICE_QUERY_STRING, usePaypal } from '@vsf-enterprise/pp-plentymarkets';
 import { useVSFContext } from '@vue-storefront/core';

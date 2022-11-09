@@ -20,11 +20,12 @@ const usePaypal = () => {
 
   const exampleEndpoint = async (/** TODO */): Promise<any> => {
     try {
+      console.log('pp exampleEndpoint composable');
       error.value.exampleEndpoint = null;
       loading.value = true;
 
       await loadCart();
-      const response = await api.SOME_METHOD();
+      const response = await api.getSession(false);
       paymentObject.value = response;
     } catch (err) {
       Logger.error(`${LOGGER_PREFIX} ${err.message}`);

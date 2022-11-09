@@ -1,7 +1,8 @@
+import { AxiosInstance } from 'axios';
 import { Request, Response } from 'express';
 
-export type PlentymarketsClient = any; // TODO
-export type PaypalClient = any; // TODO
+export type PlentymarketsClient = AxiosInstance;
+export type PaypalClient = AxiosInstance;
 
 export interface PaypalIntegrationContext {
   config: PaypalServerConfig,
@@ -11,14 +12,14 @@ export interface PaypalIntegrationContext {
   },
   req: Request,
   res: Response
-};
+}
 
 export interface ApiClientRequestParams {
   uri: string,
   method?: string,
   body?: any,
   headers?: Record<string, string>
-};
+}
 
 export interface VSFContext {
   $plentymarkets: {
@@ -28,12 +29,19 @@ export interface VSFContext {
     config: PaypalClientConfig,
     api: ApiEndpoints
   }
-};
+}
 
-export type ApiEndpoints = any; // TODO
+export type ApiEndpoints = {
+  getSession(initialRestCall: boolean): Promise<any>
+}; // TODO
 
 export type PaypalClientConfig = any; // TODO
 
-export type PaypalServerConfig = any; // TODO: middleware.config.js
+// TODO: middleware.config.js
+export type PaypalServerConfig = {
+  api: {
+    url: string
+  }
+};
 
 export type WebhookClient = any; // TODO
