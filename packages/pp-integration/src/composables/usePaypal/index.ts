@@ -15,24 +15,28 @@ const usePaypal = () => {
   const loading = sharedRef(false, 'usePaypal-loading');
   const paymentObject = sharedRef(null, 'usePaypal-paymentObject');
 
-  const { $pp: { api }} = useVSFContext() as VSFContext;
-  const { load: loadCart } = useCart();
+  // const { $pp: { api }} = useVSFContext() as VSFContext;
+  const { cart } = useCart();
 
-  const exampleEndpoint = async (/** TODO */): Promise<any> => {
-    try {
-      console.log('pp exampleEndpoint composable');
-      error.value.exampleEndpoint = null;
-      loading.value = true;
+  // const exampleEndpoint = async (/** TODO */): Promise<any> => {
+  //   try {
+  //     console.log('pp exampleEndpoint composable');
+  //     error.value.exampleEndpoint = null;
+  //     loading.value = true;
 
-      await loadCart();
-      const response = await api.getSession(false);
-      paymentObject.value = response;
-    } catch (err) {
-      Logger.error(`${LOGGER_PREFIX} ${err.message}`);
-      error.value.exampleEndpoint = _getError(err);
-    } finally {
-      loading.value = false;
-    }
+  //     await loadCart();
+  //     const response = await api.getSession(false);
+  //     paymentObject.value = response;
+  //   } catch (err) {
+  //     Logger.error(`${LOGGER_PREFIX} ${err.message}`);
+  //     error.value.exampleEndpoint = _getError(err);
+  //   } finally {
+  //     loading.value = false;
+  //   }
+  // };
+
+  const exampleEndpoint = async (): Promise<any> => {
+    console.log('pp load cart: ', cart);
   };
 
   const setPaymentObject = (newPaymentObject: string) => {

@@ -16,6 +16,7 @@ const exampleEndpoint = async (
 };
 
 export async function getSession(context: PaypalIntegrationContext, initialRestCall: boolean): Promise<any> {
+  console.log('getSession: ', context);
   const url: URL = new URL('/rest/io/session/', context.config.api.url);
   url.searchParams.set('initialRestCall', initialRestCall.toString());
   const { data } = await context.client.pp.get(url.href);
