@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@nuxtjs/composition-api": "^0.29.3",
+    "@paypal/paypal-js": "^5.1.1",
     "@vue-storefront/core": "^2.6.0",
     "axios": "^1.1.3"
   },

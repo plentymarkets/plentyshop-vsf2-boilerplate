@@ -10,8 +10,9 @@ import { usePaypal } from '@vue-storefront/pp-plentymarkets';
 export default {
   name: 'PaymentPaypalLoader',
   setup() {
-    const { exampleEndpoint } = usePaypal();
+    const { exampleEndpoint, loadScript } = usePaypal();
     exampleEndpoint();
+    loadScript();
   }
 };
 </script>

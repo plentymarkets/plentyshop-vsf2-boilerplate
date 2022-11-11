@@ -3,6 +3,7 @@ import { VSFContext } from '../../types';
 import { useCart } from '@vue-storefront/plentymarkets';
 import { computed } from '@nuxtjs/composition-api';
 import { LOGGER_PREFIX } from '../../consts';
+import { loadScript as loadPayPalScript, PayPalNamespace } from '@paypal/paypal-js';
 
 interface UsePaypalErrors {
   exampleEndpoint: Error
@@ -43,13 +44,19 @@ const usePaypal = () => {
     paymentObject.value = newPaymentObject;
   };
 
+  const loadScript = (): Promise<PayPalNamespace> => {
+    // TODO find a smarter solution to notify
+    return loadPayPalScript({'client-id': 'test'});
+  };
+
   return {
     error: computed<UsePaypalErrors>(() => error.value),
     loading: computed<boolean>(() => loading.value),
     paymentObject: computed<any>(() => paymentObject.value),
 
     exampleEndpoint,
-    setPaymentObject
+    setPaymentObject,
+    loadScript
   };
 };
 
