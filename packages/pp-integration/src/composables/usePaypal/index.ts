@@ -15,6 +15,7 @@ const usePaypal = () => {
   }, 'usePaypal-error');
   const loading = sharedRef(false, 'usePaypal-loading');
   const paymentObject = sharedRef(null, 'usePaypal-paymentObject');
+  const paypal = sharedRef<PayPalNamespace>(null, 'usePaypal-paypalsdk');
 
   // const { $pp: { api }} = useVSFContext() as VSFContext;
   const { cart } = useCart();
@@ -44,9 +45,18 @@ const usePaypal = () => {
     paymentObject.value = newPaymentObject;
   };
 
-  const loadScript = (): Promise<PayPalNamespace> => {
-    // TODO find a smarter solution to notify
-    return loadPayPalScript({'client-id': 'test'});
+  const loadScript = async (): Promise<PayPalNamespace> => {
+    if (paypal.value) {
+      return paypal.value;
+    }
+
+    try {
+      // TODO get client id somehow
+      paypal.value = await loadPayPalScript({ 'client-id': 'test' });
+      return paypal.value;
+    } catch (error) {
+      console.error('failed to load the PayPal JS SDK script', error);
+    }
   };
 
   return {
