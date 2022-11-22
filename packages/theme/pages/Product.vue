@@ -1,6 +1,6 @@
 <template>
   <div id="product">
-    <PaymentPaypalLoader/>
+    <PaymentPaypalButton/>
     <SfBreadcrumbs
       class="breadcrumbs desktop-only"
       :breadcrumbs="breadcrumbs"
@@ -151,7 +151,7 @@ import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
 import { addBasePath } from '@vue-storefront/core';
 import { useUiHelpers } from '~/composables';
-import PaymentPaypalLoader from '@vue-storefront/pp-plentymarkets/src/components/PaymentPaypalLoader.vue';
+import PaymentPaypalButton from '@vue-storefront/pp-plentymarkets/src/components/PaymentPaypalButton.vue';
 
 export default {
   name: 'Product',
@@ -237,7 +237,7 @@ export default {
     RelatedProducts,
     LazyHydrate,
     AttributeSelection,
-    PaymentPaypalLoader
+    PaymentPaypalButton
   },
   data() {
     return {
