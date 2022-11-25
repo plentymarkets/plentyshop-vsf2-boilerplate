@@ -29,7 +29,7 @@ import { additionalInformation, executePayment, placeOrder, preparePayment } fro
  * 4. cookieExtension     => afterCall     | after the call to the middleware has finished
  */
 
-let cookies: string | string[] = '';
+let cookies: string[] = [];
 
 const cookieBlacklist = ['domain', 'secure', 'httponly'];
 
@@ -54,7 +54,10 @@ function onCreate(settings: Settings) {
   // Add a response interceptor
   // Triggered after middleware gets a response from connected apis
   client.interceptors.response.use((response) => {
-    cookies = filterCookies(response.headers['set-cookie'][0]);
+    response.headers['set-cookie'].forEach((cookie: string) => {
+      cookies.push(filterCookies(cookie));
+    });
+    console.log(cookies);
     return response;
   }, (error) => {
     return Promise.reject(error);
@@ -78,12 +81,12 @@ const cookieExtension: ApiClientExtension = {
   name: 'cookieExtension',
   hooks: (req, res) => ({
     beforeCreate: ({ configuration }) => {
-      cookies = req.headers.cookie ?? '';
+      cookies = req.headers.cookie ? [req.headers.cookie] : [];
       return configuration;
     },
     afterCall: ({ response }) => {
       res.set('set-cookie', cookies);
-      cookies = '';
+      cookies = [];
       return response;
     }
   })
