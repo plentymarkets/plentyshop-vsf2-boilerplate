@@ -89,6 +89,7 @@ export default {
       if (title === 'Log out') {
         await logout();
         router.push(context.root.localePath({ name: 'home' }));
+        window.location.assign('/');
         return;
       }
 
