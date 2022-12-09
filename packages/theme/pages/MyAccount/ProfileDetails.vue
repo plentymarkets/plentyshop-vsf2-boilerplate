@@ -1,5 +1,6 @@
 <template>
   <PsfMyProfile
+    v-if="!loading"
     :account="user"
     data-testid="my-profile-tabs"
     @update:personal="user = { ...user, ...$event }"
@@ -16,7 +17,7 @@ export default {
     PsfMyProfile
   },
   setup() {
-    const { user, load, changePassword } = useUser();
+    const { user, loading, load, changePassword } = useUser();
 
     onSSR(async () => {
       await load();
@@ -24,6 +25,7 @@ export default {
 
     return {
       user,
+      loading,
       changePassword
     };
   }

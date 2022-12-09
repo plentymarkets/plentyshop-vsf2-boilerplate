@@ -1,6 +1,6 @@
 <template>
   <PsfAddressDetails
-    v-if="billing"
+    v-if="!loading"
     :shipping-tab-title="$t('Billing details')"
     :addresses="billing"
     :countries="countries"
@@ -21,7 +21,7 @@ export default {
     PsfAddressDetails
   },
   setup() {
-    const { billing, load, addAddress, deleteAddress, setDefaultAddress } = useUserBilling();
+    const { billing, loading, load, addAddress, deleteAddress, setDefaultAddress } = useUserBilling();
     const { load: loadActiveShippingCountries, result: countries } = useActiveShippingCountries();
 
     onSSR(async () => {
@@ -30,6 +30,7 @@ export default {
     });
 
     return {
+      loading,
       billing,
       countries,
       addAddress,

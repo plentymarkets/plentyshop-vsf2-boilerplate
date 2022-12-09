@@ -90,6 +90,7 @@ export default {
       if (title === 'Log out') {
         await logout();
         window.location.reload();
+        return;
       }
 
       const slugifiedTitle = (title || '').toLowerCase().replace(' ', '-');
