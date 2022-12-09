@@ -1,5 +1,6 @@
 <template>
   <PsfAddressDetails
+    v-if="shipping"
     :shipping-tab-title="$t('Shipping details')"
     :addresses="shipping"
     :countries="countries"
