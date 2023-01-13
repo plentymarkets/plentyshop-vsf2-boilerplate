@@ -125,6 +125,8 @@ export default {
   'Search for items': 'Nach Artikeln suchen',
   'Enter promo code': 'Geben Sie den Promo-Code ein',
   'Shipping method': 'Versandart',
+  'Please check': 'Bitte prüfe',
+  'Shipping Provider will request more info': 'Der Versanddienstleister wird weitere Informationen anfordern',
   'Continue to billing': 'Weiter zur Abrechnung',
   'Payment methods': 'Zahlungsmethoden',
   'Shipping address': 'Lieferanschrift',
