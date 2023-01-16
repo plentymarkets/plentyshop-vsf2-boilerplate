@@ -29,7 +29,7 @@
             {{ $t('Go back') }}
           </SfButton>
           <SfButton
-            v-e2e="'continue-to-payment'"
+            data-e2e="continue-to-payment"
             class="form__action-button"
             @click="submit"
             :disabled="shipping.length <= 0 && !sameAsShipping"

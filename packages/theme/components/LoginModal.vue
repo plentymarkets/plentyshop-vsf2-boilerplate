@@ -68,7 +68,11 @@
         </div>
         <div class="bottom">
           <p class="bottom__paragraph">{{ $t('No account') }}</p>
-          <SfButton class="sf-button--text" @click="setCurrentScreen(SCREEN_REGISTER)">
+          <SfButton
+            data-e2e="open-registration-form"
+            class="sf-button--text"
+            @click="setCurrentScreen(SCREEN_REGISTER)"
+            >
             {{ $t('Register today') }}
           </SfButton>
         </div>
