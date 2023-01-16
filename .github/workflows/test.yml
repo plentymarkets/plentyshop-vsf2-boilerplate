@@ -83,3 +83,52 @@ jobs:
 
       - name: Test theme
         run: yarn test:theme
+
+  test-e2e:
+    name: Run all end-to-end tests
+    needs: prepare_dependencies
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        browser: [chrome, firefox, edge]
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Create environments file
+        env:
+          PLENTYMARKETS_USER_EMAIL: ${{ secrets.PLENTYMARKETS_USER_EMAIL }}
+          PLENTYMARKETS_USER_PASSWORD: ${{ secrets.PLENTYMARKETS_USER_PASSWORD }}
+        run: |
+          echo -e \
+          "CYPRESS_DEFAULT_ACCOUNT_EMAIL=$PLENTYMARKETS_USER_EMAIL\n \
+          CYPRESS_DEFAULT_PASSWORD=$PLENTYMARKETS_USER_PASSWORD" \
+          > ./packages/theme/tests/e2e/.env
+
+      - name: E2E in ${{ browser }}
+        uses: cypress-io/github-action@v5.0.5
+        with:
+          browser: ${{ browser }}
+          build: yarn build
+          start: yarn dev
+          wait-on: 'http://192.168.0.38:3000'
+
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+      
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-videos
+          path: cypress/videos
