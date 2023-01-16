@@ -110,7 +110,8 @@ jobs:
         run: |
           echo -e \
           "CYPRESS_DEFAULT_ACCOUNT_EMAIL=$PLENTYMARKETS_USER_EMAIL\n \
-          CYPRESS_DEFAULT_PASSWORD=$PLENTYMARKETS_USER_PASSWORD" \
+          CYPRESS_DEFAULT_PASSWORD=$PLENTYMARKETS_USER_PASSWORD"\n \
+          CYPRESS_DEFAULT_DEV_URL=http://192.168.0.38:3000 \
           > ./packages/theme/tests/e2e/.env
 
       - name: E2E in ${{ browser }}
