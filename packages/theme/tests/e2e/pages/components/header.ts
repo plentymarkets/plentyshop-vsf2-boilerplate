@@ -24,6 +24,10 @@ class Header {
     return cy.get('[data-e2e="login-modal"]').find('form');
   }
 
+  get openRegistrationButton(): Cypress.Chainable {
+    return el('open-registration-form');
+  }
+
   openCart(): Cypress.Chainable {
     const click = ($el) => $el.click();
     return this.cart.pipe(click).should(() => {

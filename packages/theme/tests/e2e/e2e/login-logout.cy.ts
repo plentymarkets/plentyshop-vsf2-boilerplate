@@ -10,14 +10,14 @@ const loginHelper = (cy: Cypress.cy & CyEventEmitter, email: string, password: s
     if ($el.find('.sf-modal__content').length === 0) {
       page.home.header.openAccount();
     }
-  }).wait(100);
+  });
 
   // if the login to your account button exists, click it
   cy.get('.sf-modal__content').then($el => {
     if ($el.find('button.sf-button:contains("login in to your account")').length > 0) {
       cy.get('.sf-modal__content').find('.sf-button').contains('login in to your account').click();
     }
-  }).wait(100);
+  });
 
   if (email) {
     page.home.header.accountModalForm.find('input#email').clear().type(email, { force: true });
@@ -51,48 +51,50 @@ context('Login and logout', () => {
   });
 
   it(['exceptionPath', 'regression'], 'Fails due to wrong email or wrong password', function test() {
-    cy.intercept('/api/plentymarkets/loginUser').as('networkRequests');
-    loginHelper(cy, 'wrong@email.com', CYPRESS_DEFAULT_ACCOUNT_PASSWORD);
-    cy.wait('@networkRequests');
-    page.home.header.accountModalForm.contains('Invalid username or password');
+    cy.intercept('/api/plentymarkets/loginUser').as('loginUser');
 
-    cy.intercept('/api/plentymarkets/loginUser').as('networkRequests');
+    loginHelper(cy, 'wrong@email.com', CYPRESS_DEFAULT_ACCOUNT_PASSWORD);
+    cy.wait('@loginUser').its('response.statusCode').should('eq', 401);
+    cy.get('.notifications').find('.sf-notification').should('have.class', 'color-danger');
+
     loginHelper(cy, CYPRESS_DEFAULT_ACCOUNT_EMAIL, 'wrongPassword');
-    cy.wait('@networkRequests');
-    page.home.header.accountModalForm.contains('Invalid username or password');
+    cy.wait('@loginUser').its('response.statusCode').should('eq', 401);
+    cy.get('.notifications').find('.sf-notification').should('have.class', 'color-danger');
   });
 
   it(['happyPath', 'regression'], 'Should login successfully, then logout', function test() {
+    cy.intercept('/api/plentymarkets/loginUser').as('loginUser');
+    cy.intercept('/api/plentymarkets/logoutUser').as('logoutUser');
+
     // Login
-    cy.intercept('/api/plentymarkets/loginUser').as('networkRequests');
     loginHelper(cy, CYPRESS_DEFAULT_ACCOUNT_EMAIL, CYPRESS_DEFAULT_ACCOUNT_PASSWORD);
-    cy.wait('@networkRequests').its('response.statusCode').should('eq', 200);
+    cy.wait('@loginUser').its('response.statusCode').should('eq', 200);
 
     cy.visit('/my-account');
     cy.get('body').contains('My Account');
 
     // // Logout
-    cy.intercept('/api/plentymarkets/logoutUser').as('networkRequests');
     cy.get('[data-testId="Log out"').click();
-    cy.wait('@networkRequests').its('response.statusCode').should('eq', 200);
+    cy.wait('@logoutUser').its('response.statusCode').should('eq', 200);
 
     page.home.header.openAccount();
     cy.get('body').contains('Your email');
   });
 
   it(['alternatePath', 'regression'], 'Should login successfully with remember clicked, then logout', function test() {
+    cy.intercept('/api/plentymarkets/loginUser').as('loginUser');
+    cy.intercept('/api/plentymarkets/logoutUser').as('logoutUser');
+
     // Login
-    cy.intercept('/api/plentymarkets/loginUser').as('networkRequests');
     loginHelper(cy, CYPRESS_DEFAULT_ACCOUNT_EMAIL, CYPRESS_DEFAULT_ACCOUNT_PASSWORD, true);
-    cy.wait('@networkRequests').its('response.statusCode').should('eq', 200);
+    cy.wait('@loginUser').its('response.statusCode').should('eq', 200);
 
     cy.visit('/my-account');
     cy.get('body').contains('My Account');
 
     // // Logout
-    cy.intercept('/api/plentymarkets/logoutUser').as('networkRequests');
     cy.get('[data-testId="Log out"').click();
-    cy.wait('@networkRequests').its('response.statusCode').should('eq', 200);
+    cy.wait('@logoutUser').its('response.statusCode').should('eq', 200);
 
     page.home.header.openAccount();
     cy.get('body').contains('Your email');
