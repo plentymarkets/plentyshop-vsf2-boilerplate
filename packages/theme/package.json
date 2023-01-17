@@ -9,7 +9,6 @@
     "build": "nuxt build -m",
     "build:analyze": "nuxt build -a -m",
     "dev": "nuxt",
-    "dev:e2e": "nuxt --hostname '192.168.0.38' --port 3000",
     "generate": "nuxt generate",
     "lint": "eslint . --ext .ts,.vue",
     "lint:fix": "eslint . --ext .ts,.vue --fix",

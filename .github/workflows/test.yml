@@ -119,7 +119,7 @@ jobs:
         with:
           browser: ${{ browser }}
           build: yarn build
-          start: yarn dev:e2e
+          start: yarn dev  --hostname '192.168.0.38' --port 3000
           wait-on: 'http://192.168.0.38:3000'
 
       - uses: actions/upload-artifact@v3

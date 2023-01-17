@@ -15,7 +15,6 @@
     "dev": "concurrently \"yarn:dev:*\"",
     "dev:api-client": "cd packages/api-client && yarn dev",
     "dev:composables": "cd packages/composables && yarn dev",
-    "dev:e2e": "cd packages/theme && yarn dev:e2e",
     "dev:theme": "cd packages/theme && yarn dev",
     "dev:theme-debug": "cd packages/theme && yarn dev-debug",
     "docs:build": "cd docs && yarn build",
