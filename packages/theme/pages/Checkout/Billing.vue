@@ -3,6 +3,7 @@
     <CheckoutAddressDetails
       class="spacer-top"
       :type="'billing'"
+      ref="CheckoutAddressDetailsRef"
       :addresses="billing"
       :countries="countries"
       @set-default-address="setDefaultAddress({address: $event })"
@@ -10,21 +11,21 @@
       @update-address="addAddress({address: $event})"
     />
     <div class="spacer-top buttons">
-          <SfButton
-            class="sf-button color-secondary form__back-button"
-            type="button"
-            @click="router.push(localePath({ name: 'login' }))"
-          >
-            {{ $t('Go back') }}
-          </SfButton>
-          <SfButton
-            data-e2e="continue-to-shipping"
-            class="form__action-button"
-            @click="router.push(localePath({ name: 'shipping' }))"
-            :disabled="(billing.length <= 0)"
-          >
-            {{ $t('Continue to shipping') }}
-          </SfButton>
+      <SfButton
+        class="sf-button color-secondary form__back-button"
+        type="button"
+        @click="router.push(localePath({ name: 'login' }))"
+      >
+        {{ $t('Go back') }}
+      </SfButton>
+      <SfButton
+        data-e2e="continue-to-shipping"
+        class="form__action-button"
+        @click="continueToNextStep"
+        :disabled="(billing.length <= 0)"
+      >
+        {{ $t('Continue to shipping') }}
+      </SfButton>
     </div>
   </div>
 </template>
@@ -36,7 +37,7 @@ import {
   SfCheckbox,
   SfIcon
 } from '@storefront-ui/vue';
-import { computed, useRouter } from '@nuxtjs/composition-api';
+import { computed, useRouter, ref } from '@nuxtjs/composition-api';
 import { onSSR } from '@vue-storefront/core';
 import { useActiveShippingCountries, useUserBilling } from '@vue-storefront/plentymarkets';
 import CheckoutAddressDetails from '~/components/Checkout/CheckoutAddressDetails';
@@ -52,6 +53,7 @@ export default {
   },
   setup() {
     const router = useRouter();
+    const CheckoutAddressDetailsRef = ref(null);
     const { load, loading: loadingBilling, billing, setDefaultAddress, deleteAddress, addAddress } = useUserBilling();
     const { load: loadActiveShippingCountries, loading: loadingCountry, result: countries } = useActiveShippingCountries();
 
@@ -64,7 +66,17 @@ export default {
       await loadActiveShippingCountries();
     });
 
+    const continueToNextStep = () => {
+      if (CheckoutAddressDetailsRef.value.editedAddress === -1) {
+        CheckoutAddressDetailsRef.value.submit('/checkout/shipping');
+      } else {
+        router.push('/checkout/shipping');
+      }
+    };
+
     return {
+      CheckoutAddressDetailsRef,
+      continueToNextStep,
       setDefaultAddress,
       deleteAddress,
       addAddress,

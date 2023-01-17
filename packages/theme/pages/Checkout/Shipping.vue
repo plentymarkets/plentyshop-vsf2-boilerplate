@@ -11,6 +11,7 @@
     </div>
     <div v-if="!sameAsShipping">
       <CheckoutAddressDetails
+        ref="CheckoutAddressDetailsRef"
         class="spacer-top"
         :addresses="shipping"
         :countries="countries"
@@ -31,7 +32,7 @@
           <SfButton
             data-e2e="continue-to-payment"
             class="form__action-button"
-            @click="submit"
+            @click="continueToNextStep"
             :disabled="shipping.length <= 0 && !sameAsShipping"
           >
             {{ $t('Continue to payment') }}
@@ -57,7 +58,8 @@ export default {
     SfCheckbox,
     CheckoutAddressDetails
   },
-  setup(props, context) {
+  setup() {
+    const CheckoutAddressDetailsRef = ref(null);
     const sameAsShipping = ref(false);
     const router = useRouter();
     const { load, loading: loadingBilling, shipping, setDefaultAddress, deleteAddress, addAddress } = useUserShipping();
@@ -72,15 +74,22 @@ export default {
       await loadActiveShippingCountries();
     });
 
-    const submit = async () => {
+    const continueToNextStep = async () => {
+
       if (sameAsShipping.value) {
         await addAddress({address: false});
       }
-      router.push(context.root.localePath('payment'));
+      // TODO should use a computed property like formInCreationMode
+      if (CheckoutAddressDetailsRef.value.editedAddress === -1) {
+        CheckoutAddressDetailsRef.value.submit('/checkout/payment');
+      } else {
+        router.push('/checkout/payment');
+      }
     };
 
     return {
-      submit,
+      CheckoutAddressDetailsRef,
+      continueToNextStep,
       sameAsShipping,
       setDefaultAddress,
       deleteAddress,
