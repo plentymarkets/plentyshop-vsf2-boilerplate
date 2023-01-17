@@ -100,6 +100,9 @@ jobs:
       - name: Install dependencies
         run: yarn --frozen-lockfile
 
+      - name: Get IP4 address
+        run: echo "ip_address=ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1' | head -1" >> $GITHUB_ENV
+
       - name: Create environments file
         env:
           PLENTYMARKETS_USER_EMAIL: ${{ secrets.PLENTYMARKETS_USER_EMAIL }}
@@ -108,7 +111,7 @@ jobs:
           echo -e \
           "CYPRESS_DEFAULT_ACCOUNT_EMAIL=$PLENTYMARKETS_USER_EMAIL\n \
           CYPRESS_DEFAULT_PASSWORD=$PLENTYMARKETS_USER_PASSWORD"\n \
-          CYPRESS_DEFAULT_DEV_URL=http://192.168.0.38:3000 \
+          CYPRESS_DEFAULT_DEV_URL=${{ env.ip_address }} \
           > ./packages/theme/tests/e2e/.env
 
       - name: E2E in Chrome
@@ -116,8 +119,8 @@ jobs:
         with:
           browser: chrome
           build: yarn build
-          start: yarn dev  --hostname '192.168.0.38' --port 3000
-          wait-on: 'http://192.168.0.38:3000'
+          start: yarn dev  --hostname '${{ env.ip_address }}' --port 3000
+          wait-on: '${{ env.ip_address }}'
 
       - uses: actions/upload-artifact@v3
         if: failure()
