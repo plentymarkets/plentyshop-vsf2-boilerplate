@@ -52,6 +52,8 @@ export default {
   'Edit': 'Edit',
   'Edit Cart': 'Edit Cart',
   'Shipping details': 'Shipping details',
+  'Shipping Provider will request more info': 'Shipping Provider will request more info',
+  'Please check': 'Please check',
   'Billing details': 'Billing details',
   'Same as shipping address': 'Same as shipping address',
   'Payment method': 'Payment method',

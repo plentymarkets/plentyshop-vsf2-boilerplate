@@ -8,6 +8,10 @@ function getShippingMethodName(shippingMethod: ShippingMethod): string {
   return `${shippingMethod?.parcelServiceName} - ${shippingMethod?.parcelServicePresetName}`;
 }
 
+function getShippingPrivacyInformation(shippingMethod: ShippingMethod): any {
+  return shippingMethod?.shippingPrivacyInformation;
+}
+
 function getShippingAmount(shippingMethod: ShippingMethod): string {
   return shippingMethod?.shippingAmount?.toString() ?? '0';
 }
@@ -26,6 +30,7 @@ function getShippingProfileId(cart: Cart): string {
 
 export const shippingProviderGetters: any = {
   getShippingMethodName,
+  getShippingPrivacyInformation,
   getShippingAmount,
   getShippingProviders,
   getParcelServicePresetId,
