@@ -11,7 +11,9 @@ const params: UseShippingProviderParams<ShippingProvider, ShippingMethod> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   save: async (context: Context, { shippingMethod, customQuery }) => {
     await context.$plentymarkets.api.selectShippingProvider(shippingMethod.parcelServicePresetId);
-    return { list: [], selected: shippingMethod.parcelServicePresetId };
+    // TODO refresh composable when calling the server - should be done in 1 line
+    const result = await context.$plentymarkets.api.getShippingProvider();
+    return result;
   }
 };
 
