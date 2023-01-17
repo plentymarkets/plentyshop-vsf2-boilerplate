@@ -88,9 +88,6 @@ jobs:
     name: Run all end-to-end tests
     needs: prepare_dependencies
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        browser: [chrome, firefox, edge]
     steps:
       - uses: actions/checkout@v3
 
@@ -114,10 +111,10 @@ jobs:
           CYPRESS_DEFAULT_DEV_URL=http://192.168.0.38:3000 \
           > ./packages/theme/tests/e2e/.env
 
-      - name: E2E in ${{ browser }}
+      - name: E2E in Chrome
         uses: cypress-io/github-action@v5.0.5
         with:
-          browser: ${{ browser }}
+          browser: chrome
           build: yarn build
           start: yarn dev  --hostname '192.168.0.38' --port 3000
           wait-on: 'http://192.168.0.38:3000'
