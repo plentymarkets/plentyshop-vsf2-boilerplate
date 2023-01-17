@@ -48,9 +48,8 @@ export default {
       selectedMethod.value = shippingProviderGetters.getShippingProfileId(cart?.value);
     }
     const selectMethod = async (method) => {
-      await save({ shippingMethod: method });
+      await save({ shippingMethod: shippingProviderGetters.getValue(method)});
       shippingPrivacyInformation.value = shippingProviderGetters.getShippingPrivacyInformation(method);
-      console.log(shippingPrivacyInformation.value);
       selectedMethod.value = shippingProviderGetters.getParcelServicePresetId(method);
       await loadPaymentProviders();
     };
