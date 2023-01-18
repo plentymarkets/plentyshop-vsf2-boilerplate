@@ -120,7 +120,7 @@ jobs:
           browser: chrome
           build: yarn build
           project: ${{ github.workspace }}/packages/theme/tests/e2e/
-          start: node_modules/.bin/concurrently --kill-others "yarn dev:api-client" "yarn dev:composables" "yarn dev:theme --hostname '${{ env.ip_address }}'"
+          start: yarn start --hostname '${{ env.ip_address }}'"
           wait-on: '${{ env.ip_address }}:3000'
 
       - uses: actions/upload-artifact@v3
