@@ -16,7 +16,6 @@
     "dev:api-client": "cd packages/api-client && yarn dev",
     "dev:composables": "cd packages/composables && yarn dev",
     "dev:theme": "cd packages/theme && yarn dev",
-    "dev:theme-debug": "cd packages/theme && yarn dev-debug",
     "docs:build": "cd docs && yarn build",
     "docs:dev": "cd docs && yarn dev",
     "docs:install": "cd docs && yarn",
