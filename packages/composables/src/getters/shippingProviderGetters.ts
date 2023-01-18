@@ -9,7 +9,7 @@ function getShippingMethodName(shippingMethod: ShippingMethod): string {
 }
 
 function getShippingPrivacyInformation(shippingMethod: ShippingMethod): any {
-  return shippingMethod?.shippingPrivacyInformation;
+  return shippingMethod?.shippingPrivacyInformation[0];
 }
 
 function getShippingAmount(shippingMethod: ShippingMethod): string {

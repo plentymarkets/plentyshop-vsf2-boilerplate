@@ -52,7 +52,7 @@ export default {
   'Edit': 'Edit',
   'Edit Cart': 'Edit Cart',
   'Shipping details': 'Shipping details',
-  'Shipping Provider will request more info': 'Shipping Provider will request more info',
+  'ShowDataPrivacyAgreementHint': 'I agree that my email address and my phone number will be transmitted to {parcelServiceInformation}, so that they can contact me via email or phone in order to determine a delivery date or to communicate status information about the delivery of the shipment. I can revoke this agreement at any time.',
   'Please check': 'Please check',
   'Billing details': 'Billing details',
   'Same as shipping address': 'Same as shipping address',

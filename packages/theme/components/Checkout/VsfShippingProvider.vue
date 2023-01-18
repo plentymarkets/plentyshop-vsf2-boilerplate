@@ -3,15 +3,14 @@
     <h4>{{ $t("Shipping Method") }}</h4>
     <SfRadio v-e2e="'shipping-method'" v-for="method in shippingMethods"
       :key="shippingProviderGetters.getParcelServicePresetId(method)"
-      :value="shippingProviderGetters.getParcelServicePresetId(method)" :selected="selectedMethod" name="shippingMethod"
+      :value="shippingProviderGetters.getParcelServicePresetId(method)" :selected="selectedMethodId" name="shippingMethod"
       class="form__radio shipping" @change="selectMethod(method)"
       :label="shippingProviderGetters.getShippingMethodName(method)"
       :description="shippingProviderGetters.getShippingAmount(method)">
     </SfRadio>
-    <div v-if="shippingPrivacyInformation">
+    <div v-if="shippingPrivacyInformation && shippingPrivacyInformation.showDataPrivacyAgreementHint">
       <SfCheckbox v-model="shippinngPrivacyCheck" name="Shipping Privacy"
-        :label="$t('Shipping Provider will request more info')" hintMessage="Required." :required="true"
-        :infoMessage="$t('Please check')" :errorMessage="$t('Please check')" valid :disabled="false"
+        :label="$t('ShowDataPrivacyAgreementHint', { parcelServiceInformation: shippingProviderGetters.getShippingMethodName(selectedMethod) })"
         :selected="false" />
     </div>
   </div>
@@ -19,7 +18,7 @@
 
 <script>
 import { SfButton, SfRadio, SfCheckbox } from '@storefront-ui/vue';
-import { ref, computed } from '@nuxtjs/composition-api';
+import { ref, computed, onMounted } from '@nuxtjs/composition-api';
 import {
   useShippingProvider,
   shippingProviderGetters,
@@ -34,6 +33,7 @@ export default {
     SfCheckbox
   },
   setup() {
+    const selectedMethodId = ref(null);
     const selectedMethod = ref(null);
     const shippinngPrivacyCheck = ref(false);
     const {
@@ -45,18 +45,29 @@ export default {
     const shippingMethods = computed(() => shippingProviderGetters.getShippingProviders(shippingProvider.value));
     const shippingPrivacyInformation = ref(false);
     if (shippingProviderGetters.getShippingProfileId(cart?.value)) {
-      selectedMethod.value = shippingProviderGetters.getShippingProfileId(cart?.value);
+      selectedMethodId.value = shippingProviderGetters.getShippingProfileId(cart?.value);
     }
     const selectMethod = async (method) => {
       await save({ shippingMethod: shippingProviderGetters.getValue(method)});
       shippingPrivacyInformation.value = shippingProviderGetters.getShippingPrivacyInformation(method);
-      selectedMethod.value = shippingProviderGetters.getParcelServicePresetId(method);
+      // TODO decide what to use id or object (selectedMethodId is necessary for radio component but selectedMethod used for calling getter)
+      // selectedMethod should be a local computed prop ?
+      selectedMethod.value = method;
+      selectedMethodId.value = shippingProviderGetters.getParcelServicePresetId(method);
       await loadPaymentProviders();
     };
+
+    onMounted(async () => {
+      if (shippingMethods.value.length > 0) {
+        await selectMethod(shippingMethods.value[0]);
+      }
+    });
+
     return {
       shippinngPrivacyCheck,
       shippingPrivacyInformation,
       shippingMethods,
+      selectedMethodId,
       selectedMethod,
       selectMethod,
       shippingProviderGetters

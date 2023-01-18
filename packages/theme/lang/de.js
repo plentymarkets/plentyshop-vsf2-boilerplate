@@ -126,7 +126,7 @@ export default {
   'Enter promo code': 'Geben Sie den Promo-Code ein',
   'Shipping method': 'Versandart',
   'Please check': 'Bitte prüfe',
-  'Shipping Provider will request more info': 'Der Versanddienstleister wird weitere Informationen anfordern',
+  'ShowDataPrivacyAgreementHint': 'Ich bin damit einverstanden, dass meine E-Mail-Adresse bzw. meine Telefonnummer an {parcelServiceInformation} weitergegeben wird, damit der Paketdienstleister vor der Zustellung der Ware zum Zwecke der Abstimmung eines Liefertermins per E-Mail oder Telefon Kontakt mit mir aufnehmen bzw. Statusinformationen zur Sendungszustellung übermitteln kann. Meine diesbezüglich erteilte Einwilligung kann ich jederzeit widerrufen',
   'Continue to billing': 'Weiter zur Abrechnung',
   'Payment methods': 'Zahlungsmethoden',
   'Shipping address': 'Lieferanschrift',
