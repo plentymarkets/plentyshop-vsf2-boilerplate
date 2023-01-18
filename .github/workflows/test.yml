@@ -118,7 +118,7 @@ jobs:
         run: yarn build
 
       - name: Start app
-        run: concurrently --kill-others "yarn dev:api-client" "yarn dev:composables" "yarn dev:theme --hostname '${{ env.ip_address }}'"
+        run: node_modules/.bin/concurrently --kill-others "yarn dev:api-client" "yarn dev:composables" "yarn dev:theme --hostname '${{ env.ip_address }}'"
 
       - name: E2E in Chrome
         uses: cypress-io/github-action@v5.0.5
