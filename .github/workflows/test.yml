@@ -120,7 +120,8 @@ jobs:
           browser: chrome
           build: yarn build
           project: ${{ github.workspace }}/packages/theme/tests/e2e/
-          start: yarn start
+          start: yarn dev
+          wait-on: 'http://${{ env.ip_address }}:3000'
 
       - uses: actions/upload-artifact@v3
         if: failure()
