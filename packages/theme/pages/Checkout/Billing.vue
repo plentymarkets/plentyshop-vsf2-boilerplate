@@ -22,7 +22,6 @@
         data-e2e="continue-to-shipping"
         class="form__action-button"
         @click="continueToNextStep"
-        :disabled="(billing.length <= 0)"
       >
         {{ $t('Continue to shipping') }}
       </SfButton>
