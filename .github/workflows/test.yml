@@ -121,7 +121,6 @@ jobs:
           build: yarn build
           project: ${{ github.workspace }}/packages/theme/tests/e2e/
           start: yarn start
-          wait-on: '${{ env.ip_address }}:3000'
 
       - uses: actions/upload-artifact@v3
         if: failure()
