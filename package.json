@@ -12,7 +12,7 @@
     "build:theme": "cd packages/theme && yarn build",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate",
-    "dev": "concurrently \"yarn:dev:*\"",
+    "dev": "concurrently --kill-others \"yarn:dev:*\"",
     "dev:api-client": "cd packages/api-client && yarn dev",
     "dev:composables": "cd packages/composables && yarn dev",
     "dev:theme": "cd packages/theme && yarn dev",
