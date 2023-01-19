@@ -76,10 +76,10 @@
           </ValidationObserver>
         </slot>
       </div>
-      <div style="margin-bottom:10px;">
-        <SfLink data-testid="login-button" style="text-decoration: none;" @click="$emit('log-in')">
+      <div class="signin">
+        <SfLink data-testid="login-button" class="signin-link" @click="$emit('log-in')">
         {{ $t('Already have an account?') }}
-          <span style="color: green;">
+          <span class="signin-now">
             {{ $t('Sign in now') }}
           </span>
         </SfLink>
@@ -197,4 +197,13 @@ export default {
 </script>
   <style lang="scss" scoped>
   @import "~@storefront-ui/shared/styles/components/templates/SfPersonalDetails.scss";
+  .signin {
+    margin-bottom: 20px;
+  }
+  .signin-link {
+    text-decoration: none;
+  }
+  .signin-now {
+    color: rgb(0, 112, 0);
+  }
   </style>
