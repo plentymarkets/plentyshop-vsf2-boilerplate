@@ -79,8 +79,7 @@ export default {
       if (sameAsShipping.value) {
         await addAddress({address: false});
       }
-      // TODO should use a computed property like formInCreationMode
-      if (CheckoutAddressDetailsRef.value.editedAddress === -1) {
+      if (CheckoutAddressDetailsRef.value.inCreateState) {
         CheckoutAddressDetailsRef.value.submit('/checkout/payment');
       } else {
         router.push('/checkout/payment');

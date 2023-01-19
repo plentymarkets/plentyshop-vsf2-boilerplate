@@ -66,7 +66,7 @@ export default {
     });
 
     const continueToNextStep = () => {
-      if (!CheckoutAddressDetailsRef.value.inCreateState) {
+      if (CheckoutAddressDetailsRef.value.inCreateState) {
         CheckoutAddressDetailsRef.value.submit('/checkout/shipping');
       } else {
         router.push('/checkout/shipping');
