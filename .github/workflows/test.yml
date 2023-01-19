@@ -114,10 +114,10 @@ jobs:
           CYPRESS_DEFAULT_DEV_URL=${{ env.ip_address }} \
           > ./packages/theme/tests/e2e/.env
 
-      - name: E2E in Chrome
+      - name: E2E in Firefox
         uses: cypress-io/github-action@v5.0.5
         with:
-          browser: chrome
+          browser: firefox
           build: yarn build
           config-file: tests/e2e/cypress.config.js
           env: CYPRESS_DEFAULT_DEV_URL='172.17.0.1',port=3000
