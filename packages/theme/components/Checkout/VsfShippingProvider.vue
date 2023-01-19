@@ -58,12 +58,9 @@ export default {
       selectedMethodId.value = shippingProviderGetters.getParcelServicePresetId(method);
       await loadPaymentProviders();
     };
-    onMounted(() => {
-      // TODO should use a watch and see if getter is loaded with shipping methods, for initial load case.
-      setTimeout(async () => {
-        const method = shippingMethodsById.value[cart.value.shippingProfileId];
-        await selectMethod(method);
-      }, 100);
+    onMounted(async () => {
+      const method = shippingMethodsById.value[cart.value.shippingProfileId];
+      await selectMethod(method);
     });
 
     const changeHint = (val) => {
