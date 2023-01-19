@@ -1,16 +1,5 @@
 <template>
     <div class="sf-personal-details">
-      <div class="log-in">
-        <slot name="log-in" v-bind="{ buttonText, logInInfo }">
-          <SfButton
-            class="log-in__button sf-button--full-width color-secondary"
-            data-testid="login-button"
-            @click="$emit('log-in')"
-            >{{ buttonText }}</SfButton
-          >
-          <p class="log-in__info">{{ logInInfo }}</p>
-        </slot>
-      </div>
       <slot name="heading" v-bind="{ headingTitle, headingTitleLevel }">
         <SfHeading
           :title="headingTitle"
@@ -21,26 +10,8 @@
       <div class="form">
         <slot
           name="form"
-          v-bind="{ inputsLabels, additionalDetails, characteristics }"
+          v-bind="{ inputsLabels }"
         >
-          <!-- <SfInput
-            v-model="personalDetails.firstName"
-            :value="firstName"
-            :label="inputsLabels[0]"
-            name="firstName"
-            class="form__element form__element--half"
-            required
-            @input="updateField('firstName', $event)"
-          />
-          <SfInput
-            v-model="personalDetails.lastName"
-            :value="lastName"
-            :label="inputsLabels[1]"
-            name="lastName"
-            class="form__element form__element--half form__element--half-even"
-            required
-            @input="updateField('lastName', $event)"
-          /> -->
           <ValidationObserver ref="validationObserver">
             <form>
               <ValidationProvider
@@ -62,24 +33,6 @@
                   @input="updateField('email', $event)"
                 />
               </ValidationProvider>
-            <div class="info">
-              <slot
-                name="additional-info"
-                v-bind="{ additionalDetails, characteristics }"
-              >
-                <p class="info__heading">
-                  {{ additionalDetails }}
-                </p>
-                <SfCharacteristic
-                  v-for="(characteristic, key) in characteristics"
-                  :key="key"
-                  :description="characteristic.description"
-                  :icon="characteristic.icon"
-                  :size-icon="characteristic.size"
-                  class="info__characteristic"
-                />
-              </slot>
-            </div>
             <slot
               name="create-account"
               v-bind="{
@@ -123,6 +76,14 @@
           </ValidationObserver>
         </slot>
       </div>
+      <div style="margin-bottom:10px;">
+        <SfLink data-testid="login-button" style="text-decoration: none;" @click="$emit('log-in')">
+          Already have an account?
+          <span style="color: green;">
+            Sign in now
+          </span>
+        </SfLink>
+      </div>
     </div>
   </template>
 <script>
@@ -131,7 +92,8 @@ import {
   SfCheckbox,
   SfButton,
   SfHeading,
-  SfCharacteristic
+  SfCharacteristic,
+  SfLink
 } from '@storefront-ui/vue';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { required, min } from 'vee-validate/dist/rules';
@@ -149,6 +111,7 @@ export default {
   name: 'SfPersonalDetails',
   components: {
     SfInput,
+    SfLink,
     SfCheckbox,
     SfButton,
     SfHeading,
@@ -180,27 +143,6 @@ export default {
     inputsLabels: {
       type: Array,
       default: () => ['First name', 'Last name', 'Your email']
-    },
-    additionalDetails: {
-      type: String,
-      default: 'Enjoy these perks with your free account!'
-    },
-    characteristics: {
-      type: Array,
-      default: () => [
-        { description: 'Faster checkout', icon: 'clock', size: '24px' },
-        {
-          description: 'Earn credits with every purchase',
-          icon: 'credits',
-          size: '24px'
-        },
-        {
-          description: 'Full rewards program benefits',
-          icon: 'rewards',
-          size: '24px'
-        },
-        { description: 'Manage your wishlist', icon: 'heart', size: '24px' }
-      ]
     },
     transition: {
       type: String,

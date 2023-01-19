@@ -33,7 +33,7 @@
       @click="goToBilling"
       v-if='createAccountCheckbox'
     >
-      {{ $t('Register') }}
+      {{ $t('Register and Continue') }}
     </SfButton>
     </div>
 </template>
