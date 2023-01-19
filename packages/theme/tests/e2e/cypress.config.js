@@ -29,8 +29,8 @@ module.exports = defineConfig({
       return require('~/tests/e2e/plugins/index.ts')(on, config);
     },
     baseUrl: process.env.CYPRESS_DEFAULT_DEV_URL,
-    specPattern: 'e2e/**/*.cy.{js,jsx,ts,tsx}',
-    supportFile: 'support/index.js'
+    specPattern: 'tests/e2e/e2e/**/*.cy.{js,jsx,ts,tsx}',
+    supportFile: 'tests/e2e/support/index.js'
   },
 
   env: {
