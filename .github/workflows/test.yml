@@ -114,16 +114,16 @@ jobs:
           CYPRESS_DEFAULT_DEV_URL=${{ env.ip_address }} \
           > ./packages/theme/tests/e2e/.env
 
-      - name: E2E in Firefox
+      - name: E2E in Chrome
         uses: cypress-io/github-action@v5.0.5
         with:
-          browser: firefox
+          browser: chrome
           build: yarn build
           config-file: tests/e2e/cypress.config.js
-          env: CYPRESS_DEFAULT_DEV_URL='172.17.0.1',port=3000
+          env: CYPRESS_DEFAULT_ACCOUNT_EMAIL=${{ secrets.PLENTYMARKETS_USER_EMAIL }},CYPRESS_DEFAULT_ACCOUNT_PASSWORD=${{ secrets.PLENTYMARKETS_USER_PASSWORD }},CYPRESS_DEFAULT_DEV_URL=${{ env.ip_address }},port=3000
           project: ${{ github.workspace }}/packages/theme/
-          start: ${{ github.workspace }}/node_modules/.bin/concurrently --kill-others "yarn dev:api-client" "yarn dev:composables" "yarn dev:theme --hostname '172.17.0.1' --port 3000"
-          wait-on: 'http://172.17.0.1:3000'
+          start: ${{ github.workspace }}/node_modules/.bin/concurrently --kill-others "yarn dev:api-client" "yarn dev:composables" "yarn dev:theme --hostname '${{ env.ip_address }}' --port 3000"
+          wait-on: 'http://${{ env.ip_address }}:3000'
 
       - uses: actions/upload-artifact@v3
         if: failure()
