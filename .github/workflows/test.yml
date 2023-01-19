@@ -119,7 +119,7 @@ jobs:
         with:
           browser: chrome
           build: yarn build
-          project: ${{ github.workspace }}/packages/theme/
+          project: ${{ github.workspace }}/packages/theme/tests/e2e/
           start: ${{ github.workspace }}/node_modules/.bin/concurrently --kill-others "yarn dev:api-client" "yarn dev:composables" "yarn dev:theme --hostname '${{ env.ip_address }}' --port 3000"
           wait-on: 'http://${{ env.ip_address }}:3000'
 
