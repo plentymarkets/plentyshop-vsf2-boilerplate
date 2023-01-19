@@ -10,13 +10,13 @@
         ></AddressInputForm>
         <div class="buttons">
           <SfButton
-            v-if="editedAddress > -1"
+            v-if="inEditState"
             type="submit"
             @click.prevent="submit()"
             class="action-button"
             data-e2e="update-address-button"
           >
-            <template v-if="editedAddress > -1">{{
+            <template v-if="inEditState">{{
               $t('Update the address')
             }}</template>
           </SfButton>
@@ -58,7 +58,7 @@
 </template>
 <script>
 import { SfButton } from '@storefront-ui/vue';
-import { toRef, useRouter } from '@nuxtjs/composition-api';
+import { toRef, useRouter, computed } from '@nuxtjs/composition-api';
 import { useAddressForm } from '@vue-storefront/plentymarkets';
 import AddressInputForm from '~/components/AddressInputForm';
 import AddressCard from '~/components/AddressCard';
@@ -120,9 +120,13 @@ export default {
       resetForm(address);
       emit('delete-address', address);
     };
+    const inEditState = computed(() => editedAddress.value > -1);
+    const inCreateState = computed(() => editedAddress.value === -1);
 
     return {
       form,
+      inCreateState,
+      inEditState,
       editAddress,
       addressList,
       editedAddress,
