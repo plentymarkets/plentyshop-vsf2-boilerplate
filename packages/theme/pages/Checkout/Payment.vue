@@ -135,7 +135,6 @@ export default {
     const { cart, load, setCart } = useCart();
     const { order, make, loading } = useMakeOrder();
     const { load: loadShippingProvider } = useShippingProvider();
-
     const { load: loadPaymentProviders } = usePaymentProvider();
 
     const isPaymentReady = ref(false);
