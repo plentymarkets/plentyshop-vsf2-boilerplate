@@ -120,7 +120,7 @@ jobs:
           browser: chrome
           build: yarn build
           config-file: tests/e2e/cypress.config.js
-          env: CYPRESS_DEFAULT_ACCOUNT_EMAIL=${{ secrets.PLENTYMARKETS_USER_EMAIL }},CYPRESS_DEFAULT_ACCOUNT_PASSWORD=${{ secrets.PLENTYMARKETS_USER_PASSWORD }},CYPRESS_DEFAULT_DEV_URL=${{ env.ip_address }},port=3000
+          env: CYPRESS_DEFAULT_ACCOUNT_EMAIL=${{ secrets.PLENTYMARKETS_USER_EMAIL }},CYPRESS_DEFAULT_ACCOUNT_PASSWORD=${{ secrets.PLENTYMARKETS_USER_PASSWORD }},CYPRESS_BASE_URL=${{ env.ip_address }}:3000
           project: ${{ github.workspace }}/packages/theme/
           start: ${{ github.workspace }}/node_modules/.bin/concurrently --kill-others "yarn dev:api-client" "yarn dev:composables" "yarn dev:theme --hostname '${{ env.ip_address }}' --port 3000"
           wait-on: 'http://${{ env.ip_address }}:3000'

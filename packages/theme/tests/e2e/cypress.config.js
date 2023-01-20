@@ -28,7 +28,7 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {
       return require('~/tests/e2e/plugins/index.ts')(on, config);
     },
-    baseUrl: 'http://172.17.0.1:3000',
+    baseUrl: process.env.CYPRESS_DEFAULT_DEV_URL,
     specPattern: 'tests/e2e/e2e/**/*.cy.{js,jsx,ts,tsx}',
     supportFile: 'tests/e2e/support/index.js'
   },
