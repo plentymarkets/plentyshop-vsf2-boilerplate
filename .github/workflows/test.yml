@@ -126,7 +126,7 @@ jobs:
           wait-on: 'http://${{ env.ip_address }}:3000'
         env:
           DEBUG: '@cypress/github-action'
-          CYPRESS_BASE_URL: '${{ env.ip_address }}:3000'
+          CYPRESS_BASE_URL: 'http://${{ env.ip_address }}:3000'
 
       - uses: actions/upload-artifact@v3
         if: failure()
