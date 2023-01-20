@@ -23,7 +23,6 @@ coverage
 .idea
 .vscode
 .nuxt
-
 # OS generated files
 .DS_STORE
 

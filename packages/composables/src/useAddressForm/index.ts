@@ -1,5 +1,5 @@
 // import { sharedRef } from '@vue-storefront/core';
-import { ref, Ref } from '@nuxtjs/composition-api';
+import { ref, Ref, computed } from '@nuxtjs/composition-api';
 import { Address } from '@vue-storefront/plentymarkets-api';
 
 export const useAddressForm = (addresses: Ref<Address[]>): any => {
@@ -45,6 +45,14 @@ export const useAddressForm = (addresses: Ref<Address[]>): any => {
     editAddress.value = false;
   };
 
+  const createOrUpdateLabel = computed(() => {
+    if (addresses.value?.length > 0 && editedAddress.value !== -1) {
+      return true;
+    } else if (addresses.value?.length === 0 || editedAddress.value === -1) {
+      return false;
+    }
+  });
+
   return {
     editAddress,
     editedAddress,
@@ -52,6 +60,7 @@ export const useAddressForm = (addresses: Ref<Address[]>): any => {
     form,
     closeForm,
     resetForm,
-    changeAddress
+    changeAddress,
+    createOrUpdateLabel
   };
 };
