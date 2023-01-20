@@ -127,15 +127,3 @@ jobs:
           CYPRESS_BASE_URL: 'http://${{ env.ip_address }}:3000'
           CYPRESS_DEFAULT_ACCOUNT_EMAIL: ${{ secrets.PLENTYMARKETS_USER_EMAIL }}
           CYPRESS_DEFAULT_ACCOUNT_PASSWORD: ${{ secrets.PLENTYMARKETS_USER_PASSWORD }}
-
-      - uses: actions/upload-artifact@v3
-        if: failure()
-        with:
-          name: cypress-screenshots
-          path: cypress/screenshots
-      
-      - uses: actions/upload-artifact@v3
-        if: failure()
-        with:
-          name: cypress-videos
-          path: cypress/videos
