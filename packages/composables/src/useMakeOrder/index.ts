@@ -11,7 +11,7 @@ const factoryParams: UseMakeOrderFactoryParams<Order> = {
     await context.$plentymarkets.api.additionalInformation({
       orderContactWish: null,
       orderCustomerSign: null,
-      shippingPrivacyHintAccepted: false,
+      shippingPrivacyHintAccepted: params.shippingPrivacyHintAccepted,
       templateType: 'checkout'
     });
 
