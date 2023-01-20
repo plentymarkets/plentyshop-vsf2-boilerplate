@@ -8,7 +8,7 @@
       :label="shippingProviderGetters.getShippingMethodName(method)"
       :description="shippingProviderGetters.getShippingAmount(method)">
     </SfRadio>
-    <div v-if="shippingPrivacyInformation && shippingPrivacyInformation.showDataPrivacyAgreementHint">
+    <div v-if="shippingProviderGetters.getDataPrivacyAgreementHint(selectedMethod)">
       <SfCheckbox v-model="shippinngPrivacyCheck" name="Shipping Privacy"
         :label="$t('ShowDataPrivacyAgreementHint', { parcelServiceInformation: shippingProviderGetters.getShippingMethodName(selectedMethod) })"
         :selected="false"

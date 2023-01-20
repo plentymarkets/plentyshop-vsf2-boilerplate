@@ -16,6 +16,10 @@ function getShippingAmount(shippingMethod: ShippingMethod): string {
   return shippingMethod?.shippingAmount?.toString() ?? '0';
 }
 
+function getDataPrivacyAgreementHint(shippingMethod: ShippingMethod): boolean {
+  return shippingMethod?.shippingPrivacyInformation[0]?.showDataPrivacyAgreementHint;
+}
+
 function getValue(shippingMethod: ShippingMethod): any {
   return shippingMethod;
 }
@@ -32,6 +36,7 @@ export const shippingProviderGetters: any = {
   getShippingMethodName,
   getShippingPrivacyInformation,
   getShippingAmount,
+  getDataPrivacyAgreementHint,
   getShippingProviders,
   getParcelServicePresetId,
   getValue,
