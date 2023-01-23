@@ -78,11 +78,9 @@ export default {
 
       if (sameAsShipping.value) {
         await addAddress({address: false});
-      }
-
-      if (sameAsShipping.value) {
         router.push('/checkout/payment');
       }
+
       if (CheckoutAddressDetailsRef.value.inCreateState) {
         CheckoutAddressDetailsRef.value.submit('/checkout/payment');
       } else {
