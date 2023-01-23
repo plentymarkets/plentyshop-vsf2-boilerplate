@@ -98,7 +98,7 @@ export default {
   },
   props: {
     addresses: {
-      type: Array,
+      type: Array | Object,
       default: () => []
     },
     countries: {
