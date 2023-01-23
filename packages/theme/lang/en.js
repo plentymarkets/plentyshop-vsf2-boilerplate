@@ -1,6 +1,137 @@
 /* eslint-disable  */
 
 export default {
+  // AddressCard
+  'Change': '',
+  'Delete': '',
+  'Selected address': '',
+  // AddressInputForm
+  'City': '',
+  'Country': '',
+  'First Name': '',
+  'House/Apartment number': '',
+  'Last Name': '',
+  'Phone number': '',
+  'Street Name': '',
+  'State/Province': '',
+  'ZIP code': '',
+  // AppHeader
+  'Search for items': '',
+  // AttributeSelection
+  'content': '',
+  'no selection': '',
+  'please select variation': '',
+  // Billing
+  'Continue to shipping': '',
+  'Go back': '',
+  // BillingDetails
+  'Billing details': '',
+  // CardSidebar
+  'Go back shopping': '',
+  'Go to checkout': '',
+  // CartPreview
+  'Discount': '',
+  'Edit cart': '',
+  'Order summary': '',
+  'Products': '',
+  'Shipping': '',
+  'Subtotal': '',
+  'Total': '',
+  // Category
+  'Categories': '',
+  'Save for later': '',
+  'Show on page': '',
+  // CheckoutAddressDetails
+  'Add new address': '',
+  'Cancel': '',
+  'Update the address': '',
+  // FiltersSidebar
+  'Clear all': '',
+  'Done': '',
+  // Login
+  'Create Password': '',
+  'Enjoy your free account': '',
+  'First name': '',
+  'I want to create an account': '',
+  'Log into your account': '',
+  'or fill the details below': '',
+  'Last name': '',
+  'Order as guest': '',
+  'Personal details': '',
+  'Register': '',
+  'Your email': '',
+  // LoginModal
+  'Create an account': '',
+  'Forgot Password': '',
+  'Forgot Password Modal Email': '',
+  'Forgotten password?': '',
+  'Login': '',
+  'login to your account': '',
+  'No account': '',
+  'or': '',
+  'Register today': '',
+  'Reset Password': '',
+  'Thank You Inbox': '',
+  // MyAccount
+  'Billing details': '',
+  'My Account': '',
+  'My profile': '',
+  'Personal Details': '',
+  'Shipping details': '',
+  'Order details': '',
+  'Order history': '',
+  // MyAccountAddressDetails
+  'Add new address': '',
+  'Cancel': '',
+  'Change the address': '',
+  'Create address': '',
+  'Update the address': '',
+  // MyNewsletter
+  'Commercial information': '',
+  'Cookies Policy': '',
+  'Privacy': '',
+  'Read and understand': '',
+  'Save changes': '',
+  'Sections that interest you': '',
+  'Set up newsletter': '',
+  // OrderHistory
+  'Details and status orders': '',
+  'My orders': '',
+  'Price': '',
+  'Product': '',
+  'Quantity': '',
+  'Returns': '',
+  'Start shopping': '',
+  'Total orders': '',
+  'View details': '',
+  'You currently have no orders': '',
+  // Payment
+  'Item': '',
+  'I agree to': '',
+  'Terms and conditions': '',
+  'Go back': '',
+  'Make an order': '',
+  // Product
+  'Read all reviews': '',
+  'Size guide': '',
+  // Shipping
+  'My billing and shipping address are the same': '',
+  'Go back': '',
+  'Continue to payment': '',
+  // ShippingDetails
+  'Shipping details': '',
+  // ThankYou
+  'Allow order notifications': '',
+  'Feedback': '',
+  'Go back to shop': '',
+  'Info after order': '',
+  'Order No.': '',
+  'Send my feedback': '',
+  'Successful placed order': '',
+  // WishlistSidebar
+  'Start shopping': '',
+
+  // Unsorted
   'Categories': 'Categories',
   'Filters': 'Filters',
   'Sort by': 'Sort by',
