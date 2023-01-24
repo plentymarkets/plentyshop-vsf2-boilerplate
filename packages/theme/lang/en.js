@@ -1,6 +1,19 @@
 /* eslint-disable  */
 
 export default {
+  // Global
+  'App': {
+    'addNewAddress': 'Add new address',
+    'billingDetails': 'Billing details',
+    'cancel': 'Cancel',
+    'email': 'Email',
+    'firstName': 'First name',
+    'goBack': 'Go back',
+    'lastName': 'Last name',
+    'or': 'or',
+    'shippingDetails': 'Shipping details',
+    'updateAddress': 'Update address'
+  },
   // AddressCard
   'AddressCard': {
     'Change': '',
@@ -9,13 +22,13 @@ export default {
   },
   // AddressInputForm
   'AddressInputForm': {
+    'Adress no.': '',
     'City': '',
     'Country': '',
-    'First Name': '',
-    'House/Apartment number': '',
-    'Last Name': '',
+    'First name': '@:App.firstName',
+    'Last name': '@App.lastName',
     'Phone number': '',
-    'Street Name': '',
+    'Street': '',
     'State/Province': '',
     'ZIP code': '',
   },
@@ -25,18 +38,18 @@ export default {
   },
   // AttributeSelection
   'AttributeSelection': {
-    'content': '',
-    'no selection': '',
-    'please select variation': '',
+    'Content': '',
+    'No selection': '',
+    'Select a variation': '',
   },
   // Billing
   'Billing': {
     'Continue to shipping': '',
-    'Go back': '',
+    'Go back': '@:App.goBack',
   },
   // BillingDetails
   'BillingDetails': {
-    'Billing details': '',
+    'Billing details': '@App.billingDetails',
   },
   // CardSidebar
   'CardSidebar': {
@@ -61,9 +74,9 @@ export default {
   },
   // CheckoutAddressDetails
   'CheckoutAddressDetails': {
-    'Add new address': '',
-    'Cancel': '',
-    'Update the address': '',
+    'Add new address': '@:App.addNewAddress',
+    'Cancel': '@:App.cancel',
+    'Update address': '@:App.updateAddress',
   },
   // FiltersSidebar
   'FiltersSidebar': {
@@ -72,56 +85,56 @@ export default {
   },
   // Login
   'Login': {
-    'Create Password': '',
+    'Create password': '',
     'Enjoy your free account': '',
-    'First name': '',
+    'First name': '@:App.firstName',
     'I want to create an account': '',
     'Log into your account': '',
     'or fill the details below': '',
-    'Last name': '',
+    'Last name': '@:App.lastName',
     'Order as guest': '',
     'Personal details': '',
     'Register': '',
-    'Your email': '',
+    'Email': '@:App.email',
   },
   // LoginModal
   'LoginModal': {
     'Create an account': 'Create an account',
-    'Forgot Password': 'Forgot password',
-    'Forgot Password Modal Email': '',
-    'Forgotten password?': '',
-    'Login': 'Login',
-    'login to your account': '',
+    'Email': '@:App.email',
+    'Forgot password': 'Forgot password',
+    'Forgotten your password?': '',
+    'Login': '',
+    'Log into your account': '',
     'No account': '',
-    'or': '',
+    'or': '@:App.or',
     'Register today': '',
-    'Reset Password': '',
-    'Thank You Inbox': '',
+    'Reset password': '',
+    'Thank you inbox': '',
   },
   // MyAccount
   'MyAccount': {
-    'Billing details': '',
-    'My Account': '',
+    'Billing details': '@:App.billingDetails',
+    'My account': '',
     'My profile': '',
-    'Personal Details': '',
-    'Shipping details': '',
     'Order details': '',
     'Order history': '',
+    'Personal details': '',
+    'Shipping details': '@:App.shippingDetails',
   },
   // MyAccountAddressDetails
   'MyAccountAddressDetails': {
-    'Add new address': '',
-    'Cancel': '',
-    'Change the address': '',
+    'Add new address': '@:App.addNewAddress',
+    'Cancel': '@:App.cancel',
+    'Change address': '',
     'Create address': '',
-    'Update the address': '',
+    'Update address': '@:App.updateAddress',
   },
   // MyNewsletter
   'MyNewsletter': {
     'Commercial information': '',
-    'Cookies Policy': '',
-    'Privacy': '',
-    'Read and understand': '',
+    'Cookies policy': '',
+    'I have read and understand': '',
+    'Privacy policy': '',
     'Save changes': '',
     'Sections that interest you': '',
     'Set up newsletter': '',
@@ -144,7 +157,7 @@ export default {
     'Item': '',
     'I agree to': '',
     'Terms and conditions': '',
-    'Go back': '',
+    'Go back': '@:App.goBack',
     'Make an order': '',
   },
   // Product
@@ -155,12 +168,12 @@ export default {
   // Shipping
   'Shipping': {
     'My billing and shipping address are the same': '',
-    'Go back': '',
+    'Go back': '@:App.goBack',
     'Continue to payment': '',
   },
   // ShippingDetails
   'ShippingDetails': {
-    'Shipping details': '',
+    'Shipping details': '@:App.shippingDetails',
   },
   // ThankYou
   'ThankYou': {
@@ -168,9 +181,9 @@ export default {
     'Feedback': '',
     'Go back to shop': '',
     'Info after order': '',
-    'Order No.': '',
-    'Send my feedback': '',
-    'Successful placed order': '',
+    'Order no.': '',
+    'Send feedback': '',
+    'Successfully placed order': '',
   },
   // WishlistSidebar
   'WishlistSidebar': {
