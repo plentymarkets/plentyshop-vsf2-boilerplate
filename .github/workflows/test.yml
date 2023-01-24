@@ -83,3 +83,36 @@ jobs:
 
       - name: Test theme
         run: yarn test:theme
+
+  test-e2e:
+    name: Run all end-to-end tests
+    needs: prepare_dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Get IP4 address
+        run: echo "ip_address=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | head -1)" >> $GITHUB_ENV
+
+      - name: E2E in Chrome
+        uses: cypress-io/github-action@v5.0.5
+        with:
+          browser: chrome
+          build: yarn build
+          config-file: tests/e2e/cypress.config.js
+          project: ${{ github.workspace }}/packages/theme/
+          start: ${{ github.workspace }}/node_modules/.bin/concurrently --kill-others "yarn dev:api-client" "yarn dev:composables" "yarn dev:theme --hostname '${{ env.ip_address }}' --port 3000"
+          wait-on: 'http://${{ env.ip_address }}:3000'
+        env:
+          CYPRESS_BASE_URL: 'http://${{ env.ip_address }}:3000'
+          CYPRESS_DEFAULT_ACCOUNT_EMAIL: ${{ secrets.PLENTYMARKETS_USER_EMAIL }}
+          CYPRESS_DEFAULT_ACCOUNT_PASSWORD: ${{ secrets.PLENTYMARKETS_USER_PASSWORD }}
