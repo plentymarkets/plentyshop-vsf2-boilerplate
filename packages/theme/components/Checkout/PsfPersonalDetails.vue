@@ -42,7 +42,7 @@
             @input="updateField('lastName', $event)"
           /> -->
           <ValidationObserver ref="validationObserver">
-            <form>
+            <form v-on:submit.prevent>
               <ValidationProvider
                 rules="required|email"
                 name="registerMail"
