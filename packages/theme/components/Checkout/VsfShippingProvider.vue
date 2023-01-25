@@ -39,7 +39,6 @@ export default {
     const selectedMethodId = ref(null);
     const selectedMethod = ref(null);
     const shippinngPrivacyCheck = ref(false);
-    const initialSelection = ref(true);
     const {
       save,
       state: shippingProvider, loading: loadingShippingProvider } = useShippingProvider();
@@ -56,23 +55,14 @@ export default {
       selectedMethodId.value = shippingProviderGetters.getParcelServicePresetId(method);
       await loadPaymentProviders();
     };
-    watch(loadingShippingProvider, async (newLoading) => {
-      if (!newLoading && initialSelection.value) {
-        initialSelection.value = false;
+
+    watch(loadingShippingProvider, async (loading) => {
+      if (!loading) {
         selectedMethodId.value = shippingProviderGetters.getShippingProfileId(cart?.value);
         const method = shippingMethodsById.value[selectedMethodId.value];
-        await selectMethod(method);
+        selectedMethod.value = method;
       }
     }, { immediate: true });
-
-    // onMounted(async () => {
-    //   if (Object.keys(shippingMethods.value).length) {
-    //     selectedMethodId.value = shippingProviderGetters.getShippingProfileId(cart?.value);
-    //     const method = shippingMethodsById.value[selectedMethodId.value];
-    //     await selectMethod(method);
-    //   }
-    // });
-
     const changeHint = (val) => {
       emit('shippingPrivacyHintAccepted', val);
     };
