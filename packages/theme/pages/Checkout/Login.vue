@@ -50,7 +50,7 @@ export default {
     SfButton,
     PsfPersonalDetails
   },
-  setup(props, {refs}) {
+  setup(props, {refs, root}) {
 
     const { isLoginModalOpen, toggleLoginModal } = useUiState();
     const router = useRouter();
@@ -66,7 +66,7 @@ export default {
 
     watch(isAuthenticated, () => {
       if (isAuthenticated) {
-        router.push('/checkout/billing');
+        router.push(root.localePath('billing'));
       }
     });
 
@@ -83,7 +83,7 @@ export default {
         await register({ user });
 
         if (isAuthenticated) {
-          router.push('/checkout/billing');
+          router.push(root.localePath('billing'));
         }
       }
     };
