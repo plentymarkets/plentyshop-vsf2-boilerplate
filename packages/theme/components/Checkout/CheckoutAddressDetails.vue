@@ -101,6 +101,7 @@ export default {
     } = useAddressForm(toRef(props, 'addresses'));
 
     const router = useRouter();
+
     const setDefaultAddress = (address) => {
       emit('set-default-address', address);
     };
