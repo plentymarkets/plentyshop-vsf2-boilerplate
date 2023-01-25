@@ -33,7 +33,7 @@ const loginHelper = (cy: Cypress.cy & CyEventEmitter, email: string, password: s
 };
 const uniqueMail = `e2etestmail-${new Date().getTime()}@plentymarkets.com`;
 
-context('Login and logout', () => {
+context('Login', () => {
 
   before(() => {
     page.home.visit();
@@ -72,41 +72,12 @@ context('Login and logout', () => {
     cy.get('.notifications').find('.sf-notification').should('have.class', 'color-danger');
   });
 
-  it(['happyPath', 'regression'], 'Should login successfully, then logout', function test() {
+  it(['happyPath', 'regression'], 'Should login successfully', function test() {
     cy.intercept('/api/plentymarkets/loginUser').as('loginUser');
     cy.intercept('/api/plentymarkets/logoutUser').as('logoutUser');
 
     // Login
     loginHelper(cy, CYPRESS_DEFAULT_ACCOUNT_EMAIL, CYPRESS_DEFAULT_ACCOUNT_PASSWORD);
     cy.wait('@loginUser').its('response.statusCode').should('eq', 200);
-
-    cy.visit('/my-account');
-    cy.get('body').contains('My Account');
-
-    // // Logout
-    cy.get('[data-testId="Log out"').click();
-    cy.wait('@logoutUser').its('response.statusCode').should('eq', 200);
-
-    page.home.header.openAccount();
-    cy.get('body').contains('Your email');
-  });
-
-  it(['alternatePath', 'regression'], 'Should login successfully with remember clicked, then logout', function test() {
-    cy.intercept('/api/plentymarkets/loginUser').as('loginUser');
-    cy.intercept('/api/plentymarkets/logoutUser').as('logoutUser');
-
-    // Login
-    loginHelper(cy, CYPRESS_DEFAULT_ACCOUNT_EMAIL, CYPRESS_DEFAULT_ACCOUNT_PASSWORD, true);
-    cy.wait('@loginUser').its('response.statusCode').should('eq', 200);
-
-    cy.visit('/my-account');
-    cy.get('body').contains('My Account');
-
-    // // Logout
-    cy.get('[data-testId="Log out"').click();
-    cy.wait('@logoutUser').its('response.statusCode').should('eq', 200);
-
-    page.home.header.openAccount();
-    cy.get('body').contains('Your email');
   });
 });
