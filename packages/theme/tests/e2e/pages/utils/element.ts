@@ -15,3 +15,16 @@ export function uniquePlentyMarketsEmail (email: string): string {
   } */
   return `${parts[0].split('+')[0]}+${new Date().getTime()}@${parts[1]}`;
 }
+
+export function register (email: string, password = 'Testuser1234'): void {
+  cy.request(
+    'POST',
+    '/api/plentymarkets/registerUser',
+    {
+      email: email,
+      firstName: '',
+      lastName: '',
+      password: password
+    }
+  );
+}
