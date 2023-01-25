@@ -39,9 +39,6 @@
             <p class="contact__email">{{ companyDetails.email }}</p>
           </div>
         </div>
-        <SfButton class="order__notifications-button button-size"
-          >{{ $t('Allow order notifications') }}</SfButton
-        >
       </div>
       <div class="additional-info">
         <div>
