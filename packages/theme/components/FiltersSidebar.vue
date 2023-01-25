@@ -64,14 +64,14 @@
             class="sf-button--full-width"
             @click="applyFilters"
           >
-            {{ $t('Done') }}
+            {{ $t('FiltersSidebar.Done') }}
           </SfButton
           >
           <SfButton
             class="sf-button--full-width filters__button-clear"
             @click="clearFilters"
           >
-            {{ $t('Clear all') }}
+            {{ $t('FiltersSidebar.Clear all') }}
           </SfButton
           >
         </div>

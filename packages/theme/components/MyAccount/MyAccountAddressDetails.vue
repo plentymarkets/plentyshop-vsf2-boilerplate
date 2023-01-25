@@ -10,7 +10,7 @@
       >
         <SfTab
           :title="
-            editedAddress > -1 ? $t('Change the address') : $t('Create address')
+            editedAddress > -1 ? $t('MyAccountAddressDetails.Change address') : $t('MyAccountAddressDetails.Create address')
           "
         >
           <slot name="change-address-description">
@@ -32,10 +32,10 @@
               data-testid="update-address-button"
             >
               <template v-if="createOrUpdateLabel">{{
-                $t('Update the address')
+                $t('MyAccountAddressDetails.Update address')
               }}</template>
               <template v-if="!createOrUpdateLabel">{{
-                $t('Create address')
+                $t('MyAccountAddressDetails.Create address')
               }}</template>
             </SfButton>
             <SfButton
@@ -44,7 +44,7 @@
               data-testid="update-address-button"
               @click="closeForm"
             >
-              {{ $t('Cancel') }}</SfButton
+              {{ $t('MyAccountAddressDetails.Cancel') }}</SfButton
             >
           </div>
         </SfTab>
@@ -74,7 +74,7 @@
             data-testid="add-new-address"
             @click="changeAddress(-1)"
           >
-            {{ $t('Add new address') }}</SfButton
+            {{ $t('MyAccountAddressDetails.Add new address') }}</SfButton
           >
         </SfTab>
       </SfTabs>

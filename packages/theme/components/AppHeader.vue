@@ -58,7 +58,7 @@
       <template #search>
         <SfSearchBar
           ref="searchBarRef"
-          :placeholder="$t('Search for items')"
+          :placeholder="$t('AppHeader.Search for items')"
           aria-label="Search"
           class="sf-header__search"
           :value="term"

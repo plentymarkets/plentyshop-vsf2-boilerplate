@@ -11,7 +11,7 @@
     >
       <template #description>
         <div class="banner__order-number">
-          <span>{{ $t('Order No.') }}</span>
+          <span>{{ $t('ThankYou.Order no.') }}</span>
           <strong>{{ orderNumber }}</strong>
         </div>
       </template>
@@ -24,7 +24,7 @@
           :level="3"
         />
         <p class="order__paragraph paragraph">
-          {{ $t('Successful placed order') }}
+          {{ $t('ThankYou.Successfully placed order') }}
         </p>
         <div class="order__contact">
           <SfHeading
@@ -40,7 +40,7 @@
           </div>
         </div>
         <SfButton class="order__notifications-button button-size"
-          >{{ $t('Allow order notifications') }}</SfButton
+          >{{ $t('ThankYou.Allow order notifications') }}</SfButton
         >
       </div>
       <div class="additional-info">
@@ -51,7 +51,7 @@
             :level="3"
           />
           <p class="paragraph">
-            {{ $t('Info after order') }}
+            {{ $t('ThankYou.Info after order') }}
           </p>
         </div>
         <div>
@@ -61,17 +61,17 @@
             :level="3"
           />
           <p class="paragraph">
-            {{ $t('Feedback') }}
+            {{ $t('ThankYou.Feedback') }}
           </p>
           <SfButton
             class="feedback-button color-secondary sf-button--full-width button-size"
-            >{{ $t('Send my feedback') }}</SfButton
+            >{{ $t('ThankYou.Send feedback') }}</SfButton
           >
         </div>
       </div>
     </section>
     <SfButton class="back-button color-secondary button-size"
-      >{{ $t('Go back to shop') }}</SfButton
+      >{{ $t('ThankYou.Go back to shop') }}</SfButton
     >
   </div>
 </template>

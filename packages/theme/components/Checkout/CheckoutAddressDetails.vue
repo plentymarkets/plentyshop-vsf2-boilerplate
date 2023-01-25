@@ -16,10 +16,10 @@
             data-e2e="update-address-button"
           >
             <template v-if="createOrUpdateLabel">{{
-              $t('Update the address')
+              $t('CheckoutAddressDetails.Update address')
             }}</template>
             <template v-if="!createOrUpdateLabel">{{
-              $t('Create address')
+              $t('CheckoutAddressDetails.Create address')
             }}</template>
           </SfButton>
           <SfButton
@@ -29,7 +29,7 @@
             data-e2e="close-address-button"
             @click="closeForm"
           >
-            {{ $t('Cancel') }}</SfButton
+            {{ $t('CheckoutAddressDetails.Cancel') }}</SfButton
           >
         </div>
       </div>
@@ -52,7 +52,7 @@
           data-testid="add-new-address"
           @click="changeAddress(-1)"
         >
-          {{ $t('Add new address') }}</SfButton
+          {{ $t('CheckoutAddressDetails.Add new address') }}</SfButton
         >
       </div>
     </transition>

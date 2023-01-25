@@ -12,7 +12,7 @@
           :disabled="loading"
           >
             <SfSelectOption v-if="hasEmptyOption || selectedAttributes[key] === NO_SELECTION_ID" :value="NO_SELECTION_ID">
-              {{ $t('no selection') }}
+              {{ $t('AttributeSelection.No selection') }}
             </SfSelectOption>
             <SfSelectOption
               v-for="(optionValue, valueKey) in option.value"
@@ -28,7 +28,7 @@
           v-if="Object.keys(units).length > 1"
           class="sf-select--underlined product__select-size"
           v-e2e="'content-select'"
-          :label="$t('content')"
+          :label="$t('AttributeSelection.Content')"
           :required="true"
           v-model="selectedUnit"
           @input="optionValueKey => selectOption()"
@@ -42,7 +42,7 @@
             </SfSelectOption>
         </SfSelect>
 
-        <p v-if="!selectedVariationId">{{ $t('please select variation') }}</p>
+        <p v-if="!selectedVariationId">{{ $t('AttributeSelection.Select a valid variation') }}</p>
     </div>
 </template>
 

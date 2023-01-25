@@ -38,14 +38,14 @@
                 ({{ totalReviews }})
               </a>
             </div>
-            <SfButton class="sf-button--text">{{ $t('Read all reviews') }}</SfButton>
+            <SfButton class="sf-button--text">{{ $t('Product.Read all reviews') }}</SfButton>
           </div>
         </div>
         <div>
           <div v-html="productGetters.getShortDescription(product)" class="product__description desktop-only">
           </div>
           <SfButton class="sf-button--text desktop-only product__guide">
-            {{ $t('Size guide') }}
+            {{ $t('Product.Size guide') }}
           </SfButton>
 
           <AttributeSelection @selection-changed="attributeSelectionChanged($event)"></AttributeSelection>

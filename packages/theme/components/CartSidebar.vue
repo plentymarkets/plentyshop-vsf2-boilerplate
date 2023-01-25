@@ -92,7 +92,7 @@
                 class="sf-button--full-width color-secondary"
                 @click="toggleCartSidebar"
               >
-                {{ $t('Go to checkout') }}
+                {{ $t('CardSidebar.Go to checkout') }}
               </SfButton>
             </nuxt-link>
           </div>
@@ -100,7 +100,7 @@
             <SfButton
               class="sf-button--full-width color-primary"
               @click="toggleCartSidebar"
-            >{{ $t('Go back shopping') }}</SfButton
+            >{{ $t('CardSidebar.Go back shopping') }}</SfButton
             >
           </div>
         </transition>

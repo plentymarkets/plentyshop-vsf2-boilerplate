@@ -15,7 +15,7 @@
             type="button"
             @click="router.push(localePath({ name: 'login' }))"
           >
-            {{ $t('Go back') }}
+            {{ $t('Billing.Go back') }}
           </SfButton>
           <SfButton
             data-e2e="continue-to-shipping"
@@ -23,7 +23,7 @@
             @click="router.push(localePath({ name: 'shipping' }))"
             :disabled="(billing.length <= 0)"
           >
-            {{ $t('Continue to shipping') }}
+            {{ $t('Billing.Continue to shipping') }}
           </SfButton>
     </div>
   </div>

@@ -6,12 +6,14 @@ export default {
     'addNewAddress': 'Add new address',
     'billingDetails': 'Billing details',
     'cancel': 'Cancel',
+    'createAddress': 'Create address',
     'email': 'Email',
     'firstName': 'First name',
     'goBack': 'Go back',
     'lastName': 'Last name',
     '@:App.logIntoYourAccount': 'Log into your account',
     'or': 'or',
+    'register': 'Register',
     'shippingDetails': 'Shipping details',
     'startShopping': 'Start shopping',
     'updateAddress': 'Update address'
@@ -24,12 +26,12 @@ export default {
   },
   // AddressInputForm
   'AddressInputForm': {
-    'Adress no.': '',
+    'Adress no.': 'House/Apartment no.',
     'City': 'City',
     'Country': 'Country',
     'First name': '@:App.firstName',
     'Last name': '@App.lastName',
-    'Phone number': 'Phone number',
+    'Phone no.': 'Phone no.',
     'Street': 'Street',
     'State/Province': 'State/Province',
     'ZIP code': 'ZIP code',
@@ -78,6 +80,7 @@ export default {
   'CheckoutAddressDetails': {
     'Add new address': '@:App.addNewAddress',
     'Cancel': '@:App.cancel',
+    'Create address': '@:App.createAddress',
     'Update address': '@:App.updateAddress',
   },
   // FiltersSidebar
@@ -96,7 +99,7 @@ export default {
     'Last name': '@:App.lastName',
     'Order as guest': 'Order as guest',
     'Personal details': 'Personal details',
-    'Register': 'Register',
+    'Register': '@:App.register',
     'Email': '@:App.email',
   },
   // LoginModal
@@ -109,8 +112,10 @@ export default {
     'Log into your account': '@:App.logIntoYourAccount',
     'No account': 'No account',
     'or': '@:App.or',
+    'Register': '@:App.register',
     'Register today': 'Register today',
     'Reset password': 'Reset password',
+    'Sign in': 'Sign in',
     'Thank you inbox': `If the message doesn't arrive in your inbox, check another email address you might've used to register.`,
   },
   // MyAccount
@@ -128,7 +133,7 @@ export default {
     'Add new address': '@:App.addNewAddress',
     'Cancel': '@:App.cancel',
     'Change address': 'Change address',
-    'Create address': 'Create address',
+    'Create address': '@:App.createAddress',
     'Update address': '@:App.updateAddress',
   },
   // MyNewsletter
@@ -143,16 +148,20 @@ export default {
   },
   // OrderHistory
   'OrderHistory': {
-    'Details and status orders': 'Check the details and status of your orders in the online shop. You can also cancel your order or request a return.',
+    'Amount': 'Amount',
+    'Details and order status': 'Check the details and status of your orders in the online shop. You can also cancel your order or request a return.',
     'My orders': 'My orders',
+    'Order date': 'Order date',
+    'Order ID': 'Order ID',
     'Price': 'Price',
     'Product': 'Product',
     'Quantity': 'Quantity',
     'Returns': 'Returns',
     'Start shopping': '@:App.startShopping',
+    'Status': 'Status',
     'Total orders': 'Total orders',
     'View details': 'View details',
-    'You currently have no orders': 'You currently have no orders',
+    'You currently have no orders': 'You currently have no orders'
   },
   // Payment
   'Payment': {
@@ -186,6 +195,14 @@ export default {
     'Order no.': 'Order no.',
     'Send feedback': 'Send feedback',
     'Successfully placed order': 'You have successfully placed the order. You can check status of your order by using our delivery status feature. You will receive an order confirmation e-mail with details of your order and a link to track its progress.',
+  },
+  // VsfPaymentProvider
+  'VsfPaymentProvider': {
+    'Payment method': 'Payment method'
+  },
+  //VsfShippingProvider
+  'VsfShippingProvider': {
+    'Shipping method': 'Shipping method'
   },
   // WishlistSidebar
   'WishlistSidebar': {

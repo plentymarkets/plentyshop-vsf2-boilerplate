@@ -67,7 +67,7 @@
       </transition>
       <template #content-bottom>
         <SfButton @click="toggleWishlistSidebar" class="sf-button--full-width color-secondary">
-          {{ $t('Start shopping') }}
+          {{ $t('WishlistSidebar.Start shopping') }}
         </SfButton>
       </template>
     </SfSidebar>

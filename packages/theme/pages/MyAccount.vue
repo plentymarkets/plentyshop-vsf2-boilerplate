@@ -6,21 +6,21 @@
     />
     <SfContentPages
       v-e2e="'my-account-content-pages'"
-      :title="$t('My Account')"
+      :title="$t('MyAccount.My account')"
       :active="activePage"
       class="my-account"
       @click:change="changeActivePage"
     >
-      <SfContentCategory :title="$t('Personal details')">
-        <SfContentPage :title="$t('My profile')">
+      <SfContentCategory :title="$t('MyAccount.Personal details')">
+        <SfContentPage :title="$t('MyAccount.My profile')">
           <ProfileDetails/>
         </SfContentPage>
 
-        <SfContentPage :title="$t('Shipping details')">
+        <SfContentPage :title="$t('MyAccount.Shipping details')">
           <ShippingDetails/>
         </SfContentPage>
 
-        <SfContentPage :title="$t('Billing details')">
+        <SfContentPage :title="$t('MyAccount.Billing details')">
           <BillingDetails/>
         </SfContentPage>
 
@@ -29,8 +29,8 @@
         </SfContentPage>
       </SfContentCategory>
 
-      <SfContentCategory :title="$t('Order details')">
-        <SfContentPage :title="$t('Order history')">
+      <SfContentCategory :title="$t('MyAccount.Order details')">
+        <SfContentPage :title="$t('MyAccount.Order history')">
           <OrderHistory />
         </SfContentPage>
       </SfContentCategory>
