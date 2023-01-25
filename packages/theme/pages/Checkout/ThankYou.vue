@@ -91,10 +91,10 @@ export default {
     context.emit('changeStep', 4);
 
     const companyDetails = ref({
-      name: 'Divante Headquarter',
-      street: 'St. Dmowskiego 17, 53-534',
-      city: 'Wroclaw, Poland',
-      email: 'demo@vuestorefront.io'
+      name: 'plentysystems AG',
+      street: 'Johanna-Waescher-Straße 7',
+      city: 'Kassel, Germany',
+      email: 'sales@plentymarkets.com'
     });
     const orderNumber = ref('80932031-030-00');
 
