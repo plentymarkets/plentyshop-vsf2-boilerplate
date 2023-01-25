@@ -72,7 +72,7 @@ export default {
   },
   props: {
     addresses: {
-      type: Array,
+      type: Array | Object,
       default: () => []
     },
     countries: {
@@ -120,9 +120,10 @@ export default {
       resetForm(address);
       emit('delete-address', address);
     };
+
     const inEditState = computed(() => editedAddress.value > -1);
     const inCreateState = computed(() => editedAddress.value === -1);
-
+    
     return {
       form,
       inCreateState,

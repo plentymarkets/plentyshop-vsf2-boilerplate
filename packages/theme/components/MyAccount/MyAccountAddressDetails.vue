@@ -31,10 +31,10 @@
               class="action-button"
               data-testid="update-address-button"
             >
-              <template v-if="editedAddress > -1">{{
+              <template v-if="createOrUpdateLabel">{{
                 $t('Update the address')
               }}</template>
-              <template v-if="editedAddress === -1">{{
+              <template v-if="!createOrUpdateLabel">{{
                 $t('Create address')
               }}</template>
             </SfButton>
@@ -98,7 +98,7 @@ export default {
   },
   props: {
     addresses: {
-      type: Array,
+      type: Array | Object,
       default: () => []
     },
     countries: {
@@ -136,7 +136,8 @@ export default {
       editedAddress,
       changeAddress,
       resetForm,
-      closeForm
+      closeForm,
+      createOrUpdateLabel
     } = useAddressForm(toRef(props, 'addresses'));
 
     const setDefaultAddress = (address) => {
@@ -167,7 +168,8 @@ export default {
       setDefaultAddress,
       changeAddress,
       deleteAddress,
-      closeForm
+      closeForm,
+      createOrUpdateLabel
     };
   }
 };

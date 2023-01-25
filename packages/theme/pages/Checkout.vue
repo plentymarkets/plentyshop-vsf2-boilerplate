@@ -38,7 +38,7 @@ export default {
     SfSteps,
     CartPreview
   },
-  setup() {
+  setup(props, context) {
     const route = useRoute();
     const router = useRouter();
     const currentStep = computed(() => route.value.path.split('/').pop());
@@ -47,7 +47,7 @@ export default {
 
     const handleStepClick = (stepIndex) => {
       const key = Object.keys(STEPS)[stepIndex];
-      router.push(`/checkout/${key}`);
+      router.push(context.root.localePath(key));
     };
 
     return {
