@@ -77,7 +77,7 @@
           <SfButton
             type="button"
             class="sf-button color-secondary summary__back-button"
-            @click="router.push(localePath({name: 'billing' }))"
+            @click="router.push(localePath({name: 'shipping' }))"
           >
             {{ $t('Go back') }}
           </SfButton>
