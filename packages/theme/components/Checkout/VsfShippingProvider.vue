@@ -63,6 +63,7 @@ export default {
         selectedMethod.value = method;
       }
     }, { immediate: true });
+
     const changeHint = (val) => {
       emit('shippingPrivacyHintAccepted', val);
     };
