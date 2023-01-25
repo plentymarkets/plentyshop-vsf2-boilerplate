@@ -14,6 +14,7 @@
       :createAccountCheckboxLabel="$t('I want to create an account')"
       :createAccountInputLabel="$t('Create Password')"
       @input="logInput($event)"
+      @create-account='updateCheckbox($event)'
       @log-in="toggleLoginModal()"
     />
     <SfButton
@@ -21,13 +22,23 @@
         class="sf-button color-primary summary__back-button"
         data-e2e="continue-to-billing"
         @click="goToBilling"
+        v-if='!createAccountCheckbox'
       >
-      {{ $t('Go to billing') }}
+      {{ $t('Order as guest') }}
+    </SfButton>
+    <SfButton
+      type="button"
+      class="sf-button color-primary summary__back-button"
+      data-e2e="continue-to-billing"
+      @click="goToBilling"
+      v-if='createAccountCheckbox'
+    >
+      {{ $t('Register') }}
     </SfButton>
     </div>
 </template>
 <script>
-import { useRouter, watch } from '@nuxtjs/composition-api';
+import { useRouter, watch, ref } from '@nuxtjs/composition-api';
 import { SfButton } from '@storefront-ui/vue';
 import { useUiState } from '~/composables';
 import { useUser } from '@vue-storefront/plentymarkets';
@@ -39,11 +50,13 @@ export default {
     SfButton,
     PsfPersonalDetails
   },
-  setup(props, {refs}) {
+  setup(props, {refs, root}) {
 
     const { isLoginModalOpen, toggleLoginModal } = useUiState();
     const router = useRouter();
     const { isAuthenticated, register } = useUser();
+    const createAccountCheckbox = ref(false);
+
     let user = {
       email: '',
       password: '',
@@ -53,14 +66,16 @@ export default {
 
     watch(isAuthenticated, () => {
       if (isAuthenticated) {
-        router.push('/checkout/billing');
+        router.push(root.localePath('billing'));
       }
     });
 
     const logInput = (event) => {
       user = event;
     };
-
+    const updateCheckbox = (value) => {
+      createAccountCheckbox.value = value;
+    };
     const goToBilling = async () => {
       const { isValid } = await refs.PersonalDetails.validate();
 
@@ -68,7 +83,7 @@ export default {
         await register({ user });
 
         if (isAuthenticated) {
-          router.push('/checkout/billing');
+          router.push(root.localePath('billing'));
         }
       }
     };
@@ -79,7 +94,9 @@ export default {
       isLoginModalOpen,
       toggleLoginModal,
       logInput,
-      goToBilling
+      goToBilling,
+      createAccountCheckbox,
+      updateCheckbox
     };
   }
 };

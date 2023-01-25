@@ -55,6 +55,7 @@ export default {
   'ShowDataPrivacyAgreementHint': 'I agree that my email address and my phone number will be transmitted to {parcelServiceInformation}, so that they can contact me via email or phone in order to determine a delivery date or to communicate status information about the delivery of the shipment. I can revoke this agreement at any time.',
   'Please check': 'Please check',
   'Billing details': 'Billing details',
+  'Order as guest': 'Order as guest',
   'Same as shipping address': 'Same as shipping address',
   'Payment method': 'Payment method',
   'Apply': 'Apply',

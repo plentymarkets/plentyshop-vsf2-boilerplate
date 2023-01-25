@@ -115,6 +115,7 @@ export default {
   'login in to your account': 'Anmelden bei Ihrem Konto',
   'Create an account': 'Konto erstellen',
   'Your bag is empty': 'Ihre Tasche ist leer',
+  'Order as guest': 'Als Gast bestellen',
   'Cancel': 'Abbrechen',
   'See all results': 'Alle Ergebnisse anzeigen',
   'We have not found any results for given phrase': 'Wir haben keine Ergebnisse für die angegebene Phrase gefunden',
