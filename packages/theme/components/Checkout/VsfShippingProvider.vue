@@ -45,22 +45,38 @@ export default {
     } = useShippingProvider();
     const { load: loadPaymentProviders } = usePaymentProvider();
     const { cart } = useCart();
+    console.log('shippingProvider');
+    console.log(shippingProvider.value);
     const shippingMethods = computed(() => shippingProviderGetters.getShippingProviders(shippingProvider.value));
     const shippingMethodsById = computed(() => keyBy(shippingMethods.value, 'parcelServicePresetId'));
-    const shippingPrivacyInformation = ref(false);
     if (shippingProviderGetters.getShippingProfileId(cart?.value)) {
       selectedMethodId.value = shippingProviderGetters.getShippingProfileId(cart?.value);
     }
     const selectMethod = async (method) => {
       await save({ shippingMethod: shippingProviderGetters.getValue(method)});
-      shippingPrivacyInformation.value = shippingProviderGetters.getShippingPrivacyInformation(method);
       selectedMethod.value = method;
       selectedMethodId.value = shippingProviderGetters.getParcelServicePresetId(method);
       await loadPaymentProviders();
     };
     onMounted(async () => {
-      const method = shippingMethodsById.value[cart.value.shippingProfileId];
-      await selectMethod(method);
+      //   problems:
+      //   1. if i have the selectedMethodId how do i get the selectedMethod object in a clean code manner
+      // is there a server endpoint to get a shipping method object based on a shippingmethod id ?
+      //   2. my solution with shippingMethodsById is not good for the case when: the user clears app cache and restart process of purchase
+      //     -add to cart .... navigate to checkout tab. i don't have shippingProvider.value, so implicit no shippingMethods.
+      // but if you refresh everything working...
+      //   is this a bug ???
+      // console.log('onMounted');
+      // console.log(shippingProvider.value);
+      // console.log(shippingMethods.value);
+      // console.log(shippingMethodsById.value);
+      // console.log(selectedMethodId.value);
+      selectedMethodId.value = shippingProviderGetters.getShippingProfileId(cart?.value);
+      // the case when you navigate first time to checkout
+      if (shippingMethodsById.value && shippingMethodsById.value.length) {
+        const method = shippingMethodsById.value[selectedMethodId.value];
+        await selectMethod(method);
+      }
     });
 
     const changeHint = (val) => {
@@ -69,7 +85,6 @@ export default {
 
     return {
       shippinngPrivacyCheck,
-      shippingPrivacyInformation,
       shippingMethods,
       selectedMethodId,
       selectedMethod,
