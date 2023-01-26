@@ -15,6 +15,7 @@ export default {
     'or': 'or',
     'register': 'Register',
     'shippingDetails': 'Shipping details',
+    'sizeGuide': 'Size guide',
     'startShopping': 'Start shopping',
     'updateAddress': 'Update address'
   },
@@ -35,6 +36,25 @@ export default {
     'Street': 'Street',
     'State/Province': 'State/Province',
     'ZIP code': 'ZIP code',
+  },
+  // AppFooter
+  'AppFooter': {
+    'About us': 'About us',
+    'Contact us': 'Contact us',
+    'Customer reviews': 'Customer reviews',
+    'Customer service': 'Customer service',
+    'Departments': 'Departments',
+    'Guarantee': 'Guarantee',
+    'Help': 'Help',
+    'Home': 'Home',
+    'Kidswear': 'Kidswear',
+    'Men fashion': 'Men fashion',
+    'Payment & Delivery': 'Payment & Delivery',
+    'Purchase terms': 'Purchase terms',
+    'Quality in the details': 'Quality in the details',
+    'Size guide': '@:App.sizeGuide',
+    'Who we are': 'Who we are',
+    'Women fashion': 'Women fashion',
   },
   // AppHeader
   'AppHeader': {
@@ -87,6 +107,11 @@ export default {
   'FiltersSidebar': {
     'Clear all': 'Clear all',
     'Done': 'Done',
+  },
+  // Home
+  'Home': {
+    'Subscribe': 'Subscribe',
+    'See all': 'See all',
   },
   // Login
   'Login': {
@@ -146,6 +171,19 @@ export default {
     'Sections that interest you': 'Sections that interest you',
     'Set up newsletter': 'Set up your newsletter and we will send you information about new products and trends from the sections you selected every week.',
   },
+  // NewletterModal
+  'NewsletterModal': {
+    'Email address': 'Email address',
+    'Hide': 'Hide',
+    'Confirm subscription': 'Confirm subscription',
+    'Show more': 'Show more',
+    'Subscribe': 'Subscribe',
+    'Subscribe to newsletter': 'Subscribe to newsletter',
+    'subscribeToNewsletterModalContent': 'After signing up for the newsletter, you will receive special offers and messages from VSF via email. We will not sell or distribute your email to any third party at any time. Please see our {0}.',
+    'Privacy policy': 'Privacy policy',
+    'You can unsubscribe at any time': 'You can unsubscribe at any time',
+    'Your email': 'Your email'
+  },
   // OrderHistory
   'OrderHistory': {
     'Amount': 'Amount',
@@ -174,7 +212,19 @@ export default {
   // Product
   'Product': {
     'Read all reviews': 'Read all reviews',
-    'Size guide': 'Size guide',
+    'Size guide': '@:App.sizeGuide',
+  },
+  // SearchResults
+  'SearchResults': {
+    'Cancel': '@:App.cancel',
+    'Categories': '@App.categories',
+    'Go back': '@App.goBack',
+    'Let us start now - we will help you': `Let's start now - we'll help you.`,
+    'No results found': `No results found`,
+    'Product suggestions': 'Product suggestions',
+    'Search results': 'Search results',
+    'See all results': 'See all results',
+    'You have not searched for items yet': `You haven't searched for items yet.`,
   },
   // Shipping
   'Shipping': {
@@ -195,6 +245,12 @@ export default {
     'Order no.': 'Order no.',
     'Send feedback': 'Send feedback',
     'Successfully placed order': 'You have successfully placed the order. You can check status of your order by using our delivery status feature. You will receive an order confirmation e-mail with details of your order and a link to track its progress.',
+  },
+  // TopBar
+  'TopBar': {
+    'Download': 'Download',
+    'Find out more': 'Find out more',
+    'Help & FAQs': 'Help & FAQs'
   },
   // VsfPaymentProvider
   'VsfPaymentProvider': {

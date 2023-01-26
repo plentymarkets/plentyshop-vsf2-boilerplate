@@ -63,7 +63,7 @@
         </ValidationObserver>
         <div class="action">
           <SfButton class="sf-button--text" @click="setCurrentScreen(SCREEN_FORGOTTEN)">
-            {{ $t('Forgotten password?') }}
+            {{ $t('LoginModal.Forgotten your password?') }}
           </SfButton>
         </div>
         <div class="bottom">
