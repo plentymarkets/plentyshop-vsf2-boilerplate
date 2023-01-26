@@ -8,7 +8,7 @@
   "scripts": {
     "build": "nuxt build -m",
     "build:analyze": "nuxt build -a -m",
-    "dev": "nuxt",
+    "dev": "./build-env.sh && nuxt",
     "generate": "nuxt generate",
     "lint": "eslint . --ext .ts,.vue",
     "lint:fix": "eslint . --ext .ts,.vue --fix",
