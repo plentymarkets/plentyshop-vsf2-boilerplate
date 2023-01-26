@@ -11,32 +11,33 @@
     </div>
     <div v-if="!sameAsShipping">
       <CheckoutAddressDetails
-        class="spacer-top"
+        :type="'shipping'"
         :addresses="shipping"
         :countries="countries"
-        :type="'shipping'"
+        :headingTitle="$t('Shipping details')"
+        :headingTitleLevel="2"
         @set-default-address="setDefaultAddress({ address: $event })"
         @delete-address="deleteAddress({ address: $event })"
         @update-address="addAddress({ address: $event })"
       />
     </div>
     <div class="spacer-top buttons">
-          <SfButton
-            class="sf-button color-secondary form__back-button"
-            type="button"
-            @click="router.push(localePath({ name: 'billing' }))"
-          >
-            {{ $t('Go back') }}
-          </SfButton>
-          <SfButton
-            data-e2e="continue-to-payment"
-            class="form__action-button"
-            @click="submit"
-            :disabled="shipping.length <= 0 && !sameAsShipping"
-          >
-            {{ $t('Continue to payment') }}
-          </SfButton>
-      </div>
+      <SfButton
+        class="sf-button color-secondary form__back-button"
+        type="button"
+        @click="router.push(localePath({ name: 'billing' }))"
+      >
+        {{ $t('Go back') }}
+      </SfButton>
+      <SfButton
+        data-e2e="continue-to-payment"
+        class="form__action-button"
+        @click="submit"
+        :disabled="shipping.length <= 0 && !sameAsShipping"
+      >
+        {{ $t('Continue to payment') }}
+      </SfButton>
+    </div>
   </div>
 </template>
 

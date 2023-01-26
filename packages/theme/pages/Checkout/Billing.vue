@@ -5,26 +5,28 @@
       :type="'billing'"
       :addresses="billing"
       :countries="countries"
+      :headingTitle="$t('Billing details')"
+      :headingTitleLevel="2"
       @set-default-address="setDefaultAddress({address: $event })"
       @delete-address="deleteAddress({address: $event})"
       @update-address="addAddress({address: $event})"
     />
     <div class="spacer-top buttons">
-          <SfButton
-            class="sf-button color-secondary form__back-button"
-            type="button"
-            @click="router.push(localePath({ name: 'login' }))"
-          >
-            {{ $t('Go back') }}
-          </SfButton>
-          <SfButton
-            data-e2e="continue-to-shipping"
-            class="form__action-button"
-            @click="router.push(localePath({ name: 'shipping' }))"
-            :disabled="(billing.length <= 0)"
-          >
-            {{ $t('Continue to shipping') }}
-          </SfButton>
+      <SfButton
+        class="sf-button color-secondary form__back-button"
+        type="button"
+        @click="router.push(localePath({ name: 'login' }))"
+      >
+        {{ $t('Go back') }}
+      </SfButton>
+      <SfButton
+        data-e2e="continue-to-shipping"
+        class="form__action-button"
+        @click="router.push(localePath({ name: 'shipping' }))"
+        :disabled="(billing.length <= 0)"
+      >
+        {{ $t('Continue to shipping') }}
+      </SfButton>
     </div>
   </div>
 </template>
@@ -77,12 +79,8 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.spacer-top {
-  margin-top: var(--spacer-lg);
-}
-.buttons {
-  display: flex;
-  justify-content: space-between;
-}
-
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+  }
 </style>
