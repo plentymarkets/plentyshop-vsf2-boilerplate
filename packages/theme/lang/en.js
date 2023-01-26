@@ -46,6 +46,7 @@ export default {
   'Forgotten password?': 'Forgotten password?',
   'No account': `Don't have an account yet?`,
   'Register today': 'Register today',
+  'Login now':'Login now',
   'Go to checkout': 'Go to checkout',
   'Go back shopping': 'Go back shopping',
   'Personal details': 'Personal details',
