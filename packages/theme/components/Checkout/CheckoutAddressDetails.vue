@@ -124,7 +124,6 @@ export default {
 
     const inEditState = computed(() => editedAddress.value > -1);
     const inCreateState = computed(() => editedAddress.value === -1);
-
     return {
       form,
       inCreateState,
