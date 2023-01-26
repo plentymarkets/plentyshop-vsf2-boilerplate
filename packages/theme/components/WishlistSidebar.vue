@@ -3,14 +3,14 @@
     <SfSidebar
       :visible="isWishlistSidebarOpen"
       :button="false"
-      title="My Wishlist"
+      :title="$t('WishlistSidebar.My wishlist')"
       @close="toggleWishlistSidebar"
       class="sidebar sf-sidebar--right"
     >
       <template #title>
         <div class="heading__wrapper">
-          <SfHeading :level="3" title="My wishlist" class="sf-heading--left"/>
-          <SfButton class="heading__close-button sf-button--pure" aria-label="Wishlist sidebar close button" @click="toggleWishlistSidebar">
+          <SfHeading :level="3" :title="$t('WishlistSidebar.My wishlist')" class="sf-heading--left"/>
+          <SfButton class="heading__close-button sf-button--pure" :aria-label="$t('WishlistSidebar.Wishlist sidebar close button')" @click="toggleWishlistSidebar">
             <SfIcon icon="cross" size="14px" color="gray-primary"/>
           </SfButton>
         </div>
@@ -57,9 +57,8 @@
           <div class="empty-wishlist__banner">
             <SfImage :src="addBasePath('/icons/empty-cart.svg')" alt="Empty bag" class="empty-wishlist__icon" />
             <SfHeading
-              title="Your bag is empty"
-              description="Looks like you haven’t added any items to the bag yet. Start
-              shopping to fill it in."
+              :title="$t('WishlistSidebar.Your bag is empty')"
+              :description="$t('WishlistSidebar.Fill in bag')"
               class="empty-wishlist__label"
             />
           </div>

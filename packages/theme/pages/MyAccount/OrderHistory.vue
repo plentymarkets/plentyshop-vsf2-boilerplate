@@ -136,10 +136,10 @@ export default {
     });
 
     const tableHeaders = [
-      'Order ID',
-      'Order date',
-      'Amount',
-      'Status'
+      'OrderHistory.Order ID',
+      'OrderHistory.Order date',
+      'OrderHistory.Amount',
+      'OrderHistory.Status'
     ];
 
     const getStatusTextClass = (order) => {

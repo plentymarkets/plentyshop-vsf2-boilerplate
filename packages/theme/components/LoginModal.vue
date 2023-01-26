@@ -24,7 +24,7 @@
                 :valid="!errors[0]"
                 :errorMessage="errors[0]"
                 name="email"
-                label="Your email"
+                :label="$t('LoginModal.Email')"
                 class="form__element"
               />
             </ValidationProvider>
@@ -35,7 +35,7 @@
                 :valid="!errors[0]"
                 :errorMessage="errors[0]"
                 name="password"
-                label="Password"
+                :label="$t('LoginModal.Password')"
                 type="password"
                 class="form__element"
               />
@@ -44,7 +44,7 @@
               v-e2e="'login-modal-remember-me'"
               v-model="rememberMe"
               name="remember-me"
-              label="Remember me"
+              :label="$t('LoginModal.Remember me')"
               class="form__element checkbox"
             />
             <div v-if="error.login">
@@ -124,7 +124,7 @@
                 :valid="!errors[0]"
                 :errorMessage="errors[0]"
                 name="email"
-                label="Your email"
+                :label="$t('LoginModal.Email')"
                 class="form__element"
               />
             </ValidationProvider>
@@ -135,7 +135,7 @@
                 :valid="!errors[0]"
                 :errorMessage="errors[0]"
                 name="password"
-                label="Password"
+                :label="$t('LoginModal.Password')"
                 type="password"
                 class="form__element"
               />
@@ -264,7 +264,7 @@ export default {
         return;
       }
 
-      send({message: app.i18n.t('Login successful'), type: 'success'});
+      send({message: app.i18n.t('LoginModal.Login successful'), type: 'success'});
       toggleLoginModal();
     };
 

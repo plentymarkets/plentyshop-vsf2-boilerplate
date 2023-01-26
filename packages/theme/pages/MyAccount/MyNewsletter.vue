@@ -1,6 +1,6 @@
 <template>
   <SfTabs :open-tab="1" class="tab-orphan">
-    <SfTab title="My newsletter">
+    <SfTab :title="$t('MyNewsletter.My newsletter')">
       <p class="message">
         {{ $t('MyNewsletter.Set up newsletter') }}
       </p>
@@ -9,19 +9,19 @@
         <div class="form__checkbox-group">
           <SfCheckbox
             v-model="newsletter"
-            label="Woman"
+            :label="$t('MyNewsletter.Women')"
             value="woman"
             class="form__element"
           />
           <SfCheckbox
             v-model="newsletter"
-            label="Man"
+            :label="$t('MyNewsletter.Men')"
             value="man"
             class="form__element"
           />
           <SfCheckbox
             v-model="newsletter"
-            label="Kids"
+            :label="$t('MyNewsletter.Kids')"
             value="kids"
             class="form__element"
           />

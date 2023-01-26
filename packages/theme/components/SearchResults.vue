@@ -69,7 +69,7 @@
               </div>
             </SfMegaMenuColumn>
             <div class="action-buttons smartphone-only">
-              <SfButton class="action-buttons__button color-light" @click="$emit('close')">{{ $t('Cancel') }}</SfButton>
+              <SfButton class="action-buttons__button color-light" @click="$emit('close')">{{ $t('SearchResults.Cancel') }}</SfButton>
             </div>
           </div>
           <div v-else key="no-results" class="before-results">

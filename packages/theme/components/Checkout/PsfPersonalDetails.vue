@@ -11,9 +11,9 @@
           <p class="log-in__info">{{ logInInfo }}</p>
         </slot>
       </div>
-      <slot name="heading" v-bind="{ headingTitle, headingTitleLevel }">
+      <slot name="heading" v-bind="{ headingTitleLevel }">
         <SfHeading
-          :title="headingTitle"
+          :title="$t('PsfPersonalDetails.Personal details')"
           :level="headingTitleLevel"
           class="sf-heading--left sf-heading--no-underline title"
         />
@@ -83,15 +83,13 @@
             <slot
               name="create-account"
               v-bind="{
-                createAccountCheckboxLabel,
                 transition,
-                createAccountInputLabel,
               }"
             >
               <SfCheckbox
                 v-model="createAccount"
                 name="createAccount"
-                :label="createAccountCheckboxLabel"
+                :label="$t('PsfPersonalDetails.I want to create an account')"
                 class="form__checkbox"
                 data-e2e="create-account-checkbox"
                 @change="$emit('create-account', createAccount)"
@@ -108,7 +106,7 @@
                     :has-show-password="true"
                     name="registerPassword"
                     type="password"
-                    :label="createAccountInputLabel"
+                    :label="$t('PsfPersonalDetails.Create password')"
                     class="form__element"
                     required
                     data-e2e="create-password-input"
@@ -169,10 +167,6 @@ export default {
       type: String,
       default: 'or fill the details below:'
     },
-    headingTitle: {
-      type: String,
-      default: 'Personal details'
-    },
     headingTitleLevel: {
       type: Number,
       default: 2
@@ -205,14 +199,6 @@ export default {
     transition: {
       type: String,
       default: 'sf-fade'
-    },
-    createAccountCheckboxLabel: {
-      type: String,
-      default: 'I want to create an account'
-    },
-    createAccountInputLabel: {
-      type: String,
-      default: 'Create Password'
     }
   },
   data() {

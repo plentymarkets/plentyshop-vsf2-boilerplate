@@ -5,13 +5,15 @@ export default {
   'App': {
     'addNewAddress': 'Add new address',
     'billingDetails': 'Billing details',
+    'categories': 'Categories',
     'cancel': 'Cancel',
     'createAddress': 'Create address',
     'email': 'Email',
     'firstName': 'First name',
     'goBack': 'Go back',
     'lastName': 'Last name',
-    '@:App.logIntoYourAccount': 'Log into your account',
+    'logIntoYourAccount': 'Log into your account',
+    'fillInBag': `Looks like you haven't added any items to the bag yet. Start shopping to fill it in.`,
     'or': 'or',
     'register': 'Register',
     'shippingDetails': 'Shipping details',
@@ -27,12 +29,12 @@ export default {
   },
   // AddressInputForm
   'AddressInputForm': {
-    'Adress no.': 'House/Apartment no.',
+    'Address no': 'House/Apartment no.',
     'City': 'City',
     'Country': 'Country',
     'First name': '@:App.firstName',
-    'Last name': '@App.lastName',
-    'Phone no.': 'Phone no.',
+    'Last name': '@:App.lastName',
+    'Phone no': 'Phone no.',
     'Street': 'Street',
     'State/Province': 'State/Province',
     'ZIP code': 'ZIP code',
@@ -53,12 +55,19 @@ export default {
     'Purchase terms': 'Purchase terms',
     'Quality in the details': 'Quality in the details',
     'Size guide': '@:App.sizeGuide',
+    'Social': 'Social',
     'Who we are': 'Who we are',
     'Women fashion': 'Women fashion',
   },
   // AppHeader
   'AppHeader': {
+    'Close search': 'Close search',
+    'Open account button': 'Open account button',
+    'Open search': 'Open search',
+    'Search': 'Search',
     'Search for items': 'Search for items',
+    'Toggle cart sidebar': 'Toggle cart sidebar',
+    'Toggle wishlist sidebar': 'Toggle wishlist sidebar'
   },
   // AttributeSelection
   'AttributeSelection': {
@@ -73,12 +82,15 @@ export default {
   },
   // BillingDetails
   'BillingDetails': {
-    'Billing details': '@App.billingDetails',
+    'Billing details': '@:App.billingDetails',
   },
-  // CardSidebar
-  'CardSidebar': {
+  // CartSidebar
+  'CartSidebar': {
     'Go back shopping': 'Go back shopping',
     'Go to checkout': 'Go to checkout',
+    'Fill in bag': '@:App.fillInBag',
+    'My cart': 'My cart',
+    'Your cart is empty': 'Your cart is empty'
   },
   // CartPreview
   'CartPreview': {
@@ -96,6 +108,21 @@ export default {
     'Save for later': 'Save for later',
     'Show on page': 'Show on page',
   },
+  // CategoryPageHeader
+  'CategoryPageHeader': {
+    'Change to grid view': 'Change to grid view',
+    'Change to list view': 'Change to list view',
+    'Filters': 'Filters',
+    'Items': 'Items',
+    'name-a-z': 'Name A-Z',
+    'name-z-a': 'Name Z-A',
+    'price-down': 'Price desc.',
+    'price-up': 'Price asc.',
+    'Products found': 'Products found',
+    'Select sorting': 'Select sorting',
+    'Sort by': 'Sort by',
+    'View': 'View'
+  },
   // CheckoutAddressDetails
   'CheckoutAddressDetails': {
     'Add new address': '@:App.addNewAddress',
@@ -107,11 +134,13 @@ export default {
   'FiltersSidebar': {
     'Clear all': 'Clear all',
     'Done': 'Done',
+    'Filters': 'Filters'
   },
   // Home
   'Home': {
     'Subscribe': 'Subscribe',
     'See all': 'See all',
+    'Special gifts and events': 'Be aware of upcoming sales and events. Receive gifts and special offers!'
   },
   // Login
   'Login': {
@@ -131,14 +160,17 @@ export default {
   'LoginModal': {
     'Create an account': 'Create an account',
     'Email': '@:App.email',
-    'Reset forgotten password': `If you can't remember your password, you can reset it.`,
     'Forgotten your password?': 'Forgotten your password?',
-    'Login': 'Login',
     'Log into your account': '@:App.logIntoYourAccount',
+    'Login': 'Login',
+    'Login successful': 'Login successful',
     'No account': 'No account',
     'or': '@:App.or',
+    'Password': 'Password',
     'Register': '@:App.register',
     'Register today': 'Register today',
+    'Remember me': 'Remember me',
+    'Reset forgotten password': `If you can't remember your password, you can reset it.`,
     'Reset password': 'Reset password',
     'Sign in': 'Sign in',
     'Thank you inbox': `If the message doesn't arrive in your inbox, check another email address you might've used to register.`,
@@ -146,7 +178,9 @@ export default {
   // MyAccount
   'MyAccount': {
     'Billing details': '@:App.billingDetails',
+    'Log out': 'Log out',
     'My account': 'My account',
+    'My newsletter': 'My newsletter',
     'My profile': 'My profile',
     'Order details': 'Order details',
     'Order history': 'Order history',
@@ -164,12 +198,16 @@ export default {
   // MyNewsletter
   'MyNewsletter': {
     'Commercial information': 'and agree to receive personalised commercial information from Brand by email',
-    'Cookie policy': 'Cookie policy',
+    'Cookies policy': 'Cookie policy',
     'I have read and understand': `I've read and understand`,
+    'Kids': 'Kids',
+    'Men': 'Men',
+    'My newsletter': 'My newsletter',
     'Privacy policy': 'Privacy policy',
     'Save changes': 'Save changes',
     'Sections that interest you': 'Sections that interest you',
     'Set up newsletter': 'Set up your newsletter and we will send you information about new products and trends from the sections you selected every week.',
+    'Women': 'Women'
   },
   // NewletterModal
   'NewsletterModal': {
@@ -208,17 +246,28 @@ export default {
     'Terms and conditions': 'Terms and conditions',
     'Go back': '@:App.goBack',
     'Make an order': 'Make an order',
+    'Payment': 'Payment'
+  },
+  // PsfPersonalDetails
+  'PsfPersonalDetails': {
+    'Create password': 'Create password',
+    'I want to create an account': 'I want to create an account',
+    'Personal details': 'Personal details'
   },
   // Product
   'Product': {
+    'Additional information': 'Additional information',
+    'Description': 'Description',
+    'Match it with': 'Match it with',
     'Read all reviews': 'Read all reviews',
+    'Read reviews': 'Read reviews',
     'Size guide': '@:App.sizeGuide',
   },
   // SearchResults
   'SearchResults': {
     'Cancel': '@:App.cancel',
-    'Categories': '@App.categories',
-    'Go back': '@App.goBack',
+    'Categories': '@:App.categories',
+    'Go back': '@:App.goBack',
     'Let us start now - we will help you': `Let's start now - we'll help you.`,
     'No results found': `No results found`,
     'Product suggestions': 'Product suggestions',
@@ -242,9 +291,14 @@ export default {
     'Feedback': 'Your feedback is important to us. Let us know what we could improve.',
     'Go back to shop': 'Go back to shop',
     'Info after order': 'You can log to your account using e-mail and password defined earlier. On your account you can edit your profile data, check history of transactions, edit subscription to newsletter.',
-    'Order no.': 'Order no.',
+    'Order no': 'Order no.',
+    'Primary contacts for any questions': 'Primary contacts for any questions',
     'Send feedback': 'Send feedback',
     'Successfully placed order': 'You have successfully placed the order. You can check status of your order by using our delivery status feature. You will receive an order confirmation e-mail with details of your order and a link to track its progress.',
+    'Thank you for your order!': 'Thank you for your order!',
+    'What can we improve': 'What can we improve',
+    'Your account': 'Your account',
+    'Your purchase': 'Your purchase'
   },
   // TopBar
   'TopBar': {
@@ -262,7 +316,11 @@ export default {
   },
   // WishlistSidebar
   'WishlistSidebar': {
+    'Fill in bag': '@:App.fillInBag',
+    'My wishlist': 'My wishlist',
     'Start shopping': '@:App.startShopping',
+    'Wishlist sidebar close button': 'Wishlist sidebar close button',
+    'Your bag is empty': 'Your bag is empty'
   },
 
   // Unsorted

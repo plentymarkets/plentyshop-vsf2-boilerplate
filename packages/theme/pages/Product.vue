@@ -63,7 +63,7 @@
 
         <LazyHydrate when-idle>
           <SfTabs :open-tab="1" class="product__tabs">
-            <SfTab title="Description">
+            <SfTab :title="$t('Product.Description')">
               <div v-html="productGetters.getDescription(product)" class="product__description">
               </div>
               <SfProperty
@@ -80,7 +80,7 @@
                 </template>
               </SfProperty>
             </SfTab>
-            <SfTab title="Read reviews">
+            <SfTab :title="$t('Product.Read reviews')">
               <SfReview
                 v-for="review in reviews"
                 :key="reviewGetters.getReviewId(review)"
@@ -96,7 +96,7 @@
               />
             </SfTab>
             <SfTab
-              title="Additional Information"
+              :title="$t('Product.Additional information')"
               class="product__additional-info"
             >
               <div v-html="productGetters.getTechnicalData(product)" class="product__additional-info"></div>
@@ -110,7 +110,7 @@
       <RelatedProducts
         :products="relatedProducts"
         :loading="relatedLoading"
-        title="Match it with"
+        :title="$t('Product.Match it with')"
       />
     </LazyHydrate>
 

@@ -64,7 +64,7 @@
               v-e2e="type + '-apartment'"
               v-model="internalForm.apartment"
               :name="type + '-apartment'"
-              :label="$t('AddressInputForm.Address no.')"
+              :label="$t('AddressInputForm.Address no')"
               required
               class="form__element"
               :valid="!errors[0]"
@@ -163,7 +163,7 @@
               v-e2e="type + '-phoneNumber'"
               v-model="internalForm.phoneNumber"
               :name="type + '-phoneNumber'"
-              :label="$t('AddressInputForm.Phone no.')"
+              :label="$t('AddressInputForm.Phone no')"
               required
               :valid="!errors[0]"
               :errorMessage="errors[0]"

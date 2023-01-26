@@ -3,7 +3,7 @@
     <SfSidebar
       v-e2e="'sidebar-cart'"
       :visible="isCartSidebarOpen"
-      title="My Cart"
+      :title="$t('CartSidebar.My cart')"
       class="sf-sidebar--right"
       @close="toggleCartSidebar"
     >
@@ -65,11 +65,10 @@
               :src="addBasePath('/icons/empty-cart.svg')"
             />
             <SfHeading
-              title="Your cart is empty"
+              :title="$t('CartSidebar.Your cart is empty')"
               :level="2"
               class="empty-cart__heading"
-              description="Looks like you haven’t added any items to the bag yet. Start
-              shopping to fill it in."
+              :description="$t('CartSidebar.Fill in bag')"
             />
           </div>
         </div>
@@ -92,7 +91,7 @@
                 class="sf-button--full-width color-secondary"
                 @click="toggleCartSidebar"
               >
-                {{ $t('CardSidebar.Go to checkout') }}
+                {{ $t('CartSidebar.Go to checkout') }}
               </SfButton>
             </nuxt-link>
           </div>
@@ -100,7 +99,7 @@
             <SfButton
               class="sf-button--full-width color-primary"
               @click="toggleCartSidebar"
-            >{{ $t('CardSidebar.Go back shopping') }}</SfButton
+            >{{ $t('CartSidebar.Go back shopping') }}</SfButton
             >
           </div>
         </transition>

@@ -24,7 +24,7 @@
           <BillingDetails/>
         </SfContentPage>
 
-        <SfContentPage title="My newsletter">
+        <SfContentPage :title="$t('MyAccount.My newsletter')">
           <MyNewsletter />
         </SfContentPage>
       </SfContentCategory>
@@ -35,7 +35,7 @@
         </SfContentPage>
       </SfContentCategory>
 
-      <SfContentPage title="Log out" />
+      <SfContentPage :title="$t('MyAccount.Log out')" />
     </SfContentPages>
   </div>
 </template>

@@ -2,7 +2,7 @@
   <div>
     <SfHeading
       :level="3"
-      title="Payment"
+      :title="$t('Payment.Payment')"
       class="sf-heading--left sf-heading--no-underline title"
     />
     <VsfShippingProvider class="spacer"/>

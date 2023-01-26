@@ -4,7 +4,7 @@
       ref="PersonalDetails"
       :value="{}"
       :buttonText="$t('Login.Log into your account')"
-      :logInInfo="$t('Login.or fill the details below')"
+      :logInInfo="$t('Login.or fill in the details below')"
       :headingTitle="$t('Login.Personal details')"
       :headingTitleLevel="2"
       :inputsLabels="[$t('Login.First name'),$t('Login.Last name'),$t('Login.Email')]"

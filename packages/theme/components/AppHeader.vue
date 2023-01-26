@@ -21,7 +21,7 @@
         <div v-e2e="'header-icons'" class="sf-header__icons">
           <SfButton
             class="sf-button--pure sf-header__action"
-            aria-label="Open account button"
+            :aria-label="$t('AppHeader.Open account button')"
             @click="handleAccountClick"
           >
             <SfIcon
@@ -31,7 +31,7 @@
           </SfButton>
           <SfButton
             class="sf-button--pure sf-header__action"
-            aria-label="Toggle wishlist sidebar"
+            :aria-label="$t('AppHeader.Toggle wishlist sidebar')"
             @click="toggleWishlistSidebar"
           >
             <SfIcon
@@ -43,7 +43,7 @@
           </SfButton>
           <SfButton
             class="sf-button--pure sf-header__action"
-            aria-label="Toggle cart sidebar"
+            :aria-label="$t('AppHeader.Toggle cart sidebar')"
             @click="toggleCartSidebar"
           >
             <SfIcon
@@ -59,7 +59,7 @@
         <SfSearchBar
           ref="searchBarRef"
           :placeholder="$t('AppHeader.Search for items')"
-          aria-label="Search"
+          :aria-label="$t('AppHeader.Search')"
           class="sf-header__search"
           :value="term"
           @input="handleSearch"
@@ -71,7 +71,7 @@
           <template #icon>
             <SfButton
               v-if="!!term"
-              aria-label="Close search"
+              :aria-label="$t('AppHeader.Close search')"
               class="sf-search-bar__button sf-button--pure"
               @click="closeOrFocusSearchBar"
             >
@@ -81,7 +81,7 @@
             </SfButton>
             <SfButton
               v-else
-              aria-label="Open search"
+              :aria-label="$t('AppHeader.Open search')"
               class="sf-search-bar__button sf-button--pure"
               @click="isSearchOpen ? isSearchOpen = false : isSearchOpen = true"
             >
