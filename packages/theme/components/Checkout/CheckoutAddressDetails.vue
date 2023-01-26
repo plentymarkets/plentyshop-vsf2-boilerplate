@@ -10,16 +10,14 @@
         ></AddressInputForm>
         <div class="buttons">
           <SfButton
+            v-if="inEditState"
             type="submit"
             @click.prevent="submit()"
             class="action-button"
             data-e2e="update-address-button"
           >
-            <template v-if="createOrUpdateLabel">{{
+            <template v-if="inEditState">{{
               $t('Update the address')
-            }}</template>
-            <template v-if="!createOrUpdateLabel">{{
-              $t('Create address')
             }}</template>
           </SfButton>
           <SfButton
@@ -37,13 +35,13 @@
         <transition-group tag="div" :name="transition" class="shipping-list">
           <slot name="shipping-list">
             <AddressCard v-for="(address, key) in addressList"
-                            class="shipping"
-                            :key="address.id"
-                            :address="address"
-                            :countries="countries"
-                            @set-default-address="setDefaultAddress(address)"
-                            @change-address="changeAddress(key)"
-                            @delete-address="deleteAddress(address)">
+              class="shipping"
+              :key="address.id"
+              :address="address"
+              :countries="countries"
+              @set-default-address="setDefaultAddress(address)"
+              @change-address="changeAddress(key)"
+              @delete-address="deleteAddress(address)">
               </AddressCard>
           </slot>
         </transition-group>
@@ -60,7 +58,7 @@
 </template>
 <script>
 import { SfButton } from '@storefront-ui/vue';
-import { toRef } from '@nuxtjs/composition-api';
+import { toRef, useRouter, computed } from '@nuxtjs/composition-api';
 import { useAddressForm } from '@vue-storefront/plentymarkets';
 import AddressInputForm from '~/components/AddressInputForm';
 import AddressCard from '~/components/AddressCard';
@@ -99,31 +97,37 @@ export default {
       editedAddress,
       changeAddress,
       resetForm,
-      closeForm,
-      createOrUpdateLabel
+      closeForm
     } = useAddressForm(toRef(props, 'addresses'));
+
+    const router = useRouter();
 
     const setDefaultAddress = (address) => {
       emit('set-default-address', address);
     };
 
-    const submit = async () => {
+    const submit = async (path = '/checkout/billing') => {
       const addressForm = await refs.addressForm.validate();
 
       if (addressForm) {
         form.value = addressForm.value;
         closeForm();
-        emit('update-address', { ...form.value });
+        await emit('update-address', { ...form.value });
+        router.push(path);
       }
     };
-    console.log('test');
 
     const deleteAddress = (address) => {
       resetForm(address);
       emit('delete-address', address);
     };
+
+    const inEditState = computed(() => editedAddress.value > -1);
+    const inCreateState = computed(() => editedAddress.value === -1);
     return {
       form,
+      inCreateState,
+      inEditState,
       editAddress,
       addressList,
       editedAddress,
@@ -131,8 +135,7 @@ export default {
       setDefaultAddress,
       changeAddress,
       deleteAddress,
-      closeForm,
-      createOrUpdateLabel
+      closeForm
     };
   }
 };
