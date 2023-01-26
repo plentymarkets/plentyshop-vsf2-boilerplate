@@ -13,7 +13,7 @@
             v-if="inEditState"
             type="submit"
             @click.prevent="submit()"
-            class="action-button"
+            class="action-button update-button"
             data-e2e="update-address-button"
           >
             <template v-if="inEditState">{{
@@ -23,7 +23,7 @@
           <SfButton
             v-if="(addressList.length > 0)"
             type="button"
-            class="action-button color-secondary cancel-button"
+            class="action-button color-secondary"
             data-e2e="close-address-button"
             @click="closeForm"
           >
@@ -89,7 +89,7 @@ export default {
     }
   },
 
-  setup(props, { emit, refs }) {
+  setup(props, { emit, refs, root }) {
     const {
       form,
       addresses: addressList,
@@ -113,7 +113,7 @@ export default {
         form.value = addressForm.value;
         closeForm();
         await emit('update-address', { ...form.value });
-        router.push(path);
+        router.push(root.localePath(path));
       }
     };
 
@@ -148,5 +148,8 @@ export default {
 }
 .buttons {
   display: flex;
+}
+.update-button {
+  margin-right: var(--spacer-sm);
 }
 </style>
