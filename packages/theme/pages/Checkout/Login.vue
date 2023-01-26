@@ -5,7 +5,7 @@
       :value="{}"
       :buttonText="$t('Log into your account')"
       :logInInfo="$t('or fill the details below')"
-      :headingTitle="$t('Personal details')"
+      :headingTitle="$t('User data')"
       :headingTitleLevel="2"
       :inputsLabels="[$t('First name'),$t('Last name'),$t('Your email')]"
       :additionalDetails="$t('Enjoy your free account')"
@@ -89,6 +89,7 @@ export default {
     };
 
     return {
+      user,
       router,
       isAuthenticated,
       isLoginModalOpen,
