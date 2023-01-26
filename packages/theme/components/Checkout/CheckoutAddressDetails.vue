@@ -116,6 +116,7 @@ export default {
         emit('update-address', { ...form.value });
       }
     };
+    console.log('test');
 
     const deleteAddress = (address) => {
       resetForm(address);
