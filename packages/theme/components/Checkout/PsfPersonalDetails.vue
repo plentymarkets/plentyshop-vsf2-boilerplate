@@ -21,7 +21,7 @@
     <div class="form">
       <slot
         name="form"
-        v-bind="{ inputsLabels, additionalDetails, characteristics }"
+        v-bind="{ characteristics }"
       >
         <!-- <SfInput
             v-model="personalDetails.firstName"
@@ -53,7 +53,7 @@
                 v-model="personalDetails.email"
                 v-e2e="'register-mail-input'"
                 :value="personalDetails.email"
-                :label="inputsLabels[2]"
+                :label="$t('PsfPersonalDetails.Email')"
                 name="registerMail"
                 class="form__element"
                 required
