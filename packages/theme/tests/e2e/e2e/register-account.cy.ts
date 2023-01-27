@@ -20,13 +20,12 @@ const uniquePlentyMarketsEmail = (email: string): string => {
 context('Register account', () => {
   beforeEach(function init () {
     page.home.visit();
+    page.home.header.openAccount();
+    page.home.header.openRegistrationButton.click();
+    page.home.header.accountModalForm.find('button[type=submit]').as('submit');
   });
 
   it(['exceptionPath', 'regression'], 'Fails due to missing data or wrongfully formatted email', function test() {
-    page.home.header.openAccount();
-
-    page.home.header.accountModalForm.find('button[type=submit]').as('submit');
-
     cy.get('@submit').click();
     page.home.header.accountModalForm.contains('This field is required');
 
@@ -38,17 +37,14 @@ context('Register account', () => {
   });
 
   it(['happyPath', 'regression'], 'Should register an new account', function test() {
-    page.home.header.openAccount();
-
-    page.home.header.accountModalForm.find('button[type=submit]').as('submit');
+    cy.intercept('/api/plentymarkets/registerUser').as('registerUser');
+    cy.intercept('/api/plentymarkets/loginUser').as('loginUser');
 
     page.home.header.accountModalForm.find('input#email').clear().type(uniquePlentyMarketsEmail(CYPRESS_DEFAULT_ACCOUNT_EMAIL), { force: true });
     page.home.header.accountModalForm.find('input#password').clear().type(CYPRESS_DEFAULT_ACCOUNT_PASSWORD, { force: true });
 
-    cy.intercept('/api/plentymarkets/registerUser').as('networkRequests');
     cy.get('@submit').click();
-    cy.wait('@networkRequests').its('response.statusCode').should('eq', 200);
-
+    cy.wait(['@registerUser', '@loginUser']);
     cy.visit('/my-account');
     cy.get('body').contains('My Account');
   });
