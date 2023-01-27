@@ -1,30 +1,32 @@
 <template>
-  <div class="sf-header__navigation desktop" v-if="!isMobile">
-    <SfHeaderNavigationItem
-      v-for="(category, index) in categoryTree"
-      :key="index"
-      class="nav-item"
-      v-e2e="`app-header-url_${category.slug}`"
-      :label="category.label"
-      :link="localePath(`/c/${category.slug}`)"
-    />
+  <div>
+    <div class="sf-header__navigation desktop-only">
+      <SfHeaderNavigationItem
+        v-for="(category, index) in categoryTree"
+        :key="index"
+        class="nav-item"
+        v-e2e="`app-header-url_${category.slug}`"
+        :label="category.label"
+        :link="localePath(`/c/${category.slug}`)"
+      />
+    </div>
+    <SfModal class="smartphone-only" :visible="isMobileMenuOpen">
+      <SfHeaderNavigationItem
+        v-for="(category, index) in categoryTree"
+        :key="index"
+        class="nav-item"
+        v-e2e="`app-header-url_${category.slug}`"
+      >
+        <template #mobile-navigation-item>
+          <SfMenuItem
+            :label="category.label"
+            class="sf-header-navigation-item__menu-item"
+            @click="routeToCategory(category)"
+          />
+        </template>
+      </SfHeaderNavigationItem>
+    </SfModal>
   </div>
-  <SfModal v-else :visible="isMobileMenuOpen">
-    <SfHeaderNavigationItem
-      v-for="(category, index) in categoryTree"
-      :key="index"
-      class="nav-item"
-      v-e2e="`app-header-url_${category.slug}`"
-    >
-      <template #mobile-navigation-item>
-        <SfMenuItem
-          :label="category.label"
-          class="sf-header-navigation-item__menu-item"
-          @click="routeToCategory(category)"
-        />
-      </template>
-    </SfHeaderNavigationItem>
-  </SfModal>
 </template>
 
 <script>
