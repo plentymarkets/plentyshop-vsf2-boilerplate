@@ -61,6 +61,20 @@
                   :errorMessage="errors[0]"
                   @input="updateField('email', $event)"
                 />
+                <SfInput
+                  v-if='createAccount'
+                  v-model="personalDetails.password"
+                  :has-show-password="true"
+                  name="registerPassword"
+                  type="password"
+                  :label="createAccountInputLabel"
+                  class="form__element"
+                  required
+                  data-e2e="create-password-input"
+                  :valid="!errors[0]"
+                  :errorMessage="errors[0]"
+                  @input="updateField('password', $event)"
+                />
               </ValidationProvider>
             <div class="info">
               <slot
@@ -103,19 +117,6 @@
                   v-slot="{ errors }"
                   slim
                 >
-                  <SfInput
-                    v-model="personalDetails.password"
-                    :has-show-password="true"
-                    name="registerPassword"
-                    type="password"
-                    :label="createAccountInputLabel"
-                    class="form__element"
-                    required
-                    data-e2e="create-password-input"
-                    :valid="!errors[0]"
-                    :errorMessage="errors[0]"
-                    @input="updateField('password', $event)"
-                  />
                 </ValidationProvider>
               </transition>
             </slot>
