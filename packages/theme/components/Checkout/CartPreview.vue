@@ -103,5 +103,6 @@ export default defineComponent({
 .edit-cart-link {
   color: var(--_c-blue-primary);
   cursor: pointer;
+  text-align: right;
 }
 </style>

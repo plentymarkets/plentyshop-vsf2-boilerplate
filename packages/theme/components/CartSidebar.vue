@@ -33,12 +33,13 @@
               >
                 <template #configuration>
                   <div class="collected-product__properties">
-                    <SfProperty
-                      v-for="(attribute, key) in cartGetters.getItemAttributes(product, ['color', 'size'])"
-                      :key="key"
-                      :name="key"
-                      :value="attribute"
-                    />
+                      <!-- TODO -->
+                      <!-- <SfProperty -->
+                      <!--   v-for="(attribute, key) in cartGetters.getItemAttributes(product, ['color', 'size'])" -->
+                      <!--   :key="key" -->
+                      <!--   :name="key" -->
+                      <!--   :value="attribute" -->
+                      <!-- /> -->
                   </div>
                 </template>
                 <template #input>
@@ -82,7 +83,7 @@
             >
               <template #value>
                 <SfPrice
-                  :special="(totals.special !== totals.subtotal) ? $n(totals.special, 'currency') : 0"
+                  :special="$n(totals.subtotal, 'currency')"
                 />
               </template>
             </SfProperty>

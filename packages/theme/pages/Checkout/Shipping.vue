@@ -11,10 +11,13 @@
     </div>
     <div v-if="!sameAsShipping">
       <CheckoutAddressDetails
+        ref="CheckoutAddressDetailsRef"
         class="spacer-top"
+        :type="'shipping'"
         :addresses="shipping"
         :countries="countries"
-        :type="'shipping'"
+        :headingTitle="$t('Shipping details')"
+        :headingTitleLevel="2"
         @set-default-address="setDefaultAddress({ address: $event })"
         @delete-address="deleteAddress({ address: $event })"
         @update-address="addAddress({ address: $event })"
@@ -31,7 +34,7 @@
           <SfButton
             data-e2e="continue-to-payment"
             class="form__action-button"
-            @click="submit"
+            @click="continueToNextStep"
             :disabled="shipping.length <= 0 && !sameAsShipping"
           >
             {{ $t('Shipping.Continue to payment') }}
@@ -57,7 +60,8 @@ export default {
     SfCheckbox,
     CheckoutAddressDetails
   },
-  setup(props, context) {
+  setup(props, {root}) {
+    const CheckoutAddressDetailsRef = ref(null);
     const sameAsShipping = ref(false);
     const router = useRouter();
     const { load, loading: loadingBilling, shipping, setDefaultAddress, deleteAddress, addAddress } = useUserShipping();
@@ -72,15 +76,23 @@ export default {
       await loadActiveShippingCountries();
     });
 
-    const submit = async () => {
+    const continueToNextStep = async () => {
+
       if (sameAsShipping.value) {
         await addAddress({address: false});
+        router.push(root.localePath({name: 'payment' }));
       }
-      router.push(context.root.localePath('payment'));
+
+      if (CheckoutAddressDetailsRef.value.inCreateState) {
+        CheckoutAddressDetailsRef.value.submit('/checkout/payment');
+      } else {
+        router.push(root.localePath({name: 'payment' }));
+      }
     };
 
     return {
-      submit,
+      CheckoutAddressDetailsRef,
+      continueToNextStep,
       sameAsShipping,
       setDefaultAddress,
       deleteAddress,

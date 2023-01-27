@@ -40,9 +40,9 @@ context('Order placement', () => {
 
     page.checkout.billing.url();
     page.checkout.billing.fillForm(data.customer);
-    page.checkout.billing.createAddress.click();
-    cy.wait(['@saveAddress', '@loadAddresses']);
+    // page.checkout.billing.createAddress.click();
     page.checkout.billing.continueToShipping.click();
+    cy.wait(['@saveAddress']);
 
     cy.get('[data-e2e*="copy-address"]').click();
 
