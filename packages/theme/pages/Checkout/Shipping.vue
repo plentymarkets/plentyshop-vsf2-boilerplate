@@ -23,6 +23,15 @@
         @update-address="addAddress({ address: $event })"
       />
     </div>
+
+    <div v-if="sameAsShipping">
+      <AddressInputForm
+          ref="SameAsShippingFormRef"
+          :form="sameAsShippingForm"
+          :type="'shipping'"
+          :countries="countries"
+        ></AddressInputForm>
+    </div>
     <div class="spacer-top buttons">
           <SfButton
             class="sf-button color-secondary form__back-button"
@@ -35,7 +44,7 @@
             data-e2e="continue-to-payment"
             class="form__action-button"
             @click="continueToNextStep"
-            :disabled="shipping.length <= 0 && !sameAsShipping"
+            :disabled="shipping.length <= 0 && !sameAsShippingForm"
           >
             {{ $t('Continue to payment') }}
           </SfButton>
@@ -46,28 +55,39 @@
 <script>
 import { onSSR } from '@vue-storefront/core';
 import { SfButton, SfCheckbox } from '@storefront-ui/vue';
-import { ref, useRouter, computed } from '@nuxtjs/composition-api';
+import { ref, useRouter, computed, watch } from '@nuxtjs/composition-api';
 import {
   useActiveShippingCountries,
-  useUserShipping
+  useUserShipping,
+  useUserBilling
 } from '@vue-storefront/plentymarkets';
 import CheckoutAddressDetails from '~/components/Checkout/CheckoutAddressDetails';
+import AddressInputForm from '~/components/AddressInputForm';
 
 export default {
   name: 'Shipping',
   components: {
     SfButton,
     SfCheckbox,
-    CheckoutAddressDetails
+    CheckoutAddressDetails,
+    AddressInputForm
   },
-  setup(props, {refs, root}) {
+  setup(props, {root, refs}) {
     const sameAsShipping = ref(false);
     const router = useRouter();
-    const { load, loading: loadingBilling, shipping, setDefaultAddress, deleteAddress, addAddress } = useUserShipping();
+    const { load, loading: loadingShipping, shipping, setDefaultAddress, deleteAddress, addAddress } = useUserShipping();
     const { load: loadActiveShippingCountries, loading: loadingCountries, result: countries } = useActiveShippingCountries();
+    const { load: loadBilling, loading: loadingBilling, billing } = useUserBilling();
+
+    const sameAsShippingForm = computed(() => {
+      if (!billing.value.length) {
+        return {};
+      }
+      return billing?.value.find((billingAddress) => billingAddress.primary) || billing?.value[0];
+    });
 
     const loading = computed(() => {
-      return loadingBilling.value && loadingCountries.value;
+      return loadingBilling.value || loadingCountries.value || loadingShipping.value;
     });
 
     onSSR(async () => {
@@ -75,11 +95,21 @@ export default {
       await loadActiveShippingCountries();
     });
 
+    watch(sameAsShipping, async () => {
+      if (sameAsShipping) {
+        await loadBilling();
+      }
+    });
+
     const continueToNextStep = async () => {
 
       if (sameAsShipping.value) {
-        await addAddress({address: false});
-        router.push(root.localePath({name: 'payment' }));
+        const valid = await refs.SameAsShippingFormRef.validate();
+        if (valid) {
+          await addAddress({address: sameAsShippingForm.value });
+          router.push(root.localePath({name: 'payment' }));
+        }
+        return;
       }
 
       if (refs.CheckoutAddressDetailsRef.inCreateState) {
@@ -90,6 +120,7 @@ export default {
     };
 
     return {
+      sameAsShippingForm,
       continueToNextStep,
       sameAsShipping,
       setDefaultAddress,
@@ -98,7 +129,8 @@ export default {
       router,
       shipping,
       countries,
-      loading
+      loading,
+      billing
     };
   }
 };
