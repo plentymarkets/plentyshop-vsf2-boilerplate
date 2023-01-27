@@ -1,19 +1,19 @@
 <template>
-  <div class="sf-personal-details">
-    <!-- <div class="log-in">
-        <slot name="log-in" v-bind="{ buttonText, logInInfo }">
+    <div class="sf-personal-details">
+      <!-- <div class="log-in">
+        <slot name="log-in">
           <SfButton
             class="log-in__button sf-button--full-width color-secondary"
             data-testid="login-button"
             @click="$emit('log-in')"
-            >{{ buttonText }}</SfButton
+            >{{ $t('PsfPersonalDetails.Log in now') }}</SfButton
           >
-          <p class="log-in__info">{{ logInInfo }}</p>
+          <p class="log-in__info">{{ $t('PsfPersonalDetails.or fill in the details below:') }}</p>
         </slot>
       </div> -->
-    <slot name="heading" v-bind="{ headingTitle, headingTitleLevel }">
+    <slot name="heading" v-bind="{ headingTitleLevel }">
       <SfHeading
-        :title="headingTitle"
+        :title="$t('PsfPersonalDetails.User data')"
         :level="headingTitleLevel"
         class="sf-heading--left sf-heading--no-underline title"
       />
@@ -26,7 +26,7 @@
         <!-- <SfInput
             v-model="personalDetails.firstName"
             :value="firstName"
-            :label="inputsLabels[0]"
+            :label="$t('PsfPersonalDetails.First name')"
             name="firstName"
             class="form__element form__element--half"
             required
@@ -35,7 +35,7 @@
           <SfInput
             v-model="personalDetails.lastName"
             :value="lastName"
-            :label="inputsLabels[1]"
+            :label="$t('PsfPersonalDetails.Last name')"
             name="lastName"
             class="form__element form__element--half form__element--half-even"
             required
@@ -65,15 +65,15 @@
             <div class="info">
               <slot
                 name="additional-info"
-                v-bind="{ additionalDetails, characteristics }"
+                v-bind="{ characteristics }"
               >
                 <!-- <p class="info__heading">
-                  {{ additionalDetails }}
+                  {{ $t('PsfPersonalDetails.Enjoy these perks with your free account!') }}
                 </p> -->
                 <!-- <SfCharacteristic
                   v-for="(characteristic, key) in characteristics"
                   :key="key"
-                  :description="characteristic.description"
+                  :description="$t('PsfPersonalDetails.' + characteristic.description)"
                   :icon="characteristic.icon"
                   :size-icon="characteristic.size"
                   class="info__characteristic"
@@ -83,15 +83,13 @@
             <slot
               name="create-account"
               v-bind="{
-                createAccountCheckboxLabel,
                 transition,
-                createAccountInputLabel,
               }"
             >
               <SfCheckbox
                 v-model="createAccount"
                 name="createAccount"
-                :label="createAccountCheckboxLabel"
+                :label="$t('PsfPersonalDetails.I want to create an account')"
                 class="form__checkbox"
                 data-e2e="create-account-checkbox"
                 @change="$emit('create-account', createAccount)"
@@ -109,7 +107,7 @@
                     :has-show-password="true"
                     name="registerPassword"
                     type="password"
-                    :label="createAccountInputLabel"
+                    :label="$t('PsfPersonalDetails.Create password')"
                     class="form__element"
                     required
                     data-e2e="create-password-input"
@@ -167,29 +165,9 @@ export default {
       type: Object,
       default: () => ({})
     },
-    buttonText: {
-      type: String,
-      default: 'Log into your account'
-    },
-    logInInfo: {
-      type: String,
-      default: 'or fill the details below:'
-    },
-    headingTitle: {
-      type: String,
-      default: 'Personal details'
-    },
     headingTitleLevel: {
       type: Number,
       default: 2
-    },
-    inputsLabels: {
-      type: Array,
-      default: () => ['First name', 'Last name', 'Your email']
-    },
-    additionalDetails: {
-      type: String,
-      default: 'Enjoy these perks with your free account!'
     },
     characteristics: {
       type: Array,
@@ -219,14 +197,6 @@ export default {
     transition: {
       type: String,
       default: 'sf-fade'
-    },
-    createAccountCheckboxLabel: {
-      type: String,
-      default: 'I want to create an account'
-    },
-    createAccountInputLabel: {
-      type: String,
-      default: 'Create Password'
     }
   },
   setup(props, context) {

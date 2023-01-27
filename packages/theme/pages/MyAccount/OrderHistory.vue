@@ -1,6 +1,6 @@
 <template>
   <SfTabs :open-tab="1">
-    <SfTab :title="$t('My orders')">
+    <SfTab :title="$t('OrderHistory.My orders')">
       <div v-if="currentOrder">
         <SfButton class="sf-button--text all-orders" @click="currentOrder = null">All Orders</SfButton>
         <div class="highlighted highlighted--total">
@@ -27,9 +27,9 @@
         </div>
         <SfTable class="products">
           <SfTableHeading>
-            <SfTableHeader class="products__name">{{ $t('Product') }}</SfTableHeader>
-            <SfTableHeader>{{ $t('Quantity') }}</SfTableHeader>
-            <SfTableHeader>{{ $t('Price') }}</SfTableHeader>
+            <SfTableHeader class="products__name">{{ $t('OrderHistory.Product') }}</SfTableHeader>
+            <SfTableHeader>{{ $t('OrderHistory.Quantity') }}</SfTableHeader>
+            <SfTableHeader>{{ $t('OrderHistory.Price') }}</SfTableHeader>
           </SfTableHeading>
           <SfTableRow v-for="(item, i) in orderGetters.getItems(currentOrder)" :key="i">
             <SfTableData class="products__name">
@@ -44,11 +44,11 @@
       </div>
       <div v-else>
         <p class="message">
-          {{ $t('Details and status orders') }}
+          {{ $t('OrderHistory.Details and order status') }}
         </p>
         <div v-if="totalOrders === 0" class="no-orders">
-          <p class="no-orders__title">{{ $t('You currently have no orders') }}</p>
-          <SfButton class="no-orders__button">{{ $t('Start shopping') }}</SfButton>
+          <p class="no-orders__title">{{ $t('OrderHistory.You currently have no orders') }}</p>
+          <SfButton class="no-orders__button">{{ $t('OrderHistory.Start shopping') }}</SfButton>
         </div>
         <SfTable v-else class="orders">
           <SfTableHeading>
@@ -67,7 +67,7 @@
             </SfTableData>
             <SfTableData class="orders__view orders__element--right">
               <SfButton class="sf-button--text desktop-only" @click="currentOrder = order">
-                {{ $t('View details') }}
+                {{ $t('OrderHistory.View details') }}
               </SfButton>
             </SfTableData>
           </SfTableRow>
@@ -81,10 +81,10 @@
             :visible="5"
           />
         </LazyHydrate>
-        <p>{{ $t('Total orders') }} - {{ totalOrders }}</p>
+        <p>{{ $t('OrderHistory.Total orders') }} - {{ totalOrders }}</p>
       </div>
     </SfTab>
-    <SfTab :title="$t('Returns')">
+    <SfTab :title="$t('OrderHistory.Returns')">
       <p class="message">
         This feature is not implemented yet! Please take a look at
         <br />
@@ -135,12 +135,11 @@ export default {
       await search(query);
     });
 
-    // translations?
     const tableHeaders = [
-      'Order ID',
-      'Order date',
-      'Amount',
-      'Status'
+      'OrderHistory.Order ID',
+      'OrderHistory.Order date',
+      'OrderHistory.Amount',
+      'OrderHistory.Status'
     ];
 
     const getStatusTextClass = (order) => {

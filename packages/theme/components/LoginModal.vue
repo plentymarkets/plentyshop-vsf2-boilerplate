@@ -24,7 +24,7 @@
                 :valid="!errors[0]"
                 :errorMessage="errors[0]"
                 name="email"
-                label="Your email"
+                :label="$t('LoginModal.Email')"
                 class="form__element"
               />
             </ValidationProvider>
@@ -35,7 +35,7 @@
                 :valid="!errors[0]"
                 :errorMessage="errors[0]"
                 name="password"
-                label="Password"
+                :label="$t('LoginModal.Password')"
                 type="password"
                 class="form__element"
               />
@@ -44,7 +44,7 @@
               v-e2e="'login-modal-remember-me'"
               v-model="rememberMe"
               name="remember-me"
-              label="Remember me"
+              :label="$t('LoginModal.Remember me')"
               class="form__element checkbox"
             />
             <div v-if="error.login">
@@ -57,7 +57,7 @@
               :disabled="loading"
             >
               <SfLoader :class="{ loader: loading }" :loading="loading">
-                <div>{{ $t('Login') }}</div>
+                <div>{{ $t('LoginModal.Login') }}</div>
               </SfLoader>
             </SfButton>
           </form>
@@ -67,22 +67,22 @@
             class="sf-button--text"
             @click="setCurrentScreen(SCREEN_FORGOTTEN)"
           >
-            {{ $t('Forgotten password?') }}
+            {{ $t('LoginModal.Forgotten your password?') }}
           </SfButton>
         </div>
         <div class="bottom">
-          <p class="bottom__paragraph">{{ $t('No account') }}</p>
+          <p class="bottom__paragraph">{{ $t('LoginModal.No account') }}</p>
           <SfButton
             data-e2e="open-registration-form"
             class="sf-button--text"
             @click="setCurrentScreen(SCREEN_REGISTER)"
           >
-            {{ $t('Register today') }}
+            {{ $t('LoginModal.Register today') }}
           </SfButton>
         </div>
       </div>
       <div v-else-if="currentScreen === SCREEN_FORGOTTEN">
-        <p>{{ $t('Forgot Password') }}</p>
+        <p>{{ $t('LoginModal.Forgot password') }}</p>
         <ValidationObserver v-slot="{ handleSubmit }" key="log-in">
           <form class="form" @submit.prevent="handleSubmit(handleForgotten)">
             <ValidationProvider rules="required|email" v-slot="{ errors }">
@@ -92,7 +92,7 @@
                 :valid="!errors[0]"
                 :errorMessage="errors[0]"
                 name="email"
-                :label="$t('Forgot Password Modal Email')"
+                :label="$t('LoginModal.Email')"
                 class="form__element"
               />
             </ValidationProvider>
@@ -109,7 +109,7 @@
                 :class="{ loader: forgotPasswordLoading }"
                 :loading="forgotPasswordLoading"
               >
-                <div>{{ $t('Reset Password') }}</div>
+                <div>{{ $t('LoginModal.Reset Password') }}</div>
               </SfLoader>
             </SfButton>
           </form>
@@ -123,7 +123,7 @@
         >
           <span class="thank-you__paragraph--bold">{{ userEmail }}</span>
         </i18n>
-        <p class="thank-you__paragraph">{{ $t('Thank You Inbox') }}</p>
+        <p class="thank-you__paragraph">{{ $t('LoginModal.Thank you inbox') }}</p>
       </div>
       <div v-else class="form">
         <ValidationObserver v-slot="{ handleSubmit }" key="sign-up">
@@ -139,7 +139,7 @@
                 :valid="!errors[0]"
                 :errorMessage="errors[0]"
                 name="email"
-                label="Your email"
+                :label="$t('LoginModal.Email')"
                 class="form__element"
               />
             </ValidationProvider>
@@ -150,7 +150,7 @@
                 :valid="!errors[0]"
                 :errorMessage="errors[0]"
                 name="password"
-                label="Password"
+                :label="$t('LoginModal.Password')"
                 type="password"
                 class="form__element"
               />
@@ -164,12 +164,12 @@
               :disabled="loading"
             >
               <SfLoader :class="{ loader: loading }" :loading="loading">
-                <div>{{ $t('Create an account') }}</div>
+                <div>{{ $t('LoginModal.Create an account') }}</div>
               </SfLoader>
             </SfButton>
           </form>
         </ValidationObserver>
-        <div class="customer-text">{{ $t('or') }}</div>
+        <div class="customer-text">{{ $t('LoginModal.or') }}</div>
         <div class="signin" align="center">
           <a
             data-testid="login-button"
@@ -177,10 +177,10 @@
             @click="setCurrentScreen(SCREEN_LOGIN)"
           >
             <div class="signin-now">
-              {{ $t('Already have an account?') }}
+              {{ $t('LoginModal.Already have an account?') }}
             </div>
             <div>
-              {{ $t('Login now') }}
+              {{ $t('LoginModal.Log in now') }}
             </div>
           </a>
         </div>
@@ -267,11 +267,11 @@ export default {
     const barTitle = computed(() => {
       switch (currentScreen.value) {
         case SCREEN_LOGIN:
-          return 'Sign in';
+          return 'LoginModal.Sign in';
         case SCREEN_REGISTER:
-          return 'Register';
+          return 'LoginModal.Register';
         default:
-          return 'Reset Password';
+          return 'LoginModal.Reset password';
       }
     });
 
@@ -314,7 +314,7 @@ export default {
         return;
       }
 
-      send({ message: app.i18n.t('Login successful'), type: 'success' });
+      send({ message: app.i18n.t('LoginModal.Login successful'), type: 'success' });
       toggleLoginModal();
     };
 

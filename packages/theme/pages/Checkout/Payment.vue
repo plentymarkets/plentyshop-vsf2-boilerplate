@@ -4,7 +4,7 @@
     <VsfPaymentProvider class="spacer" @status="isPaymentReady = true"/>
     <SfTable class="sf-table--bordered table desktop-only">
       <SfTableHeading class="table__row">
-        <SfTableHeader class="table__header table__image">{{ $t('Item') }}</SfTableHeader>
+        <SfTableHeader class="table__header table__image">{{ $t('Payment.Item') }}</SfTableHeader>
         <SfTableHeader
           v-for="tableHeader in tableHeaders"
           :key="tableHeader"
@@ -63,7 +63,7 @@
         <SfCheckbox v-e2e="'terms'" v-model="terms" name="terms" class="summary__terms">
           <template #label>
             <div class="sf-checkbox__label">
-              {{ $t('I agree to') }} <SfLink href="#"> {{ $t('Terms and conditions') }}</SfLink>
+              {{ $t('Payment.I agree to') }} <SfLink href="#"> {{ $t('Payment.Terms and conditions') }}</SfLink>
             </div>
           </template>
         </SfCheckbox>
@@ -74,14 +74,14 @@
             class="sf-button color-secondary summary__back-button"
             @click="router.push(localePath({name: 'shipping' }))"
           >
-            {{ $t('Go back') }}
+            {{ $t('Payment.Go back') }}
           </SfButton>
           <SfButton
             :disabled="loading || !isPaymentReady || !terms"
             class="summary__action-button"
             @click="processOrder"
           >
-            {{ $t('Make an order') }}
+            {{ $t('Payment.Make an order') }}
           </SfButton>
         </div>
       </div>
