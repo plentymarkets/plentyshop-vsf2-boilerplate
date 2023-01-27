@@ -20,8 +20,7 @@
         <SfMenuItem
           :label="category.label"
           class="sf-header-navigation-item__menu-item"
-          :link="localePath(`/c/${category.slug}`)"
-          @click="toggleMobileMenu"
+          @click="routeToCategory(category)"
         />
       </template>
     </SfHeaderNavigationItem>
@@ -33,7 +32,7 @@ import { SfMenuItem, SfModal } from '@storefront-ui/vue';
 import { useUiState } from '~/composables';
 import { categoryGetters, useCategory } from '@vue-storefront/plentymarkets';
 import { onSSR } from '@vue-storefront/core';
-import { computed } from '@nuxtjs/composition-api';
+import { computed, useRouter } from '@nuxtjs/composition-api';
 
 export default {
   name: 'HeaderNavigation',
@@ -47,8 +46,9 @@ export default {
       default: false
     }
   },
-  setup() {
+  setup(props, context) {
     const { isMobileMenuOpen, toggleMobileMenu } = useUiState();
+    const router = useRouter();
     // eslint-disable-next-line prefer-const
     const { categories, search, loading } = useCategory('categories');
     const categoryTree = computed(() => loading && categories.value.map((cat) => categoryGetters.getTree(cat)));
@@ -57,10 +57,16 @@ export default {
       await search({});
     });
 
+    const routeToCategory = (category) => {
+      router.push(context.root.localePath(`/c/${category.slug}`));
+      toggleMobileMenu();
+    };
+
     return {
       categoryTree,
       isMobileMenuOpen,
-      toggleMobileMenu
+      toggleMobileMenu,
+      routeToCategory
     };
   }
 };
