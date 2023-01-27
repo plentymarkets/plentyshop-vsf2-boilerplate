@@ -1,14 +1,14 @@
 <template>
     <div class="sf-personal-details">
       <div class="log-in">
-        <slot name="log-in" v-bind="{ buttonText, logInInfo }">
+        <slot name="log-in">
           <SfButton
             class="log-in__button sf-button--full-width color-secondary"
             data-testid="login-button"
             @click="$emit('log-in')"
-            >{{ buttonText }}</SfButton
+            >{{ $t('PsfPersonalDetails.Log into your account') }}</SfButton
           >
-          <p class="log-in__info">{{ logInInfo }}</p>
+          <p class="log-in__info">{{ $t('PsfPersonalDetails.or fill in the details below:') }}</p>
         </slot>
       </div>
       <slot name="heading" v-bind="{ headingTitleLevel }">
@@ -21,12 +21,12 @@
       <div class="form">
         <slot
           name="form"
-          v-bind="{ inputsLabels, additionalDetails, characteristics }"
+          v-bind="{ characteristics }"
         >
           <!-- <SfInput
             v-model="personalDetails.firstName"
             :value="firstName"
-            :label="inputsLabels[0]"
+            :label="$t('PsfPersonalDetails.First name')"
             name="firstName"
             class="form__element form__element--half"
             required
@@ -35,7 +35,7 @@
           <SfInput
             v-model="personalDetails.lastName"
             :value="lastName"
-            :label="inputsLabels[1]"
+            :label="$t('PsfPersonalDetails.Last name')"
             name="lastName"
             class="form__element form__element--half form__element--half-even"
             required
@@ -53,7 +53,7 @@
                   v-model="personalDetails.email"
                   v-e2e="'register-mail-input'"
                   :value="email"
-                  :label="inputsLabels[2]"
+                  :label="$t('PsfPersonalDetails.Email')"
                   name="registerMail"
                   class="form__element"
                   required
@@ -65,15 +65,15 @@
             <div class="info">
               <slot
                 name="additional-info"
-                v-bind="{ additionalDetails, characteristics }"
+                v-bind="{ characteristics }"
               >
                 <p class="info__heading">
-                  {{ additionalDetails }}
+                  {{ $t('PsfPersonalDetails.Enjoy these perks with your free account!') }}
                 </p>
                 <SfCharacteristic
                   v-for="(characteristic, key) in characteristics"
                   :key="key"
-                  :description="characteristic.description"
+                  :description="$t('PsfPersonalDetails.' + characteristic.description)"
                   :icon="characteristic.icon"
                   :size-icon="characteristic.size"
                   class="info__characteristic"
@@ -159,25 +159,9 @@ export default {
       type: Object,
       default: () => ({})
     },
-    buttonText: {
-      type: String,
-      default: 'Log into your account'
-    },
-    logInInfo: {
-      type: String,
-      default: 'or fill the details below:'
-    },
     headingTitleLevel: {
       type: Number,
       default: 2
-    },
-    inputsLabels: {
-      type: Array,
-      default: () => ['First name', 'Last name', 'Your email']
-    },
-    additionalDetails: {
-      type: String,
-      default: 'Enjoy these perks with your free account!'
     },
     characteristics: {
       type: Array,

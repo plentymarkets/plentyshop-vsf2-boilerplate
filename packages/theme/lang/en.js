@@ -251,8 +251,20 @@ export default {
   // PsfPersonalDetails
   'PsfPersonalDetails': {
     'Create password': 'Create password',
+    'Earn credits with every purchase': 'Earn credits with every purchase',
+    'Email': '@:App.email',
+    'Enjoy these perks with your free account!': 'Enjoy these perks with your free account!',
+    'Faster checkout': 'Faster checkout',
+    'First name': '@:App.firstName',
+    'Full rewards program benefits': 'Full rewards program benefits',
     'I want to create an account': 'I want to create an account',
-    'Personal details': 'Personal details'
+    'Input too short': 'The field should have at least {length} characters',
+    'Last name': '@:App.lastName',
+    'Log into your account': 'Log into your account',
+    'Manage your wishlist': 'Manage your wishlist',
+    'or fill in the details below:': 'or fill in the details below:',
+    'Personal details': 'Personal details',
+    'This field is required': 'This field is required'
   },
   // Product
   'Product': {
