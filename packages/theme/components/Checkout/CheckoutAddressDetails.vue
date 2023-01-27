@@ -1,5 +1,12 @@
 <template>
   <div class="sf-shipping-details">
+    <slot name="heading" v-bind="{ headingTitle, headingTitleLevel }">
+      <SfHeading
+        :title="headingTitle"
+        :level="headingTitleLevel"
+        class="sf-heading--left sf-heading--no-underline title"
+      />
+    </slot>
     <transition :name="transition">
       <div v-if="editAddress || addressList.length <= 0">
         <AddressInputForm
@@ -44,7 +51,7 @@
                             @set-default-address="setDefaultAddress(address)"
                             @change-address="changeAddress(key)"
                             @delete-address="deleteAddress(address)">
-              </AddressCard>
+            </AddressCard>
           </slot>
         </transition-group>
         <SfButton
@@ -59,18 +66,22 @@
   </div>
 </template>
 <script>
-import { SfButton } from '@storefront-ui/vue';
 import { toRef } from '@nuxtjs/composition-api';
 import { useAddressForm } from '@vue-storefront/plentymarkets';
 import AddressInputForm from '~/components/AddressInputForm';
 import AddressCard from '~/components/AddressCard';
+import {
+  SfButton,
+  SfHeading
+} from '@storefront-ui/vue';
 
 export default {
   name: 'CheckoutAddressDetails',
   components: {
     SfButton,
     AddressInputForm,
-    AddressCard
+    AddressCard,
+    SfHeading
   },
   props: {
     addresses: {
@@ -88,6 +99,13 @@ export default {
     type: {
       type: String,
       default: () => 'shipping'
+    },
+    headingTitle: {
+      type: String
+    },
+    headingTitleLevel: {
+      type: Number,
+      default: 2
     }
   },
 
@@ -137,12 +155,17 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import '~@storefront-ui/shared/styles/components/templates/SfShippingDetails.scss';
-.shipping-list {
-  max-height: 40vh;
-  overflow-y: auto;
-}
-.buttons {
-  display: flex;
-}
+  @import '~@storefront-ui/shared/styles/components/templates/SfShippingDetails.scss';
+  .shipping-list {
+    max-height: 40vh;
+    overflow-y: auto;
+  }
+  .buttons {
+    display: flex;
+  }
+  .title {
+    --heading-padding: var(--spacer-xl) 0 var(--spacer-base);
+    --heading-title-font-weight: var(--font-weight--bold);
+    --heading-title-font-size: var(--h3-font-size);
+  }
 </style>
