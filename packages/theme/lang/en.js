@@ -405,6 +405,7 @@ export default {
   'Edit Cart': 'Edit Cart',
   'Shipping details': 'Shipping details',
   'Billing details': 'Billing details',
+  'User data': 'User data',
   'Order as guest': 'Order as guest',
   'Same as shipping address': 'Same as shipping address',
   'Payment method': 'Payment method',

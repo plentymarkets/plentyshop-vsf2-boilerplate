@@ -102,19 +102,6 @@
                   v-slot="{ errors }"
                   slim
                 >
-                  <SfInput
-                    v-model="personalDetails.password"
-                    :has-show-password="true"
-                    name="registerPassword"
-                    type="password"
-                    :label="$t('PsfPersonalDetails.Create password')"
-                    class="form__element"
-                    required
-                    data-e2e="create-password-input"
-                    :valid="!errors[0]"
-                    :errorMessage="errors[0]"
-                    @input="updateField('password', $event)"
-                  />
                 </ValidationProvider>
               </transition>
             </slot>

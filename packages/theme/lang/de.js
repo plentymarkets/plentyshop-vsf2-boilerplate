@@ -140,6 +140,7 @@ export default {
   'Reset Password': 'Passwort Zurücksetzen',
   'Save Password': 'Passwort Speichern',
   'Back to home': 'Zurück Zur Startseite',
+  'User data': 'Benutzerdaten',
   'Forgot Password': 'Wenn Sie Ihr Passwort vergessen haben, können Sie es zurücksetzen.',
   'Thank You Inbox': 'Wenn die Nachricht nicht in Ihrem Posteingang ankommt, versuchen Sie es mit einer anderen E-Mail-Adresse, mit der Sie sich möglicherweise registriert haben.',
   'Sign in': 'Einloggen',
