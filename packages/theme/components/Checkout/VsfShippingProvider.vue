@@ -1,6 +1,6 @@
 <template>
   <div v-if="shippingMethods && shippingMethods.length > 0">
-    <h4>{{ $t("Shipping Method")}}</h4>
+    <h4>{{ $t("VsfShippingProvider.Shipping method")}}</h4>
     <SfRadio
       v-e2e="'shipping-method'"
       v-for="method in shippingMethods"

@@ -9,7 +9,7 @@
         <LazyHydrate never>
           <SfHeading
             :level="3"
-            :title="$t('Categories')"
+            :title="$t('Category.Categories')"
             class="navbar__title" />
         </LazyHydrate>
       </div>
@@ -146,7 +146,7 @@
                   style="margin: 0 0 1rem auto; display: block;"
                   @click="() => {}"
                 >
-                  {{ $t('Save for later') }}
+                  {{ $t('Category.Save for later') }}
                 </SfButton>
               </template>
             </SfProductCardHorizontal>
@@ -167,7 +167,7 @@
             v-show="pagination.totalPages > 1"
             class="products__show-on-page"
           >
-            <span class="products__show-on-page__label">{{ $t('Show on page') }}</span>
+            <span class="products__show-on-page__label">{{ $t('Category.Show on page') }}</span>
             <LazyHydrate on-interaction>
               <SfSelect
                 :value="pagination && pagination.itemsPerPage ? pagination.itemsPerPage.toString() : ''"

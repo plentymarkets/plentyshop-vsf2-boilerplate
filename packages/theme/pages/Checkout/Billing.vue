@@ -17,14 +17,14 @@
         type="button"
         @click="router.push(localePath({ name: 'login' }))"
       >
-        {{ $t('Go back') }}
+        {{ $t('Billing.Go back') }}
       </SfButton>
       <SfButton
         data-e2e="continue-to-shipping"
         class="form__action-button"
         @click="continueToNextStep"
       >
-        {{ $t('Continue to shipping') }}
+        {{ $t('Billing.Continue to shipping') }}
       </SfButton>
     </div>
   </div>

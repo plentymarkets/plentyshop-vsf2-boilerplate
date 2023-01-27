@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4>{{ $t("Payment Method")}}</h4>
+    <h4>{{ $t("VsfPaymentProvider.Payment method")}}</h4>
     <SfRadio
       v-e2e="'payment-method'"
       v-for="method in paymentMethods"

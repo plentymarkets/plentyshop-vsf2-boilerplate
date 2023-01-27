@@ -3,16 +3,16 @@
     <PsfPersonalDetails
       ref="PersonalDetails"
       :value="{}"
-      :buttonText="$t('Log into your account')"
-      :logInInfo="$t('or fill the details below')"
-      :headingTitle="$t('Personal details')"
+      :buttonText="$t('Login.Log into your account')"
+      :logInInfo="$t('Login.or fill in the details below')"
+      :headingTitle="$t('Login.User data')"
       :headingTitleLevel="2"
-      :inputsLabels="[$t('First name'),$t('Last name'),$t('Your email')]"
-      :additionalDetails="$t('Enjoy your free account')"
+      :inputsLabels="[$t('Login.First name'),$t('Login.Last name'),$t('Login.Email')]"
+      :additionalDetails="$t('Login.Enjoy your free account')"
       :characteristics='[{"description":"Faster checkout","icon":"clock","size":"24px"},{"description":"Earn credits with every purchase","icon":"credits","size":"24px"},{"description":"Full rewards program benefits","icon":"rewards","size":"24px"},{"description":"Manage your wishlist","icon":"heart","size":"24px"}]'
       transition="sf-fade"
-      :createAccountCheckboxLabel="$t('I want to create an account')"
-      :createAccountInputLabel="$t('Create Password')"
+      :createAccountCheckboxLabel="$t('Login.I want to create an account')"
+      :createAccountInputLabel="$t('Login.Create password')"
       @input="logInput($event)"
       @create-account='updateCheckbox($event)'
       @log-in="toggleLoginModal()"
@@ -24,7 +24,7 @@
         @click="goToBilling"
         v-if='!createAccountCheckbox'
       >
-      {{ $t('Order as guest') }}
+      {{ $t('Login.Order as guest') }}
     </SfButton>
     <SfButton
       type="button"
@@ -33,7 +33,7 @@
       @click="goToBilling"
       v-if='createAccountCheckbox'
     >
-      {{ $t('Register') }}
+      {{ $t('Login.Register') }}
     </SfButton>
     </div>
 </template>
