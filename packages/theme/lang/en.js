@@ -78,6 +78,7 @@ export default {
   },
   // Billing
   'Billing': {
+    'Billing details': '@:App.billingDetails',
     'Continue to shipping': 'Continue to shipping',
     'Go back': '@:App.goBack',
   },
