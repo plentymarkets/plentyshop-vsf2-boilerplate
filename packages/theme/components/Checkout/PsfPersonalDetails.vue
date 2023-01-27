@@ -13,7 +13,7 @@
       </div>
       <slot name="heading" v-bind="{ headingTitleLevel }">
         <SfHeading
-          :title="$t('PsfPersonalDetails.Personal details')"
+          :title="$t('PsfPersonalDetails.User data')"
           :level="headingTitleLevel"
           class="sf-heading--left sf-heading--no-underline title"
         />
