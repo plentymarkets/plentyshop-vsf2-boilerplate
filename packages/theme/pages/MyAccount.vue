@@ -11,7 +11,7 @@
       class="my-account"
       @click:change="changeActivePage"
     >
-      <SfContentCategory :title="$t('MyAccount.Personal details')">
+      <SfContentCategory :title="$t('MyAccount.User data')">
         <SfContentPage :title="$t('MyAccount.My profile')">
           <ProfileDetails/>
         </SfContentPage>
