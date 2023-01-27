@@ -25,6 +25,11 @@
     </div>
 
     <div v-if="sameAsShipping">
+      <SfHeading
+        :title="$t('Shipping details')"
+        :level="2"
+        class="sf-heading--left sf-heading--no-underline title"
+      />
       <AddressInputForm
           ref="SameAsShippingFormRef"
           :form="sameAsShippingForm"
@@ -54,7 +59,7 @@
 
 <script>
 import { onSSR } from '@vue-storefront/core';
-import { SfButton, SfCheckbox } from '@storefront-ui/vue';
+import { SfButton, SfCheckbox, SfHeading} from '@storefront-ui/vue';
 import { ref, useRouter, computed, watch } from '@nuxtjs/composition-api';
 import {
   useActiveShippingCountries,
@@ -70,7 +75,8 @@ export default {
     SfButton,
     SfCheckbox,
     CheckoutAddressDetails,
-    AddressInputForm
+    AddressInputForm,
+    SfHeading
   },
   setup(props, {root, refs}) {
     const sameAsShipping = ref(false);
@@ -143,5 +149,10 @@ export default {
 .buttons {
   display: flex;
   justify-content: space-between;
+}
+.title {
+  --heading-padding: var(--spacer-xl) 0 var(--spacer-base);
+  --heading-title-font-weight: var(--font-weight--bold);
+  --heading-title-font-size: var(--h3-font-size);
 }
 </style>
