@@ -1,20 +1,19 @@
 <template>
   <SfTabs class="sf-my-profile" :open-tab="1">
-    <SfTab :title="tabsTitles[0]">
+    <SfTab :title="$t('PsfMyProfile.Personal data')">
       <slot
         name="personal-data-description"
-        v-bind="{ personalDataDescription }"
       >
         <p class="message">
-          {{ personalDataDescription }}
+          {{ $t('PsfMyProfile.Feel free to edit any of your details below so your account is always up to date') }}
         </p>
       </slot>
-      <div class="form" v-bind="{ personalInputsLabels, saveButtonText }">
+      <div class="form">
         <slot name="personal-data-form">
           <SfInput
             v-model="firstName"
             name="firstName"
-            :label="personalInputsLabels[0]"
+            :label="$t('PsfMyProfile.First name')"
             required
             disabled
             class="form__element form__element--half"
@@ -22,7 +21,7 @@
           <SfInput
             v-model="lastName"
             name="lastName"
-            :label="personalInputsLabels[1]"
+            :label="$t('PsfMyProfile.Last name')"
             required
             disabled
             class="form__element form__element--half form__element--half-even"
@@ -31,7 +30,7 @@
             v-model="email"
             type="email"
             name="email"
-            :label="personalInputsLabels[2]"
+            :label="$t('PsfMyProfile.Email')"
             required
             disabled
             class="form__element"
@@ -42,7 +41,7 @@
             data-testid="save-changes-button"
             @click="updatePersonal"
           >
-            {{ saveButtonText }}
+            {{ $t('PsfMyProfile.Save changes') }}
           </SfButton>
         </slot>
       </div>
@@ -55,7 +54,7 @@
         </p>
       </slot>
     </SfTab>
-    <SfTab :title="tabsTitles[1]">
+    <SfTab :title="$t('PsfMyProfile.Change password')">
       <slot name="password-change-description">
         <p class="message">
           If you want to change the password to access your account, enter the
@@ -67,13 +66,12 @@
       <div class="form">
         <slot
           name="password-change-form"
-          v-bind="{ passwordInputsLabels, updateButtonText }"
         >
           <SfInput
             v-model="currentPassword"
             type="password"
             name="currentPassword"
-            :label="passwordInputsLabels[0]"
+            :label="$t('PsfMyProfile.Current password')"
             required
             class="form__element"
           />
@@ -81,7 +79,7 @@
             v-model="newPassword"
             type="password"
             name="newPassword"
-            :label="passwordInputsLabels[1]"
+            :label="$t('PsfMyProfile.New password')"
             required
             class="form__element form__element--half"
           />
@@ -89,7 +87,7 @@
             v-model="repeatPassword"
             type="password"
             name="repeatPassword"
-            :label="passwordInputsLabels[2]"
+            :label="$t('PsfMyProfile.Repeat password')"
             required
             class="form__element form__element--half form__element--half-even"
           />
@@ -98,7 +96,7 @@
             data-testid="update-password-button"
             @click="updatePassword"
           >
-            {{ updateButtonText }}
+            {{ $t('PsfMyProfile.Update password') }}
           </SfButton>
         </slot>
       </div>
@@ -115,34 +113,9 @@ export default {
     SfButton
   },
   props: {
-    tabsTitles: {
-      type: Array,
-      default: () => ['Personal data', 'Password change']
-    },
     account: {
       type: Object,
       default: () => ({})
-    },
-    personalInputsLabels: {
-      type: Array,
-      default: () => ['First Name', 'Last Name', 'Your e-mail']
-    },
-    passwordInputsLabels: {
-      type: Array,
-      default: () => ['Current Password', 'New Password', 'Repeat Password']
-    },
-    personalDataDescription: {
-      type: String,
-      default:
-        'Feel free to edit any of your details below so your account is always up to date'
-    },
-    saveButtonText: {
-      type: String,
-      default: 'Save changes'
-    },
-    updateButtonText: {
-      type: String,
-      default: 'Update password'
     }
   },
   data() {

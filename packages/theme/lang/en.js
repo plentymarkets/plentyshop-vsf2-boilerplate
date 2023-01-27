@@ -249,6 +249,20 @@ export default {
     'Make an order': 'Make an order',
     'Payment': 'Payment'
   },
+  // PsfMyProfile
+  'PsfMyProfile': {
+    'Change password': 'Change password',
+    'Current password': 'Current password',
+    'Feel free to edit any of your details below so your account is always up to date': 'Feel free to edit any of your details below so your account is always up to date',
+    'Email': '@:App.email',
+    'First name': '@:App.firstName',
+    'Last name': '@:App.lastName',
+    'New password': 'New password',
+    'Personal data': 'Personal data',
+    'Repeat password': 'Repeat password',
+    'Save changes': 'Save changes',
+    'Update password': 'Update password'
+  },
   // PsfPersonalDetails
   'PsfPersonalDetails': {
     'Create password': 'Create password',
