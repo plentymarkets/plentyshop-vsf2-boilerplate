@@ -33,12 +33,13 @@
               >
                 <template #configuration>
                   <div class="collected-product__properties">
-                    <SfProperty
-                      v-for="(attribute, key) in cartGetters.getItemAttributes(product, ['color', 'size'])"
-                      :key="key"
-                      :name="key"
-                      :value="attribute"
-                    />
+                      <!-- TODO -->
+                      <!-- <SfProperty -->
+                      <!--   v-for="(attribute, key) in cartGetters.getItemAttributes(product, ['color', 'size'])" -->
+                      <!--   :key="key" -->
+                      <!--   :name="key" -->
+                      <!--   :value="attribute" -->
+                      <!-- /> -->
                   </div>
                 </template>
                 <template #input>
