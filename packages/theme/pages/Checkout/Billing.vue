@@ -1,7 +1,6 @@
 <template>
   <div id="billing" v-if="!loading">
     <CheckoutAddressDetails
-      class="spacer-top"
       :type="'billing'"
       :addresses="billing"
       :countries="countries"
