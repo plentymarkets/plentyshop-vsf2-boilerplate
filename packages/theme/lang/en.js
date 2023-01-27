@@ -247,7 +247,6 @@ export default {
     'Terms and conditions': 'Terms and conditions',
     'Go back': '@:App.goBack',
     'Make an order': 'Make an order',
-    'Payment': 'Payment'
   },
   // PsfMyProfile
   'PsfMyProfile': {
@@ -314,7 +313,6 @@ export default {
   },
   // ThankYou
   'ThankYou': {
-    'Allow order notifications': 'Allow order notifications',
     'Feedback': 'Your feedback is important to us. Let us know what we could improve.',
     'Go back to shop': 'Go back to shop',
     'Info after order': 'You can log to your account using e-mail and password defined earlier. On your account you can edit your profile data, check history of transactions, edit subscription to newsletter.',
