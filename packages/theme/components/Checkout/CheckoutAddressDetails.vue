@@ -8,7 +8,7 @@
       />
     </slot>
     <transition :name="transition">
-      <div v-if="editAddress || addressList.length <= 0">
+      <div v-if="inCreateOrEditState">
         <AddressInputForm
           ref="addressForm"
           :form="form"
@@ -39,7 +39,7 @@
         </div>
       </div>
       <div v-else>
-        <transition-group tag="div" :name="transition" class="shipping-list">
+        <transition-group v-if="addressList.length" tag="div" :name="transition" class="shipping-list">
           <slot name="shipping-list">
             <AddressCard v-for="(address, key) in addressList"
               class="shipping"
@@ -141,11 +141,11 @@ export default {
     };
 
     const inEditState = computed(() => editedAddress.value > -1);
-    const inCreateState = computed(() => editedAddress.value === -1);
+    const inCreateOrEditState = computed(() => editAddress.value || addressList.length <= 0);
     return {
       form,
-      inCreateState,
       inEditState,
+      inCreateOrEditState,
       editAddress,
       addressList,
       editedAddress,

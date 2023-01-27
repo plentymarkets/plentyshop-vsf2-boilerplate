@@ -80,9 +80,7 @@ export default {
       if (sameAsShipping.value) {
         await addAddress({address: false});
         router.push(root.localePath({name: 'payment' }));
-      }
-
-      if (refs.CheckoutAddressDetailsRef.inCreateState) {
+      } else if (refs.CheckoutAddressDetailsRef.inCreateOrEditState) {
         refs.CheckoutAddressDetailsRef.submit('/checkout/payment');
       } else {
         router.push(root.localePath({name: 'payment' }));
