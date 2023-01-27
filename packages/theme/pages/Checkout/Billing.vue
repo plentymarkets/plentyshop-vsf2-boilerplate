@@ -66,8 +66,8 @@ export default {
     });
 
     const continueToNextStep = () => {
-      if (refs.CheckoutAddressDetailsRef.inCreateOrEditState) {
-        refs.CheckoutAddressDetailsRef.submit('/checkout/shipping');
+      if (refs.CheckoutAddressDetailsRef.editAddress || refs.CheckoutAddressDetailsRef.addressList.length <= 0) {
+        refs.CheckoutAddressDetailsRef.submit(root.localePath({name: 'shipping'}));
       } else {
         router.push(root.localePath({name: 'shipping'}));
       }

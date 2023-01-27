@@ -107,7 +107,7 @@ export default {
     }
   },
 
-  setup(props, { emit, refs, root }) {
+  setup(props, { emit, refs }) {
     const {
       form,
       addresses: addressList,
@@ -131,7 +131,7 @@ export default {
         form.value = addressForm.value;
         closeForm();
         await emit('update-address', { ...form.value });
-        router.push(root.localePath(path));
+        router.push(path);
       }
     };
 

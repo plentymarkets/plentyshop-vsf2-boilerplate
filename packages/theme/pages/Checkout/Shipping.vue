@@ -81,9 +81,7 @@ export default {
         await addAddress({address: false});
         router.push(root.localePath({name: 'payment' }));
       } else if (refs.CheckoutAddressDetailsRef.inCreateOrEditState) {
-        refs.CheckoutAddressDetailsRef.submit('/checkout/payment');
-      } else {
-        router.push(root.localePath({name: 'payment' }));
+        refs.CheckoutAddressDetailsRef.submit(root.localePath({name: 'payment' }));
       }
     };
 
