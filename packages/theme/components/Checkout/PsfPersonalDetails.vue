@@ -49,20 +49,27 @@
               v-slot="{ errors }"
               slim
             >
-              <SfInput
-                v-model="personalDetails.email"
-                v-e2e="'register-mail-input'"
-                :value="personalDetails.email"
-                :label="$t('PsfPersonalDetails.Email')"
-                name="registerMail"
-                class="form__element"
-                required
-                :valid="!errors[0]"
-                :errorMessage="errors[0]"
-                @input="updateField('email', $event)"
-              />
-              <SfInput
-                  v-if='createAccount'
+                <SfInput
+                  v-model="personalDetails.email"
+                  v-e2e="'register-mail-input'"
+                  :value="email"
+                  :label="$t('PsfPersonalDetails.Email')"
+                  name="registerMail"
+                  class="form__element"
+                  required
+                  :valid="!errors[0]"
+                  :errorMessage="errors[0]"
+                  @input="updateField('email', $event)"
+                />
+              </ValidationProvider>
+              <transition :name="transition">
+                <ValidationProvider v-if="createAccount"
+                  rules="required|min:8"
+                  name="registerPassword"
+                  v-slot="{ errors }"
+                  slim
+                >
+                <SfInput
                   v-model="personalDetails.password"
                   :has-show-password="true"
                   name="registerPassword"
@@ -75,7 +82,8 @@
                   :errorMessage="errors[0]"
                   @input="updateField('password', $event)"
                 />
-            </ValidationProvider>
+                </ValidationProvider>
+              </transition>
             <div class="info">
               <slot
                 name="additional-info"
@@ -108,16 +116,6 @@
                 data-e2e="create-account-checkbox"
                 @change="$emit('create-account', createAccount)"
               />
-              <transition :name="transition">
-                <ValidationProvider
-                  v-if="createAccount"
-                  rules="required|min:8"
-                  name="registerPassword"
-                  v-slot="{ errors }"
-                  slim
-                >
-                </ValidationProvider>
-              </transition>
             </slot>
             <div class="signin">
               <a

@@ -280,8 +280,8 @@ export default {
     'Log in now': '@:App.logInNow',
     'Manage your wishlist': 'Manage your wishlist',
     'or fill in the details below:': 'or fill in the details below:',
-    'User data': '@:App.userData',
-    'This field is required': 'This field is required'
+    'This field is required': 'This field is required',
+    'User data': '@:App.userData'
   },
   // Product
   'Product': {
