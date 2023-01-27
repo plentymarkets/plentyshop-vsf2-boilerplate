@@ -64,7 +64,6 @@
   </div>
 </template>
 <script>
-import { SfButton } from '@storefront-ui/vue';
 import { toRef, useRouter, computed } from '@nuxtjs/composition-api';
 import { useAddressForm } from '@vue-storefront/plentymarkets';
 import AddressInputForm from '~/components/AddressInputForm';
