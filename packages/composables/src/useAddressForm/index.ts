@@ -5,9 +5,8 @@ import { Address } from '@vue-storefront/plentymarkets-api';
 export const useAddressForm = (addresses: Ref<Address[]>): any => {
 
   const editAddress = ref(false);
-  const editedAddress = ref(null);
+  const editedAddress = ref(0);
 
-  // set form to edit state when there are no addresses
   if (addresses.value.length <= 0) {
     editedAddress.value = -1;
   }
