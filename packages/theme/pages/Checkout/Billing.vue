@@ -37,7 +37,7 @@ import {
   SfCheckbox,
   SfIcon
 } from '@storefront-ui/vue';
-import { computed, useRouter, ref } from '@nuxtjs/composition-api';
+import { computed, useRouter } from '@nuxtjs/composition-api';
 import { onSSR } from '@vue-storefront/core';
 import { useActiveShippingCountries, useUserBilling } from '@vue-storefront/plentymarkets';
 import CheckoutAddressDetails from '~/components/Checkout/CheckoutAddressDetails';
@@ -51,9 +51,8 @@ export default {
     SfCheckbox,
     CheckoutAddressDetails
   },
-  setup(props, {root}) {
+  setup(props, {refs, root}) {
     const router = useRouter();
-    const CheckoutAddressDetailsRef = ref(null);
     const { load, loading: loadingBilling, billing, setDefaultAddress, deleteAddress, addAddress } = useUserBilling();
     const { load: loadActiveShippingCountries, loading: loadingCountry, result: countries } = useActiveShippingCountries();
 
@@ -67,15 +66,14 @@ export default {
     });
 
     const continueToNextStep = () => {
-      if (CheckoutAddressDetailsRef.value.inCreateState) {
-        CheckoutAddressDetailsRef.value.submit('/checkout/shipping');
+      if (refs.CheckoutAddressDetailsRef.inCreateState) {
+        refs.CheckoutAddressDetailsRef.submit('/checkout/shipping');
       } else {
         router.push(root.localePath({name: 'shipping'}));
       }
     };
 
     return {
-      CheckoutAddressDetailsRef,
       continueToNextStep,
       setDefaultAddress,
       deleteAddress,
