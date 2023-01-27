@@ -60,8 +60,7 @@ export default {
     SfCheckbox,
     CheckoutAddressDetails
   },
-  setup(props, {root}) {
-    const CheckoutAddressDetailsRef = ref(null);
+  setup(props, {refs, root}) {
     const sameAsShipping = ref(false);
     const router = useRouter();
     const { load, loading: loadingBilling, shipping, setDefaultAddress, deleteAddress, addAddress } = useUserShipping();
@@ -83,15 +82,14 @@ export default {
         router.push(root.localePath({name: 'payment' }));
       }
 
-      if (CheckoutAddressDetailsRef.value.inCreateState) {
-        CheckoutAddressDetailsRef.value.submit('/checkout/payment');
+      if (refs.CheckoutAddressDetailsRef.inCreateState) {
+        refs.CheckoutAddressDetailsRef.submit('/checkout/payment');
       } else {
         router.push(root.localePath({name: 'payment' }));
       }
     };
 
     return {
-      CheckoutAddressDetailsRef,
       continueToNextStep,
       sameAsShipping,
       setDefaultAddress,
