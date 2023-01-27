@@ -4,7 +4,7 @@
       <SfCheckbox
         v-model="sameAsShipping"
         v-e2e="'copy-address'"
-        :label="$t('My billing and shipping address are the same')"
+        :label="$t('Shipping.My billing and shipping address are the same')"
         name="copyShippingAddress"
         class="form__element"
       />
@@ -29,7 +29,7 @@
             type="button"
             @click="router.push(localePath({ name: 'billing' }))"
           >
-            {{ $t('Go back') }}
+            {{ $t('Shipping.Go back') }}
           </SfButton>
           <SfButton
             data-e2e="continue-to-payment"
@@ -37,7 +37,7 @@
             @click="continueToNextStep"
             :disabled="shipping.length <= 0 && !sameAsShipping"
           >
-            {{ $t('Continue to payment') }}
+            {{ $t('Shipping.Continue to payment') }}
           </SfButton>
       </div>
   </div>

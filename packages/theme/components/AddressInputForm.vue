@@ -12,7 +12,7 @@
             <SfInput
               v-e2e="type + '-firstName'"
               v-model="internalForm.firstName"
-              :label="$t('First Name')"
+              :label="$t('AddressInputForm.First name')"
               :name="type + '-firstName'"
               required
               :valid="!errors[0]"
@@ -30,7 +30,7 @@
               v-e2e="type + '-lastName'"
               v-model="internalForm.lastName"
               :name="type + '-lastName'"
-              :label="$t('Last Name')"
+              :label="$t('AddressInputForm.Last name')"
               required
               :valid="!errors[0]"
               :errorMessage="errors[0]"
@@ -47,7 +47,7 @@
               v-e2e="type + '-streetName'"
               v-model="internalForm.streetName"
               :name="type + '-streetName'"
-              :label="$t('Street Name')"
+              :label="$t('AddressInputForm.Street')"
               required
               :valid="!errors[0]"
               :errorMessage="errors[0]"
@@ -64,7 +64,7 @@
               v-e2e="type + '-apartment'"
               v-model="internalForm.apartment"
               :name="type + '-apartment'"
-              :label="$t('House/Apartment number')"
+              :label="$t('AddressInputForm.Address no')"
               required
               class="form__element"
               :valid="!errors[0]"
@@ -81,7 +81,7 @@
               v-e2e="type + '-city'"
               v-model="internalForm.city"
               :name="type + '-city'"
-              :label="$t('City')"
+              :label="$t('AddressInputForm.City')"
               required
               :valid="!errors[0]"
               :errorMessage="errors[0]"
@@ -98,7 +98,7 @@
               :data-e2e="type + '-country'"
               v-model="internalForm.country"
               :name="type + '-country'"
-              :label="$t('Country')"
+              :label="$t('AddressInputForm.Country')"
               required
               :valid="!errors[0]"
               :errorMessage="errors[0]"
@@ -124,7 +124,7 @@
               v-e2e="type + '-zipCode'"
               v-model="internalForm.zipCode"
               :name="type + '-zipCode'"
-              :label="$t('ZIP code')"
+              :label="$t('AddressInputForm.ZIP code')"
               required
               :valid="!errors[0]"
               :errorMessage="errors[0]"
@@ -136,7 +136,7 @@
               :data-e2e="type + '-state'"
               v-model="internalForm.state"
               :name="type + '-state'"
-              :label="$t('State/Province')"
+              :label="$t('AddressInputForm.State/Province')"
               :disabled="states.length <= 0"
               required
               :valid="!errors[0]"
@@ -163,7 +163,7 @@
               v-e2e="type + '-phoneNumber'"
               v-model="internalForm.phoneNumber"
               :name="type + '-phoneNumber'"
-              :label="$t('Phone number')"
+              :label="$t('AddressInputForm.Phone no')"
               required
               :valid="!errors[0]"
               :errorMessage="errors[0]"

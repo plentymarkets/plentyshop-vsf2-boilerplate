@@ -46,25 +46,26 @@ function getGrouped(params: FacetSearchResult<Facet>, criteria?: FacetSearchCrit
 function getSortOptions(params: FacetSearchResult<Facet>): AgnosticSort {
 
   const { app } = useContext();
+  // TODO: Move translations to CategoryPageHeader component.
   const options = [
     {
       id: 'texts.name1_asc',
-      value: app.i18n.t('name-a-z'),
+      value: app.i18n.t('CategoryPageHeader.name-a-z'),
       type: 'sort'
     },
     {
       id: 'texts.name1_desc',
-      value: app.i18n.t('name-z-a'),
+      value: app.i18n.t('CategoryPageHeader.name-z-a'),
       type: 'sort'
     },
     {
       id: 'sorting.price.avg_asc',
-      value: app.i18n.t('price-up'),
+      value: app.i18n.t('CategoryPageHeader.price-up'),
       type: 'sort'
     },
     {
       id: 'sorting.price.avg_desc',
-      value: app.i18n.t('price-down'),
+      value: app.i18n.t('CategoryPageHeader.price-down'),
       type: 'sort'
     }
   ].map(o => ({ ...o, selected: o.id === params.input.sort }));
