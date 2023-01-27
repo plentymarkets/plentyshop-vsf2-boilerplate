@@ -50,7 +50,7 @@
         </SfTab>
       </SfTabs>
       <SfTabs v-else key="address-list" :open-tab="1" class="tab-orphan">
-        <SfTab :title="tabTitle">
+        <SfTab :title="$t('MyAccountAddressDetails.Shipping details')">
           <slot name="shipping-tab-description">
             <p class="message">
               {{ shipingTabDescription }}
@@ -108,10 +108,6 @@ export default {
     type: {
       type: String,
       default: () => 'shipping'
-    },
-    tabTitle: {
-      type: String,
-      default: 'Shipping details'
     },
     transition: {
       type: String,

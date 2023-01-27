@@ -193,6 +193,7 @@ export default {
     'Cancel': '@:App.cancel',
     'Change address': 'Change address',
     'Create address': '@:App.createAddress',
+    'Shipping details': 'Shipping details',
     'Update address': '@:App.updateAddress',
   },
   // MyNewsletter
