@@ -1,5 +1,12 @@
 <template>
   <div class="sf-shipping-details">
+    <slot name="heading" v-bind="{ headingTitle, headingTitleLevel }">
+      <SfHeading
+        :title="headingTitle"
+        :level="headingTitleLevel"
+        class="sf-heading--left sf-heading--no-underline title"
+      />
+    </slot>
     <transition :name="transition">
       <div v-if="editAddress || addressList.length <= 0">
         <AddressInputForm
@@ -62,13 +69,18 @@ import { toRef, useRouter, computed } from '@nuxtjs/composition-api';
 import { useAddressForm } from '@vue-storefront/plentymarkets';
 import AddressInputForm from '~/components/AddressInputForm';
 import AddressCard from '~/components/AddressCard';
+import {
+  SfButton,
+  SfHeading
+} from '@storefront-ui/vue';
 
 export default {
   name: 'CheckoutAddressDetails',
   components: {
     SfButton,
     AddressInputForm,
-    AddressCard
+    AddressCard,
+    SfHeading
   },
   props: {
     addresses: {
@@ -86,6 +98,13 @@ export default {
     type: {
       type: String,
       default: () => 'shipping'
+    },
+    headingTitle: {
+      type: String
+    },
+    headingTitleLevel: {
+      type: Number,
+      default: 2
     }
   },
 
@@ -151,5 +170,10 @@ export default {
 }
 .update-button {
   margin-right: var(--spacer-sm);
+}
+.title {
+  --heading-padding: var(--spacer-xl) 0 var(--spacer-base);
+  --heading-title-font-weight: var(--font-weight--bold);
+  --heading-title-font-size: var(--h3-font-size);
 }
 </style>

@@ -1,11 +1,12 @@
 <template>
   <div id="billing" v-if="!loading">
     <CheckoutAddressDetails
-      class="spacer-top"
       :type="'billing'"
       ref="CheckoutAddressDetailsRef"
       :addresses="billing"
       :countries="countries"
+      :headingTitle="$t('Billing details')"
+      :headingTitleLevel="2"
       @set-default-address="setDefaultAddress({address: $event })"
       @delete-address="deleteAddress({address: $event})"
       @update-address="addAddress({address: $event})"
@@ -88,12 +89,11 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.spacer-top {
-  margin-top: var(--spacer-lg);
-}
-.buttons {
-  display: flex;
-  justify-content: space-between;
-}
-
+  .spacer-top {
+    margin-top: var(--spacer-lg);
+  }
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+  }
 </style>

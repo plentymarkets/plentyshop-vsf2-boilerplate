@@ -1,10 +1,5 @@
 <template>
   <div>
-    <SfHeading
-      :level="3"
-      title="Payment"
-      class="sf-heading--left sf-heading--no-underline title"
-    />
     <VsfShippingProvider class="spacer"/>
     <VsfPaymentProvider class="spacer" @status="isPaymentReady = true"/>
     <SfTable class="sf-table--bordered table desktop-only">
@@ -173,9 +168,6 @@ export default {
 <style lang="scss" scoped>
 .spacer {
   margin: var(--spacer-xl) 0;
-}
-.title {
-  margin: var(--spacer-xl) 0 var(--spacer-base) 0;
 }
 .table {
   margin: 0 0 var(--spacer-base) 0;

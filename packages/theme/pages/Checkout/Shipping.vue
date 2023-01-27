@@ -13,9 +13,11 @@
       <CheckoutAddressDetails
         ref="CheckoutAddressDetailsRef"
         class="spacer-top"
+        :type="'shipping'"
         :addresses="shipping"
         :countries="countries"
-        :type="'shipping'"
+        :headingTitle="$t('Shipping details')"
+        :headingTitleLevel="2"
         @set-default-address="setDefaultAddress({ address: $event })"
         @delete-address="deleteAddress({ address: $event })"
         @update-address="addAddress({ address: $event })"
