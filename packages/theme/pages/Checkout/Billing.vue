@@ -79,6 +79,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+  .spacer-top {
+    margin-top: var(--spacer-lg);
+  }
   .buttons {
     display: flex;
     justify-content: space-between;
