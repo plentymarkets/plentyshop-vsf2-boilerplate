@@ -124,9 +124,9 @@
                 class="signin-link"
                 @click="toggleLoginModal()"
               >
-                {{ $t('Already have an account?') }}
+                {{ $t('PsfPersonalDetails.Already have an account?') }}
                 <span class="signin-now">
-                  {{ $t('Sign in now') }}
+                  {{ $t('PsfPersonalDetails.Log in now') }}
                 </span>
               </a>
             </div>

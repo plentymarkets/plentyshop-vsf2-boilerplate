@@ -265,6 +265,7 @@ export default {
   },
   // PsfPersonalDetails
   'PsfPersonalDetails': {
+    'Already have an account?': 'Already have an account?',
     'Create password': 'Create password',
     'Earn credits with every purchase': 'Earn credits with every purchase',
     'Email': '@:App.email',
