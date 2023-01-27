@@ -8,7 +8,7 @@
       />
     </slot>
     <transition :name="transition">
-      <div v-if="inCreateOrEditState">
+      <div v-if="editAddress.value || addressList.length <= 0">
         <AddressInputForm
           ref="addressForm"
           :form="form"
