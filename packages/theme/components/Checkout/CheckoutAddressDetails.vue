@@ -140,6 +140,7 @@ export default {
       emit('delete-address', address);
     };
 
+    const inCreateOrEditState = computed(() => editAddress.value || addressList?.value.length <= 0);
     const inEditState = computed(() => editedAddress.value > -1);
     const inCreateState = computed(() => editedAddress.value === -1);
     return {
@@ -147,6 +148,7 @@ export default {
       inCreateState,
       inEditState,
       editAddress,
+      inCreateOrEditState,
       addressList,
       editedAddress,
       submit,

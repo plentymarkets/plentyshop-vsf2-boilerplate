@@ -24,6 +24,7 @@ context('Order placement', () => {
     cy.intercept('/api/plentymarkets/preparePayment').as('preparePayment');
     cy.intercept('/api/plentymarkets/saveAddress').as('saveAddress');
     cy.intercept('/api/plentymarkets/saveBillingIsShipping').as('saveBillingIsShipping');
+    cy.intercept('/api/plentymarkets/registerUser').as('registerUser');
 
     // With the current data, the first category does not have items. Therefore, we need to replace the
     // following selector: page.home.header.categories.first().click();
@@ -37,6 +38,7 @@ context('Order placement', () => {
     page.cart.goToCheckoutButton.click();
 
     page.checkout.checkoutlogin.continueAsUser(data.customer);
+    cy.wait('@registerUser');
 
     page.checkout.billing.url();
     page.checkout.billing.fillForm(data.customer);

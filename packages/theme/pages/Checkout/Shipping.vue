@@ -118,7 +118,7 @@ export default {
         return;
       }
 
-      if (refs.CheckoutAddressDetailsRef.inCreateState) {
+      if (refs.CheckoutAddressDetailsRef.inCreateOrEditState) {
         refs.CheckoutAddressDetailsRef.submit('/checkout/payment');
       } else {
         router.push(root.localePath({name: 'payment' }));

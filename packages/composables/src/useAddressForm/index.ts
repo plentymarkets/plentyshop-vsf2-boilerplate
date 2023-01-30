@@ -5,11 +5,7 @@ import { Address } from '@vue-storefront/plentymarkets-api';
 export const useAddressForm = (addresses: Ref<Address[]>): any => {
 
   const editAddress = ref(false);
-  const editedAddress = ref(0);
-
-  if (addresses.value.length <= 0) {
-    editedAddress.value = -1;
-  }
+  const editedAddress = ref(-1);
 
   const formModel: Address = {
     firstName: '',
