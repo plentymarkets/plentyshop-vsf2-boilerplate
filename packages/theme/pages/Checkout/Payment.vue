@@ -70,13 +70,6 @@
 
         <div v-e2e="'payment-summary-buttons'" class="summary__action">
           <SfButton
-            type="button"
-            class="sf-button color-secondary summary__back-button"
-            @click="router.push(localePath({name: 'shipping' }))"
-          >
-            {{ $t('Payment.Go back') }}
-          </SfButton>
-          <SfButton
             :disabled="loading || !isPaymentReady || !terms"
             class="summary__action-button"
             @click="processOrder"
