@@ -80,9 +80,6 @@ export default {
     const shippingAddresses = computed(() => userAddressGetters.getAddresses(shipping.value));
 
     const sameAsShippingForm = computed(() => {
-      if (!userAddressGetters.getAddresses(billing.value).length) {
-        return {};
-      }
       const newAddress = userAddressGetters.getDefault(userAddressGetters.getAddresses(billing.value)) || userAddressGetters.getAddresses(billing.value)[0];
       return userAddressGetters.getAddressWithoutId(newAddress);
     });
