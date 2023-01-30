@@ -22,7 +22,6 @@
                 <SfInput
                   v-model="personalDetails.email"
                   v-e2e="'register-mail-input'"
-                  :value="email"
                   :label="$t('PsfPersonalDetails.Email')"
                   name="registerMail"
                   class="form__element"
@@ -133,8 +132,6 @@ export default {
     const { toggleLoginModal } = useUiState();
 
     const personalDetails = ref({
-      firstName: '',
-      lastName: '',
       email: '',
       password: ''
     });
@@ -147,16 +144,6 @@ export default {
     const updateField = () => {
       context.emit('input', personalDetails.value);
     };
-
-    watch(
-      personalDetails,
-      () => {
-        personalDetails.value.firstName = props.value.firstName;
-        personalDetails.value.lastName = props.value.lastName;
-        personalDetails.value.email = props.value.email;
-      },
-      { immediate: true }
-    );
 
     watch(
       createAccount,
