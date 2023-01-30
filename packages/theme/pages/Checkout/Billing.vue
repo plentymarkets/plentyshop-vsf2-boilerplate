@@ -13,13 +13,6 @@
     />
     <div class="spacer-top buttons">
       <SfButton
-        class="sf-button color-secondary form__back-button"
-        type="button"
-        @click="router.push(localePath({ name: 'login' }))"
-      >
-        {{ $t('Billing.Go back') }}
-      </SfButton>
-      <SfButton
         data-e2e="continue-to-shipping"
         class="form__action-button"
         @click="continueToNextStep"
