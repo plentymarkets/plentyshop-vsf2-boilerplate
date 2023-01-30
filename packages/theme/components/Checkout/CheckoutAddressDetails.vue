@@ -8,7 +8,7 @@
       />
     </slot>
     <transition :name="transition">
-      <div v-if="editAddress || addressList.length <= 0">
+      <div v-if="isFormOpen">
         <AddressInputForm
           ref="addressForm"
           :form="form"
@@ -64,7 +64,7 @@
   </div>
 </template>
 <script>
-import { toRef, useRouter, computed } from '@nuxtjs/composition-api';
+import { toRef, useRouter } from '@nuxtjs/composition-api';
 import { useAddressForm } from '@vue-storefront/plentymarkets';
 import AddressInputForm from '~/components/AddressInputForm';
 import AddressCard from '~/components/AddressCard';
@@ -115,7 +115,9 @@ export default {
       editedAddress,
       changeAddress,
       resetForm,
-      closeForm
+      closeForm,
+      isFormOpen,
+      inEditState
     } = useAddressForm(toRef(props, 'addresses'));
 
     const router = useRouter();
@@ -140,15 +142,11 @@ export default {
       emit('delete-address', address);
     };
 
-    const inCreateOrEditState = computed(() => editAddress.value || addressList?.value.length <= 0);
-    const inEditState = computed(() => editedAddress.value > -1);
-    const inCreateState = computed(() => editedAddress.value === -1);
     return {
       form,
-      inCreateState,
       inEditState,
       editAddress,
-      inCreateOrEditState,
+      isFormOpen,
       addressList,
       editedAddress,
       submit,

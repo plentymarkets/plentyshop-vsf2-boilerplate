@@ -113,7 +113,7 @@ export default {
         return;
       }
 
-      if (refs.CheckoutAddressDetailsRef.inCreateOrEditState) {
+      if (refs.CheckoutAddressDetailsRef.isFormOpen) {
         refs.CheckoutAddressDetailsRef.submit('/checkout/payment');
       } else {
         router.push(root.localePath({name: 'payment' }));
