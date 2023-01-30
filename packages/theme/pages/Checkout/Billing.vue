@@ -59,7 +59,7 @@ export default {
     });
 
     const continueToNextStep = () => {
-      if (refs.CheckoutAddressDetailsRef.inCreateState) {
+      if (refs.CheckoutAddressDetailsRef.isFormOpen) {
         refs.CheckoutAddressDetailsRef.submit('/checkout/shipping');
       } else {
         router.push(root.localePath({name: 'shipping'}));

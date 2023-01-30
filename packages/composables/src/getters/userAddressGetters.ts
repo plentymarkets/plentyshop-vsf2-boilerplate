@@ -101,6 +101,11 @@ function isDefault(address: Address): boolean {
   return address?.primary > 0;
 }
 
+function getAddressWithoutId(address: Address): Address {
+  delete address.id;
+  return address;
+}
+
 export const userAddressGetters: UserAddressGetters = {
   getAddresses,
   getDefault,
@@ -119,5 +124,6 @@ export const userAddressGetters: UserAddressGetters = {
   getTaxNumber,
   getId,
   getApartmentNumber,
-  isDefault
+  isDefault,
+  getAddressWithoutId
 };
