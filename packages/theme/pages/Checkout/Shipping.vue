@@ -14,7 +14,7 @@
         ref="CheckoutAddressDetailsRef"
         class="spacer-top"
         :type="'shipping'"
-        :addresses="shipping"
+        :addresses="shippingAddresses"
         :countries="countries"
         :headingTitle="$t('Shipping details')"
         :headingTitleLevel="2"
@@ -49,7 +49,6 @@
             data-e2e="continue-to-payment"
             class="form__action-button"
             @click="continueToNextStep"
-            :disabled="shipping.length <= 0 && !sameAsShippingForm"
           >
             {{ $t('Shipping.Continue to payment') }}
           </SfButton>
@@ -64,7 +63,8 @@ import { ref, useRouter, computed, watch } from '@nuxtjs/composition-api';
 import {
   useActiveShippingCountries,
   useUserShipping,
-  useUserBilling
+  useUserBilling,
+  userAddressGetters
 } from '@vue-storefront/plentymarkets';
 import CheckoutAddressDetails from '~/components/Checkout/CheckoutAddressDetails';
 import AddressInputForm from '~/components/AddressInputForm';
@@ -84,12 +84,13 @@ export default {
     const { load, loading: loadingShipping, shipping, setDefaultAddress, deleteAddress, addAddress } = useUserShipping();
     const { load: loadActiveShippingCountries, loading: loadingCountries, result: countries } = useActiveShippingCountries();
     const { load: loadBilling, loading: loadingBilling, billing } = useUserBilling();
+    const shippingAddresses = computed(() => userAddressGetters.getAddresses(shipping.value));
 
     const sameAsShippingForm = computed(() => {
-      if (!billing.value.length) {
+      if (!userAddressGetters.getAddresses(billing.value).length) {
         return {};
       }
-      return billing?.value.find((billingAddress) => billingAddress.primary) || billing?.value[0];
+      return userAddressGetters.getDefault(billing.value) || userAddressGetters.getAddresses(billing.value)[0];
     });
 
     const loading = computed(() => {
@@ -126,6 +127,7 @@ export default {
     };
 
     return {
+      shippingAddresses,
       sameAsShippingForm,
       continueToNextStep,
       sameAsShipping,
@@ -133,10 +135,8 @@ export default {
       deleteAddress,
       addAddress,
       router,
-      shipping,
       countries,
-      loading,
-      billing
+      loading
     };
   }
 };
