@@ -1,16 +1,5 @@
 <template>
     <div class="sf-personal-details">
-      <!-- <div class="log-in">
-        <slot name="log-in">
-          <SfButton
-            class="log-in__button sf-button--full-width color-secondary"
-            data-testid="login-button"
-            @click="$emit('log-in')"
-            >{{ $t('PsfPersonalDetails.Log in now') }}</SfButton
-          >
-          <p class="log-in__info">{{ $t('PsfPersonalDetails.or fill in the details below:') }}</p>
-        </slot>
-      </div> -->
     <slot name="heading" v-bind="{ headingTitleLevel }">
       <SfHeading
         :title="$t('PsfPersonalDetails.User data')"
@@ -21,28 +10,9 @@
     <div class="form">
       <slot
         name="form"
-        v-bind="{ characteristics }"
       >
-        <!-- <SfInput
-            v-model="personalDetails.firstName"
-            :value="firstName"
-            :label="$t('PsfPersonalDetails.First name')"
-            name="firstName"
-            class="form__element form__element--half"
-            required
-            @input="updateField('firstName', $event)"
-          />
-          <SfInput
-            v-model="personalDetails.lastName"
-            :value="lastName"
-            :label="$t('PsfPersonalDetails.Last name')"
-            name="lastName"
-            class="form__element form__element--half form__element--half-even"
-            required
-            @input="updateField('lastName', $event)"
-          /> -->
         <ValidationObserver ref="validationObserver">
-          <form v-on:submit.prevent>
+          <form v-on:submit.prevent class="form-width">
             <ValidationProvider
               rules="required|email"
               name="registerMail"
@@ -84,24 +54,6 @@
                 />
                 </ValidationProvider>
               </transition>
-            <div class="info">
-              <slot
-                name="additional-info"
-                v-bind="{ characteristics }"
-              >
-                <!-- <p class="info__heading">
-                  {{ $t('PsfPersonalDetails.Enjoy these perks with your free account!') }}
-                </p> -->
-                <!-- <SfCharacteristic
-                  v-for="(characteristic, key) in characteristics"
-                  :key="key"
-                  :description="$t('PsfPersonalDetails.' + characteristic.description)"
-                  :icon="characteristic.icon"
-                  :size-icon="characteristic.size"
-                  class="info__characteristic"
-                /> -->
-              </slot>
-            </div>
             <slot
               name="create-account"
               v-bind="{
@@ -118,13 +70,11 @@
               />
             </slot>
             <div class="signin">
-              <a
-                data-testid="login-button"
-                class="signin-link"
+              <a data-testid="login-button"
                 @click="toggleLoginModal()"
               >
                 {{ $t('PsfPersonalDetails.Already have an account?') }}
-                <span class="signin-now">
+                <span class="sf-link text-primary">
                   {{ $t('PsfPersonalDetails.Log in now') }}
                 </span>
               </a>
@@ -140,8 +90,7 @@ import {
   SfInput,
   SfCheckbox,
   SfButton,
-  SfHeading,
-  SfCharacteristic
+  SfHeading
 } from '@storefront-ui/vue';
 import { ref, watch} from '@nuxtjs/composition-api';
 import { useUiState } from '~/composables';
@@ -155,7 +104,6 @@ export default {
     SfCheckbox,
     SfButton,
     SfHeading,
-    SfCharacteristic,
     ValidationProvider,
     ValidationObserver
   },
@@ -167,31 +115,6 @@ export default {
     headingTitleLevel: {
       type: Number,
       default: 2
-    },
-    characteristics: {
-      type: Array,
-      default: () => [
-        {
-          description: 'Faster checkout',
-          icon: 'clock',
-          size: '24px'
-        },
-        {
-          description: 'Earn credits with every purchase',
-          icon: 'credits',
-          size: '24px'
-        },
-        {
-          description: 'Full rewards program benefits',
-          icon: 'rewards',
-          size: '24px'
-        },
-        {
-          description: 'Manage your wishlist',
-          icon: 'heart',
-          size: '24px'
-        }
-      ]
     },
     transition: {
       type: String,
@@ -259,13 +182,15 @@ export default {
 <style lang="scss" scoped>
   @import "~@storefront-ui/shared/styles/components/templates/SfPersonalDetails.scss";
   .signin {
-    margin-bottom: 20px;
-    cursor: pointer;
+    margin-bottom: var(--spacer-lg);
+    .sf-link{
+      cursor: pointer;
+    }
   }
-  .signin-link {
-    text-decoration: none;
-  }
-  .signin-now {
-    color: rgb(0, 112, 0);
+  @include for-desktop {
+    .form-width {
+      // width comes from /shared/styles/components/templates/SfPersonalDetails.scss
+      width: 37.5rem;
+    }
   }
 </style>

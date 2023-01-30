@@ -9,7 +9,6 @@
       :headingTitleLevel="2"
       :inputsLabels="[$t('Login.First name'),$t('Login.Last name'),$t('Login.Email')]"
       :additionalDetails="$t('Login.Enjoy your free account')"
-      :characteristics='[{"description":"Faster checkout","icon":"clock","size":"24px"},{"description":"Earn credits with every purchase","icon":"credits","size":"24px"},{"description":"Full rewards program benefits","icon":"rewards","size":"24px"},{"description":"Manage your wishlist","icon":"heart","size":"24px"}]'
       transition="sf-fade"
       :createAccountCheckboxLabel="$t('Login.I want to create an account')"
       :createAccountInputLabel="$t('Login.Create password')"
