@@ -153,6 +153,7 @@ export default {
     'Last name': '@:App.lastName',
     'Order as guest': 'Order as guest',
     'Personal details': 'Personal details',
+    'User data': 'User data',
     'Register': '@:App.register',
     'Email': '@:App.email',
   },
@@ -277,8 +278,8 @@ export default {
     'Log into your account': 'Log into your account',
     'Manage your wishlist': 'Manage your wishlist',
     'or fill in the details below:': 'or fill in the details below:',
-    'Personal details': 'Personal details',
-    'This field is required': 'This field is required'
+    'This field is required': 'This field is required',
+    'User data': 'User data'
   },
   // Product
   'Product': {

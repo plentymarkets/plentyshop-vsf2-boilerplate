@@ -13,7 +13,7 @@
       </div>
       <slot name="heading" v-bind="{ headingTitleLevel }">
         <SfHeading
-          :title="$t('PsfPersonalDetails.Personal details')"
+          :title="$t('PsfPersonalDetails.User data')"
           :level="headingTitleLevel"
           class="sf-heading--left sf-heading--no-underline title"
         />
@@ -61,8 +61,15 @@
                   :errorMessage="errors[0]"
                   @input="updateField('email', $event)"
                 />
+              </ValidationProvider>
+              <transition :name="transition">
+                <ValidationProvider v-if="createAccount"
+                  rules="required|min:8"
+                  name="registerPassword"
+                  v-slot="{ errors }"
+                  slim
+                >
                 <SfInput
-                  v-if='createAccount'
                   v-model="personalDetails.password"
                   :has-show-password="true"
                   name="registerPassword"
@@ -75,7 +82,8 @@
                   :errorMessage="errors[0]"
                   @input="updateField('password', $event)"
                 />
-              </ValidationProvider>
+                </ValidationProvider>
+              </transition>
             <div class="info">
               <slot
                 name="additional-info"
@@ -108,15 +116,6 @@
                 data-e2e="create-account-checkbox"
                 @change="$emit('create-account', createAccount)"
               />
-              <transition :name="transition">
-                <ValidationProvider v-if="createAccount"
-                  rules="required|min:8"
-                  name="registerPassword"
-                  v-slot="{ errors }"
-                  slim
-                >
-                </ValidationProvider>
-              </transition>
             </slot>
             </form>
           </ValidationObserver>
