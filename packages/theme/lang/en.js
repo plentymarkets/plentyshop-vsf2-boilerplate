@@ -138,9 +138,24 @@ export default {
   },
   // Home
   'Home': {
-    'Subscribe': 'Subscribe',
+    'Cocktail & Party': 'Cocktail & Party',
+    'Cocktail dresses and party dresses': `Find stunning women's cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses from all your favorite brands.`,
+    'Colorful summer dresses are already in store': 'Colorful summer dresses are already in store',
+    'Cream Beach Bag': 'Cream Beach Bag',
+    'Cream Beach Bag 2': 'Cream Beach Bag 2',
+    'Cream Beach Bag 3': 'Cream Beach Bag 3',
+    'Cream Beach Bag RR': 'Cream Beach Bag RR',
+    'Dresses': 'Dresses',
+    'Eco Sandals': 'Eco Sandals',
+    'Linen Dresses': 'Linen Dresses',
     'See all': 'See all',
-    'Special gifts and events': 'Be aware of upcoming sales and events. Receive gifts and special offers!'
+    'Shop now': 'Shop now',
+    'Special gifts and events': 'Be aware of upcoming sales and events. Receive gifts and special offers!',
+    'Subscribe': 'Subscribe',
+    'SUMMER COLLECTION 2019': 'SUMMER COLLECTION 2019',
+    'Summer Sandals': 'Summer Sandals',
+    'T-Shirts': 'T-Shirts',
+    'The Office Life': 'The Office Life'
   },
   // Login
   'Login': {
