@@ -83,7 +83,8 @@ export default {
       if (!userAddressGetters.getAddresses(billing.value).length) {
         return {};
       }
-      return userAddressGetters.getDefault(billing.value) || userAddressGetters.getAddresses(billing.value)[0];
+      const newAddress = userAddressGetters.getDefault(userAddressGetters.getAddresses(billing.value)) || userAddressGetters.getAddresses(billing.value)[0];
+      return userAddressGetters.getAddressWithoutId(newAddress);
     });
 
     const loading = computed(() => {

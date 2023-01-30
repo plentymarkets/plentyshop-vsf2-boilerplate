@@ -603,6 +603,7 @@ export interface UserAddressGetters {
   getId: (address: Address) => string | number;
   getApartmentNumber: (address: Address) => string | number;
   isDefault: (address: Address) => boolean;
+  getAddressWithoutId(address: Address): Address;
 }
 
 export interface CountryGetters {
