@@ -1,24 +1,24 @@
 <template>
   <div>
     <div class="highlighted top-items">
-      <SfHeading :level="3" :title="$t('Order summary')" class="sf-heading--left sf-heading--no-underline title" />
-      <a class="notice__link edit-cart-link" link="#" @click.stop.prevent="toggleCartSidebar">{{ $t('Edit Cart') }}</a>
+      <SfHeading :level="3" :title="$t('CartPreview.Order summary')" class="sf-heading--left sf-heading--no-underline title" />
+      <a class="notice__link edit-cart-link" @click='toggleCartSidebar'>{{ $t('CartPreview.Edit cart') }}</a>
     </div>
     <div class="highlighted">
-      <SfProperty :name="$t('Products')" :value="totalItems"
+      <SfProperty :name="$t('CartPreview.Products')" :value="totalItems"
                   class="sf-property--full-width sf-property--large property" />
-      <SfProperty :name="$t('Subtotal')" :value="$n(totals.subtotal, 'currency')"
+      <SfProperty :name="$t('CartPreview.Subtotal')" :value="$n(totals.subtotal, 'currency')"
                   :class="['sf-property--full-width', 'sf-property--large property']" />
-      <SfProperty v-if="totals.rebate" :name="$t('Discount')" :value="$n(totals.rebate, 'currency')"
+      <SfProperty v-if="totals.rebate" :name="$t('CartPreview.Discount')" :value="$n(totals.rebate, 'currency')"
                   class="sf-property--full-width sf-property--small property" />
       <!--      <SfProperty-->
       <!--        v-if="selectedShippingMethod"-->
-      <!--        :name="$t('Shipping')"-->
+      <!--        :name="$t('CartPreview.Shipping')"-->
       <!--        :value="0"-->
       <!--        class="sf-property&#45;&#45;full-width sf-property&#45;&#45;large property"-->
       <!--      />-->
 
-      <SfProperty :name="$t('Total')" :value="$n(totals.total, 'currency')"
+      <SfProperty :name="$t('CartPreview.Total')" :value="$n(totals.total, 'currency')"
                   class="sf-property--full-width sf-property--large property-total" />
     </div>
   </div>

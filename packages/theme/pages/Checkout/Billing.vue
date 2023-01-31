@@ -2,9 +2,10 @@
   <div id="billing" v-if="!loading">
     <CheckoutAddressDetails
       :type="'billing'"
+      ref="CheckoutAddressDetailsRef"
       :addresses="billing"
       :countries="countries"
-      :headingTitle="$t('Billing details')"
+      :headingTitle="$t('Billing.Billing details')"
       :headingTitleLevel="2"
       @set-default-address="setDefaultAddress({address: $event })"
       @delete-address="deleteAddress({address: $event})"
@@ -12,19 +13,11 @@
     />
     <div class="spacer-top buttons">
       <SfButton
-        class="sf-button color-secondary form__back-button"
-        type="button"
-        @click="router.push(localePath({ name: 'login' }))"
-      >
-        {{ $t('Go back') }}
-      </SfButton>
-      <SfButton
         data-e2e="continue-to-shipping"
         class="form__action-button"
-        @click="router.push(localePath({ name: 'shipping' }))"
-        :disabled="(billing.length <= 0)"
+        @click="continueToNextStep"
       >
-        {{ $t('Continue to shipping') }}
+        {{ $t('Billing.Continue to shipping') }}
       </SfButton>
     </div>
   </div>
@@ -51,7 +44,7 @@ export default {
     SfCheckbox,
     CheckoutAddressDetails
   },
-  setup() {
+  setup(props, {refs, root}) {
     const router = useRouter();
     const { load, loading: loadingBilling, billing, setDefaultAddress, deleteAddress, addAddress } = useUserBilling();
     const { load: loadActiveShippingCountries, loading: loadingCountry, result: countries } = useActiveShippingCountries();
@@ -65,7 +58,16 @@ export default {
       await loadActiveShippingCountries();
     });
 
+    const continueToNextStep = () => {
+      if (refs.CheckoutAddressDetailsRef.isFormOpen) {
+        refs.CheckoutAddressDetailsRef.submit('/checkout/shipping');
+      } else {
+        router.push(root.localePath({name: 'shipping'}));
+      }
+    };
+
     return {
+      continueToNextStep,
       setDefaultAddress,
       deleteAddress,
       addAddress,

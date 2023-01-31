@@ -1,7 +1,7 @@
 <template>
   <MyAccountAddressDetails
     v-if="!loading"
-    :tab-title="$t('Billing details')"
+    :tab-title="$t('BillingDetails.Billing details')"
     :addresses="billing"
     :countries="countries"
     :type="'billing'"

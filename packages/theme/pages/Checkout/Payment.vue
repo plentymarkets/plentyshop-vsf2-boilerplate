@@ -4,7 +4,7 @@
     <VsfPaymentProvider class="spacer" @status="isPaymentReady = true"/>
     <SfTable class="sf-table--bordered table desktop-only">
       <SfTableHeading class="table__row">
-        <SfTableHeader class="table__header table__image">{{ $t('Item') }}</SfTableHeader>
+        <SfTableHeader class="table__header table__image">{{ $t('Payment.Item') }}</SfTableHeader>
         <SfTableHeader
           v-for="tableHeader in tableHeaders"
           :key="tableHeader"
@@ -70,18 +70,11 @@
 
         <div v-e2e="'payment-summary-buttons'" class="summary__action">
           <SfButton
-            type="button"
-            class="sf-button color-secondary summary__back-button"
-            @click="router.push(localePath({name: 'shipping' }))"
-          >
-            {{ $t('Go back') }}
-          </SfButton>
-          <SfButton
             :disabled="loading || !isPaymentReady || !terms"
             class="summary__action-button"
             @click="processOrder"
           >
-            {{ $t('Make an order') }}
+            {{ $t('Payment.Make an order') }}
           </SfButton>
         </div>
       </div>

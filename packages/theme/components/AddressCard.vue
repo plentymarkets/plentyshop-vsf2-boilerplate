@@ -16,7 +16,7 @@
         </p>
         <template v-if="userAddressGetters.isDefault(address)"
           ><span class="color-secondary sf-badge">{{
-            $t('Selected address')
+            $t('AddressCard.Selected address')
           }}</span></template
         >
       </slot>
@@ -34,14 +34,14 @@
         data-testid="change-address"
         @click="changeAddress(address)"
       >
-        {{ $t('Change') }}
+        {{ $t('AddressCard.Change') }}
       </SfButton>
       <SfButton
         class="shipping__button-delete desktop-only"
         data-testid="delete-address"
         @click="deleteAddress(address)"
       >
-        {{ $t('Delete') }}
+        {{ $t('AddressCard.Delete') }}
       </SfButton>
     </div>
   </div>

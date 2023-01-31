@@ -17,11 +17,6 @@ const params: UseShippingParams<ShippingAddress, AddParams> = {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   save: async (context: Context, { shippingDetails, customQuery }) => {
-
-    if (!shippingDetails) {
-      return await context.$plentymarkets.api.saveBillingIsShipping();
-    }
-
     return await context.$plentymarkets.api.saveAddress(AddressType.Shipping, shippingDetails);
   }
 };

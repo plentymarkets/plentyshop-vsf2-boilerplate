@@ -8,7 +8,7 @@
       />
     </slot>
     <transition :name="transition">
-      <div v-if="editAddress || addressList.length <= 0">
+      <div v-if="isFormOpen">
         <AddressInputForm
           ref="addressForm"
           :form="form"
@@ -17,26 +17,24 @@
         ></AddressInputForm>
         <div class="buttons">
           <SfButton
+            v-if="inEditState"
             type="submit"
             @click.prevent="submit()"
-            class="action-button"
+            class="action-button update-button"
             data-e2e="update-address-button"
           >
-            <template v-if="createOrUpdateLabel">{{
-              $t('Update the address')
-            }}</template>
-            <template v-if="!createOrUpdateLabel">{{
-              $t('Create address')
+            <template v-if="inEditState">{{
+              $t('CheckoutAddressDetails.Update address')
             }}</template>
           </SfButton>
           <SfButton
             v-if="(addressList.length > 0)"
             type="button"
-            class="action-button color-secondary cancel-button"
+            class="action-button color-secondary"
             data-e2e="close-address-button"
             @click="closeForm"
           >
-            {{ $t('Cancel') }}</SfButton
+            {{ $t('CheckoutAddressDetails.Cancel') }}</SfButton
           >
         </div>
       </div>
@@ -44,14 +42,14 @@
         <transition-group tag="div" :name="transition" class="shipping-list">
           <slot name="shipping-list">
             <AddressCard v-for="(address, key) in addressList"
-                            class="shipping"
-                            :key="address.id"
-                            :address="address"
-                            :countries="countries"
-                            @set-default-address="setDefaultAddress(address)"
-                            @change-address="changeAddress(key)"
-                            @delete-address="deleteAddress(address)">
-            </AddressCard>
+              class="shipping"
+              :key="address.id"
+              :address="address"
+              :countries="countries"
+              @set-default-address="setDefaultAddress(address)"
+              @change-address="changeAddress(key)"
+              @delete-address="deleteAddress(address)">
+              </AddressCard>
           </slot>
         </transition-group>
         <SfButton
@@ -59,14 +57,14 @@
           data-testid="add-new-address"
           @click="changeAddress(-1)"
         >
-          {{ $t('Add new address') }}</SfButton
+          {{ $t('CheckoutAddressDetails.Add new address') }}</SfButton
         >
       </div>
     </transition>
   </div>
 </template>
 <script>
-import { toRef } from '@nuxtjs/composition-api';
+import { toRef, useRouter } from '@nuxtjs/composition-api';
 import { useAddressForm } from '@vue-storefront/plentymarkets';
 import AddressInputForm from '~/components/AddressInputForm';
 import AddressCard from '~/components/AddressCard';
@@ -109,7 +107,7 @@ export default {
     }
   },
 
-  setup(props, { emit, refs }) {
+  setup(props, { emit, refs, root }) {
     const {
       form,
       addresses: addressList,
@@ -118,20 +116,24 @@ export default {
       changeAddress,
       resetForm,
       closeForm,
-      createOrUpdateLabel
+      isFormOpen,
+      inEditState
     } = useAddressForm(toRef(props, 'addresses'));
+
+    const router = useRouter();
 
     const setDefaultAddress = (address) => {
       emit('set-default-address', address);
     };
 
-    const submit = async () => {
+    const submit = async (path = '/checkout/billing') => {
       const addressForm = await refs.addressForm.validate();
 
       if (addressForm) {
         form.value = addressForm.value;
         closeForm();
-        emit('update-address', { ...form.value });
+        await emit('update-address', { ...form.value });
+        router.push(root.localePath(path));
       }
     };
 
@@ -139,33 +141,38 @@ export default {
       resetForm(address);
       emit('delete-address', address);
     };
+
     return {
       form,
+      inEditState,
       editAddress,
+      isFormOpen,
       addressList,
       editedAddress,
       submit,
       setDefaultAddress,
       changeAddress,
       deleteAddress,
-      closeForm,
-      createOrUpdateLabel
+      closeForm
     };
   }
 };
 </script>
 <style lang="scss" scoped>
-  @import '~@storefront-ui/shared/styles/components/templates/SfShippingDetails.scss';
-  .shipping-list {
-    max-height: 40vh;
-    overflow-y: auto;
-  }
-  .buttons {
-    display: flex;
-  }
-  .title {
-    --heading-padding: var(--spacer-xl) 0 var(--spacer-base);
-    --heading-title-font-weight: var(--font-weight--bold);
-    --heading-title-font-size: var(--h3-font-size);
-  }
+@import '~@storefront-ui/shared/styles/components/templates/SfShippingDetails.scss';
+.shipping-list {
+  max-height: 40vh;
+  overflow-y: auto;
+}
+.buttons {
+  display: flex;
+}
+.update-button {
+  margin-right: var(--spacer-sm);
+}
+.title {
+  --heading-padding: var(--spacer-xl) 0 var(--spacer-base);
+  --heading-title-font-weight: var(--font-weight--bold);
+  --heading-title-font-size: var(--h3-font-size);
+}
 </style>

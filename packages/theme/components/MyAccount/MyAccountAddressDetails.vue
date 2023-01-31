@@ -10,7 +10,7 @@
       >
         <SfTab
           :title="
-            editedAddress > -1 ? $t('Change the address') : $t('Create address')
+            editedAddress > -1 ? $t('MyAccountAddressDetails.Change address') : $t('MyAccountAddressDetails.Create address')
           "
         >
           <slot name="change-address-description">
@@ -31,11 +31,11 @@
               class="action-button"
               data-testid="update-address-button"
             >
-              <template v-if="createOrUpdateLabel">{{
-                $t('Update the address')
+              <template v-if="inEditState">{{
+                $t('MyAccountAddressDetails.Update address')
               }}</template>
-              <template v-if="!createOrUpdateLabel">{{
-                $t('Create address')
+              <template v-if="inCreateState">{{
+                $t('MyAccountAddressDetails.Create address')
               }}</template>
             </SfButton>
             <SfButton
@@ -44,13 +44,13 @@
               data-testid="update-address-button"
               @click="closeForm"
             >
-              {{ $t('Cancel') }}</SfButton
+              {{ $t('MyAccountAddressDetails.Cancel') }}</SfButton
             >
           </div>
         </SfTab>
       </SfTabs>
       <SfTabs v-else key="address-list" :open-tab="1" class="tab-orphan">
-        <SfTab :title="tabTitle">
+        <SfTab :title="$t('MyAccountAddressDetails.Shipping details')">
           <slot name="shipping-tab-description">
             <p class="message">
               {{ shipingTabDescription }}
@@ -74,7 +74,7 @@
             data-testid="add-new-address"
             @click="changeAddress(-1)"
           >
-            {{ $t('Add new address') }}</SfButton
+            {{ $t('MyAccountAddressDetails.Add new address') }}</SfButton
           >
         </SfTab>
       </SfTabs>
@@ -109,10 +109,6 @@ export default {
       type: String,
       default: () => 'shipping'
     },
-    tabTitle: {
-      type: String,
-      default: 'Shipping details'
-    },
     transition: {
       type: String,
       default: 'sf-fade'
@@ -137,7 +133,8 @@ export default {
       changeAddress,
       resetForm,
       closeForm,
-      createOrUpdateLabel
+      inEditState,
+      inCreateState
     } = useAddressForm(toRef(props, 'addresses'));
 
     const setDefaultAddress = (address) => {
@@ -169,7 +166,8 @@ export default {
       changeAddress,
       deleteAddress,
       closeForm,
-      createOrUpdateLabel
+      inEditState,
+      inCreateState
     };
   }
 };

@@ -603,6 +603,7 @@ export interface UserAddressGetters {
   getId: (address: Address) => string | number;
   getApartmentNumber: (address: Address) => string | number;
   isDefault: (address: Address) => boolean;
+  getAddressWithoutId(address: Address): Address;
 }
 
 export interface CountryGetters {
@@ -699,7 +700,7 @@ export interface PlentymarketsApiMethods {
 
   executePayment(orderId: number, paymentId: number): Promise<void>
 
-  saveBillingIsShipping(): Promise<any>
+  saveBillingAsShipping(): Promise<any>
 }
 
 export type Context = IntegrationContext<ClientInstance, Settings, ApiClientMethods<PlentymarketsApiMethods>>;

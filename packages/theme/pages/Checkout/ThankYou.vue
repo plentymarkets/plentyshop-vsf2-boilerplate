@@ -3,7 +3,7 @@
     <SfCallToAction
       v-e2e="'thank-you-banner'"
       class="banner"
-      title="Thank you for your order!"
+      :title="$t('ThankYou.Thank you for your order!')"
       :image="{
         mobile: addBasePath('/thankyou/bannerM.png'),
         desktop: addBasePath('/thankyou/bannerD.png'),
@@ -11,7 +11,7 @@
     >
       <template #description>
         <div class="banner__order-number">
-          <span>{{ $t('Order No.') }}</span>
+          <span>{{ $t('ThankYou.Order no') }}</span>
           <strong>{{ orderNumber }}</strong>
         </div>
       </template>
@@ -19,18 +19,18 @@
     <section class="section">
       <div class="order">
         <SfHeading
-          title="Your Purchase"
+          :title="$t('ThankYou.Your purchase')"
           class="order__heading heading sf-heading--left"
           :level="3"
         />
         <p class="order__paragraph paragraph">
-          {{ $t('Successful placed order') }}
+          {{ $t('ThankYou.Successfully placed order') }}
         </p>
         <div class="order__contact">
           <SfHeading
             :level="6"
             class="heading sf-heading--left sf-heading--no-underline"
-            title="Primary contacts for any questions"
+            :title="$t('ThankYou.Primary contacts for any questions')"
           ></SfHeading>
           <div class="contact">
             <p class="contact__name">{{ companyDetails.name }}</p>
@@ -43,32 +43,32 @@
       <div class="additional-info">
         <div>
           <SfHeading
-            title="Your Account"
+            :title="$t('ThankYou.Your account')"
             class="heading sf-heading--left"
             :level="3"
           />
           <p class="paragraph">
-            {{ $t('Info after order') }}
+            {{ $t('ThankYou.Info after order') }}
           </p>
         </div>
         <div>
           <SfHeading
-            title="What can we improve"
+            :title="$t('ThankYou.What can we improve')"
             class="heading sf-heading--left"
             :level="3"
           />
           <p class="paragraph">
-            {{ $t('Feedback') }}
+            {{ $t('ThankYou.Feedback') }}
           </p>
           <SfButton
             class="feedback-button color-secondary sf-button--full-width button-size"
-            >{{ $t('Send my feedback') }}</SfButton
+            >{{ $t('ThankYou.Send feedback') }}</SfButton
           >
         </div>
       </div>
     </section>
     <SfButton class="back-button color-secondary button-size"
-      >{{ $t('Go back to shop') }}</SfButton
+      >{{ $t('ThankYou.Go back to shop') }}</SfButton
     >
   </div>
 </template>
