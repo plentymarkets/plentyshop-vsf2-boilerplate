@@ -25,7 +25,6 @@ context('Order placement', () => {
     cy.intercept('/api/plentymarkets/placeOrder').as('placeOrder');
     cy.intercept('/api/plentymarkets/preparePayment').as('preparePayment');
     cy.intercept('/api/plentymarkets/saveAddress').as('saveAddress');
-    cy.intercept('/api/plentymarkets/saveBillingIsShipping').as('saveBillingIsShipping');
     cy.intercept('/api/plentymarkets/registerUser').as('registerUser');
 
     // With the current data, the first category does not have items. Therefore, we need to replace the
