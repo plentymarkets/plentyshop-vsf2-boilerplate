@@ -79,8 +79,7 @@ export default {
   // Billing
   'Billing': {
     'Billing details': '@:App.billingDetails',
-    'Continue to shipping': 'Continue to shipping',
-    'Go back': '@:App.goBack',
+    'Continue to shipping': 'Continue to shipping'
   },
   // BillingDetails
   'BillingDetails': {
@@ -201,8 +200,8 @@ export default {
     'My profile': 'My profile',
     'Order details': 'Order details',
     'Order history': 'Order history',
-    'User data': '@:App.userData',
     'Shipping details': '@:App.shippingDetails',
+    'User data': '@:App.userData',
   },
   // MyAccountAddressDetails
   'MyAccountAddressDetails': {
@@ -262,7 +261,6 @@ export default {
     'Item': 'Item',
     'I agree to': 'I agree to',
     'Terms and conditions': 'Terms and conditions',
-    'Go back': '@:App.goBack',
     'Make an order': 'Make an order',
   },
   // PsfMyProfile
@@ -295,7 +293,6 @@ export default {
     'Log in now': '@:App.logInNow',
     'Manage your wishlist': 'Manage your wishlist',
     'or fill in the details below:': 'or fill in the details below:',
-    'This field is required': 'This field is required',
     'User data': '@:App.userData'
   },
   // Product
@@ -321,9 +318,9 @@ export default {
   },
   // Shipping
   'Shipping': {
-    'My billing and shipping address are the same': 'My billing and shipping address are the same',
-    'Go back': '@:App.goBack',
     'Continue to payment': 'Continue to payment',
+    'My billing and shipping address are the same': 'My billing and shipping address are the same',
+    'Shipping details': '@:App.shippingDetails',
   },
   // ShippingDetails
   'ShippingDetails': {
