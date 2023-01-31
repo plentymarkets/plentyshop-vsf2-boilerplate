@@ -63,7 +63,7 @@ export default {
   middleware: [
     'is-authenticated'
   ],
-  setup(props, context) {
+  setup(props, {root}) {
     const route = useRoute();
     const router = useRouter();
 
@@ -74,11 +74,6 @@ export default {
 
       if (pageName) {
         return (pageName.charAt(0).toUpperCase() + pageName.slice(1)).replace('-', ' ');
-
-        /* } else if (!isMobile.value) {
-        return 'My profile';
-      }  */
-
       } else {
         return 'My profile';
       }
@@ -92,7 +87,7 @@ export default {
 
       const slugifiedTitle = (title || '').toLowerCase().replace(' ', '-');
       const transformedPath = `/my-account/${slugifiedTitle}`;
-      const localeTransformedPath = context.root.localePath(transformedPath);
+      const localeTransformedPath = root.localePath(transformedPath);
 
       router.push(localeTransformedPath);
     };
@@ -105,11 +100,11 @@ export default {
       breadcrumbs: [
         {
           text: 'Home',
-          route: { link: '#' }
+          link: '#'
         },
         {
           text: 'My Account',
-          route: { link: '#' }
+          link: '#'
         }
       ]
     };
