@@ -5,7 +5,7 @@
       ref="CheckoutAddressDetailsRef"
       :addresses="billing"
       :countries="countries"
-      :headingTitle="$t('Billing details')"
+      :headingTitle="$t('Billing.Billing details')"
       :headingTitleLevel="2"
       @set-default-address="setDefaultAddress({address: $event })"
       @delete-address="deleteAddress({address: $event})"
@@ -59,7 +59,7 @@ export default {
     });
 
     const continueToNextStep = () => {
-      if (refs.CheckoutAddressDetailsRef.inCreateState) {
+      if (refs.CheckoutAddressDetailsRef.isFormOpen) {
         refs.CheckoutAddressDetailsRef.submit('/checkout/shipping');
       } else {
         router.push(root.localePath({name: 'shipping'}));

@@ -3,13 +3,12 @@
     <PsfPersonalDetails
       ref="PersonalDetails"
       :value="{}"
-      :buttonText="$t('Login.Log into your account')"
+      :buttonText="$t('Login.Log in now')"
       :logInInfo="$t('Login.or fill in the details below')"
       :headingTitle="$t('Login.User data')"
       :headingTitleLevel="2"
       :inputsLabels="[$t('Login.First name'),$t('Login.Last name'),$t('Login.Email')]"
       :additionalDetails="$t('Login.Enjoy your free account')"
-      :characteristics='[{"description":"Faster checkout","icon":"clock","size":"24px"},{"description":"Earn credits with every purchase","icon":"credits","size":"24px"},{"description":"Full rewards program benefits","icon":"rewards","size":"24px"},{"description":"Manage your wishlist","icon":"heart","size":"24px"}]'
       transition="sf-fade"
       :createAccountCheckboxLabel="$t('Login.I want to create an account')"
       :createAccountInputLabel="$t('Login.Create password')"
@@ -33,7 +32,7 @@
       @click="goToBilling"
       v-if='createAccountCheckbox'
     >
-      {{ $t('Login.Register') }}
+      {{ $t('Login.Register and continue') }}
     </SfButton>
     </div>
 </template>
@@ -89,6 +88,7 @@ export default {
     };
 
     return {
+      user,
       router,
       isAuthenticated,
       isLoginModalOpen,

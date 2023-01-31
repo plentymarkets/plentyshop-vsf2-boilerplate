@@ -7,7 +7,7 @@ import { getFacet } from './api/getFacet';
 import { getReview } from './api/getReview';
 import { addWishlistItem, getWishlist, removeWishlistItem } from './api/getWishlist';
 import { getSearch } from './api/getSearch';
-import { deleteAddress, loadAddresses, saveAddress, saveBillingIsShipping, setAddressAsDefault } from './api/getAddress';
+import { deleteAddress, loadAddresses, saveAddress, saveBillingAsShipping, setAddressAsDefault } from './api/getAddress';
 import {
   addItem as addCartItem,
   getCart,
@@ -124,7 +124,7 @@ const { createApiClient } = apiClientFactory<Settings, Endpoints>({
     saveAddress,
     deleteAddress,
     setAddressAsDefault,
-    saveBillingIsShipping,
+    saveBillingAsShipping,
     getActiveShippingCountries,
     getPaymentProviders,
     selectShippingProvider,

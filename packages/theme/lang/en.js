@@ -12,14 +12,15 @@ export default {
     'firstName': 'First name',
     'goBack': 'Go back',
     'lastName': 'Last name',
-    'logIntoYourAccount': 'Log into your account',
+    'logInNow': 'Log in now',
     'fillInBag': `Looks like you haven't added any items to the bag yet. Start shopping to fill it in.`,
     'or': 'or',
-    'register': 'Register',
+    'register': 'Register and continue',
     'shippingDetails': 'Shipping details',
     'sizeGuide': 'Size guide',
     'startShopping': 'Start shopping',
-    'updateAddress': 'Update address'
+    'updateAddress': 'Update address',
+    'userData': 'User data'
   },
   // AddressCard
   'AddressCard': {
@@ -77,6 +78,7 @@ export default {
   },
   // Billing
   'Billing': {
+    'Billing details': '@:App.billingDetails',
     'Continue to shipping': 'Continue to shipping',
     'Go back': '@:App.goBack',
   },
@@ -163,13 +165,12 @@ export default {
     'Enjoy your free account': 'Enjoy your free account',
     'First name': '@:App.firstName',
     'I want to create an account': 'I want to create an account',
-    'Log into your account': '@:App.logIntoYourAccount',
+    'Log in now': '@:App.logInNow',
     'or fill in the details below': 'or fill in the details below',
     'Last name': '@:App.lastName',
     'Order as guest': 'Order as guest',
-    'Personal details': 'Personal details',
-    'User data': 'User data',
-    'Register': '@:App.register',
+    'User data': '@:App.userData',
+    'Register and continue': '@:App.register',
     'Email': '@:App.email',
   },
   // LoginModal
@@ -177,7 +178,7 @@ export default {
     'Create an account': 'Create an account',
     'Email': '@:App.email',
     'Forgotten your password?': 'Forgotten your password?',
-    'Log into your account': '@:App.logIntoYourAccount',
+    'Log in now': '@:App.logInNow',
     'Login': 'Login',
     'Login successful': 'Login successful',
     'No account': 'No account',
@@ -200,7 +201,7 @@ export default {
     'My profile': 'My profile',
     'Order details': 'Order details',
     'Order history': 'Order history',
-    'Personal details': 'Personal details',
+    'User data': '@:App.userData',
     'Shipping details': '@:App.shippingDetails',
   },
   // MyAccountAddressDetails
@@ -280,6 +281,7 @@ export default {
   },
   // PsfPersonalDetails
   'PsfPersonalDetails': {
+    'Already have an account?': 'Already have an account?',
     'Create password': 'Create password',
     'Earn credits with every purchase': 'Earn credits with every purchase',
     'Email': '@:App.email',
@@ -290,11 +292,11 @@ export default {
     'I want to create an account': 'I want to create an account',
     'Input too short': 'The field should have at least {length} characters',
     'Last name': '@:App.lastName',
-    'Log into your account': 'Log into your account',
+    'Log in now': '@:App.logInNow',
     'Manage your wishlist': 'Manage your wishlist',
     'or fill in the details below:': 'or fill in the details below:',
     'This field is required': 'This field is required',
-    'User data': 'User data'
+    'User data': '@:App.userData'
   },
   // Product
   'Product': {

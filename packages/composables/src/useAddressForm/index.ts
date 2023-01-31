@@ -44,14 +44,9 @@ export const useAddressForm = (addresses: Ref<Address[]>): any => {
   const closeForm = () => {
     editAddress.value = false;
   };
-
-  const createOrUpdateLabel = computed(() => {
-    if (addresses.value?.length > 0 && editedAddress.value !== -1) {
-      return true;
-    } else if (addresses.value?.length === 0 || editedAddress.value === -1) {
-      return false;
-    }
-  });
+  const isFormOpen = computed(() => editAddress.value || addresses?.value.length <= 0);
+  const inEditState = computed(() => editedAddress.value > -1);
+  const inCreateState = computed(() => editedAddress.value === -1);
 
   return {
     editAddress,
@@ -61,6 +56,8 @@ export const useAddressForm = (addresses: Ref<Address[]>): any => {
     closeForm,
     resetForm,
     changeAddress,
-    createOrUpdateLabel
+    isFormOpen,
+    inEditState,
+    inCreateState
   };
 };
