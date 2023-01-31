@@ -700,7 +700,7 @@ export interface PlentymarketsApiMethods {
 
   executePayment(orderId: number, paymentId: number): Promise<void>
 
-  saveBillingIsShipping(): Promise<any>
+  saveBillingAsShipping(): Promise<any>
 }
 
 export type Context = IntegrationContext<ClientInstance, Settings, ApiClientMethods<PlentymarketsApiMethods>>;

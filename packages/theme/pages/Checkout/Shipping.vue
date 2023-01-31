@@ -2,14 +2,14 @@
   <div id="shipping" v-if="!loading">
     <div class="spacer-top">
       <SfCheckbox
-        v-model="sameAsShipping"
+        v-model="sameAsBilling"
         v-e2e="'copy-address'"
         :label="$t('Shipping.My billing and shipping address are the same')"
         name="copyShippingAddress"
         class="form__element"
       />
     </div>
-    <div v-if="!sameAsShipping">
+    <div v-if="!sameAsBilling">
       <CheckoutAddressDetails
         ref="CheckoutAddressDetailsRef"
         class="spacer-top"
@@ -24,15 +24,15 @@
       />
     </div>
 
-    <div v-if="sameAsShipping">
+    <div v-if="sameAsBilling">
       <SfHeading
         :title="$t('Shipping details')"
         :level="2"
         class="sf-heading--left sf-heading--no-underline title"
       />
       <AddressInputForm
-          ref="SameAsShippingFormRef"
-          :form="sameAsShippingForm"
+          ref="sameAsBillingFormRef"
+          :form="sameAsBillingForm"
           :type="'shipping'"
           :countries="countries"
         ></AddressInputForm>
@@ -72,14 +72,14 @@ export default {
     SfHeading
   },
   setup(props, {root, refs}) {
-    const sameAsShipping = ref(false);
+    const sameAsBilling = ref(false);
     const router = useRouter();
     const { load, loading: loadingShipping, shipping, setDefaultAddress, deleteAddress, addAddress } = useUserShipping();
     const { load: loadActiveShippingCountries, loading: loadingCountries, result: countries } = useActiveShippingCountries();
     const { load: loadBilling, loading: loadingBilling, billing } = useUserBilling();
     const shippingAddresses = computed(() => userAddressGetters.getAddresses(shipping.value));
 
-    const sameAsShippingForm = computed(() => {
+    const sameAsBillingForm = computed(() => {
       const newAddress = userAddressGetters.getDefault(userAddressGetters.getAddresses(billing.value)) || userAddressGetters.getAddresses(billing.value)[0];
       return userAddressGetters.getAddressWithoutId(newAddress);
     });
@@ -93,18 +93,18 @@ export default {
       await loadActiveShippingCountries();
     });
 
-    watch(sameAsShipping, async () => {
-      if (sameAsShipping) {
+    watch(sameAsBilling, async () => {
+      if (sameAsBilling) {
         await loadBilling();
       }
     });
 
     const continueToNextStep = async () => {
 
-      if (sameAsShipping.value) {
-        const valid = await refs.SameAsShippingFormRef.validate();
+      if (sameAsBilling.value) {
+        const valid = await refs.sameAsBillingFormRef.validate();
         if (valid) {
-          await addAddress({address: sameAsShippingForm.value });
+          await addAddress({address: sameAsBillingForm.value });
           router.push(root.localePath({name: 'payment' }));
         }
         return;
@@ -119,9 +119,9 @@ export default {
 
     return {
       shippingAddresses,
-      sameAsShippingForm,
+      sameAsBillingForm,
       continueToNextStep,
-      sameAsShipping,
+      sameAsBilling,
       setDefaultAddress,
       deleteAddress,
       addAddress,
