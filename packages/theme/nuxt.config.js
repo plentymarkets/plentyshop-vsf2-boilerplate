@@ -2,7 +2,7 @@ import webpack from 'webpack';
 import theme from './themeConfig';
 
 const appPort = process.env.PORT || 80;
-const appIP = process.env.IP
+const appIP = process.env.IP || localhost
 
 const config = {
   server: {
