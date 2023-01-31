@@ -24,7 +24,7 @@
   </div>
 </template>
 <script>
-import { SfHeading, SfProperty, SfCharacteristic } from '@storefront-ui/vue';
+import { SfHeading, SfProperty } from '@storefront-ui/vue';
 import { computed, defineComponent } from '@nuxtjs/composition-api';
 import { cartGetters, useCart } from '@vue-storefront/plentymarkets';
 import { useUiState } from '~/composables';
@@ -32,8 +32,7 @@ export default defineComponent({
   name: 'CartPreview',
   components: {
     SfHeading,
-    SfProperty,
-    SfCharacteristic
+    SfProperty
   },
   setup() {
     const { cart, removeItem, updateItemQty } = useCart();
