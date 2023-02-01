@@ -166,7 +166,6 @@ export default {
     'Log in now': '@:App.logInNow',
     'Login': 'Login',
     'Login successful': 'Login successful',
-    'No account': 'No account',
     "Don't have an account yet?": "Don't have an account yet?",
     'or': '@:App.or',
     'Password': 'Password',

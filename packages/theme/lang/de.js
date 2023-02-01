@@ -44,7 +44,6 @@ export default {
   'Find out more': 'Finde mehr heraus',
   'Login': 'Anmeldung',
   'Forgotten password?': 'Passwort vergessen?',
-  'No account': `Sie haben noch keinen Account?`,
   'Register today': 'Melde dich noch heute an',
   'Go to checkout': 'Zur Kasse gehen',
   'Go back shopping': 'Zurück einkaufen',
