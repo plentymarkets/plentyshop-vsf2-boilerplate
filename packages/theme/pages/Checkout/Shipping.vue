@@ -20,7 +20,7 @@
         :headingTitleLevel="2"
         @set-default-address="setDefaultAddress({ address: $event })"
         @delete-address="deleteAddress({ address: $event })"
-        @update-address="addAddress({ address: $event })"
+        @update-address="saveAddress({ address: $event })"
       />
     </div>
 
@@ -93,6 +93,11 @@ export default {
       await loadActiveShippingCountries();
     });
 
+    const saveAddress = async (address) => {
+      await addAddress(address);
+      router.push(root.localePath({name: 'payment'}));
+    };
+
     watch(sameAsBilling, async () => {
       if (sameAsBilling) {
         await loadBilling();
@@ -104,14 +109,14 @@ export default {
       if (sameAsBilling.value) {
         const valid = await refs.sameAsBillingFormRef.validate();
         if (valid) {
-          await addAddress({address: sameAsBillingForm.value });
+          await saveAddress({address: sameAsBillingForm.value });
           router.push(root.localePath({name: 'payment' }));
         }
         return;
       }
 
       if (refs.CheckoutAddressDetailsRef.isFormOpen) {
-        refs.CheckoutAddressDetailsRef.submit('/checkout/payment');
+        refs.CheckoutAddressDetailsRef.submit();
       } else {
         router.push(root.localePath({name: 'payment' }));
       }
@@ -124,7 +129,7 @@ export default {
       sameAsBilling,
       setDefaultAddress,
       deleteAddress,
-      addAddress,
+      saveAddress,
       router,
       countries,
       loading

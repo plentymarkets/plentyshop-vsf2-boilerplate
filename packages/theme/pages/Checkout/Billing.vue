@@ -9,7 +9,7 @@
       :headingTitleLevel="2"
       @set-default-address="setDefaultAddress({address: $event })"
       @delete-address="deleteAddress({address: $event})"
-      @update-address="addAddress({address: $event})"
+      @update-address="saveAddress({address: $event})"
     />
     <div class="spacer-top buttons">
       <SfButton
@@ -58,9 +58,14 @@ export default {
       await loadActiveShippingCountries();
     });
 
+    const saveAddress = async (address) => {
+      await addAddress(address);
+      router.push(root.localePath({name: 'shipping'}));
+    };
+
     const continueToNextStep = () => {
       if (refs.CheckoutAddressDetailsRef.isFormOpen) {
-        refs.CheckoutAddressDetailsRef.submit('/checkout/shipping');
+        refs.CheckoutAddressDetailsRef.submit();
       } else {
         router.push(root.localePath({name: 'shipping'}));
       }
@@ -70,7 +75,7 @@ export default {
       continueToNextStep,
       setDefaultAddress,
       deleteAddress,
-      addAddress,
+      saveAddress,
       router,
       billing,
       countries,

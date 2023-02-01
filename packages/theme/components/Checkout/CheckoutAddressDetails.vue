@@ -64,7 +64,7 @@
   </div>
 </template>
 <script>
-import { toRef, useRouter } from '@nuxtjs/composition-api';
+import { toRef } from '@nuxtjs/composition-api';
 import { useAddressForm } from '@vue-storefront/plentymarkets';
 import AddressInputForm from '~/components/AddressInputForm';
 import AddressCard from '~/components/AddressCard';
@@ -107,7 +107,7 @@ export default {
     }
   },
 
-  setup(props, { emit, refs, root }) {
+  setup(props, { emit, refs }) {
     const {
       form,
       addresses: addressList,
@@ -120,20 +120,17 @@ export default {
       inEditState
     } = useAddressForm(toRef(props, 'addresses'));
 
-    const router = useRouter();
-
     const setDefaultAddress = (address) => {
       emit('set-default-address', address);
     };
 
-    const submit = async (path = '/checkout/billing') => {
+    const submit = async () => {
       const addressForm = await refs.addressForm.validate();
 
       if (addressForm) {
         form.value = addressForm.value;
         closeForm();
-        await emit('update-address', { ...form.value });
-        router.push(root.localePath(path));
+        emit('update-address', { ...form.value });
       }
     };
 
