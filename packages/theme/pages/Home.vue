@@ -143,60 +143,60 @@ export default {
     LazyHydrate
   },
   setup() {
-    const { $config } = useContext();
+    const { $config, app } = useContext();
     const { toggleNewsletterModal } = useUiState();
     const products = ref([
       {
-        title: 'Cream Beach Bag',
+        title: app.i18n.t('Home.Cream Beach Bag'),
         image: addBasePath('/homepage/productA.webp'),
         price: { regular: '50.00 $' },
         rating: { max: 5, score: 4 },
         isInWishlist: true
       },
       {
-        title: 'Cream Beach Bag 2',
+        title: app.i18n.t('Home.Cream Beach Bag 2'),
         image: addBasePath('/homepage/productB.webp'),
         price: { regular: '50.00 $' },
         rating: { max: 5, score: 4 },
         isInWishlist: false
       },
       {
-        title: 'Cream Beach Bag 3',
+        title: app.i18n.t('Home.Cream Beach Bag 3'),
         image: addBasePath('/homepage/productC.webp'),
         price: { regular: '50.00 $' },
         rating: { max: 5, score: 4 },
         isInWishlist: false
       },
       {
-        title: 'Cream Beach Bag RR',
+        title: app.i18n.t('Home.Cream Beach Bag RR'),
         image: addBasePath('/homepage/productA.webp'),
         price: { regular: '50.00 $' },
         rating: { max: 5, score: 4 },
         isInWishlist: false
       },
       {
-        title: 'Cream Beach Bag',
+        title: app.i18n.t('Home.Cream Beach Bag'),
         image: addBasePath('/homepage/productB.webp'),
         price: { regular: '50.00 $' },
         rating: { max: 5, score: 4 },
         isInWishlist: false
       },
       {
-        title: 'Cream Beach Bag',
+        title: app.i18n.t('Home.Cream Beach Bag'),
         image: addBasePath('/homepage/productC.webp'),
         price: { regular: '50.00 $' },
         rating: { max: 5, score: 4 },
         isInWishlist: false
       },
       {
-        title: 'Cream Beach Bag',
+        title: app.i18n.t('Home.Cream Beach Bag'),
         image: addBasePath('/homepage/productA.webp'),
         price: { regular: '50.00 $' },
         rating: { max: 5, score: 4 },
         isInWishlist: false
       },
       {
-        title: 'Cream Beach Bag',
+        title: app.i18n.t('Home.Cream Beach Bag'),
         image: addBasePath('/homepage/productB.webp'),
         price: { regular: '50.00 $' },
         rating: { max: 5, score: 4 },
@@ -205,22 +205,22 @@ export default {
     ]);
     const heroes = [
       {
-        title: 'Colorful summer dresses are already in store',
-        subtitle: 'SUMMER COLLECTION 2019',
+        title: app.i18n.t('Home.Colorful summer dresses are already in store'),
+        subtitle: app.i18n.t('Home.SUMMER COLLECTION 2019'),
         background: '#eceff1',
         image: addBasePath('/homepage/bannerH.webp')
       },
       {
-        title: 'Colorful summer dresses are already in store',
-        subtitle: 'SUMMER COLLECTION 2019',
+        title: app.i18n.t('Home.Colorful summer dresses are already in store'),
+        subtitle: app.i18n.t('Home.SUMMER COLLECTION 2019'),
         background: '#efebe9',
         image: addBasePath('/homepage/bannerA.webp'),
         className:
             'sf-hero-item--position-bg-top-left sf-hero-item--align-right'
       },
       {
-        title: 'Colorful summer dresses are already in store',
-        subtitle: 'SUMMER COLLECTION 2019',
+        title: app.i18n.t('Home.Colorful summer dresses are already in store'),
+        subtitle: app.i18n.t('Home.SUMMER COLLECTION 2019'),
         background: '#fce4ec',
         image: addBasePath('/homepage/bannerB.webp')
       }
@@ -228,11 +228,10 @@ export default {
     const banners = [
       {
         slot: 'banner-A',
-        subtitle: 'Dresses',
-        title: 'Cocktail & Party',
-        description:
-            'Find stunning women\'s cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses from all your favorite brands.',
-        buttonText: 'Shop now',
+        subtitle: app.i18n.t('Home.Dresses'),
+        title: app.i18n.t('Home.Cocktail & Party'),
+        description: app.i18n.t('Home.Cocktail dresses and party dresses'),
+        buttonText: app.i18n.t('Home.Shop now'),
         image: {
           mobile: addBasePath($config.theme.home.bannerA.image.mobile),
           desktop: addBasePath($config.theme.home.bannerA.image.desktop)
@@ -242,27 +241,26 @@ export default {
       },
       {
         slot: 'banner-B',
-        subtitle: 'Dresses',
-        title: 'Linen Dresses',
-        description:
-            'Find stunning women\'s cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses from all your favorite brands.',
-        buttonText: 'Shop now',
+        subtitle: app.i18n.t('Home.Dresses'),
+        title: app.i18n.t('Home.Linen Dresses'),
+        description: app.i18n.t('Home.Cocktail dresses and party dresses'),
+        buttonText: app.i18n.t('Home.Shop now'),
         image: addBasePath($config.theme.home.bannerB.image),
         class: 'sf-banner--slim banner-central desktop-only',
         link: $config.theme.home.bannerB.link
       },
       {
         slot: 'banner-C',
-        subtitle: 'T-Shirts',
-        title: 'The Office Life',
+        subtitle: app.i18n.t('Home.T-Shirts'),
+        title: app.i18n.t('Home.The Office Life'),
         image: addBasePath($config.theme.home.bannerC.image),
         class: 'sf-banner--slim banner__tshirt',
         link: $config.theme.home.bannerC.link
       },
       {
         slot: 'banner-D',
-        subtitle: 'Summer Sandals',
-        title: 'Eco Sandals',
+        subtitle: app.i18n.t('Home.Summer Sandals'),
+        title: app.i18n.t('Home.Eco Sandals'),
         image: addBasePath($config.theme.home.bannerD.image),
         class: 'sf-banner--slim',
         link: $config.theme.home.bannerD.link
