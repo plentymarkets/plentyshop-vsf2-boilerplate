@@ -315,6 +315,14 @@ export default {
     margin: 0 auto;
   }
 }
+
+@include for-mobile {
+  ::v-deep .sf-image--placeholder {
+    width: 5.3125rem;
+    height: 7.0625rem;
+  }
+}
+
 .main {
   &.section {
     padding: var(--spacer-xs);
