@@ -59,12 +59,13 @@ export default {
     });
 
     const saveAddress = async (address) => {
-      return await addAddress(address);
+      await addAddress(address);
+      router.push(root.localePath({name: 'shipping'}));
     };
 
     const continueToNextStep = () => {
       if (refs.CheckoutAddressDetailsRef.isFormOpen) {
-        refs.CheckoutAddressDetailsRef.submit('/checkout/shipping');
+        refs.CheckoutAddressDetailsRef.submit();
       } else {
         router.push(root.localePath({name: 'shipping'}));
       }

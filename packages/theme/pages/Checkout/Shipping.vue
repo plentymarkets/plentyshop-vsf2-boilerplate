@@ -94,7 +94,8 @@ export default {
     });
 
     const saveAddress = async (address) => {
-      return await addAddress(address);
+      await addAddress(address);
+      router.push(root.localePath({name: 'payment'}));
     };
 
     watch(sameAsBilling, async () => {
@@ -115,7 +116,7 @@ export default {
       }
 
       if (refs.CheckoutAddressDetailsRef.isFormOpen) {
-        refs.CheckoutAddressDetailsRef.submit('/checkout/payment');
+        refs.CheckoutAddressDetailsRef.submit();
       } else {
         router.push(root.localePath({name: 'payment' }));
       }
