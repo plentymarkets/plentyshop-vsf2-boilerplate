@@ -280,7 +280,6 @@ export default {
   // PsfPersonalDetails
   'PsfPersonalDetails': {
     'Already have an account?': 'Du hast schon ein Konto?',
-    'Create password': 'Passwort erstellen',
     'Earn credits with every purchase': '',
     'Email': '@:App.email',
     'Enjoy these perks with your free account!': '',
@@ -293,6 +292,7 @@ export default {
     'Log into your account': 'In Konto einloggen',
     'Manage your wishlist': 'Wunschliste verwalten',
     'or fill in the details below:': 'oder füllen Sie die Details unten aus:',
+    'Password': 'Passwort',
     'User data': '@:App.userData'
   },
   // Product

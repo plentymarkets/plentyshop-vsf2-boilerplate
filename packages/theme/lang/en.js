@@ -280,7 +280,6 @@ export default {
   // PsfPersonalDetails
   'PsfPersonalDetails': {
     'Already have an account?': 'Already have an account?',
-    'Create password': 'Create password',
     'Earn credits with every purchase': 'Earn credits with every purchase',
     'Email': '@:App.email',
     'Enjoy these perks with your free account!': 'Enjoy these perks with your free account!',
@@ -293,6 +292,7 @@ export default {
     'Log in now': '@:App.logInNow',
     'Manage your wishlist': 'Manage your wishlist',
     'or fill in the details below:': 'or fill in the details below:',
+    'Password': 'Password',
     'User data': '@:App.userData'
   },
   // Product

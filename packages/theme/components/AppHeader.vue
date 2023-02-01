@@ -115,6 +115,10 @@ import HeaderNavigation from './HeaderNavigation';
 import { clickOutside } from '@storefront-ui/vue/src/utilities/directives/click-outside/click-outside-directive.js';
 import debounce from 'lodash.debounce';
 import { addBasePath } from '@vue-storefront/core';
+import { useContext } from '@nuxtjs/composition-api';
+import { localize } from 'vee-validate';
+import de from 'vee-validate/dist/locale/de.json';
+import en from 'vee-validate/dist/locale/en.json';
 
 export default {
   components: {
@@ -195,6 +199,9 @@ export default {
       return searchBarRef.value.$el.children[0]?.children[0]?.focus();
     };
 
+    const { app } = useContext();
+    app.i18n.locale === 'de' ? localize('de', de) : localize('en', en);
+
     return {
       accountIcon,
       cartTotalItems,
@@ -237,6 +244,12 @@ export default {
     display: none;
   }
 }
+
+@include for-mobile {
+    ::v-deep .sf-header-navigation-item__item--desktop {
+      display: none;
+    }
+  }
 
 .cart-badge {
   position: absolute;

@@ -17,7 +17,7 @@
       <div v-if="currentScreen === SCREEN_LOGIN">
         <ValidationObserver v-slot="{ handleSubmit }" key="log-in">
           <form class="form" @submit.prevent="handleSubmit(handleLogin)">
-            <ValidationProvider rules="required|email" v-slot="{ errors }">
+            <ValidationProvider :name="$t('LoginModal.Email')" rules="required|email" v-slot="{ errors }">
               <SfInput
                 v-e2e="'login-modal-email'"
                 v-model="form.username"
@@ -28,7 +28,7 @@
                 class="form__element"
               />
             </ValidationProvider>
-            <ValidationProvider rules="required" v-slot="{ errors }">
+            <ValidationProvider :name="$t('LoginModal.Password')" rules="required" v-slot="{ errors }">
               <SfInput
                 v-e2e="'login-modal-password'"
                 v-model="form.password"
@@ -85,7 +85,7 @@
         <p>{{ $t('LoginModal.Forgot password') }}</p>
         <ValidationObserver v-slot="{ handleSubmit }" key="log-in">
           <form class="form" @submit.prevent="handleSubmit(handleForgotten)">
-            <ValidationProvider rules="required|email" v-slot="{ errors }">
+            <ValidationProvider :name="$t('LoginModal.Email')" rules="required|email" v-slot="{ errors }">
               <SfInput
                 v-e2e="'forgot-modal-email'"
                 v-model="form.username"
@@ -132,7 +132,7 @@
             @submit.prevent="handleSubmit(handleRegister)"
             autocomplete="off"
           >
-            <ValidationProvider rules="required|email" v-slot="{ errors }">
+            <ValidationProvider :name="$t('LoginModal.Email')" rules="required|email" v-slot="{ errors }">
               <SfInput
                 v-e2e="'login-modal-email'"
                 v-model="form.email"
@@ -143,7 +143,7 @@
                 class="form__element"
               />
             </ValidationProvider>
-            <ValidationProvider rules="required" v-slot="{ errors }">
+            <ValidationProvider :name="$t('LoginModal.Password')" rules="required" v-slot="{ errors }">
               <SfInput
                 v-e2e="'login-modal-password'"
                 v-model="form.password"
@@ -210,13 +210,11 @@ import { useUser, useForgotPassword } from '@vue-storefront/plentymarkets';
 import { useUiState, useUiNotification } from '~/composables';
 
 extend('email', {
-  ...email,
-  message: 'Invalid email'
+  ...email
 });
 
 extend('required', {
-  ...required,
-  message: 'This field is required'
+  ...required
 });
 
 export default {

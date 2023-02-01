@@ -27,13 +27,13 @@ context('Register account', () => {
 
   it(['exceptionPath', 'regression'], 'Fails due to missing data or wrongfully formatted email', function test() {
     cy.get('@submit').click();
-    page.home.header.accountModalForm.contains('This field is required');
+    page.home.header.accountModalForm.contains('The Email field is required');
 
     page.home.header.accountModalForm.find('input#email').clear().type('wrong@email', { force: true });
     page.home.header.accountModalForm.find('input#password').clear().type(CYPRESS_DEFAULT_ACCOUNT_PASSWORD, { force: true });
 
     cy.get('@submit').click();
-    page.home.header.accountModalForm.contains('Invalid email');
+    page.home.header.accountModalForm.contains('The Email field must be a valid email');
   });
 
   it(['happyPath', 'regression'], 'Should register an new account', function test() {
