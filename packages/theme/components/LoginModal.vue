@@ -71,7 +71,7 @@
           </SfButton>
         </div>
         <div class="bottom">
-          <p class="bottom__paragraph">{{ $t('LoginModal.No account') }}</p>
+          <p class="bottom__paragraph">{{ $t("LoginModal.Do not have an account yet?") }}</p>
           <SfButton
             data-e2e="open-registration-form"
             class="sf-button--text"
@@ -169,20 +169,15 @@
             </SfButton>
           </form>
         </ValidationObserver>
-        <div class="customer-text">{{ $t('LoginModal.or') }}</div>
-        <div class="signin" align="center">
-          <a
-            data-testid="login-button"
-            class="signin-link"
+        <div class="bottom top">
+          <p class="bottom__paragraph">{{ $t("LoginModal.Already have an account?") }}</p>
+          <SfButton
+            data-e2e="open-login-form"
+            class="sf-button--text"
             @click="setCurrentScreen(SCREEN_LOGIN)"
           >
-            <div class="signin-now">
-              {{ $t('LoginModal.Already have an account?') }}
-            </div>
-            <div>
-              {{ $t('LoginModal.Log in now') }}
-            </div>
-          </a>
+            {{ $t('LoginModal.Log in now') }}
+          </SfButton>
         </div>
       </div>
     </transition>
@@ -384,7 +379,7 @@ export default {
   justify-content: center;
   margin: var(--spacer-xl) 0 var(--spacer-xl) 0;
   font: var(--font-weight--light) var(--font-size--base) / 1.6
-    var(--font-family--secondary);
+  var(--font-family--secondary);
   & > * {
     margin: 0 0 0 var(--spacer-xs);
   }
@@ -408,6 +403,9 @@ export default {
       margin: 0;
     }
   }
+}
+.top {
+  margin-top: var(--spacer-lg);
 }
 .thank-you {
   &__paragraph {

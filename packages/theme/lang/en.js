@@ -174,14 +174,14 @@ export default {
   },
   // LoginModal
   'LoginModal': {
+    'Already have an account?': 'Already have an account?',
     'Create an account': 'Create an account',
+    "Do not have an account yet?": "Don't have an account yet?",
     'Email': '@:App.email',
     'Forgotten your password?': 'Forgotten your password?',
     'Log in now': '@:App.logInNow',
     'Login': 'Login',
     'Login successful': 'Login successful',
-    'No account': 'No account',
-    'or': '@:App.or',
     'Password': 'Password',
     'Register': '@:App.register',
     'Register today': 'Register today',
