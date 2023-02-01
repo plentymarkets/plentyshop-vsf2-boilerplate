@@ -12,7 +12,6 @@
     <div v-if="!sameAsBilling">
       <CheckoutAddressDetails
         ref="CheckoutAddressDetailsRef"
-        class="spacer-top"
         :type="'shipping'"
         :addresses="shippingAddresses"
         :countries="countries"
