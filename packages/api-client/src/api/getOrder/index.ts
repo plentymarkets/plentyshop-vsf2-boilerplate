@@ -20,10 +20,10 @@ export async function placeOrder(context: Context): Promise<CreateOrderResponse>
 }
 
 export async function executePayment(context: Context, orderId: number, paymentId: number): Promise<void> {
-  const url: URL = new URL('/rest/checkout/execute_payment', context.config.api.url);
+  const url: URL = new URL('/rest/checkout/payment/execute', context.config.api.url);
   const { data } = await context.client.post(url.href, {
     orderId: orderId,
-    paymentId: paymentId
+    paymentMethodId: paymentId
   });
   return data;
 }
