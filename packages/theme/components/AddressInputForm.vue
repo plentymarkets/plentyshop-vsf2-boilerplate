@@ -4,7 +4,7 @@
       <form class="form">
         <slot name="form">
           <ValidationProvider
-            :name="type + '-firstName'"
+            :name="$t('AddressInputForm.First name')"
             rules="required|min:2"
             v-slot="{ errors }"
             slim
@@ -21,7 +21,7 @@
             />
           </ValidationProvider>
           <ValidationProvider
-            :name="type + '-lastName'"
+            :name="$t('AddressInputForm.Last name')"
             rules="required|min:2"
             v-slot="{ errors }"
             slim
@@ -38,7 +38,7 @@
             />
           </ValidationProvider>
           <ValidationProvider
-            :name="type + '-streetName'"
+            :name="$t('AddressInputForm.Street')"
             rules="required|min:2"
             v-slot="{ errors }"
             slim
@@ -55,7 +55,7 @@
             />
           </ValidationProvider>
           <ValidationProvider
-            :name="type + '-apartment'"
+            :name="$t('AddressInputForm.Address no')"
             rules="required|min:1"
             v-slot="{ errors }"
             slim
@@ -72,7 +72,7 @@
             />
           </ValidationProvider>
           <ValidationProvider
-            :name="type + '-city'"
+            :name="$t('AddressInputForm.City')"
             rules="required|min:2"
             v-slot="{ errors }"
             slim
@@ -89,7 +89,7 @@
             />
           </ValidationProvider>
           <ValidationProvider
-            :name="type + '-country'"
+            :name="$t('AddressInputForm.Country')"
             rules="required|min:1"
             v-slot="{ errors }"
             slim
@@ -115,7 +115,7 @@
             </SfComponentSelect>
           </ValidationProvider>
           <ValidationProvider
-            :name="type + '-zipCode'"
+            :name="$t('AddressInputForm.ZIP code')"
             rules="required|min:2"
             v-slot="{ errors }"
             slim
@@ -131,7 +131,7 @@
               class="form__element form__element--half"
             />
           </ValidationProvider>
-          <ValidationProvider :name="type + '-state'" rules="" v-slot="{ errors }" slim>
+          <ValidationProvider :name="$t('AddressInputForm.State/Province')" rules="" v-slot="{ errors }" slim>
             <SfComponentSelect
               :data-e2e="type + '-state'"
               v-model="internalForm.state"
@@ -154,7 +154,7 @@
             </SfComponentSelect>
           </ValidationProvider>
           <ValidationProvider
-            :name="type + '-phoneNumber'"
+            :name="$t('AddressInputForm.Phone no')"
             rules="required|min:5"
             v-slot="{ errors }"
             slim
@@ -216,12 +216,10 @@ export default {
 
   setup(props, { refs }) {
     extend('required', {
-      ...required,
-      message: 'This field is required'
+      ...required
     });
     extend('min', {
-      ...min,
-      message: 'The field should have at least {length} characters'
+      ...min
     });
 
     const internalForm = ref(props.form);

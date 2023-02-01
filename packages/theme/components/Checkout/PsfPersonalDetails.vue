@@ -15,7 +15,7 @@
           <form v-on:submit.prevent class="form-width">
             <ValidationProvider
               rules="required|email"
-              name="registerMail"
+              :name="$t('PsfPersonalDetails.Email')"
               v-slot="{ errors }"
               slim
             >
@@ -34,7 +34,7 @@
               <transition :name="transition">
                 <ValidationProvider v-if="createAccount"
                   rules="required|min:8"
-                  name="registerPassword"
+                  :name="$t('PsfPersonalDetails.Password')"
                   v-slot="{ errors }"
                   slim
                 >
@@ -43,7 +43,7 @@
                   :has-show-password="true"
                   name="registerPassword"
                   type="password"
-                  :label="$t('PsfPersonalDetails.Create password')"
+                  :label="$t('PsfPersonalDetails.Password')"
                   class="form__element"
                   required
                   data-e2e="create-password-input"
@@ -122,12 +122,10 @@ export default {
   },
   setup(props, context) {
     extend('required', {
-      ...required,
-      message: 'This field is required'
+      ...required
     });
     extend('min', {
-      ...min,
-      message: 'The field should have at least {length} characters'
+      ...min
     });
     const { toggleLoginModal } = useUiState();
 

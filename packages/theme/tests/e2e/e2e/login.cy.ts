@@ -46,15 +46,15 @@ context('Login', () => {
 
   it(['exceptionPath', 'regression'], 'Fails due to missing or wrongfully formatted email', function test() {
     loginHelper(cy, '', CYPRESS_DEFAULT_ACCOUNT_PASSWORD);
-    page.home.header.accountModalForm.contains('This field is required');
+    page.home.header.accountModalForm.contains('The Email field is required');
 
     loginHelper(cy, 'badEmail@', CYPRESS_DEFAULT_ACCOUNT_PASSWORD);
-    page.home.header.accountModalForm.contains('Invalid email');
+    page.home.header.accountModalForm.contains('The Email field must be a valid email');
   });
 
   it(['exceptionPath', 'regression'], 'Fails login due to missing password', function test() {
     loginHelper(cy, CYPRESS_DEFAULT_ACCOUNT_EMAIL, '');
-    page.home.header.accountModalForm.contains('This field is required');
+    page.home.header.accountModalForm.contains('The Password field is required');
   });
 
   it(['exceptionPath', 'regression'], 'Fails due to wrong email', function test() {
