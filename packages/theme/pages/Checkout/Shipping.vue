@@ -16,7 +16,7 @@
         :type="'shipping'"
         :addresses="shippingAddresses"
         :countries="countries"
-        :headingTitle="$t('Shipping details')"
+        :headingTitle="$t('Shipping.Shipping details')"
         :headingTitleLevel="2"
         @set-default-address="setDefaultAddress({ address: $event })"
         @delete-address="deleteAddress({ address: $event })"
