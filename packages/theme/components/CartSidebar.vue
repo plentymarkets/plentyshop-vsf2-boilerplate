@@ -264,4 +264,10 @@ export default {
     }
   }
 }
+::v-deep .sf-collected-product__image {
+  background: var(--c-light--variant);
+}
+::v-deep .sf-collected-product__quantity-selector {
+  background: var(--c-light--variant);
+}
 </style>
