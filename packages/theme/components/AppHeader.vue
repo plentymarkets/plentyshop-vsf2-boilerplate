@@ -245,6 +245,12 @@ export default {
   }
 }
 
+@include for-mobile {
+    ::v-deep .sf-header-navigation-item__item--desktop {
+      display: none;
+    }
+  }
+
 .cart-badge {
   position: absolute;
   bottom: 40%;
