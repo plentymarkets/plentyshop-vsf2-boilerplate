@@ -71,7 +71,7 @@
           </SfButton>
         </div>
         <div class="bottom">
-          <p class="bottom__paragraph">{{ $t("Don't have an account yet?") }}</p>
+          <p class="bottom__paragraph">{{ $t("LoginModal.Do not have an account yet?") }}</p>
           <SfButton
             data-e2e="open-registration-form"
             class="sf-button--text"
@@ -169,19 +169,15 @@
             </SfButton>
           </form>
         </ValidationObserver>
-        <div class="signin" align="center">
-          <a
-            data-testid="login-button"
-            class="signin-link"
+        <div class="bottom top">
+          <p class="bottom__paragraph">{{ $t("LoginModal.Already have an account?") }}</p>
+          <SfButton
+            data-e2e="open-login-form"
+            class="sf-button--text"
             @click="setCurrentScreen(SCREEN_LOGIN)"
           >
-            <div class="bottom__paragraph">
-              {{ $t('Already have an account?') }}
-            </div>
-            <div class="sf-button--text sf-button">
-              {{ $t('LoginModal.Log in now') }}
-            </div>
-          </a>
+            {{ $t('LoginModal.Log in now') }}
+          </SfButton>
         </div>
       </div>
     </transition>
@@ -407,6 +403,9 @@ export default {
       margin: 0;
     }
   }
+}
+.top {
+  margin-top: var(--spacer-lg);
 }
 .thank-you {
   &__paragraph {
