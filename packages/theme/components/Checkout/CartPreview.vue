@@ -2,7 +2,7 @@
   <div>
     <div class="highlighted top-items">
       <SfHeading :level="3" :title="$t('CartPreview.Order summary')" class="sf-heading--left sf-heading--no-underline title" />
-      <SfLink class="notice__link edit-cart-link" href="#" @click='toggleCartSidebar'>{{ $t('CartPreview.Edit cart') }}</SfLink>
+      <a class="notice__link edit-cart-link" @click='toggleCartSidebar'>{{ $t('CartPreview.Edit cart') }}</a>
     </div>
     <div class="highlighted">
       <SfProperty :name="$t('CartPreview.Products')" :value="totalItems"
@@ -24,7 +24,7 @@
   </div>
 </template>
 <script>
-import { SfHeading, SfProperty, SfCharacteristic, SfLink } from '@storefront-ui/vue';
+import { SfHeading, SfProperty } from '@storefront-ui/vue';
 import { computed, defineComponent } from '@nuxtjs/composition-api';
 import { cartGetters, useCart } from '@vue-storefront/plentymarkets';
 import { useUiState } from '~/composables';
@@ -32,9 +32,7 @@ export default defineComponent({
   name: 'CartPreview',
   components: {
     SfHeading,
-    SfProperty,
-    SfCharacteristic,
-    SfLink
+    SfProperty
   },
   setup() {
     const { cart, removeItem, updateItemQty } = useCart();

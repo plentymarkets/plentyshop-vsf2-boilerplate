@@ -12,7 +12,7 @@
         </nuxt-link>
       </template>
       <template #navigation>
-        <HeaderNavigation :isMobile="isMobile" />
+        <HeaderNavigation/>
       </template>
       <template #aside>
         <LocaleSelector class="smartphone-only" />
@@ -107,16 +107,12 @@
 import { SfHeader, SfImage, SfIcon, SfButton, SfBadge, SfSearchBar, SfOverlay } from '@storefront-ui/vue';
 import { useUiState } from '~/composables';
 import { useCart, useUser, cartGetters, useSearch, useWishlist } from '@vue-storefront/plentymarkets';
-import { computed, ref, watch, onBeforeUnmount, useRouter } from '@nuxtjs/composition-api';
+import { computed, ref, useRouter } from '@nuxtjs/composition-api';
 import { useUiHelpers } from '~/composables';
 import LocaleSelector from './LocaleSelector';
 import SearchResults from '~/components/SearchResults';
 import HeaderNavigation from './HeaderNavigation';
 import { clickOutside } from '@storefront-ui/vue/src/utilities/directives/click-outside/click-outside-directive.js';
-import {
-  mapMobileObserver,
-  unMapMobileObserver
-} from '@storefront-ui/vue/src/utilities/mobile-observer.js';
 import debounce from 'lodash.debounce';
 import { addBasePath } from '@vue-storefront/core';
 
@@ -145,7 +141,6 @@ export default {
     const term = ref(getFacetsFromURL().term);
     const isSearchOpen = ref(false);
     const searchBarRef = ref(null);
-    const isMobile = ref(mapMobileObserver().isMobile.get());
 
     const cartTotalItems = computed(() => {
       const count = cartGetters.getTotalItems(cart.value);
@@ -196,24 +191,9 @@ export default {
     }, 1000);
 
     const closeOrFocusSearchBar = () => {
-      if (isMobile.value) {
-        return closeSearch();
-      } else {
-        term.value = '';
-        return searchBarRef.value.$el.children[0].focus();
-      }
+      term.value = '';
+      return searchBarRef.value.$el.children[0]?.children[0]?.focus();
     };
-
-    watch(() => term.value, (newVal, oldVal) => {
-      const shouldSearchBeOpened = (!isMobile.value && term.value.length > 0) && ((!oldVal && newVal) || (newVal.length !== oldVal.length && isSearchOpen.value === false));
-      if (shouldSearchBeOpened) {
-        isSearchOpen.value = true;
-      }
-    });
-
-    onBeforeUnmount(() => {
-      unMapMobileObserver();
-    });
 
     return {
       accountIcon,
@@ -229,7 +209,6 @@ export default {
       searchResults,
       closeOrFocusSearchBar,
       searchBarRef,
-      isMobile,
       isMobileMenuOpen,
       addBasePath,
       wishlistTotalItems,

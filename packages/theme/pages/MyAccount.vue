@@ -41,17 +41,13 @@
 </template>
 <script>
 import { SfBreadcrumbs, SfContentPages } from '@storefront-ui/vue';
-import { computed, onBeforeUnmount, useRoute, useRouter } from '@nuxtjs/composition-api';
+import { computed, useRoute, useRouter } from '@nuxtjs/composition-api';
 import { useUser } from '@vue-storefront/plentymarkets';
 import MyNewsletter from './MyAccount/MyNewsletter';
 import OrderHistory from './MyAccount/OrderHistory';
 import ShippingDetails from './MyAccount/ShippingDetails';
 import BillingDetails from './MyAccount/BillingDetails';
 import ProfileDetails from './MyAccount/ProfileDetails';
-import {
-  mapMobileObserver,
-  unMapMobileObserver
-} from '@storefront-ui/vue/src/utilities/mobile-observer.js';
 
 export default {
   name: 'MyAccount',
@@ -67,22 +63,19 @@ export default {
   middleware: [
     'is-authenticated'
   ],
-  setup(props, context) {
+  setup(props, {root}) {
     const route = useRoute();
     const router = useRouter();
 
     const { logout } = useUser();
-    const isMobile = computed(() => mapMobileObserver().isMobile.get());
 
     const activePage = computed(() => {
       const { pageName } = route.value.params;
 
       if (pageName) {
         return (pageName.charAt(0).toUpperCase() + pageName.slice(1)).replace('-', ' ');
-      } else if (!isMobile.value) {
-        return 'My profile';
       } else {
-        return '';
+        return 'My profile';
       }
     });
 
@@ -94,14 +87,10 @@ export default {
 
       const slugifiedTitle = (title || '').toLowerCase().replace(' ', '-');
       const transformedPath = `/my-account/${slugifiedTitle}`;
-      const localeTransformedPath = context.root.localePath(transformedPath);
+      const localeTransformedPath = root.localePath(transformedPath);
 
       router.push(localeTransformedPath);
     };
-
-    onBeforeUnmount(() => {
-      unMapMobileObserver();
-    });
 
     return { activePage, changeActivePage };
   },
@@ -111,11 +100,11 @@ export default {
       breadcrumbs: [
         {
           text: 'Home',
-          route: { link: '#' }
+          link: '#'
         },
         {
           text: 'My Account',
-          route: { link: '#' }
+          link: '#'
         }
       ]
     };

@@ -2,6 +2,7 @@ import webpack from 'webpack';
 import theme from './themeConfig';
 
 const appPort = process.env.PORT || 80;
+const appIP = process.env.IP || 'localhost';
 
 const config = {
   server: {
@@ -167,7 +168,7 @@ const config = {
   },
 
   publicRuntimeConfig: {
-    middlewareUrl: process.env.MIDDLEWARE_URL || `http://localhost:${appPort}/api/`,
+    middlewareUrl: process.env.MIDDLEWARE_URL || `http://${appIP}:${appPort}/api/`,
     theme
   },
 

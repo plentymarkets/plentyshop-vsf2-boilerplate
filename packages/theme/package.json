@@ -8,7 +8,7 @@
   "scripts": {
     "build": "nuxt build -m",
     "build:analyze": "nuxt build -a -m",
-    "dev": "nuxt",
+    "dev": "./build-env.sh && nuxt",
     "generate": "nuxt generate",
     "lint": "eslint . --ext .ts,.vue",
     "lint:fix": "eslint . --ext .ts,.vue --fix",
@@ -23,10 +23,10 @@
     "dev-debug": "node --inspect node_modules/.bin/nuxt"
   },
   "dependencies": {
-    "@storefront-ui/vue": "0.11.4",
-    "@vue-storefront/middleware": "~2.5.4",
-    "@vue-storefront/nuxt": "~2.5.4",
-    "@vue-storefront/nuxt-theme": "~2.5.4",
+    "@storefront-ui/vue": "0.13.6",
+    "@vue-storefront/middleware": "~2.7.5",
+    "@vue-storefront/nuxt": "~2.7.5",
+    "@vue-storefront/nuxt-theme": "~2.7.5",
     "@vue-storefront/plentymarkets": "0.0.1",
     "cookie-universal-nuxt": "^2.1.5",
     "core-js": "^3.19.0",

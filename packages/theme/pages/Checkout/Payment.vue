@@ -63,7 +63,7 @@
         <SfCheckbox v-e2e="'terms'" v-model="terms" name="terms" class="summary__terms">
           <template #label>
             <div class="sf-checkbox__label">
-              {{ $t('Payment.I agree to') }} <SfLink href="#"> {{ $t('Payment.Terms and conditions') }}</SfLink>
+              {{ $t('Payment.I agree to') }} <SfLink link="#"> {{ $t('Payment.Terms and conditions') }}</SfLink>
             </div>
           </template>
         </SfCheckbox>

@@ -29,8 +29,8 @@
         <SfButton class="form__button">{{ $t('MyNewsletter.Save changes') }}</SfButton>
       </div>
       <p class="notice">
-        {{ $t('MyNewsletter.I have read and understand') }} <SfLink class="notice__link" href="#">{{ $t('MyNewsletter.Privacy policy') }}</SfLink> and
-        <SfLink class="notice__link" href="#">{{ $t('MyNewsletter.Cookies policy') }}</SfLink> {{ $t('MyNewsletter.Commercial information') }}
+        {{ $t('MyNewsletter.I have read and understand') }} <SfLink class="notice__link" link="#">{{ $t('MyNewsletter.Privacy policy') }}</SfLink> and
+        <SfLink class="notice__link" link="#">{{ $t('MyNewsletter.Cookies policy') }}</SfLink> {{ $t('MyNewsletter.Commercial information') }}
       </p>
     </SfTab>
   </SfTabs>
