@@ -167,6 +167,7 @@ export default {
     'Login': 'Login',
     'Login successful': 'Login successful',
     'No account': 'No account',
+    "Don't have an account yet?": "Don't have an account yet?",
     'or': '@:App.or',
     'Password': 'Password',
     'Register': '@:App.register',

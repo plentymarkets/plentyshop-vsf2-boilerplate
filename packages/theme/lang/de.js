@@ -206,5 +206,6 @@ export default {
   // Alerts
   'Login successful': 'Anmeldung erfolgreich',
   'An error occurred during the registration': 'Bei der Registrierung ist ein Fehler aufgetreten',
-  'An error occurred while logging in': 'Beim Einloggen ist ein Fehler aufgetreten'
+  'An error occurred while logging in': 'Beim Einloggen ist ein Fehler aufgetreten',
+  "Don't have an account yet?": "Noch kein Konto?",
 };
