@@ -76,6 +76,10 @@ export default {
 <style lang="scss">
 @import "~@storefront-ui/vue/styles";
 
+:root {
+  @include generate-color-variants(--_c-green-primary, #0284fe);
+}
+
 #layout {
   box-sizing: border-box;
 
@@ -106,6 +110,7 @@ body {
   font-family: var(--font-family--primary);
   margin: 0;
   padding: 0;
+
 }
 
 a {

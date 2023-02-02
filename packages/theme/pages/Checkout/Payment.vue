@@ -20,7 +20,7 @@
         class="table__row"
       >
         <SfTableData class="table__image">
-          <SfImage :src="addBasePath(cartGetters.getItemImage(product))" :alt="cartGetters.getItemName(product)" />
+          <SfImage :width="100" :height="100" :src="addBasePath(cartGetters.getItemImage(product))" :alt="cartGetters.getItemName(product)" />
         </SfTableData>
         <SfTableData class="table__data table__description table__data">
           <div class="product-title">{{ cartGetters.getItemName(product) }}</div>
