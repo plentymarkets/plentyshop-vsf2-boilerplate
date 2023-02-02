@@ -41,6 +41,10 @@ context('Login', () => {
   });
 
   beforeEach(function init () {
+    cy.request({
+      url: '/',
+      timeout: 60000
+    });
     page.home.visit();
   });
 
