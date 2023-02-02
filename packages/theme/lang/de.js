@@ -99,6 +99,9 @@ export default {
     'Edit cart': 'Einkaufswagen bearbeiten',
     'Order summary': 'Bestellübersicht',
     'Products': 'Produkte',
+    'Vat total': 'Mehrwertsteuer gesamt',
+    'Coupon Discount': 'Coupon-Rabatt',
+    'To be payed': 'Bezahlt werden',
     'Shipping': 'Versand',
     'Subtotal': 'Zwischensumme',
     'Total': 'Summe'

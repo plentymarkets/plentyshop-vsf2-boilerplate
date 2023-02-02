@@ -7,19 +7,7 @@
     <div class="highlighted">
       <SfProperty :name="$t('CartPreview.Products')" :value="totalItems"
                   class="sf-property--full-width sf-property--large property" />
-      <SfProperty :name="$t('CartPreview.Subtotal')" :value="$n(totals.subtotal, 'currency')"
-                  :class="['sf-property--full-width', 'sf-property--large property']" />
-      <SfProperty v-if="totals.rebate" :name="$t('CartPreview.Discount')" :value="$n(totals.rebate, 'currency')"
-                  class="sf-property--full-width sf-property--small property" />
-      <!--      <SfProperty-->
-      <!--        v-if="selectedShippingMethod"-->
-      <!--        :name="$t('CartPreview.Shipping')"-->
-      <!--        :value="0"-->
-      <!--        class="sf-property&#45;&#45;full-width sf-property&#45;&#45;large property"-->
-      <!--      />-->
-
-      <SfProperty :name="$t('CartPreview.Total')" :value="$n(totals.total, 'currency')"
-                  class="sf-property--full-width sf-property--large property-total" />
+      <CartTotals></CartTotals>
     </div>
   </div>
 </template>
@@ -32,7 +20,8 @@ export default defineComponent({
   name: 'CartPreview',
   components: {
     SfHeading,
-    SfProperty
+    SfProperty,
+    CartTotals: () => import('~/components/CartTotals')
   },
   setup() {
     const { cart, removeItem, updateItemQty } = useCart();
