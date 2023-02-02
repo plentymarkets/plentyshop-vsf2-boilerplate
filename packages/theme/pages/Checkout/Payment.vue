@@ -44,22 +44,7 @@
     </SfTable>
     <div class="summary">
       <div class="summary__group">
-        <div class="summary__total">
-          <SfProperty
-            name="Subtotal"
-            :value="$n(totals.special > 0 ? totals.special : totals.subtotal, 'currency')"
-            class="sf-property--full-width property"
-          />
-        </div>
-
-        <SfDivider />
-
-        <SfProperty
-          name="Total price"
-          :value="$n(totals.total, 'currency')"
-          class="sf-property--full-width sf-property--large summary__property-total"
-        />
-
+        <CartTotals />
         <SfCheckbox v-e2e="'terms'" v-model="terms" name="terms" class="summary__terms">
           <template #label>
             <div class="sf-checkbox__label">
@@ -116,7 +101,8 @@ export default {
     SfAccordion,
     SfLink,
     VsfPaymentProvider: () => import('~/components/Checkout/VsfPaymentProvider'),
-    VsfShippingProvider: () => import('~/components/Checkout/VsfShippingProvider')
+    VsfShippingProvider: () => import('~/components/Checkout/VsfShippingProvider'),
+    CartTotals: () => import('~/components/CartTotals')
   },
   setup(props, context) {
     const router = useRouter();

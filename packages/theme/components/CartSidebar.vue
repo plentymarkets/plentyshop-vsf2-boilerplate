@@ -77,16 +77,7 @@
       <template #content-bottom>
         <transition name="sf-fade">
           <div v-if="totalItems">
-            <SfProperty
-              name="Subtotal price"
-              class="sf-property--full-width sf-property--large my-cart__total-price"
-            >
-              <template #value>
-                <SfPrice
-                  :special="$n(totals.subtotal, 'currency')"
-                />
-              </template>
-            </SfProperty>
+            <CartTotals />
             <nuxt-link :to="localePath({ name: 'login' })">
               <SfButton
                 class="sf-button--full-width color-secondary"
@@ -137,7 +128,8 @@ export default {
     SfPrice,
     SfCollectedProduct,
     SfImage,
-    SfQuantitySelector
+    SfQuantitySelector,
+    CartTotals: () => import('~/components/CartTotals')
   },
   setup() {
     const { isCartSidebarOpen, toggleCartSidebar } = useUiState();

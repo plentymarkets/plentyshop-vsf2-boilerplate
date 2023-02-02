@@ -55,9 +55,13 @@ function getItemId(item: CartItem): number {
 function getTotals(cart: Cart): AgnosticTotals {
   return {
     total: cart?.basketAmount ?? 0,
+    shippingAmount: cart?.shippingAmount ?? 0,
+    vatAmount: cart?.totalVats[0]?.vatAmount ?? 0,
     subtotal: cart?.itemSum ?? 0,
     special: cart?.basketAmount ?? 0,
-    rebate: cart?.basketRebate ?? 0
+    rebate: cart?.basketRebate ?? 0,
+    couponDiscount: cart?.couponDiscount ?? 0,
+    toBePayed: cart?.basketAmount ?? 0 - cart?.couponDiscount ?? 0
   };
 }
 
