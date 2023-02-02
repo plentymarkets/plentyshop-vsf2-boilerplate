@@ -41,11 +41,9 @@ context('Login', () => {
   });
 
   beforeEach(function init () {
-    cy.request({
-      url: '/',
-      timeout: 60000
-    });
+    cy.intercept('/').as('home');
     page.home.visit();
+    cy.wait('@home');
   });
 
   it(['exceptionPath', 'regression'], 'Fails due to missing or wrongfully formatted email', function test() {
