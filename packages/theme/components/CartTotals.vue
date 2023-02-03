@@ -2,7 +2,7 @@
   <div>
     <SfProperty
       :name="$t('CartPreview.Subtotal')"
-      class="sf-property--full-width"
+      class="sf-property--full-width spacer"
     >
       <template #value>
         <SfPrice :special="$n(totals.subtotal, 'currency')" />
@@ -29,7 +29,7 @@
     <SfDivider />
     <SfProperty
       :name="$t('CartPreview.Total')"
-      class="sf-property--full-width sf-property--large my-cart__total-price"
+      class="sf-property--full-width sf-property--large my-cart__total-price spacer"
     >
       <template #value>
         <SfPrice :special="$n(totals.total, 'currency')" />
@@ -47,7 +47,7 @@
     <SfDivider />
     <SfProperty
       :name="$t('CartPreview.To be payed')"
-      class="sf-property--full-width sf-property--large my-cart__total-price"
+      class="sf-property--full-width sf-property--large my-cart__total-price spacer"
     >
       <template #value>
         <SfPrice :special="$n(totals.toBePayed, 'currency')" />
@@ -80,3 +80,8 @@ export default {
   }
 };
 </script>
+<style lang="scss" scoped>
+.spacer {
+  margin: var(--spacer-xs) 0;
+}
+</style>
