@@ -85,17 +85,17 @@ function getTotal(total: AgnosticTotals): number {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function getCouponDiscount(total: AgnosticTotals): string {
+function getCouponDiscount(total: AgnosticTotals): any {
   return total?.couponDiscount ?? 0;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function getVatValue(total: AgnosticTotals): string {
+function getVatValue(total: AgnosticTotals): any {
   return total?.vatValue ?? 0;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function getToBePayed(total: AgnosticTotals): string {
+function getToBePayed(total: AgnosticTotals): any {
   return total?.toBePayed ?? 0;
 }
 
