@@ -36,6 +36,10 @@ const uniqueMail = `e2etestmail-${new Date().getTime()}@plentymarkets.com`;
 context('Login', () => {
 
   before(() => {
+    cy.request({
+      url: '/',
+      timeout: 60000
+    });
     page.home.visit();
     page.home.registerUser(uniqueMail, 'Testuser1234');
   });
