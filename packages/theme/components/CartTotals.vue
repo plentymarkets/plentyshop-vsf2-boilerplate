@@ -5,7 +5,7 @@
       class="sf-property--full-width spacer"
     >
       <template #value>
-        <SfPrice :special="$n(totals.subtotal, 'currency')" />
+        <SfPrice :regular="$n(cartGetters.getSubTotal(totals), 'currency')" />
       </template>
     </SfProperty>
 
@@ -14,16 +14,16 @@
       class="sf-property--full-width"
     >
       <template #value>
-        <SfPrice :special="$n(totals.shippingAmount, 'currency')" />
+        <SfPrice :regular="$n(cartGetters.getShippingAmount(totals), 'currency')" />
       </template>
     </SfProperty>
 
     <SfProperty
-      :name="$t('CartPreview.Vat total')"
+      :name="$t('CartPreview.Vat total') + ' (' + cartGetters.getVatValue(totals) + '%)'"
       class="sf-property--full-width"
     >
       <template #value>
-        <SfPrice :special="$n(totals.vatAmount, 'currency')" />
+        <SfPrice :regular="$n(cartGetters.getVatAmount(totals), 'currency')" />
       </template>
     </SfProperty>
     <SfDivider />
@@ -32,7 +32,7 @@
       class="sf-property--full-width sf-property--large my-cart__total-price spacer"
     >
       <template #value>
-        <SfPrice :special="$n(totals.total, 'currency')" />
+        <SfPrice :regular="$n(cartGetters.getTotal(totals), 'currency')" />
       </template>
     </SfProperty>
 
@@ -41,7 +41,7 @@
       class="sf-property--full-width"
     >
       <template #value>
-        <SfPrice :special="$n(totals.couponDiscount, 'currency')" />
+        <SfPrice :regular="$n(cartGetters.getCouponDiscount(totals), 'currency')" />
       </template>
     </SfProperty>
     <SfDivider />
@@ -50,7 +50,7 @@
       class="sf-property--full-width sf-property--large my-cart__total-price spacer"
     >
       <template #value>
-        <SfPrice :special="$n(totals.toBePayed, 'currency')" />
+        <SfPrice :regular="$n(cartGetters.getToBePayed(totals), 'currency')" />
       </template>
     </SfProperty>
   </div>
@@ -75,6 +75,7 @@ export default {
     const { cart } = useCart();
 
     return {
+      cartGetters,
       totals: computed(() => cartGetters.getTotals(cart.value))
     };
   }

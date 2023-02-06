@@ -56,6 +56,7 @@ function getTotals(cart: Cart): AgnosticTotals {
   return {
     total: cart?.basketAmount ?? 0,
     shippingAmount: cart?.shippingAmount ?? 0,
+    vatValue: cart?.totalVats[0]?.vatValue ?? 0,
     vatAmount: cart?.totalVats[0]?.vatAmount ?? 0,
     subtotal: cart?.itemSum ?? 0,
     special: cart?.basketAmount ?? 0,
@@ -63,6 +64,39 @@ function getTotals(cart: Cart): AgnosticTotals {
     couponDiscount: cart?.couponDiscount ?? 0,
     toBePayed: cart?.basketAmount ?? 0 - cart?.couponDiscount ?? 0
   };
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getSubTotal(total: AgnosticTotals): number {
+  return total?.subtotal ?? 0;
+}
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getShippingAmount(total: AgnosticTotals): string {
+  return total?.shippingAmount ?? 0;
+}
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getVatAmount(total: AgnosticTotals): string {
+  return total?.vatAmount ?? 0;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getTotal(total: AgnosticTotals): number {
+  return total?.total ?? 0;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getCouponDiscount(total: AgnosticTotals): string {
+  return total?.couponDiscount ?? 0;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getVatValue(total: AgnosticTotals): string {
+  return total?.vatValue ?? 0;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getToBePayed(total: AgnosticTotals): string {
+  return total?.toBePayed ?? 0;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -92,6 +126,13 @@ function getDiscounts(cart: Cart): AgnosticDiscount[] {
 
 export const cartGetters: CartGetters<Cart, CartItem> = {
   getTotals,
+  getSubTotal,
+  getShippingAmount,
+  getTotal,
+  getVatValue,
+  getToBePayed,
+  getCouponDiscount,
+  getVatAmount,
   getShippingPrice,
   getItems,
   getItemName,
