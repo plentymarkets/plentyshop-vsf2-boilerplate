@@ -24,6 +24,8 @@
                 v-e2e="'collected-product'"
                 :key="cartGetters.getItemId(product)"
                 :image="addBasePath(cartGetters.getItemImage(product))"
+                :imageWidth="100"
+                :imageHeight="100"
                 :title="cartGetters.getItemName(product)"
                 :regular-price="$n(cartGetters.getItemPrice(product).regular, 'currency')"
                 :special-price="cartGetters.getItemPrice(product).special && $n(cartGetters.getItemPrice(product).special, 'currency')"
@@ -61,6 +63,7 @@
         <div v-else key="empty-cart" class="empty-cart">
           <div class="empty-cart__banner">
             <SfImage
+              :width="100" :height="100"
               alt="Empty bag"
               class="empty-cart__image"
               :src="addBasePath('/icons/empty-cart.svg')"

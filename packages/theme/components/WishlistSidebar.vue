@@ -24,6 +24,8 @@
                 v-for="product in products"
                 :key="wishlistGetters.getId(product)"
                 :image="addBasePath(wishlistGetters.getItemImage(product))"
+                :imageWidth="100"
+                :imageHeight="100"
                 :title="wishlistGetters.getItemName(product)"
                 :regular-price="$n(wishlistGetters.getItemPrice(product).regular, 'currency')"
                 :special-price="wishlistGetters.getItemPrice(product).special && $n(wishlistGetters.getItemPrice(product).special, 'currency')"
@@ -55,7 +57,7 @@
         </div>
         <div v-else class="empty-wishlist" key="empty-wishlist">
           <div class="empty-wishlist__banner">
-            <SfImage :src="addBasePath('/icons/empty-cart.svg')" alt="Empty bag" class="empty-wishlist__icon" />
+            <SfImage :width="100" :height="100" :src="addBasePath('/icons/empty-cart.svg')" alt="Empty bag" class="empty-wishlist__icon" />
             <SfHeading
               :title="$t('WishlistSidebar.Your bag is empty')"
               :description="$t('WishlistSidebar.Fill in bag')"

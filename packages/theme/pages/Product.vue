@@ -6,7 +6,7 @@
     />
     <div class="product">
       <LazyHydrate when-idle>
-        <SfGallery :images="productGallery" class="product__gallery" />
+        <SfGallery :imageWidth="100" :imageHeight="100" :images="productGallery" class="product__gallery" />
       </LazyHydrate>
 
       <div class="product__info">

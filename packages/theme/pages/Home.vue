@@ -60,6 +60,8 @@
               <SfProductCard
                 :title="product.title"
                 :image="product.image"
+                :imageWidth="100"
+                :imageHeight="100"
                 :regular-price="product.price.regular"
                 :max-rating="product.rating.max"
                 :score-rating="product.rating.score"

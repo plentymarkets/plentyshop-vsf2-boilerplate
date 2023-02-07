@@ -39,6 +39,8 @@
                     v-for="(product, index) in products"
                     :key="index"
                     class="result-card"
+                    :imageWidth="100"
+                    :imageHeight="100"
                     :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
                     :score-rating="productGetters.getAverageRating(product)"
                     :reviews-count="7"
@@ -56,6 +58,8 @@
                   v-for="(product, index) in products"
                   :key="index"
                   class="result-card"
+                  :imageWidth="100"
+                  :imageHeight="100"
                   :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
                   :score-rating="productGetters.getAverageRating(product)"
                   :reviews-count="7"
@@ -73,7 +77,7 @@
             </div>
           </div>
           <div v-else key="no-results" class="before-results">
-            <SfImage :src="addBasePath('/error/error.svg')" class="before-results__picture" alt="error" loading="lazy"/>
+            <SfImage :width="100" :height="100" :src="addBasePath('/error/error.svg')" class="before-results__picture" alt="error" loading="lazy"/>
             <template v-if="term">
               <p class="before-results__paragraph">{{ $t('SearchResults.No results found') }}</p>
             </template>
