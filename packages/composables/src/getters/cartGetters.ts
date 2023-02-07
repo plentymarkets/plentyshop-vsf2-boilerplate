@@ -1,12 +1,11 @@
 import {
   CartGetters,
   AgnosticPrice,
-  AgnosticTotals,
   AgnosticCoupon,
   AgnosticDiscount,
   AgnosticAttribute
 } from '@vue-storefront/core';
-import type { Cart, CartItem } from '@vue-storefront/plentymarkets-api';
+import type { Cart, CartItem, PlentyAgnosticTotals as AgnosticTotals } from '@vue-storefront/plentymarkets-api';
 import { productGetters } from './productGetters';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -71,11 +70,11 @@ function getSubTotal(total: AgnosticTotals): number {
   return total?.subtotal ?? 0;
 }
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function getShippingAmount(total: AgnosticTotals): any {
+function getShippingAmount(total: AgnosticTotals): number {
   return total?.shippingAmount ?? 0;
 }
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function getVatAmount(total: AgnosticTotals): any {
+function getVatAmount(total: AgnosticTotals): number {
   return total?.vatAmount ?? 0;
 }
 
@@ -85,17 +84,17 @@ function getTotal(total: AgnosticTotals): number {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function getCouponDiscount(total: AgnosticTotals): any {
+function getCouponDiscount(total: AgnosticTotals): number {
   return total?.couponDiscount ?? 0;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function getVatValue(total: AgnosticTotals): any {
+function getVatValue(total: AgnosticTotals): number {
   return total?.vatValue ?? 0;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function getToBePayed(total: AgnosticTotals): any {
+function getToBePayed(total: AgnosticTotals): number {
   return total?.toBePayed ?? 0;
 }
 

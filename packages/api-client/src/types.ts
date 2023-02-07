@@ -1,4 +1,4 @@
-import { IntegrationContext, ApiClientMethods, ProductsSearchParams, AgnosticCategoryTree, UseUserOrderSearchParams } from '@vue-storefront/core';
+import { IntegrationContext, ApiClientMethods, ProductsSearchParams, AgnosticCategoryTree, UseUserOrderSearchParams, AgnosticTotals } from '@vue-storefront/core';
 import { AxiosInstance } from 'axios';
 import { Order } from './types/order';
 
@@ -582,6 +582,15 @@ export type CreateOrderResponse = {
 export type GetOrdersResponse = {
   events: any[],
   data: PaginatedResult<Order>
+}
+
+export interface PlentyAgnosticTotals extends AgnosticTotals {
+    shippingAmount: number,
+    vatValue: number,
+    vatAmount: number,
+    rebate: number,
+    couponDiscount: number,
+    toBePayed: number
 }
 
 export interface UserAddressGetters {
