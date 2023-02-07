@@ -71,11 +71,11 @@ function getSubTotal(total: AgnosticTotals): number {
   return total?.subtotal ?? 0;
 }
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function getShippingAmount(total: AgnosticTotals): string {
+function getShippingAmount(total: AgnosticTotals): any {
   return total?.shippingAmount ?? 0;
 }
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function getVatAmount(total: AgnosticTotals): string {
+function getVatAmount(total: AgnosticTotals): any {
   return total?.vatAmount ?? 0;
 }
 
