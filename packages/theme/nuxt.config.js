@@ -180,6 +180,7 @@ const config = {
         ital: [300, 400]
       }
     },
+    display: 'swap',
     download: true,
     base64: false,
     fontsPath: '../fonts'
