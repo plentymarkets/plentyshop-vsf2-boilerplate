@@ -124,7 +124,8 @@ import InstagramFeed from '~/components/InstagramFeed.vue';
 import NewsletterModal from '~/components/NewsletterModal.vue';
 import LazyHydrate from 'vue-lazy-hydration';
 import { useUiState } from '../composables';
-import { addBasePath } from '@vue-storefront/core';
+import { addBasePath, onSSR } from '@vue-storefront/core';
+import { useLegalInformation } from '@vue-storefront/plentymarkets';
 
 export default {
   name: 'Home',
@@ -147,6 +148,7 @@ export default {
   setup() {
     const { $config, app } = useContext();
     const { toggleNewsletterModal } = useUiState();
+    const { search: searchLeagalInformation, result } = useLegalInformation();
     const products = ref([
       {
         title: app.i18n.t('Home.Cream Beach Bag'),
@@ -269,6 +271,12 @@ export default {
       }
     ];
 
+    onSSR(async () => {
+      await searchLeagalInformation('PrivacyPolicy');
+      console.log(result.value);
+      console.log(JSON.stringify(result.value));
+    });
+
     const onSubscribe = (emailAddress) => {
       console.log(`Email ${emailAddress} was added to newsletter.`);
       toggleNewsletterModal();
@@ -285,7 +293,8 @@ export default {
       addBasePath,
       banners,
       heroes,
-      products
+      products,
+      result
     };
   }
 };
