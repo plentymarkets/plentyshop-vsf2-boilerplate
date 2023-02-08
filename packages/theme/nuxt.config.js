@@ -29,10 +29,10 @@ const config = {
         href: 'https://fonts.gstatic.com',
         crossorigin: 'crossorigin'
       },
-      {
+     /*  {
         rel: 'stylesheet',
         href: 'https://fonts.googleapis.com/css?family=Raleway:300,400,400i,500,600,700|Roboto:300,300i,400,400i,500,700&display=swap'
-      }
+      } */
     ]
   },
 
@@ -49,6 +49,7 @@ const config = {
     '@nuxtjs/composition-api/module',
     '@nuxt/typescript-build',
     '@nuxtjs/style-resources',
+    '@nuxtjs/google-fonts',
     ['@vue-storefront/nuxt', {
       // @core-development-only-start
       coreDevelopment: true,
@@ -176,7 +177,22 @@ const config = {
     meta: {
       theme_color: '#5ECE7B'
     }
-  }
+  },
+  googleFonts: {
+    families: {
+      Raleway: {
+        wght: [300, 400, 500, 600, 700],
+        ital: [400]
+      },
+      Roboto: {
+        wght: [300, 400, 500, 700],
+        ital: [300, 400]
+      }
+    },
+    download: true,
+    base64: false,
+    fontsPath: '~/brrr/fonts'
+  },
 };
 
 if (process.env.MIDDLEWARE_URL) {
