@@ -23,16 +23,7 @@ const config = {
         rel: 'icon',
         type: 'image/x-icon',
         href: '/favicon.ico'
-      },
-      {
-        rel: 'preconnect',
-        href: 'https://fonts.gstatic.com',
-        crossorigin: 'crossorigin'
-      },
-     /*  {
-        rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css?family=Raleway:300,400,400i,500,600,700|Roboto:300,300i,400,400i,500,700&display=swap'
-      } */
+      }
     ]
   },
 
@@ -191,7 +182,7 @@ const config = {
     },
     download: true,
     base64: false,
-    fontsPath: '~/brrr/fonts'
+    fontsPath: '../fonts'
   },
 };
 
