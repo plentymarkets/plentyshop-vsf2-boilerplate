@@ -8,12 +8,20 @@
       @close="toggleCartSidebar"
     >
       <template #content-top>
-        <SfProperty
-          v-if="totalItems"
-          class="sf-property--large cart-summary desktop-only"
-          name="Total items"
-          :value="totalItems"
-        />
+        <div v-if="totalItems" class="sf-sidebar__top__summary">
+          <SfProperty
+            class="sf-property--large cart-summary desktop-only"
+            name="Total items"
+            :value="totalItems"
+          />
+          <SfButton
+            class="sf-button--text desktop-only"
+            data-testid="clear-cart"
+            @click="clear()"
+            >
+            {{ $t('CartSidebar.Clear') }}
+          </SfButton>
+        </div>
       </template>
       <transition name="sf-fade" mode="out-in">
         <div v-if="totalItems" key="my-cart" class="my-cart">
@@ -172,6 +180,11 @@ export default {
       --sidebar-content-padding: var(--spacer-base);
     }
   }
+}
+.sf-sidebar__top__summary {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
 }
 .cart-summary {
   margin-top: var(--spacer-xl);

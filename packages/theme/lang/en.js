@@ -87,6 +87,7 @@ export default {
   },
   // CartSidebar
   'CartSidebar': {
+    'Clear': 'Clear',
     'Go back shopping': 'Go back shopping',
     'Go to checkout': 'Go to checkout',
     'Fill in bag': '@:App.fillInBag',
