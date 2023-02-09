@@ -8,14 +8,14 @@
       @close="toggleCartSidebar"
     >
       <template #content-top>
-        <div v-if="totalItems" class="sf-sidebar__top__summary">
+        <div v-if="totalItems" class="sf-sidebar__top__summary desktop-only">
           <SfProperty
-            class="sf-property--large cart-summary desktop-only"
+            class="sf-property--large cart-summary"
             name="Total items"
             :value="totalItems"
           />
           <SfButton
-            class="sf-button--text desktop-only"
+            class="sf-button--text"
             data-testid="clear-cart"
             @click="clear()"
             >
