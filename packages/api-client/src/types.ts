@@ -669,6 +669,8 @@ export interface PlentymarketsApiMethods {
     params: { productId: number, cartItemId: number, quantity: number }
   ): Promise<Cart>
 
+  clear(): Promise<Cart>
+
   getSession(initialRestCall: boolean): Promise<SessionResult>
 
   loginUser(email: string, password: string): Promise<SessionResult>

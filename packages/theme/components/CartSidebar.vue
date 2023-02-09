@@ -136,7 +136,7 @@ export default {
   },
   setup() {
     const { isCartSidebarOpen, toggleCartSidebar } = useUiState();
-    const { cart, removeItem, updateItemQty, loading } = useCart();
+    const { cart, removeItem, updateItemQty, clear, loading } = useCart();
     const products = computed(() => cartGetters.getItems(cart.value));
     const totals = computed(() => cartGetters.getTotals(cart.value));
     const totalItems = computed(() => cartGetters.getTotalItems(cart.value));
@@ -151,6 +151,7 @@ export default {
       loading,
       products,
       removeItem,
+      clear,
       isCartSidebarOpen,
       toggleCartSidebar,
       totals,

@@ -61,8 +61,9 @@ const params: UseCartFactoryParams<Cart, CartItem, Product> = {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   clear: async (context: Context, { currentCart }) => {
-    console.log('Mocked: useCart.clear');
-    return currentCart;
+    let cart = await context.$plentymarkets.api.clear();
+    cart = migrateVariationData(currentCart, cart);
+    return cart;
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

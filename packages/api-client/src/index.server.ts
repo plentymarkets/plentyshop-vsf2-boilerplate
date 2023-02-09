@@ -12,7 +12,8 @@ import {
   addItem as addCartItem,
   getCart,
   removeItem as removeCartItem,
-  updateItemQty as updateCartItemQty
+  updateItemQty as updateCartItemQty,
+  clear
 } from './api/getCart';
 import { getSession } from './api/getSession';
 import { getShippingProvider, selectShippingProvider } from './api/getShippingProvider';
@@ -113,6 +114,7 @@ const { createApiClient } = apiClientFactory<Settings, Endpoints>({
     addCartItem,
     removeCartItem,
     updateCartItemQty,
+    clear,
     getSession,
     loginUser,
     registerUser,
