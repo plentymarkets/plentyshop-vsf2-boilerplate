@@ -14,6 +14,7 @@
       <WishlistSidebar />
       <LoginModal />
       <Notification />
+      <CookieBar></CookieBar>
     </div>
     <LazyHydrate when-visible>
       <AppFooter />
@@ -22,6 +23,7 @@
 </template>
 
 <script>
+import CookieBar from '~/components/CookieBar.vue';
 import AppHeader from '~/components/AppHeader.vue';
 import BottomNavigation from '~/components/BottomNavigation.vue';
 import AppFooter from '~/components/AppFooter.vue';
@@ -41,6 +43,7 @@ export default {
   components: {
     LazyHydrate,
     TopBar,
+    CookieBar,
     AppHeader,
     BottomNavigation,
     AppFooter,
