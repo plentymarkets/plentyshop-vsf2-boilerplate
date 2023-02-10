@@ -59,6 +59,12 @@ export default {
     'Social': 'Social',
     'Who we are': 'Who we are',
     'Women fashion': 'Women fashion',
+    'CancellationRights': 'Cancellation rights',
+    'CancellationForm': 'Cancellation form',
+    'LegalDisclosure' : 'Legal disclosure',
+    'PrivacyPolicy' : 'Privacy policy',
+    'TermsAndConditions': 'Terms and conditions'
+
   },
   // AppHeader
   'AppHeader': {

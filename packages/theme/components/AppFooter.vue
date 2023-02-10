@@ -48,6 +48,19 @@
           </SfListItem>
         </SfList>
       </SfFooterColumn>
+      <SfFooterColumn title='Legal'>
+        <SfList>
+          <SfListItem
+            v-for="item in legal"
+            :key="item"
+          >
+            <SfMenuItem
+              :label="$t(item)"
+              @click='goTo(legalPaths[item])'
+            />
+          </SfListItem>
+        </SfList>
+      </SfFooterColumn>
       <SfFooterColumn :title="$t('AppFooter.Social')">
         <div class="footer__socials">
           <SfImage class="footer__social-image" v-for="item in social" :key="item" :src="addBasePath('/icons/'+item+'.svg')" :alt="item" width="32" height="32" />
@@ -59,6 +72,7 @@
 <script>
 import { SfFooter, SfList, SfImage, SfMenuItem } from '@storefront-ui/vue';
 import { addBasePath } from '@vue-storefront/core';
+import { useRouter } from '@nuxtjs/composition-api';
 
 export default {
   components: {
@@ -67,9 +81,15 @@ export default {
     SfImage,
     SfMenuItem
   },
-  setup() {
+  setup(props, {root}) {
+    const router = useRouter();
+    const goTo = (path) => {
+      router.push(root.localePath({name: path}));
+    };
     return {
-      addBasePath
+      router,
+      addBasePath,
+      goTo
     };
   },
   data() {
@@ -79,6 +99,14 @@ export default {
       help: ['AppFooter.Customer service', 'AppFooter.Size guide', 'AppFooter.Contact us'],
       paymentsDelivery: ['AppFooter.Purchase terms', 'AppFooter.Guarantee'],
       social: ['facebook', 'pinterest', 'google', 'twitter', 'youtube'],
+      legal: ['AppFooter.CancellationRights', 'AppFooter.CancellationForm', 'AppFooter.LegalDisclosure', 'AppFooter.PrivacyPolicy', 'AppFooter.TermsAndConditions'],
+      legalPaths: {
+        'AppFooter.CancellationRights': 'CancellationRights',
+        'AppFooter.CancellationForm': 'CancellationForm',
+        'AppFooter.LegalDisclosure': 'LegalDisclosure',
+        'AppFooter.PrivacyPolicy': 'PrivacyPolicy',
+        'AppFooter.TermsAndConditions': 'TermsAndConditions'
+      },
       isMobile: false,
       desktopMin: 1024
     };
