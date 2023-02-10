@@ -671,6 +671,8 @@ export interface PlentymarketsApiMethods {
 
   clear(): Promise<Cart>
 
+  deleteCart(): Promise<Cart>
+
   getSession(initialRestCall: boolean): Promise<SessionResult>
 
   loginUser(email: string, password: string): Promise<SessionResult>

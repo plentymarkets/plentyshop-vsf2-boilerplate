@@ -1,13 +1,13 @@
 import {
   Context,
-  useCartFactory,
-  UseCartFactoryParams
+  useCartFactory
 } from '@vue-storefront/core';
 import type {
   Cart,
   CartItem,
   Product
 } from '@vue-storefront/plentymarkets-api';
+import { UsePlentyCartFactoryParams as UseCartFactoryParams } from 'src/types';
 
 const migrateVariationData = (oldCart: Cart, newCart: Cart) => {
   if (!oldCart && !oldCart.items && !newCart && !newCart.items) {
@@ -63,6 +63,12 @@ const params: UseCartFactoryParams<Cart, CartItem, Product> = {
   clear: async (context: Context, { currentCart }) => {
     let cart = await context.$plentymarkets.api.clear();
     cart = migrateVariationData(currentCart, cart);
+    return cart;
+  },
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  deleteCart: async (context: Context) => {
+    const cart = await context.$plentymarkets.api.deleteCart();
     return cart;
   },
 

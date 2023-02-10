@@ -34,3 +34,9 @@ export async function clear(context: Context): Promise<Cart> {
   const { data } = await context.client.delete(url.href);
   return { ...data.events.AfterBasketChanged.basket, items: data.events.AfterBasketChanged.basketItems };
 }
+
+export async function deleteCart(context: Context): Promise<Cart> {
+  const url: URL = new URL('/rest/storefront/cart/', context.config.api.url);
+  const { data } = await context.client.delete(url.href);
+  return { ...data.events.AfterBasketChanged.basket, items: data.events.AfterBasketChanged.basketItems };
+}
