@@ -593,6 +593,14 @@ export interface PlentyAgnosticTotals extends AgnosticTotals {
     toBePayed: number
 }
 
+export type LegalInformationResponse = {
+    plentyId: number,
+    lang: string,
+    type: 'TermsConditions' | 'CancellationRights' | 'PrivacyPolicy' | 'LegalDisclosure' | 'WithdrawalForm',
+    plainText: string,
+    htmlText: string
+}
+
 export interface UserAddressGetters {
   getAddresses: (addresses: Address[], criteria?: Record<string, any>) => Address[];
   getDefault: (addresses: Address[]) => Address;
@@ -710,6 +718,8 @@ export interface PlentymarketsApiMethods {
   executePayment(orderId: number, paymentId: number): Promise<void>
 
   saveBillingAsShipping(): Promise<any>
+
+  getLegalInformation(type: string): Promise<LegalInformationResponse>
 }
 
 export type Context = IntegrationContext<ClientInstance, Settings, ApiClientMethods<PlentymarketsApiMethods>>;

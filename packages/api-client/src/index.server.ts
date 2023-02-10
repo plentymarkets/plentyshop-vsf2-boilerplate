@@ -21,6 +21,7 @@ import { getActiveShippingCountries } from './api/getActiveShippingCountries';
 import { getPaymentProviders, setPaymentProvider } from './api/getPaymentProvider';
 import { additionalInformation, executePayment, placeOrder, preparePayment } from './api/getOrder';
 import { getOrders } from './api/getOrders';
+import { getLegalInformation } from './api/getLegal';
 
 /**
  * Event flow
@@ -133,7 +134,8 @@ const { createApiClient } = apiClientFactory<Settings, Endpoints>({
     preparePayment,
     placeOrder,
     getOrders,
-    executePayment
+    executePayment,
+    getLegalInformation
   },
   extensions: [cookieExtension]
 });
