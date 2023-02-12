@@ -317,6 +317,7 @@ export default {
       }
     });
 
+    cookieGroups.value.decided = app.$cookies.getAll().decided;
     if (app.$cookies.getAll().cookieGroups.length) {
       cookieGroups.value.list.forEach(cookieGroup => {
         if (app.$cookies.getAll().cookieGroups.includes(cookieGroup.id)) {
@@ -336,7 +337,11 @@ export default {
         path: '/',
         maxAge: 60 * 60 * 24 * 7
       });
-      cookieGroups.value.decided = true;
+      app.$cookies.set('decided', state, {
+        path: '/',
+        maxAge: 60 * 60 * 24 * 7
+      });
+      cookieGroups.value.decided = state;
     };
 
     return { cookieGroups, toggle, furtherSettingsOn };
