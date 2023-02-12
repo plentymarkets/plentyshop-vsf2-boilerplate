@@ -14,8 +14,8 @@
       <WishlistSidebar />
       <LoginModal />
       <Notification />
-      <CookieBar></CookieBar>
     </div>
+    <CookieBar></CookieBar>
     <LazyHydrate when-visible>
       <AppFooter />
     </LazyHydrate>

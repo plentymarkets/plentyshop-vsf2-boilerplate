@@ -1,80 +1,307 @@
 <template>
   <client-only>
     <div>
-      <div class="cookieControl">
-        <div
-          v-if="!cookies.accepted"
-          :class="`cookieControl__Bar cookieControl__Bar--${cookies.barPosition}`"
-        >
-          <div>
-            {{ cookies.text.barTitle }}
+      <!-- cookiebar -->
+      <div :class="!furtherSettingsOn ? 'cookieControl' : 'cookieControl2'">
+        <div class="card" v-if="!cookieGroups.decided">
+          <div v-if="!furtherSettingsOn">
+            <div class="sf-heading__description p-2">
+              {{ cookieGroups.text.barTitle }}
+            </div>
+            <div class="barDescription p-2">
+              {{ cookieGroups.text.barDescription }}
+              <a href="#">Privacy Settings</a>
+            </div>
+            <div class="flex p-2">
+              <div
+                v-for="cookieGroup in cookieGroups.list"
+                :key="cookieGroup.id"
+                class="item"
+              >
+                <SfCheckbox
+                  :name="cookieGroup.name"
+                  :label="cookieGroup.name"
+                  v-model="cookieGroup.accepted"
+                />
+              </div>
+            </div>
           </div>
-          <div>
-            {{ cookies.text.barDescription }}
-          </div>
-          <button @click="toggle(false)">decline</button>
-          <button @click="toggle(true)">accept</button>
-        </div>
-        <button
-          v-else
-          class="cookieControl__ControlButton"
-          aria-label="Cookie control"
-          @click="cookies.modal = true"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-            <path
-              fill="currentColor"
-              d="M510.52 255.82c-69.97-.85-126.47-57.69-126.47-127.86-70.17 0-127-56.49-127.86-126.45-27.26-4.14-55.13.3-79.72 12.82l-69.13 35.22a132.221 132.221 0 00-57.79 57.81l-35.1 68.88a132.645 132.645 0 00-12.82 80.95l12.08 76.27a132.521 132.521 0 0037.16 72.96l54.77 54.76a132.036 132.036 0 0072.71 37.06l76.71 12.15c27.51 4.36 55.7-.11 80.53-12.76l69.13-35.21a132.273 132.273 0 0057.79-57.81l35.1-68.88c12.56-24.64 17.01-52.58 12.91-79.91zM176 368c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32zm32-160c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32zm160 128c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32z"
-            />
-          </svg>
-        </button>
-      </div>
-      <SfModal
-        title="My title"
-        :visible="cookies.modal"
-        overlay
-        :persistent="false"
-      >
-        <div>
-          <div>
-            Enable list of cookies
+          <div
+            style="overflow-y: scroll; background: white; height: 300px"
+            v-else
+          >
+            <div style="height: 200px">
+              <div
+                v-for="cookieGroup in cookieGroups.list"
+                :key="cookieGroup.id"
+                class="bg-grey"
+                style="margin-bottom: 5px"
+              >
+                <div class="p-2">
+                  <SfCheckbox
+                    style="color: green"
+                    :name="`${cookieGroup.name}(${cookieGroup.cookies.length})`"
+                    :label="cookieGroup.name"
+                    v-model="cookieGroup.accepted"
+                  />
+                  <div class="cookieDescription">
+                    {{ cookieGroup.description }}
+                  </div>
+                  <div style="margin-left:10px;" v-if="cookieGroup.showMore">
+                    <div
+                      v-for="(cookie, index) in Object.entries(
+                        cookieGroup.cookies
+                      )"
+                      :key="index"
+                    >
+                      <div v-for="k in Object.keys(cookie[1])" :key="k">
+                        {{ k }}: {{ cookie[1][k] }}
+                      </div>
+                    </div>
+                  </div>
+                  <a
+                    style="text-decoration: underline"
+                    href="#"
+                    v-if="!cookieGroup.showMore"
+                    @click="cookieGroup.showMore = true"
+                    >More information</a
+                  >
+                  <a href="#" v-else @click="cookieGroup.showMore = false"
+                    >Show less</a
+                  >
+                </div>
+              </div>
+            </div>
           </div>
 
-          <button
-            @click="
-              () => {
-                cookies.accepted = false;
-                cookies.modal = false;
-              }
-            "
-          >
-            delete cookies
-          </button>
-          <button @click="cookies.modal = false">close</button>
+          <div v-if="!furtherSettingsOn"  style="text-align:center">
+            <a @click="furtherSettingsOn = true">Further Settings</a>
+          </div>
+          <div v-else style="text-align:center">
+            <a href="#" @click="furtherSettingsOn = false">back</a>
+          </div>
+          <!-- buttons -->
+          <div class="flex">
+            <div class="item p-2">
+              <button
+                class="color-primary full-width sf-button"
+                :aria-disabled="false"
+                type="button"
+                aria-label="button"
+                @click="toggle(true, true)"
+              >
+                Accept ALL
+              </button>
+            </div>
+            <div class="item p-2">
+              <button
+                class="color-primary full-width sf-button"
+                :aria-disabled="false"
+                type="button"
+                aria-label="button"
+                @click="toggle(true, false)"
+              >
+                REJECT ALL
+              </button>
+            </div>
+            <div class="item p-2">
+              <button
+                class="full-width sf-button flat"
+                :aria-disabled="false"
+                type="button"
+                aria-label="button"
+                @click="toggle(false, true)"
+              >
+                Accept SELECTION
+              </button>
+            </div>
+          </div>
         </div>
-      </SfModal>
+      </div>
+
+      <button
+          v-if="cookieGroups.decided"
+          class="color-primary sf-button openCookies"
+          aria-label="Cookie control"
+          @click="cookieGroups.decided = false"
+        >
+        cookies
+      </button>
     </div>
   </client-only>
 </template>
 
 <script>
 import { ref, useContext } from '@nuxtjs/composition-api';
-import { SfModal } from '@storefront-ui/vue';
+import { SfModal, SfCheckbox } from '@storefront-ui/vue';
 export default {
   components: {
-    SfModal
+    SfModal,
+    SfCheckbox
   },
   setup() {
-    const {app} = useContext();
-    const cookies = ref({
+    const { app } = useContext();
+    const furtherSettingsOn = ref(false);
+    console.log(app.$cookies.getAll());
+    const cookieGroups = ref({
       modal: false,
-      accepted: app.$cookies.get('cookieBar'),
+      decided: false,
+      list: [
+        {
+          id: 0,
+          name: 'Essentials',
+          accepted: false,
+          description:
+            'Essential cookies enable basic functions and are necessary for the proper functioning of the website.',
+          cookies: [
+            {
+              name: 'Session',
+              Provider: 'plentyShop LTS',
+              Status:
+                'The consent cookies stores the user’s state of consent for cookies on our page.',
+              'Privacy policy':
+                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
+              Lifespan: '100 days'
+            },
+            {
+              name: 'Consent',
+              Provider: 'plentyShop LTS',
+              Status:
+                'The consent cookies stores the user’s state of consent for cookies on our page.',
+              'Privacy policy':
+                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
+              Lifespan: '100 days'
+            },
+            {
+              name: 'Session2',
+              Provider: 'plentyShop LTS',
+              Status:
+                'The consent cookies stores the user’s state of consent for cookies on our page.',
+              'Privacy policy':
+                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
+              Lifespan: '100 days'
+            }
+          ],
+          showMore: false
+        },
+        {
+          id: 1,
+          name: 'External Media',
+          accepted: false,
+          description:
+            'Content by video platforms and social media platforms are blocked by default. If you accept cookies by external media, access to these contents requires no further consent.',
+          cookies: [
+            {
+              name: 'Session',
+              Provider: 'plentyShop LTS',
+              Status:
+                'The consent cookies stores the user’s state of consent for cookies on our page.',
+              'Privacy policy':
+                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
+              Lifespan: '100 days'
+            },
+            {
+              name: 'Consent',
+              Provider: 'plentyShop LTS',
+              Status:
+                'The consent cookies stores the user’s state of consent for cookies on our page.',
+              'Privacy policy':
+                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
+              Lifespan: '100 days'
+            },
+            {
+              name: 'Session2',
+              Provider: 'plentyShop LTS',
+              Status:
+                'The consent cookies stores the user’s state of consent for cookies on our page.',
+              'Privacy policy':
+                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
+              Lifespan: '100 days'
+            }
+          ],
+          showMore: false
+        },
+        {
+          id: 2,
+          name: 'Functional',
+          accepted: false,
+          description:
+            'Marketing cookies are used by third parties and publishers to display personalised advertisements by following users across websites.',
+          cookies: [
+            {
+              name: 'Session',
+              Provider: 'plentyShop LTS',
+              Status:
+                'The consent cookies stores the user’s state of consent for cookies on our page.',
+              'Privacy policy':
+                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
+              Lifespan: '100 days'
+            },
+            {
+              name: 'Consent',
+              Provider: 'plentyShop LTS',
+              Status:
+                'The consent cookies stores the user’s state of consent for cookies on our page.',
+              'Privacy policy':
+                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
+              Lifespan: '100 days'
+            },
+            {
+              name: 'Session2',
+              Provider: 'plentyShop LTS',
+              Status:
+                'The consent cookies stores the user’s state of consent for cookies on our page.',
+              'Privacy policy':
+                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
+              Lifespan: '100 days'
+            }
+          ],
+          showMore: false
+        },
+        {
+          id: 3,
+          name: 'Marketing',
+          accepted: false,
+          description:
+            'Marketing cookies are used by third parties and publishers to display personalised advertisements by following users across websites.',
+          cookies: [
+            {
+              name: 'Session',
+              Provider: 'plentyShop LTS',
+              Status:
+                'The consent cookies stores the user’s state of consent for cookies on our page.',
+              'Privacy policy':
+                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
+              Lifespan: '100 days'
+            },
+            {
+              name: 'Consent',
+              Provider: 'plentyShop LTS',
+              Status:
+                'The consent cookies stores the user’s state of consent for cookies on our page.',
+              'Privacy policy':
+                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
+              Lifespan: '100 days'
+            },
+            {
+              name: 'Session2',
+              Provider: 'plentyShop LTS',
+              Status:
+                'The consent cookies stores the user’s state of consent for cookies on our page.',
+              'Privacy policy':
+                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
+              Lifespan: '100 days'
+            }
+          ],
+          showMore: false
+        }
+      ],
       barPosition: 'bottom-right',
       text: {
-        barTitle: 'Cookies',
+        barTitle: 'We value your privacy',
         barDescription:
-          'We use our own cookies and third-party cookies so that we can show you this website and better understand how you use it, with a view to improving the services we offer. If you continue browsing, we consider that you have accepted the cookies.',
-        acceptAll: 'Accept all',
+          'We use cookies and similar technologies on our website and process personal data of visitors to our website (e.g. IP address), e.g. to personalise content and advertisements, to integrate media from third-party providers or to analyse access to our website. Data processing only takes place when cookies are set. We share this data with third parties that we name in the settings.Data processing may be carried out with consent or on the basis of a legitimate interest. Consent can be given or refused. There is a right not to consent and to change or withdraw consent at a later date. We provide more information about the use of personal data and the services in our',
+        toggle: 'Accept all',
         declineAll: 'Delete all',
         manageCookies: 'Manage cookies',
         unsaved: 'You have unsaved settings',
@@ -85,420 +312,125 @@ export default {
         functional: 'Functional cookies',
         blockedIframe: 'To see this, please enable functional cookies',
         here: 'here',
+        furtherSettingsOn: false,
         acceptNecessary: 'Accept necessary'
       }
     });
-    const toggle = (state) => {
-      cookies.value.accepted = state;
-      app.$cookies.set('cookieBar', 'true', {
+
+    if (app.$cookies.getAll().cookieGroups.length) {
+      cookieGroups.value.list.forEach(cookieGroup => {
+        if (app.$cookies.getAll().cookieGroups.includes(cookieGroup.id)) {
+          cookieGroup.accepted = true;
+        }
+      });
+    }
+    const toggle = (all, state) => {
+      if (all) {
+        cookieGroups.value.list.forEach(cookieGroup => {
+          cookieGroup.accepted = state;
+        });
+      }
+
+      const list = cookieGroups.value.list.filter(x => x.accepted).map(x=> x.id);
+      app.$cookies.set('cookieGroups', JSON.stringify(list), {
         path: '/',
         maxAge: 60 * 60 * 24 * 7
       });
-      // set cookie
+      cookieGroups.value.decided = true;
     };
-    return { cookies, toggle };
+
+    return { cookieGroups, toggle, furtherSettingsOn };
   }
 };
 </script>
-<!-- don't style the component because we will use storefront components -->
+
 <style scoped>
-.cookieControl__Modal-enter-active,
-.cookieControl__Modal-leave-active {
-  transition: opacity 0.25s;
+.flex {
+  display: flex; /* or inline-flex */
 }
-.cookieControl__Modal-enter,
-.cookieControl__Modal-leave-to {
-  opacity: 0;
+.bg-grey {
+  background: #f2f2f4;
 }
-.cookieControl__Bar--center {
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.item {
+  flex-grow: 1; /* default 0 */
 }
-.cookieControl__Bar--center-enter-active,
-.cookieControl__Bar--top-left-enter-active,
-.cookieControl__Bar--top-full-enter-active,
-.cookieControl__Bar--top-right-enter-active,
-.cookieControl__Bar--bottom-left-enter-active,
-.cookieControl__Bar--bottom-full-enter-active,
-.cookieControl__Bar--bottom-right-enter-active,
-.cookieControl__Bar--center-leave-active,
-.cookieControl__Bar--top-left-leave-active,
-.cookieControl__Bar--top-full-leave-active,
-.cookieControl__Bar--top-right-leave-active,
-.cookieControl__Bar--bottom-left-leave-active,
-.cookieControl__Bar--bottom-full-leave-active,
-.cookieControl__Bar--bottom-right-leave-active {
-  transition: transform 0.25s;
+.full-width {
+  width: 100%;
 }
-.cookieControl__Bar--top-left-enter,
-.cookieControl__Bar--top-full-enter,
-.cookieControl__Bar--top-right-enter,
-.cookieControl__Bar--top-left-leave-to,
-.cookieControl__Bar--top-full-leave-to,
-.cookieControl__Bar--top-right-leave-to {
-  transform: translateY(-100%);
+.p-2 {
+  padding: 5px;
 }
-.cookieControl__Bar--bottom-left-enter,
-.cookieControl__Bar--bottom-full-enter,
-.cookieControl__Bar--bottom-right-enter,
-.cookieControl__Bar--bottom-left-leave-to,
-.cookieControl__Bar--bottom-right-leave-to,
-.cookieControl__Bar--bottom-full-leave-to {
-  transform: translateY(100%);
+.row {
+  flex-direction: row;
 }
-.cookieControl__Bar--center-enter,
-.cookieControl__Bar--center-leave-to {
-  transform: translate(-50%, -50%) scale(0.95);
+.sf-heading__description {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 26px;
+  /* identical to box height, or 144% */
+  color: #7ccb83;
+}
+.barDescription {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 140.6%;
 }
 .cookieControl {
-  position: relative;
-  z-index: 100000;
-}
-.cookieControl button {
-  border: 0;
-  outline: 0;
-  font-size: 16px;
-  cursor: pointer;
-  padding: 12px 20px;
-  backface-visibility: hidden;
-  transition: background-color 200ms, color 200ms;
-}
-.cookieControl__Bar {
+  width: 604px;
   position: fixed;
-  color: rgb(255, 255, 255);
-  background-color: rgb(0, 120, 38);
-  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
-}
-.cookieControl__Bar h3,
-.cookieControl__Bar p {
-  color: white;
-  max-width: 900px;
-}
-.cookieControl__Bar h3 {
-  margin: 0;
-  font-size: 20px;
-}
-.cookieControl__Bar p {
-  font-size: 16px;
-  margin: 5px 0 0;
-}
-.cookieControl__Bar button {
-  color: var(--cookie-control-barButtonColor);
-  background-color: var(--cookie-control-barButtonBackground);
-}
-.cookieControl__Bar button:hover {
-  color: var(--cookie-control-barButtonHoverColor);
-  background-color: var(--cookie-control-barButtonHoverBackground);
-}
-.cookieControl__Bar button + button {
-  margin-left: 10px;
-}
-.cookieControl__BarContainer {
-  display: flex;
-  padding: 20px;
-  align-items: flex-end;
-  justify-content: space-between;
-}
-.cookieControl__Bar--top-full,
-.cookieControl__Bar--bottom-full {
-  left: 0;
-  right: 0;
-}
-.cookieControl__Bar--top-full {
-  top: 0;
-}
-.cookieControl__Bar--bottom-full {
-  bottom: 0;
-}
-.cookieControl__Bar--center p,
-.cookieControl__Bar--top-left p,
-.cookieControl__Bar--top-right p,
-.cookieControl__Bar--bottom-left p,
-.cookieControl__Bar--bottom-right p {
-  max-width: 400px;
-}
-.cookieControl__Bar--center .cookieControl__BarContainer,
-.cookieControl__Bar--top-left .cookieControl__BarContainer,
-.cookieControl__Bar--top-right .cookieControl__BarContainer,
-.cookieControl__Bar--bottom-left .cookieControl__BarContainer,
-.cookieControl__Bar--bottom-right .cookieControl__BarContainer {
-  flex-direction: column;
-}
-.cookieControl__Bar--center .cookieControl__BarButtons,
-.cookieControl__Bar--top-left .cookieControl__BarButtons,
-.cookieControl__Bar--top-right .cookieControl__BarButtons,
-.cookieControl__Bar--bottom-left .cookieControl__BarButtons,
-.cookieControl__Bar--bottom-right .cookieControl__BarButtons {
-  margin-top: 20px;
-}
-.cookieControl__Bar--top-left,
-.cookieControl__Bar--top-right {
-  top: 20px;
-}
-.cookieControl__Bar--bottom-left,
-.cookieControl__Bar--bottom-right {
-  bottom: 20px;
-}
-.cookieControl__Bar--top-left,
-.cookieControl__Bar--bottom-left {
-  left: 20px;
-}
-.cookieControl__Bar--top-right,
-.cookieControl__Bar--bottom-right {
+  bottom: 350px;
   right: 20px;
-}
-.cookieControl__BarButtons {
-  display: flex;
-}
-.cookieControl__Modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1;
-  font-size: 0;
+  z-index: 1000;
+  height: 30px;
   text-align: center;
-}
-.cookieControl__Modal:before {
-  content: '';
-  min-height: 100vh;
-  display: inline-block;
-  vertical-align: middle;
-}
-.cookieControl__Modal:after {
-  position: absolute;
-  content: '';
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: -1;
-  opacity: var(--cookie-control-modalOverlayOpacity);
-  background-color: var(--cookie-control-modalOverlay);
-}
-.cookieControl__Modal > div {
-  font-size: initial;
-  padding-top: 80px;
-}
-.cookieControl__Modal button {
-  color: var(--cookie-control-modalButtonColor);
-  background-color: var(--cookie-control-modalButtonBackground);
-}
-.cookieControl__Modal button:hover {
-  color: var(--cookie-control-modalButtonHoverColor);
-  background-color: var(--cookie-control-modalButtonHoverBackground);
-}
-.cookieControl__ModalContent {
-  position: relative;
-  width: 100%;
-  padding: 40px;
-  max-width: 550px;
-  max-height: 80vh;
-  text-align: left;
-  overflow-y: scroll;
-  display: inline-block;
-  vertical-align: middle;
-  color: var(--cookie-control-modalTextColor);
-  background-color: var(--cookie-control-modalBackground);
-}
-.cookieControl__ModalContent *:not(button) {
-  color: var(--cookie-control-modalTextColor);
-}
-.cookieControl__ModalContent h3 {
-  font-size: 24px;
-  margin: 50px 0 25px;
-}
-.cookieControl__ModalContent h3:first-of-type {
-  margin-top: 0;
-}
-.cookieControl__ModalContent ul {
-  padding: 0;
-  font-size: 16px;
-  list-style-type: none;
-}
-.cookieControl__ModalContent ul ul {
-  padding: 5px 56px 0;
-}
-.cookieControl__ModalContent ul ul li + li {
-  margin-top: 5px;
-}
-.cookieControl__ModalContent li {
-  align-items: center;
-}
-.cookieControl__ModalContent li + li {
-  margin-top: 20px;
-}
-.cookieControl__ModalContent input {
-  display: none;
-}
-.cookieControl__ModalContent input:checked + label {
-  background-color: var(--cookie-control-checkboxActiveBackground);
-}
-.cookieControl__ModalContent input:checked + label:before {
-  background-color: var(--cookie-control-checkboxActiveCircleBackground);
-  transform: translate3d(100%, -50%, 0);
-}
-.cookieControl__ModalContent input:checked:disabled + label {
-  background-color: var(--cookie-control-checkboxDisabledBackground);
-}
-.cookieControl__ModalContent input:checked:disabled + label:before {
-  background-color: var(--cookie-control-checkboxDisabledCircleBackground);
-}
-.cookieControl__ModalContent label {
-  position: relative;
-  min-width: 36px;
-  min-height: 20px;
-  font-size: 0;
-  display: block;
-  margin-right: 20px;
-  border-radius: 20px;
-  backface-visibility: hidden;
-  transition: background-color 200ms;
-  background-color: var(--cookie-control-checkboxInactiveBackground);
-}
-.cookieControl__ModalContent label:before {
-  position: absolute;
-  content: '';
-  top: 50%;
-  left: 3px;
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  transition: transform 200ms;
-  transform: translate3d(0, -50%, 0);
-  background-color: var(--cookie-control-checkboxInactiveCircleBackground);
-}
-.cookieControl__ModalInputWrapper {
-  display: flex;
-  align-items: flex-start;
-}
-.cookieControl__ModalCookieName {
-  font-weight: bold;
-  text-transform: uppercase;
-}
-.cookieControl__ModalCookieName span {
-  font-weight: normal;
-  text-transform: none;
-}
-.cookieControl__ModalClose {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-}
-.cookieControl__ModalButtons {
-  display: flex;
-  margin-top: 80px;
-  align-items: flex-start;
-}
-.cookieControl__ModalButtons button + button {
-  margin-left: 20px;
-}
-.cookieControl__ModalUnsaved {
-  position: absolute;
-  left: 50%;
-  bottom: 40px;
-  margin: 0;
-  color: var(--cookie-control-modalUnsavedColor);
+  line-height: 30px;
+  color: rgb(0, 0, 0);
   font-size: 14px;
-  transform: translateX(-50%);
+  font-family: 'Lato', sans-serif;
+  font-weight: 100;
+  transition: 0.8s;
+  animation: slideIn 0.8s;
+  animation-delay: 0.8s;
 }
-.cookieControl__BlockedIframe {
-  padding: 20px;
-  border: 2px solid #ddd;
-}
-.cookieControl__BlockedIframe p,
-.cookieControl__BlockedIframe a {
-  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
-}
-@media screen and (max-width: 768px) {
-  .cookieControl__Bar {
-    flex-direction: column;
-    left: 0;
-    right: 0;
-  }
-  .cookieControl__Bar p,
-  .cookieControl__Bar h3 {
-    max-width: 100%;
-  }
-  .cookieControl__Bar--top-full,
-  .cookieControl__Bar--top-left,
-  .cookieControl__Bar--top-right {
-    top: 0;
-  }
-  .cookieControl__Bar--bottom-full,
-  .cookieControl__Bar--bottom-left,
-  .cookieControl__Bar--bottom-right {
-    bottom: 0;
-  }
-  .cookieControl__ModalContent {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    max-width: none;
-    max-height: 100%;
-    padding: 80px 20px 20px;
-  }
-  .cookieControl__BarButtons {
-    width: 100%;
-    margin-top: 20px;
-    flex-direction: column;
-    justify-content: center;
-  }
-  .cookieControl__BarButtons button {
-    width: 100%;
-  }
-  .cookieControl__BarButtons button + button {
-    margin: 10px 0 0;
-  }
-  .cookieControl__BarContainer,
-  .cookieControl__ModalButtons {
-    flex-direction: column;
-  }
-  .cookieControl__ModalButtons button {
-    width: 100%;
-  }
-  .cookieControl__ModalButtons button + button {
-    margin: 10px 0 0;
-  }
-}
-.cookieControl__ControlButton {
+.openCookies {
   position: fixed;
+  bottom: 0;
   right: 20px;
-  bottom: 20px;
-  border: 0;
-  outline: 0;
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  min-width: 40px;
-  min-height: 40px;
-  border-radius: 50%;
-  backface-visibility: hidden;
-  transition: background-color 200ms;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  background: var(--cookie-control-controlButtonBackground);
 }
-.cookieControl__ControlButton svg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  min-width: 24px;
-  min-height: 24px;
-  max-width: 24px;
-  max-height: 24px;
-  transition: color 200ms;
-  backface-visibility: hidden;
-  transform: translate(-50%, -50%);
-  color: var(--cookie-control-controlButtonIconColor);
+.cookieControl2 {
+  width: 100%;
+  position: fixed;
+  bottom: 80px;
+  height: 300px;
+  z-index: 1000;
+  line-height: 30px;
+  color: rgb(0, 0, 0);
+  font-size: 14px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 100;
+  transition: 0.8s;
+  animation: slideIn 0.8s;
+  animation-delay: 0.8s;
 }
-.cookieControl__ControlButton:hover {
-  background-color: var(--cookie-control-controlButtonHoverBackground);
+
+.cookieControl .card {
+  background: white;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
-.cookieControl__ControlButton:hover svg {
-  color: var(--cookie-control-controlButtonIconHoverColor);
+.cookieDescription {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 140.6%;
+}
+.flat {
+  background: white;
+  border: 1px solid green;
+  color: black;
 }
 </style>
