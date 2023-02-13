@@ -1,18 +1,27 @@
 <template>
-  <h1>Terms and conditions</h1>
+  <div>
+    {{termsConditions}}
+  </div>
 </template>
 
 <script>
-import { useRouter } from '@nuxtjs/composition-api';
-
+import { useLegalInformation, legalGetters } from '@vue-storefront/plentymarkets';
+import { onSSR } from '@vue-storefront/core';
+import { computed } from '@nuxtjs/composition-api';
 export default {
   name: 'TermsAndConditions',
-
   setup() {
-    const router = useRouter();
-    return {
-      router
-    };
+    const { result, load } = useLegalInformation('TermsConditions');
+
+    const termsConditions = computed(() => {
+      return legalGetters.getHtml(result.value);
+    });
+
+    onSSR(async () => {
+      await load('TermsConditions');
+    });
+
+    return { termsConditions };
   }
 };
 </script>

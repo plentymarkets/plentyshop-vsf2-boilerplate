@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>Cancellation rights</h1>
     {{ cancellationRights }}
   </div>
 </template>
