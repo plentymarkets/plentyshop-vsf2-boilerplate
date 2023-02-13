@@ -47,7 +47,7 @@
     "mochawesome": "^6.3.1",
     "mochawesome-merge": "^4.2.0",
     "mochawesome-report-generator": "^5.2.0",
-    "ts-loader": "^8.1.0",
+    "ts-loader": "^9.4.2",
     "vue-jest": "^4.0.0-0"
   }
 }
