@@ -39,6 +39,7 @@ export { shippingProviderGetters } from './getters/shippingProviderGetters';
 export { paymentProviderGetters } from './getters/paymentProviderGetters';
 export { userAddressGetters } from './getters/userAddressGetters';
 export { countryGetters } from './getters/countryGetters';
+export { legalGetters } from './getters/legalGetters';
 
 // Types
 export * from './types';
