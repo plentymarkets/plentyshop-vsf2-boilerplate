@@ -23,10 +23,10 @@ export default {
     'userData': 'User data'
   },
   // AddressCard
-  'AddressCard': {
+  'AddressPicker': {
     'Change': 'Change',
     'Delete': 'Delete',
-    'Selected address': 'Selected address',
+    'Make default': 'Set as primary',
   },
   // AddressInputForm
   'AddressInputForm': {

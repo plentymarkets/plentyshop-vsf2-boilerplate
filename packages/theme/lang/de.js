@@ -22,11 +22,11 @@ export default {
     'updateAddress': 'Adresse aktualisieren',
     'userData': 'Benutzerdaten'
   },
-  // AddressCard
-  'AddressCard': {
+  // AddressPicker
+  'AddressPicker': {
     'Change': 'Ändern',
     'Delete': 'Löschen',
-    'Selected address': 'Adresse wählen'
+    'Make default': 'Als Hauptadresse'
   },
   // AddressInputForm
   'AddressInputForm': {
