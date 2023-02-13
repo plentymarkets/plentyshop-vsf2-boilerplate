@@ -43,7 +43,7 @@
     "cypress": "^10.9.0",
     "cypress-pipe": "^2.0.0",
     "cypress-tags": "^0.3.0",
-    "jest": "^27.5.1",
+    "jest": "^29.4.2",
     "mochawesome": "^6.3.1",
     "mochawesome-merge": "^4.2.0",
     "mochawesome-report-generator": "^5.2.0",
