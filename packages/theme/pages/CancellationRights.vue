@@ -1,6 +1,6 @@
 <template>
-  <div v-if='cancellationRights'>
-<h1>Cancellation rights</h1>
+  <div>
+    <h1>Cancellation rights</h1>
     {{ cancellationRights }}
   </div>
 </template>
@@ -13,14 +13,17 @@ import { computed } from '@nuxtjs/composition-api';
 export default {
   name: 'CancellationRights',
   setup() {
-    const {result, search} = useLegalInformation();
-    onSSR(async () => {
-      await search('CancellationRights');
-    });
+    const { result, load } = useLegalInformation('CancellationRights');
+
     const cancellationRights = computed(() => {
       return legalGetters.getHtml(result.value);
     });
-    return { cancellationRights, legalGetters };
+
+    onSSR(async () => {
+      await load('CancellationRights');
+    });
+
+    return { cancellationRights };
   }
 };
 </script>

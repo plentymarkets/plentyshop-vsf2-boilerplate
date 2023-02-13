@@ -1,20 +1,19 @@
-import { computed, ref } from '@nuxtjs/composition-api';
-import { useVSFContext } from '@vue-storefront/core';
+import { computed } from '@nuxtjs/composition-api';
+import { useVSFContext, sharedRef } from '@vue-storefront/core';
 
-export const useLegalInformation = (): any => {
+export const useLegalInformation = (id: string): any => {
 
   const context = useVSFContext();
-  const result = ref();
-  const loading = ref();
-  const error = ref({
+  const result = sharedRef(null, `useLegalInformation-${id}`);
+  const loading = sharedRef(false, `useLegalInformation-loading-${id}`);
+  const error = sharedRef({
     search: null
-  });
-  const search = async (type: string) => {
+  }, `useLegalInformation-error-${id}`);
+  const load = async (type: string) => {
 
     try {
       loading.value = true;
       result.value = await context.$plentymarkets.api.getLegalInformation(type);
-      console.log('RESULT:', result.value);
       error.value.search = null;
     } catch (err) {
       error.value.search = err;
@@ -24,7 +23,7 @@ export const useLegalInformation = (): any => {
   };
 
   return {
-    search,
+    load,
     result: computed(() => result.value),
     loading: computed(() => loading.value),
     error: computed(() => error.value)
