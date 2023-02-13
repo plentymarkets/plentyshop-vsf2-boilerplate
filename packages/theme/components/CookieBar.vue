@@ -318,7 +318,7 @@ export default {
     });
 
     cookieGroups.value.decided = app.$cookies.getAll().decided;
-    if (app.$cookies.getAll().cookieGroups.length) {
+    if (app.$cookies.getAll().cookieGroups && app.$cookies.getAll().cookieGroups.length) {
       cookieGroups.value.list.forEach(cookieGroup => {
         if (app.$cookies.getAll().cookieGroups.includes(cookieGroup.id)) {
           cookieGroup.accepted = true;
