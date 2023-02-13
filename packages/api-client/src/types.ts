@@ -613,6 +613,7 @@ export interface UserAddressGetters {
   getApartmentNumber: (address: Address) => string | number;
   isDefault: (address: Address) => boolean;
   getAddressWithoutId(address: Address): Address;
+  getCountryId(address: Address): string
 }
 
 export interface CountryGetters {

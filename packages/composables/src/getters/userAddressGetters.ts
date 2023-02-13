@@ -106,6 +106,10 @@ function getAddressWithoutId(address: Address): Address {
   return address;
 }
 
+function getCountryId(address: Address): string {
+  return address?.country?.toString() ?? '0';
+}
+
 export const userAddressGetters: UserAddressGetters = {
   getAddresses,
   getDefault,
@@ -125,5 +129,6 @@ export const userAddressGetters: UserAddressGetters = {
   getId,
   getApartmentNumber,
   isDefault,
-  getAddressWithoutId
+  getAddressWithoutId,
+  getCountryId
 };

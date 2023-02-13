@@ -39,9 +39,19 @@
         </div>
       </div>
       <div v-else>
-        <transition-group tag="div" :name="transition" class="shipping-list">
           <slot name="shipping-list">
-            <AddressCard v-for="(address, key) in addressList"
+            <SfAddressPicker v-bind="{addressList, countries}">
+              <SfAddress v-for="(address, key) in addressList" :key="address.id.toString()"  :name="address.id.toString()">
+                <span>{{ userAddressGetters.getFirstName(address) }} {{ userAddressGetters.getLastName(address) }}</span>
+                <span>{{ userAddressGetters.getStreetName(address) }} {{ userAddressGetters.getApartmentNumber(address) }}</span>
+                <span>{{ userAddressGetters.getPostCode(address) }}</span>
+                <span>{{ userAddressGetters.getCity(address) }}</span>
+                <span>{{ userAddressGetters.getCountry(countries,userAddressGetters.getCountryId(address)) }}</span>
+                <span>{{ userAddressGetters.getPhone(address) }}</span>
+                <a class="sf-link text-primary" @click="changeAddress(key)">Edit</a> | <a class="sf-link text-primary" @click="deleteAddress(address)">Delete</a> | <a class="sf-link text-primary" @click="setDefaultAddress(address)">Make default</a>
+              </SfAddress>
+            </SfAddressPicker>
+            <!-- <AddressCard v-for="(address, key) in addressList"
               class="shipping"
               :key="address.id"
               :address="address"
@@ -49,9 +59,8 @@
               @set-default-address="setDefaultAddress(address)"
               @change-address="changeAddress(key)"
               @delete-address="deleteAddress(address)">
-              </AddressCard>
+              </AddressCard> -->
           </slot>
-        </transition-group>
         <SfButton
           class="action-button"
           data-testid="add-new-address"
@@ -65,12 +74,14 @@
 </template>
 <script>
 import { toRef } from '@nuxtjs/composition-api';
-import { useAddressForm } from '@vue-storefront/plentymarkets';
+import { useAddressForm, userAddressGetters } from '@vue-storefront/plentymarkets';
 import AddressInputForm from '~/components/AddressInputForm';
 import AddressCard from '~/components/AddressCard';
 import {
   SfButton,
-  SfHeading
+  SfHeading,
+  SfAddressPicker,
+  SfLink
 } from '@storefront-ui/vue';
 
 export default {
@@ -79,7 +90,9 @@ export default {
     SfButton,
     AddressInputForm,
     AddressCard,
-    SfHeading
+    SfHeading,
+    SfAddressPicker,
+    SfLink
   },
   props: {
     addresses: {
@@ -150,7 +163,8 @@ export default {
       setDefaultAddress,
       changeAddress,
       deleteAddress,
-      closeForm
+      closeForm,
+      userAddressGetters
     };
   }
 };
