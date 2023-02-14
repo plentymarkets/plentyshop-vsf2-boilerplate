@@ -28,3 +28,17 @@ export function register (email: string, password = 'Testuser1234'): void {
     }
   );
 }
+
+export function addCartItem (productId: number, quantity: number): void {
+  cy.request(
+    'POST',
+    '/api/plentymarkets/addCartItem',
+    {
+      productId: productId,
+      quantity: quantity
+    }
+  ).then(() => {
+    cy.reload();
+  });
+  return null;
+}
