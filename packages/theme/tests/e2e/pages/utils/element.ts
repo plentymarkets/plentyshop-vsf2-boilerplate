@@ -40,5 +40,4 @@ export function addCartItem (productId: number, quantity: number): void {
   ).then(() => {
     cy.reload();
   });
-  return null;
 }

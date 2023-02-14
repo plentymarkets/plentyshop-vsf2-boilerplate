@@ -4,7 +4,6 @@ context('Cart', () => {
   beforeEach(function init () {
     page.home.visit();
     page.home.addCartItem(1100, 1);
-
   });
 
   it(['happyPath', 'regression'], 'Should clear the cart', function test() {
