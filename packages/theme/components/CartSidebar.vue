@@ -1,7 +1,7 @@
 <template>
   <div id="cart">
     <SfSidebar
-      v-e2e="'sidebar-cart'"
+      :data-e2e="'sidebar-cart'"
       :visible="isCartSidebarOpen"
       :title="$t('CartSidebar.My cart')"
       class="sf-sidebar--right"
@@ -16,7 +16,7 @@
           />
           <SfButton
             class="sf-button--text"
-            data-testid="clear-cart"
+            :data-e2e="'clear-cart'"
             @click="clear()"
             >
             {{ $t('CartSidebar.Clear') }}
@@ -29,7 +29,7 @@
             <transition-group name="sf-fade" tag="div">
               <SfCollectedProduct
                 v-for="product in products"
-                v-e2e="'collected-product'"
+                :data-e2e="'collected-product'"
                 :key="cartGetters.getItemId(product)"
                 :image="addBasePath(cartGetters.getItemImage(product))"
                 :imageWidth="100"
