@@ -19,16 +19,18 @@
               </SfButton>
             </div>
             <!-- checkboxes -->
-            <div class="checkboxes ml-xs">
+            <div class="checkboxes">
               <div
+                class="checkbox"
                 v-for="cookieGroup in cookieGroups.list"
                 :key="cookieGroup.id"
               >
                 <SfCheckbox
+                  :disabled="cookieGroup.name === 'Essentials'"
                   :name="cookieGroup.name"
                   :label="cookieGroup.name"
                   v-model="cookieGroup.accepted"
-                />
+                  />
               </div>
             </div>
           </div>
@@ -41,7 +43,6 @@
               >
                 <div class="p-sm">
                   <SfCheckbox
-                  class=""
                     :name="`${cookieGroup.name}(${cookieGroup.cookies.length})`"
                     :label="cookieGroup.name"
                     v-model="cookieGroup.accepted"
@@ -145,12 +146,14 @@
       >
         <SfIcon
           icon="info_shield"
-          size="sm"
+          size="xs"
           color="white"
           viewBox="0 0 24 24"
           :coverage="1"
         />
-        cookies
+        <div class="cookiesText">
+          cookies
+        </div>
       </button>
     </div>
   </client-only>
@@ -167,166 +170,9 @@ export default {
     SfButton
   },
   setup() {
-    const { app } = useContext();
     const furtherSettingsOn = ref(false);
-    // cookieGroups must be defined in nuxtconfig and language plugins
-    const cookieGroups = ref({
-      modal: false,
-      decided: false,
-      list: [
-        {
-          id: 0,
-          name: 'Essentials',
-          accepted: false,
-          description:
-            'Essential cookies enable basic functions and are necessary for the proper functioning of the website.',
-          cookies: [
-            {
-              name: 'Session',
-              Provider: 'plentyShop LTS',
-              Status:
-                'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy':
-                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
-              Lifespan: '100 days'
-            },
-            {
-              name: 'Consent',
-              Provider: 'plentyShop LTS',
-              Status:
-                'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy':
-                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
-              Lifespan: '100 days'
-            },
-            {
-              name: 'Session2',
-              Provider: 'plentyShop LTS',
-              Status:
-                'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy':
-                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
-              Lifespan: '100 days'
-            }
-          ],
-          showMore: false
-        },
-        {
-          id: 1,
-          name: 'External Media',
-          accepted: false,
-          description:
-            'Content by video platforms and social media platforms are blocked by default. If you accept cookies by external media, access to these contents requires no further consent.',
-          cookies: [
-            {
-              name: 'Session',
-              Provider: 'plentyShop LTS',
-              Status:
-                'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy':
-                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
-              Lifespan: '100 days'
-            },
-            {
-              name: 'Consent',
-              Provider: 'plentyShop LTS',
-              Status:
-                'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy':
-                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
-              Lifespan: '100 days'
-            },
-            {
-              name: 'Session2',
-              Provider: 'plentyShop LTS',
-              Status:
-                'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy':
-                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
-              Lifespan: '100 days'
-            }
-          ],
-          showMore: false
-        },
-        {
-          id: 2,
-          name: 'Functional',
-          accepted: false,
-          description:
-            'Marketing cookies are used by third parties and publishers to display personalised advertisements by following users across websites.',
-          cookies: [
-            {
-              name: 'Session',
-              Provider: 'plentyShop LTS',
-              Status:
-                'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy':
-                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
-              Lifespan: '100 days'
-            },
-            {
-              name: 'Consent',
-              Provider: 'plentyShop LTS',
-              Status:
-                'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy':
-                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
-              Lifespan: '100 days'
-            },
-            {
-              name: 'Session2',
-              Provider: 'plentyShop LTS',
-              Status:
-                'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy':
-                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
-              Lifespan: '100 days'
-            }
-          ],
-          showMore: false
-        },
-        {
-          id: 3,
-          name: 'Marketing',
-          accepted: false,
-          description:
-            'Marketing cookies are used by third parties and publishers to display personalised advertisements by following users across websites.',
-          cookies: [
-            {
-              name: 'Session',
-              Provider: 'plentyShop LTS',
-              Status:
-                'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy':
-                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
-              Lifespan: '100 days'
-            },
-            {
-              name: 'Consent',
-              Provider: 'plentyShop LTS',
-              Status:
-                'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy':
-                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
-              Lifespan: '100 days'
-            },
-            {
-              name: 'Session2',
-              Provider: 'plentyShop LTS',
-              Status:
-                'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy':
-                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
-              Lifespan: '100 days'
-            }
-          ],
-          showMore: false
-        }
-      ],
-      barTitle: 'We value your privacy',
-      barDescription:
-        'We use cookies and similar technologies on our website and process personal data of visitors to our website (e.g. IP address), e.g. to personalise content and advertisements, to integrate media from third-party providers or to analyse access to our website. Data processing only takes place when cookies are set. We share this data with third parties that we name in the settings.Data processing may be carried out with consent or on the basis of a legitimate interest. Consent can be given or refused. There is a right not to consent and to change or withdraw consent at a later date. We provide more information about the use of personal data and the services in our'
-    });
+    const { $config, app } = useContext();
+    const cookieGroups = ref($config.cookieGroups);
 
     cookieGroups.value.decided = app.$cookies.getAll().decided;
     if (
@@ -344,20 +190,23 @@ export default {
         cookieGroups.value.list.forEach((cookieGroup) => {
           cookieGroup.accepted = state;
         });
+        // esentials cookies always true
+        cookieGroups.value.list[0].accepted = true;
       }
 
-      const list = cookieGroups.value.list
+      const consentedList = cookieGroups.value.list
         .filter((x) => x.accepted)
         .map((x) => x.id);
-      app.$cookies.set('cookieGroups', JSON.stringify(list), {
+
+      app.$cookies.set('cookieGroups', JSON.stringify(consentedList), {
         path: '/',
         maxAge: 60 * 60 * 24 * 7
       });
-      app.$cookies.set('decided', state, {
+      app.$cookies.set('decided', true, {
         path: '/',
         maxAge: 60 * 60 * 24 * 7
       });
-      cookieGroups.value.decided = state;
+      cookieGroups.value.decided = true;
     };
 
     return { cookieGroups, toggle, furtherSettingsOn };
@@ -390,7 +239,7 @@ export default {
   width: 100%;
   position: fixed;
   bottom: 0;
-  height: 400px;
+  height: 55vh;
   z-index: 1000;
   color: rgb(0, 0, 0);
   font-family: 'Raleway', sans-serif;
@@ -438,9 +287,13 @@ export default {
 }
 
 .openCookies {
+  z-index: 1000;
   position: fixed;
   bottom: 0;
   right: var(--spacer-xs);
+  @include for-mobile {
+    bottom: 100px;
+  }
 }
 
 .card {
@@ -472,10 +325,6 @@ export default {
 .bg-grey {
   background: #f2f2f4;
 }
-.checkboxmargin {
-  margin: 0 var(--spacer-sm) 0 var(--spacer-sm);
-}
-
 .col {
   flex-grow: 1;
 }
@@ -528,6 +377,12 @@ export default {
     flex-direction: column;
   }
 }
+.cookiesText {
+  @include for-mobile {
+    display: none;
+  }
+}
+
 .actionButton {
   flex: 1;
   padding: 0 var(--spacer-xs) 0 var(--spacer-xs);
@@ -539,12 +394,16 @@ export default {
 }
 .checkboxes {
   display: flex;
+  margin: 0 0 0  var(--spacer-xs);
   @include for-mobile {
-    width: 100%;
+    flex-wrap: wrap;
   }
 }
-.cookieGroupCheckbox {
-  width: 50vw;
+.checkbox {
+  margin: 0 var(--spacer-sm) 0 0;
+  @include for-mobile {
+    width:40vw
+  }
 }
 </style>
 
