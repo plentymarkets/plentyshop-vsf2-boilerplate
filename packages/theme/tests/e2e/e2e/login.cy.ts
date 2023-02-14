@@ -42,6 +42,7 @@ context('Login', () => {
     });
     page.home.visit();
     page.home.registerUser(uniqueMail, 'Testuser1234');
+    cy.clearCookies()
   });
 
   beforeEach(function init () {
