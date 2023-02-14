@@ -25,13 +25,6 @@ const factoryParams: UseMakeOrderFactoryParams<Order> = {
         await context.$plentymarkets.api.executePayment(order.data.order.id, params.paymentId);
         await context.$plentymarkets.api.deleteCart(context);
 
-        // TODO: Double-check executePayment response. Should return the payment method ID, but currently returns null. Payload looks fine.
-        /* await context.$plentymarkets.api.executePayment(order.data.order.id, params.paymentId).then(response => {
-          if (response.type) {
-            context.$plentymarkets.api.deleteCart(context);
-          }
-        }) */
-
         return order.data;
       case 'redirectUrl':
         // redirect to given payment provider
