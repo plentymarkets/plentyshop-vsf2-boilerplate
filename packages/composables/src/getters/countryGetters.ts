@@ -23,11 +23,31 @@ function getStateName(state: State): string {
   return state?.name ?? '';
 }
 
+function getCountryById(countries: Country[], countryId: string): Country | null {
+  if (!countries.length) {
+    return null;
+  }
+  const country = countries.find(
+    (country) => Number(country.id) === Number(countryId)
+  );
+  return country;
+}
+
+function getStateById(country: Country, stateId: string): State | null {
+  if (country?.states?.length > 0) {
+    const state = country.states.find((state) => Number(state.id) === Number(stateId));
+    return state;
+  }
+  return null;
+}
+
 export const countryGetters: any = {
   getStates,
   getStateId,
   getStateName,
   getCountryId,
   getCountryName,
-  getCountryIsoCode
+  getCountryIsoCode,
+  getCountryById,
+  getStateById
 };

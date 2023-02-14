@@ -5,7 +5,7 @@
       <span>{{ userAddressGetters.getStreetName(address) }} {{ userAddressGetters.getApartmentNumber(address) }}</span>
       <span>{{ userAddressGetters.getPostCode(address) }}</span>
       <span>{{ userAddressGetters.getCity(address) }}</span>
-      <span>{{ userAddressGetters.getCountry(countries,userAddressGetters.getCountryId(address)) }}</span>
+      <span>{{ getStateName(address) }} {{ getCountryName(address) }}</span>
       <span>{{ userAddressGetters.getPhone(address) }}</span>
       <a class="sf-link text-primary" @click="changeAddress(key)">{{ $t('AddressPicker.Change') }}</a> <b>|</b>
       <a class="sf-link text-primary" @click="deleteAddress(address)">{{ $t('AddressPicker.Delete') }}</a>
@@ -20,7 +20,7 @@
 
 <script>
 import { SfButton, SfIcon, SfAddressPicker } from '@storefront-ui/vue';
-import { userAddressGetters } from '@vue-storefront/plentymarkets';
+import { countryGetters, userAddressGetters } from '@vue-storefront/plentymarkets';
 import { ref, onUpdated } from '@nuxtjs/composition-api';
 
 export default {
@@ -53,6 +53,19 @@ export default {
       getDefaultAddress();
     });
 
+    const getCountryName = (address) => {
+      const country = countryGetters.getCountryById(props.countries, userAddressGetters.getCountryId(address));
+      return countryGetters.getCountryName(country);
+    };
+
+    const getStateName = (address) => {
+      const stateId = userAddressGetters.getStateId(address);
+      const countryId = userAddressGetters.getCountryId(address);
+      const country = countryGetters.getCountryById(props.countries, countryId);
+      const state = countryGetters.getStateById(country, stateId);
+      return `${countryGetters.getStateName(state)}, `;
+    };
+
     const deleteAddress = (address) => {
       emit('delete-address', address);
     };
@@ -69,6 +82,8 @@ export default {
       deleteAddress,
       changeAddress,
       setDefaultAddress,
+      getCountryName,
+      getStateName,
       userAddressGetters,
       defaultAddressId
     };
