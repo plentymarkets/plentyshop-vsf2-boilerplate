@@ -1,5 +1,5 @@
 import page from '../pages/factory';
-
+import { acceptCookies } from '../pages/utils/cookie';
 context('Order placement', () => {
   beforeEach(function init () {
     cy.fixture('test-data/e2e-place-order').then((fixture) => {
@@ -7,10 +7,10 @@ context('Order placement', () => {
         data: fixture
       };
     });
-
+    acceptCookies();
     page.home.visit();
   });
-
+  // cy.setCookie('decided', value)
   it(['happyPath', 'regression'], 'Should successfully place an order as a guest user', function test () {
     const data = this.fixtures.data;
 
