@@ -21,7 +21,7 @@
 <script>
 import { SfButton, SfIcon, SfAddressPicker } from '@storefront-ui/vue';
 import { userAddressGetters } from '@vue-storefront/plentymarkets';
-import { ref } from '@nuxtjs/composition-api';
+import { ref, onUpdated } from '@nuxtjs/composition-api';
 
 export default {
   name: 'AddressPicker',
@@ -39,10 +39,19 @@ export default {
   setup(props, {emit}) {
 
     const defaultAddressId = ref('');
-    const defaultAddress = userAddressGetters.getDefault(props.addresses);
-    if (defaultAddress) {
-      defaultAddressId.value = userAddressGetters.getId(defaultAddress);
-    }
+
+    const getDefaultAddress = () => {
+      if (props.addresses.length > 0) {
+        const defaultAddress = userAddressGetters.getDefault(props.addresses);
+        if (defaultAddress) {
+          defaultAddressId.value = userAddressGetters.getId(defaultAddress);
+        }
+      }
+    };
+    getDefaultAddress();
+    onUpdated(() => {
+      getDefaultAddress();
+    });
 
     const deleteAddress = (address) => {
       emit('delete-address', address);
