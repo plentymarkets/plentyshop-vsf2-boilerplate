@@ -56,7 +56,7 @@
           >
             <SfMenuItem
               :label="$t(item)"
-              @click='goTo(legalPaths[item])'
+              :link="localePath(legalPaths[item])"
             />
           </SfListItem>
         </SfList>
@@ -81,15 +81,11 @@ export default {
     SfImage,
     SfMenuItem
   },
-  setup(props, {root}) {
+  setup() {
     const router = useRouter();
-    const goTo = (path) => {
-      router.push(root.localePath({name: path}));
-    };
     return {
       router,
-      addBasePath,
-      goTo
+      addBasePath
     };
   },
   data() {

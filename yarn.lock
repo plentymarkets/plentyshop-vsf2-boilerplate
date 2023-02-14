@@ -5099,9 +5099,9 @@ caniuse-api@^3.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000981, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001228, caniuse-lite@^1.0.30001317:
-  version "1.0.30001451"
-  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001451.tgz"
-  integrity sha512-XY7UbUpGRatZzoRft//5xOa69/1iGJRBlrieH6QYrkKLIFn3m7OVEJ81dSrKoy2BnKsdbX5cLrOispZNYo9v2w==
+  version "1.0.30001323"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001323.tgz#a451ff80dec7033016843f532efda18f02eec011"
+  integrity sha512-e4BF2RlCVELKx8+RmklSEIVub1TWrmdhvA5kEUueummz1XyySW0DVk+3x9HyhU9MuWTa2BhqLgEuEmUwASAdCA==
 
 caseless@~0.12.0:
   version "0.12.0"
@@ -5862,6 +5862,14 @@ cookie-universal-nuxt@^2.1.5:
   dependencies:
     "@types/cookie" "^0.3.3"
     cookie-universal "^2.1.5"
+
+cookie-universal-nuxt@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/cookie-universal-nuxt/-/cookie-universal-nuxt-2.2.2.tgz#107815f03f5b769de7018670d6370368205387bb"
+  integrity sha512-Pr6P5UCzl1EAvPh7z7jFkknBw0KTdykm6gFmPHrH4LV9s3flVmAH0ZP/ZqUXcp6b0SKZfizkn+XR1cO+QinGhQ==
+  dependencies:
+    "@types/cookie" "^0.3.3"
+    cookie-universal "^2.2.2"
 
 cookie-universal@^2.1.5:
   version "2.1.5"
