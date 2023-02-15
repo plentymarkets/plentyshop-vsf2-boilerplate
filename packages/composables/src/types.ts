@@ -1,5 +1,5 @@
 import {
-  Context, ProductsSearchParams, UseCartFactoryParams
+  ProductsSearchParams
 } from '@vue-storefront/core';
 import { ReviewSearchParams } from '@vue-storefront/plentymarkets-api';
 
@@ -26,7 +26,3 @@ export type UseUserUpdateParams = TODO;
 export type UseUserRegisterParams = TODO;
 
 export type useUserOrderSearchParams = TODO;
-
-export interface UsePlentyCartFactoryParams<Cart, CartItem, Product> extends UseCartFactoryParams<Cart, CartItem, Product> {
-  deleteCart (context: Context): Promise<Cart>
-}
