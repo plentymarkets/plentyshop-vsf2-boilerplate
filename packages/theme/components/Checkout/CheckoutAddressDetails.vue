@@ -39,19 +39,13 @@
         </div>
       </div>
       <div v-else>
-        <transition-group tag="div" :name="transition" class="shipping-list">
           <slot name="shipping-list">
-            <AddressCard v-for="(address, key) in addressList"
-              class="shipping"
-              :key="address.id"
-              :address="address"
-              :countries="countries"
-              @set-default-address="setDefaultAddress(address)"
-              @change-address="changeAddress(key)"
-              @delete-address="deleteAddress(address)">
-              </AddressCard>
+            <AddressPicker :countries="countries" :addresses="addressList"
+                         @set-default-address="setDefaultAddress($event)"
+                         @change-address="changeAddress($event)"
+                         @delete-address="deleteAddress($event)">
+            </AddressPicker>
           </slot>
-        </transition-group>
         <SfButton
           class="action-button"
           data-testid="add-new-address"
@@ -65,12 +59,13 @@
 </template>
 <script>
 import { toRef } from '@nuxtjs/composition-api';
-import { useAddressForm } from '@vue-storefront/plentymarkets';
+import { useAddressForm, userAddressGetters } from '@vue-storefront/plentymarkets';
 import AddressInputForm from '~/components/AddressInputForm';
-import AddressCard from '~/components/AddressCard';
+import AddressPicker from '~/components/AddressPicker';
 import {
   SfButton,
-  SfHeading
+  SfHeading,
+  SfLink
 } from '@storefront-ui/vue';
 
 export default {
@@ -78,8 +73,9 @@ export default {
   components: {
     SfButton,
     AddressInputForm,
-    AddressCard,
-    SfHeading
+    AddressPicker,
+    SfHeading,
+    SfLink
   },
   props: {
     addresses: {
@@ -120,7 +116,8 @@ export default {
       inEditState
     } = useAddressForm(toRef(props, 'addresses'));
 
-    const setDefaultAddress = (address) => {
+    const setDefaultAddress = (addressId) => {
+      const address = addressList.value.find((_address) => Number(_address.id) === Number(addressId));
       emit('set-default-address', address);
     };
 
@@ -150,7 +147,8 @@ export default {
       setDefaultAddress,
       changeAddress,
       deleteAddress,
-      closeForm
+      closeForm,
+      userAddressGetters
     };
   }
 };
@@ -167,6 +165,7 @@ export default {
 .update-button {
   margin-right: var(--spacer-sm);
 }
+
 .title {
   --heading-padding: var(--spacer-xl) 0 var(--spacer-base);
   --heading-title-font-weight: var(--font-weight--bold);
