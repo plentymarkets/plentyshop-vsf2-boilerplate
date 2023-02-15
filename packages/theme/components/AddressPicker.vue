@@ -59,9 +59,9 @@ export default {
     };
 
     const getStateName = (address) => {
-      const stateId = userAddressGetters.getStateId(address);
       const countryId = userAddressGetters.getCountryId(address);
       const country = countryGetters.getCountryById(props.countries, countryId);
+      const stateId = userAddressGetters.getStateId(address);
       const state = countryGetters.getStateById(country, stateId);
       return `${countryGetters.getStateName(state)}, `;
     };
