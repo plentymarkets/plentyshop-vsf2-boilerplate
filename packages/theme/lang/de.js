@@ -221,7 +221,10 @@ export default {
     'More information': 'Mehr Informationen',
     'Further Settings': 'Weitere Einstellungen',
     'Back': 'Zurück',
-    'Show less': 'Zeige weniger'
+    'Show less': 'Zeige weniger',
+    'Accept All': 'Akzeptiere alle',
+    'Reject All': 'Alles ablehnen',
+    'Accept Selection': 'Auswahl akzeptieren'
   },
   // MyNewsletter
   'MyNewsletter': {

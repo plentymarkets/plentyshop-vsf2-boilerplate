@@ -2,7 +2,7 @@
   <client-only>
     <div>
       <div
-        v-if="!cookieGroups.decided"
+        v-if="!cookieGroups.hideBanner"
         :class="!furtherSettingsOn ? 'cookieGroupCard' : 'furtherSettingsOn'"
       >
         <div class="card p-xs">
@@ -110,7 +110,7 @@
                 aria-label="button"
                 @click="toggle(true, true)"
               >
-                Accept ALL
+                {{ $t('Accept All') }}
               </button>
             </div>
             <div class="actionButton">
@@ -121,7 +121,7 @@
                 aria-label="button"
                 @click="toggle(true, false)"
               >
-                REJECT ALL
+                {{ $t('Reject All') }}
               </button>
             </div>
             <div class="actionButton">
@@ -131,7 +131,7 @@
                 type="button"
                 @click="toggle(false, true)"
               >
-                Accept SELECTION
+                {{ $t('Accept Selection') }}
               </button>
             </div>
           </div>
@@ -142,7 +142,7 @@
         v-else
         class="color-primary sf-button openCookies"
         aria-label="Cookie control"
-        @click="cookieGroups.decided = false"
+        @click="cookieGroups.hideBanner = false"
       >
         <SfIcon
           icon="info_shield"
@@ -162,6 +162,7 @@
 <script>
 import { ref, useContext } from '@nuxtjs/composition-api';
 import { SfModal, SfCheckbox, SfIcon, SfButton } from '@storefront-ui/vue';
+import {keyBy} from 'lodash';
 export default {
   components: {
     SfModal,
@@ -173,18 +174,37 @@ export default {
     const furtherSettingsOn = ref(false);
     const { $config, app } = useContext();
     const cookieGroups = ref($config.cookieGroups);
+    const cookieGroupsById = keyBy(cookieGroups.value.list, 'id');
+    const checkIfAnyCookieExpired = () => {
+      if (app.$cookies.getAll().cookieGroups &&
+        app.$cookies.getAll().cookieGroups.length) {
+        // check if any off the cookies from the group that was previously accepted has expired
+        app.$cookies.getAll().cookieGroups.forEach(cookieGroupId => {
+          const cookieGroup = cookieGroupsById[cookieGroupId];
+          const expiredList = cookieGroup.cookies.filter(cookie => !app.$cookies.get(cookieGroup.name + '-' + cookie.name));
+          if (expiredList.length) {
+            return true;
+          }
+        });
+        return true;
+      } else {
+        return false;
+      }
+    };
 
-    cookieGroups.value.decided = app.$cookies.getAll().decided;
-    if (
-      app.$cookies.getAll().cookieGroups &&
-      app.$cookies.getAll().cookieGroups.length
-    ) {
-      cookieGroups.value.list.forEach((cookieGroup) => {
-        if (app.$cookies.getAll().cookieGroups.includes(cookieGroup.id)) {
-          cookieGroup.accepted = true;
-        }
-      });
-    }
+    cookieGroups.value.hideBanner = checkIfAnyCookieExpired();
+
+    // if (
+    //   app.$cookies.getAll().cookieGroups &&
+    //   app.$cookies.getAll().cookieGroups.length
+    // ) {
+    //   console.log('aici');
+    //   cookieGroups.value.list.forEach((cookieGroup) => {
+    //     if (app.$cookies.getAll().cookieGroups.includes(cookieGroup.id)) {
+    //       cookieGroup.accepted = true;
+    //     }
+    //   });
+    // }
     const toggle = (all, state) => {
       if (all) {
         cookieGroups.value.list.forEach((cookieGroup) => {
@@ -198,15 +218,22 @@ export default {
         .filter((x) => x.accepted)
         .map((x) => x.id);
 
+      // set each cookie with the folowing convention: cookiegroupname-cookiename
+      consentedList.forEach(cookieGroupId => {
+        const cookieGroup = cookieGroupsById[cookieGroupId];
+        cookieGroup.list.forEach(cookie => {
+          // const convertedToDays = parseInt(cookie.Lifespan.split(' ')[0]);
+          app.$cookies.set(cookieGroup.name + '-' + cookie.name, JSON.stringify(consentedList), {
+            path: '/',
+            maxAge: 20
+          });
+        });
+      });
       app.$cookies.set('cookieGroups', JSON.stringify(consentedList), {
         path: '/',
         maxAge: 60 * 60 * 24 * 7
       });
-      app.$cookies.set('decided', true, {
-        path: '/',
-        maxAge: 60 * 60 * 24 * 7
-      });
-      cookieGroups.value.decided = true;
+      cookieGroups.value.hideBanner = true;
     };
 
     return { cookieGroups, toggle, furtherSettingsOn };
