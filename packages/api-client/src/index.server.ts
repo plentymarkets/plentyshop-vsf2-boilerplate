@@ -13,7 +13,7 @@ import {
   getCart,
   removeItem as removeCartItem,
   updateItemQty as updateCartItemQty,
-  clear,
+  clearCart as clear,
   deleteCart
 } from './api/getCart';
 import { getSession } from './api/getSession';
