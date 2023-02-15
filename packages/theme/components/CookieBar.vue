@@ -2,7 +2,7 @@
   <client-only>
     <div>
       <div
-        v-if="!cookieGroups.hideBanner"
+        v-if="!cookieGroups.bannerIsHidden"
         :class="!furtherSettingsOn ? 'cookieGroupCard' : 'furtherSettingsOn'"
       >
         <div class="card p-xs">
@@ -142,7 +142,7 @@
         v-else
         class="color-primary sf-button openCookies"
         aria-label="Cookie control"
-        @click="cookieGroups.hideBanner = false"
+        @click="cookieGroups.bannerIsHidden = false"
       >
         <SfIcon
           icon="info_shield"
@@ -176,35 +176,33 @@ export default {
     const cookieGroups = ref($config.cookieGroups);
     const cookieGroupsById = keyBy(cookieGroups.value.list, 'id');
     const checkIfAnyCookieExpired = () => {
+      let result = false;
       if (app.$cookies.getAll().cookieGroups &&
         app.$cookies.getAll().cookieGroups.length) {
         // check if any off the cookies from the group that was previously accepted has expired
         app.$cookies.getAll().cookieGroups.forEach(cookieGroupId => {
           const cookieGroup = cookieGroupsById[cookieGroupId];
-          const expiredList = cookieGroup.cookies.filter(cookie => !app.$cookies.get(cookieGroup.name + '-' + cookie.name));
-          if (expiredList.length) {
-            return true;
+          const validCookieList = cookieGroup.cookies.filter(cookie => app.$cookies.get(cookieGroup.name + '-' + cookie.name));
+          if (validCookieList.length < cookieGroup.cookies.length) {
+            result = true;
           }
         });
-        return true;
-      } else {
-        return false;
       }
+
+      return result;
     };
 
-    cookieGroups.value.hideBanner = checkIfAnyCookieExpired();
-
-    // if (
-    //   app.$cookies.getAll().cookieGroups &&
-    //   app.$cookies.getAll().cookieGroups.length
-    // ) {
-    //   console.log('aici');
-    //   cookieGroups.value.list.forEach((cookieGroup) => {
-    //     if (app.$cookies.getAll().cookieGroups.includes(cookieGroup.id)) {
-    //       cookieGroup.accepted = true;
-    //     }
-    //   });
-    // }
+    cookieGroups.value.bannerIsHidden = !checkIfAnyCookieExpired();
+    if (
+      app.$cookies.getAll().cookieGroups &&
+      app.$cookies.getAll().cookieGroups.length
+    ) {
+      cookieGroups.value.list.forEach((cookieGroup) => {
+        if (app.$cookies.getAll().cookieGroups.includes(cookieGroup.id)) {
+          cookieGroup.accepted = true;
+        }
+      });
+    }
     const toggle = (all, state) => {
       if (all) {
         cookieGroups.value.list.forEach((cookieGroup) => {
@@ -221,11 +219,11 @@ export default {
       // set each cookie with the folowing convention: cookiegroupname-cookiename
       consentedList.forEach(cookieGroupId => {
         const cookieGroup = cookieGroupsById[cookieGroupId];
-        cookieGroup.list.forEach(cookie => {
-          // const convertedToDays = parseInt(cookie.Lifespan.split(' ')[0]);
+        cookieGroup.cookies.forEach(cookie => {
+          const convertedToDays = parseInt(cookie.Lifespan.split(' ')[0]);
           app.$cookies.set(cookieGroup.name + '-' + cookie.name, JSON.stringify(consentedList), {
             path: '/',
-            maxAge: 20
+            maxAge: 60 * 60 * 24 * convertedToDays
           });
         });
       });
@@ -233,7 +231,7 @@ export default {
         path: '/',
         maxAge: 60 * 60 * 24 * 7
       });
-      cookieGroups.value.hideBanner = true;
+      cookieGroups.value.bannerIsHidden = true;
     };
 
     return { cookieGroups, toggle, furtherSettingsOn };
