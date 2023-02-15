@@ -617,12 +617,14 @@ export interface UserAddressGetters {
 }
 
 export interface CountryGetters {
-  getStates(country: Country): string,
+  getStates(country: Country): State[],
   getStateId(state: State): string,
   getStateName(state: State): string,
   getCountryId(country: Country): string,
   getCountryName(country: Country): string,
   getCountryIsoCode(country: Country): string
+  getCountryById(countries: Country [], countryId: string): Country | null
+  getStateById(country: Country, stateId: string): State | null
 }
 
 export interface PlentymarketsApiMethods {

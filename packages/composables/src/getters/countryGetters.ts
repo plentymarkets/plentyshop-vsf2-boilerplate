@@ -1,4 +1,4 @@
-import type { Country, State } from '@vue-storefront/plentymarkets-api';
+import type { Country, CountryGetters, State } from '@vue-storefront/plentymarkets-api';
 
 function getCountryId(country: Country): string {
   return country?.id?.toString() ?? '';
@@ -41,7 +41,7 @@ function getStateById(country: Country, stateId: string): State | null {
   return null;
 }
 
-export const countryGetters: any = {
+export const countryGetters: CountryGetters = {
   getStates,
   getStateId,
   getStateName,
