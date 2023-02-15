@@ -677,7 +677,7 @@ export interface PlentymarketsApiMethods {
     params: { productId: number, cartItemId: number, quantity: number }
   ): Promise<Cart>
 
-  clear(): Promise<Cart>
+  clearCart(): Promise<Cart>
 
   deleteCart(): Promise<Cart>
 
