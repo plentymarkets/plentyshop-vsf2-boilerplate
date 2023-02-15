@@ -215,6 +215,14 @@ export default {
     'Shipping details': 'Versanddetails',
     'Update address': '@:App.updateAddress'
   },
+  // CookieBar
+  'CookieBar': {
+    'Privacy Settings': 'Datenschutzeinstellungen',
+    'More information': 'Mehr Informationen',
+    'Further Settings': 'Weitere Einstellungen',
+    'Back': 'Zurück',
+    'Show less': 'Zeige weniger'
+  },
   // MyNewsletter
   'MyNewsletter': {
     'Commercial information': 'und bin damit einverstanden, personalisierte Werbeinformationen von Marke via E-Mail zu erhalten',

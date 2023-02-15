@@ -10,7 +10,6 @@ context('Order placement', () => {
     acceptCookies();
     page.home.visit();
   });
-  // cy.setCookie('decided', value)
   it(['happyPath', 'regression'], 'Should successfully place an order as a guest user', function test () {
     const data = this.fixtures.data;
 

@@ -15,7 +15,7 @@
               {{ cookieGroups.barDescription }}
 
               <SfButton link="/privacy-policy" class="sf-button--text">
-                Privacy Settings
+                {{ $t('Privacy Settings') }}
               </SfButton>
             </div>
             <!-- checkboxes -->
@@ -70,14 +70,14 @@
                     @click="cookieGroup.showMore = true"
                     class="sf-button--text"
                   >
-                    More information
+                    {{ $t('More information') }}
                   </SfButton>
                   <SfButton
                     v-else
                     @click="cookieGroup.showMore = false"
                     class="sf-button--text"
                   >
-                    Show less
+                    {{ $t('Show less') }}
                   </SfButton>
                 </div>
               </div>
@@ -90,14 +90,14 @@
               @click="furtherSettingsOn = true"
               class="sf-button--text"
             >
-              Further Settings
+             {{ $t('Further Settings') }}
             </SfButton>
             <SfButton
               v-else
               @click="furtherSettingsOn = false"
               class="sf-button--text"
             >
-              Back
+              {{ $t('Back') }}
             </SfButton>
           </div>
           <!-- action buttons -->
@@ -190,7 +190,7 @@ export default {
         cookieGroups.value.list.forEach((cookieGroup) => {
           cookieGroup.accepted = state;
         });
-        // esentials cookies always true
+        // essentials cookies always true
         cookieGroups.value.list[0].accepted = true;
       }
 
