@@ -7,7 +7,7 @@ context('Cart', () => {
   });
 
   it(['happyPath', 'regression'], 'Should clear the cart', function test() {
-    cy.intercept('/api/plentymarkets/clear').as('clearCart');
+    cy.intercept('/api/plentymarkets/clearCart').as('clearCart');
     cy.intercept('/api/plentymarkets/getProduct').as('getProduct');
 
     page.product.header.openCart();
