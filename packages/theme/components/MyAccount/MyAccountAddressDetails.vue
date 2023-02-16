@@ -56,19 +56,13 @@
               {{ shipingTabDescription }}
             </p>
           </slot>
-          <transition-group tag="div" :name="transition" class="shipping-list">
-            <slot name="shipping-list">
-              <AddressCard v-for="(address, key) in addressList"
-                            class="shipping"
-                            :key="address.id"
-                            :address="address"
-                            :countries="countries"
-                            @set-default-address="setDefaultAddress(address)"
-                            @change-address="changeAddress(key)"
-                            @delete-address="deleteAddress(address)">
-              </AddressCard>
-            </slot>
-          </transition-group>
+          <slot name="shipping-list">
+            <AddressPicker :countries="countries" :addresses="addressList"
+                        @set-default-address="setDefaultAddress($event)"
+                        @change-address="changeAddress($event)"
+                        @delete-address="deleteAddress($event)">
+          </AddressPicker>
+          </slot>
           <SfButton
             class="action-button"
             data-testid="add-new-address"
@@ -85,7 +79,7 @@
 import { SfTabs, SfButton } from '@storefront-ui/vue';
 import { useAddressForm } from '@vue-storefront/plentymarkets';
 import AddressInputForm from '~/components/AddressInputForm';
-import AddressCard from '~/components/AddressCard';
+import AddressPicker from '~/components/AddressPicker';
 import { toRef } from '@nuxtjs/composition-api';
 
 export default {
@@ -94,7 +88,7 @@ export default {
     SfTabs,
     SfButton,
     AddressInputForm,
-    AddressCard
+    AddressPicker
   },
   props: {
     addresses: {
@@ -137,7 +131,8 @@ export default {
       inCreateState
     } = useAddressForm(toRef(props, 'addresses'));
 
-    const setDefaultAddress = (address) => {
+    const setDefaultAddress = (addressId) => {
+      const address = addressList.value.find((_address) => Number(_address.id) === Number(addressId));
       emit('set-default-address', address);
     };
 
