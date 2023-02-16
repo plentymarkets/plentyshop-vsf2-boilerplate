@@ -2,7 +2,7 @@
   <client-only>
     <div>
       <div
-        v-if="!cookieGroups.bannerIsHidden"
+        v-if="!bannerIsHidden"
         :class="!furtherSettingsOn ? 'cookieGroupCard' : 'furtherSettingsOn'"
       >
         <div class="card p-xs">
@@ -30,7 +30,7 @@
                   :name="cookieGroup.name"
                   :label="cookieGroup.name"
                   v-model="cookieGroup.accepted"
-                  />
+                />
               </div>
             </div>
           </div>
@@ -57,8 +57,14 @@
                       )"
                       :key="index"
                     >
-                      <div class="flex full-width mb-xs p-xs bg-white"  v-for="keyName in Object.keys(cookie[1])" :key="keyName">
-                        <div v-if="keyName !== 'name'" class="col-2">{{ keyName }}</div>
+                      <div
+                        class="flex full-width mb-xs p-xs bg-white"
+                        v-for="keyName in Object.keys(cookie[1])"
+                        :key="keyName"
+                      >
+                        <div v-if="keyName !== 'name'" class="col-2">
+                          {{ keyName }}
+                        </div>
                         <div class="col-4">
                           {{ cookie[1][keyName] }}
                         </div>
@@ -90,7 +96,7 @@
               @click="furtherSettingsOn = true"
               class="sf-button--text"
             >
-             {{ $t('Further Settings') }}
+              {{ $t('Further Settings') }}
             </SfButton>
             <SfButton
               v-else
@@ -115,7 +121,7 @@
             </div>
             <div class="actionButton">
               <button
-                class="color-primary full-width  sf-button"
+                class="color-primary full-width sf-button"
                 :aria-disabled="false"
                 type="button"
                 aria-label="button"
@@ -126,7 +132,7 @@
             </div>
             <div class="actionButton">
               <button
-                class="sf-button full-width  flat"
+                class="sf-button full-width flat"
                 :aria-disabled="false"
                 type="button"
                 @click="toggle(false, true)"
@@ -142,7 +148,7 @@
         v-else
         class="color-primary sf-button openCookies"
         aria-label="Cookie control"
-        @click="cookieGroups.bannerIsHidden = false"
+        @click="bannerIsHidden = false"
       >
         <SfIcon
           icon="info_shield"
@@ -151,9 +157,7 @@
           viewBox="0 0 24 24"
           :coverage="1"
         />
-        <div class="cookiesText">
-          cookies
-        </div>
+        <div class="cookiesText">cookies</div>
       </button>
     </div>
   </client-only>
@@ -162,7 +166,7 @@
 <script>
 import { ref, useContext } from '@nuxtjs/composition-api';
 import { SfModal, SfCheckbox, SfIcon, SfButton } from '@storefront-ui/vue';
-import {keyBy} from 'lodash';
+import { keyBy } from 'lodash';
 export default {
   components: {
     SfModal,
@@ -175,18 +179,24 @@ export default {
     const { $config, app } = useContext();
     const cookieGroups = ref($config.cookieGroups);
     const cookieGroupsById = keyBy(cookieGroups.value.list, 'id');
-    const bannerIsHidden = () => {
+    const bannerIsHidden = ref(false);
+
+    const checkIfbannerIsHidden = () => {
       // method checks if any cookie from the conented cookieGroups is expired
       if (!app.$cookies.getAll().cookieGroups) {
         return false;
       }
       let result = true;
-      if (app.$cookies.getAll().cookieGroups &&
-        app.$cookies.getAll().cookieGroups.length) {
+      if (
+        app.$cookies.getAll().cookieGroups &&
+        app.$cookies.getAll().cookieGroups.length
+      ) {
         // check if any off the cookies from the group that was previously accepted has expired
-        app.$cookies.getAll().cookieGroups.forEach(cookieGroupId => {
+        app.$cookies.getAll().cookieGroups.forEach((cookieGroupId) => {
           const cookieGroup = cookieGroupsById[cookieGroupId];
-          const validCookieList = cookieGroup.cookies.filter(cookie => app.$cookies.get(cookieGroup.name + '-' + cookie.name));
+          const validCookieList = cookieGroup.cookies.filter((cookie) =>
+            app.$cookies.get(cookieGroup.name + '-' + cookie.name)
+          );
           // if the cookiegroup has less valid cookies than the cookie list from the consented cookiegroup
           if (validCookieList.length < cookieGroup.cookies.length) {
             result = false;
@@ -197,7 +207,7 @@ export default {
       return result;
     };
 
-    cookieGroups.value.bannerIsHidden = bannerIsHidden();
+    bannerIsHidden.value = checkIfbannerIsHidden();
     if (
       app.$cookies.getAll().cookieGroups &&
       app.$cookies.getAll().cookieGroups.length
@@ -222,16 +232,20 @@ export default {
         .map((x) => x.id);
 
       // set each cookie with the folowing convention: cookiegroupname-cookiename
-      consentedList.forEach(cookieGroupId => {
+      consentedList.forEach((cookieGroupId) => {
         const cookieGroup = cookieGroupsById[cookieGroupId];
-        cookieGroup.cookies.forEach(cookie => {
+        cookieGroup.cookies.forEach((cookie) => {
           if (cookie.Lifespan) {
             const convertedToDays = parseInt(cookie.Lifespan.split(' ')[0]);
             const lifeSpan = 60 * 60 * 24 * convertedToDays;
-            app.$cookies.set(cookieGroup.name + '-' + cookie.name, JSON.stringify(consentedList), {
-              path: '/',
-              maxAge: lifeSpan
-            });
+            app.$cookies.set(
+              cookieGroup.name + '-' + cookie.name,
+              JSON.stringify(consentedList),
+              {
+                path: '/',
+                maxAge: lifeSpan
+              }
+            );
           }
         });
       });
@@ -241,7 +255,7 @@ export default {
         path: '/',
         maxAge: maximumAge
       });
-      cookieGroups.value.bannerIsHidden = true;
+      bannerIsHidden.value = true;
     };
 
     return { cookieGroups, toggle, furtherSettingsOn };
@@ -257,10 +271,10 @@ export default {
   right: var(--spacer-xs);
   z-index: 1000;
   height: 362px;
-  color: rgb(0, 0, 0);
+  color: var(--c-text);
   font-weight: var(--font-weight--medium);
   font-size: var(--font-size--xl);
-  font-family: 'Raleway', sans-serif;
+  font-family: var(--font-family--secondary);
   @include for-mobile {
     min-height: 75vh;
     width: 100%;
@@ -274,9 +288,9 @@ export default {
   width: 100%;
   position: fixed;
   bottom: 0;
-  height: 55vh;
+  height: 420px;
   z-index: 1000;
-  color: rgb(0, 0, 0);
+  color: var(--c-text);
   font-family: 'Raleway', sans-serif;
   font-weight: var(--font-weight--medium);
   font-size: var(--font-size--xl);
@@ -291,7 +305,7 @@ export default {
 }
 .furtherSettingsCard {
   overflow-y: scroll;
-  background: white;
+  background: var(--_c-light-primary-lighten);
   height: 300px;
 }
 .furtherSettingsCardScrollable {
@@ -308,7 +322,7 @@ export default {
   font-weight: var(--font-weight--semibold);
   padding: var(--spacer-xs) 0 0 0;
   font-size: var(--font-size--xl);
-  color: #7ccb83;
+  color: var(--c-primary);
 }
 .barDescription {
   font-family: 'Raleway';
@@ -332,7 +346,7 @@ export default {
 }
 
 .card {
-  background: white;
+  background: var(--_c-light-primary-lighten);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .cookieDescription {
@@ -346,9 +360,9 @@ export default {
   text-align: center;
 }
 .flat {
-  background: white;
-  border: 1px solid green;
-  color: black;
+  background: var(--_c-light-primary-lighten);
+  border: 1px solid var(--c-primary);
+  color: var(--c-text);
 }
 .flex-center {
   align-items: center;
@@ -358,7 +372,7 @@ export default {
   display: flex;
 }
 .bg-grey {
-  background: #f2f2f4;
+  background: var(--_c-light-primary);
 }
 .col {
   flex-grow: 1;
@@ -400,7 +414,7 @@ export default {
   font-weight: var(--font-weight--light);
 }
 .bg-white {
-  background:white
+  background: var(--_c-light-primary-lighten);
 }
 .actionButtons {
   display: flex;
@@ -429,7 +443,7 @@ export default {
 }
 .checkboxes {
   display: flex;
-  margin: 0 0 0  var(--spacer-xs);
+  margin: 0 0 0 var(--spacer-xs);
   @include for-mobile {
     flex-wrap: wrap;
   }
@@ -437,8 +451,7 @@ export default {
 .checkbox {
   margin: 0 var(--spacer-sm) 0 0;
   @include for-mobile {
-    width:40vw
+    width: 40vw;
   }
 }
 </style>
-
