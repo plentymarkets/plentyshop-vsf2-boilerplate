@@ -36,8 +36,7 @@ context('Register account', () => {
     page.home.header.accountModalForm.find('input#password').clear().type(password, { force: true });
 
     cy.get('@submit').click();
-    cy.wait(['@registerUser', '@loginUser']);
-    cy.visit('/my-account');
-    cy.get('body').contains('My Account');
+    cy.wait('@registerUser');
+    cy.wait('@loginUser').its('response.statusCode').should('eq', 200);
   });
 });
