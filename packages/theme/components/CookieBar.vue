@@ -258,7 +258,7 @@ export default {
       bannerIsHidden.value = true;
     };
 
-    return { cookieGroups, toggle, furtherSettingsOn };
+    return { cookieGroups, toggle, furtherSettingsOn, bannerIsHidden };
   }
 };
 </script>
