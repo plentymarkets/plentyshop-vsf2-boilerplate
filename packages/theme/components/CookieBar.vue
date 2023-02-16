@@ -175,16 +175,21 @@ export default {
     const { $config, app } = useContext();
     const cookieGroups = ref($config.cookieGroups);
     const cookieGroupsById = keyBy(cookieGroups.value.list, 'id');
-    const checkIfAnyCookieExpired = () => {
-      let result = false;
+    const bannerIsHidden = () => {
+      // method checks if any cookie from the conented cookieGroups is expired
+      if (!app.$cookies.getAll().cookieGroups) {
+        return false;
+      }
+      let result = true;
       if (app.$cookies.getAll().cookieGroups &&
         app.$cookies.getAll().cookieGroups.length) {
         // check if any off the cookies from the group that was previously accepted has expired
         app.$cookies.getAll().cookieGroups.forEach(cookieGroupId => {
           const cookieGroup = cookieGroupsById[cookieGroupId];
           const validCookieList = cookieGroup.cookies.filter(cookie => app.$cookies.get(cookieGroup.name + '-' + cookie.name));
+          // if the cookiegroup has less valid cookies than the cookie list from the consented cookiegroup
           if (validCookieList.length < cookieGroup.cookies.length) {
-            result = true;
+            result = false;
           }
         });
       }
@@ -192,7 +197,7 @@ export default {
       return result;
     };
 
-    cookieGroups.value.bannerIsHidden = !checkIfAnyCookieExpired();
+    cookieGroups.value.bannerIsHidden = bannerIsHidden();
     if (
       app.$cookies.getAll().cookieGroups &&
       app.$cookies.getAll().cookieGroups.length
@@ -220,16 +225,21 @@ export default {
       consentedList.forEach(cookieGroupId => {
         const cookieGroup = cookieGroupsById[cookieGroupId];
         cookieGroup.cookies.forEach(cookie => {
-          const convertedToDays = parseInt(cookie.Lifespan.split(' ')[0]);
-          app.$cookies.set(cookieGroup.name + '-' + cookie.name, JSON.stringify(consentedList), {
-            path: '/',
-            maxAge: 60 * 60 * 24 * convertedToDays
-          });
+          if (cookie.Lifespan) {
+            const convertedToDays = parseInt(cookie.Lifespan.split(' ')[0]);
+            const lifeSpan = 60 * 60 * 24 * convertedToDays;
+            app.$cookies.set(cookieGroup.name + '-' + cookie.name, JSON.stringify(consentedList), {
+              path: '/',
+              maxAge: lifeSpan
+            });
+          }
         });
       });
+      // the browser must remember that the user once accepted a group of cookies
+      const maximumAge = 60 * 60 * 24 * 256 * 10;
       app.$cookies.set('cookieGroups', JSON.stringify(consentedList), {
         path: '/',
-        maxAge: 60 * 60 * 24 * 7
+        maxAge: maximumAge
       });
       cookieGroups.value.bannerIsHidden = true;
     };
@@ -252,7 +262,7 @@ export default {
   font-size: var(--font-size--xl);
   font-family: 'Raleway', sans-serif;
   @include for-mobile {
-    min-height: 70vh;
+    min-height: 75vh;
     width: 100%;
     position: fixed;
     bottom: 0;
