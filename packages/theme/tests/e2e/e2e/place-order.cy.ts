@@ -2,7 +2,7 @@ import page from '../pages/factory';
 
 context('Order placement', () => {
   beforeEach(function init () {
-    cy.fixture('test-data/e2e-place-order').then((fixture) => {
+    cy.fixture('customer').then((fixture) => {
       this.fixtures = {
         data: fixture
       };
