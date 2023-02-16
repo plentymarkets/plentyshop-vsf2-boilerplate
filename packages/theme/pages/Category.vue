@@ -85,7 +85,7 @@
             class="products__grid"
           >
             <SfProductCard
-              v-e2e="'category-product-card'"
+              :data-e2e="'category-product-card'"
               v-for="(product, i) in products"
               :key="productGetters.getSlug(product)"
               :style="{ '--index': i }"
@@ -114,7 +114,7 @@
             class="products__list"
           >
             <SfProductCardHorizontal
-              v-e2e="'category-product-card'"
+              :data-e2e="'category-product-card'"
               v-for="(product, i) in products"
               class="products__product-card-horizontal"
               :key="productGetters.getSlug(product)"

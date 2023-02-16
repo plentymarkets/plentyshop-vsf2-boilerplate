@@ -23,10 +23,10 @@ export default {
     'userData': 'User data'
   },
   // AddressCard
-  'AddressCard': {
+  'AddressPicker': {
     'Change': 'Change',
     'Delete': 'Delete',
-    'Selected address': 'Selected address',
+    'Make default': 'Set as primary',
   },
   // AddressInputForm
   'AddressInputForm': {
@@ -87,6 +87,7 @@ export default {
   },
   // CartSidebar
   'CartSidebar': {
+    'Clear': 'Clear',
     'Go back shopping': 'Go back shopping',
     'Go to checkout': 'Go to checkout',
     'Fill in bag': '@:App.fillInBag',
