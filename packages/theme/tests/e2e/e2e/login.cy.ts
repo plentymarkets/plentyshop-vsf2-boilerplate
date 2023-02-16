@@ -44,12 +44,6 @@ context('Login', () => {
   });
 
   beforeEach(function init () {
-    cy.fixture('customer').then((fixture) => {
-      this.fixtures = {
-        data: fixture
-      };
-    });
-
     page.home.visit();
   });
 
@@ -62,8 +56,7 @@ context('Login', () => {
   });
 
   it(['exceptionPath', 'regression'], 'Fails login due to missing password', function test() {
-    const data = this.fixtures.data;
-    loginHelper(cy, data.customer.email, '');
+    loginHelper(cy, uniqueMail, '');
     page.home.header.accountModalForm.contains('The Password field is required');
   });
 
