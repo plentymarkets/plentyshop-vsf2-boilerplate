@@ -1,6 +1,6 @@
 <template>
-  <div>
-    {{ cancellationRights }}
+  <div v-html='cancellationRights'>
+
   </div>
 </template>
 

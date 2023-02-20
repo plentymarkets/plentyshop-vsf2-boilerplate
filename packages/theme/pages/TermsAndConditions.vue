@@ -1,6 +1,5 @@
 <template>
-  <div>
-    {{termsConditions}}
+  <div v-html='termsConditions'>
   </div>
 </template>
 

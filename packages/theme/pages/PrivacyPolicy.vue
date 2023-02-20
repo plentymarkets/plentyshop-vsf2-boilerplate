@@ -1,6 +1,5 @@
 <template>
-  <div>
-  {{privacyPolicy}}
+  <div v-html='privacyPolicy'>
   </div>
 </template>
 

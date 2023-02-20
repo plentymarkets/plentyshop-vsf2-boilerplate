@@ -1,6 +1,5 @@
 <template>
-  <div>
-  {{withdrawalForm}}
+  <div v-html='withdrawalForm'>
   </div>
 </template>
 
