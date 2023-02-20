@@ -8,7 +8,10 @@
       @close="toggleCartSidebar"
     >
       <template #content-top>
-        <div v-if="totalItems" class="sf-sidebar__top__summary desktop-only">
+        <div
+          v-if="totalItems"
+          class="sf-sidebar__top__summary desktop-only"
+        >
           <SfProperty
             class="sf-property--large cart-summary"
             name="Total items"
@@ -18,38 +21,48 @@
             class="sf-button--text"
             :data-e2e="'clear-cart'"
             @click="clear()"
-            >
+          >
             {{ $t('CartSidebar.Clear') }}
           </SfButton>
         </div>
       </template>
-      <transition name="sf-fade" mode="out-in">
-        <div v-if="totalItems" key="my-cart" class="my-cart">
+      <transition
+        name="sf-fade"
+        mode="out-in"
+      >
+        <div
+          v-if="totalItems"
+          key="my-cart"
+          class="my-cart"
+        >
           <div class="collected-product-list">
-            <transition-group name="sf-fade" tag="div">
+            <transition-group
+              name="sf-fade"
+              tag="div"
+            >
               <SfCollectedProduct
                 v-for="product in products"
-                :data-e2e="'collected-product'"
                 :key="cartGetters.getItemId(product)"
+                :data-e2e="'collected-product'"
                 :image="addBasePath(cartGetters.getItemImage(product))"
-                :imageWidth="100"
-                :imageHeight="100"
+                :image-width="100"
+                :image-height="100"
                 :title="cartGetters.getItemName(product)"
                 :regular-price="$n(cartGetters.getItemPrice(product).regular, 'currency')"
                 :special-price="cartGetters.getItemPrice(product).special && $n(cartGetters.getItemPrice(product).special, 'currency')"
                 :stock="99999"
-                @click:remove="removeItem({ product: { id: product.id } })"
                 class="collected-product"
+                @click:remove="removeItem({ product: { id: product.id } })"
               >
                 <template #configuration>
                   <div class="collected-product__properties">
-                      <!-- TODO -->
-                      <!-- <SfProperty -->
-                      <!--   v-for="(attribute, key) in cartGetters.getItemAttributes(product, ['color', 'size'])" -->
-                      <!--   :key="key" -->
-                      <!--   :name="key" -->
-                      <!--   :value="attribute" -->
-                      <!-- /> -->
+                    <!-- TODO -->
+                    <!-- <SfProperty -->
+                    <!--   v-for="(attribute, key) in cartGetters.getItemAttributes(product, ['color', 'size'])" -->
+                    <!--   :key="key" -->
+                    <!--   :name="key" -->
+                    <!--   :value="attribute" -->
+                    <!-- /> -->
                   </div>
                 </template>
                 <template #input>
@@ -63,15 +76,22 @@
                   </div>
                 </template>
                 <!-- @TODO: remove if https://github.com/vuestorefront/storefront-ui/issues/2022 is done -->
-                <template #more-actions>{{  }}</template>
+                <template #more-actions>
+                  {{ }}
+                </template>
               </SfCollectedProduct>
             </transition-group>
           </div>
         </div>
-        <div v-else key="empty-cart" class="empty-cart">
+        <div
+          v-else
+          key="empty-cart"
+          class="empty-cart"
+        >
           <div class="empty-cart__banner">
             <SfImage
-              :width="100" :height="100"
+              :width="100"
+              :height="100"
               alt="Empty bag"
               class="empty-cart__image"
               :src="addBasePath('/icons/empty-cart.svg')"
@@ -102,8 +122,9 @@
             <SfButton
               class="sf-button--full-width color-primary"
               @click="toggleCartSidebar"
-            >{{ $t('CartSidebar.Go back shopping') }}</SfButton
             >
+              {{ $t('CartSidebar.Go back shopping') }}
+            </SfButton>
           </div>
         </transition>
       </template>
@@ -115,9 +136,7 @@ import {
   SfSidebar,
   SfHeading,
   SfButton,
-  SfIcon,
   SfProperty,
-  SfPrice,
   SfCollectedProduct,
   SfImage,
   SfQuantitySelector
@@ -129,14 +148,12 @@ import debounce from 'lodash.debounce';
 import { addBasePath } from '@vue-storefront/core';
 
 export default {
-  name: 'Cart',
+  name: 'CartSidebar',
   components: {
     SfSidebar,
     SfButton,
     SfHeading,
-    SfIcon,
     SfProperty,
-    SfPrice,
     SfCollectedProduct,
     SfImage,
     SfQuantitySelector,

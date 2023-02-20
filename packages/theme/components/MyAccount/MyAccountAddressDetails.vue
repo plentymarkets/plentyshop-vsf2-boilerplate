@@ -23,20 +23,24 @@
             :form="form"
             :countries="countries"
             :type="type"
-          ></AddressInputForm>
+          />
           <div class="buttons">
             <SfButton
               type="submit"
-              @click.prevent="submit()"
               class="action-button"
               data-testid="update-address-button"
+              @click.prevent="submit()"
             >
-              <template v-if="inEditState">{{
-                $t('MyAccountAddressDetails.Update address')
-              }}</template>
-              <template v-if="inCreateState">{{
-                $t('MyAccountAddressDetails.Create address')
-              }}</template>
+              <template v-if="inEditState">
+                {{
+                  $t('MyAccountAddressDetails.Update address')
+                }}
+              </template>
+              <template v-if="inCreateState">
+                {{
+                  $t('MyAccountAddressDetails.Create address')
+                }}
+              </template>
             </SfButton>
             <SfButton
               type="button"
@@ -44,12 +48,17 @@
               data-testid="update-address-button"
               @click="closeForm"
             >
-              {{ $t('MyAccountAddressDetails.Cancel') }}</SfButton
-            >
+              {{ $t('MyAccountAddressDetails.Cancel') }}
+            </SfButton>
           </div>
         </SfTab>
       </SfTabs>
-      <SfTabs v-else key="address-list" :open-tab="1" class="tab-orphan">
+      <SfTabs
+        v-else
+        key="address-list"
+        :open-tab="1"
+        class="tab-orphan"
+      >
         <SfTab :title="$t('MyAccountAddressDetails.Shipping details')">
           <slot name="shipping-tab-description">
             <p class="message">
@@ -57,19 +66,21 @@
             </p>
           </slot>
           <slot name="shipping-list">
-            <AddressPicker :countries="countries" :addresses="addressList"
-                        @set-default-address="setDefaultAddress($event)"
-                        @change-address="changeAddress($event)"
-                        @delete-address="deleteAddress($event)">
-          </AddressPicker>
+            <AddressPicker
+              :countries="countries"
+              :addresses="addressList"
+              @set-default-address="setDefaultAddress($event)"
+              @change-address="changeAddress($event)"
+              @delete-address="deleteAddress($event)"
+            />
           </slot>
           <SfButton
             class="action-button"
             data-testid="add-new-address"
             @click="changeAddress(-1)"
           >
-            {{ $t('MyAccountAddressDetails.Add new address') }}</SfButton
-          >
+            {{ $t('MyAccountAddressDetails.Add new address') }}
+          </SfButton>
         </SfTab>
       </SfTabs>
     </transition>
@@ -92,6 +103,7 @@ export default {
   },
   props: {
     addresses: {
+      // eslint-disable-next-line vue/require-prop-type-constructor
       type: Array | Object,
       default: () => []
     },

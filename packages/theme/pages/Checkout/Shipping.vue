@@ -1,5 +1,8 @@
 <template>
-  <div id="shipping" v-if="!loading">
+  <div
+    v-if="!loading"
+    id="shipping"
+  >
     <div class="spacer-top">
       <SfCheckbox
         v-model="sameAsBilling"
@@ -15,8 +18,8 @@
         :type="'shipping'"
         :addresses="shippingAddresses"
         :countries="countries"
-        :headingTitle="$t('Shipping.Shipping details')"
-        :headingTitleLevel="2"
+        :heading-title="$t('Shipping.Shipping details')"
+        :heading-title-level="2"
         @set-default-address="setDefaultAddress({ address: $event })"
         @delete-address="deleteAddress({ address: $event })"
         @update-address="saveAddress({ address: $event })"
@@ -30,21 +33,21 @@
         class="sf-heading--left sf-heading--no-underline title"
       />
       <AddressInputForm
-          ref="sameAsBillingFormRef"
-          :form="sameAsBillingForm"
-          :type="'shipping'"
-          :countries="countries"
-        ></AddressInputForm>
+        ref="sameAsBillingFormRef"
+        :form="sameAsBillingForm"
+        :type="'shipping'"
+        :countries="countries"
+      />
     </div>
     <div class="spacer-top buttons">
-          <SfButton
-            data-e2e="continue-to-payment"
-            class="form__action-button"
-            @click="continueToNextStep"
-          >
-            {{ $t('Shipping.Continue to payment') }}
-          </SfButton>
-      </div>
+      <SfButton
+        data-e2e="continue-to-payment"
+        class="form__action-button"
+        @click="continueToNextStep"
+      >
+        {{ $t('Shipping.Continue to payment') }}
+      </SfButton>
+    </div>
   </div>
 </template>
 

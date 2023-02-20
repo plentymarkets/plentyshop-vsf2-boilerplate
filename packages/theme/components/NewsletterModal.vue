@@ -1,56 +1,71 @@
 <template>
-    <SfModal
-      :visible="isNewsletterModalOpen"
-      class="modal"
-      @close="closeModal"
+  <SfModal
+    :visible="isNewsletterModalOpen"
+    class="modal"
+    @close="closeModal"
+  >
+    <template #modal-bar>
+      <SfBar
+        class="modal__title smartphone-only"
+        :close="true"
+        :title="$t('NewsletterModal.Subscribe to newsletter')"
+        @click:close="closeModal"
+      />
+    </template>
+    <transition
+      name="sf-fade"
+      mode="out-in"
     >
-      <template #modal-bar>
-        <SfBar
-          class="modal__title smartphone-only"
-          :close="true"
+      <div>
+        <SfHeading
+          :level="3"
           :title="$t('NewsletterModal.Subscribe to newsletter')"
-          @click:close="closeModal"
+          class="modal__title desktop-only"
         />
-      </template>
-      <transition name="sf-fade" mode="out-in">
-        <div>
-          <SfHeading
-            :level="3"
-            :title="$t('NewsletterModal.Subscribe to newsletter')"
-            class="modal__title desktop-only"
+        <form @submit.prevent="$emit('email-submitted', emailAddress)">
+          <SfInput
+            v-model="emailAddress"
+            type="email"
+            :label="$t('NewsletterModal.Email address')"
+            class="modal__input"
           />
-          <form @submit.prevent="$emit('email-submitted', emailAddress)">
-            <SfInput
-              type="email"
-              :label="$t('NewsletterModal.Email address')"
-              v-model="emailAddress"
-              class="modal__input"
-            />
-            <SfButton class="modal__button" type="submit">
-              {{ $t('NewsletterModal.Confirm subscription') }}
+          <SfButton
+            class="modal__button"
+            type="submit"
+          >
+            {{ $t('NewsletterModal.Confirm subscription') }}
+          </SfButton>
+        </form>
+        <SfHeading
+          :description="$t('NewsletterModal.You can unsubscribe at any time')"
+          :level="3"
+        />
+        <SfScrollable
+          max-content-height="3.75rem"
+          :class="{ 'is-open': !isHidden }"
+        >
+          <i18n
+            tag="p"
+            class="modal__content"
+            path="NewsletterModal.subscribeToNewsletterModalContent"
+          >
+            <SfLink link="https://www.vuestorefront.io/privacy-policy">
+              {{ $t('NewsletterModal.Privacy policy') }}
+            </SfLink>
+          </i18n>
+          <template #view-all>
+            <SfButton
+              class="sf-button--text sf-scrollable__view-all desktop-only"
+              @click="isHidden = !isHidden"
+            >
+              <span>{{ isHidden ? $t('NewsletterModal.Show more') : $t('NewsletterModal.Hide') }}</span>
             </SfButton>
-          </form>
-          <SfHeading
-            :description="$t('NewsletterModal.You can unsubscribe at any time')"
-            :level="3"
-          />
-          <SfScrollable maxContentHeight="3.75rem" :class="{ 'is-open': !isHidden }">
-            <i18n tag="p" class="modal__content" path=NewsletterModal.subscribeToNewsletterModalContent>
-              <SfLink link="https://www.vuestorefront.io/privacy-policy">{{ $t('NewsletterModal.Privacy policy') }}</SfLink>
-            </i18n>
-            <template #view-all>
-              <SfButton
-                class="sf-button--text sf-scrollable__view-all desktop-only"
-                @click="isHidden = !isHidden"
-              >
-                <span>{{ isHidden ? $t('NewsletterModal.Show more') : $t('NewsletterModal.Hide') }}</span>
-              </SfButton>
-            </template>
-          </SfScrollable>
-        </div>
-      </transition>
-    </SfModal>
-  </template>
+          </template>
+        </SfScrollable>
+      </div>
+    </transition>
+  </SfModal>
+</template>
 <script>
 import { SfModal, SfHeading, SfInput, SfButton, SfScrollable, SfBar, SfLink } from '@storefront-ui/vue';
 import { ref } from '@nuxtjs/composition-api';

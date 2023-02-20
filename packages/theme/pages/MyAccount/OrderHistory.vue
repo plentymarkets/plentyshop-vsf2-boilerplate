@@ -2,7 +2,12 @@
   <SfTabs :open-tab="1">
     <SfTab :title="$t('OrderHistory.My orders')">
       <div v-if="currentOrder">
-        <SfButton class="sf-button--text all-orders" @click="currentOrder = null">All Orders</SfButton>
+        <SfButton
+          class="sf-button--text all-orders"
+          @click="currentOrder = null"
+        >
+          All Orders
+        </SfButton>
         <div class="highlighted highlighted--total">
           <SfProperty
             name="Order ID"
@@ -27,14 +32,19 @@
         </div>
         <SfTable class="products">
           <SfTableHeading>
-            <SfTableHeader class="products__name">{{ $t('OrderHistory.Product') }}</SfTableHeader>
+            <SfTableHeader class="products__name">
+              {{ $t('OrderHistory.Product') }}
+            </SfTableHeader>
             <SfTableHeader>{{ $t('OrderHistory.Quantity') }}</SfTableHeader>
             <SfTableHeader>{{ $t('OrderHistory.Price') }}</SfTableHeader>
           </SfTableHeading>
-          <SfTableRow v-for="(item, i) in orderGetters.getItems(currentOrder)" :key="i">
+          <SfTableRow
+            v-for="(item, i) in orderGetters.getItems(currentOrder)"
+            :key="i"
+          >
             <SfTableData class="products__name">
               <nuxt-link :to="localePath(orderGetters.getOrderItemLink(currentOrder, item.itemVariationId))">
-                {{orderGetters.getItemName(item)}}
+                {{ orderGetters.getItemName(item) }}
               </nuxt-link>
             </SfTableData>
             <SfTableData>{{ orderGetters.getItemQty(item) }}</SfTableData>
@@ -46,27 +56,47 @@
         <p class="message">
           {{ $t('OrderHistory.Details and order status') }}
         </p>
-        <div v-if="totalOrders === 0" class="no-orders">
-          <p class="no-orders__title">{{ $t('OrderHistory.You currently have no orders') }}</p>
-          <SfButton class="no-orders__button">{{ $t('OrderHistory.Start shopping') }}</SfButton>
+        <div
+          v-if="totalOrders === 0"
+          class="no-orders"
+        >
+          <p class="no-orders__title">
+            {{ $t('OrderHistory.You currently have no orders') }}
+          </p>
+          <SfButton class="no-orders__button">
+            {{ $t('OrderHistory.Start shopping') }}
+          </SfButton>
         </div>
-        <SfTable v-else class="orders">
+        <SfTable
+          v-else
+          class="orders"
+        >
           <SfTableHeading>
             <SfTableHeader
               v-for="tableHeader in tableHeaders"
               :key="tableHeader"
-              >{{ $t(tableHeader) }}</SfTableHeader>
+            >
+              {{ $t(tableHeader) }}
+            </SfTableHeader>
             <SfTableHeader class="orders__element--right" />
           </SfTableHeading>
-          <SfTableRow v-for="order in orders" :key="orderGetters.getId(order)">
-            <SfTableData v-e2e="'order-number'">{{ orderGetters.getId(order) }}</SfTableData>
+          <SfTableRow
+            v-for="order in orders"
+            :key="orderGetters.getId(order)"
+          >
+            <SfTableData v-e2e="'order-number'">
+              {{ orderGetters.getId(order) }}
+            </SfTableData>
             <SfTableData>{{ orderGetters.getDate(order) }}</SfTableData>
             <SfTableData>{{ $n(orderGetters.getPrice(order), 'currency') }}</SfTableData>
             <SfTableData>
               <span :class="getStatusTextClass(order)">{{ orderGetters.getStatus(order) }}</span>
             </SfTableData>
             <SfTableData class="orders__view orders__element--right">
-              <SfButton class="sf-button--text desktop-only" @click="currentOrder = order">
+              <SfButton
+                class="sf-button--text desktop-only"
+                @click="currentOrder = order"
+              >
                 {{ $t('OrderHistory.View details') }}
               </SfButton>
             </SfTableData>
@@ -74,8 +104,8 @@
         </SfTable>
         <LazyHydrate on-interaction>
           <SfPagination
-            class="products__pagination desktop-only"
             v-show="pagination.totalPages > 1"
+            class="products__pagination desktop-only"
             :current="pagination.currentPage"
             :total="pagination.totalPages"
             :visible="5"
@@ -87,8 +117,13 @@
     <SfTab :title="$t('OrderHistory.Returns')">
       <p class="message">
         This feature is not implemented yet! Please take a look at
-        <br />
-        <SfLink class="message__link" link="#">https://github.com/DivanteLtd/vue-storefront/issues</SfLink>
+        <br>
+        <SfLink
+          class="message__link"
+          link="#"
+        >
+          https://github.com/DivanteLtd/vue-storefront/issues
+        </SfLink>
         for our Roadmap!
       </p>
     </SfTab>

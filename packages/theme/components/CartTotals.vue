@@ -65,7 +65,7 @@ import { computed } from '@nuxtjs/composition-api';
 import { useCart, cartGetters } from '@vue-storefront/plentymarkets';
 
 export default {
-  name: 'Cart',
+  name: 'CartTotals',
   components: {
     SfProperty,
     SfPrice,

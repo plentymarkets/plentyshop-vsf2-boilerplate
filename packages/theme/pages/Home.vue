@@ -1,119 +1,135 @@
 <template>
-    <div id="home">
-      <LazyHydrate when-idle>
-        <SfHero class="hero">
-          <SfHeroItem
-            v-for="(hero, i) in heroes"
-            :key="i"
-            :title="hero.title"
-            :subtitle="hero.subtitle"
-            :background="hero.background"
-            :image="hero.image"
-            :class="hero.className"
-          />
-        </SfHero>
-      </LazyHydrate>
+  <div id="home">
+    <LazyHydrate when-idle>
+      <SfHero class="hero">
+        <SfHeroItem
+          v-for="(hero, i) in heroes"
+          :key="i"
+          :title="hero.title"
+          :subtitle="hero.subtitle"
+          :background="hero.background"
+          :image="hero.image"
+          :class="hero.className"
+        />
+      </SfHero>
+    </LazyHydrate>
 
-      <LazyHydrate when-visible>
-        <SfBannerGrid :banner-grid="1" class="banner-grid">
-          <template v-for="item in banners" v-slot:[item.slot]>
-            <SfBanner
-              :key="item.slot"
-              :title="item.title"
-              :subtitle="item.subtitle"
-              :description="item.description"
-              :button-text="item.buttonText"
-              :link="localePath(item.link)"
-              :image="item.image"
-              :class="item.class"
-            />
-          </template>
-        </SfBannerGrid>
-      </LazyHydrate>
-
-      <LazyHydrate when-visible>
-        <div class="similar-products">
-          <SfHeading title="Match with it" :level="2"/>
-          <nuxt-link :to="localePath('/c/women')" class="smartphone-only">
-            {{ $t('Home.See all') }}
-          </nuxt-link>
-        </div>
-      </LazyHydrate>
-
-      <LazyHydrate when-visible>
-          <SfCarousel class="carousel" :settings="{ peek: 16, breakpoints: { 1023: { peek: 0, perView: 2 } } }">
-            <template #prev="{go}">
-              <SfArrow
-                aria-label="prev"
-                class="sf-arrow--left sf-arrow--long"
-                @click="go('prev')"
-              />
-            </template>
-            <template #next="{go}">
-              <SfArrow
-                aria-label="next"
-                class="sf-arrow--right sf-arrow--long"
-                @click="go('next')"
-              />
-            </template>
-            <SfCarouselItem class="carousel__item" v-for="(product, i) in products" :key="i">
-              <SfProductCard
-                :title="product.title"
-                :image="product.image"
-                :imageWidth="100"
-                :imageHeight="100"
-                :regular-price="product.price.regular"
-                :max-rating="product.rating.max"
-                :score-rating="product.rating.score"
-                :show-add-to-cart-button="true"
-                :is-on-wishlist="product.isInWishlist"
-                :link="localePath({ name: 'home' })"
-                class="carousel__item__product"
-                @click:wishlist="toggleWishlist(i)"
-              />
-            </SfCarouselItem>
-          </SfCarousel>
-      </LazyHydrate>
-
-      <LazyHydrate when-visible>
-        <SfCallToAction
-          title="Subscribe to Newsletters"
-          button-text="Subscribe"
-          :description="$t('Home.Special gifts and events')"
-          :image="addBasePath('/homepage/newsletter.webp')"
-          class="call-to-action"
+    <LazyHydrate when-visible>
+      <SfBannerGrid
+        :banner-grid="1"
+        class="banner-grid"
+      >
+        <template
+          v-for="item in banners"
+          #[item.slot]
         >
-          <template #button>
-            <SfButton
-              class="sf-call-to-action__button"
-              data-testid="cta-button"
-              @click="toggleNewsletterModal"
-            >
-              {{ $t('Home.Subscribe') }}
-            </SfButton>
-          </template>
-        </SfCallToAction>
-      </LazyHydrate>
+          <SfBanner
+            :key="item.slot"
+            :title="item.title"
+            :subtitle="item.subtitle"
+            :description="item.description"
+            :button-text="item.buttonText"
+            :link="localePath(item.link)"
+            :image="item.image"
+            :class="item.class"
+          />
+        </template>
+      </SfBannerGrid>
+    </LazyHydrate>
 
-      <LazyHydrate when-visible>
-        <NewsletterModal @email-submitted="onSubscribe" />
-      </LazyHydrate>
+    <LazyHydrate when-visible>
+      <div class="similar-products">
+        <SfHeading
+          title="Match with it"
+          :level="2"
+        />
+        <nuxt-link
+          :to="localePath('/c/women')"
+          class="smartphone-only"
+        >
+          {{ $t('Home.See all') }}
+        </nuxt-link>
+      </div>
+    </LazyHydrate>
 
-      <LazyHydrate when-visible>
-        <InstagramFeed />
-      </LazyHydrate>
+    <LazyHydrate when-visible>
+      <SfCarousel
+        class="carousel"
+        :settings="{ peek: 16, breakpoints: { 1023: { peek: 0, perView: 2 } } }"
+      >
+        <template #prev="{go}">
+          <SfArrow
+            aria-label="prev"
+            class="sf-arrow--left sf-arrow--long"
+            @click="go('prev')"
+          />
+        </template>
+        <template #next="{go}">
+          <SfArrow
+            aria-label="next"
+            class="sf-arrow--right sf-arrow--long"
+            @click="go('next')"
+          />
+        </template>
+        <SfCarouselItem
+          v-for="(product, i) in products"
+          :key="i"
+          class="carousel__item"
+        >
+          <SfProductCard
+            :title="product.title"
+            :image="product.image"
+            :image-width="100"
+            :image-height="100"
+            :regular-price="product.price.regular"
+            :max-rating="product.rating.max"
+            :score-rating="product.rating.score"
+            :show-add-to-cart-button="true"
+            :is-on-wishlist="product.isInWishlist"
+            :link="localePath({ name: 'home' })"
+            class="carousel__item__product"
+            @click:wishlist="toggleWishlist(i)"
+          />
+        </SfCarouselItem>
+      </SfCarousel>
+    </LazyHydrate>
 
-    </div>
-  </template>
+    <LazyHydrate when-visible>
+      <SfCallToAction
+        title="Subscribe to Newsletters"
+        button-text="Subscribe"
+        :description="$t('Home.Special gifts and events')"
+        :image="addBasePath('/homepage/newsletter.webp')"
+        class="call-to-action"
+      >
+        <template #button>
+          <SfButton
+            class="sf-call-to-action__button"
+            data-testid="cta-button"
+            @click="toggleNewsletterModal"
+          >
+            {{ $t('Home.Subscribe') }}
+          </SfButton>
+        </template>
+      </SfCallToAction>
+    </LazyHydrate>
+
+    <LazyHydrate when-visible>
+      <NewsletterModal @email-submitted="onSubscribe" />
+    </LazyHydrate>
+
+    <LazyHydrate when-visible>
+      <InstagramFeed />
+    </LazyHydrate>
+  </div>
+</template>
 <script>
 import {
   SfHero,
   SfBanner,
   SfCallToAction,
-  SfSection,
   SfCarousel,
   SfProductCard,
-  SfImage,
   SfBannerGrid,
   SfHeading,
   SfArrow,
@@ -133,10 +149,8 @@ export default {
     SfHero,
     SfBanner,
     SfCallToAction,
-    SfSection,
     SfCarousel,
     SfProductCard,
-    SfImage,
     SfBannerGrid,
     SfHeading,
     SfArrow,

@@ -1,10 +1,15 @@
 <template>
   <div>
-    <VsfShippingProvider class="spacer"/>
-    <VsfPaymentProvider class="spacer" @status="isPaymentReady = true"/>
+    <VsfShippingProvider class="spacer" />
+    <VsfPaymentProvider
+      class="spacer"
+      @status="isPaymentReady = true"
+    />
     <SfTable class="sf-table--bordered table desktop-only">
       <SfTableHeading class="table__row">
-        <SfTableHeader class="table__header table__image">{{ $t('Payment.Item') }}</SfTableHeader>
+        <SfTableHeader class="table__header table__image">
+          {{ $t('Payment.Item') }}
+        </SfTableHeader>
         <SfTableHeader
           v-for="tableHeader in tableHeaders"
           :key="tableHeader"
@@ -20,19 +25,31 @@
         class="table__row"
       >
         <SfTableData class="table__image">
-          <SfImage :width="100" :height="100" :src="addBasePath(cartGetters.getItemImage(product))" :alt="cartGetters.getItemName(product)" />
+          <SfImage
+            :width="100"
+            :height="100"
+            :src="addBasePath(cartGetters.getItemImage(product))"
+            :alt="cartGetters.getItemName(product)"
+          />
         </SfTableData>
         <SfTableData class="table__data table__description table__data">
-          <div class="product-title">{{ cartGetters.getItemName(product) }}</div>
-          <div class="product-sku">{{ cartGetters.getItemSku(product) }}</div>
+          <div class="product-title">
+            {{ cartGetters.getItemName(product) }}
+          </div>
+          <div class="product-sku">
+            {{ cartGetters.getItemSku(product) }}
+          </div>
         </SfTableData>
         <SfTableData
-          class="table__data" v-for="(value, key) in cartGetters.getItemAttributes(product, ['size', 'color'])"
+          v-for="(value, key) in cartGetters.getItemAttributes(product, ['size', 'color'])"
           :key="key"
+          class="table__data"
         >
           {{ value }}
         </SfTableData>
-        <SfTableData class="table__data">{{ cartGetters.getItemQty(product) }}</SfTableData>
+        <SfTableData class="table__data">
+          {{ cartGetters.getItemQty(product) }}
+        </SfTableData>
         <SfTableData class="table__data price">
           <SfPrice
             :regular="$n(cartGetters.getItemPrice(product).regular, 'currency')"
@@ -45,15 +62,25 @@
     <div class="summary">
       <div class="summary__group">
         <CartTotals />
-        <SfCheckbox v-e2e="'terms'" v-model="terms" name="terms" class="summary__terms">
+        <SfCheckbox
+          v-model="terms"
+          v-e2e="'terms'"
+          name="terms"
+          class="summary__terms"
+        >
           <template #label>
             <div class="sf-checkbox__label">
-              {{ $t('Payment.I agree to') }} <SfLink link="#"> {{ $t('Payment.Terms and conditions') }}</SfLink>
+              {{ $t('Payment.I agree to') }} <SfLink link="#">
+                {{ $t('Payment.Terms and conditions') }}
+              </SfLink>
             </div>
           </template>
         </SfCheckbox>
 
-        <div v-e2e="'payment-summary-buttons'" class="summary__action">
+        <div
+          v-e2e="'payment-summary-buttons'"
+          class="summary__action"
+        >
           <SfButton
             :disabled="loading || !isPaymentReady || !terms"
             class="summary__action-button"
@@ -69,16 +96,11 @@
 
 <script>
 import {
-  SfHeading,
   SfTable,
   SfCheckbox,
   SfButton,
-  SfDivider,
   SfImage,
-  SfIcon,
   SfPrice,
-  SfProperty,
-  SfAccordion,
   SfLink
 } from '@storefront-ui/vue';
 import { onSSR } from '@vue-storefront/core';
@@ -89,16 +111,11 @@ import { addBasePath } from '@vue-storefront/core';
 export default {
   name: 'ReviewOrder',
   components: {
-    SfHeading,
     SfTable,
     SfCheckbox,
     SfButton,
-    SfDivider,
     SfImage,
-    SfIcon,
     SfPrice,
-    SfProperty,
-    SfAccordion,
     SfLink,
     VsfPaymentProvider: () => import('~/components/Checkout/VsfPaymentProvider'),
     VsfShippingProvider: () => import('~/components/Checkout/VsfShippingProvider'),
