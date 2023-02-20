@@ -5,7 +5,7 @@
         v-for="(category, index) in categoryTree"
         :key="index"
         class="nav-item"
-        v-e2e="`app-header-url_${category.slug}`"
+        :data-e2e="`app-header-url_${category.slug}`"
         :label="category.label"
         :link="localePath(`/c/${category.slug}`)"
       />
@@ -15,7 +15,7 @@
         v-for="(category, index) in categoryTree"
         :key="index"
         class="nav-item"
-        v-e2e="`app-header-url_${category.slug}`"
+        :data-e2e="`app-header-url_${category.slug}`"
       >
         <template #mobile-navigation-item>
           <SfMenuItem

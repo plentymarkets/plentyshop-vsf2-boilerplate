@@ -51,7 +51,7 @@
           <AttributeSelection @selection-changed="attributeSelectionChanged($event)"></AttributeSelection>
 
           <SfAddToCart
-            v-e2e="'product_add-to-cart'"
+            :data-e2e="'product_add-to-cart'"
             :stock="stock"
             v-model="qty"
             :disabled="loading || !isAttributeSelectionValid"

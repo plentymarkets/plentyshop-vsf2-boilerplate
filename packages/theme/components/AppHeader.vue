@@ -18,7 +18,7 @@
         <LocaleSelector class="smartphone-only" />
       </template>
       <template #header-icons>
-        <div v-e2e="'header-icons'" class="sf-header__icons">
+        <div :data-e2e="'header-icons'" class="sf-header__icons">
           <SfButton
             class="sf-button--pure sf-header__action"
             :aria-label="$t('AppHeader.Open account button')"
