@@ -22,14 +22,16 @@
             <div class="checkboxes">
               <div
                 class="checkbox"
-                v-for="cookieGroup in cookieBarGetters.getListOfGroups(
-                  cookieGroups
-                )"
-                :key="cookieBarGetters.getId(cookieGroup)"
+                v-for="(cookieGroup, index) in Object.values(cookieJson)"
+                :key="index"
               >
                 <SfCheckbox
-                  :name="cookieBarGetters.getCookieGroupName(cookieGroup)"
-                  :label="cookieBarGetters.getCookieGroupName(cookieGroup)"
+                  :disabled="index === 0"
+                  @change="
+                    ($event) => setChildrenCheckboxes(cookieGroup, $event)
+                  "
+                  :name="cookieGroup.name"
+                  :label="cookieGroup.name"
                   v-model="cookieGroup.accepted"
                 />
               </div>
@@ -38,64 +40,73 @@
           <div class="furtherSettingsCard" v-else>
             <div class="furtherSettingsCardScrollable">
               <div
-                v-for="cookieGroup in cookieBarGetters.getListOfGroups(
-                  cookieGroups
-                )"
-                :key="cookieBarGetters.getId(cookieGroup)"
+                v-for="(cookieGroup, index) in Object.values(cookieJson)"
+                :key="index"
                 class="bg-grey mb-xs"
               >
-                <div class="p-sm">
+                <div>
                   <SfCheckbox
-                    :name="`${cookieBarGetters.getCookieGroupName(
-                      cookieGroup
-                    )}`"
-                    :label="
-                      cookieBarGetters.getCookieGroupNameWithCount(cookieGroup)
+                    :disabled="index === 0"
+                    @change="
+                      ($event) => setChildrenCheckboxes(cookieGroup, $event)
                     "
+                    :name="cookieGroup.name"
+                    :label="cookieGroup.name"
                     v-model="cookieGroup.accepted"
                   />
                   <div class="cookieDescription">
-                    {{ cookieBarGetters.getBarDescription(cookieGroup) }}
+                    {{ cookieGroups.list[index].description }}
                   </div>
-                  <div
-                    v-if="cookieBarGetters.getShowMore(cookieGroup)"
-                    class="ml-xs cookieDetails"
-                  >
+                  <div v-if="showMore" class="ml-xs cookieDetails">
                     <div
-                      v-for="(cookie, index) in Object.entries(
-                        cookieBarGetters.getCookiesList(cookieGroup)
+                      class="p-sm"
+                      v-for="(cookie, index2) in Object.values(
+                        cookieGroup.cookies
                       )"
-                      :key="index"
+                      :key="index2"
                     >
+                      <SfCheckbox
+                        :disabled="index === 0"
+                        @change="
+                          setParentCheckbox(cookieGroup)
+                        "
+                        :name="cookie.name"
+                        :label="cookie.name"
+                        v-model="cookie.accepted"
+                      />
+
                       <div
-                        class="flex full-width mb-xs p-xs bg-white"
-                        v-for="keyName in Object.keys(cookie[1])"
-                        :key="keyName"
+                        v-for="(cookie, index) in Object.entries(
+                          cookieGroups.list[index].cookies[index2]
+                        )"
+                        :key="index"
                       >
-                        <div v-if="keyName !== 'name'" class="col-2">
-                          {{ keyName }}
-                        </div>
-                        <div class="col-4">
-                          {{ cookie[1][keyName] }}
+                        <div class="flex full-width mb-xs p-xs bg-white">
+                          <div v-if="cookie[0] !== 'name'" class="col-2">
+                            {{ cookie[0] }}
+                          </div>
+                          <div class="col-4">
+                            {{ cookie[1] }}
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <SfButton
-                    v-if="!cookieBarGetters.getShowMore(cookieGroup)"
-                    @click="cookieGroup.showMore = true"
-                    class="sf-button--text"
-                  >
-                    {{ $t('More information') }}
-                  </SfButton>
-                  <SfButton
-                    v-else
-                    @click="cookieGroup.showMore = false"
-                    class="sf-button--text"
-                  >
-                    {{ $t('Show less') }}
-                  </SfButton>
                 </div>
+                <SfButton
+                  v-if="!showMore"
+                  @click="showMore = true"
+                  class="sf-button--text"
+                >
+                  {{ $t('More information') }}
+                </SfButton>
+                <SfButton
+                  v-else
+                  @click="showMore = false"
+                  class="sf-button--text"
+                >
+                  {{ $t('Show less') }}
+                </SfButton>
               </div>
             </div>
           </div>
@@ -124,7 +135,7 @@
                 :aria-disabled="false"
                 type="button"
                 aria-label="button"
-                @click="toggle(true, true)"
+                @click="convertAndSaveCookies(true, true)"
               >
                 {{ $t('Accept All') }}
               </button>
@@ -135,7 +146,7 @@
                 :aria-disabled="false"
                 type="button"
                 aria-label="button"
-                @click="toggle(true, false)"
+                @click="convertAndSaveCookies(true, false)"
               >
                 {{ $t('Reject All') }}
               </button>
@@ -145,7 +156,7 @@
                 class="sf-button full-width flat"
                 :aria-disabled="false"
                 type="button"
-                @click="toggle(false, true)"
+                @click="convertAndSaveCookies(false)"
               >
                 {{ $t('Accept Selection') }}
               </button>
@@ -178,7 +189,7 @@ import { cookieBarGetters } from '@vue-storefront/plentymarkets';
 
 import { ref, useContext } from '@nuxtjs/composition-api';
 import { SfModal, SfCheckbox, SfIcon, SfButton } from '@storefront-ui/vue';
-import { keyBy } from 'lodash';
+// import { keyBy } from 'lodash';
 export default {
   components: {
     SfModal,
@@ -190,114 +201,114 @@ export default {
     const furtherSettingsOn = ref(false);
     const { $config, app } = useContext();
     const cookieGroups = ref($config.cookieGroups);
-    const cookieGroupsSaved = app.$cookies.getAll().cookieGroups;
-    const cookieGroupsById = keyBy($config.cookieGroups.list, 'id');
-    const bannerIsHidden = ref(false);
+    const cookieGroupsSaved = app.$cookies.get('plenty-shop-cookie');
+    // make saveable json from nuxt config
+    const cookieJson = ref(
+      cookieGroups.value.list.map((group) => ({
+        name: group.name,
+        accepted: false,
+        cookies: group.cookies.map((cookie) => ({
+          accepted: false,
+          name: cookie.name
+        }))
+      }))
+    );
 
-    const groupHasExpiredCookies = (cookieGroupId) => {
-      const cookieGroup = cookieGroupsById[cookieGroupId];
-      const validCookieList = cookieGroup.cookies.filter((cookie) =>
-        app.$cookies.get(cookieGroup.name + '-' + cookie.name)
+    const initcookieJson = () => {
+      if (cookieGroupsSaved) {
+        cookieGroupsSaved.forEach((group, index) => {
+          const cookies = Object.values(group)[0];
+          let atLeastOneIsTrue = false;
+          cookies.forEach((cookie, index2) => {
+            // First Esential cookies group allways true;
+            cookieJson.value[index].cookies[index2].accepted =
+              Object.values(cookie)[0];
+            atLeastOneIsTrue = Object.values(cookie)[0]
+              ? true
+              : atLeastOneIsTrue;
+          });
+          cookieJson.value[index].accepted = atLeastOneIsTrue;
+        });
+      }
+
+      cookieJson.value[0].accepted = true;
+      cookieJson.value[0].cookies = cookieJson.value[0].cookies.map(
+        (cookie) => ({ ...cookie, accepted: true })
       );
-      // if the cookiegroup has less valid cookies than the cookie list from the consented cookiegroup
-      if (validCookieList.length < cookieGroup.cookies.length) {
-        return true;
-      }
-      return false;
-    };
-    const checkIfbannerIsHidden = () => {
-      // method checks if any cookie from the conented cookieGroups is expired
-      if (!cookieGroupsSaved) {
-        return false;
-      }
-      let result = true;
-      if (cookieGroupsSaved && cookieGroupsSaved.length) {
-        // check if any off the cookies from the group that was previously accepted has expired
-        cookieGroupsSaved.forEach((cookieGroupId) => {
-          result = !groupHasExpiredCookies(cookieGroupId);
-        });
-      }
-
-      return result;
     };
 
-    const initializeCheckBoxesState = () => {
-      console.log(cookieGroupsSaved);
-      if (cookieGroupsSaved && cookieGroupsSaved.length) {
-        cookieGroups.value.list.forEach((cookieGroup) => {
-          // if the checkbox was checked and does't have a cookie expired
-          if (
-            cookieGroupsSaved.includes(cookieGroup.id) &&
-            !groupHasExpiredCookies(cookieGroup.id)
-          ) {
-            cookieGroup.accepted = true;
-          }
-        });
-      }
-    };
-    const clearAllCookiesRelatedToConsent = () => {
-      cookieGroups.value.list.forEach((cookieGroup) => {
-        cookieGroup.cookies.forEach((cookie) => {
-          app.$cookies.remove(
-            cookieBarGetters.getCookieGroupName(cookieGroup) +
-              '-' +
-              cookieBarGetters.getCookieName(cookie)
-          );
-        });
-      });
-    };
+    const getMinimumLifeSpan = () => {
+      const convertToDays = (daysInString) => {
+        return parseInt(daysInString.split(' ')[0]);
+      };
 
-    bannerIsHidden.value = checkIfbannerIsHidden();
-    // TODO initialization not putting checkbox in false state if previously unchecked !
-    initializeCheckBoxesState();
-
-    const toggle = (all, state) => {
-      clearAllCookiesRelatedToConsent();
-      if (cookieGroups.value.list[0].name === 'Essentials') {
-        cookieGroups.value.accepted = true;
-      }
-      if (all) {
-        cookieGroups.value.list.forEach((cookieGroup) => {
-          cookieGroup.accepted = state;
-        });
-      }
-
-      const consentedList = cookieGroups.value.list
-        .filter((x) => x.accepted)
-        .map((x) => x.id);
-
-      // set each cookie with the folowing convention: cookiegroupname-cookiename
-      consentedList.forEach((cookieGroupId) => {
-        const cookieGroup = cookieGroupsById[cookieGroupId];
-        cookieGroup.cookies.forEach((cookie) => {
-          if (cookie.Lifespan) {
-            const convertedToDays = parseInt(cookie.Lifespan.split(' ')[0]);
-            const lifeSpan = 60 * 60 * 24 * convertedToDays;
-            app.$cookies.set(
-              cookieBarGetters.getCookieGroupName(cookieGroup) +
-                '-' +
-                cookieBarGetters.getCookieName(cookie),
-              JSON.stringify(consentedList),
-              {
-                path: '/',
-                maxAge: lifeSpan
-              }
-            );
+      let minimum = 100000;
+      console.log(cookieGroups);
+      cookieGroups.value.list.forEach(group => {
+        group.cookies.forEach(cookie => {
+          console.log(cookie);
+          if (minimum > convertToDays(cookie.Lifespan)) {
+            minimum = convertToDays(cookie.Lifespan);
           }
         });
       });
-      // the browser must remember that the user once accepted a group of cookies
-      const maximumAge = 60 * 60 * 24 * 256 * 10;
-      app.$cookies.set('cookieGroups', JSON.stringify(consentedList), {
+      return minimum;
+    };
+
+    initcookieJson();
+    const bannerIsHidden = ref(cookieGroupsSaved !== undefined);
+    const saveCookies = (key, cookieValue) => {
+      const minimumOfAllMinimums = 60 * 60 * 24 * getMinimumLifeSpan();
+      app.$cookies.set(key, cookieValue, {
         path: '/',
-        maxAge: maximumAge
+        maxAge: minimumOfAllMinimums
       });
+    };
+    const convertToSaveableJson = (jsonList) => {
+      let toSave = [];
+      toSave = jsonList.map((group) => ({
+        [group.name]: group.cookies.map((cookie) => ({
+          [cookie.name]: cookie.accepted
+        }))
+      }));
+      return toSave;
+    };
+
+    const convertAndSaveCookies = (setAllCookies, newStatus) => {
+      if (setAllCookies) {
+        // accept all or reject all case
+        // set checkboxes acordingly
+        cookieJson.value.forEach((group) => {
+          group.accepted = newStatus;
+          group.cookies.forEach((cookie) => {
+            cookie.accepted = newStatus;
+          });
+        });
+      }
+      const toSave = convertToSaveableJson(cookieJson.value, newStatus);
+      saveCookies('plenty-shop-cookie', toSave);
       bannerIsHidden.value = true;
     };
 
+    const setChildrenCheckboxes = (group, state) => {
+      group.cookies = group.cookies.map((cookie) => ({
+        ...cookie,
+        accepted: state
+      }));
+    };
+
+    const setParentCheckbox = (group) => {
+      group.accepted = group.cookies.some((cookie) => cookie.accepted);
+    };
+
     return {
+      showMore: ref(false),
       cookieGroups,
-      toggle,
+      cookieGroupsSaved,
+      cookieJson,
+      setChildrenCheckboxes,
+      setParentCheckbox,
+      convertAndSaveCookies,
       furtherSettingsOn,
       bannerIsHidden,
       cookieBarGetters

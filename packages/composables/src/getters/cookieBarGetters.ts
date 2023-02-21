@@ -32,8 +32,8 @@ function getCookieGroupName(CookieGroups: CookieGroups): string {
   return CookieGroups?.name ?? '';
 }
 
-function getCookieName(CookieGroups: Cookie): string {
-  return CookieGroups?.name ?? '';
+function getCookieName(Cookie: Cookie): string {
+  return Cookie?.name ?? '';
 }
 
 function getCookieGroupNameWithCount(CookieGroups: CookieGroups): string {
