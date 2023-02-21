@@ -52,6 +52,19 @@
         </SfListItem>
       </SfList>
     </SfFooterColumn>
+    <SfFooterColumn title='Legal'>
+      <SfList>
+        <SfListItem
+          v-for="item in legal"
+          :key="item"
+         >
+           <SfMenuItem
+             :label="$t(item)"
+             :link="localePath(legalPaths[item])"
+           />
+        </SfListItem>
+      </SfList>
+    </SfFooterColumn>
     <SfFooterColumn :title="$t('AppFooter.Social')">
       <div class="footer__socials">
         <SfImage
@@ -71,6 +84,7 @@
 <script>
 import { SfFooter, SfList, SfImage, SfMenuItem } from '@storefront-ui/vue';
 import { addBasePath } from '@vue-storefront/core';
+import { useRouter } from '@nuxtjs/composition-api';
 
 export default {
   components: {
@@ -80,7 +94,9 @@ export default {
     SfMenuItem
   },
   setup() {
+    const router = useRouter();
     return {
+      router,
       addBasePath
     };
   },
@@ -91,6 +107,14 @@ export default {
       help: ['AppFooter.Customer service', 'AppFooter.Size guide', 'AppFooter.Contact us'],
       paymentsDelivery: ['AppFooter.Purchase terms', 'AppFooter.Guarantee'],
       social: ['facebook', 'pinterest', 'google', 'twitter', 'youtube'],
+      legal: ['AppFooter.CancellationRights', 'AppFooter.CancellationForm', 'AppFooter.LegalDisclosure', 'AppFooter.PrivacyPolicy', 'AppFooter.TermsAndConditions'],
+      legalPaths: {
+        'AppFooter.CancellationRights': 'CancellationRights',
+        'AppFooter.CancellationForm': 'CancellationForm',
+        'AppFooter.LegalDisclosure': 'LegalDisclosure',
+        'AppFooter.PrivacyPolicy': 'PrivacyPolicy',
+        'AppFooter.TermsAndConditions': 'TermsAndConditions'
+      },
       isMobile: false,
       desktopMin: 1024
     };

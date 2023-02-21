@@ -9,7 +9,7 @@ function getTree(category: Category): AgnosticCategoryTree {
     slug: getCategoryDetails(category.details).nameUrl || '',
     items: category.children ? category.children.map(cat => getTree(cat)) : [],
     isCurrent: false,
-    count: category?.itemCount[0].count || 0
+    count: category?.itemCount[0]?.count || 0
   };
 }
 
