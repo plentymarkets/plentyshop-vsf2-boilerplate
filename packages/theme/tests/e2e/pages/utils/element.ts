@@ -30,9 +30,10 @@ export function register (email: string, password = 'Testuser1234'): void {
 }
 
 export function addCartItem (productId: number, quantity: number): void {
+  const baseUrl = Cypress.config('baseUrl');
   cy.request(
     'POST',
-    '/api/plentymarkets/addCartItem',
+    `${baseUrl}/api/plentymarkets/addCartItem`,
     {
       productId: productId,
       quantity: quantity

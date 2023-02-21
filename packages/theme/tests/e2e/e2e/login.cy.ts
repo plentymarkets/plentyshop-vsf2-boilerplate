@@ -1,21 +1,13 @@
 import page from '../pages/factory';
 
-const loginHelper = (cy: Cypress.cy & CyEventEmitter, email: string, password: string, isRememberChecked = false): void => {
-  // If the modal does not exit, click the open account. This helps with using the login
-  // command multiple times inside the same test.
-  cy.get('body').then($el => {
-    if ($el.find('.sf-modal__content').length === 0) {
-      page.home.header.openAccount();
-    }
-  });
+const uniqueEmail = `e2etestemail-${new Date().getTime()}@plentymarkets.com`;
+const password = 'Testuser1234';
 
-  // if the login to your account button exists, click it
-  cy.get('.sf-modal__content').then($el => {
-    if ($el.find('button.sf-button:contains("login in to your account")').length > 0) {
-      cy.get('.sf-modal__content').find('.sf-button').contains('login in to your account').click();
-    }
-  });
+const wrongEmail = 'wrong@email.com';
+const wronglyFormattedEmail = 'wrongEmail@';
+const wrongPassword = 'wrongPassword';
 
+const loginHelper = (email: string, password: string, isRememberChecked = false): void => {
   if (email) {
     page.home.header.accountModalForm.find('input#email').clear().type(email, { force: true });
   }
@@ -28,8 +20,6 @@ const loginHelper = (cy: Cypress.cy & CyEventEmitter, email: string, password: s
 
   page.home.header.accountModalForm.find('button[type=submit]').click();
 };
-const uniqueMail = `e2etestmail-${new Date().getTime()}@plentymarkets.com`;
-const password = 'Testuser1234';
 
 context('Login', () => {
 
@@ -38,49 +28,50 @@ context('Login', () => {
       url: '/',
       timeout: 60000
     });
-    page.home.visit();
-    page.home.registerUser(uniqueMail, password);
+    page.home.registerUser(uniqueEmail, password);
     cy.clearCookies();
   });
 
   beforeEach(function init () {
     page.home.visit();
+    page.home.header.openAccount();
   });
 
-  it(['exceptionPath', 'regression'], 'Fails due to missing or wrongfully formatted email', function test() {
-    loginHelper(cy, '', password);
+  it(['exceptionPath', 'regression'], 'Fails due to missing email', function test() {
+    loginHelper('', password);
     page.home.header.accountModalForm.contains('The Email field is required');
-
-    loginHelper(cy, 'badEmail@', password);
-    page.home.header.accountModalForm.contains('The Email field must be a valid email');
   });
 
-  it(['exceptionPath', 'regression'], 'Fails login due to missing password', function test() {
-    loginHelper(cy, uniqueMail, '');
-    page.home.header.accountModalForm.contains('The Password field is required');
+  it(['exceptionPath', 'regression'], 'Fails due to wrongly formatted email', function test() {
+    loginHelper(wronglyFormattedEmail, password);
+    page.home.header.accountModalForm.contains('The Email field must be a valid email');
   });
 
   it(['exceptionPath', 'regression'], 'Fails due to wrong email', function test() {
     cy.intercept('/api/plentymarkets/loginUser').as('loginUser');
 
-    loginHelper(cy, 'wrong@email.com', password);
+    loginHelper(wrongEmail, password);
     cy.wait('@loginUser').its('response.statusCode').should('eq', 401);
     cy.get('.notifications').find('.sf-notification').should('have.class', 'color-danger');
   });
 
+  it(['exceptionPath', 'regression'], 'Fails due to missing password', function test() {
+    loginHelper(uniqueEmail, '');
+    page.home.header.accountModalForm.contains('The Password field is required');
+  });
+
   it(['exceptionPath', 'regression'], 'Fails due to wrong password', function test() {
     cy.intercept('/api/plentymarkets/loginUser').as('loginUser');
-    loginHelper(cy, uniqueMail, 'wrongPassword');
+
+    loginHelper(uniqueEmail, wrongPassword);
     cy.wait('@loginUser').its('response.statusCode').should('eq', 401);
     cy.get('.notifications').find('.sf-notification').should('have.class', 'color-danger');
   });
 
   it(['happyPath', 'regression'], 'Should login successfully', function test() {
     cy.intercept('/api/plentymarkets/loginUser').as('loginUser');
-    cy.intercept('/api/plentymarkets/logoutUser').as('logoutUser');
 
-    // Login
-    loginHelper(cy, uniqueMail, password);
+    loginHelper(uniqueEmail, password);
     cy.wait('@loginUser').its('response.statusCode').should('eq', 200);
   });
 });
