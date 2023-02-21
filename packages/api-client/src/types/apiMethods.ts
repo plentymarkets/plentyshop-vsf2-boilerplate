@@ -5,6 +5,7 @@ import { Cart } from './cart';
 import { Category, CategoryPage } from './category';
 import { ActiveShippingCountry } from './country';
 import { ItemSearchParams, ItemSearchResult } from './itemSearch';
+import { LegalInformationResponse } from './legal';
 import { CreateOrderResponse, GetOrdersResponse } from './order';
 import { GetPaymentResponse, PaymentProviders, PreparePaymentResult } from './payment';
 import { Product } from './product';
@@ -124,6 +125,9 @@ export interface PlentymarketsApiMethods {
     executePayment(orderId: number, paymentId: number): Promise<GetPaymentResponse>
 
     saveBillingAsShipping(): Promise<any>
+
+    getLegalInformation(type: string): Promise<LegalInformationResponse>
+
 }
 
 export type Context = IntegrationContext<ClientInstance, Settings, ApiClientMethods<PlentymarketsApiMethods>>;

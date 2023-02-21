@@ -22,6 +22,7 @@ import { getActiveShippingCountries } from './api/getActiveShippingCountries';
 import { getPaymentProviders, setPaymentProvider } from './api/getPaymentProvider';
 import { additionalInformation, executePayment, placeOrder, preparePayment } from './api/getOrder';
 import { getOrders } from './api/getOrders';
+import { getLegalInformation } from './api/getLegal';
 import { Settings } from './types/apiMethods';
 type Endpoints = unknown;
 
@@ -138,7 +139,8 @@ const { createApiClient } = apiClientFactory<Settings, Endpoints>({
     preparePayment,
     placeOrder,
     getOrders,
-    executePayment
+    executePayment,
+    getLegalInformation
   },
   extensions: [cookieExtension]
 });

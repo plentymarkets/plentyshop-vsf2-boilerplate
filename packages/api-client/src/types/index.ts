@@ -5,6 +5,7 @@ export * from './category';
 export * from './country';
 export * from './filters';
 export * from './itemSearch';
+export * from './legal';
 export * from './order';
 export * from './payment';
 export * from './product';
