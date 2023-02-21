@@ -42,7 +42,7 @@
               <div
                 v-for="(cookieGroup, index) in Object.values(cookieJson)"
                 :key="index"
-                class="bg-grey mb-xs"
+                class="bg-grey ml-xs mb-xs"
               >
                 <div>
                   <SfCheckbox
@@ -54,7 +54,7 @@
                     :label="cookieGroup.name"
                     v-model="cookieGroup.accepted"
                   />
-                  <div class="cookieDescription">
+                  <div class="cookieDescription ml-xs">
                     {{ cookieGroups.list[index].description }}
                   </div>
                   <div v-if="showMore" class="ml-xs cookieDetails">
@@ -67,9 +67,7 @@
                     >
                       <SfCheckbox
                         :disabled="index === 0"
-                        @change="
-                          setParentCheckbox(cookieGroup)
-                        "
+                        @change="setParentCheckbox(cookieGroup)"
                         :name="cookie.name"
                         :label="cookie.name"
                         v-model="cookie.accepted"
@@ -93,20 +91,22 @@
                     </div>
                   </div>
                 </div>
-                <SfButton
-                  v-if="!showMore"
-                  @click="showMore = true"
-                  class="sf-button--text"
-                >
-                  {{ $t('More information') }}
-                </SfButton>
-                <SfButton
-                  v-else
-                  @click="showMore = false"
-                  class="sf-button--text"
-                >
-                  {{ $t('Show less') }}
-                </SfButton>
+                <div class="ml-xs">
+                  <SfButton
+                    v-if="!showMore"
+                    @click="showMore = true"
+                    class="sf-button--text mb-xs"
+                  >
+                    {{ $t('More information') }}
+                  </SfButton>
+                  <SfButton
+                    v-else
+                    @click="showMore = false"
+                    class="sf-button--text mb-xs"
+                  >
+                    {{ $t('Show less') }}
+                  </SfButton>
+                </div>
               </div>
             </div>
           </div>
@@ -244,8 +244,8 @@ export default {
 
       let minimum = 100000;
       console.log(cookieGroups);
-      cookieGroups.value.list.forEach(group => {
-        group.cookies.forEach(cookie => {
+      cookieGroups.value.list.forEach((group) => {
+        group.cookies.forEach((cookie) => {
           console.log(cookie);
           if (minimum > convertToDays(cookie.Lifespan)) {
             minimum = convertToDays(cookie.Lifespan);
