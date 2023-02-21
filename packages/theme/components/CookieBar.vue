@@ -278,11 +278,13 @@ export default {
       if (setAllCookies) {
         // accept all or reject all case
         // set checkboxes acordingly
-        cookieJson.value.forEach((group) => {
-          group.accepted = newStatus;
-          group.cookies.forEach((cookie) => {
-            cookie.accepted = newStatus;
-          });
+        cookieJson.value.forEach((group, index) => {
+          if (index !== 0) {
+            group.accepted = newStatus;
+            group.cookies.forEach((cookie) => {
+              cookie.accepted = newStatus;
+            });
+          }
         });
       }
       const toSave = convertToSaveableJson(cookieJson.value, newStatus);
