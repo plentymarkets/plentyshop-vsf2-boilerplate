@@ -1,3 +1,5 @@
+const baseUrl = Cypress.config('baseUrl');
+
 export function el(selector: string, children?: string): Cypress.Chainable<JQuery<HTMLElement>> {
   return children ? cy.get(`[data-e2e="${selector}"] ${children}`) : cy.get(`[data-e2e="${selector}"]`);
 }
@@ -19,7 +21,7 @@ export function uniquePlentyMarketsEmail (email: string): string {
 export function register (email: string, password = 'Testuser1234'): void {
   cy.request(
     'POST',
-    '/api/plentymarkets/registerUser',
+    `${baseUrl}/api/plentymarkets/registerUser`,
     {
       email: email,
       firstName: '',
@@ -30,7 +32,6 @@ export function register (email: string, password = 'Testuser1234'): void {
 }
 
 export function addCartItem (productId: number, quantity: number): void {
-  const baseUrl = Cypress.config('baseUrl');
   cy.request(
     'POST',
     `${baseUrl}/api/plentymarkets/addCartItem`,

@@ -9,6 +9,8 @@ import page from '../pages/factory';
 const uniqueMail = `e2etestmail-${new Date().getTime()}@plentymarkets.com`;
 const password = 'Testuser1234';
 
+const noEmail = '';
+const noPassword = '';
 const wronglyFormattedEmail = 'wrongEmail@';
 
 const registerHelper = (email: string, password: string): void => {
@@ -30,7 +32,7 @@ context('Register account', () => {
   });
 
   it(['exceptionPath', 'regression'], 'Fails due to missing data', function test() {
-    registerHelper('', '');
+    registerHelper(noEmail, noPassword);
     page.home.header.accountModalForm.contains('The Email field is required');
     page.home.header.accountModalForm.contains('The Password field is required');
   });
@@ -40,7 +42,7 @@ context('Register account', () => {
     page.home.header.accountModalForm.contains('The Email field must be a valid email');
   });
 
-  it(['happyPath', 'regression'], 'Should register an new account', function test() {
+  it(['happyPath', 'regression'], 'Should register a new account', function test() {
     cy.intercept('/api/plentymarkets/loginUser').as('loginUser');
     cy.intercept('/api/plentymarkets/registerUser').as('registerUser');
 

@@ -3,6 +3,8 @@ import page from '../pages/factory';
 const uniqueEmail = `e2etestemail-${new Date().getTime()}@plentymarkets.com`;
 const password = 'Testuser1234';
 
+const noEmail = '';
+const noPassword = '';
 const wrongEmail = 'wrong@email.com';
 const wronglyFormattedEmail = 'wrongEmail@';
 const wrongPassword = 'wrongPassword';
@@ -38,7 +40,7 @@ context('Login', () => {
   });
 
   it(['exceptionPath', 'regression'], 'Fails due to missing email', function test() {
-    loginHelper('', password);
+    loginHelper(noEmail, password);
     page.home.header.accountModalForm.contains('The Email field is required');
   });
 
@@ -56,7 +58,7 @@ context('Login', () => {
   });
 
   it(['exceptionPath', 'regression'], 'Fails due to missing password', function test() {
-    loginHelper(uniqueEmail, '');
+    loginHelper(uniqueEmail, noPassword);
     page.home.header.accountModalForm.contains('The Password field is required');
   });
 
