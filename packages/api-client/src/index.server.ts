@@ -1,6 +1,5 @@
 import { ApiClientExtension, apiClientFactory } from '@vue-storefront/core';
 import axios from 'axios';
-import type { Endpoints, Settings } from './types';
 import { getProduct } from './api/getProduct';
 import { getCategory } from './api/getCategory';
 import { getFacet } from './api/getFacet';
@@ -24,6 +23,8 @@ import { getPaymentProviders, setPaymentProvider } from './api/getPaymentProvide
 import { additionalInformation, executePayment, placeOrder, preparePayment } from './api/getOrder';
 import { getOrders } from './api/getOrders';
 import { getLegalInformation } from './api/getLegal';
+import { Settings } from './types/apiMethods';
+type Endpoints = unknown;
 
 /**
  * Event flow
