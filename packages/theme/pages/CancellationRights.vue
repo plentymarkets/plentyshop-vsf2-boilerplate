@@ -1,7 +1,5 @@
 <template>
-  <div v-html='cancellationRights'>
-
-  </div>
+  <div v-html="cancellationRights" />
 </template>
 
 <script>

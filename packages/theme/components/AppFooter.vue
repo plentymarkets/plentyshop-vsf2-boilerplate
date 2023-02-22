@@ -52,16 +52,16 @@
         </SfListItem>
       </SfList>
     </SfFooterColumn>
-    <SfFooterColumn title='Legal'>
+    <SfFooterColumn title="Legal">
       <SfList>
         <SfListItem
           v-for="item in legal"
           :key="item"
-         >
-           <SfMenuItem
-             :label="$t(item)"
-             :link="localePath(legalPaths[item])"
-           />
+        >
+          <SfMenuItem
+            :label="$t(item)"
+            :link="localePath(legalPaths[item])"
+          />
         </SfListItem>
       </SfList>
     </SfFooterColumn>
