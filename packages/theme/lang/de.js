@@ -22,11 +22,11 @@ export default {
     'updateAddress': 'Adresse aktualisieren',
     'userData': 'Benutzerdaten'
   },
-  // AddressCard
-  'AddressCard': {
+  // AddressPicker
+  'AddressPicker': {
     'Change': 'Ändern',
     'Delete': 'Löschen',
-    'Selected address': 'Adresse wählen'
+    'Make default': 'Als Hauptadresse'
   },
   // AddressInputForm
   'AddressInputForm': {
@@ -58,7 +58,12 @@ export default {
     'Size guide': '@:App.sizeGuide',
     'Social': 'Social',
     'Who we are': 'Wer wir sind',
-    'Women fashion': 'Damenmode'
+    'Women fashion': 'Damenmode',
+    'CancellationRights': 'Widerrufsrecht',
+    'CancellationForm': 'Widerrufsformular',
+    'LegalDisclosure' : 'Impressum',
+    'PrivacyPolicy' : 'Datenschutzerklärung',
+    'TermsAndConditions': 'AGB'
   },
   // AppHeader
   'AppHeader': {
@@ -87,6 +92,7 @@ export default {
   },
   // CartSidebar
   'CartSidebar': {
+    'Clear': 'Leeren',
     'Go back shopping': 'Zurück zum Einkaufen',
     'Go to checkout': 'Zur Kaufabwicklung',
     'Fill in bag': '@:App.fillInBag',

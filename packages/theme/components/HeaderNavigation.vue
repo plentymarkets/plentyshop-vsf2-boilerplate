@@ -5,17 +5,20 @@
         v-for="(category, index) in categoryTree"
         :key="index"
         class="nav-item"
-        v-e2e="`app-header-url_${category.slug}`"
+        :data-e2e="`app-header-url_${category.slug}`"
         :label="category.label"
         :link="localePath(`/c/${category.slug}`)"
       />
     </div>
-    <SfModal class="smartphone-only" :visible="isMobileMenuOpen">
+    <SfModal
+      class="smartphone-only"
+      :visible="isMobileMenuOpen"
+    >
       <SfHeaderNavigationItem
         v-for="(category, index) in categoryTree"
         :key="index"
         class="nav-item"
-        v-e2e="`app-header-url_${category.slug}`"
+        :data-e2e="`app-header-url_${category.slug}`"
       >
         <template #mobile-navigation-item>
           <SfMenuItem

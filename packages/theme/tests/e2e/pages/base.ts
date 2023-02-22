@@ -1,5 +1,5 @@
 import Header from './components/header';
-import { register } from './utils/element';
+import { addCartItem, register } from './utils/element';
 
 export default class Base {
   get path(): string {
@@ -19,5 +19,12 @@ export default class Base {
    */
   registerUser(email: string, password: string): void {
     register(email, password);
+  }
+
+  /**
+   * Adds an item to the cart via api call
+   */
+  addCartItem(productId: number, quantity: number): any {
+    addCartItem(productId, quantity);
   }
 }

@@ -31,12 +31,20 @@
             :level="6"
             class="heading sf-heading--left sf-heading--no-underline"
             :title="$t('ThankYou.Primary contacts for any questions')"
-          ></SfHeading>
+          />
           <div class="contact">
-            <p class="contact__name">{{ companyDetails.name }}</p>
-            <p class="contact__street">{{ companyDetails.street }}</p>
-            <p class="contact__city">{{ companyDetails.city }}</p>
-            <p class="contact__email">{{ companyDetails.email }}</p>
+            <p class="contact__name">
+              {{ companyDetails.name }}
+            </p>
+            <p class="contact__street">
+              {{ companyDetails.street }}
+            </p>
+            <p class="contact__city">
+              {{ companyDetails.city }}
+            </p>
+            <p class="contact__email">
+              {{ companyDetails.email }}
+            </p>
           </div>
         </div>
       </div>
@@ -62,14 +70,15 @@
           </p>
           <SfButton
             class="feedback-button color-secondary sf-button--full-width button-size"
-            >{{ $t('ThankYou.Send feedback') }}</SfButton
           >
+            {{ $t('ThankYou.Send feedback') }}
+          </SfButton>
         </div>
       </div>
     </section>
-    <SfButton class="back-button color-secondary button-size"
-      >{{ $t('ThankYou.Go back to shop') }}</SfButton
-    >
+    <SfButton class="back-button color-secondary button-size">
+      {{ $t('ThankYou.Go back to shop') }}
+    </SfButton>
   </div>
 </template>
 

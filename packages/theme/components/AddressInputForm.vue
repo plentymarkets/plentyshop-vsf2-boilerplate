@@ -4,104 +4,104 @@
       <form class="form">
         <slot name="form">
           <ValidationProvider
+            v-slot="{ errors }"
             :name="$t('AddressInputForm.First name')"
             rules="required|min:2"
-            v-slot="{ errors }"
             slim
           >
             <SfInput
-              v-e2e="type + '-firstName'"
               v-model="internalForm.firstName"
+              v-e2e="type + '-firstName'"
               :label="$t('AddressInputForm.First name')"
               :name="type + '-firstName'"
               required
               :valid="!errors[0]"
-              :errorMessage="errors[0]"
+              :error-message="errors[0]"
               class="form__element form__element--half"
             />
           </ValidationProvider>
           <ValidationProvider
+            v-slot="{ errors }"
             :name="$t('AddressInputForm.Last name')"
             rules="required|min:2"
-            v-slot="{ errors }"
             slim
           >
             <SfInput
-              v-e2e="type + '-lastName'"
               v-model="internalForm.lastName"
+              v-e2e="type + '-lastName'"
               :name="type + '-lastName'"
               :label="$t('AddressInputForm.Last name')"
               required
               :valid="!errors[0]"
-              :errorMessage="errors[0]"
+              :error-message="errors[0]"
               class="form__element form__element--half form__element--half-even"
             />
           </ValidationProvider>
           <ValidationProvider
+            v-slot="{ errors }"
             :name="$t('AddressInputForm.Street')"
             rules="required|min:2"
-            v-slot="{ errors }"
             slim
           >
             <SfInput
-              v-e2e="type + '-streetName'"
               v-model="internalForm.streetName"
+              v-e2e="type + '-streetName'"
               :name="type + '-streetName'"
               :label="$t('AddressInputForm.Street')"
               required
               :valid="!errors[0]"
-              :errorMessage="errors[0]"
+              :error-message="errors[0]"
               class="form__element"
             />
           </ValidationProvider>
           <ValidationProvider
+            v-slot="{ errors }"
             :name="$t('AddressInputForm.Address no')"
             rules="required|min:1"
-            v-slot="{ errors }"
             slim
           >
             <SfInput
-              v-e2e="type + '-apartment'"
               v-model="internalForm.apartment"
+              v-e2e="type + '-apartment'"
               :name="type + '-apartment'"
               :label="$t('AddressInputForm.Address no')"
               required
               class="form__element"
               :valid="!errors[0]"
-              :errorMessage="errors[0]"
+              :error-message="errors[0]"
             />
           </ValidationProvider>
           <ValidationProvider
+            v-slot="{ errors }"
             :name="$t('AddressInputForm.City')"
             rules="required|min:2"
-            v-slot="{ errors }"
             slim
           >
             <SfInput
-              v-e2e="type + '-city'"
               v-model="internalForm.city"
+              v-e2e="type + '-city'"
               :name="type + '-city'"
               :label="$t('AddressInputForm.City')"
               required
               :valid="!errors[0]"
-              :errorMessage="errors[0]"
+              :error-message="errors[0]"
               class="form__element form__element--half"
             />
           </ValidationProvider>
           <ValidationProvider
+            v-slot="{ errors }"
             :name="$t('AddressInputForm.Country')"
             rules="required|min:1"
-            v-slot="{ errors }"
             slim
           >
             <SfComponentSelect
-              :data-e2e="type + '-country'"
               v-model="internalForm.country"
+              :data-e2e="type + '-country'"
               :name="type + '-country'"
               :label="$t('AddressInputForm.Country')"
               required
               :valid="!errors[0]"
-              :errorMessage="errors[0]"
+              :error-message="errors[0]"
               class="sf-component-select--underlined form__select form__element form__element--half form__element--half-even"
             >
               <SfComponentSelectOption
@@ -115,32 +115,37 @@
             </SfComponentSelect>
           </ValidationProvider>
           <ValidationProvider
+            v-slot="{ errors }"
             :name="$t('AddressInputForm.ZIP code')"
             rules="required|min:2"
-            v-slot="{ errors }"
             slim
           >
             <SfInput
-              v-e2e="type + '-zipCode'"
               v-model="internalForm.zipCode"
+              v-e2e="type + '-zipCode'"
               :name="type + '-zipCode'"
               :label="$t('AddressInputForm.ZIP code')"
               required
               :valid="!errors[0]"
-              :errorMessage="errors[0]"
+              :error-message="errors[0]"
               class="form__element form__element--half"
             />
           </ValidationProvider>
-          <ValidationProvider :name="$t('AddressInputForm.State/Province')" rules="" v-slot="{ errors }" slim>
+          <ValidationProvider
+            v-slot="{ errors }"
+            :name="$t('AddressInputForm.State/Province')"
+            rules=""
+            slim
+          >
             <SfComponentSelect
-              :data-e2e="type + '-state'"
               v-model="internalForm.state"
+              :data-e2e="type + '-state'"
               :name="type + '-state'"
               :label="$t('AddressInputForm.State/Province')"
               :disabled="states.length <= 0"
               required
               :valid="!errors[0]"
-              :errorMessage="errors[0]"
+              :error-message="errors[0]"
               class="sf-component-select--underlined form__select form__element form__element--half form__element--half-even"
             >
               <SfComponentSelectOption
@@ -154,19 +159,19 @@
             </SfComponentSelect>
           </ValidationProvider>
           <ValidationProvider
+            v-slot="{ errors }"
             :name="$t('AddressInputForm.Phone no')"
             rules="required|min:5"
-            v-slot="{ errors }"
             slim
           >
             <SfInput
-              v-e2e="type + '-phoneNumber'"
               v-model="internalForm.phoneNumber"
+              v-e2e="type + '-phoneNumber'"
               :name="type + '-phoneNumber'"
               :label="$t('AddressInputForm.Phone no')"
               required
               :valid="!errors[0]"
-              :errorMessage="errors[0]"
+              :error-message="errors[0]"
               class="form__element"
             />
           </ValidationProvider>
@@ -177,11 +182,8 @@
 </template>
 <script>
 import {
-  SfTabs,
   SfInput,
-  SfButton,
-  SfComponentSelect,
-  SfIcon
+  SfComponentSelect
 } from '@storefront-ui/vue';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { required, min } from 'vee-validate/dist/rules';
@@ -191,11 +193,8 @@ import { countryGetters } from '@vue-storefront/plentymarkets';
 export default {
   name: 'AddressInputForm',
   components: {
-    SfTabs,
     SfInput,
-    SfButton,
     SfComponentSelect,
-    SfIcon,
     ValidationProvider,
     ValidationObserver
   },

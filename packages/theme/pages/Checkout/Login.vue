@@ -3,38 +3,38 @@
     <PsfPersonalDetails
       ref="PersonalDetails"
       :value="{}"
-      :buttonText="$t('Login.Log in now')"
-      :logInInfo="$t('Login.or fill in the details below')"
-      :headingTitle="$t('Login.User data')"
-      :headingTitleLevel="2"
-      :inputsLabels="[$t('Login.First name'),$t('Login.Last name'),$t('Login.Email')]"
-      :additionalDetails="$t('Login.Enjoy your free account')"
+      :button-text="$t('Login.Log in now')"
+      :log-in-info="$t('Login.or fill in the details below')"
+      :heading-title="$t('Login.User data')"
+      :heading-title-level="2"
+      :inputs-labels="[$t('Login.First name'),$t('Login.Last name'),$t('Login.Email')]"
+      :additional-details="$t('Login.Enjoy your free account')"
       transition="sf-fade"
-      :createAccountCheckboxLabel="$t('Login.I want to create an account')"
-      :createAccountInputLabel="$t('Login.Create password')"
+      :create-account-checkbox-label="$t('Login.I want to create an account')"
+      :create-account-input-label="$t('Login.Create password')"
       @input="logInput($event)"
-      @create-account='updateCheckbox($event)'
+      @create-account="updateCheckbox($event)"
       @log-in="toggleLoginModal()"
     />
     <SfButton
-        type="button"
-        class="sf-button color-primary summary__back-button"
-        data-e2e="continue-to-billing"
-        @click="goToBilling"
-        v-if='!createAccountCheckbox'
-      >
-      {{ $t('Login.Order as guest') }}
-    </SfButton>
-    <SfButton
+      v-if="!createAccountCheckbox"
       type="button"
       class="sf-button color-primary summary__back-button"
       data-e2e="continue-to-billing"
       @click="goToBilling"
-      v-if='createAccountCheckbox'
+    >
+      {{ $t('Login.Order as guest') }}
+    </SfButton>
+    <SfButton
+      v-if="createAccountCheckbox"
+      type="button"
+      class="sf-button color-primary summary__back-button"
+      data-e2e="continue-to-billing"
+      @click="goToBilling"
     >
       {{ $t('Login.Register and continue') }}
     </SfButton>
-    </div>
+  </div>
 </template>
 <script>
 import { useRouter, watch, ref } from '@nuxtjs/composition-api';

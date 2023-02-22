@@ -1,79 +1,78 @@
 <template>
-    <div class="navbar__main">
+  <div class="navbar__main">
+    <LazyHydrate on-interaction>
+      <SfButton
+        class="sf-button--text navbar__filters-button"
+        :aria-label="$t('CategoryPageHeader.Filters')"
+        @click="toggleFilterSidebar"
+      >
+        <SfIcon
+          size="24px"
+          color="dark-secondary"
+          icon="filter2"
+          class="navbar__filters-icon"
+        />
+        {{ $t('CategoryPageHeader.Filters') }}
+      </SfButton>
+    </LazyHydrate>
+
+    <div class="navbar__sort desktop-only">
+      <span class="navbar__label">{{ $t('CategoryPageHeader.Sort by') }}:</span>
       <LazyHydrate on-interaction>
-        <SfButton
-          class="sf-button--text navbar__filters-button"
-          :aria-label="$t('CategoryPageHeader.Filters')"
-          @click="toggleFilterSidebar"
+        <SfSelect
+          :value="sortBy.selected"
+          :placeholder="$t('CategoryPageHeader.Select sorting')"
+          class="navbar__select"
+          @input="th.changeSorting"
         >
-          <SfIcon
-            size="24px"
-            color="dark-secondary"
-            icon="filter2"
-            class="navbar__filters-icon"
-          />
-          {{ $t('CategoryPageHeader.Filters') }}
-        </SfButton>
-      </LazyHydrate>
-
-      <div class="navbar__sort desktop-only">
-        <span class="navbar__label">{{ $t('CategoryPageHeader.Sort by') }}:</span>
-        <LazyHydrate on-interaction>
-          <SfSelect
-            :value="sortBy.selected"
-            :placeholder="$t('CategoryPageHeader.Select sorting')"
-            class="navbar__select"
-            @input="th.changeSorting"
+          <SfSelectOption
+            v-for="option in sortBy.options"
+            :key="option.id"
+            :value="option.id"
+            class="sort-by__option"
           >
-            <SfSelectOption
-              v-for="option in sortBy.options"
-              :key="option.id"
-              :value="option.id"
-              class="sort-by__option"
-            >
-              {{ option.value }}
-            </SfSelectOption
-            >
-          </SfSelect>
-        </LazyHydrate>
-      </div>
-
-      <div class="navbar__counter">
-        <span class="navbar__label desktop-only">{{ $t('CategoryPageHeader.Products found') }}: </span>
-        <span class="desktop-only">{{ pagination.totalItems }}</span>
-        <span class="navbar__label smartphone-only">{{ pagination.totalItems }} {{ $t('CategoryPageHeader.Items') }}</span>
-      </div>
-
-      <div class="navbar__view">
-        <span class="navbar__view-label desktop-only">{{ $t('CategoryPageHeader.View') }}</span>
-        <SfIcon
-          v-e2e="'tiles-icon'"
-          class="navbar__view-icon"
-          :color="isCategoryGridView ? 'black' : 'dark-secondary'"
-          icon="tiles"
-          size="12px"
-          role="button"
-          :aria-label="$t('CategoryPageHeader.Change to grid view')"
-          :aria-pressed="isCategoryGridView"
-          @click="changeToCategoryGridView"
-        />
-        <SfIcon
-          v-e2e="'list-icon'"
-          class="navbar__view-icon"
-          :color="!isCategoryGridView ? 'black' : 'dark-secondary'"
-          icon="list"
-          size="12px"
-          role="button"
-          :aria-label="$t('CategoryPageHeader.Change to list view')"
-          :aria-pressed="!isCategoryGridView"
-          @click="changeToCategoryListView"
-        />
-      </div>
-      <LazyHydrate when-idle>
-        <FiltersSidebar @close="toggleFilterSidebar"/>
+            {{ option.value }}
+          </SfSelectOption>
+        </SfSelect>
       </LazyHydrate>
     </div>
-  </template>
+
+    <div class="navbar__counter">
+      <span class="navbar__label desktop-only">{{ $t('CategoryPageHeader.Products found') }}: </span>
+      <span class="desktop-only">{{ pagination.totalItems }}</span>
+      <span class="navbar__label smartphone-only">{{ pagination.totalItems }} {{ $t('CategoryPageHeader.Items') }}</span>
+    </div>
+
+    <div class="navbar__view">
+      <span class="navbar__view-label desktop-only">{{ $t('CategoryPageHeader.View') }}</span>
+      <SfIcon
+        v-e2e="'tiles-icon'"
+        class="navbar__view-icon"
+        :color="isCategoryGridView ? 'black' : 'dark-secondary'"
+        icon="tiles"
+        size="12px"
+        role="button"
+        :aria-label="$t('CategoryPageHeader.Change to grid view')"
+        :aria-pressed="isCategoryGridView"
+        @click="changeToCategoryGridView"
+      />
+      <SfIcon
+        v-e2e="'list-icon'"
+        class="navbar__view-icon"
+        :color="!isCategoryGridView ? 'black' : 'dark-secondary'"
+        icon="list"
+        size="12px"
+        role="button"
+        :aria-label="$t('CategoryPageHeader.Change to list view')"
+        :aria-pressed="!isCategoryGridView"
+        @click="changeToCategoryListView"
+      />
+    </div>
+    <LazyHydrate when-idle>
+      <FiltersSidebar @close="toggleFilterSidebar" />
+    </LazyHydrate>
+  </div>
+</template>
 
 <script>
 import { computed } from '@nuxtjs/composition-api';
@@ -98,7 +97,8 @@ export default {
   },
   props: {
     pagination: {
-      type: Object
+      type: Object,
+      default: () => {}
     }
   },
   setup() {

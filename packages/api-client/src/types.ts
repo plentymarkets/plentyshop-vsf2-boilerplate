@@ -584,6 +584,11 @@ export type GetOrdersResponse = {
   data: PaginatedResult<Order>
 }
 
+export type GetPaymentResponse = {
+  type: any,
+  value: any
+}
+
 export interface PlentyAgnosticTotals extends AgnosticTotals {
     shippingAmount: number,
     vatValue: number,
@@ -591,6 +596,14 @@ export interface PlentyAgnosticTotals extends AgnosticTotals {
     rebate: number,
     couponDiscount: number,
     toBePayed: number
+}
+
+export type LegalInformationResponse = {
+    plentyId: number,
+    lang: string,
+    type: 'TermsConditions' | 'CancellationRights' | 'PrivacyPolicy' | 'LegalDisclosure' | 'WithdrawalForm',
+    plainText: string,
+    htmlText: string
 }
 
 export interface UserAddressGetters {
@@ -603,7 +616,6 @@ export interface UserAddressGetters {
   getCity: (address: Address) => string;
   getFirstName: (address: Address) => string;
   getLastName: (address: Address) => string;
-  getCountry: (countries: Country[], id: string) => string;
   getPhone: (address: Address) => string;
   getEmail: (address: Address) => string;
   getProvince: (address: Address) => string;
@@ -613,15 +625,19 @@ export interface UserAddressGetters {
   getApartmentNumber: (address: Address) => string | number;
   isDefault: (address: Address) => boolean;
   getAddressWithoutId(address: Address): Address;
+  getCountryId(address: Address): string;
+  getStateId(address: Address): string;
 }
 
 export interface CountryGetters {
-  getStates(country: Country): string,
+  getStates(country: Country): State[],
   getStateId(state: State): string,
   getStateName(state: State): string,
   getCountryId(country: Country): string,
   getCountryName(country: Country): string,
   getCountryIsoCode(country: Country): string
+  getCountryById(countries: Country [], countryId: string): Country | null
+  getStateById(country: Country, stateId: string): State | null
 }
 
 export interface PlentymarketsApiMethods {
@@ -669,6 +685,10 @@ export interface PlentymarketsApiMethods {
     params: { productId: number, cartItemId: number, quantity: number }
   ): Promise<Cart>
 
+  clearCart(): Promise<Cart>
+
+  deleteCart(): Promise<Cart>
+
   getSession(initialRestCall: boolean): Promise<SessionResult>
 
   loginUser(email: string, password: string): Promise<SessionResult>
@@ -707,9 +727,11 @@ export interface PlentymarketsApiMethods {
 
   getOrders(params: UseUserOrderSearchParams): Promise<GetOrdersResponse>
 
-  executePayment(orderId: number, paymentId: number): Promise<void>
+  executePayment(orderId: number, paymentId: number): Promise<GetPaymentResponse>
 
   saveBillingAsShipping(): Promise<any>
+
+  getLegalInformation(type: string): Promise<LegalInformationResponse>
 }
 
 export type Context = IntegrationContext<ClientInstance, Settings, ApiClientMethods<PlentymarketsApiMethods>>;

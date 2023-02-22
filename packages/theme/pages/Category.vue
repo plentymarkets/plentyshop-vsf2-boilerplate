@@ -10,18 +10,20 @@
           <SfHeading
             :level="3"
             :title="$t('Category.Categories')"
-            class="navbar__title" />
+            class="navbar__title"
+          />
         </LazyHydrate>
       </div>
-      <CategoryPageHeader :pagination="pagination"/>
+      <CategoryPageHeader :pagination="pagination" />
     </div>
 
     <div class="main section">
       <div class="sidebar desktop-only">
         <LazyHydrate when-idle>
           <SfLoader
-          :class="{ 'loading--categories': loading }"
-          :loading="loading">
+            :class="{ 'loading--categories': loading }"
+            :loading="loading"
+          >
             <SfAccordion
               v-e2e="'categories-accordion'"
               :open="activeCategory"
@@ -32,51 +34,55 @@
                 :key="i"
                 :header="cat.label"
               >
-                <template>
-                  <SfList class="list">
-                    <SfListItem class="list__item">
-                      <SfMenuItem
-                        :count="cat.count || ''"
-                        :label="cat.label"
-                      >
-                        <template #label>
-                          <nuxt-link
-                            :to="localePath(th.getCatLink(cat))"
-                            :class="cat.isCurrent ? 'sidebar--cat-selected' : ''"
-                          >
-                            All
-                          </nuxt-link>
-                        </template>
-                      </SfMenuItem>
-                    </SfListItem>
-                    <SfListItem
-                      class="list__item"
-                      v-for="(subCat, j) in cat.items"
-                      :key="j"
+                <SfList class="list">
+                  <SfListItem class="list__item">
+                    <SfMenuItem
+                      :count="cat.count || ''"
+                      :label="cat.label"
                     >
-                      <SfMenuItem
-                        :count="subCat.count || ''"
-                        :label="subCat.label"
-                      >
-                        <template #label="{ label }">
-                          <nuxt-link
-                            :to="localePath(th.getCatLink(subCat))"
-                            :class="subCat.isCurrent ? 'sidebar--cat-selected' : ''"
-                          >
-                            {{ label }}
-                          </nuxt-link>
-                        </template>
-                      </SfMenuItem>
-                    </SfListItem>
-                  </SfList>
-                </template>
+                      <template #label>
+                        <nuxt-link
+                          :to="localePath(th.getCatLink(cat))"
+                          :class="cat.isCurrent ? 'sidebar--cat-selected' : ''"
+                        >
+                          All
+                        </nuxt-link>
+                      </template>
+                    </SfMenuItem>
+                  </SfListItem>
+                  <SfListItem
+                    v-for="(subCat, j) in cat.items"
+                    :key="j"
+                    class="list__item"
+                  >
+                    <SfMenuItem
+                      :count="subCat.count || ''"
+                      :label="subCat.label"
+                    >
+                      <template #label="{ label }">
+                        <nuxt-link
+                          :to="localePath(th.getCatLink(subCat))"
+                          :class="subCat.isCurrent ? 'sidebar--cat-selected' : ''"
+                        >
+                          {{ label }}
+                        </nuxt-link>
+                      </template>
+                    </SfMenuItem>
+                  </SfListItem>
+                </SfList>
               </SfAccordionItem>
             </SfAccordion>
           </SfLoader>
         </LazyHydrate>
       </div>
-      <SfLoader :class="{ loading }" :loading="loading">
-        <div class="products" v-if="!loading">
+      <SfLoader
+        :class="{ loading }"
+        :loading="loading"
+      >
+        <div
+          v-if="!loading"
+          class="products"
+        >
           <transition-group
             v-if="isCategoryGridView"
             appear
@@ -85,13 +91,13 @@
             class="products__grid"
           >
             <SfProductCard
-              v-e2e="'category-product-card'"
               v-for="(product, i) in products"
               :key="productGetters.getSlug(product)"
+              :data-e2e="'category-product-card'"
               :style="{ '--index': i }"
               :title="productGetters.getName(product)"
-              :imageWidth="100"
-              :imageHeight="100"
+              :image-width="100"
+              :image-height="100"
               :image="addBasePath(productGetters.getCoverImage(product))"
               :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
               :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
@@ -114,14 +120,14 @@
             class="products__list"
           >
             <SfProductCardHorizontal
-              v-e2e="'category-product-card'"
               v-for="(product, i) in products"
-              class="products__product-card-horizontal"
               :key="productGetters.getSlug(product)"
+              :data-e2e="'category-product-card'"
+              class="products__product-card-horizontal"
               :style="{ '--index': i }"
               :title="productGetters.getName(product)"
-              :imageWidth="100"
-              :imageHeight="100"
+              :image-width="100"
+              :image-height="100"
               :description="productGetters.getDescription(product)"
               :image="addBasePath(productGetters.getCoverImage(product))"
               :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
@@ -142,7 +148,11 @@
                   value="XS"
                   style="margin: 0 0 1rem 0;"
                 />
-                <SfProperty class="desktop-only" name="Color" value="white" />
+                <SfProperty
+                  class="desktop-only"
+                  name="Color"
+                  value="white"
+                />
               </template>
               <template #actions>
                 <SfButton
@@ -159,8 +169,8 @@
           <LazyHydrate on-interaction>
             <SfPagination
               v-if="!loading"
-              class="products__pagination desktop-only"
               v-show="pagination.totalPages > 1"
+              class="products__pagination desktop-only"
               :current="pagination.currentPage"
               :total="pagination.totalPages"
               :visible="5"
@@ -197,13 +207,10 @@
 
 <script>
 import {
-  SfSidebar,
   SfButton,
   SfList,
-  SfIcon,
   SfHeading,
   SfMenuItem,
-  SfFilter,
   SfProductCard,
   SfProductCardHorizontal,
   SfPagination,
@@ -211,7 +218,6 @@ import {
   SfSelect,
   SfBreadcrumbs,
   SfLoader,
-  SfColor,
   SfProperty
 } from '@storefront-ui/vue';
 import { computed, ref } from '@nuxtjs/composition-api';
@@ -224,6 +230,22 @@ import { addBasePath } from '@vue-storefront/core';
 
 // TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
 export default {
+  components: {
+    CategoryPageHeader,
+    SfButton,
+    SfList,
+    SfProductCard,
+    SfProductCardHorizontal,
+    SfPagination,
+    SfMenuItem,
+    SfAccordion,
+    SfSelect,
+    SfBreadcrumbs,
+    SfLoader,
+    SfHeading,
+    SfProperty,
+    LazyHydrate
+  },
   transition: 'fade',
   setup(props, context) {
     const th = useUiHelpers();
@@ -287,26 +309,6 @@ export default {
       productsQuantity,
       addBasePath
     };
-  },
-  components: {
-    CategoryPageHeader,
-    SfButton,
-    SfSidebar,
-    SfIcon,
-    SfList,
-    SfFilter,
-    SfProductCard,
-    SfProductCardHorizontal,
-    SfPagination,
-    SfMenuItem,
-    SfAccordion,
-    SfSelect,
-    SfBreadcrumbs,
-    SfLoader,
-    SfColor,
-    SfHeading,
-    SfProperty,
-    LazyHydrate
   }
 };
 </script>

@@ -1,13 +1,23 @@
 <template>
   <div>
     <div class="highlighted top-items">
-      <SfHeading :level="3" :title="$t('CartPreview.Order summary')" class="sf-heading--left sf-heading--no-underline title" />
-      <a class="notice__link edit-cart-link" @click='toggleCartSidebar'>{{ $t('CartPreview.Edit cart') }}</a>
+      <SfHeading
+        :level="3"
+        :title="$t('CartPreview.Order summary')"
+        class="sf-heading--left sf-heading--no-underline title"
+      />
+      <a
+        class="notice__link edit-cart-link"
+        @click="toggleCartSidebar"
+      >{{ $t('CartPreview.Edit cart') }}</a>
     </div>
     <div class="highlighted">
-      <SfProperty :name="$t('CartPreview.Products')" :value="totalItems"
-                  class="sf-property--full-width sf-property--large property" />
-      <CartTotals></CartTotals>
+      <SfProperty
+        :name="$t('CartPreview.Products')"
+        :value="totalItems"
+        class="sf-property--full-width sf-property--large property"
+      />
+      <CartTotals />
     </div>
   </div>
 </template>

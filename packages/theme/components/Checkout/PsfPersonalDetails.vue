@@ -1,6 +1,9 @@
 <template>
-    <div class="sf-personal-details">
-    <slot name="heading" v-bind="{ headingTitleLevel }">
+  <div class="sf-personal-details">
+    <slot
+      name="heading"
+      v-bind="{ headingTitleLevel }"
+    >
       <SfHeading
         :title="$t('PsfPersonalDetails.User data')"
         :level="headingTitleLevel"
@@ -12,32 +15,36 @@
         name="form"
       >
         <ValidationObserver ref="validationObserver">
-          <form v-on:submit.prevent class="form-width">
+          <form
+            class="form-width"
+            @submit.prevent
+          >
             <ValidationProvider
+              v-slot="{ errors }"
               rules="required|email"
               :name="$t('PsfPersonalDetails.Email')"
-              v-slot="{ errors }"
               slim
             >
-                <SfInput
-                  v-model="personalDetails.email"
-                  v-e2e="'register-mail-input'"
-                  :label="$t('PsfPersonalDetails.Email')"
-                  name="registerMail"
-                  class="form__element"
-                  required
-                  :valid="!errors[0]"
-                  :errorMessage="errors[0]"
-                  @input="updateField('email', $event)"
-                />
-              </ValidationProvider>
-              <transition :name="transition">
-                <ValidationProvider v-if="createAccount"
-                  rules="required|min:8"
-                  :name="$t('PsfPersonalDetails.Password')"
-                  v-slot="{ errors }"
-                  slim
-                >
+              <SfInput
+                v-model="personalDetails.email"
+                v-e2e="'register-mail-input'"
+                :label="$t('PsfPersonalDetails.Email')"
+                name="registerMail"
+                class="form__element"
+                required
+                :valid="!errors[0]"
+                :error-message="errors[0]"
+                @input="updateField('email', $event)"
+              />
+            </ValidationProvider>
+            <transition :name="transition">
+              <ValidationProvider
+                v-if="createAccount"
+                v-slot="{ errors }"
+                rules="required|min:8"
+                :name="$t('PsfPersonalDetails.Password')"
+                slim
+              >
                 <SfInput
                   v-model="personalDetails.password"
                   :has-show-password="true"
@@ -48,11 +55,11 @@
                   required
                   data-e2e="create-password-input"
                   :valid="!errors[0]"
-                  :errorMessage="errors[0]"
+                  :error-message="errors[0]"
                   @input="updateField('password', $event)"
                 />
-                </ValidationProvider>
-              </transition>
+              </ValidationProvider>
+            </transition>
             <slot
               name="create-account"
               v-bind="{
@@ -69,7 +76,8 @@
               />
             </slot>
             <div class="signin">
-              <a data-testid="login-button"
+              <a
+                data-testid="login-button"
                 @click="toggleLoginModal()"
               >
                 {{ $t('PsfPersonalDetails.Already have an account?') }}
@@ -88,7 +96,6 @@
 import {
   SfInput,
   SfCheckbox,
-  SfButton,
   SfHeading
 } from '@storefront-ui/vue';
 import { ref, watch} from '@nuxtjs/composition-api';
@@ -101,7 +108,6 @@ export default {
   components: {
     SfInput,
     SfCheckbox,
-    SfButton,
     SfHeading,
     ValidationProvider,
     ValidationObserver
@@ -162,7 +168,6 @@ export default {
     };
   }
 };
-</script>
 </script>
 <style lang="scss" scoped>
   @import "~@storefront-ui/shared/styles/components/templates/SfPersonalDetails.scss";

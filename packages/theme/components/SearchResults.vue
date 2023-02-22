@@ -1,65 +1,75 @@
 <template>
-    <div>
-      <SfMegaMenu
-        :visible="isSearchOpen"
-        :title="$t('SearchResults.Search results')"
-        class="search"
+  <div>
+    <SfMegaMenu
+      :visible="isSearchOpen"
+      :title="$t('SearchResults.Search results')"
+      class="search"
+    >
+      <transition
+        name="sf-fade"
+        mode="out-in"
       >
-        <transition name="sf-fade" mode="out-in">
-          <div v-if="products && products.length > 0" class="search__wrapper-results" key="results">
-            <SfMegaMenuColumn :title="$t('SearchResults.Categories')" class="sf-mega-menu-column--pined-content-on-mobile search__categories">
-              <template #title="{title}">
-                <SfMenuItem :label="title" @click="megaMenu.changeActive(title)">
+        <div
+          v-if="products && products.length > 0"
+          key="results"
+          class="search__wrapper-results"
+        >
+          <SfMegaMenuColumn
+            :title="$t('SearchResults.Categories')"
+            class="sf-mega-menu-column--pined-content-on-mobile search__categories"
+          >
+            <template #title="{title}">
+              <SfMenuItem
+                :label="title"
+                @click="megaMenu.changeActive(title)"
+              >
+                <template #mobile-nav-icon>
+                  &#8203;
+                </template>
+              </SfMenuItem>
+            </template>
+            <SfList>
+              <SfListItem
+                v-for="(category, key) in categories"
+                :key="key"
+              >
+                <SfMenuItem
+                  :label="category.label"
+                  :link="localePath(`/c/${category.slug}`)"
+                >
                   <template #mobile-nav-icon>
                     &#8203;
                   </template>
                 </SfMenuItem>
-              </template>
-              <SfList>
-                <SfListItem v-for="(category, key) in categories" :key="key">
-                  <SfMenuItem :label="category.label" :link="localePath(`/c/${category.slug}`)">
-                    <template #mobile-nav-icon>
-                      &#8203;
-                    </template>
-                  </SfMenuItem>
-                </SfListItem>
-              </SfList>
-            </SfMegaMenuColumn>
-            <SfMegaMenuColumn :title="$t('SearchResults.Product suggestions')" class="sf-mega-menu-column--pined-content-on-mobile search__results">
-              <template #title="{title}">
-                <SfMenuItem :label="title" class="sf-mega-menu-column__header search__header">
-                  <template #mobile-nav-icon>
-                    &#8203;
-                  </template>
-                </SfMenuItem>
-              </template>
-              <SfScrollable class="results--desktop desktop-only" show-text="" hide-text="">
-                <div class="results-listing">
-                  <SfProductCard
-                    v-for="(product, index) in products"
-                    :key="index"
-                    class="result-card"
-                    :imageWidth="100"
-                    :imageHeight="100"
-                    :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
-                    :score-rating="productGetters.getAverageRating(product)"
-                    :reviews-count="7"
-                    :image="addBasePath(productGetters.getCoverImage(product))"
-                    :alt="productGetters.getName(product)"
-                    :title="productGetters.getName(product)"
-                    :link="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)"
-                    :is-in-wishlist="isInWishlist({ product })"
-                    @click:wishlist="!isInWishlist({ product }) ? addItemToWishlist({ product }) : removeProductFromWishlist(product)"
-                  />
-                </div>
-              </SfScrollable>
-              <div class="results--mobile smartphone-only">
+              </SfListItem>
+            </SfList>
+          </SfMegaMenuColumn>
+          <SfMegaMenuColumn
+            :title="$t('SearchResults.Product suggestions')"
+            class="sf-mega-menu-column--pined-content-on-mobile search__results"
+          >
+            <template #title="{title}">
+              <SfMenuItem
+                :label="title"
+                class="sf-mega-menu-column__header search__header"
+              >
+                <template #mobile-nav-icon>
+                  &#8203;
+                </template>
+              </SfMenuItem>
+            </template>
+            <SfScrollable
+              class="results--desktop desktop-only"
+              show-text=""
+              hide-text=""
+            >
+              <div class="results-listing">
                 <SfProductCard
                   v-for="(product, index) in products"
                   :key="index"
                   class="result-card"
-                  :imageWidth="100"
-                  :imageHeight="100"
+                  :image-width="100"
+                  :image-height="100"
                   :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
                   :score-rating="productGetters.getAverageRating(product)"
                   :reviews-count="7"
@@ -71,31 +81,76 @@
                   @click:wishlist="!isInWishlist({ product }) ? addItemToWishlist({ product }) : removeProductFromWishlist(product)"
                 />
               </div>
-            </SfMegaMenuColumn>
-            <div class="action-buttons smartphone-only">
-              <SfButton class="action-buttons__button color-light" @click="$emit('close')">{{ $t('SearchResults.Cancel') }}</SfButton>
+            </SfScrollable>
+            <div class="results--mobile smartphone-only">
+              <SfProductCard
+                v-for="(product, index) in products"
+                :key="index"
+                class="result-card"
+                :image-width="100"
+                :image-height="100"
+                :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
+                :score-rating="productGetters.getAverageRating(product)"
+                :reviews-count="7"
+                :image="addBasePath(productGetters.getCoverImage(product))"
+                :alt="productGetters.getName(product)"
+                :title="productGetters.getName(product)"
+                :link="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)"
+                :is-in-wishlist="isInWishlist({ product })"
+                @click:wishlist="!isInWishlist({ product }) ? addItemToWishlist({ product }) : removeProductFromWishlist(product)"
+              />
             </div>
+          </SfMegaMenuColumn>
+          <div class="action-buttons smartphone-only">
+            <SfButton
+              class="action-buttons__button color-light"
+              @click="$emit('close')"
+            >
+              {{ $t('SearchResults.Cancel') }}
+            </SfButton>
           </div>
-          <div v-else key="no-results" class="before-results">
-            <SfImage :width="100" :height="100" :src="addBasePath('/error/error.svg')" class="before-results__picture" alt="error" loading="lazy"/>
-            <template v-if="term">
-              <p class="before-results__paragraph">{{ $t('SearchResults.No results found') }}</p>
-            </template>
-            <template v-else>
-              <p class="before-results__paragraph">{{ $t('SearchResults.You have not searched for items yet') }}</p>
-              <p class="before-results__paragraph">{{ $t('SearchResults.Let us start now - we will help you') }}</p>
-            </template>
-            <SfButton class="before-results__button color-secondary smartphone-only" @click="$emit('close')">{{ $t('SearchResults.Go back') }}</SfButton>
-          </div>
-        </transition>
-      </SfMegaMenu>
-    </div>
-  </template>
+        </div>
+        <div
+          v-else
+          key="no-results"
+          class="before-results"
+        >
+          <SfImage
+            :width="100"
+            :height="100"
+            :src="addBasePath('/error/error.svg')"
+            class="before-results__picture"
+            alt="error"
+            loading="lazy"
+          />
+          <template v-if="term">
+            <p class="before-results__paragraph">
+              {{ $t('SearchResults.No results found') }}
+            </p>
+          </template>
+          <template v-else>
+            <p class="before-results__paragraph">
+              {{ $t('SearchResults.You have not searched for items yet') }}
+            </p>
+            <p class="before-results__paragraph">
+              {{ $t('SearchResults.Let us start now - we will help you') }}
+            </p>
+          </template>
+          <SfButton
+            class="before-results__button color-secondary smartphone-only"
+            @click="$emit('close')"
+          >
+            {{ $t('SearchResults.Go back') }}
+          </SfButton>
+        </div>
+      </transition>
+    </SfMegaMenu>
+  </div>
+</template>
 <script>
 import {
   SfMegaMenu,
   SfList,
-  SfBanner,
   SfProductCard,
   SfScrollable,
   SfMenuItem,
@@ -111,7 +166,6 @@ export default {
   components: {
     SfMegaMenu,
     SfList,
-    SfBanner,
     SfProductCard,
     SfScrollable,
     SfMenuItem,
@@ -124,7 +178,8 @@ export default {
       default: false
     },
     result: {
-      type: Object
+      type: Object,
+      default: () => {}
     },
     term: {
       type: String,
