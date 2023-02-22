@@ -9,7 +9,10 @@ export type PaymentMethod = {
     key: string
 }
 
-export type PaymentProviders = { list: PaymentMethod[], selected: number }
+export type PaymentProviders = {
+    list: PaymentMethod[],
+    selected: number
+}
 
 export type PreparePaymentResult = {
     type: string,

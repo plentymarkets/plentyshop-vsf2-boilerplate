@@ -19,7 +19,10 @@ export type ProductVariation = {
     unitCombinationId: number,
     unitId: number,
     unitName: string,
-    attributes: { attributeId: number, attributeValueId: number }[]
+    attributes: {
+      attributeId: number,
+      attributeValueId: number
+    }[]
 }
 
 export type Product = {
