@@ -121,8 +121,7 @@
     "@typescript-eslint/no-empty-function": 0,
     "no-case-declarations": 0,
     "@typescript-eslint/no-var-requires": 0,
-    "@typescript-eslint/no-explicit-any": 0,
-    "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/explicit-function-return-type": "warn",
     "@typescript-eslint/no-unused-vars": 2,
     "@typescript-eslint/ban-ts-ignore": 0,
     "@typescript-eslint/explicit-module-boundary-types": "off"
@@ -137,8 +136,20 @@
     },
     {
       "files": ["*.ts", "*.tsx"],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "parser": "@typescript-eslint/parser",
+        "project": ["./packages/api-client/tsconfig.json", "./packages/composables/tsconfig.json", "./packages/theme/tsconfig.json"],
+        "ecmaVersion": 2021,
+        "sourceType": "module"
+      },
       "rules": {
-        "@typescript-eslint/explicit-module-boundary-types": ["error"]
+        "@typescript-eslint/explicit-module-boundary-types": ["warn"],
+        "@typescript-eslint/no-unsafe-call": "warn",
+        "@typescript-eslint/no-unsafe-argument": "warn",
+        "@typescript-eslint/no-unsafe-assignment": "warn",
+        "@typescript-eslint/no-explicit-any": "warn",
+        "@typescript-eslint/ban-types": "warn"
       }
     },
     {
