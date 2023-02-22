@@ -6,7 +6,7 @@
           class="sf-button--text all-orders"
           @click="currentOrder = null"
         >
-          All Orders
+          {{ $t('OrderHistory.All orders') }}
         </SfButton>
         <div class="highlighted highlighted--total">
           <SfProperty

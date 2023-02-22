@@ -250,6 +250,7 @@ export default {
   },
   // OrderHistory
   'OrderHistory': {
+    'All orders': 'All orders',
     'Amount': 'Summe',
     'Details and order status': 'Überprüfen Sie die Details und den Status Ihrer Bestellungen im Online-Shop. Sie können Ihre Bestellung auch stornieren oder eine Rücksendung anfordern.',
     'My orders': 'Meine Bestellungen',
