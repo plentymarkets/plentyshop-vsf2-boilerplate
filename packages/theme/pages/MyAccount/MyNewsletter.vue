@@ -1,11 +1,16 @@
 <template>
-  <SfTabs :open-tab="1" class="tab-orphan">
+  <SfTabs
+    :open-tab="1"
+    class="tab-orphan"
+  >
     <SfTab :title="$t('MyNewsletter.My newsletter')">
       <p class="message">
         {{ $t('MyNewsletter.Set up newsletter') }}
       </p>
       <div class="form">
-        <p class="form__title">{{ $t('MyNewsletter.Sections that interest you') }}</p>
+        <p class="form__title">
+          {{ $t('MyNewsletter.Sections that interest you') }}
+        </p>
         <div class="form__checkbox-group">
           <SfCheckbox
             v-model="newsletter"
@@ -26,11 +31,23 @@
             class="form__element"
           />
         </div>
-        <SfButton class="form__button">{{ $t('MyNewsletter.Save changes') }}</SfButton>
+        <SfButton class="form__button">
+          {{ $t('MyNewsletter.Save changes') }}
+        </SfButton>
       </div>
       <p class="notice">
-        {{ $t('MyNewsletter.I have read and understand') }} <SfLink class="notice__link" link="#">{{ $t('MyNewsletter.Privacy policy') }}</SfLink> and
-        <SfLink class="notice__link" link="#">{{ $t('MyNewsletter.Cookies policy') }}</SfLink> {{ $t('MyNewsletter.Commercial information') }}
+        {{ $t('MyNewsletter.I have read and understand') }} <SfLink
+          class="notice__link"
+          link="#"
+        >
+          {{ $t('MyNewsletter.Privacy policy') }}
+        </SfLink> and
+        <SfLink
+          class="notice__link"
+          link="#"
+        >
+          {{ $t('MyNewsletter.Cookies policy') }}
+        </SfLink> {{ $t('MyNewsletter.Commercial information') }}
       </p>
     </SfTab>
   </SfTabs>

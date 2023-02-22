@@ -1,19 +1,24 @@
 <template>
   <div>
-    <h4>{{ $t("VsfPaymentProvider.Payment method")}}</h4>
+    <h4>{{ $t("VsfPaymentProvider.Payment method") }}</h4>
     <SfRadio
-      v-e2e="'payment-method'"
       v-for="method in paymentMethods"
       :key="paymentProviderGetters.getId(method)"
+      v-e2e="'payment-method'"
       :value="paymentProviderGetters.getId(method)"
-      :selected ="selectedMethod"
+      :selected="selectedMethod"
       name="paymentMethod"
       class="form__radio shipping"
       @change="selectMethod(paymentProviderGetters.getId(method))"
     >
-      <template #label class="shipping__label">
+      <template
+        #label
+      >
         <div class="payment-option">
-          <img width="40px" v-bind:src="paymentProviderGetters.getIcon(method)">
+          <img
+            width="40px"
+            :src="paymentProviderGetters.getIcon(method)"
+          >
           <div>{{ paymentProviderGetters.getName(method) }}</div>
         </div>
       </template>
@@ -22,7 +27,7 @@
 </template>
 
 <script>
-import { SfButton, SfRadio } from '@storefront-ui/vue';
+import { SfRadio } from '@storefront-ui/vue';
 import { ref, computed } from '@nuxtjs/composition-api';
 import { usePaymentProvider, useCart, paymentProviderGetters, useShippingProvider } from '@vue-storefront/plentymarkets';
 
@@ -30,7 +35,6 @@ export default {
   name: 'VsfPaymentProvider',
 
   components: {
-    SfButton,
     SfRadio
   },
 

@@ -1,11 +1,21 @@
 <template>
-  <SfSection :title-heading="title" class="section">
-    <SfLoader :class="{ loading }" :loading="loading">
+  <SfSection
+    :title-heading="title"
+    class="section"
+  >
+    <SfLoader
+      :class="{ loading }"
+      :loading="loading"
+    >
       <SfCarousel
         :settings="{ peek: 16, breakpoints: { 1023: { peek: 0, perView: 2 } } }"
         class="carousel"
       >
-        <SfCarouselItem class="carousel__item" v-for="(product, i) in products" :key="i">
+        <SfCarouselItem
+          v-for="(product, i) in products"
+          :key="i"
+          class="carousel__item"
+        >
           <SfProductCard
             :title="productGetters.getName(product)"
             :image="addBasePath(product.images.all[0].urlMiddle)"
@@ -18,8 +28,8 @@
             :is-added-to-cart="isInCart({ product })"
             :link="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)"
             class="product-card"
-            :imageWidth="100"
-            :imageHeight="100"
+            :image-width="100"
+            :image-height="100"
             @click:wishlist="!isInWishlist({ product }) ? addItemToWishlist({ product }) : removeProductFromWishlist(product)"
             @click:add-to-cart="addItemToCart({ product, quantity: 1 })"
           />
@@ -49,9 +59,17 @@ export default {
     SfLoader
   },
   props: {
-    title: String,
-    products: Array,
-    loading: Boolean
+    title: {
+      type: String,
+      default: ''
+    },
+    products: {
+      type: Array,
+      default: () => []
+    },
+    loading: {
+      type: Boolean
+    }
   },
   setup() {
     const { addItem: addItemToCart, isInCart } = useCart();

@@ -6,7 +6,12 @@
     />
     <div class="product">
       <LazyHydrate when-idle>
-        <SfGallery :imageWidth="100" :imageHeight="100" :images="productGallery" class="product__gallery" />
+        <SfGallery
+          :image-width="100"
+          :image-height="100"
+          :images="productGallery"
+          class="product__gallery"
+        />
       </LazyHydrate>
 
       <div class="product__info">
@@ -34,38 +39,51 @@
                 :score="averageRating"
                 :max="5"
               />
-              <a v-if="!!totalReviews" href="#" class="product__count">
+              <a
+                v-if="!!totalReviews"
+                href="#"
+                class="product__count"
+              >
                 ({{ totalReviews }})
               </a>
             </div>
-            <SfButton class="sf-button--text">{{ $t('Product.Read all reviews') }}</SfButton>
+            <SfButton class="sf-button--text">
+              {{ $t('Product.Read all reviews') }}
+            </SfButton>
           </div>
         </div>
         <div>
-          <div v-html="productGetters.getShortDescription(product)" class="product__description desktop-only">
-          </div>
+          <div
+            class="product__description desktop-only"
+            v-html="productGetters.getShortDescription(product)"
+          />
           <SfButton class="sf-button--text desktop-only product__guide">
             {{ $t('Product.Size guide') }}
           </SfButton>
 
-          <AttributeSelection @selection-changed="attributeSelectionChanged($event)"></AttributeSelection>
+          <AttributeSelection @selection-changed="attributeSelectionChanged($event)" />
 
           <SfAddToCart
+            v-model="qty"
             :data-e2e="'product_add-to-cart'"
             :stock="stock"
-            v-model="qty"
             :disabled="loading || !isAttributeSelectionValid"
-            :canAddToCart="stock > 0"
+            :can-add-to-cart="stock > 0"
             class="product__add-to-cart"
             @click="addItem({ product, quantity: parseInt(qty) })"
           />
         </div>
 
         <LazyHydrate when-idle>
-          <SfTabs :open-tab="1" class="product__tabs">
+          <SfTabs
+            :open-tab="1"
+            class="product__tabs"
+          >
             <SfTab :title="$t('Product.Description')">
-              <div v-html="productGetters.getDescription(product)" class="product__description">
-              </div>
+              <div
+                class="product__description"
+                v-html="productGetters.getDescription(product)"
+              />
               <SfProperty
                 v-for="(property, i) in properties"
                 :key="i"
@@ -73,7 +91,10 @@
                 :value="property.value"
                 class="product__property"
               >
-                <template v-if="property.name === 'Category'" #value>
+                <template
+                  v-if="property.name === 'Category'"
+                  #value
+                >
                   <SfButton class="product__property__button sf-button--text">
                     {{ property.value }}
                   </SfButton>
@@ -99,7 +120,10 @@
               :title="$t('Product.Additional information')"
               class="product__additional-info"
             >
-              <div v-html="productGetters.getTechnicalData(product)" class="product__additional-info"></div>
+              <div
+                class="product__additional-info"
+                v-html="productGetters.getTechnicalData(product)"
+              />
             </SfTab>
           </SfTabs>
         </LazyHydrate>
@@ -117,7 +141,6 @@
     <LazyHydrate when-visible>
       <InstagramFeed />
     </LazyHydrate>
-
   </div>
 </template>
 <script>
@@ -126,19 +149,13 @@ import {
   SfHeading,
   SfPrice,
   SfRating,
-  SfSelect,
   SfAddToCart,
   SfTabs,
   SfGallery,
   SfIcon,
-  SfImage,
-  SfBanner,
-  SfAlert,
-  SfSticky,
   SfReview,
   SfBreadcrumbs,
-  SfButton,
-  SfColor
+  SfButton
 } from '@storefront-ui/vue';
 
 import AttributeSelection from '~/components/AttributeSelection.vue';
@@ -153,6 +170,23 @@ import { useUiHelpers } from '~/composables';
 
 export default {
   name: 'Product',
+  components: {
+    SfProperty,
+    SfHeading,
+    SfPrice,
+    SfRating,
+    SfAddToCart,
+    SfTabs,
+    SfGallery,
+    SfIcon,
+    SfReview,
+    SfBreadcrumbs,
+    SfButton,
+    InstagramFeed,
+    RelatedProducts,
+    LazyHydrate,
+    AttributeSelection
+  },
   transition: 'fade',
   setup() {
     const qty = ref(1);
@@ -212,29 +246,6 @@ export default {
       attributeSelectionChanged,
       isAttributeSelectionValid
     };
-  },
-  components: {
-    SfAlert,
-    SfColor,
-    SfProperty,
-    SfHeading,
-    SfPrice,
-    SfRating,
-    SfSelect,
-    SfAddToCart,
-    SfTabs,
-    SfGallery,
-    SfIcon,
-    SfImage,
-    SfBanner,
-    SfSticky,
-    SfReview,
-    SfBreadcrumbs,
-    SfButton,
-    InstagramFeed,
-    RelatedProducts,
-    LazyHydrate,
-    AttributeSelection
   },
   data() {
     return {

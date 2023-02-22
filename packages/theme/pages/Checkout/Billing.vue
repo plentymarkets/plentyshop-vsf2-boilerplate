@@ -1,12 +1,15 @@
 <template>
-  <div id="billing" v-if="!loading">
+  <div
+    v-if="!loading"
+    id="billing"
+  >
     <CheckoutAddressDetails
-      :type="'billing'"
       ref="CheckoutAddressDetailsRef"
+      :type="'billing'"
       :addresses="billing"
       :countries="countries"
-      :headingTitle="$t('Billing.Billing details')"
-      :headingTitleLevel="2"
+      :heading-title="$t('Billing.Billing details')"
+      :heading-title-level="2"
       @set-default-address="setDefaultAddress({address: $event })"
       @delete-address="deleteAddress({address: $event})"
       @update-address="saveAddress({address: $event})"
@@ -25,10 +28,7 @@
 
 <script>
 import {
-  SfHeading,
-  SfButton,
-  SfCheckbox,
-  SfIcon
+  SfButton
 } from '@storefront-ui/vue';
 import { computed, useRouter } from '@nuxtjs/composition-api';
 import { onSSR } from '@vue-storefront/core';
@@ -38,10 +38,7 @@ import CheckoutAddressDetails from '~/components/Checkout/CheckoutAddressDetails
 export default {
   name: 'Billing',
   components: {
-    SfHeading,
     SfButton,
-    SfIcon,
-    SfCheckbox,
     CheckoutAddressDetails
   },
   setup(props, {refs, root}) {

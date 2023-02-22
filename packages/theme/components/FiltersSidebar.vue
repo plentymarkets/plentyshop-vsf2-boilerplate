@@ -7,17 +7,20 @@
       @close="toggleFilterSidebar"
     >
       <div class="filters desktop-only">
-        <div v-for="(facet, i) in facets" :key="i">
+        <div
+          v-for="(facet, i) in facets"
+          :key="i"
+        >
           <SfHeading
+            :key="`filter-title-${facet.id}`"
             :level="4"
             :title="facet.label"
             class="filters__title sf-heading--left"
-            :key="`filter-title-${facet.id}`"
           />
           <div
             v-if="isFacetColor(facet)"
-            class="filters__colors"
             :key="`${facet.id}-colors`"
+            class="filters__colors"
           >
             <SfColor
               v-for="option in facet.options"
@@ -41,7 +44,10 @@
         </div>
       </div>
       <SfAccordion class="filters smartphone-only">
-        <div v-for="(facet, i) in facets" :key="i">
+        <div
+          v-for="(facet, i) in facets"
+          :key="i"
+        >
           <SfAccordionItem
             :key="`filter-title-${facet.id}`"
             :header="facet.label"
@@ -65,15 +71,13 @@
             @click="applyFilters"
           >
             {{ $t('FiltersSidebar.Done') }}
-          </SfButton
-          >
+          </SfButton>
           <SfButton
             class="sf-button--full-width filters__button-clear"
             @click="clearFilters"
           >
             {{ $t('FiltersSidebar.Clear all') }}
-          </SfButton
-          >
+          </SfButton>
         </div>
       </template>
     </SfSidebar>

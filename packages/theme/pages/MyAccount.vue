@@ -13,15 +13,15 @@
     >
       <SfContentCategory :title="$t('MyAccount.User data')">
         <SfContentPage :title="$t('MyAccount.My profile')">
-          <ProfileDetails/>
+          <ProfileDetails />
         </SfContentPage>
 
         <SfContentPage :title="$t('MyAccount.Shipping details')">
-          <ShippingDetails/>
+          <ShippingDetails />
         </SfContentPage>
 
         <SfContentPage :title="$t('MyAccount.Billing details')">
-          <BillingDetails/>
+          <BillingDetails />
         </SfContentPage>
 
         <SfContentPage :title="$t('MyAccount.My newsletter')">
