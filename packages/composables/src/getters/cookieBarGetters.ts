@@ -1,21 +1,22 @@
-export interface CookieGroups {
+export interface Cookie {
+  name: string,
+  Provider: any[],
+  Status: string,
+  Lifespan: string
+}
+export interface CookieGroup {
   id: number,
-  barTitle: string,
-  barDescription: string,
   name: string,
   description: string,
   showMore: boolean,
-  list: any[]
-}
-
-export interface Cookie {
-  name: string,
   cookies: any[]
 }
-
-function getId(cookieGroups: CookieGroups): number {
-  return cookieGroups?.id;
+export interface CookieGroups {
+  barTitle: string,
+  barDescription: string,
+  groups: CookieGroup[]
 }
+
 function getBarTitle(CookieGroups: CookieGroups): string {
   return CookieGroups?.barTitle;
 }
@@ -24,37 +25,37 @@ function getBarDescription(cookieGroups: CookieGroups): any {
   return cookieGroups?.barDescription;
 }
 
-function getListOfGroups(cookieGroups: CookieGroups): any[] {
-  return cookieGroups?.list;
+function getCookieGroupName(CookieGroup: CookieGroup): string {
+  return CookieGroup?.name ?? '';
 }
 
-function getCookieGroupName(CookieGroups: CookieGroups): string {
-  return CookieGroups?.name ?? '';
+function getCookieGroupDescription(CookieGroup: CookieGroup): string {
+  return CookieGroup?.description ?? '';
 }
 
 function getCookieName(Cookie: Cookie): string {
   return Cookie?.name ?? '';
 }
 
-function getCookieGroupNameWithCount(CookieGroups: CookieGroups): string {
-  return CookieGroups?.name + ' (' + CookieGroups?.list.length + ')';
+function getCookieGroupNameWithCount(CookieGroup: CookieGroup): string {
+  return CookieGroup?.name + ' (' + CookieGroup?.cookies.length + ')';
 }
 
-function getCookiesList(cookie: Cookie): any[] {
-  return cookie?.cookies;
+function getCookiesList(CookieGroup: CookieGroup): any[] {
+  return CookieGroup?.cookies;
 }
-function getShowMore(CookieGroups: CookieGroups): boolean {
-  return CookieGroups?.showMore ?? false;
+
+function getShowMore(CookieGroup: CookieGroup): boolean {
+  return CookieGroup?.showMore ?? false;
 }
 
 export const cookieBarGetters = {
-  getId,
   getBarTitle,
   getBarDescription,
-  getListOfGroups,
-  getCookieGroupNameWithCount,
-  getCookieName,
   getCookieGroupName,
+  getCookieGroupNameWithCount,
+  getCookieGroupDescription,
+  getCookieName,
   getCookiesList,
   getShowMore
 };
