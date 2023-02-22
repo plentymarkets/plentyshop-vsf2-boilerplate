@@ -1,8 +1,5 @@
 import page from '../pages/factory';
 
-const CYPRESS_DEFAULT_ACCOUNT_EMAIL = Cypress.env('CYPRESS_DEFAULT_ACCOUNT_EMAIL');
-const CYPRESS_DEFAULT_ACCOUNT_PASSWORD = Cypress.env('CYPRESS_DEFAULT_ACCOUNT_PASSWORD');
-
 const loginHelper = (cy: Cypress.cy & CyEventEmitter, email: string, password: string, isRememberChecked = false): void => {
   // If the modal does not exit, click the open account. This helps with using the login
   // command multiple times inside the same test.
@@ -32,6 +29,7 @@ const loginHelper = (cy: Cypress.cy & CyEventEmitter, email: string, password: s
   page.home.header.accountModalForm.find('button[type=submit]').click();
 };
 const uniqueMail = `e2etestmail-${new Date().getTime()}@plentymarkets.com`;
+const password = 'Testuser1234';
 
 context('Login', () => {
 
@@ -41,8 +39,8 @@ context('Login', () => {
       timeout: 60000
     });
     page.home.visit();
-    page.home.registerUser(uniqueMail, 'Testuser1234');
-    cy.clearCookies()
+    page.home.registerUser(uniqueMail, password);
+    cy.clearCookies();
   });
 
   beforeEach(function init () {
@@ -50,22 +48,22 @@ context('Login', () => {
   });
 
   it(['exceptionPath', 'regression'], 'Fails due to missing or wrongfully formatted email', function test() {
-    loginHelper(cy, '', CYPRESS_DEFAULT_ACCOUNT_PASSWORD);
+    loginHelper(cy, '', password);
     page.home.header.accountModalForm.contains('The Email field is required');
 
-    loginHelper(cy, 'badEmail@', CYPRESS_DEFAULT_ACCOUNT_PASSWORD);
+    loginHelper(cy, 'badEmail@', password);
     page.home.header.accountModalForm.contains('The Email field must be a valid email');
   });
 
   it(['exceptionPath', 'regression'], 'Fails login due to missing password', function test() {
-    loginHelper(cy, CYPRESS_DEFAULT_ACCOUNT_EMAIL, '');
+    loginHelper(cy, uniqueMail, '');
     page.home.header.accountModalForm.contains('The Password field is required');
   });
 
   it(['exceptionPath', 'regression'], 'Fails due to wrong email', function test() {
     cy.intercept('/api/plentymarkets/loginUser').as('loginUser');
 
-    loginHelper(cy, 'wrong@email.com', CYPRESS_DEFAULT_ACCOUNT_PASSWORD);
+    loginHelper(cy, 'wrong@email.com', password);
     cy.wait('@loginUser').its('response.statusCode').should('eq', 401);
     cy.get('.notifications').find('.sf-notification').should('have.class', 'color-danger');
   });
@@ -82,7 +80,7 @@ context('Login', () => {
     cy.intercept('/api/plentymarkets/logoutUser').as('logoutUser');
 
     // Login
-    loginHelper(cy, CYPRESS_DEFAULT_ACCOUNT_EMAIL, CYPRESS_DEFAULT_ACCOUNT_PASSWORD);
+    loginHelper(cy, uniqueMail, password);
     cy.wait('@loginUser').its('response.statusCode').should('eq', 200);
   });
 });

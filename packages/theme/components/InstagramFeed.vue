@@ -1,24 +1,92 @@
 <template>
-  <SfSection title-heading="Share Your Look" subtitle-heading="#YOURLOOK" class="title">
+  <SfSection
+    title-heading="Share Your Look"
+    subtitle-heading="#YOURLOOK"
+    class="title"
+  >
     <div class="grid grid-images">
       <div class="grid__row">
         <div class="grid__col">
-          <SfImage class="smartphone-only" :src="addBasePath('/homepage/imageAm.webp')" alt="katherina_trn" :width="160" :height="160">katherina_trn</SfImage>
-          <SfImage class="desktop-only" :src="addBasePath('/homepage/imageAd.webp')" alt="katherina_trn" :width="470" :height="470">katherina_trn</SfImage>
+          <SfImage
+            class="smartphone-only"
+            :src="addBasePath('/homepage/imageAm.webp')"
+            alt="katherina_trn"
+            :width="160"
+            :height="160"
+          >
+            katherina_trn
+          </SfImage>
+          <SfImage
+            class="desktop-only"
+            :src="addBasePath('/homepage/imageAd.webp')"
+            alt="katherina_trn"
+            :width="470"
+            :height="470"
+          >
+            katherina_trn
+          </SfImage>
         </div>
         <div class="grid__col small">
-          <SfImage class="smartphone-only" :src="addBasePath('/homepage/imageBm.webp')" alt="katherina_trn" :width="160" :height="160">katherina_trn</SfImage>
-          <SfImage class="desktop-only" :src="addBasePath('/homepage/imageCd.webp')" alt="katherina_trn" :width="470" :height="160">katherina_trn</SfImage>
+          <SfImage
+            class="smartphone-only"
+            :src="addBasePath('/homepage/imageBm.webp')"
+            alt="katherina_trn"
+            :width="160"
+            :height="160"
+          >
+            katherina_trn
+          </SfImage>
+          <SfImage
+            class="desktop-only"
+            :src="addBasePath('/homepage/imageCd.webp')"
+            alt="katherina_trn"
+            :width="470"
+            :height="160"
+          >
+            katherina_trn
+          </SfImage>
         </div>
       </div>
       <div class="grid__row">
         <div class="grid__col small">
-          <SfImage class="smartphone-only" :src="addBasePath('/homepage/imageCm.webp')" alt="katherina_trn" :width="160" :height="160">katherina_trn</SfImage>
-          <SfImage class="desktop-only" :src="addBasePath('/homepage/imageBd.webp')" alt="katherina_trn" :width="470" :height="160">katherina_trn</SfImage>
+          <SfImage
+            class="smartphone-only"
+            :src="addBasePath('/homepage/imageCm.webp')"
+            alt="katherina_trn"
+            :width="160"
+            :height="160"
+          >
+            katherina_trn
+          </SfImage>
+          <SfImage
+            class="desktop-only"
+            :src="addBasePath('/homepage/imageBd.webp')"
+            alt="katherina_trn"
+            :width="470"
+            :height="160"
+          >
+            katherina_trn
+          </SfImage>
         </div>
         <div class="grid__col">
-          <SfImage class="smartphone-only" :src="addBasePath('/homepage/imageDm.webp')" alt="katherina_trn" :width="160" :height="160">katherina_trn</SfImage>
-          <SfImage class="desktop-only" :src="addBasePath('/homepage/imageDd.webp')" alt="katherina_trn" :width="470" :height="470">katherina_trn</SfImage>
+          <SfImage
+            class="smartphone-only"
+            :src="addBasePath('/homepage/imageDm.webp')"
+            alt="katherina_trn"
+            :width="160"
+            :height="160"
+          >
+            katherina_trn
+          </SfImage>
+          <SfImage
+            class="desktop-only"
+            :src="addBasePath('/homepage/imageDd.webp')"
+            alt="katherina_trn"
+            :width="470"
+            :height="470"
+          >
+            katherina_trn
+          </SfImage>
         </div>
       </div>
     </div>

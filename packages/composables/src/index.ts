@@ -20,6 +20,7 @@ export { useSearch } from './useSearch';
 export { useActiveShippingCountries } from './useActiveShippingCountries';
 export { usePaymentProvider } from './usePaymentProvider';
 export { useAddressForm } from './useAddressForm';
+export { useLegalInformation } from './useLegalInformation';
 
 // Getters
 export { cartGetters } from './getters/cartGetters';
@@ -39,6 +40,7 @@ export { paymentProviderGetters } from './getters/paymentProviderGetters';
 export { userAddressGetters } from './getters/userAddressGetters';
 export { countryGetters } from './getters/countryGetters';
 export { cookieBarGetters } from './getters/cookieBarGetters';
+export { legalGetters } from './getters/legalGetters';
 
 // Types
 export * from './types';

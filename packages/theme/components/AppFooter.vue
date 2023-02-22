@@ -1,64 +1,90 @@
 <template>
-    <SfFooter :column="4" multiple class="footer">
-      <SfFooterColumn :title="$t('AppFooter.About us')">
-        <SfList>
-          <SfListItem
-            v-for="item in aboutUs"
-            :key="item"
-            >
-            <SfMenuItem
-              :label="$t(item)"
-            />
-          </SfListItem>
-        </SfList>
-      </SfFooterColumn>
-      <SfFooterColumn :title="$t('AppFooter.Departments')">
-        <SfList>
-          <SfListItem
-            v-for="item in departments"
-            :key="item"
-          >
-            <SfMenuItem
-              :label="$t(item)"
-            />
-          </SfListItem>
-        </SfList>
-      </SfFooterColumn>
-      <SfFooterColumn :title="$t('AppFooter.Help')">
-        <SfList>
-          <SfListItem
-            v-for="item in help"
-            :key="item"
-          >
-            <SfMenuItem
-              :label="$t(item)"
-            />
-          </SfListItem>
-        </SfList>
-      </SfFooterColumn>
-      <SfFooterColumn :title="$t('AppFooter.Payment & Delivery')">
-        <SfList>
-          <SfListItem
-            v-for="item in paymentsDelivery"
-            :key="item"
-          >
-            <SfMenuItem
-              :label="$t(item)"
-            />
-          </SfListItem>
-        </SfList>
-      </SfFooterColumn>
-      <SfFooterColumn :title="$t('AppFooter.Social')">
-        <div class="footer__socials">
-          <SfImage class="footer__social-image" v-for="item in social" :key="item" :src="addBasePath('/icons/'+item+'.svg')" :alt="item" width="32" height="32" />
-        </div>
-      </SfFooterColumn>
-    </SfFooter>
-  </template>
+  <SfFooter
+    :column="4"
+    multiple
+    class="footer"
+  >
+    <SfFooterColumn :title="$t('AppFooter.About us')">
+      <SfList>
+        <SfListItem
+          v-for="item in aboutUs"
+          :key="item"
+        >
+          <SfMenuItem
+            :label="$t(item)"
+          />
+        </SfListItem>
+      </SfList>
+    </SfFooterColumn>
+    <SfFooterColumn :title="$t('AppFooter.Departments')">
+      <SfList>
+        <SfListItem
+          v-for="item in departments"
+          :key="item"
+        >
+          <SfMenuItem
+            :label="$t(item)"
+          />
+        </SfListItem>
+      </SfList>
+    </SfFooterColumn>
+    <SfFooterColumn :title="$t('AppFooter.Help')">
+      <SfList>
+        <SfListItem
+          v-for="item in help"
+          :key="item"
+        >
+          <SfMenuItem
+            :label="$t(item)"
+          />
+        </SfListItem>
+      </SfList>
+    </SfFooterColumn>
+    <SfFooterColumn :title="$t('AppFooter.Payment & Delivery')">
+      <SfList>
+        <SfListItem
+          v-for="item in paymentsDelivery"
+          :key="item"
+        >
+          <SfMenuItem
+            :label="$t(item)"
+          />
+        </SfListItem>
+      </SfList>
+    </SfFooterColumn>
+    <SfFooterColumn title='Legal'>
+      <SfList>
+        <SfListItem
+          v-for="item in legal"
+          :key="item"
+         >
+           <SfMenuItem
+             :label="$t(item)"
+             :link="localePath(legalPaths[item])"
+           />
+        </SfListItem>
+      </SfList>
+    </SfFooterColumn>
+    <SfFooterColumn :title="$t('AppFooter.Social')">
+      <div class="footer__socials">
+        <SfImage
+          v-for="item in social"
+          :key="item"
+          class="footer__social-image"
+          :src="addBasePath('/icons/'+item+'.svg')"
+          :alt="item"
+          width="32"
+          height="32"
+        />
+      </div>
+    </SfFooterColumn>
+  </SfFooter>
+</template>
 
 <script>
 import { SfFooter, SfList, SfImage, SfMenuItem } from '@storefront-ui/vue';
 import { addBasePath } from '@vue-storefront/core';
+import { useRouter } from '@nuxtjs/composition-api';
 
 export default {
   components: {
@@ -68,7 +94,9 @@ export default {
     SfMenuItem
   },
   setup() {
+    const router = useRouter();
     return {
+      router,
       addBasePath
     };
   },
@@ -79,6 +107,14 @@ export default {
       help: ['AppFooter.Customer service', 'AppFooter.Size guide', 'AppFooter.Contact us'],
       paymentsDelivery: ['AppFooter.Purchase terms', 'AppFooter.Guarantee'],
       social: ['facebook', 'pinterest', 'google', 'twitter', 'youtube'],
+      legal: ['AppFooter.CancellationRights', 'AppFooter.CancellationForm', 'AppFooter.LegalDisclosure', 'AppFooter.PrivacyPolicy', 'AppFooter.TermsAndConditions'],
+      legalPaths: {
+        'AppFooter.CancellationRights': 'CancellationRights',
+        'AppFooter.CancellationForm': 'CancellationForm',
+        'AppFooter.LegalDisclosure': 'LegalDisclosure',
+        'AppFooter.PrivacyPolicy': 'PrivacyPolicy',
+        'AppFooter.TermsAndConditions': 'TermsAndConditions'
+      },
       isMobile: false,
       desktopMin: 1024
     };

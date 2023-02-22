@@ -2,7 +2,7 @@
   "customer": {
     "firstName": "John",
     "lastName": "Doe",
-    "email": "johndoe@plentymarkets.com",
+    "email": "johndoe@mailinator.com",
     "address": {
       "shipping": {
         "streetName": "1 VueStorefront Rd.",

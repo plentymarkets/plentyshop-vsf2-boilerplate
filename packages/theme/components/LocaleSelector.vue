@@ -1,10 +1,15 @@
 <template>
   <div class="container">
     <SfButton
-        class="container__lang container__lang--selected"
-        @click="isLangModalOpen = !isLangModalOpen"
+      class="container__lang container__lang--selected"
+      @click="isLangModalOpen = !isLangModalOpen"
     >
-      <SfImage :src="addBasePath(`/icons/langs/${locale}.webp`)" height="20" width="20" alt="Flag" />
+      <SfImage
+        :src="addBasePath(`/icons/langs/${locale}.webp`)"
+        height="20"
+        width="20"
+        alt="Flag"
+      />
     </SfButton>
     <SfBottomModal
       :is-open="isLangModalOpen"
@@ -12,14 +17,23 @@
       @click:close="isLangModalOpen = !isLangModalOpen"
     >
       <SfList>
-        <SfListItem v-for="lang in availableLocales" :key="lang.code">
+        <SfListItem
+          v-for="lang in availableLocales"
+          :key="lang.code"
+        >
           <a :href="switchLocalePath(lang.code)">
             <SfCharacteristic class="language">
               <template #title>
                 <span>{{ lang.label }}</span>
               </template>
               <template #icon>
-                <SfImage :src="addBasePath(`/icons/langs/${lang.code}.webp`)" height="20" width="20" alt="Flag" class="language__flag" />
+                <SfImage
+                  :src="addBasePath(`/icons/langs/${lang.code}.webp`)"
+                  height="20"
+                  width="20"
+                  alt="Flag"
+                  class="language__flag"
+                />
               </template>
             </SfCharacteristic>
           </a>
@@ -32,7 +46,6 @@
 <script>
 import {
   SfImage,
-  SfSelect,
   SfButton,
   SfList,
   SfBottomModal,
@@ -43,7 +56,6 @@ import { addBasePath } from '@vue-storefront/core';
 export default {
   components: {
     SfImage,
-    SfSelect,
     SfButton,
     SfList,
     SfBottomModal,

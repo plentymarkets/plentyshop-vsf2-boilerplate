@@ -23,10 +23,10 @@ export default {
     'userData': 'User data'
   },
   // AddressCard
-  'AddressCard': {
+  'AddressPicker': {
     'Change': 'Change',
     'Delete': 'Delete',
-    'Selected address': 'Selected address',
+    'Make default': 'Set as primary',
   },
   // AddressInputForm
   'AddressInputForm': {
@@ -59,6 +59,12 @@ export default {
     'Social': 'Social',
     'Who we are': 'Who we are',
     'Women fashion': 'Women fashion',
+    'CancellationRights': 'Cancellation rights',
+    'CancellationForm': 'Cancellation form',
+    'LegalDisclosure' : 'Legal disclosure',
+    'PrivacyPolicy' : 'Privacy policy',
+    'TermsAndConditions': 'Terms and conditions'
+
   },
   // AppHeader
   'AppHeader': {
@@ -87,6 +93,7 @@ export default {
   },
   // CartSidebar
   'CartSidebar': {
+    'Clear': 'Clear',
     'Go back shopping': 'Go back shopping',
     'Go to checkout': 'Go to checkout',
     'Fill in bag': '@:App.fillInBag',

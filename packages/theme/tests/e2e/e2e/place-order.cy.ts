@@ -2,7 +2,7 @@ import page from '../pages/factory';
 import { acceptCookies } from '../pages/utils/cookie';
 context('Order placement', () => {
   beforeEach(function init () {
-    cy.fixture('test-data/e2e-place-order').then((fixture) => {
+    cy.fixture('customer').then((fixture) => {
       this.fixtures = {
         data: fixture
       };
@@ -15,6 +15,7 @@ context('Order placement', () => {
 
     cy.intercept('/api/plentymarkets/addCartItem').as('addCartItem');
     cy.intercept('/api/plentymarkets/additionalInformation').as('additionalInformation');
+    cy.intercept('/api/plentymarkets/deleteCart').as('deleteCart');
     cy.intercept('/api/plentymarkets/executePayment').as('executePayment');
     cy.intercept('/api/plentymarkets/getActiveShippingCountries').as('getActiveShippingCountries');
     cy.intercept('/api/plentymarkets/getPaymentProviders').as('getPaymentProviders');
@@ -56,7 +57,7 @@ context('Order placement', () => {
     page.checkout.payment.paymentMethods.first().click();
     page.checkout.payment.terms.click();
     page.checkout.payment.makeAnOrderButton.click();
-    cy.wait(['@additionalInformation', '@preparePayment', '@placeOrder', '@executePayment']);
+    cy.wait(['@additionalInformation', '@preparePayment', '@placeOrder', '@executePayment', '@deleteCart']);
 
     page.checkout.thankyou.heading.should('be.visible');
 

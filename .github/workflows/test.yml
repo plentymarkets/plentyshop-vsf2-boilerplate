@@ -114,5 +114,3 @@ jobs:
           wait-on: 'http://${{ env.ip_address }}:3000'
         env:
           CYPRESS_BASE_URL: 'http://${{ env.ip_address }}:3000'
-          CYPRESS_DEFAULT_ACCOUNT_EMAIL: ${{ secrets.PLENTYMARKETS_USER_EMAIL }}
-          CYPRESS_DEFAULT_ACCOUNT_PASSWORD: ${{ secrets.PLENTYMARKETS_USER_PASSWORD }}

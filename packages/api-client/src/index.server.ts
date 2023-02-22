@@ -12,7 +12,9 @@ import {
   addItem as addCartItem,
   getCart,
   removeItem as removeCartItem,
-  updateItemQty as updateCartItemQty
+  updateItemQty as updateCartItemQty,
+  clearCart,
+  deleteCart
 } from './api/getCart';
 import { getSession } from './api/getSession';
 import { getShippingProvider, selectShippingProvider } from './api/getShippingProvider';
@@ -21,6 +23,7 @@ import { getActiveShippingCountries } from './api/getActiveShippingCountries';
 import { getPaymentProviders, setPaymentProvider } from './api/getPaymentProvider';
 import { additionalInformation, executePayment, placeOrder, preparePayment } from './api/getOrder';
 import { getOrders } from './api/getOrders';
+import { getLegalInformation } from './api/getLegal';
 
 /**
  * Event flow
@@ -113,6 +116,8 @@ const { createApiClient } = apiClientFactory<Settings, Endpoints>({
     addCartItem,
     removeCartItem,
     updateCartItemQty,
+    clearCart,
+    deleteCart,
     getSession,
     loginUser,
     registerUser,
@@ -133,7 +138,8 @@ const { createApiClient } = apiClientFactory<Settings, Endpoints>({
     preparePayment,
     placeOrder,
     getOrders,
-    executePayment
+    executePayment,
+    getLegalInformation
   },
   extensions: [cookieExtension]
 });

@@ -3,7 +3,8 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:vue/recommended"
   ],
   "parser": "vue-eslint-parser",
   "parserOptions": {
@@ -138,6 +139,12 @@
       "files": ["*.ts", "*.tsx"],
       "rules": {
         "@typescript-eslint/explicit-module-boundary-types": ["error"]
+      }
+    },
+    {
+      "files": ["**/pages/**/*.vue"],
+      "rules": {
+        "vue/multi-word-component-names": "off"
       }
     }
   ]

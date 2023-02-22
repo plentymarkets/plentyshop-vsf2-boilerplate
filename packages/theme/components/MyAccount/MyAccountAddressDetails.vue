@@ -23,20 +23,24 @@
             :form="form"
             :countries="countries"
             :type="type"
-          ></AddressInputForm>
+          />
           <div class="buttons">
             <SfButton
               type="submit"
-              @click.prevent="submit()"
               class="action-button"
               data-testid="update-address-button"
+              @click.prevent="submit()"
             >
-              <template v-if="inEditState">{{
-                $t('MyAccountAddressDetails.Update address')
-              }}</template>
-              <template v-if="inCreateState">{{
-                $t('MyAccountAddressDetails.Create address')
-              }}</template>
+              <template v-if="inEditState">
+                {{
+                  $t('MyAccountAddressDetails.Update address')
+                }}
+              </template>
+              <template v-if="inCreateState">
+                {{
+                  $t('MyAccountAddressDetails.Create address')
+                }}
+              </template>
             </SfButton>
             <SfButton
               type="button"
@@ -44,38 +48,39 @@
               data-testid="update-address-button"
               @click="closeForm"
             >
-              {{ $t('MyAccountAddressDetails.Cancel') }}</SfButton
-            >
+              {{ $t('MyAccountAddressDetails.Cancel') }}
+            </SfButton>
           </div>
         </SfTab>
       </SfTabs>
-      <SfTabs v-else key="address-list" :open-tab="1" class="tab-orphan">
+      <SfTabs
+        v-else
+        key="address-list"
+        :open-tab="1"
+        class="tab-orphan"
+      >
         <SfTab :title="$t('MyAccountAddressDetails.Shipping details')">
           <slot name="shipping-tab-description">
             <p class="message">
               {{ shipingTabDescription }}
             </p>
           </slot>
-          <transition-group tag="div" :name="transition" class="shipping-list">
-            <slot name="shipping-list">
-              <AddressCard v-for="(address, key) in addressList"
-                            class="shipping"
-                            :key="address.id"
-                            :address="address"
-                            :countries="countries"
-                            @set-default-address="setDefaultAddress(address)"
-                            @change-address="changeAddress(key)"
-                            @delete-address="deleteAddress(address)">
-              </AddressCard>
-            </slot>
-          </transition-group>
+          <slot name="shipping-list">
+            <AddressPicker
+              :countries="countries"
+              :addresses="addressList"
+              @set-default-address="setDefaultAddress($event)"
+              @change-address="changeAddress($event)"
+              @delete-address="deleteAddress($event)"
+            />
+          </slot>
           <SfButton
             class="action-button"
             data-testid="add-new-address"
             @click="changeAddress(-1)"
           >
-            {{ $t('MyAccountAddressDetails.Add new address') }}</SfButton
-          >
+            {{ $t('MyAccountAddressDetails.Add new address') }}
+          </SfButton>
         </SfTab>
       </SfTabs>
     </transition>
@@ -85,7 +90,7 @@
 import { SfTabs, SfButton } from '@storefront-ui/vue';
 import { useAddressForm } from '@vue-storefront/plentymarkets';
 import AddressInputForm from '~/components/AddressInputForm';
-import AddressCard from '~/components/AddressCard';
+import AddressPicker from '~/components/AddressPicker';
 import { toRef } from '@nuxtjs/composition-api';
 
 export default {
@@ -94,10 +99,11 @@ export default {
     SfTabs,
     SfButton,
     AddressInputForm,
-    AddressCard
+    AddressPicker
   },
   props: {
     addresses: {
+      // eslint-disable-next-line vue/require-prop-type-constructor
       type: Array | Object,
       default: () => []
     },
@@ -137,7 +143,8 @@ export default {
       inCreateState
     } = useAddressForm(toRef(props, 'addresses'));
 
-    const setDefaultAddress = (address) => {
+    const setDefaultAddress = (addressId) => {
+      const address = addressList.value.find((_address) => Number(_address.id) === Number(addressId));
       emit('set-default-address', address);
     };
 

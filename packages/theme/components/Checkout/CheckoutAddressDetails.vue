@@ -1,6 +1,9 @@
 <template>
   <div class="sf-shipping-details">
-    <slot name="heading" v-bind="{ headingTitle, headingTitleLevel }">
+    <slot
+      name="heading"
+      v-bind="{ headingTitle, headingTitleLevel }"
+    >
       <SfHeading
         :title="headingTitle"
         :level="headingTitleLevel"
@@ -14,18 +17,20 @@
           :form="form"
           :type="type"
           :countries="countries"
-        ></AddressInputForm>
+        />
         <div class="buttons">
           <SfButton
             v-if="inEditState"
             type="submit"
-            @click.prevent="submit()"
             class="action-button update-button"
             data-e2e="update-address-button"
+            @click.prevent="submit()"
           >
-            <template v-if="inEditState">{{
-              $t('CheckoutAddressDetails.Update address')
-            }}</template>
+            <template v-if="inEditState">
+              {{
+                $t('CheckoutAddressDetails.Update address')
+              }}
+            </template>
           </SfButton>
           <SfButton
             v-if="(addressList.length > 0)"
@@ -34,40 +39,36 @@
             data-e2e="close-address-button"
             @click="closeForm"
           >
-            {{ $t('CheckoutAddressDetails.Cancel') }}</SfButton
-          >
+            {{ $t('CheckoutAddressDetails.Cancel') }}
+          </SfButton>
         </div>
       </div>
       <div v-else>
-        <transition-group tag="div" :name="transition" class="shipping-list">
-          <slot name="shipping-list">
-            <AddressCard v-for="(address, key) in addressList"
-              class="shipping"
-              :key="address.id"
-              :address="address"
-              :countries="countries"
-              @set-default-address="setDefaultAddress(address)"
-              @change-address="changeAddress(key)"
-              @delete-address="deleteAddress(address)">
-              </AddressCard>
-          </slot>
-        </transition-group>
+        <slot name="shipping-list">
+          <AddressPicker
+            :countries="countries"
+            :addresses="addressList"
+            @set-default-address="setDefaultAddress($event)"
+            @change-address="changeAddress($event)"
+            @delete-address="deleteAddress($event)"
+          />
+        </slot>
         <SfButton
           class="action-button"
           data-testid="add-new-address"
           @click="changeAddress(-1)"
         >
-          {{ $t('CheckoutAddressDetails.Add new address') }}</SfButton
-        >
+          {{ $t('CheckoutAddressDetails.Add new address') }}
+        </SfButton>
       </div>
     </transition>
   </div>
 </template>
 <script>
 import { toRef } from '@nuxtjs/composition-api';
-import { useAddressForm } from '@vue-storefront/plentymarkets';
+import { useAddressForm, userAddressGetters } from '@vue-storefront/plentymarkets';
 import AddressInputForm from '~/components/AddressInputForm';
-import AddressCard from '~/components/AddressCard';
+import AddressPicker from '~/components/AddressPicker';
 import {
   SfButton,
   SfHeading
@@ -78,11 +79,12 @@ export default {
   components: {
     SfButton,
     AddressInputForm,
-    AddressCard,
+    AddressPicker,
     SfHeading
   },
   props: {
     addresses: {
+      // eslint-disable-next-line vue/require-prop-type-constructor
       type: Array | Object,
       default: () => []
     },
@@ -99,7 +101,8 @@ export default {
       default: () => 'shipping'
     },
     headingTitle: {
-      type: String
+      type: String,
+      default: ''
     },
     headingTitleLevel: {
       type: Number,
@@ -120,7 +123,8 @@ export default {
       inEditState
     } = useAddressForm(toRef(props, 'addresses'));
 
-    const setDefaultAddress = (address) => {
+    const setDefaultAddress = (addressId) => {
+      const address = addressList.value.find((_address) => Number(_address.id) === Number(addressId));
       emit('set-default-address', address);
     };
 
@@ -150,7 +154,8 @@ export default {
       setDefaultAddress,
       changeAddress,
       deleteAddress,
-      closeForm
+      closeForm,
+      userAddressGetters
     };
   }
 };
@@ -167,6 +172,7 @@ export default {
 .update-button {
   margin-right: var(--spacer-sm);
 }
+
 .title {
   --heading-padding: var(--spacer-xl) 0 var(--spacer-base);
   --heading-title-font-weight: var(--font-weight--bold);
