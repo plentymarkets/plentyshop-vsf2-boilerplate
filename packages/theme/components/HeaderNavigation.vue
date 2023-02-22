@@ -10,7 +10,10 @@
         :link="localePath(`/c/${category.slug}`)"
       />
     </div>
-    <SfModal class="smartphone-only" :visible="isMobileMenuOpen">
+    <SfModal
+      class="smartphone-only"
+      :visible="isMobileMenuOpen"
+    >
       <SfHeaderNavigationItem
         v-for="(category, index) in categoryTree"
         :key="index"

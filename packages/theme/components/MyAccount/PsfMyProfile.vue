@@ -1,5 +1,8 @@
 <template>
-  <SfTabs class="sf-my-profile" :open-tab="1">
+  <SfTabs
+    class="sf-my-profile"
+    :open-tab="1"
+  >
     <SfTab :title="$t('PsfMyProfile.Personal data')">
       <slot
         name="personal-data-description"
@@ -58,7 +61,7 @@
       <slot name="password-change-description">
         <p class="message">
           If you want to change the password to access your account, enter the
-          following information:<br />
+          following information:<br>
           Your current email address is
           <span class="message__label">{{ account.email }}</span>
         </p>

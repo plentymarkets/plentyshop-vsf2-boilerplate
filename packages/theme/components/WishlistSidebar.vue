@@ -4,60 +4,99 @@
       :visible="isWishlistSidebarOpen"
       :button="false"
       :title="$t('WishlistSidebar.My wishlist')"
-      @close="toggleWishlistSidebar"
       class="sidebar sf-sidebar--right"
+      @close="toggleWishlistSidebar"
     >
       <template #title>
         <div class="heading__wrapper">
-          <SfHeading :level="3" :title="$t('WishlistSidebar.My wishlist')" class="sf-heading--left"/>
-          <SfButton class="heading__close-button sf-button--pure" :aria-label="$t('WishlistSidebar.Wishlist sidebar close button')" @click="toggleWishlistSidebar">
-            <SfIcon icon="cross" size="14px" color="gray-primary"/>
+          <SfHeading
+            :level="3"
+            :title="$t('WishlistSidebar.My wishlist')"
+            class="sf-heading--left"
+          />
+          <SfButton
+            class="heading__close-button sf-button--pure"
+            :aria-label="$t('WishlistSidebar.Wishlist sidebar close button')"
+            @click="toggleWishlistSidebar"
+          >
+            <SfIcon
+              icon="cross"
+              size="14px"
+              color="gray-primary"
+            />
           </SfButton>
         </div>
       </template>
-      <transition name="fade" mode="out-in">
-        <div v-if="totalItems" class="my-wishlist" key="my-wishlist">
-          <div class="my-wishlist__total-items">Total items: <strong>{{ totalItems }}</strong></div>
+      <transition
+        name="fade"
+        mode="out-in"
+      >
+        <div
+          v-if="totalItems"
+          key="my-wishlist"
+          class="my-wishlist"
+        >
+          <div class="my-wishlist__total-items">
+            Total items: <strong>{{ totalItems }}</strong>
+          </div>
           <div class="collected-product-list">
-            <transition-group name="fade" tag="div">
+            <transition-group
+              name="fade"
+              tag="div"
+            >
               <SfCollectedProduct
                 v-for="product in products"
                 :key="wishlistGetters.getId(product)"
                 :image="addBasePath(wishlistGetters.getItemImage(product))"
-                :imageWidth="100"
-                :imageHeight="100"
+                :image-width="100"
+                :image-height="100"
                 :title="wishlistGetters.getItemName(product)"
                 :regular-price="$n(wishlistGetters.getItemPrice(product).regular, 'currency')"
                 :special-price="wishlistGetters.getItemPrice(product).special && $n(wishlistGetters.getItemPrice(product).special, 'currency')"
                 :stock="99999"
-                image-width="180"
-                image-height="200"
-                @click:remove="removeItem({ product })"
                 class="collected-product"
+                @click:remove="removeItem({ product })"
               >
-               <template #configuration>
+                <template #configuration>
                   <div class="collected-product__properties">
-                    <SfProperty v-for="(attribute, key) in wishlistGetters.getItemAttributes(product, ['color', 'size'])" :key="key" :name="key" :value="attribute"/>
+                    <SfProperty
+                      v-for="(attribute, key) in wishlistGetters.getItemAttributes(product, ['color', 'size'])"
+                      :key="key"
+                      :name="key"
+                      :value="attribute"
+                    />
                   </div>
                 </template>
-                <template #input="{}">&nbsp;</template>
+                <template #input="{}">
+&nbsp;
+                </template>
               </SfCollectedProduct>
             </transition-group>
           </div>
           <div class="sidebar-bottom">
-          <SfProperty class="sf-property--full-width my-wishlist__total-price">
-            <template #name>
-              <span class="my-wishlist__total-price-label">Total price:</span>
-            </template>
-            <template #value>
-              <SfPrice :regular="$n(totals.subtotal, 'currency')" />
-            </template>
-          </SfProperty>
+            <SfProperty class="sf-property--full-width my-wishlist__total-price">
+              <template #name>
+                <span class="my-wishlist__total-price-label">Total price:</span>
+              </template>
+              <template #value>
+                <SfPrice :regular="$n(totals.subtotal, 'currency')" />
+              </template>
+            </SfProperty>
           </div>
         </div>
-        <div v-else class="empty-wishlist" key="empty-wishlist">
+        <div
+          v-else
+          key="empty-wishlist"
+          class="empty-wishlist"
+        >
           <div class="empty-wishlist__banner">
-            <SfImage :width="100" :height="100" :src="addBasePath('/icons/empty-cart.svg')" alt="Empty bag" class="empty-wishlist__icon" />
+            <SfImage
+              :width="100"
+              :height="100"
+              :src="addBasePath('/icons/empty-cart.svg')"
+              alt="Empty bag"
+              class="empty-wishlist__icon"
+            />
             <SfHeading
               :title="$t('WishlistSidebar.Your bag is empty')"
               :description="$t('WishlistSidebar.Fill in bag')"
@@ -67,7 +106,10 @@
         </div>
       </transition>
       <template #content-bottom>
-        <SfButton @click="toggleWishlistSidebar" class="sf-button--full-width color-secondary">
+        <SfButton
+          class="sf-button--full-width color-secondary"
+          @click="toggleWishlistSidebar"
+        >
           {{ $t('WishlistSidebar.Start shopping') }}
         </SfButton>
       </template>
@@ -91,7 +133,7 @@ import { useUiState } from '~/composables';
 import { addBasePath } from '@vue-storefront/core';
 
 export default {
-  name: 'Wishlist',
+  name: 'WishlistSidebar',
   components: {
     SfSidebar,
     SfButton,

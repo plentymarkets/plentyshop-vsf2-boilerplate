@@ -3,22 +3,34 @@
     <SfHeader
       class="sf-header--has-mobile-search"
       :class="{'header-on-top': isSearchOpen}"
-      :isNavVisible="isMobileMenuOpen"
+      :is-nav-visible="isMobileMenuOpen"
     >
       <!-- TODO: add mobile view buttons after SFUI team PR -->
       <template #logo>
-        <nuxt-link :to="localePath({ name: 'home' })" class="sf-header__logo">
-          <SfImage :width="100" :height="100" :src="addBasePath('/icons/logo.svg')" alt="Vue Storefront Next" class="sf-header__logo-image"/>
+        <nuxt-link
+          :to="localePath({ name: 'home' })"
+          class="sf-header__logo"
+        >
+          <SfImage
+            :width="100"
+            :height="100"
+            :src="addBasePath('/icons/logo.svg')"
+            alt="Vue Storefront Next"
+            class="sf-header__logo-image"
+          />
         </nuxt-link>
       </template>
       <template #navigation>
-        <HeaderNavigation/>
+        <HeaderNavigation />
       </template>
       <template #aside>
         <LocaleSelector class="smartphone-only" />
       </template>
       <template #header-icons>
-        <div :data-e2e="'header-icons'" class="sf-header__icons">
+        <div
+          :data-e2e="'header-icons'"
+          class="sf-header__icons"
+        >
           <SfButton
             class="sf-button--pure sf-header__action"
             :aria-label="$t('AppHeader.Open account button')"
@@ -39,7 +51,12 @@
               :icon="wishlistIcon"
               size="1.25rem"
             />
-            <SfBadge v-if="wishlistTotalItems" class="sf-badge--number cart-badge">{{wishlistTotalItems}}</SfBadge>
+            <SfBadge
+              v-if="wishlistTotalItems"
+              class="sf-badge--number cart-badge"
+            >
+              {{ wishlistTotalItems }}
+            </SfBadge>
           </SfButton>
           <SfButton
             class="sf-button--pure sf-header__action"
@@ -51,13 +68,19 @@
               icon="empty_cart"
               size="1.25rem"
             />
-            <SfBadge v-if="cartTotalItems" class="sf-badge--number cart-badge">{{cartTotalItems}}</SfBadge>
+            <SfBadge
+              v-if="cartTotalItems"
+              class="sf-badge--number cart-badge"
+            >
+              {{ cartTotalItems }}
+            </SfBadge>
           </SfButton>
         </div>
       </template>
       <template #search>
         <SfSearchBar
           ref="searchBarRef"
+          v-click-outside="closeSearch"
           :placeholder="$t('AppHeader.Search for items')"
           :aria-label="$t('AppHeader.Search')"
           class="sf-header__search"
@@ -66,7 +89,6 @@
           @keydown.enter="handleSearch($event)"
           @focus="isSearchOpen = true"
           @keydown.esc="closeSearch"
-          v-click-outside="closeSearch"
         >
           <template #icon>
             <SfButton
@@ -76,7 +98,11 @@
               @click="closeOrFocusSearchBar"
             >
               <span class="sf-search-bar__icon">
-                <SfIcon color="var(--c-text)" size="18px" icon="cross" />
+                <SfIcon
+                  color="var(--c-text)"
+                  size="18px"
+                  icon="cross"
+                />
               </span>
             </SfButton>
             <SfButton
@@ -86,7 +112,11 @@
               @click="isSearchOpen ? isSearchOpen = false : isSearchOpen = true"
             >
               <span class="sf-search-bar__icon">
-                <SfIcon color="var(--c-text)" size="20px" icon="search" />
+                <SfIcon
+                  color="var(--c-text)"
+                  size="20px"
+                  icon="search"
+                />
               </span>
             </SfButton>
           </template>

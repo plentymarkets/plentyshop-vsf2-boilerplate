@@ -1,6 +1,9 @@
 <template>
   <div class="sf-shipping-details">
-    <slot name="heading" v-bind="{ headingTitle, headingTitleLevel }">
+    <slot
+      name="heading"
+      v-bind="{ headingTitle, headingTitleLevel }"
+    >
       <SfHeading
         :title="headingTitle"
         :level="headingTitleLevel"
@@ -14,18 +17,20 @@
           :form="form"
           :type="type"
           :countries="countries"
-        ></AddressInputForm>
+        />
         <div class="buttons">
           <SfButton
             v-if="inEditState"
             type="submit"
-            @click.prevent="submit()"
             class="action-button update-button"
             data-e2e="update-address-button"
+            @click.prevent="submit()"
           >
-            <template v-if="inEditState">{{
-              $t('CheckoutAddressDetails.Update address')
-            }}</template>
+            <template v-if="inEditState">
+              {{
+                $t('CheckoutAddressDetails.Update address')
+              }}
+            </template>
           </SfButton>
           <SfButton
             v-if="(addressList.length > 0)"
@@ -34,25 +39,27 @@
             data-e2e="close-address-button"
             @click="closeForm"
           >
-            {{ $t('CheckoutAddressDetails.Cancel') }}</SfButton
-          >
+            {{ $t('CheckoutAddressDetails.Cancel') }}
+          </SfButton>
         </div>
       </div>
       <div v-else>
-          <slot name="shipping-list">
-            <AddressPicker :countries="countries" :addresses="addressList"
-                         @set-default-address="setDefaultAddress($event)"
-                         @change-address="changeAddress($event)"
-                         @delete-address="deleteAddress($event)">
-            </AddressPicker>
-          </slot>
+        <slot name="shipping-list">
+          <AddressPicker
+            :countries="countries"
+            :addresses="addressList"
+            @set-default-address="setDefaultAddress($event)"
+            @change-address="changeAddress($event)"
+            @delete-address="deleteAddress($event)"
+          />
+        </slot>
         <SfButton
           class="action-button"
           data-testid="add-new-address"
           @click="changeAddress(-1)"
         >
-          {{ $t('CheckoutAddressDetails.Add new address') }}</SfButton
-        >
+          {{ $t('CheckoutAddressDetails.Add new address') }}
+        </SfButton>
       </div>
     </transition>
   </div>
@@ -64,8 +71,7 @@ import AddressInputForm from '~/components/AddressInputForm';
 import AddressPicker from '~/components/AddressPicker';
 import {
   SfButton,
-  SfHeading,
-  SfLink
+  SfHeading
 } from '@storefront-ui/vue';
 
 export default {
@@ -74,11 +80,11 @@ export default {
     SfButton,
     AddressInputForm,
     AddressPicker,
-    SfHeading,
-    SfLink
+    SfHeading
   },
   props: {
     addresses: {
+      // eslint-disable-next-line vue/require-prop-type-constructor
       type: Array | Object,
       default: () => []
     },
@@ -95,7 +101,8 @@ export default {
       default: () => 'shipping'
     },
     headingTitle: {
-      type: String
+      type: String,
+      default: ''
     },
     headingTitleLevel: {
       type: Number,

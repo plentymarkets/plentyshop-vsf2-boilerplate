@@ -1,24 +1,23 @@
 <template>
   <div v-if="shippingMethods && shippingMethods.length > 0">
-    <h4>{{ $t("VsfShippingProvider.Shipping method")}}</h4>
+    <h4>{{ $t("VsfShippingProvider.Shipping method") }}</h4>
     <SfRadio
-      v-e2e="'shipping-method'"
       v-for="method in shippingMethods"
       :key="shippingProviderGetters.getParcelServicePresetId(method)"
+      v-e2e="'shipping-method'"
       :value="shippingProviderGetters.getParcelServicePresetId(method)"
       :selected="selectedMethod"
       name="shippingMethod"
       class="form__radio shipping"
-      @change="selectMethod(method)"
       :label="shippingProviderGetters.getShippingMethodName(method)"
       :description="shippingProviderGetters.getShippingAmount(method)"
-    >
-    </SfRadio>
+      @change="selectMethod(method)"
+    />
   </div>
 </template>
 
 <script>
-import { SfButton, SfRadio } from '@storefront-ui/vue';
+import { SfRadio } from '@storefront-ui/vue';
 import { ref, computed } from '@nuxtjs/composition-api';
 import {
   useShippingProvider,
@@ -31,7 +30,6 @@ export default {
   name: 'VsfShippingProvider',
 
   components: {
-    SfButton,
     SfRadio
   },
 

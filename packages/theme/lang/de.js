@@ -58,7 +58,12 @@ export default {
     'Size guide': '@:App.sizeGuide',
     'Social': 'Social',
     'Who we are': 'Wer wir sind',
-    'Women fashion': 'Damenmode'
+    'Women fashion': 'Damenmode',
+    'CancellationRights': 'Widerrufsrecht',
+    'CancellationForm': 'Widerrufsformular',
+    'LegalDisclosure' : 'Impressum',
+    'PrivacyPolicy' : 'Datenschutzerklärung',
+    'TermsAndConditions': 'AGB'
   },
   // AppHeader
   'AppHeader': {
