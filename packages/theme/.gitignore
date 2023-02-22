@@ -73,6 +73,7 @@ _theme
 
 # Nuxt generate
 dist
+assets
 
 # vuepress build output
 .vuepress/dist
