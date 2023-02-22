@@ -180,7 +180,9 @@
           viewBox="0 0 24 24"
           :coverage="1"
         />
-        <div class="cookiesText">cookies</div>
+        <div class="cookiesText">
+          {{ $t('Cookies') }}
+        </div>
       </button>
     </div>
   </client-only>
@@ -189,10 +191,9 @@
 <script>
 import { cookieBarGetters } from '@vue-storefront/plentymarkets';
 import { ref, useContext } from '@nuxtjs/composition-api';
-import { SfModal, SfCheckbox, SfIcon, SfButton } from '@storefront-ui/vue';
+import { SfCheckbox, SfIcon, SfButton } from '@storefront-ui/vue';
 export default {
   components: {
-    SfModal,
     SfIcon,
     SfCheckbox,
     SfButton
@@ -348,7 +349,7 @@ export default {
   height: 420px;
   z-index: 1000;
   color: var(--c-text);
-  font-family: 'Raleway', sans-serif;
+  font-family: var(--font-family--secondary);
   font-weight: var(--font-weight--medium);
   font-size: var(--font-size--xl);
   @include for-mobile {
@@ -374,7 +375,7 @@ export default {
     text-align: left;
     margin-left: var(--spacer-xs);
   }
-  font-family: 'Raleway';
+  font-family: var(--font-family--secondary);
   font-style: normal;
   font-weight: var(--font-weight--semibold);
   padding: var(--spacer-xs) 0 0 0;
@@ -382,7 +383,7 @@ export default {
   color: var(--c-primary);
 }
 .barDescription {
-  font-family: 'Raleway';
+  font-family: var(--font-family--secondary);
   font-style: normal;
   font-weight: var(--font-weight--normal);
   font-size: var(--font-size--sm);
@@ -407,7 +408,7 @@ export default {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .cookieDescription {
-  font-family: 'Raleway';
+  font-family: var(--font-family--secondary);
   font-style: normal;
   font-weight: var(--font-weight--normal);
   font-size: var(--font-size--sm);

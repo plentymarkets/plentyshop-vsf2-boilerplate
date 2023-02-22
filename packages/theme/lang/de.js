@@ -217,6 +217,7 @@ export default {
   },
   // CookieBar
   'CookieBar': {
+    'Cookies': 'Kekse',
     'Privacy Settings': 'Datenschutzeinstellungen',
     'More information': 'Mehr Informationen',
     'Further Settings': 'Weitere Einstellungen',
