@@ -1,4 +1,6 @@
-import { AddressData, Product } from 'src/types';
+import { Product } from './product';
+import { PaginatedResult } from './apiMethods';
+import { AddressData } from './address';
 
 interface VariationMap {
   [variationId: string]: Product
@@ -228,4 +230,14 @@ export interface Order {
   itemURLs: VariationStringMap;
   itemImages: VariationStringMap;
   variations: VariationMap;
+}
+
+export type CreateOrderResponse = {
+  events: any[],
+  data: Order
+}
+
+export type GetOrdersResponse = {
+  events: any[],
+  data: PaginatedResult<Order>
 }
