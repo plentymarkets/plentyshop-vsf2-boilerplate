@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {Context} from '../../types';
+import { Wishlist } from '../../types/wishlist';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export async function getWishlist(context: Context, params: any): Promise<any> {
+export async function getWishlist(context: Context): Promise<Wishlist> {
   const url: URL = new URL('/rest/io/itemWishList/', context.config.api.url);
   const { data } = await context.client.get(url.href);
   const items = data.data.documents.map((wishListItem) => wishListItem.data);

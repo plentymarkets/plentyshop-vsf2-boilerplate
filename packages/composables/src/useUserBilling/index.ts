@@ -7,27 +7,28 @@ import {
   AddressData,
   AddressType,
   UserBillingAddress as Address,
-  UserBillingAddressItem as AddressItem
+  UserBillingAddressItem as AddressItem,
+  BillingAddressDetailsParams
 } from '@vue-storefront/plentymarkets-api';
 
 const params: UseUserBillingFactoryParams<Address, AddressItem> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  addAddress: async (context: Context, billingDetails: any) => {
-    await context.$plentymarkets.api.saveAddress(AddressType.Billing, billingDetails.address);
+  addAddress: async (context: Context, addressDetails: BillingAddressDetailsParams) => {
+    await context.$plentymarkets.api.saveAddress(AddressType.Billing, addressDetails.address);
     const data = await context.$plentymarkets.api.loadAddresses(AddressType.Billing);
     return data ?? null;
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  deleteAddress: async (context: Context, billingDetails: any) => {
-    await context.$plentymarkets.api.deleteAddress(billingDetails.address.id, AddressType.Billing);
+  deleteAddress: async (context: Context, addressDetails: BillingAddressDetailsParams) => {
+    await context.$plentymarkets.api.deleteAddress(addressDetails.address.id, AddressType.Billing);
     const data = await context.$plentymarkets.api.loadAddresses(AddressType.Billing);
     return data ?? null;
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  updateAddress: async (context: Context, billingDetails: any) => {
-    await context.$plentymarkets.api.saveAddress(AddressType.Billing, billingDetails.address);
+  updateAddress: async (context: Context, addressDetails: BillingAddressDetailsParams) => {
+    await context.$plentymarkets.api.saveAddress(AddressType.Billing, addressDetails.address);
     const data = await context.$plentymarkets.api.loadAddresses(AddressType.Billing);
     return data ?? null;
   },
@@ -39,8 +40,8 @@ const params: UseUserBillingFactoryParams<Address, AddressItem> = {
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  setDefaultAddress: async (context: Context, shippingDetails: any) => {
-    await context.$plentymarkets.api.setAddressAsDefault(shippingDetails.address.id, AddressType.Billing);
+  setDefaultAddress: async (context: Context, addressDetails: BillingAddressDetailsParams) => {
+    await context.$plentymarkets.api.setAddressAsDefault(addressDetails.address.id, AddressType.Billing);
     const data = await context.$plentymarkets.api.loadAddresses(AddressType.Billing);
     return data ?? null;
   }

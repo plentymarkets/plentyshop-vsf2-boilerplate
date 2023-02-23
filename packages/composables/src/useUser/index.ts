@@ -3,7 +3,7 @@ import {
   useUserFactory,
   UseUserFactoryParams
 } from '@vue-storefront/core';
-import type { User } from '@vue-storefront/plentymarkets-api';
+import type { User, UserRegisterParams } from '@vue-storefront/plentymarkets-api';
 import { useCart } from 'src/useCart';
 import { useWishlist } from 'src/useWishlist';
 import type {
@@ -36,15 +36,15 @@ const params: UseUserFactoryParams<User, UpdateParams, RegisterParams> = {
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  register: async (context: Context, { email, password, firstName, lastName }) => {
-    if (!password || password.length === 0) {
-      const data = await context.$plentymarkets.api.loginAsGuest(email);
-      return data;
+  register: async (context: Context, params: UserRegisterParams): Promise<User> => {
+    if (!params.password || params.password.length === 0) {
+      const data = await context.$plentymarkets.api.loginAsGuest(params.email);
+      return data as User;
     } else {
-      await context.$plentymarkets.api.registerUser({ email, password, firstName, lastName });
-      await context.$plentymarkets.api.loginUser(email, password);
+      await context.$plentymarkets.api.registerUser(params);
+      const data = await context.$plentymarkets.api.loginUser(params.email, params.password);
+      return data.user;
     }
-    return {};
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -68,4 +68,4 @@ const params: UseUserFactoryParams<User, UpdateParams, RegisterParams> = {
   }
 };
 
-export const useUser = useUserFactory<User, UpdateParams, RegisterParams>(params);
+export const useUser = useUserFactory<User, UpdateParams, UserRegisterParams>(params);

@@ -1,6 +1,8 @@
 import { Product } from './product';
 import { PaginatedResult } from './apiMethods';
 import { AddressData } from './address';
+import { TODO } from './todo';
+import { CustomQuery } from '@vue-storefront/core';
 
 interface VariationMap {
   [variationId: string]: Product
@@ -88,7 +90,7 @@ export interface OrderItemAmount {
 
 export interface GiftCard {
   isGiftCard: boolean;
-  information: any[];
+  information: unknown[];
   hasPdf: boolean;
 }
 
@@ -121,13 +123,13 @@ export interface OrderItem {
   bundleComponents?: null;
   bundleType?: null;
   giftCard?: GiftCard;
-  attributes?: any[];
+  attributes?: unknown[];
   variationProperties?: null;
-  orderProperties: any[];
+  orderProperties: unknown[];
   properties: OrderItemProperty[];
-  dates: any[];
+  dates: unknown[];
   amounts: OrderItemAmount[];
-  references: any[];
+  references: unknown[];
 }
 
 export interface OrderProperty {
@@ -178,8 +180,8 @@ export interface OrderTotals {
   totalNet: number;
   currency: string;
   isNet: boolean;
-  additionalCosts: any[];
-  additionalCostsWithTax: any[];
+  additionalCosts: unknown[];
+  additionalCostsWithTax: unknown[];
   subAmount: number;
   promotionalCouponsValue: number;
   giftCardsValue: number;
@@ -204,12 +206,12 @@ export interface OrderDetails {
   properties: OrderProperty[];
   dates: DateElement[];
   amounts: OrderAmount[];
-  orderReferences: any[];
+  orderReferences: unknown[];
   orderItems: OrderItem[];
   addressRelations: AddressRelation[];
   billingAddress: AddressData;
   deliveryAddress: AddressData;
-  documents: any[];
+  documents: unknown[];
   accessKey: string;
 }
 
@@ -233,11 +235,23 @@ export interface Order {
 }
 
 export type CreateOrderResponse = {
-  events: any[],
+  events: TODO[],
   data: Order
 }
 
 export type GetOrdersResponse = {
-  events: any[],
+  events: TODO[],
   data: PaginatedResult<Order>
+}
+
+export interface AdditionalInformationParams {
+  orderContactWish: null,
+  orderCustomerSign: null,
+  shippingPrivacyHintAccepted: boolean,
+  templateType: string
+}
+
+export interface MakeOrderParams {
+  paymentId: number,
+  customQuery?: CustomQuery;
 }

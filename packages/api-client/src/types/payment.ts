@@ -16,10 +16,10 @@ export type PaymentProviders = {
 
 export type PreparePaymentResult = {
     type: string,
-    value: any
+    value: null
 }
 
 export type GetPaymentResponse = {
-    type: any,
-    value: any
+    type: null,
+    value: null
 }

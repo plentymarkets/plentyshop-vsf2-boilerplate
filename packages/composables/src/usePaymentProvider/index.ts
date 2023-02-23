@@ -1,7 +1,14 @@
 import { computed } from '@nuxtjs/composition-api';
 import { sharedRef, useVSFContext } from '@vue-storefront/core';
+import { PaymentProviders } from '@vue-storefront/plentymarkets-api';
+import { ComposableBaseResponse } from 'src/types';
 
-export const usePaymentProvider = (id: string): any => {
+export interface useActiveShippingCountriesResponse extends ComposableBaseResponse<PaymentProviders> {
+  load: (type: string) => Promise<void>
+  save: (aymentId: number) => Promise<void>
+}
+
+export const usePaymentProvider = (id: string): useActiveShippingCountriesResponse => {
 
   const context = useVSFContext();
   const result = sharedRef(null, `useCustom-${id}`);
@@ -10,7 +17,7 @@ export const usePaymentProvider = (id: string): any => {
     search: null
   }, `useCustom-error-${id}`);
 
-  const load = async () => {
+  const load = async (): Promise<void> => {
     try {
       loading.value = true;
       result.value = await context.$plentymarkets.api.getPaymentProviders();
@@ -23,7 +30,7 @@ export const usePaymentProvider = (id: string): any => {
   };
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const save = async (paymentId, customQuery) => {
+  const save = async (paymentId: number): Promise<void> => {
     await context.$plentymarkets.api.setPaymentProvider(paymentId);
     result.value.selected = paymentId;
   };

@@ -1,12 +1,12 @@
 import { ApiClientMethods, IntegrationContext, ProductsSearchParams, UseUserOrderSearchParams } from '@vue-storefront/core';
 import { AxiosInstance } from 'axios';
-import { AddressData, AddressType } from './address';
+import { AddressData, AddressType, DeleteAddressResponse, SetAddressDefaultResponse, SaveAddressResponse } from './address';
 import { Cart } from './cart';
-import { Category, CategoryPage } from './category';
+import { Category, CategoryPage, FacetSearchCriteria } from './category';
 import { ActiveShippingCountry } from './country';
 import { ItemSearchParams, ItemSearchResult } from './itemSearch';
 import { LegalInformationResponse } from './legal';
-import { CreateOrderResponse, GetOrdersResponse } from './order';
+import { AdditionalInformationParams, CreateOrderResponse, GetOrdersResponse } from './order';
 import { GetPaymentResponse, PaymentProviders, PreparePaymentResult } from './payment';
 import { Product } from './product';
 import { RegisterParams } from './register';
@@ -14,6 +14,7 @@ import { Review, ReviewSearchParams } from './review';
 import { SessionResult } from './session';
 import { ShippingProvider } from './shipping';
 import { TODO } from './todo';
+import { UserChangeResponse } from './user';
 import { Wishlist } from './wishlist';
 
 export type ClientInstance = AxiosInstance;
@@ -40,12 +41,10 @@ export interface PlentymarketsApiMethods {
         params: ProductsSearchParams
     ): Promise<Product[]>,
 
-    getCategory(
-        params: any
-    ): Promise<Category[]>,
+    getCategory(): Promise<Category[]>,
 
     getFacet(
-        params: any
+        params: FacetSearchCriteria
     ): Promise<CategoryPage>,
 
     getReview(
@@ -88,11 +87,11 @@ export interface PlentymarketsApiMethods {
 
     loginUser(email: string, password: string): Promise<SessionResult>
 
-    registerUser(params: RegisterParams): Promise<any>
+    registerUser(params: RegisterParams): Promise<UserChangeResponse>
 
     logoutUser(): Promise<boolean>
 
-    changePassword(currentPassword, newPassword): Promise<boolean>
+    changePassword(currentPassword, newPassword): Promise<UserChangeResponse>
 
     getShippingProvider(): Promise<ShippingProvider>
 
@@ -100,13 +99,13 @@ export interface PlentymarketsApiMethods {
 
     loginAsGuest(email: string): Promise<SessionResult>
 
-    saveAddress(typeId: AddressType, addressData: TODO): Promise<any>
+    saveAddress(typeId: AddressType, addressData: TODO): Promise<SaveAddressResponse>
 
-    setAddressAsDefault(addressId: number, typeId: number): Promise<any>;
+    setAddressAsDefault(addressId: number, typeId: number): Promise<SetAddressDefaultResponse>;
 
     loadAddresses(typeId: AddressType): Promise<AddressData[]>
 
-    deleteAddress(addressId: number, typeId: number): Promise<any>;
+    deleteAddress(addressId: number, typeId: number): Promise<DeleteAddressResponse>;
 
     getActiveShippingCountries(): Promise<ActiveShippingCountry[]>
 
@@ -114,7 +113,7 @@ export interface PlentymarketsApiMethods {
 
     setPaymentProvider(paymentId: number): Promise<string>
 
-    additionalInformation(params: any): Promise<void>
+    additionalInformation(params: AdditionalInformationParams): Promise<void>
 
     preparePayment(): Promise<PreparePaymentResult>
 
@@ -123,8 +122,6 @@ export interface PlentymarketsApiMethods {
     getOrders(params: UseUserOrderSearchParams): Promise<GetOrdersResponse>
 
     executePayment(orderId: number, paymentId: number): Promise<GetPaymentResponse>
-
-    saveBillingAsShipping(): Promise<any>
 
     getLegalInformation(type: string): Promise<LegalInformationResponse>
 

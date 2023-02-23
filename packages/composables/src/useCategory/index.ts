@@ -10,8 +10,8 @@ import type {
 
 const params: UseCategoryFactoryParams<Category, SearchParams> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  categorySearch: async (context: Context, { customQuery, ...params }) => {
-    const data = await context.$plentymarkets.api.getCategory(params);
+  categorySearch: async (context: Context, { customQuery }) => {
+    const data = await context.$plentymarkets.api.getCategory();
     return data;
   }
 };

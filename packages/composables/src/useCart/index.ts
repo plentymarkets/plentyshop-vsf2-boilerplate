@@ -9,7 +9,7 @@ import type {
   Product
 } from '@vue-storefront/plentymarkets-api';
 
-const migrateVariationData = (oldCart: Cart, newCart: Cart) => {
+const migrateVariationData = (oldCart: Cart, newCart: Cart): Cart => {
   if (!oldCart && !oldCart.items && !newCart && !newCart.items) {
     return newCart;
   }

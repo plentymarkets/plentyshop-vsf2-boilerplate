@@ -9,13 +9,13 @@ import {
 import type {
   UseFacetSearchParams as SearchParams
 } from '../types';
-import { Facet } from '@vue-storefront/plentymarkets-api';
+import { Facet, FacetSearchCriteria } from '@vue-storefront/plentymarkets-api';
 
 const ITEMS_PER_PAGE = [20, 40, 100];
 
 const factoryParams = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  search: async (context: Context, params: FacetSearchResult<SearchParams>) => {
+  search: async (context: Context, params: FacetSearchResult<FacetSearchCriteria>): Promise<Facet> => {
 
     const { categories } = useCategory('categories');
 
@@ -27,10 +27,14 @@ const factoryParams = {
       items: [tree],
       isCurrent: false
     };
+
+    console.log('search params facet', params);
+
     if (category) {
-      params.input.categoryId = category.id;
+      params.data.categoryId = category.id;
     }
-    const data = await context.$plentymarkets.api.getFacet(params.input);
+
+    const data = await context.$plentymarkets.api.getFacet(params.data);
     return {
       products: data.products,
       tree: treeWrapper,
@@ -39,7 +43,7 @@ const factoryParams = {
         perPageOptioons: ITEMS_PER_PAGE,
         total: data.pagination.totals
       }
-    } as Facet;
+    };
   }
 };
 

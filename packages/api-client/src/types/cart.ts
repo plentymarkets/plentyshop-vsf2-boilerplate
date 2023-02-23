@@ -13,10 +13,10 @@ export interface CartItem {
     itemId: number
     variation: Product
     variationId: number
-    basketItemOrderParams: any[]
+    basketItemOrderParams: unknown[]
     inputLength: number
     inputWidth: number
-    setComponents: any[]
+    setComponents: unknown[]
     itemType: number
 }
 

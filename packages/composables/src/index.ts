@@ -2,7 +2,6 @@
 export { useBilling } from './useBilling';
 export { useCart } from './useCart';
 export { useCategory } from './useCategory';
-export { useContent } from './useContent';
 export { useFacet } from './useFacet';
 export { useForgotPassword } from './useForgotPassword';
 export { useMakeOrder } from './useMakeOrder';

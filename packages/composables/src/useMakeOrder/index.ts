@@ -3,11 +3,11 @@ import {
   useMakeOrderFactory,
   UseMakeOrderFactoryParams
 } from '@vue-storefront/core';
-import type { CreateOrderResponse, Order } from '@vue-storefront/plentymarkets-api';
+import type { CreateOrderResponse, Order, MakeOrderParams} from '@vue-storefront/plentymarkets-api';
 
 const factoryParams: UseMakeOrderFactoryParams<Order> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  make: async (context: Context, params: any): Promise<Order> => {
+  make: async (context: Context, params: MakeOrderParams): Promise<Order> => {
     await context.$plentymarkets.api.additionalInformation({
       orderContactWish: null,
       orderCustomerSign: null,

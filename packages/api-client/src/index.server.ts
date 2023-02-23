@@ -1,12 +1,12 @@
 import { ApiClientExtension, apiClientFactory } from '@vue-storefront/core';
-import axios from 'axios';
+import axios, { AxiosInstance } from 'axios';
 import { getProduct } from './api/getProduct';
 import { getCategory } from './api/getCategory';
 import { getFacet } from './api/getFacet';
 import { getReview } from './api/getReview';
 import { addWishlistItem, getWishlist, removeWishlistItem } from './api/getWishlist';
 import { getSearch } from './api/getSearch';
-import { deleteAddress, loadAddresses, saveAddress, saveBillingAsShipping, setAddressAsDefault } from './api/getAddress';
+import { deleteAddress, loadAddresses, saveAddress, setAddressAsDefault } from './api/getAddress';
 import {
   addItem as addCartItem,
   getCart,
@@ -25,6 +25,10 @@ import { getOrders } from './api/getOrders';
 import { getLegalInformation } from './api/getLegal';
 import { Settings } from './types/apiMethods';
 type Endpoints = unknown;
+type onCreateResponse = {
+  config: Settings,
+  client: AxiosInstance
+}
 
 /**
  * Event flow
@@ -50,7 +54,7 @@ const filterCookies = (cookies: string): string => {
   return cookies;
 };
 
-function onCreate(settings: Settings) {
+function onCreate(settings: Settings): onCreateResponse {
   const client = axios.create({
     baseURL: settings.api.url,
     withCredentials: true,
@@ -90,11 +94,11 @@ function onCreate(settings: Settings) {
 const cookieExtension: ApiClientExtension = {
   name: 'cookieExtension',
   hooks: (req, res) => ({
-    beforeCreate: ({ configuration }) => {
+    beforeCreate: ({ configuration }): unknown => {
       cookies = req.headers.cookie ?? '';
       return configuration;
     },
-    afterCall: ({ response }) => {
+    afterCall: ({ response }): unknown => {
       res.set('set-cookie', cookies);
       cookies = '';
       return response;
@@ -130,7 +134,6 @@ const { createApiClient } = apiClientFactory<Settings, Endpoints>({
     saveAddress,
     deleteAddress,
     setAddressAsDefault,
-    saveBillingAsShipping,
     getActiveShippingCountries,
     getPaymentProviders,
     selectShippingProvider,
