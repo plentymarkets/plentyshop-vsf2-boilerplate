@@ -38,8 +38,8 @@ context('Order placement', () => {
     page.product.header.openCart();
     page.cart.goToCheckoutButton.click();
 
-    page.checkout.checkoutlogin.continueAsUser(data.customer);
-    cy.wait(['@registerUser', '@getActiveShippingCountries']);
+    page.checkout.checkoutlogin.continueAsGuest(data.customer);
+    cy.wait(['@getActiveShippingCountries']);
 
     page.checkout.billing.url();
 
