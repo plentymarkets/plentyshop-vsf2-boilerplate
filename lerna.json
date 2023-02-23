@@ -1,5 +1,6 @@
 {
-  "useWorkspaces": true,
+  "useWorkspaces": false,
   "npmClient": "yarn",
-  "version": "independent"
+  "version": "independent",
+  "packages": ["./packages/api-client", "./packages/composables", "./packages/theme"]
 }
