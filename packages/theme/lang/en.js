@@ -263,6 +263,7 @@ export default {
   },
   // OrderHistory
   'OrderHistory': {
+    'All orders': 'All orders',
     'Amount': 'Amount',
     'Details and order status': 'Check the details and status of your orders in the online shop. You can also cancel your order or request a return.',
     'My orders': 'My orders',
