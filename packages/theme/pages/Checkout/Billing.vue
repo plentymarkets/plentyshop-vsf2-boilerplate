@@ -2,6 +2,7 @@
   <div
     v-if="!loading"
     id="billing"
+    class="bg-blue-300"
   >
     <CheckoutAddressDetails
       ref="CheckoutAddressDetailsRef"
@@ -14,7 +15,7 @@
       @delete-address="deleteAddress({address: $event})"
       @update-address="saveAddress({address: $event})"
     />
-    <div class="spacer-top buttons">
+    <div class="mt-lg flex justify-between">
       <SfButton
         data-e2e="continue-to-shipping"
         class="form__action-button"

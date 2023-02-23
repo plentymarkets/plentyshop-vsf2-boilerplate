@@ -41,7 +41,8 @@ const config = {
     '@nuxt/typescript-build',
     '@nuxtjs/style-resources',
     '@nuxtjs/google-fonts',
-    ['@vue-storefront/nuxt', {
+    '@nuxtjs/tailwindcss',
+      ['@vue-storefront/nuxt', {
       // @core-development-only-start
       coreDevelopment: true,
       // @core-development-only-end
@@ -79,7 +80,8 @@ const config = {
     }],
     'cookie-universal-nuxt',
     'vue-scrollto/nuxt',
-    '@vue-storefront/middleware/nuxt'
+    '@vue-storefront/middleware/nuxt',
+    '@nuxtjs/tailwindcss'
   ],
 
   i18n: {
