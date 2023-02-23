@@ -14,30 +14,36 @@
             <div class="barDescription p-xs">
               {{ cookieBarGetters.getBarDescription(cookieGroupsFromConfig) }}
 
-              <SfButton link="/privacy-policy" class="sf-button--text">
+              <SfButton
+                link="/privacy-policy"
+                class="sf-button--text"
+              >
                 {{ $t('Privacy Settings') }}
               </SfButton>
             </div>
             <!-- checkboxes -->
             <div class="checkboxes">
               <div
-                class="checkbox"
                 v-for="(cookieGroup, index) in cookieJson"
                 :key="index"
+                class="checkbox"
               >
                 <SfCheckbox
+                  v-model="cookieGroup.accepted"
                   :disabled="index === defaultCheckboxIndex"
+                  :name="cookieBarGetters.getCookieGroupName(cookieGroup)"
+                  :label="cookieBarGetters.getCookieGroupName(cookieGroup)"
                   @change="
                     ($event) => setChildrenCheckboxes(cookieGroup, $event)
                   "
-                  :name="cookieBarGetters.getCookieGroupName(cookieGroup)"
-                  :label="cookieBarGetters.getCookieGroupName(cookieGroup)"
-                  v-model="cookieGroup.accepted"
                 />
               </div>
             </div>
           </div>
-          <div class="furtherSettingsCard" v-else>
+          <div
+            v-else
+            class="furtherSettingsCard"
+          >
             <div class="furtherSettingsCardScrollable">
               <div
                 v-for="(cookieGroup, groupIndex) in cookieJson"
@@ -46,13 +52,13 @@
               >
                 <div>
                   <SfCheckbox
+                    v-model="cookieGroup.accepted"
                     :disabled="groupIndex === defaultCheckboxIndex"
+                    :name="cookieBarGetters.getCookieGroupName(cookieGroup)"
+                    :label="cookieBarGetters.getCookieGroupName(cookieGroup)"
                     @change="
                       ($event) => setChildrenCheckboxes(cookieGroup, $event)
                     "
-                    :name="cookieBarGetters.getCookieGroupName(cookieGroup)"
-                    :label="cookieBarGetters.getCookieGroupName(cookieGroup)"
-                    v-model="cookieGroup.accepted"
                   />
                   <div class="cookieDescription ml-xs">
                     {{
@@ -64,16 +70,16 @@
                     class="ml-xs cookieDetails"
                   >
                     <div
-                      class="p-sm"
                       v-for="(cookie, cookieIndex) in cookieBarGetters.getCookiesList(cookieGroup)"
                       :key="cookieIndex"
+                      class="p-sm"
                     >
                       <SfCheckbox
+                        v-model="cookie.accepted"
                         :disabled="groupIndex === defaultCheckboxIndex"
-                        @change="updateParentCheckbox(cookieGroup)"
                         :name="cookieBarGetters.getCookieName(cookie)"
                         :label="cookieBarGetters.getCookieName(cookie)"
-                        v-model="cookie.accepted"
+                        @change="updateParentCheckbox(cookieGroup)"
                       />
                       <div
                         v-for="(cookieInfo, cookieIndex) in Object.entries(
@@ -82,7 +88,10 @@
                         :key="cookieIndex"
                       >
                         <div class="flex full-width mb-xs p-xs bg-white">
-                          <div v-if="cookieInfo[0] !== 'name'" class="col-2">
+                          <div
+                            v-if="cookieInfo[0] !== 'name'"
+                            class="col-2"
+                          >
                             {{ cookieInfo[0] }}
                           </div>
                           <div class="col-4">
@@ -96,15 +105,15 @@
                 <div class="ml-xs">
                   <SfButton
                     v-if="!cookieBarGetters.getShowMore(cookieGroup)"
-                    @click="cookieGroup.showMore = true"
                     class="sf-button--text mb-xs"
+                    @click="cookieGroup.showMore = true"
                   >
                     {{ $t('More information') }}
                   </SfButton>
                   <SfButton
                     v-else
-                    @click="cookieGroup.showMore = false"
                     class="sf-button--text mb-xs"
+                    @click="cookieGroup.showMore = false"
                   >
                     {{ $t('Show less') }}
                   </SfButton>
@@ -116,15 +125,15 @@
           <div class="furtherSettingMargin text-center">
             <SfButton
               v-if="!furtherSettingsOn"
-              @click="furtherSettingsOn = true"
               class="sf-button--text"
+              @click="furtherSettingsOn = true"
             >
               {{ $t('Further Settings') }}
             </SfButton>
             <SfButton
               v-else
-              @click="furtherSettingsOn = false"
               class="sf-button--text"
+              @click="furtherSettingsOn = false"
             >
               {{ $t('Back') }}
             </SfButton>
@@ -133,6 +142,7 @@
           <div class="actionButtons">
             <div class="actionButton">
               <button
+                v-e2e="'accept-all'"
                 class="color-primary full-width sf-button"
                 :aria-disabled="false"
                 type="button"
@@ -144,6 +154,7 @@
             </div>
             <div class="actionButton">
               <button
+                v-e2e="'reject-all'"
                 class="color-primary full-width sf-button"
                 :aria-disabled="false"
                 type="button"
@@ -169,6 +180,7 @@
       <!-- button to open cookie tab -->
       <button
         v-else
+        v-e2e="'cookie-show-banner-button'"
         class="color-primary sf-button openCookies"
         aria-label="Cookie control"
         @click="bannerIsHidden = false"
