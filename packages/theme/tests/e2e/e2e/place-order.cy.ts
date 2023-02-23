@@ -54,6 +54,8 @@ context('Order placement', () => {
     page.checkout.shipping.continueToPaymentButton.click();
     cy.wait(['@saveAddress', '@loadAddresses', '@getShippingProvider', '@getPaymentProviders']);
 
+    cy.get('[data-e2e*="shipping-method"]').should('exist');
+    cy.get('[data-e2e*="payment-method"]').should('exist');
     page.checkout.payment.paymentMethods.first().click();
     page.checkout.payment.terms.click();
     page.checkout.payment.makeAnOrderButton.click();
