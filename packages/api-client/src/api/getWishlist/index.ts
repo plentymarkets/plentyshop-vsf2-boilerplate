@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import {Context} from '../../types';
-import { Wishlist } from '../../types/wishlist';
+
+import { Context, Wishlist} from 'src/types';
 
 export async function getWishlist(context: Context): Promise<Wishlist> {
   const url: URL = new URL('/rest/io/itemWishList/', context.config.api.url);
