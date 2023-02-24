@@ -28,20 +28,18 @@ const factoryParams = {
       isCurrent: false
     };
 
-    console.log('search params facet', params);
-
     if (category) {
-      params.data.categoryId = category.id;
+      params.input.categoryId = category.id;
     }
 
-    const data = await context.$plentymarkets.api.getFacet(params.data);
+    const data = await context.$plentymarkets.api.getFacet(params.input as FacetSearchCriteria);
     return {
       products: data.products,
       tree: treeWrapper,
       facets: data.facets,
       pagination: {
         perPageOptioons: ITEMS_PER_PAGE,
-        total: data.pagination.totals
+        total: data?.pagination?.totals || 0
       }
     };
   }

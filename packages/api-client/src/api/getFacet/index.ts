@@ -19,14 +19,16 @@ export async function getFacet(context: Context, params: FacetSearchCriteria): P
   if (params.facets) {
     url.searchParams.set('facets', params.facets);
   }
-  const facetResponse = await context.client.get(url.href) as FacetResponse;
+  const { data } = await context.client.get(url.href);
+
+  const facetData: FacetResponse = data;
 
   return {
-    products: facetResponse.data.itemList.documents.map(document => document.data),
+    products: facetData.data.itemList.documents.map(document => document.data),
     pagination: {
-      totals: facetResponse.data.itemList.total
+      totals: facetData.data.itemList.total
     },
-    facets: facetResponse.data.facets
+    facets: facetData.data.facets
   };
 }
 
