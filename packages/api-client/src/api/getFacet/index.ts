@@ -21,7 +21,7 @@ export async function getFacet(context: Context, params: FacetSearchCriteria): P
   }
   const { data } = await context.client.get(url.href);
 
-  const facetData: FacetResponse = data;
+  const facetData: FacetResponse = data.data;
 
   return {
     products: facetData.data.itemList.documents.map(document => document.data),

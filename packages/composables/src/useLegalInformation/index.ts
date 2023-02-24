@@ -3,11 +3,11 @@ import { useVSFContext, sharedRef } from '@vue-storefront/core';
 import { LegalInformationResponse } from '@vue-storefront/plentymarkets-api';
 import { ComposableBaseResponse } from '../types';
 
-export interface useActiveShippingCountriesResponse extends ComposableBaseResponse<LegalInformationResponse> {
+export interface UseLegalInformationResponse extends ComposableBaseResponse<LegalInformationResponse> {
   load: (type: string) => Promise<void>
 }
 
-export const useLegalInformation = (id: string): useActiveShippingCountriesResponse => {
+export const useLegalInformation = (id: string): UseLegalInformationResponse => {
 
   const context = useVSFContext();
   const result = sharedRef(null, `useLegalInformation-${id}`);

@@ -3,11 +3,11 @@ import { sharedRef, useVSFContext } from '@vue-storefront/core';
 import { ActiveShippingCountry } from '@vue-storefront/plentymarkets-api';
 import { ComposableBaseResponse } from '../types';
 
-export interface useActiveShippingCountriesResponse extends ComposableBaseResponse<ActiveShippingCountry[]> {
+export interface UseActiveShippingCountriesResponse extends ComposableBaseResponse<ActiveShippingCountry[]> {
   load:() => Promise<void>
 }
 
-export const useActiveShippingCountries = (): useActiveShippingCountriesResponse => {
+export const useActiveShippingCountries = (): UseActiveShippingCountriesResponse => {
   const context = useVSFContext();
 
   const result = sharedRef([], 'active-shipping-countries-result');

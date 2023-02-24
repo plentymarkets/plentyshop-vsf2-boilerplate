@@ -17,7 +17,6 @@ export interface ItemCount {
 export type Category = {
     id: number,
     type: string,
-    // TODO: maybe implement correct type
     itemCount: ItemCount[],
     childCount: number,
     children: Category[],
