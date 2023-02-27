@@ -223,14 +223,13 @@ export default {
   },
   // CookieBar
   'CookieBar': {
-    'Cookies': 'Cookies',
     'Privacy Settings': 'Datenschutzeinstellungen',
     'More information': 'Mehr Informationen',
     'Further Settings': 'Weitere Einstellungen',
     'Back': 'Zurück',
     'Show less': 'Weniger anzeigen',
     'Accept All': 'Alle akzeptieren',
-    'Reject All': 'Alles ablehnen',
+    'Reject All': 'Alle ablehnen',
     'Accept Selection': 'Auswahl akzeptieren'
   },
   // MyNewsletter

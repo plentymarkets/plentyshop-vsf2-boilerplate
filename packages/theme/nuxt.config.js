@@ -179,7 +179,7 @@ const config = {
               Provider: 'plentyShop LTS',
               Status:
                 'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy': '/privacyPolicy',
+              'Privacy policy': '/PrivacyPolicy',
               Lifespan: '1 days'
             },
             {
@@ -187,7 +187,7 @@ const config = {
               Provider: 'plentyShop LTS',
               Status:
                 'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy':'/privacyPolicy',
+              'Privacy policy':'/PrivacyPolicy',
               Lifespan: '100 days'
             },
             {
@@ -195,7 +195,7 @@ const config = {
               Provider: 'plentyShop LTS',
               Status:
                 'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy': '',
+              'Privacy policy': '/PrivacyPolicy',
               Lifespan: '100 days'
             }
           ],
@@ -213,7 +213,7 @@ const config = {
               Provider: 'plentyShop LTS',
               Status:
                 'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy':'/privacyPolicy',
+              'Privacy policy':'/PrivacyPolicy',
               Lifespan: '100 days'
             },
             {
@@ -221,7 +221,7 @@ const config = {
               Provider: 'plentyShop LTS',
               Status:
                 'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy':'/privacyPolicy',
+              'Privacy policy':'/PrivacyPolicy',
               Lifespan: '100 days'
             },
             {
@@ -229,7 +229,7 @@ const config = {
               Provider: 'plentyShop LTS',
               Status:
                 'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy':'/privacyPolicy',
+              'Privacy policy':'/PrivacyPolicy',
               Lifespan: '100 days'
             }
           ],
@@ -247,7 +247,7 @@ const config = {
               Provider: 'plentyShop LTS',
               Status:
                 'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy':'/privacyPolicy',
+              'Privacy policy':'/PrivacyPolicy',
               Lifespan: '100 days'
             },
             {
@@ -255,7 +255,7 @@ const config = {
               Provider: 'plentyShop LTS',
               Status:
                 'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy':'/privacyPolicy',
+              'Privacy policy':'/PrivacyPolicy',
               Lifespan: '100 days'
             },
             {
@@ -263,7 +263,7 @@ const config = {
               Provider: 'plentyShop LTS',
               Status:
                 'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy':'/privacyPolicy',
+              'Privacy policy':'/PrivacyPolicy',
               Lifespan: '100 days'
             }
           ],
@@ -281,7 +281,7 @@ const config = {
               Provider: 'plentyShop LTS',
               Status:
                 'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy':'/privacyPolicy',
+              'Privacy policy':'/PrivacyPolicy',
               Lifespan: '100 days'
             },
             {
@@ -289,7 +289,7 @@ const config = {
               Provider: 'plentyShop LTS',
               Status:
                 'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy':'/privacyPolicy',
+              'Privacy policy':'/PrivacyPolicy',
               Lifespan: '100 days'
             },
             {
@@ -297,7 +297,7 @@ const config = {
               Provider: 'plentyShop LTS',
               Status:
                 'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy':'/privacyPolicy',
+              'Privacy policy':'/PrivacyPolicy',
               Lifespan: '100 days'
             }
           ],

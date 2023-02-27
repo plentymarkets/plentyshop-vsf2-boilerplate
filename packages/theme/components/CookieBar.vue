@@ -15,10 +15,10 @@
               {{ cookieBarGetters.getBarDescription(cookieGroupsFromConfig) }}
 
               <SfButton
-                link="/privacy-policy"
+                link="/PrivacyPolicy"
                 class="sf-button--text"
               >
-                {{ $t('Privacy Settings') }}
+                {{ $t('CookieBar.Privacy Settings') }}
               </SfButton>
             </div>
             <!-- checkboxes -->
@@ -96,7 +96,14 @@
                             {{ propKey }}
                           </div>
                           <div class="propDescription">
-                            {{ localReplace(cookie, propKey) }}
+                            <template v-if="propKey === 'Privacy policy'">
+                              <SfLink :link="localePath(cookie[propKey])">
+                                {{ $t('CookieBar.Privacy Settings') }}
+                              </SfLink>
+                            </template>
+                            <template v-else>
+                              {{ cookie[propKey] }}
+                            </template>
                           </div>
                         </div>
                       </div>
@@ -109,14 +116,14 @@
                     class="sf-button--text mb-xs"
                     @click="cookieGroup.showMore = true"
                   >
-                    {{ $t('More information') }}
+                    {{ $t('CookieBar.More information') }}
                   </SfButton>
                   <SfButton
                     v-else
                     class="sf-button--text mb-xs"
                     @click="cookieGroup.showMore = false"
                   >
-                    {{ $t('Show less') }}
+                    {{ $t('CookieBar.Show less') }}
                   </SfButton>
                 </div>
               </div>
@@ -129,14 +136,14 @@
               class="sf-button--text"
               @click="furtherSettingsOn = true"
             >
-              {{ $t('Further Settings') }}
+              {{ $t('CookieBar.Further Settings') }}
             </SfButton>
             <SfButton
               v-else
               class="sf-button--text"
               @click="furtherSettingsOn = false"
             >
-              {{ $t('Back') }}
+              {{ $t('CookieBar.Back') }}
             </SfButton>
           </div>
           <!-- action buttons -->
@@ -150,7 +157,7 @@
                 aria-label="button"
                 @click="convertAndSaveCookies(true, true)"
               >
-                {{ $t('Accept All') }}
+                {{ $t('CookieBar.Accept All') }}
               </button>
             </div>
             <div class="actionButton">
@@ -162,7 +169,7 @@
                 aria-label="button"
                 @click="convertAndSaveCookies(true, false)"
               >
-                {{ $t('Reject All') }}
+                {{ $t('CookieBar.Reject All') }}
               </button>
             </div>
             <div class="actionButton">
@@ -173,7 +180,7 @@
                 type="button"
                 @click="convertAndSaveCookies(false)"
               >
-                {{ $t('Accept Selection') }}
+                {{ $t('CookieBar.Accept Selection') }}
               </button>
             </div>
           </div>
@@ -195,7 +202,7 @@
           :coverage="1"
         />
         <div class="cookiesText">
-          {{ $t('Cookies') }}
+          {{ $t('CookieBar.Privacy Settings') }}
         </div>
       </button>
     </div>
@@ -205,12 +212,13 @@
 <script>
 import { cookieBarGetters } from '@vue-storefront/plentymarkets';
 import { ref, useContext } from '@nuxtjs/composition-api';
-import { SfCheckbox, SfIcon, SfButton } from '@storefront-ui/vue';
+import { SfCheckbox, SfIcon, SfButton, SfLink } from '@storefront-ui/vue';
 export default {
   components: {
     SfIcon,
     SfCheckbox,
-    SfButton
+    SfButton,
+    SfLink
   },
   setup() {
     const { $config, app } = useContext();
@@ -319,10 +327,6 @@ export default {
 
     initcookieJson();
 
-    const localReplace = (cookie, propKey) => {
-      return propKey === 'Privacy policy' ? window.location.origin + cookie[propKey] : cookie[propKey];
-    };
-
     return {
       defaultCheckboxIndex,
       furtherSettingsOn,
@@ -331,7 +335,6 @@ export default {
       cookieJson,
       cookieJsonSaved,
       cookieGroupsFromConfig,
-      localReplace,
       setChildrenCheckboxes,
       updateParentCheckbox,
       convertAndSaveCookies
@@ -342,13 +345,13 @@ export default {
 
 <style lang="scss" scoped>
 .propKey {
-  width:25%;
+  width: 25%;
 }
 .propDescription {
-  width:75%;
+  width: 75%;
 }
 .cookieGroupCard {
-  width: 604px;
+  width: 33vw;
   position: fixed;
   bottom: 0;
   right: var(--spacer-xs);
