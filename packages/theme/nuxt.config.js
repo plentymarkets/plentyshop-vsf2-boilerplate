@@ -179,8 +179,7 @@ const config = {
               Provider: 'plentyShop LTS',
               Status:
                 'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy':
-                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
+              'Privacy policy': '/privacyPolicy',
               Lifespan: '1 days'
             },
             {
@@ -188,8 +187,7 @@ const config = {
               Provider: 'plentyShop LTS',
               Status:
                 'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy':
-                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
+              'Privacy policy':'/privacyPolicy',
               Lifespan: '100 days'
             },
             {
@@ -197,8 +195,7 @@ const config = {
               Provider: 'plentyShop LTS',
               Status:
                 'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy':
-                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
+              'Privacy policy': '',
               Lifespan: '100 days'
             }
           ],
@@ -216,8 +213,7 @@ const config = {
               Provider: 'plentyShop LTS',
               Status:
                 'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy':
-                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
+              'Privacy policy':'/privacyPolicy',
               Lifespan: '100 days'
             },
             {
@@ -225,8 +221,7 @@ const config = {
               Provider: 'plentyShop LTS',
               Status:
                 'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy':
-                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
+              'Privacy policy':'/privacyPolicy',
               Lifespan: '100 days'
             },
             {
@@ -234,8 +229,7 @@ const config = {
               Provider: 'plentyShop LTS',
               Status:
                 'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy':
-                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
+              'Privacy policy':'/privacyPolicy',
               Lifespan: '100 days'
             }
           ],
@@ -253,8 +247,7 @@ const config = {
               Provider: 'plentyShop LTS',
               Status:
                 'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy':
-                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
+              'Privacy policy':'/privacyPolicy',
               Lifespan: '100 days'
             },
             {
@@ -262,8 +255,7 @@ const config = {
               Provider: 'plentyShop LTS',
               Status:
                 'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy':
-                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
+              'Privacy policy':'/privacyPolicy',
               Lifespan: '100 days'
             },
             {
@@ -271,8 +263,7 @@ const config = {
               Provider: 'plentyShop LTS',
               Status:
                 'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy':
-                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
+              'Privacy policy':'/privacyPolicy',
               Lifespan: '100 days'
             }
           ],
@@ -290,8 +281,7 @@ const config = {
               Provider: 'plentyShop LTS',
               Status:
                 'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy':
-                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
+              'Privacy policy':'/privacyPolicy',
               Lifespan: '100 days'
             },
             {
@@ -299,8 +289,7 @@ const config = {
               Provider: 'plentyShop LTS',
               Status:
                 'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy':
-                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
+              'Privacy policy':'/privacyPolicy',
               Lifespan: '100 days'
             },
             {
@@ -308,8 +297,7 @@ const config = {
               Provider: 'plentyShop LTS',
               Status:
                 'The consent cookies stores the user’s state of consent for cookies on our page.',
-              'Privacy policy':
-                'https://timms.plentymarkets-cloud01.com/en/privacy-policy/',
+              'Privacy policy':'/privacyPolicy',
               Lifespan: '100 days'
             }
           ],

@@ -70,7 +70,9 @@
                     class="ml-xs cookieDetails"
                   >
                     <div
-                      v-for="(cookie, cookieIndex) in cookieBarGetters.getCookiesList(cookieGroup)"
+                      v-for="(
+                        cookie, cookieIndex
+                      ) in cookieBarGetters.getCookiesList(cookieGroup)"
                       :key="cookieIndex"
                       class="p-sm"
                     >
@@ -82,20 +84,18 @@
                         @change="updateParentCheckbox(cookieGroup)"
                       />
                       <div
-                        v-for="(cookieInfo, cookieIndex) in Object.entries(
-                          cookie
-                        )"
-                        :key="cookieIndex"
+                        v-for="propKey in Object.keys(cookie)"
+                        :key="propKey"
                       >
                         <div class="flex full-width mb-xs p-xs bg-white">
                           <div
-                            v-if="cookieInfo[0] !== 'name'"
+                            v-if="propKey !== 'name'"
                             class="col-2"
                           >
-                            {{ cookieInfo[0] }}
+                            {{ propKey }}
                           </div>
                           <div class="col-4">
-                            {{ cookieInfo[1] }}
+                            {{ localReplace(cookie, propKey) }}
                           </div>
                         </div>
                       </div>
@@ -317,6 +317,10 @@ export default {
 
     initcookieJson();
 
+    const localReplace = (cookie, propKey) => {
+      return propKey === 'Privacy policy' ? window.location.origin + cookie[propKey] : cookie[propKey];
+    };
+
     return {
       defaultCheckboxIndex,
       furtherSettingsOn,
@@ -325,6 +329,7 @@ export default {
       cookieJson,
       cookieJsonSaved,
       cookieGroupsFromConfig,
+      localReplace,
       setChildrenCheckboxes,
       updateParentCheckbox,
       convertAndSaveCookies
