@@ -1,5 +1,4 @@
 // Composables
-export { useBilling } from './useBilling';
 export { useCart } from './useCart';
 export { useCategory } from './useCategory';
 export { useFacet } from './useFacet';
@@ -7,7 +6,6 @@ export { useForgotPassword } from './useForgotPassword';
 export { useMakeOrder } from './useMakeOrder';
 export { useProduct } from './useProduct';
 export { useReview } from './useReview';
-export { useShipping } from './useShipping';
 export { useShippingProvider } from './useShippingProvider';
 export { useStore } from './useStore';
 export { useUser } from './useUser';
