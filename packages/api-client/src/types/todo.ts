@@ -4,8 +4,6 @@ export type BillingAddress = TODO;
 
 export type Coupon = TODO;
 
-export type FacetSearchCriteria = TODO;
-
 export type PasswordResetResult = TODO;
 
 export type ProductFilter = TODO;

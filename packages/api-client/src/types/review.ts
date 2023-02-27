@@ -1,3 +1,5 @@
+import { CustomQuery } from '@vue-storefront/core';
+
 export declare type ReviewItem = {
     id: number,
     title: string,
@@ -68,7 +70,8 @@ export type Review = {
 
 export type ReviewSearchParams = {
     productId: string,
-    itemId: number
+    itemId: number,
+    customQuery?: CustomQuery
 }
 
 export type ReviewAverage = {

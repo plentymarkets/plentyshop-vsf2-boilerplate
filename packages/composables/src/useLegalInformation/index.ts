@@ -1,7 +1,13 @@
 import { computed } from '@nuxtjs/composition-api';
 import { useVSFContext, sharedRef } from '@vue-storefront/core';
+import { LegalInformationResponse } from '@vue-storefront/plentymarkets-api';
+import { ComposableBaseResponse } from '../types';
 
-export const useLegalInformation = (id: string): any => {
+export interface UseLegalInformationResponse extends ComposableBaseResponse<LegalInformationResponse> {
+  load: (type: string) => Promise<void>
+}
+
+export const useLegalInformation = (id: string): UseLegalInformationResponse => {
 
   const context = useVSFContext();
   const result = sharedRef(null, `useLegalInformation-${id}`);
@@ -9,7 +15,7 @@ export const useLegalInformation = (id: string): any => {
   const error = sharedRef({
     search: null
   }, `useLegalInformation-error-${id}`);
-  const load = async (type: string) => {
+  const load = async (type: string): Promise<void> => {
 
     try {
       loading.value = true;

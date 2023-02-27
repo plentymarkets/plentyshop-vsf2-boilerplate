@@ -1,7 +1,13 @@
 import { computed } from '@nuxtjs/composition-api';
 import { sharedRef, useVSFContext } from '@vue-storefront/core';
+import { ActiveShippingCountry } from '@vue-storefront/plentymarkets-api';
+import { ComposableBaseResponse } from '../types';
 
-export const useActiveShippingCountries = (): any => {
+export interface UseActiveShippingCountriesResponse extends ComposableBaseResponse<ActiveShippingCountry[]> {
+  load:() => Promise<void>
+}
+
+export const useActiveShippingCountries = (): UseActiveShippingCountriesResponse => {
   const context = useVSFContext();
 
   const result = sharedRef([], 'active-shipping-countries-result');
@@ -10,7 +16,7 @@ export const useActiveShippingCountries = (): any => {
 
   const error = sharedRef({ search: null }, 'active-shipping-countries-error');
 
-  const load = async () => {
+  const load = async (): Promise<void> => {
     try {
       loading.value = true;
       result.value = await context.$plentymarkets.api.getActiveShippingCountries();

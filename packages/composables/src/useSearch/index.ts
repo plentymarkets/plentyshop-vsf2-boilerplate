@@ -1,8 +1,13 @@
-import { ItemSearchParams } from '@vue-storefront/plentymarkets-api';
+import { ItemSearchParams, ItemSearchResult } from '@vue-storefront/plentymarkets-api';
 import { computed } from '@nuxtjs/composition-api';
 import { sharedRef, useVSFContext } from '@vue-storefront/core';
+import { ComposableBaseResponse } from '../types';
 
-export const useSearch = (id: string): any => {
+export interface UseSearchResponse extends ComposableBaseResponse<ItemSearchResult> {
+  search: (params: ItemSearchParams) => Promise<void>
+}
+
+export const useSearch = (id: string): UseSearchResponse => {
 
   const context = useVSFContext();
   const result = sharedRef(null, `useCustom-${id}`);
@@ -11,7 +16,7 @@ export const useSearch = (id: string): any => {
     search: null
   }, `useCustom-error-${id}`);
 
-  const search = async (params: ItemSearchParams) => {
+  const search = async (params: ItemSearchParams): Promise<void> => {
 
     try {
       loading.value = true;

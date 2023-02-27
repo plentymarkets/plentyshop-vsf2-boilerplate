@@ -1,17 +1,46 @@
 
 import { useRoute, getCurrentInstance } from '@nuxtjs/composition-api';
+import { AgnosticCategoryTree, Context } from '@vue-storefront/core';
 
-const getContext = () => {
+export interface GetFacetsFromURLResponse {
+  categorySlug?: string,
+  facets?: string,
+  itemsPerPage?: number,
+  page?: number,
+  sort?: string,
+  term?: string
+  categoryId?: string
+}
+
+interface Filters {
+  [key: number]: string
+}
+
+export interface UseUiHelperResponse {
+  getFacetsFromURL(): GetFacetsFromURLResponse
+  getCatLink(category: AgnosticCategoryTree): string
+  changeSorting(sort: string): void
+  changeFilters(filters: Filters): void
+  changeItemsPerPage(itemsPerPage: number): void
+  setTermForUrl(term: string): void
+  isFacetColor(facet: unknown): boolean
+  isFacetCheckbox(facet: unknown): boolean
+  getSearchTermFromUrl(): void
+  changeAttributeSelection(productId: string): void
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const getContext = (): Context => {
   const vm = getCurrentInstance();
   return vm.root.proxy;
 };
 
 const nonFilters = ['page', 'sort', 'term', 'itemsPerPage'];
 
-const useUiHelpers = (): any => {
+const useUiHelpers = (): UseUiHelperResponse => {
 
   const context = getContext();
-  const getFacetsFromURL = () => {
+  const getFacetsFromURL = (): GetFacetsFromURLResponse => {
     const route = useRoute();
     const { query } = context.$router.currentRoute;
     return {
@@ -21,21 +50,21 @@ const useUiHelpers = (): any => {
       facets: query.facets,
       itemsPerPage: parseInt(query.itemsPerPage as string) || 20,
       term: query.term
-    } as any;
+    };
   };
 
   // eslint-disable-next-line
-  const getCatLink = (category): string => {
+  const getCatLink = (category: AgnosticCategoryTree): string => {
     return `/c/${category.slug}`;
   };
 
   // eslint-disable-next-line
-  const changeSorting = (sort) => {
+  const changeSorting = (sort: string) => {
     const { query } = context.$router.currentRoute;
     context.$router.push({ query: { ...query, sort } });
   };
 
-  const reduceFilters = (query) => (prev, curr) => {
+  const reduceFilters = (query: GetFacetsFromURLResponse) => (prev: GetFacetsFromURLResponse, curr: string): GetFacetsFromURLResponse => {
     const makeArray = Array.isArray(query[curr]) || nonFilters.includes(curr);
 
     return {
@@ -44,7 +73,7 @@ const useUiHelpers = (): any => {
     };
   };
 
-  const getFiltersDataFromUrl = (context, onlyFilters) => {
+  const getFiltersDataFromUrl = (context: Context, onlyFilters: boolean): GetFacetsFromURLResponse => {
     const { query } = context.$router.history.current;
 
     return Object.keys(query)
@@ -52,8 +81,7 @@ const useUiHelpers = (): any => {
       .reduce(reduceFilters(query), {});
   };
 
-  // eslint-disable-next-line
-  const changeFilters = (filters) => {
+  const changeFilters = (filters: Filters): void => {
     const filtersIds = Object.values(filters).filter((entry: string []) => entry.length > 0).join(',');
     if (filtersIds) {
       context.$router.push({
@@ -71,8 +99,7 @@ const useUiHelpers = (): any => {
     }
   };
 
-  // eslint-disable-next-line
-  const changeItemsPerPage = (itemsPerPage: number) => {
+  const changeItemsPerPage = (itemsPerPage: number): void => {
     context.$router.push({
       query: {
         ...getFiltersDataFromUrl(context, false),
@@ -81,7 +108,7 @@ const useUiHelpers = (): any => {
     });
   };
 
-  const changeAttributeSelection = (productId: string) => {
+  const changeAttributeSelection = (productId: string): void => {
     context.$router.push({
       query: {
         ...getFiltersDataFromUrl(context, false)
@@ -92,8 +119,7 @@ const useUiHelpers = (): any => {
     });
   };
 
-  // eslint-disable-next-line
-  const setTermForUrl = (term: string) => {
+  const setTermForUrl = (term: string): void => {
     context.$router.push({
       query: {
         ...getFiltersDataFromUrl(context, false),
@@ -102,8 +128,8 @@ const useUiHelpers = (): any => {
     });
   };
 
-  // eslint-disable-next-line
-  const isFacetColor = (facet): boolean => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const isFacetColor = (facet: unknown): boolean => {
     console.warn('[VSF] please implement useUiHelpers.isFacetColor.');
 
     return false;
@@ -116,7 +142,7 @@ const useUiHelpers = (): any => {
     return false;
   };
 
-  const getSearchTermFromUrl = () => {
+  const getSearchTermFromUrl = (): void => {
     console.warn('[VSF] please implement useUiHelpers.getSearchTermFromUrl.');
   };
 

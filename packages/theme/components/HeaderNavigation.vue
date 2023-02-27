@@ -59,9 +59,8 @@ export default {
     const categoryTree = computed(() => loading && categories.value.map((cat) => categoryGetters.getTree(cat)));
 
     onSSR(async () => {
-      await search({});
+      await search();
     });
-
     const routeToCategory = (category) => {
       router.push(context.root.localePath(`/c/${category.slug}`));
       toggleMobileMenu();

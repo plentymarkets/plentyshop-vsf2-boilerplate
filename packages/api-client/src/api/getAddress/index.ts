@@ -1,4 +1,4 @@
-import { Address, AddressData, AddressOptionType, AddressType, Context } from 'src/types';
+import { Address, AddressData, AddressOptionType, AddressType, Context, SetAddressDefaultResponse, SaveAddressResponse } from 'src/types';
 
 export async function loadAddresses(context: Context, typeId: AddressType): Promise<Address[]> {
   const url: URL = new URL('/rest/io/customer/address', context.config.api.url);
@@ -9,14 +9,7 @@ export async function loadAddresses(context: Context, typeId: AddressType): Prom
   return (data.data as AddressData[]).map(addressData => mapAddressForClient(addressData)) || [];
 }
 
-export async function saveBillingAsShipping(context: Context): Promise<any> {
-  const url: URL = new URL('/rest/io/customer/address/-99/', context.config.api.url);
-  url.searchParams.set('typeId', AddressType.Shipping.toString());
-  const { data } = await context.client.put(url.href, { supressNotifications: true, templateType: 'checkout'});
-  return data;
-}
-
-export async function saveAddress(context: Context, typeId: AddressType = AddressType.Billing, addressData: AddressData): Promise<any> {
+export async function saveAddress(context: Context, typeId: AddressType = AddressType.Billing, addressData: Address): Promise<SaveAddressResponse> {
   const url: URL = new URL('/rest/io/customer/address/', context.config.api.url);
 
   url.searchParams.set('typeId', typeId.toString());
@@ -30,7 +23,7 @@ export async function saveAddress(context: Context, typeId: AddressType = Addres
   return data.data;
 }
 
-export async function setAddressAsDefault(context: Context, addressId: number, typeId: number): Promise<any> {
+export async function setAddressAsDefault(context: Context, addressId: number, typeId: number): Promise<SetAddressDefaultResponse> {
   const url: URL = new URL(`/rest/io/customer/address/${addressId}`, context.config.api.url);
   url.searchParams.set('typeId', typeId.toString());
   return await context.client.put(url.href);

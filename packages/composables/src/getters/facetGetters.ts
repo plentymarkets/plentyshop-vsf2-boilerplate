@@ -116,7 +116,7 @@ function getBreadcrumbs(params: FacetSearchResult<Facet>, categories?: Category[
   ];
 }
 
-export const facetGetters: FacetsGetters<Facet, FacetSearchCriteria> = {
+export const facetGetters: FacetsGetters<Facet, Product[], FacetSearchCriteria> = {
   getSortOptions,
   getGrouped,
   getAll,

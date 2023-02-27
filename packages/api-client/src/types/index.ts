@@ -3,6 +3,7 @@ export * from './apiMethods';
 export * from './cart';
 export * from './category';
 export * from './country';
+export * from './events';
 export * from './filters';
 export * from './itemSearch';
 export * from './legal';

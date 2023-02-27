@@ -1,3 +1,6 @@
+import { UserShippingAddressSearchCriteria } from './todo';
+import { AfterBasketChanged, CheckoutChanged } from './events';
+import { CustomQuery } from '@vue-storefront/core';
 export enum AddressType {
     Billing = 1,
     Shipping = 2
@@ -70,7 +73,7 @@ export type Address = {
 }
 
 export interface UserAddressGetters {
-    getAddresses: (addresses: Address[], criteria?: Record<string, any>) => Address[];
+    getAddresses: (addresses: Address[], criteria?: UserShippingAddressSearchCriteria) => Address[];
     getDefault: (addresses: Address[]) => Address;
     getTotal: (addresses: Address[]) => number;
     getPostCode: (address: Address) => string;
@@ -90,4 +93,40 @@ export interface UserAddressGetters {
     getAddressWithoutId(address: Address): Address;
     getCountryId(address: Address): string;
     getStateId(address: Address): string;
+}
+
+export interface BillingAddressDetailsParams {
+    address: Readonly<Address>
+    billing: Readonly<Address[]>;
+    customQuery?: CustomQuery;
+}
+
+export interface ShippingAddressDetailsParams {
+    address: Readonly<Address>
+    shipping: Readonly<Address[]>;
+    customQuery?: CustomQuery;
+}
+
+export interface SetAddressDefaultResponse {
+    data: string
+    events: {
+        AfterBasketChanged: AfterBasketChanged,
+        CheckoutChanged: CheckoutChanged
+    }
+}
+
+export interface DeleteAddressResponse {
+    data: Address[]
+    events: {
+        AfterBasketChanged: AfterBasketChanged,
+        CheckoutChanged: CheckoutChanged
+    }
+}
+
+export interface SaveAddressResponse {
+    data: Address,
+    events: {
+        AfterBasketChanged: AfterBasketChanged,
+        CheckoutChanged: CheckoutChanged
+    }
 }

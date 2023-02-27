@@ -1,3 +1,6 @@
+import { CustomQuery } from '@vue-storefront/core';
+import { AfterAccountAuthentication, AfterBasketChanged, CheckoutChanged, FrontendUpdateCustomerSettings } from './events';
+
 export type User = {
     guestMail?: string,
     accounts?: []
@@ -47,4 +50,22 @@ export type User = {
     updatedAt?: string
     userId?: number
     valuta?: number
+}
+
+export interface UserRegisterParams {
+    email: string
+    password: string
+    firstName: string
+    lastName: string
+    customQuery?: CustomQuery;
+}
+
+export interface UserChangeResponse {
+    data: User,
+    events: {
+        AfterBasketChanged: AfterBasketChanged,
+        CheckoutChanged: CheckoutChanged,
+        AfterAccountAuthentication: AfterAccountAuthentication,
+        FrontendUpdateCustomerSettings: FrontendUpdateCustomerSettings
+    }
 }

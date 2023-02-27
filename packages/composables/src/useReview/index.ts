@@ -17,11 +17,10 @@ const params: UseReviewFactoryParams<Review, SearchParams, AddParams> = {
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  addReview: async (context: Context, params: ReviewSearchParams) => {
+  addReview: async (context: Context, params: ReviewSearchParams): Promise<Review> => {
     console.log('Mocked: useReview.addReview');
     const data = await context.$plentymarkets.api.getReview(params);
     return data;
-
   }
 };
 

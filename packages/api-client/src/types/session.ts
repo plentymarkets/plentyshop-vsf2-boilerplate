@@ -1,9 +1,10 @@
+import { Cart } from './cart';
 import { User } from './user';
 export type SessionSearchPramas = {
     initialRestCall: string
 }
 
 export type SessionResult = {
-    basket: any,
+    basket: Cart,
     user: User,
 }
