@@ -30,6 +30,7 @@
               >
                 <SfCheckbox
                   v-model="cookieGroup.accepted"
+                  v-e2e="`checkbox-${index}`"
                   :disabled="index === defaultCheckboxIndex"
                   :name="cookieBarGetters.getCookieGroupName(cookieGroup)"
                   :label="cookieBarGetters.getCookieGroupName(cookieGroup)"
@@ -166,6 +167,7 @@
             </div>
             <div class="actionButton">
               <button
+                v-e2e="'accept-selection'"
                 class="sf-button full-width flat"
                 :aria-disabled="false"
                 type="button"
