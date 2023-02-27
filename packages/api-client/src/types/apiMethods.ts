@@ -1,6 +1,6 @@
 import { ApiClientMethods, IntegrationContext, ProductsSearchParams, UseUserOrderSearchParams } from '@vue-storefront/core';
 import { AxiosInstance } from 'axios';
-import { AddressData, AddressType, DeleteAddressResponse, SetAddressDefaultResponse, SaveAddressResponse } from './address';
+import { AddressType, DeleteAddressResponse, SetAddressDefaultResponse, SaveAddressResponse, Address } from './address';
 import { Cart } from './cart';
 import { Category, CategoryPage, FacetSearchCriteria } from './category';
 import { ActiveShippingCountry } from './country';
@@ -13,7 +13,6 @@ import { RegisterParams } from './register';
 import { Review, ReviewSearchParams } from './review';
 import { SessionResult } from './session';
 import { ShippingProvider } from './shipping';
-import { TODO } from './todo';
 import { UserChangeResponse } from './user';
 import { Wishlist } from './wishlist';
 
@@ -99,11 +98,11 @@ export interface PlentymarketsApiMethods {
 
     loginAsGuest(email: string): Promise<SessionResult>
 
-    saveAddress(typeId: AddressType, addressData: TODO): Promise<SaveAddressResponse>
+    saveAddress(typeId: AddressType, addressData: Address): Promise<SaveAddressResponse>
 
     setAddressAsDefault(addressId: number, typeId: number): Promise<SetAddressDefaultResponse>;
 
-    loadAddresses(typeId: AddressType): Promise<AddressData[]>
+    loadAddresses(typeId: AddressType): Promise<Address[]>
 
     deleteAddress(addressId: number, typeId: number): Promise<DeleteAddressResponse>;
 

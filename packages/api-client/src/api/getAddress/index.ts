@@ -9,7 +9,7 @@ export async function loadAddresses(context: Context, typeId: AddressType): Prom
   return (data.data as AddressData[]).map(addressData => mapAddressForClient(addressData)) || [];
 }
 
-export async function saveAddress(context: Context, typeId: AddressType = AddressType.Billing, addressData: AddressData): Promise<SaveAddressResponse> {
+export async function saveAddress(context: Context, typeId: AddressType = AddressType.Billing, addressData: Address): Promise<SaveAddressResponse> {
   const url: URL = new URL('/rest/io/customer/address/', context.config.api.url);
 
   url.searchParams.set('typeId', typeId.toString());

@@ -96,14 +96,14 @@ export interface UserAddressGetters {
 }
 
 export interface BillingAddressDetailsParams {
-    address: Address
-    billing: Readonly<Address>;
+    address: Readonly<Address>
+    billing: Readonly<Address[]>;
     customQuery?: CustomQuery;
 }
 
 export interface ShippingAddressDetailsParams {
-    address: Address
-    shipping: Readonly<Address>;
+    address: Readonly<Address>
+    shipping: Readonly<Address[]>;
     customQuery?: CustomQuery;
 }
 
