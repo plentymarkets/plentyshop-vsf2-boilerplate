@@ -49,7 +49,7 @@
               <div
                 v-for="(cookieGroup, groupIndex) in cookieJson"
                 :key="groupIndex"
-                class="bg-grey ml-xs mb-xs"
+                class="furtherSettingsCardGroup"
               >
                 <div>
                   <SfCheckbox
@@ -91,11 +91,11 @@
                         <div class="flex full-width mb-xs p-xs bg-white">
                           <div
                             v-if="propKey !== 'name'"
-                            class="col-2"
+                            class="propKey"
                           >
                             {{ propKey }}
                           </div>
-                          <div class="col-4">
+                          <div class="propDescription">
                             {{ localReplace(cookie, propKey) }}
                           </div>
                         </div>
@@ -341,6 +341,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.propKey {
+  width:25%;
+}
+.propDescription {
+  width:75%;
+}
 .cookieGroupCard {
   width: 604px;
   position: fixed;
@@ -421,7 +427,11 @@ export default {
     bottom: 100px;
   }
 }
-
+.furtherSettingsCardGroup {
+  background: var(--_c-light-primary);
+  margin-top: var(--spacer-xs);
+  padding: var(--spacer-xs);
+}
 .card {
   background: var(--_c-light-primary-lighten);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -480,6 +490,9 @@ export default {
 }
 .mb-xs {
   margin: 0 0 var(--spacer-xs) 0;
+}
+.mt-xs {
+  margin-top: 30px;
 }
 .ml-xs {
   margin: 0 0 0 var(--spacer-xs);
