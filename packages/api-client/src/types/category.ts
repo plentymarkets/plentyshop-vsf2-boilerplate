@@ -41,11 +41,8 @@ export type Facet = {
 };
 
 export interface FacetResponse {
-    data: {
-        itemList: ItemList;
-        facets: FilterGroup[];
-    }
-    events: []
+    itemList: ItemList;
+    facets: FilterGroup[];
 }
 
 export interface FacetSearchCriteria {

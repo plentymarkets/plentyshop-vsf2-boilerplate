@@ -24,11 +24,11 @@ export async function getFacet(context: Context, params: FacetSearchCriteria): P
   const facetData: FacetResponse = data.data;
 
   return {
-    products: facetData.data.itemList.documents.map(document => document.data),
+    products: facetData.itemList.documents.map(document => document.data),
     pagination: {
-      totals: facetData.data.itemList.total
+      totals: facetData.itemList.total
     },
-    facets: facetData.data.facets
+    facets: facetData.facets
   };
 }
 
