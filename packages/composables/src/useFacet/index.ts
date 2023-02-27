@@ -27,12 +27,13 @@ const factoryParams = {
       items: [tree],
       isCurrent: false
     };
+    const facetSearchCriteria: FacetSearchCriteria = params.input as FacetSearchCriteria;
 
     if (category) {
-      params.input.categoryId = category.id;
+      facetSearchCriteria.categoryId = category.id;
     }
 
-    const data = await context.$plentymarkets.api.getFacet(params.input as FacetSearchCriteria);
+    const data = await context.$plentymarkets.api.getFacet(facetSearchCriteria);
     return {
       products: data.products,
       tree: treeWrapper,
