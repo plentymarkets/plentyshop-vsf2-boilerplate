@@ -1,5 +1,4 @@
 import page from '../pages/factory';
-import { acceptCookies } from '../pages/utils/cookie';
 
 context('Order placement', () => {
   beforeEach(function init () {
@@ -8,7 +7,6 @@ context('Order placement', () => {
         data: fixture
       };
     });
-    acceptCookies();
     page.home.visit();
   });
   it(['happyPath', 'regression'], 'Should successfully place an order as a guest user', function test () {
@@ -41,7 +39,8 @@ context('Order placement', () => {
     cy.wait('@addCartItem');
 
     page.product.header.openCart();
-    page.cart.goToCheckoutButton.click();
+    cy.get('[data-e2e="collected-product"]').should('exist');
+    page.cart.goToCheckoutButton.click({ force: true });
 
     page.checkout.checkoutlogin.continueAsUser(data.customer);
     cy.wait(['@registerUser', '@loginUser', '@getActiveShippingCountries']);
