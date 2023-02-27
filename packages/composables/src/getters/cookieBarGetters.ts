@@ -1,6 +1,6 @@
 export interface Cookie {
   name: string,
-  Provider: any[],
+  Provider: string,
   Status: string,
   Lifespan: string
 }
@@ -9,7 +9,7 @@ export interface CookieGroup {
   name: string,
   description: string,
   showMore: boolean,
-  cookies: any[]
+  cookies: Cookie[]
 }
 export interface CookieGroups {
   barTitle: string,
@@ -21,7 +21,7 @@ function getBarTitle(CookieGroups: CookieGroups): string {
   return CookieGroups?.barTitle;
 }
 
-function getBarDescription(cookieGroups: CookieGroups): any {
+function getBarDescription(cookieGroups: CookieGroups): string {
   return cookieGroups?.barDescription;
 }
 
@@ -41,7 +41,7 @@ function getCookieGroupNameWithCount(CookieGroup: CookieGroup): string {
   return CookieGroup?.name + ' (' + CookieGroup?.cookies.length + ')';
 }
 
-function getCookiesList(CookieGroup: CookieGroup): any[] {
+function getCookiesList(CookieGroup: CookieGroup): Cookie[] {
   return CookieGroup?.cookies;
 }
 

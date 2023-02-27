@@ -15,7 +15,7 @@
       <LoginModal />
       <Notification />
     </div>
-    <CookieBar></CookieBar>
+    <CookieBar />
     <LazyHydrate when-visible>
       <AppFooter />
     </LazyHydrate>
