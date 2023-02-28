@@ -45,6 +45,9 @@
       </div>
       <div v-else>
         <slot name="shipping-list">
+          <div class="pb-sf-base">
+            {{ $t('CheckoutAddressDetails.Is this still your current address') }}
+          </div>
           <AddressPicker
             :countries="countries"
             :addresses="addressList"
