@@ -100,6 +100,11 @@ html {
   @include for-mobile {
     overflow-x: hidden;
   }
+
+  @include generate-color-variants(--_c-blue-primary, #008EBD);
+  @include generate-color-variants(--_c-red-secondary, #D4021D);
+  @include assign-color-variants(--c-primary, --_c-blue-primary);
+  @include assign-color-variants(--c-secondary, --_c-red-secondary);
 }
 
 body {
