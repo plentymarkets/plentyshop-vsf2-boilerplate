@@ -70,11 +70,5 @@
   },
   "workspaces": [
     "packages/*"
-  ],
-  "dependencies": {
-    "@nuxtjs/tailwindcss": "^6.4.1"
-  },
-  "resolutions": {
-    "@nuxt/kit": "3.0.0-rc.13"
-  }
+  ]
 }
