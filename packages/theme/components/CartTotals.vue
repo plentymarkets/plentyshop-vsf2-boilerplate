@@ -37,6 +37,7 @@
     </SfProperty>
 
     <SfProperty
+      v-if="cartGetters.getCouponDiscount(totals)"
       :name="$t('CartPreview.Coupon Discount')"
       class="sf-property--full-width"
     >
