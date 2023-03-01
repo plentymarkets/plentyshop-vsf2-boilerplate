@@ -75,8 +75,8 @@ export default {
   setup() {
     const { cart } = useCart();
 
-    const totals = computed(() => cartGetters.getTotals(cart.value))
-    const couponDiscount = computed(() => cartGetters.getCouponDiscount(totals))
+    const totals = computed(() => cartGetters.getTotals(cart.value));
+    const couponDiscount = computed(() => cartGetters.getCouponDiscount(totals));
 
     return {
       cartGetters,
