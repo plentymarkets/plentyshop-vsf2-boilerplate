@@ -307,11 +307,6 @@ const config = {
     }
   },
 
-  pwa: {
-    meta: {
-      theme_color: '#5ECE7B'
-    }
-  },
   googleFonts: {
     families: {
       Raleway: {
