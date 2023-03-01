@@ -102,14 +102,14 @@ html {
   }
 
   @include generate-color-variants(--_c-blue-primary, #008EBD);
-  @include generate-color-variants(--_c-blue-secondary, #5DC3F0);
-  @include generate-color-variants(--_c-red-primary, #D4021D);
-  @include generate-color-variants(--_c-red-secondary, #F0A3AB);
+  @include generate-color-variants(--_c-blue-primary-variant, #5DC3F0);
+  @include generate-color-variants(--_c-red-secondary, #D4021D);
+  @include generate-color-variants(--_c-red-secondary-variant, #F0A3AB);
 
   @include assign-color-variants(--c-primary, --_c-blue-primary);
-  @include assign-color-variants(--c-primary-variant, --_c-blue-secondary);
-  @include assign-color-variants(--c-secondary, --_c-red-primary);
-  @include assign-color-variants(--c-secondary-variant, --_c-red-secondary);
+  @include assign-color-variants(--c-primary-variant, --_c-blue-primary-variant);
+  @include assign-color-variants(--c-secondary, --_c-red-secondary);
+  @include assign-color-variants(--c-secondary-variant, --_c-red-secondary-variant);
 }
 
 body {
