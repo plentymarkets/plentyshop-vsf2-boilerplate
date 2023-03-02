@@ -78,6 +78,7 @@ export default {
 
 <style lang="scss">
 @import "~@storefront-ui/vue/styles";
+@import "../assets/scss/theme";
 
 #layout {
   box-sizing: border-box;
@@ -100,12 +101,6 @@ export default {
   @include for-mobile {
     overflow-x: hidden;
   }
-
-  @include generate-color-variants(--_c-blue-primary, #008EBD);
-  @include generate-color-variants(--_c-blue-primary-variant, #5DC3F0);
-
-  @include assign-color-variants(--c-primary, --_c-blue-primary);
-  @include assign-color-variants(--c-primary-variant, --_c-blue-primary-variant);
 }
 
 body {
