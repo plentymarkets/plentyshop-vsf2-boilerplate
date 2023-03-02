@@ -1,4 +1,4 @@
-import { CompanyDetails } from '../types';
+import { CompanyGetters, CompanyDetails } from '@vue-storefront/plentymarkets-api';
 
 function getName(company: CompanyDetails): string {
   return company ? company.name : '';
@@ -16,7 +16,7 @@ function getEmail(company: CompanyDetails): string {
   return company ? company.email : '';
 }
 
-export const companyGetters = {
+export const companyGetters: CompanyGetters = {
   getName,
   getStreet,
   getCity,

@@ -34,13 +34,6 @@ export interface ComposableBaseResponse<T> {
   error: ComputedRef<{search: unknown}>
 }
 
-export interface CompanyDetails {
-  name: string,
-  street: string,
-  city: string,
-  email: string
-}
-
 export interface ShippingMethods {
   shippingMethod: ShippingMethod[]
 }

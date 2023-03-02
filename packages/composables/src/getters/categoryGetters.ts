@@ -68,7 +68,7 @@ function getLabel(category: Category): string {
   return category ? category.label : '';
 }
 
-function getItems(category: AgnosticCategoryTree): AgnosticCategoryTree[] {
+function getItems(category: Category): AgnosticCategoryTree[] {
   return category ? category.items : [];
 }
 
