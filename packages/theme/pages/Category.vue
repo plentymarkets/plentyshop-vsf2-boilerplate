@@ -37,8 +37,8 @@
                 <SfList class="list">
                   <SfListItem class="list__item">
                     <SfMenuItem
-                      :count="cat.count || ''"
-                      :label="cat.label"
+                      :count="categoryGetters.getCount(cat)"
+                      :label="categoryGetters.getLabel(cat)"
                     >
                       <template #label>
                         <nuxt-link
@@ -56,8 +56,8 @@
                     class="list__item"
                   >
                     <SfMenuItem
-                      :count="subCat.count || ''"
-                      :label="subCat.label"
+                      :count="categoryGetters.getCount(subCat)"
+                      :label="categoryGetters.getLabel(subCat)"
                     >
                       <template #label="{ label }">
                         <nuxt-link
@@ -221,7 +221,7 @@ import {
   SfProperty
 } from '@storefront-ui/vue';
 import { computed, ref } from '@nuxtjs/composition-api';
-import { useCart, useWishlist, useCategory, productGetters, useFacet, facetGetters, wishlistGetters } from '@vue-storefront/plentymarkets';
+import { useCart, useWishlist, useCategory, productGetters, categoryGetters, paginationGetters, useFacet, facetGetters, wishlistGetters } from '@vue-storefront/plentymarkets';
 import { useUiHelpers, useUiState } from '~/composables';
 import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
@@ -297,6 +297,8 @@ export default {
       products,
       categoryTree,
       loading,
+      paginationGetters,
+      categoryGetters,
       productGetters,
       pagination,
       activeCategory,

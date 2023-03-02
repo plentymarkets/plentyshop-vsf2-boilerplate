@@ -60,8 +60,18 @@ function getCategoryDetails(details:CategoryDetails[]): CategoryDetails | null {
   return details ? details[0] : null;
 }
 
+function getCount(category: Category): string {
+  return category ? category.count : '';
+}
+
+function getLabel(category: Category): string {
+  return category ? category.label : '';
+}
+
 export const categoryGetters: CategoryGetters<Category> = {
   getTree,
+  getCount,
+  getLabel,
   findCategoryBySlug,
   getCategoryDetails,
   findCategoryPathById,
