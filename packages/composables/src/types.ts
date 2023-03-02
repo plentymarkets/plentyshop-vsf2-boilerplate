@@ -1,7 +1,7 @@
 import {
   ProductsSearchParams
 } from '@vue-storefront/core';
-import { ReviewSearchParams } from '@vue-storefront/plentymarkets-api';
+import { ReviewSearchParams, ShippingMethod } from '@vue-storefront/plentymarkets-api';
 import { ComputedRef } from '@nuxtjs/composition-api';
 
 export type TODO = unknown;
@@ -39,4 +39,8 @@ export interface CompanyDetails {
   street: string,
   city: string,
   email: string
+}
+
+export interface ShippingMethods {
+  shippingMethod: ShippingMethod[]
 }

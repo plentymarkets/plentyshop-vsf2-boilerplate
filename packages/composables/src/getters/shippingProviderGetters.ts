@@ -8,6 +8,10 @@ function getShippingMethodName(shippingMethod: ShippingMethod): string {
   return `${shippingMethod?.parcelServiceName} - ${shippingMethod?.parcelServicePresetName}`;
 }
 
+function getShippingMethodsLength(shippingMethods: ShippingMethod[] ): number {
+  return shippingMethods.length;
+}
+
 function getShippingAmount(shippingMethod: ShippingMethod): string {
   return shippingMethod?.shippingAmount?.toString() ?? '0';
 }
@@ -30,5 +34,6 @@ export const shippingProviderGetters: ShippingProviderGetters = {
   getShippingProviders,
   getParcelServicePresetId,
   getValue,
-  getShippingProfileId
+  getShippingProfileId,
+  getShippingMethodsLength
 };
