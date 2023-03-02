@@ -68,10 +68,15 @@ function getLabel(category: Category): string {
   return category ? category.label : '';
 }
 
+function getItems(category: AgnosticCategoryTree): AgnosticCategoryTree[] {
+  return category ? category.items : [];
+}
+
 export const categoryGetters: CategoryGetters<Category> = {
   getTree,
   getCount,
   getLabel,
+  getItems,
   findCategoryBySlug,
   getCategoryDetails,
   findCategoryPathById,

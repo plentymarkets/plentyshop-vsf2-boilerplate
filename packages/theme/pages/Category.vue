@@ -30,9 +30,9 @@
               :show-chevron="true"
             >
               <SfAccordionItem
-                v-for="(cat, i) in categoryTree && categoryTree.items"
+                v-for="(cat, i) in categoryTree && categoryTreeGetters.getItems(categoryTree)"
                 :key="i"
-                :header="cat.label"
+                :header="categoryGetters.getLabel(cat)"
               >
                 <SfList class="list">
                   <SfListItem class="list__item">
@@ -51,7 +51,7 @@
                     </SfMenuItem>
                   </SfListItem>
                   <SfListItem
-                    v-for="(subCat, j) in cat.items"
+                    v-for="(subCat, j) in categoryGetters.getItems(cat)"
                     :key="j"
                     class="list__item"
                   >
@@ -221,7 +221,7 @@ import {
   SfProperty
 } from '@storefront-ui/vue';
 import { computed, ref } from '@nuxtjs/composition-api';
-import { useCart, useWishlist, useCategory, productGetters, categoryGetters, paginationGetters, useFacet, facetGetters, wishlistGetters } from '@vue-storefront/plentymarkets';
+import { useCart, useWishlist, useCategory, productGetters, categoryGetters, categoryTreeGetters, paginationGetters, useFacet, facetGetters, wishlistGetters } from '@vue-storefront/plentymarkets';
 import { useUiHelpers, useUiState } from '~/composables';
 import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
@@ -299,6 +299,7 @@ export default {
       loading,
       paginationGetters,
       categoryGetters,
+      categoryTreeGetters,
       productGetters,
       pagination,
       activeCategory,

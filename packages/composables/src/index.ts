@@ -39,6 +39,7 @@ export { countryGetters } from './getters/countryGetters';
 export { legalGetters } from './getters/legalGetters';
 export { companyGetters } from './getters/companyGetters';
 export { paginationGetters } from './getters/paginationGetters';
+export { categoryTreeGetters } from './getters/categoryTreeGetters';
 
 // Types
 export * from './types';

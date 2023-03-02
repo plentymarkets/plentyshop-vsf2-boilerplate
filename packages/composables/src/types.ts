@@ -33,3 +33,10 @@ export interface ComposableBaseResponse<T> {
   loading: ComputedRef<boolean>
   error: ComputedRef<{search: unknown}>
 }
+
+export interface CompanyDetails {
+  name: string,
+  street: string,
+  city: string,
+  email: string
+}

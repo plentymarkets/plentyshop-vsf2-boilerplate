@@ -1,9 +1,4 @@
-export interface CompanyDetails {
-  name: string,
-  street: string,
-  city: string,
-  email: string
-}
+import { CompanyDetails } from '../types';
 
 function getName(company: CompanyDetails): string {
   return company ? company.name : '';
