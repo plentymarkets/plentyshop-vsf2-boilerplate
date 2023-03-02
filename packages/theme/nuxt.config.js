@@ -37,10 +37,11 @@ const config = {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // to core
-    '@nuxtjs/composition-api/module',
     '@nuxt/typescript-build',
-    '@nuxtjs/style-resources',
+    '@nuxtjs/composition-api/module',
     '@nuxtjs/google-fonts',
+    '@nuxtjs/style-resources',
+    '@nuxtjs/tailwindcss',
     ['@vue-storefront/nuxt', {
       // @core-development-only-start
       coreDevelopment: true,
@@ -130,6 +131,11 @@ const config = {
     transpile: [
       'vee-validate/dist/rules'
     ],
+    postcss: {
+      plugins: {
+        'postcss-custom-properties': false
+      }
+    },
     plugins: [
       new webpack.DefinePlugin({
         'process.VERSION': JSON.stringify({
