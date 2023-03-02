@@ -4,9 +4,9 @@
     subtitle-heading="#YOURLOOK"
     class="title"
   >
-    <div class="grid grid-images">
-      <div class="grid__row">
-        <div class="grid__col">
+    <div class="flex justify-center">
+      <div class="flex flex-col ml-sf-sm">
+        <div>
           <SfImage
             class="smartphone-only"
             :src="addBasePath('/homepage/imageAm.webp')"
@@ -26,7 +26,7 @@
             katherina_trn
           </SfImage>
         </div>
-        <div class="grid__col small">
+        <div>
           <SfImage
             class="smartphone-only"
             :src="addBasePath('/homepage/imageBm.webp')"
@@ -47,8 +47,8 @@
           </SfImage>
         </div>
       </div>
-      <div class="grid__row">
-        <div class="grid__col small">
+      <div class="flex flex-col ml-sf-sm">
+        <div>
           <SfImage
             class="smartphone-only"
             :src="addBasePath('/homepage/imageCm.webp')"
@@ -68,7 +68,7 @@
             katherina_trn
           </SfImage>
         </div>
-        <div class="grid__col">
+        <div>
           <SfImage
             class="smartphone-only"
             :src="addBasePath('/homepage/imageDm.webp')"
@@ -122,44 +122,4 @@ export default {
     --section-content-margin: var(--spacer-2xl) 0;
   }
 }
-.grid {
-  display: flex;
-  max-height: 20.625rem;
-  width: 100%;
-  justify-content: center;
-  margin: 0;
-  @include for-desktop {
-    max-height: 40.625rem;
-    max-width: 60rem;
-    margin: 0 auto;
-  }
-  &__row {
-    display: flex;
-    flex-direction: column;
-    & + & {
-      margin-left: var(--spacer-xs);
-      @include for-desktop {
-        margin-left: var(--spacer-sm);
-      }
-    }
-  }
-  &__col {
-    width: 10rem;
-    height: 10rem;
-    @include for-desktop {
-      &.small {
-        height: 10rem;
-      }
-     width: 29.375rem;
-     height: 29.375rem;
-    }
-    & + & {
-      margin-top: var(--spacer-xs);
-      @include for-desktop {
-        margin-top: var(--spacer-sm);
-      }
-    }
-  }
-}
-
 </style>
