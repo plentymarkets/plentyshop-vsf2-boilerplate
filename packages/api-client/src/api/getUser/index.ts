@@ -1,5 +1,4 @@
-import { SessionResult, RegisterParams } from './../../types';
-import { Context } from 'src/types';
+import { Context, SessionResult, RegisterParams, UserChangeResponse} from 'src/types';
 
 export async function loginUser(context: Context, email: string, password: string): Promise<SessionResult> {
   const url: URL = new URL('/rest/io/customer/login/', context.config.api.url);
@@ -26,7 +25,7 @@ export async function logoutUser(context: Context): Promise<boolean> {
   return data;
 }
 
-export async function registerUser(context: Context, params: RegisterParams): Promise<any> {
+export async function registerUser(context: Context, params: RegisterParams): Promise<UserChangeResponse> {
   const url: URL = new URL('/rest/io/customer/', context.config.api.url);
   const { data } = await context.client.post(url.href, {
     contact: {
@@ -46,7 +45,7 @@ export async function registerUser(context: Context, params: RegisterParams): Pr
   return data;
 }
 
-export async function changePassword(context: Context, currentPassword: string, newPassword: string): Promise<any> {
+export async function changePassword(context: Context, currentPassword: string, newPassword: string): Promise<UserChangeResponse> {
   const url: URL = new URL('/rest/io/customer/password/', context.config.api.url);
   const { data } = await context.client.post(url.href, {
     oldPassword: currentPassword,
@@ -54,12 +53,6 @@ export async function changePassword(context: Context, currentPassword: string, 
     password2: newPassword
   });
   return data;
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export async function updateUser(context: Context): Promise<any> {
-  // TODO: implement updateUser()
-  return {};
 }
 
 /* billingAddress: {

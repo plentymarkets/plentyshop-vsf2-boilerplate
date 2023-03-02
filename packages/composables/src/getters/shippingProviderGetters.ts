@@ -1,4 +1,4 @@
-import { Cart, ShippingMethod, ShippingProvider } from '@vue-storefront/plentymarkets-api';
+import { Cart, ShippingMethod, ShippingProvider, ShippingProviderGetters } from '@vue-storefront/plentymarkets-api';
 
 function getShippingProviders(shippingProvider: ShippingProvider): ShippingMethod[] {
   return shippingProvider?.list ?? [];
@@ -12,7 +12,7 @@ function getShippingAmount(shippingMethod: ShippingMethod): string {
   return shippingMethod?.shippingAmount?.toString() ?? '0';
 }
 
-function getValue(shippingMethod: ShippingMethod): any {
+function getValue(shippingMethod: ShippingMethod): ShippingMethod {
   return shippingMethod;
 }
 
@@ -24,7 +24,7 @@ function getShippingProfileId(cart: Cart): string {
   return cart?.shippingProfileId?.toString();
 }
 
-export const shippingProviderGetters: any = {
+export const shippingProviderGetters: ShippingProviderGetters = {
   getShippingMethodName,
   getShippingAmount,
   getShippingProviders,

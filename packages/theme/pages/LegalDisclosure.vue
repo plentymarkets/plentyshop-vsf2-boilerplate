@@ -1,6 +1,5 @@
 <template>
-  <div v-html='legalDisclosure'>
-  </div>
+  <div v-html="legalDisclosure" />
 </template>
 
 <script>

@@ -1,14 +1,11 @@
 // Composables
-export { useBilling } from './useBilling';
 export { useCart } from './useCart';
 export { useCategory } from './useCategory';
-export { useContent } from './useContent';
 export { useFacet } from './useFacet';
 export { useForgotPassword } from './useForgotPassword';
 export { useMakeOrder } from './useMakeOrder';
 export { useProduct } from './useProduct';
 export { useReview } from './useReview';
-export { useShipping } from './useShipping';
 export { useShippingProvider } from './useShippingProvider';
 export { useStore } from './useStore';
 export { useUser } from './useUser';
@@ -39,6 +36,7 @@ export { shippingProviderGetters } from './getters/shippingProviderGetters';
 export { paymentProviderGetters } from './getters/paymentProviderGetters';
 export { userAddressGetters } from './getters/userAddressGetters';
 export { countryGetters } from './getters/countryGetters';
+export { cookieBarGetters } from './getters/cookieBarGetters';
 export { legalGetters } from './getters/legalGetters';
 
 // Types

@@ -1,6 +1,5 @@
 <template>
-  <div v-html='withdrawalForm'>
-  </div>
+  <div v-html="withdrawalForm" />
 </template>
 
 <script>

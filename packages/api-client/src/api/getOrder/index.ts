@@ -1,7 +1,7 @@
-import { Context, CreateOrderResponse, GetPaymentResponse, PreparePaymentResult } from 'src/types';
+import { AdditionalInformationParams, Context, CreateOrderResponse, GetPaymentResponse, PreparePaymentResult } from 'src/types';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export async function additionalInformation(context: Context, params: any): Promise<void> {
+export async function additionalInformation(context: Context, params: AdditionalInformationParams): Promise<void> {
   const url: URL = new URL('/rest/io/order/additional_information', context.config.api.url);
   const { data } = await context.client.post(url.href, params);
   return data;

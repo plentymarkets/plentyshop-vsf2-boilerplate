@@ -222,6 +222,17 @@ export default {
     'Shipping details': 'Shipping details',
     'Update address': '@:App.updateAddress',
   },
+  // CookieBar
+  'CookieBar': {
+    'Privacy Settings': 'Privacy Settings',
+    'More information': 'More information',
+    'Further Settings': 'Further Settings',
+    'Back': 'Back',
+    'Show less': 'Show less',
+    'Accept All': 'Accept All',
+    'Reject All': 'Reject All',
+    'Accept Selection': 'Accept Selection'
+  },
   // MyNewsletter
   'MyNewsletter': {
     'Commercial information': 'and agree to receive personalised commercial information from Brand by email',

@@ -1,6 +1,5 @@
 <template>
-  <div v-html='termsConditions'>
-  </div>
+  <div v-html="termsConditions" />
 </template>
 
 <script>

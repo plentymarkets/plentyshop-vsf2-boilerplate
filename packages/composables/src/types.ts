@@ -2,8 +2,9 @@ import {
   ProductsSearchParams
 } from '@vue-storefront/core';
 import { ReviewSearchParams } from '@vue-storefront/plentymarkets-api';
+import { ComputedRef } from '@nuxtjs/composition-api';
 
-export type TODO = any;
+export type TODO = unknown;
 
 export type UseBillingAddParams = TODO;
 
@@ -26,3 +27,9 @@ export type UseUserUpdateParams = TODO;
 export type UseUserRegisterParams = TODO;
 
 export type useUserOrderSearchParams = TODO;
+
+export interface ComposableBaseResponse<T> {
+  result: ComputedRef<T>
+  loading: ComputedRef<boolean>
+  error: ComputedRef<{search: unknown}>
+}

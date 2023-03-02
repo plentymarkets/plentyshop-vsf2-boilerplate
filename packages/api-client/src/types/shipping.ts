@@ -1,3 +1,5 @@
+import { Cart } from './cart';
+
 export interface ShippingPrivacyInformation {
     showDataPrivacyAgreementHint: boolean
     id: number
@@ -16,7 +18,7 @@ export type ShippingMethod = {
     shippingPrivacyInformation: ShippingPrivacyInformation[]
     isPostOffice: boolean
     isParcelBox: boolean
-    icon: any
+    icon: unknown
     excludedPaymentMethodIds: number[]
     allowedPaymentMethodNames: string[]
 };
@@ -24,4 +26,13 @@ export type ShippingMethod = {
 export interface ShippingProvider {
     list: ShippingMethod[],
     selected: number
+}
+
+export interface ShippingProviderGetters {
+    getShippingProviders(shippingProvider: ShippingProvider): ShippingMethod[]
+    getShippingMethodName(shippingMethod: ShippingMethod): string
+    getShippingAmount(shippingMethod: ShippingMethod): string
+    getValue(shippingMethod: ShippingMethod): ShippingMethod
+    getParcelServicePresetId(shippingMethod: ShippingMethod): string
+    getShippingProfileId(cart: Cart): string
 }

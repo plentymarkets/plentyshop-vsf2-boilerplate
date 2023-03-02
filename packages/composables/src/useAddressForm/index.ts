@@ -1,8 +1,21 @@
 // import { sharedRef } from '@vue-storefront/core';
-import { ref, Ref, computed } from '@nuxtjs/composition-api';
+import { ref, computed, Ref, ComputedRef } from '@nuxtjs/composition-api';
 import { Address } from '@vue-storefront/plentymarkets-api';
 
-export const useAddressForm = (addresses: Ref<Address[]>): any => {
+export interface UseAddressFromResponse {
+  editAddress: Ref<boolean>
+  editedAddress: Ref<number>
+  form: Ref<Address>
+  addresses: Ref<Address[]>
+  closeForm: () => void
+  resetForm: () => void
+  changeAddress: (index: number) => void
+  isFormOpen: ComputedRef<boolean>
+  inEditState: ComputedRef<boolean>
+  inCreateState: ComputedRef<boolean>
+}
+
+export const useAddressForm = (addresses: Ref<Address[]>): UseAddressFromResponse => {
 
   const editAddress = ref(false);
   const editedAddress = ref(-1);
@@ -25,7 +38,7 @@ export const useAddressForm = (addresses: Ref<Address[]>): any => {
     editAddress.value = true;
   }
 
-  const changeAddress = (index) => {
+  const changeAddress = (index: number): void => {
     const address = addresses.value[index];
     if (index > -1) {
       form.value = { ...address };
@@ -37,11 +50,11 @@ export const useAddressForm = (addresses: Ref<Address[]>): any => {
     editAddress.value = true;
   };
 
-  const resetForm = () => {
+  const resetForm = (): void => {
     form.value = {...formModel};
   };
 
-  const closeForm = () => {
+  const closeForm = (): void => {
     editAddress.value = false;
   };
   const isFormOpen = computed(() => editAddress.value || addresses?.value.length <= 0);
