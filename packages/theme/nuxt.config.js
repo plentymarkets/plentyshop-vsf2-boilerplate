@@ -41,7 +41,8 @@ const config = {
     '@nuxt/typescript-build',
     '@nuxtjs/style-resources',
     '@nuxtjs/google-fonts',
-    ['@vue-storefront/nuxt', {
+    '@nuxtjs/tailwindcss',
+      ['@vue-storefront/nuxt', {
       // @core-development-only-start
       coreDevelopment: true,
       // @core-development-only-end
@@ -79,7 +80,8 @@ const config = {
     }],
     'cookie-universal-nuxt',
     'vue-scrollto/nuxt',
-    '@vue-storefront/middleware/nuxt'
+    '@vue-storefront/middleware/nuxt',
+    '@nuxtjs/tailwindcss'
   ],
 
   i18n: {
@@ -128,8 +130,14 @@ const config = {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     transpile: [
-      'vee-validate/dist/rules'
+      'vee-validate/dist/rules',
+      /^@storefront-ui/
     ],
+    postcss: {
+      plugins: {
+        'postcss-custom-properties': false,  // <-
+      }
+    },
     plugins: [
       new webpack.DefinePlugin({
         'process.VERSION': JSON.stringify({
@@ -328,6 +336,7 @@ const config = {
     base64: false,
     fontsPath: '../fonts'
   },
+  buildModules: ['@nuxtjs/tailwindcss']
 };
 
 if (process.env.MIDDLEWARE_URL) {
