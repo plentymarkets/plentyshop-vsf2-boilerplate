@@ -38,7 +38,9 @@
   },
   "devDependencies": {
     "@nuxt/types": "^2.15.8",
+    "@nuxtjs/tailwindcss": "^4.2.1",
     "@vue/test-utils": "^1.2.2",
+    "autoprefixer": "^10.3.3",
     "babel-jest": "^27.3.1",
     "cypress": "^10.9.0",
     "cypress-pipe": "^2.0.0",
@@ -47,6 +49,7 @@
     "mochawesome": "^6.3.1",
     "mochawesome-merge": "^4.2.0",
     "mochawesome-report-generator": "^5.2.0",
+    "postcss": "^8.3.6",
     "ts-loader": "^8.1.0",
     "vue-jest": "^4.0.0-0"
   }
