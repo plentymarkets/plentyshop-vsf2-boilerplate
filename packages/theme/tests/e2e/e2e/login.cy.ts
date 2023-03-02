@@ -26,10 +26,6 @@ const loginHelper = (email: string, password: string, isRememberChecked = false)
 context('Login', () => {
 
   before(() => {
-    cy.request({
-      url: '/',
-      timeout: 60000
-    });
     page.home.registerUser(uniqueEmail, password);
     cy.clearCookies();
   });
