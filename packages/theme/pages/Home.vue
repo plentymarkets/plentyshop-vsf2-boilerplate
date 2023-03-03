@@ -5,11 +5,11 @@
         <SfHeroItem
           v-for="(hero, i) in heroes"
           :key="i"
-          :title="hero.title"
-          :subtitle="hero.subtitle"
-          :background="hero.background"
-          :image="hero.image"
-          :class="hero.className"
+          :title="heroesGetters.getTitle(hero)"
+          :subtitle="heroesGetters.getSubTitle(hero)"
+          :background="heroesGetters.getBackground(hero)"
+          :image="heroesGetters.getImage(hero)"
+          :class="heroesGetters.getClassName(hero)"
         />
       </SfHero>
     </LazyHydrate>
@@ -21,17 +21,17 @@
       >
         <template
           v-for="item in banners"
-          #[item.slot]
+          #[bannerGetters.getSlot(item)]
         >
           <SfBanner
-            :key="item.slot"
-            :title="item.title"
-            :subtitle="item.subtitle"
-            :description="item.description"
-            :button-text="item.buttonText"
-            :link="localePath(item.link)"
-            :image="item.image"
-            :class="item.class"
+            :key="bannerGetters.getSlot(item)"
+            :title="bannerGetters.getTitle(item)"
+            :subtitle="bannerGetters.getSubTitle(item)"
+            :description="bannerGetters.getDescription(item)"
+            :button-text="bannerGetters.getButtonText(item)"
+            :link="localePath(bannerGetters.getLink(item))"
+            :image="bannerGetters.getImage(item)"
+            :class="bannerGetters.getClass(item)"
           />
         </template>
       </SfBannerGrid>
@@ -77,15 +77,16 @@
           class="carousel__item"
         >
           <SfProductCard
-            :title="product.title"
-            :image="product.image"
+            :data-e2e="'category-product-card'"
+            :title="productGetters.getName(product)"
             :image-width="100"
             :image-height="100"
-            :regular-price="product.price.regular"
-            :max-rating="product.rating.max"
-            :score-rating="product.rating.score"
+            :image="addBasePath(productGetters.getCoverImage(product))"
+            :regular-price="$n(productGetters.getRegularPrice(product), 'currency')"
+            :special-price="productGetters.getSpecialPrice(product) && $n(productGetters.getSpecialPrice(product), 'currency')"
+            :max-rating="productGetters.getMaxRating(product)"
+            :score-rating="productGetters.getAverageRating(product)"
             :show-add-to-cart-button="true"
-            :is-on-wishlist="product.isInWishlist"
             :link="localePath({ name: 'home' })"
             class="carousel__item__product"
             @click:wishlist="toggleWishlist(i)"
@@ -141,6 +142,7 @@ import NewsletterModal from '~/components/NewsletterModal.vue';
 import LazyHydrate from 'vue-lazy-hydration';
 import { useUiState } from '../composables';
 import { addBasePath } from '@vue-storefront/core';
+import { productGetters, bannerGetters, heroesGetters } from '@vue-storefront/plentymarkets';
 
 export default {
   name: 'Home',
@@ -162,62 +164,10 @@ export default {
     const { $config, app } = useContext();
     const { toggleNewsletterModal } = useUiState();
     const products = ref([
-      {
-        title: app.i18n.t('Home.Cream Beach Bag'),
-        image: addBasePath('/homepage/productA.webp'),
-        price: { regular: '50.00 $' },
-        rating: { max: 5, score: 4 },
-        isInWishlist: true
-      },
-      {
-        title: app.i18n.t('Home.Cream Beach Bag 2'),
-        image: addBasePath('/homepage/productB.webp'),
-        price: { regular: '50.00 $' },
-        rating: { max: 5, score: 4 },
-        isInWishlist: false
-      },
-      {
-        title: app.i18n.t('Home.Cream Beach Bag 3'),
-        image: addBasePath('/homepage/productC.webp'),
-        price: { regular: '50.00 $' },
-        rating: { max: 5, score: 4 },
-        isInWishlist: false
-      },
-      {
-        title: app.i18n.t('Home.Cream Beach Bag RR'),
-        image: addBasePath('/homepage/productA.webp'),
-        price: { regular: '50.00 $' },
-        rating: { max: 5, score: 4 },
-        isInWishlist: false
-      },
-      {
-        title: app.i18n.t('Home.Cream Beach Bag'),
-        image: addBasePath('/homepage/productB.webp'),
-        price: { regular: '50.00 $' },
-        rating: { max: 5, score: 4 },
-        isInWishlist: false
-      },
-      {
-        title: app.i18n.t('Home.Cream Beach Bag'),
-        image: addBasePath('/homepage/productC.webp'),
-        price: { regular: '50.00 $' },
-        rating: { max: 5, score: 4 },
-        isInWishlist: false
-      },
-      {
-        title: app.i18n.t('Home.Cream Beach Bag'),
-        image: addBasePath('/homepage/productA.webp'),
-        price: { regular: '50.00 $' },
-        rating: { max: 5, score: 4 },
-        isInWishlist: false
-      },
-      {
-        title: app.i18n.t('Home.Cream Beach Bag'),
-        image: addBasePath('/homepage/productB.webp'),
-        price: { regular: '50.00 $' },
-        rating: { max: 5, score: 4 },
-        isInWishlist: false
-      }
+      { "images": { "all": [ { "names": [], "path": "S3:154:gear-drone-01.png", "position": 0, "urlMiddle": '/homepage/productA.webp', "cleanImageName": "gear-drone-01.png" } ], "variation": [] }, "item": { "id": 154, "storeSpecial": null, "manufacturerId": 0, "itemType": "default", "manufacturer": [], "rebate": 0, "salableVariationCount": 1, "customsTariffNumber": "", "producingCountry": { "names": [] }, "condition": { "names": [] } }, "texts": { "lang": "de", "name2": "", "name3": "", "urlPath": "gear/drone-omega", "name1": app.i18n.t('Home.Cream Beach Bag') }, "defaultCategories": [ { "id": 73, "parentCategoryId": null, "level": 1, "type": "item", "linklist": true, "right": "all", "sitemap": true, "updatedAt": "2022-04-27T18:12:56+02:00", "manually": true, "plentyId": 60796 } ], "variation": { "itemId": 154, "availabilityId": 1, "maximumOrderQuantity": null, "minimumOrderQuantity": 1, "intervalOrderQuantity": 1, "releasedAt": null, "name": "", "vatId": 0, "bundleType": null, "mayShowUnitPrice": false, "availability": { "id": 1, "icon": "av1.gif", "averageDays": 2, "createdAt": "2022-06-27 09:20:16", "updatedAt": "2022-06-27 09:20:16", "names": { "id": 41, "availabilityId": 1, "lang": "de", "name": "Sofort versandfertig, Lieferzeit 48h", "createdAt": "2022-06-27 09:20:16", "updatedAt": "2022-06-27 09:20:16" } }, "id": 1097, "availabilityUpdatedAt": "2022-02-15T16:55:59+01:00", "model": "" }, "filter": { "isSalable": true, "isSalableAndActive": true, "hasActiveChildren": false, "hasChildren": true }, "unit": { "names": { "unitId": 1, "lang": "de", "name": "Stück" }, "unitOfMeasurement": "C62", "content": 1 }, "properties": [], "hasOrderProperties": false, "hasRequiredOrderProperty": false, "groupedAttributes": [], "prices": { "default": { "price": { "value": 650, "formatted": "650,00 EUR" }, "unitPrice": { "value": 650, "formatted": "650,00 EUR" }, "basePrice": "", "baseLot": null, "baseUnit": null, "baseSinglePrice": null, "minimumOrderQuantity": 1, "contactClassDiscount": { "percent": 0, "amount": 0 }, "categoryDiscount": { "percent": 0, "amount": 0 }, "currency": "EUR", "lowestPrice": { "value": null, "formatted": "" }, "vat": { "id": 0, "value": 19 }, "isNet": false, "data": { "salesPriceId": 1, "price": 650, "priceNet": 546.21848739496, "basePrice": 650, "basePriceNet": 546.21848739496, "unitPrice": 650, "unitPriceNet": 546.21848739496, "lowestPrice": null, "lowestPriceNet": null, "customerClassDiscountPercent": 0, "customerClassDiscount": 0, "customerClassDiscountNet": 0, "categoryDiscountPercent": 0, "categoryDiscount": 0, "categoryDiscountNet": 0, "vatId": 0, "vatValue": 19, "currency": "EUR", "interval": "none", "conversionFactor": 1, "minimumOrderQuantity": "1.00", "updatedAt": "2022-02-15 16:56:11", "type": "default" } }, "rrp": { "price": { "value": 999.99, "formatted": "999,99 EUR" }, "unitPrice": { "value": 999.99, "formatted": "999,99 EUR" }, "basePrice": "", "baseLot": null, "baseUnit": null, "baseSinglePrice": null, "minimumOrderQuantity": 0, "contactClassDiscount": { "percent": 0, "amount": 0 }, "categoryDiscount": { "percent": 0, "amount": 0 }, "currency": "EUR", "lowestPrice": { "value": null, "formatted": "" }, "vat": { "id": 0, "value": 19 }, "isNet": false, "data": { "salesPriceId": 2, "price": 999.99, "priceNet": 840.32773109244, "basePrice": 999.99, "basePriceNet": 840.32773109244, "unitPrice": 999.99, "unitPriceNet": 840.32773109244, "lowestPrice": null, "lowestPriceNet": null, "customerClassDiscountPercent": 0, "customerClassDiscount": 0, "customerClassDiscountNet": 0, "categoryDiscountPercent": 0, "categoryDiscount": 0, "categoryDiscountNet": 0, "vatId": 0, "vatValue": 19, "currency": "EUR", "interval": "none", "conversionFactor": 1, "minimumOrderQuantity": "0.00", "updatedAt": "2023-01-26 16:29:12", "type": "rrp" } }, "set": null, "specialOffer": null, "graduatedPrices": [ { "price": { "value": 650, "formatted": "650,00 EUR" }, "unitPrice": { "value": 650, "formatted": "650,00 EUR" }, "basePrice": "", "baseLot": null, "baseUnit": null, "baseSinglePrice": null, "minimumOrderQuantity": 1, "contactClassDiscount": { "percent": 0, "amount": 0 }, "categoryDiscount": { "percent": 0, "amount": 0 }, "currency": "EUR", "lowestPrice": { "value": null, "formatted": "" }, "vat": { "id": 0, "value": 19 }, "isNet": false, "data": { "salesPriceId": 1, "price": 650, "priceNet": 546.21848739496, "basePrice": 650, "basePriceNet": 546.21848739496, "unitPrice": 650, "unitPriceNet": 546.21848739496, "lowestPrice": null, "lowestPriceNet": null, "customerClassDiscountPercent": 0, "customerClassDiscount": 0, "customerClassDiscountNet": 0, "categoryDiscountPercent": 0, "categoryDiscount": 0, "categoryDiscountNet": 0, "vatId": 0, "vatValue": 19, "currency": "EUR", "interval": "none", "conversionFactor": 1, "minimumOrderQuantity": "1.00", "updatedAt": "2022-02-15 16:56:11", "type": "default" } } ] }, "facets": [], "attributes": [] },
+      { "images": { "all": [ { "names": [], "path": "S3:154:gear-drone-01.png", "position": 0, "urlMiddle": '/homepage/productB.webp', "cleanImageName": "gear-drone-01.png" } ], "variation": [] }, "item": { "id": 154, "storeSpecial": null, "manufacturerId": 0, "itemType": "default", "manufacturer": [], "rebate": 0, "salableVariationCount": 1, "customsTariffNumber": "", "producingCountry": { "names": [] }, "condition": { "names": [] } }, "texts": { "lang": "de", "name2": "", "name3": "", "urlPath": "gear/drone-omega", "name1": app.i18n.t('Home.Cream Beach Bag 2') }, "defaultCategories": [ { "id": 73, "parentCategoryId": null, "level": 1, "type": "item", "linklist": true, "right": "all", "sitemap": true, "updatedAt": "2022-04-27T18:12:56+02:00", "manually": true, "plentyId": 60796 } ], "variation": { "itemId": 154, "availabilityId": 1, "maximumOrderQuantity": null, "minimumOrderQuantity": 1, "intervalOrderQuantity": 1, "releasedAt": null, "name": "", "vatId": 0, "bundleType": null, "mayShowUnitPrice": false, "availability": { "id": 1, "icon": "av1.gif", "averageDays": 2, "createdAt": "2022-06-27 09:20:16", "updatedAt": "2022-06-27 09:20:16", "names": { "id": 41, "availabilityId": 1, "lang": "de", "name": "Sofort versandfertig, Lieferzeit 48h", "createdAt": "2022-06-27 09:20:16", "updatedAt": "2022-06-27 09:20:16" } }, "id": 1097, "availabilityUpdatedAt": "2022-02-15T16:55:59+01:00", "model": "" }, "filter": { "isSalable": true, "isSalableAndActive": true, "hasActiveChildren": false, "hasChildren": true }, "unit": { "names": { "unitId": 1, "lang": "de", "name": "Stück" }, "unitOfMeasurement": "C62", "content": 1 }, "properties": [], "hasOrderProperties": false, "hasRequiredOrderProperty": false, "groupedAttributes": [], "prices": { "default": { "price": { "value": 650, "formatted": "650,00 EUR" }, "unitPrice": { "value": 650, "formatted": "650,00 EUR" }, "basePrice": "", "baseLot": null, "baseUnit": null, "baseSinglePrice": null, "minimumOrderQuantity": 1, "contactClassDiscount": { "percent": 0, "amount": 0 }, "categoryDiscount": { "percent": 0, "amount": 0 }, "currency": "EUR", "lowestPrice": { "value": null, "formatted": "" }, "vat": { "id": 0, "value": 19 }, "isNet": false, "data": { "salesPriceId": 1, "price": 650, "priceNet": 546.21848739496, "basePrice": 650, "basePriceNet": 546.21848739496, "unitPrice": 650, "unitPriceNet": 546.21848739496, "lowestPrice": null, "lowestPriceNet": null, "customerClassDiscountPercent": 0, "customerClassDiscount": 0, "customerClassDiscountNet": 0, "categoryDiscountPercent": 0, "categoryDiscount": 0, "categoryDiscountNet": 0, "vatId": 0, "vatValue": 19, "currency": "EUR", "interval": "none", "conversionFactor": 1, "minimumOrderQuantity": "1.00", "updatedAt": "2022-02-15 16:56:11", "type": "default" } }, "rrp": { "price": { "value": 999.99, "formatted": "999,99 EUR" }, "unitPrice": { "value": 999.99, "formatted": "999,99 EUR" }, "basePrice": "", "baseLot": null, "baseUnit": null, "baseSinglePrice": null, "minimumOrderQuantity": 0, "contactClassDiscount": { "percent": 0, "amount": 0 }, "categoryDiscount": { "percent": 0, "amount": 0 }, "currency": "EUR", "lowestPrice": { "value": null, "formatted": "" }, "vat": { "id": 0, "value": 19 }, "isNet": false, "data": { "salesPriceId": 2, "price": 999.99, "priceNet": 840.32773109244, "basePrice": 999.99, "basePriceNet": 840.32773109244, "unitPrice": 999.99, "unitPriceNet": 840.32773109244, "lowestPrice": null, "lowestPriceNet": null, "customerClassDiscountPercent": 0, "customerClassDiscount": 0, "customerClassDiscountNet": 0, "categoryDiscountPercent": 0, "categoryDiscount": 0, "categoryDiscountNet": 0, "vatId": 0, "vatValue": 19, "currency": "EUR", "interval": "none", "conversionFactor": 1, "minimumOrderQuantity": "0.00", "updatedAt": "2023-01-26 16:29:12", "type": "rrp" } }, "set": null, "specialOffer": null, "graduatedPrices": [ { "price": { "value": 650, "formatted": "650,00 EUR" }, "unitPrice": { "value": 650, "formatted": "650,00 EUR" }, "basePrice": "", "baseLot": null, "baseUnit": null, "baseSinglePrice": null, "minimumOrderQuantity": 1, "contactClassDiscount": { "percent": 0, "amount": 0 }, "categoryDiscount": { "percent": 0, "amount": 0 }, "currency": "EUR", "lowestPrice": { "value": null, "formatted": "" }, "vat": { "id": 0, "value": 19 }, "isNet": false, "data": { "salesPriceId": 1, "price": 650, "priceNet": 546.21848739496, "basePrice": 650, "basePriceNet": 546.21848739496, "unitPrice": 650, "unitPriceNet": 546.21848739496, "lowestPrice": null, "lowestPriceNet": null, "customerClassDiscountPercent": 0, "customerClassDiscount": 0, "customerClassDiscountNet": 0, "categoryDiscountPercent": 0, "categoryDiscount": 0, "categoryDiscountNet": 0, "vatId": 0, "vatValue": 19, "currency": "EUR", "interval": "none", "conversionFactor": 1, "minimumOrderQuantity": "1.00", "updatedAt": "2022-02-15 16:56:11", "type": "default" } } ] }, "facets": [], "attributes": [] },
+      { "images": { "all": [ { "names": [], "path": "S3:154:gear-drone-01.png", "position": 0, "urlMiddle": '/homepage/productC.webp', "cleanImageName": "gear-drone-01.png" } ], "variation": [] }, "item": { "id": 154, "storeSpecial": null, "manufacturerId": 0, "itemType": "default", "manufacturer": [], "rebate": 0, "salableVariationCount": 1, "customsTariffNumber": "", "producingCountry": { "names": [] }, "condition": { "names": [] } }, "texts": { "lang": "de", "name2": "", "name3": "", "urlPath": "gear/drone-omega", "name1": app.i18n.t('Home.Cream Beach Bag') }, "defaultCategories": [ { "id": 73, "parentCategoryId": null, "level": 1, "type": "item", "linklist": true, "right": "all", "sitemap": true, "updatedAt": "2022-04-27T18:12:56+02:00", "manually": true, "plentyId": 60796 } ], "variation": { "itemId": 154, "availabilityId": 1, "maximumOrderQuantity": null, "minimumOrderQuantity": 1, "intervalOrderQuantity": 1, "releasedAt": null, "name": "", "vatId": 0, "bundleType": null, "mayShowUnitPrice": false, "availability": { "id": 1, "icon": "av1.gif", "averageDays": 2, "createdAt": "2022-06-27 09:20:16", "updatedAt": "2022-06-27 09:20:16", "names": { "id": 41, "availabilityId": 1, "lang": "de", "name": "Sofort versandfertig, Lieferzeit 48h", "createdAt": "2022-06-27 09:20:16", "updatedAt": "2022-06-27 09:20:16" } }, "id": 1097, "availabilityUpdatedAt": "2022-02-15T16:55:59+01:00", "model": "" }, "filter": { "isSalable": true, "isSalableAndActive": true, "hasActiveChildren": false, "hasChildren": true }, "unit": { "names": { "unitId": 1, "lang": "de", "name": "Stück" }, "unitOfMeasurement": "C62", "content": 1 }, "properties": [], "hasOrderProperties": false, "hasRequiredOrderProperty": false, "groupedAttributes": [], "prices": { "default": { "price": { "value": 650, "formatted": "650,00 EUR" }, "unitPrice": { "value": 650, "formatted": "650,00 EUR" }, "basePrice": "", "baseLot": null, "baseUnit": null, "baseSinglePrice": null, "minimumOrderQuantity": 1, "contactClassDiscount": { "percent": 0, "amount": 0 }, "categoryDiscount": { "percent": 0, "amount": 0 }, "currency": "EUR", "lowestPrice": { "value": null, "formatted": "" }, "vat": { "id": 0, "value": 19 }, "isNet": false, "data": { "salesPriceId": 1, "price": 650, "priceNet": 546.21848739496, "basePrice": 650, "basePriceNet": 546.21848739496, "unitPrice": 650, "unitPriceNet": 546.21848739496, "lowestPrice": null, "lowestPriceNet": null, "customerClassDiscountPercent": 0, "customerClassDiscount": 0, "customerClassDiscountNet": 0, "categoryDiscountPercent": 0, "categoryDiscount": 0, "categoryDiscountNet": 0, "vatId": 0, "vatValue": 19, "currency": "EUR", "interval": "none", "conversionFactor": 1, "minimumOrderQuantity": "1.00", "updatedAt": "2022-02-15 16:56:11", "type": "default" } }, "rrp": { "price": { "value": 999.99, "formatted": "999,99 EUR" }, "unitPrice": { "value": 999.99, "formatted": "999,99 EUR" }, "basePrice": "", "baseLot": null, "baseUnit": null, "baseSinglePrice": null, "minimumOrderQuantity": 0, "contactClassDiscount": { "percent": 0, "amount": 0 }, "categoryDiscount": { "percent": 0, "amount": 0 }, "currency": "EUR", "lowestPrice": { "value": null, "formatted": "" }, "vat": { "id": 0, "value": 19 }, "isNet": false, "data": { "salesPriceId": 2, "price": 999.99, "priceNet": 840.32773109244, "basePrice": 999.99, "basePriceNet": 840.32773109244, "unitPrice": 999.99, "unitPriceNet": 840.32773109244, "lowestPrice": null, "lowestPriceNet": null, "customerClassDiscountPercent": 0, "customerClassDiscount": 0, "customerClassDiscountNet": 0, "categoryDiscountPercent": 0, "categoryDiscount": 0, "categoryDiscountNet": 0, "vatId": 0, "vatValue": 19, "currency": "EUR", "interval": "none", "conversionFactor": 1, "minimumOrderQuantity": "0.00", "updatedAt": "2023-01-26 16:29:12", "type": "rrp" } }, "set": null, "specialOffer": null, "graduatedPrices": [ { "price": { "value": 650, "formatted": "650,00 EUR" }, "unitPrice": { "value": 650, "formatted": "650,00 EUR" }, "basePrice": "", "baseLot": null, "baseUnit": null, "baseSinglePrice": null, "minimumOrderQuantity": 1, "contactClassDiscount": { "percent": 0, "amount": 0 }, "categoryDiscount": { "percent": 0, "amount": 0 }, "currency": "EUR", "lowestPrice": { "value": null, "formatted": "" }, "vat": { "id": 0, "value": 19 }, "isNet": false, "data": { "salesPriceId": 1, "price": 650, "priceNet": 546.21848739496, "basePrice": 650, "basePriceNet": 546.21848739496, "unitPrice": 650, "unitPriceNet": 546.21848739496, "lowestPrice": null, "lowestPriceNet": null, "customerClassDiscountPercent": 0, "customerClassDiscount": 0, "customerClassDiscountNet": 0, "categoryDiscountPercent": 0, "categoryDiscount": 0, "categoryDiscountNet": 0, "vatId": 0, "vatValue": 19, "currency": "EUR", "interval": "none", "conversionFactor": 1, "minimumOrderQuantity": "1.00", "updatedAt": "2022-02-15 16:56:11", "type": "default" } } ] }, "facets": [], "attributes": [] },
+      { "images": { "all": [ { "names": [], "path": "S3:154:gear-drone-01.png", "position": 0, "urlMiddle": '/homepage/productA.webp', "cleanImageName": "gear-drone-01.png" } ], "variation": [] }, "item": { "id": 154, "storeSpecial": null, "manufacturerId": 0, "itemType": "default", "manufacturer": [], "rebate": 0, "salableVariationCount": 1, "customsTariffNumber": "", "producingCountry": { "names": [] }, "condition": { "names": [] } }, "texts": { "lang": "de", "name2": "", "name3": "", "urlPath": "gear/drone-omega", "name1": app.i18n.t('Home.Cream Beach Bag') }, "defaultCategories": [ { "id": 73, "parentCategoryId": null, "level": 1, "type": "item", "linklist": true, "right": "all", "sitemap": true, "updatedAt": "2022-04-27T18:12:56+02:00", "manually": true, "plentyId": 60796 } ], "variation": { "itemId": 154, "availabilityId": 1, "maximumOrderQuantity": null, "minimumOrderQuantity": 1, "intervalOrderQuantity": 1, "releasedAt": null, "name": "", "vatId": 0, "bundleType": null, "mayShowUnitPrice": false, "availability": { "id": 1, "icon": "av1.gif", "averageDays": 2, "createdAt": "2022-06-27 09:20:16", "updatedAt": "2022-06-27 09:20:16", "names": { "id": 41, "availabilityId": 1, "lang": "de", "name": "Sofort versandfertig, Lieferzeit 48h", "createdAt": "2022-06-27 09:20:16", "updatedAt": "2022-06-27 09:20:16" } }, "id": 1097, "availabilityUpdatedAt": "2022-02-15T16:55:59+01:00", "model": "" }, "filter": { "isSalable": true, "isSalableAndActive": true, "hasActiveChildren": false, "hasChildren": true }, "unit": { "names": { "unitId": 1, "lang": "de", "name": "Stück" }, "unitOfMeasurement": "C62", "content": 1 }, "properties": [], "hasOrderProperties": false, "hasRequiredOrderProperty": false, "groupedAttributes": [], "prices": { "default": { "price": { "value": 650, "formatted": "650,00 EUR" }, "unitPrice": { "value": 650, "formatted": "650,00 EUR" }, "basePrice": "", "baseLot": null, "baseUnit": null, "baseSinglePrice": null, "minimumOrderQuantity": 1, "contactClassDiscount": { "percent": 0, "amount": 0 }, "categoryDiscount": { "percent": 0, "amount": 0 }, "currency": "EUR", "lowestPrice": { "value": null, "formatted": "" }, "vat": { "id": 0, "value": 19 }, "isNet": false, "data": { "salesPriceId": 1, "price": 650, "priceNet": 546.21848739496, "basePrice": 650, "basePriceNet": 546.21848739496, "unitPrice": 650, "unitPriceNet": 546.21848739496, "lowestPrice": null, "lowestPriceNet": null, "customerClassDiscountPercent": 0, "customerClassDiscount": 0, "customerClassDiscountNet": 0, "categoryDiscountPercent": 0, "categoryDiscount": 0, "categoryDiscountNet": 0, "vatId": 0, "vatValue": 19, "currency": "EUR", "interval": "none", "conversionFactor": 1, "minimumOrderQuantity": "1.00", "updatedAt": "2022-02-15 16:56:11", "type": "default" } }, "rrp": { "price": { "value": 999.99, "formatted": "999,99 EUR" }, "unitPrice": { "value": 999.99, "formatted": "999,99 EUR" }, "basePrice": "", "baseLot": null, "baseUnit": null, "baseSinglePrice": null, "minimumOrderQuantity": 0, "contactClassDiscount": { "percent": 0, "amount": 0 }, "categoryDiscount": { "percent": 0, "amount": 0 }, "currency": "EUR", "lowestPrice": { "value": null, "formatted": "" }, "vat": { "id": 0, "value": 19 }, "isNet": false, "data": { "salesPriceId": 2, "price": 999.99, "priceNet": 840.32773109244, "basePrice": 999.99, "basePriceNet": 840.32773109244, "unitPrice": 999.99, "unitPriceNet": 840.32773109244, "lowestPrice": null, "lowestPriceNet": null, "customerClassDiscountPercent": 0, "customerClassDiscount": 0, "customerClassDiscountNet": 0, "categoryDiscountPercent": 0, "categoryDiscount": 0, "categoryDiscountNet": 0, "vatId": 0, "vatValue": 19, "currency": "EUR", "interval": "none", "conversionFactor": 1, "minimumOrderQuantity": "0.00", "updatedAt": "2023-01-26 16:29:12", "type": "rrp" } }, "set": null, "specialOffer": null, "graduatedPrices": [ { "price": { "value": 650, "formatted": "650,00 EUR" }, "unitPrice": { "value": 650, "formatted": "650,00 EUR" }, "basePrice": "", "baseLot": null, "baseUnit": null, "baseSinglePrice": null, "minimumOrderQuantity": 1, "contactClassDiscount": { "percent": 0, "amount": 0 }, "categoryDiscount": { "percent": 0, "amount": 0 }, "currency": "EUR", "lowestPrice": { "value": null, "formatted": "" }, "vat": { "id": 0, "value": 19 }, "isNet": false, "data": { "salesPriceId": 1, "price": 650, "priceNet": 546.21848739496, "basePrice": 650, "basePriceNet": 546.21848739496, "unitPrice": 650, "unitPriceNet": 546.21848739496, "lowestPrice": null, "lowestPriceNet": null, "customerClassDiscountPercent": 0, "customerClassDiscount": 0, "customerClassDiscountNet": 0, "categoryDiscountPercent": 0, "categoryDiscount": 0, "categoryDiscountNet": 0, "vatId": 0, "vatValue": 19, "currency": "EUR", "interval": "none", "conversionFactor": 1, "minimumOrderQuantity": "1.00", "updatedAt": "2022-02-15 16:56:11", "type": "default" } } ] }, "facets": [], "attributes": [] }
     ]);
     const heroes = [
       {
@@ -293,6 +243,9 @@ export default {
     };
 
     return {
+      productGetters,
+      bannerGetters,
+      heroesGetters,
       toggleWishlist,
       toggleNewsletterModal,
       onSubscribe,

@@ -187,11 +187,17 @@ function getTotalReviews(product: Product): number {
 function getAverageRating(product: Product): number {
   return Number(product?.feedback?.counts?.averageValue);
 }
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getMaxRating(product: Product): number {
+  // return product?.rating?.max;
+  return 5;
+}
 
 export const productGetters: ProductGetters<Product, ProductFilter> = {
   getName,
   getSlug,
   getPrice,
+  getMaxRating,
   getSpecialPrice,
   getRegularPrice,
   getGallery,

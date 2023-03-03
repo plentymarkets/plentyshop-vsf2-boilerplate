@@ -40,6 +40,8 @@ export { legalGetters } from './getters/legalGetters';
 export { companyGetters } from './getters/companyGetters';
 export { paginationGetters } from './getters/paginationGetters';
 export { categoryTreeGetters } from './getters/categoryTreeGetters';
+export { bannerGetters } from './getters/bannerGetters';
+export { heroesGetters } from './getters/heroesGetters';
 
 // Types
 export * from './types';

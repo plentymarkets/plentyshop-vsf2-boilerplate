@@ -13,7 +13,12 @@ function getCurrentPage(pagination: Pagination): number {
   return pagination ? pagination.currentPage : 0;
 }
 
+function getItemsPerPageAsString(pagination: Pagination): string {
+  return pagination && pagination.itemsPerPage ? pagination.itemsPerPage.toString() : '';
+}
+
 export const paginationGetters = {
   getTotalPages,
-  getCurrentPage
+  getCurrentPage,
+  getItemsPerPageAsString
 };
