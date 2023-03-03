@@ -99,8 +99,8 @@
               :image-width="100"
               :image-height="100"
               :image="addBasePath(productGetters.getCoverImage(product))"
-              :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
-              :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
+              :regular-price="$n(productGetters.getRegularPrice(product), 'currency')"
+              :special-price="productGetters.getSpecialPrice(product) && $n(productGetters.getSpecialPrice(product), 'currency')"
               :max-rating="5"
               :score-rating="productGetters.getAverageRating(product)"
               :show-add-to-cart-button="true"
@@ -130,8 +130,8 @@
               :image-height="100"
               :description="productGetters.getDescription(product)"
               :image="addBasePath(productGetters.getCoverImage(product))"
-              :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
-              :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
+              :regular-price="$n(productGetters.getRegularPrice(product), 'currency')"
+              :special-price="productGetters.getSpecialPrice(product) && $n(productGetters.getSpecialPrice(product), 'currency')"
               :max-rating="5"
               :score-rating="3"
               :qty="1"
@@ -169,16 +169,16 @@
           <LazyHydrate on-interaction>
             <SfPagination
               v-if="!loading"
-              v-show="pagination.totalPages > 1"
+              v-show="paginationGetters.getTotalPages(pagination) > 1"
               class="products__pagination desktop-only"
               :current="pagination.currentPage"
-              :total="pagination.totalPages"
+              :total="paginationGetters.getTotalPages(pagination)"
               :visible="5"
             />
           </LazyHydrate>
 
           <div
-            v-show="pagination.totalPages > 1"
+            v-show="paginationGetters.getTotalPages(pagination) > 1"
             class="products__show-on-page"
           >
             <span class="products__show-on-page__label">{{ $t('Category.Show on page') }}</span>

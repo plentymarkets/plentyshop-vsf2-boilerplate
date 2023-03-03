@@ -29,6 +29,16 @@ function getPrice(product: Product): AgnosticPrice {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getSpecialPrice(product: Product): number {
+  return product?.prices?.default?.price?.value ?? 0;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getRegularPrice(product: Product): number {
+  return product?.prices?.rrp?.price?.value ?? 0;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getGallery(product: Product): AgnosticMediaGalleryItem[] {
   return productImageFilter(product);
 }
@@ -182,6 +192,8 @@ export const productGetters: ProductGetters<Product, ProductFilter> = {
   getName,
   getSlug,
   getPrice,
+  getSpecialPrice,
+  getRegularPrice,
   getGallery,
   getCoverImage,
   getFiltered,
