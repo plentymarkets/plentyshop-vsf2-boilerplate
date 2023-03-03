@@ -34,8 +34,8 @@
                 :key="key"
               >
                 <SfMenuItem
-                  :label="category.label"
-                  :link="localePath(`/c/${category.slug}`)"
+                  :label="categoryGetters.getLabel(category)"
+                  :link="localePath(`/c/${categoryGetters.getSlug(category)}`)"
                 >
                   <template #mobile-nav-icon>
                     &#8203;
@@ -158,7 +158,7 @@ import {
   SfImage
 } from '@storefront-ui/vue';
 import { ref, watch, computed } from '@nuxtjs/composition-api';
-import { useWishlist, wishlistGetters, productGetters } from '@vue-storefront/plentymarkets';
+import { useWishlist, wishlistGetters, productGetters, categoryGetters } from '@vue-storefront/plentymarkets';
 import { addBasePath } from '@vue-storefront/core';
 
 export default {
@@ -213,6 +213,7 @@ export default {
       productGetters,
       products,
       categories,
+      categoryGetters,
       addItemToWishlist,
       isInWishlist,
       removeProductFromWishlist,

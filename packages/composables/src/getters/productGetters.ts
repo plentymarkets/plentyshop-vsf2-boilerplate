@@ -68,6 +68,10 @@ function getCoverImage(product: Product): string {
   return product ? productImageFilter(product)[0].small : '';
 }
 
+function getMiddleImage(product: Product): string {
+  return product ? product.images.all[0].urlMiddle : '';
+}
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getFiltered(products: Product[], filters: ProductFilter): Product[] {
   // TODO: test only
@@ -198,6 +202,7 @@ export const productGetters: ProductGetters<Product, ProductFilter> = {
   getSlug,
   getPrice,
   getMaxRating,
+  getMiddleImage,
   getSpecialPrice,
   getRegularPrice,
   getGallery,
