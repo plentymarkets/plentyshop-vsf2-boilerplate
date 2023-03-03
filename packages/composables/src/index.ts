@@ -43,5 +43,6 @@ export { categoryTreeGetters } from './getters/categoryTreeGetters';
 export { bannerGetters } from './getters/bannerGetters';
 export { heroesGetters } from './getters/heroesGetters';
 export { propertyGetters } from './getters/propertyGetters';
+export { localesGetters } from './getters/localesGetters';
 // Types
 export * from './types';
