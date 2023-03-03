@@ -87,16 +87,16 @@
               <SfProperty
                 v-for="(property, i) in properties"
                 :key="i"
-                :name="property.name"
-                :value="property.value"
+                :name="propertyGetters.getName(property)"
+                :value="propertyGetters.getValue(property)"
                 class="product__property"
               >
                 <template
-                  v-if="property.name === 'Category'"
+                  v-if="propertyGetters.getName(property) === 'Category'"
                   #value
                 >
                   <SfButton class="product__property__button sf-button--text">
-                    {{ property.value }}
+                    {{ propertyGetters.getValue(property) }}
                   </SfButton>
                 </template>
               </SfProperty>
@@ -162,7 +162,7 @@ import AttributeSelection from '~/components/AttributeSelection.vue';
 import InstagramFeed from '~/components/InstagramFeed.vue';
 import RelatedProducts from '~/components/RelatedProducts.vue';
 import { ref, computed, useRoute } from '@nuxtjs/composition-api';
-import { useProduct, useCart, productGetters, useReview, reviewGetters, useCategory } from '@vue-storefront/plentymarkets';
+import { useProduct, useCart, productGetters, useReview, reviewGetters, propertyGetters, useCategory } from '@vue-storefront/plentymarkets';
 import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
 import { addBasePath } from '@vue-storefront/core';
@@ -241,6 +241,7 @@ export default {
       addItem,
       loading,
       productGetters,
+      propertyGetters,
       productGallery,
       breadcrumbs,
       attributeSelectionChanged,

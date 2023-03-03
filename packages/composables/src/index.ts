@@ -42,6 +42,6 @@ export { paginationGetters } from './getters/paginationGetters';
 export { categoryTreeGetters } from './getters/categoryTreeGetters';
 export { bannerGetters } from './getters/bannerGetters';
 export { heroesGetters } from './getters/heroesGetters';
-
+export { propertyGetters } from './getters/propertyGetters';
 // Types
 export * from './types';

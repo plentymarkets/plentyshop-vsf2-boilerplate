@@ -1,4 +1,4 @@
-export type Baner = {
+export interface Baner {
   slot: string,
   title: string,
   subtitle: string,
