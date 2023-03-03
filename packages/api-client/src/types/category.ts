@@ -18,6 +18,7 @@ export type Category = {
     id: number,
     type: string,
     label: string,
+    slug: string,
     count: string,
     items: AgnosticCategoryTree[],
     itemCount: ItemCount[],
