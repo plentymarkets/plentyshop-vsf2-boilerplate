@@ -2,7 +2,7 @@
   <div class="sf-shipping-details">
     <transition :name="transition">
       <SfTabs
-        v-if="editAddress || addressList.length <= 0"
+        v-if="editAddress || userAddressGetters.getAddressesLength(addressList) <= 0"
         key="edit-address"
         :open-tab="1"
         class="tab-orphan"
@@ -88,7 +88,7 @@
 </template>
 <script>
 import { SfTabs, SfButton } from '@storefront-ui/vue';
-import { useAddressForm } from '@vue-storefront/plentymarkets';
+import { useAddressForm, userAddressGetters } from '@vue-storefront/plentymarkets';
 import AddressInputForm from '~/components/AddressInputForm';
 import AddressPicker from '~/components/AddressPicker';
 import { toRef } from '@nuxtjs/composition-api';

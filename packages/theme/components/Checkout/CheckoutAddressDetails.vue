@@ -33,7 +33,7 @@
             </template>
           </SfButton>
           <SfButton
-            v-if="(addressList.length > 0)"
+            v-if="(userAddressGetters.getAddressesLength(addressList) > 0)"
             type="button"
             class="action-button color-secondary"
             data-e2e="close-address-button"

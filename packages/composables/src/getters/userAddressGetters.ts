@@ -11,6 +11,12 @@ function getAddresses(addresses: Address[], criteria?: UserShippingAddressSearch
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getAddressesLength(addresses: Address[], criteria?: UserShippingAddressSearchCriteria): number {
+  return addresses.length;
+}
+
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getDefault(addresses: Address[]): Address {
   return addresses.find((address) => address.primary);
 }
@@ -134,5 +140,6 @@ export const userAddressGetters: UserAddressGetters = {
   isDefault,
   getAddressWithoutId,
   getCountryId,
-  getStateId
+  getStateId,
+  getAddressesLength
 };
