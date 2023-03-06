@@ -171,6 +171,7 @@ export default {
       submit,
       setDefaultAddress,
       changeAddress,
+      userAddressGetters,
       deleteAddress,
       closeForm,
       inEditState,

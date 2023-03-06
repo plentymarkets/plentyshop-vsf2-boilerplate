@@ -7,7 +7,8 @@ export interface Baner {
   link: string,
   image: string,
   class: string
-};
+}
+
 function getSlot(banner: Baner): string {
   return banner?.slot || '';
 }

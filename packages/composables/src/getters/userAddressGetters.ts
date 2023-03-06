@@ -15,7 +15,6 @@ function getAddressesLength(addresses: Address[], criteria?: UserShippingAddress
   return addresses.length;
 }
 
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getDefault(addresses: Address[]): Address {
   return addresses.find((address) => address.primary);
