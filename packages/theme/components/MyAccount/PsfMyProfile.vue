@@ -122,6 +122,11 @@ export default {
       default: () => ({})
     }
   },
+  setup() {
+    return {
+      userGetters
+    };
+  },
   data() {
     return {
       firstName: '',
