@@ -74,7 +74,6 @@ export type Address = {
 
 export interface UserAddressGetters {
     getAddresses: (addresses: Address[], criteria?: UserShippingAddressSearchCriteria) => Address[];
-    getAddressesLength: (addresses: Address[], criteria?: UserShippingAddressSearchCriteria) => number;
     getDefault: (addresses: Address[]) => Address;
     getTotal: (addresses: Address[]) => number;
     getPostCode: (address: Address) => string;

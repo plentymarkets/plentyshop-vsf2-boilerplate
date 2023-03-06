@@ -35,5 +35,4 @@ export interface ShippingProviderGetters {
     getValue(shippingMethod: ShippingMethod): ShippingMethod
     getParcelServicePresetId(shippingMethod: ShippingMethod): string
     getShippingProfileId(cart: Cart): string
-    getShippingMethodsLength(shippingMethods: ShippingMethod[]): number
 }
