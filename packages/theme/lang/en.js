@@ -139,6 +139,7 @@ export default {
     'Add new address': '@:App.addNewAddress',
     'Cancel': '@:App.cancel',
     'Create address': '@:App.createAddress',
+    'Is this still your current address': 'Is this still your current address?',
     'Update address': '@:App.updateAddress',
   },
   // FiltersSidebar
@@ -221,6 +222,17 @@ export default {
     'Create address': '@:App.createAddress',
     'Shipping details': 'Shipping details',
     'Update address': '@:App.updateAddress',
+  },
+  // CookieBar
+  'CookieBar': {
+    'Privacy Settings': 'Privacy Settings',
+    'More information': 'More information',
+    'Further Settings': 'Further Settings',
+    'Back': 'Back',
+    'Show less': 'Show less',
+    'Accept All': 'Accept All',
+    'Reject All': 'Reject All',
+    'Accept Selection': 'Accept Selection'
   },
   // MyNewsletter
   'MyNewsletter': {

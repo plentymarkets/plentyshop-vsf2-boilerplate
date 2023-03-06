@@ -66,7 +66,7 @@
                   </div>
                 </template>
                 <template #input>
-                  <div class="sf-collected-product__quantity-wrapper">
+                  <div class="sf-collected-product__quantity-wrapper relative pt-0">
                     <SfQuantitySelector
                       :disabled="loading"
                       :qty="cartGetters.getItemQty(product)"

@@ -15,6 +15,7 @@
       <LoginModal />
       <Notification />
     </div>
+    <CookieBar />
     <LazyHydrate when-visible>
       <AppFooter />
     </LazyHydrate>
@@ -22,6 +23,7 @@
 </template>
 
 <script>
+import CookieBar from '~/components/CookieBar.vue';
 import AppHeader from '~/components/AppHeader.vue';
 import BottomNavigation from '~/components/BottomNavigation.vue';
 import AppFooter from '~/components/AppFooter.vue';
@@ -41,6 +43,7 @@ export default {
   components: {
     LazyHydrate,
     TopBar,
+    CookieBar,
     AppHeader,
     BottomNavigation,
     AppFooter,
@@ -75,6 +78,7 @@ export default {
 
 <style lang="scss">
 @import "~@storefront-ui/vue/styles";
+@import "../assets/scss/theme";
 
 #layout {
   box-sizing: border-box;
@@ -91,7 +95,7 @@ export default {
 }
 
 // Reset CSS
-html {
+:root {
   width: auto;
 
   @include for-mobile {

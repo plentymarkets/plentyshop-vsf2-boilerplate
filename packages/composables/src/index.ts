@@ -36,6 +36,7 @@ export { shippingProviderGetters } from './getters/shippingProviderGetters';
 export { paymentProviderGetters } from './getters/paymentProviderGetters';
 export { userAddressGetters } from './getters/userAddressGetters';
 export { countryGetters } from './getters/countryGetters';
+export { cookieBarGetters } from './getters/cookieBarGetters';
 export { legalGetters } from './getters/legalGetters';
 export { companyGetters } from './getters/companyGetters';
 export { paginationGetters } from './getters/paginationGetters';
