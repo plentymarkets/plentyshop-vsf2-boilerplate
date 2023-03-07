@@ -1,7 +1,6 @@
 <template>
-  <div class="container">
+  <div class="custom-container">
     <SfButton
-      class="container__lang container__lang--selected"
       @click="isLangModalOpen = !isLangModalOpen"
     >
       <SfImage
@@ -21,7 +20,7 @@
           v-for="lang in availableLocales"
           :key="lang.code"
         >
-          <a :href="switchLocalePath(lang.code)">
+          <a @click="switchLocale(lang.code)">
             <SfCharacteristic class="language">
               <template #title>
                 <span>{{ lang.label }}</span>
@@ -51,7 +50,7 @@ import {
   SfBottomModal,
   SfCharacteristic
 } from '@storefront-ui/vue';
-import { ref, computed } from '@nuxtjs/composition-api';
+import { ref, computed, useRouter } from '@nuxtjs/composition-api';
 import { addBasePath } from '@vue-storefront/core';
 export default {
   components: {
@@ -63,25 +62,34 @@ export default {
   },
   setup(props, context) {
     const { locales, locale } = context.root.$i18n;
+    const router = useRouter();
     const isLangModalOpen = ref(false);
     const availableLocales = computed(() => locales.filter(i => i.code !== locale));
+
+    const switchLocale = (lang) => {
+      context.root.$i18n.setLocaleCookie(lang);
+      router.push(context.root.switchLocalePath(lang));
+    };
+
     return {
       availableLocales,
       locale,
       isLangModalOpen,
-      addBasePath
+      addBasePath,
+      switchLocale
     };
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.container {
+.custom-container {
   margin: 0 -5px;
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
   position: relative;
+
   .sf-bottom-modal {
     z-index: 2;
     left: 0;
@@ -93,6 +101,11 @@ export default {
     position: var(--circle-icon-position, absolute);
     top: var(--spacer-xs);
     right: var(--spacer-xs);
+  }
+
+  .sf-button {
+    --button-box-shadow-opacity: 0;
+    --button-background: trasnparent;
   }
   .sf-list {
     .language {
@@ -114,10 +127,6 @@ export default {
     align-items: center;
     opacity: 0.5;
     border: none;
-    &:hover,
-    &--selected {
-      opacity: 1;
-    }
   }
 }
 </style>
