@@ -222,7 +222,7 @@ const config = {
                 'The consent cookies stores the user’s state of consent for cookies on our page.',
               'Privacy policy':'/PrivacyPolicy',
               Lifespan: '100 days',
-              script: "console.log('External media script');"
+              script: ["console.log('Loaded cookie script example1');","console.log('Loaded cookie script example2 from remote location');"]
             },
             {
               name: 'Consent',

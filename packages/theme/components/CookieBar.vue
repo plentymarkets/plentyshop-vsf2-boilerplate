@@ -19,7 +19,7 @@
               </SfButton>
             </div>
             <!-- checkboxes -->
-            <div class="checkboxes">
+            <div v-if="cookieJson" class="checkboxes">
               <div
                 v-for="(cookieGroup, index) in cookieJson"
                 :key="index"

@@ -1,45 +1,57 @@
 import { Ref, ref } from '@nuxtjs/composition-api';
 
 interface cookie {
-  name: string,
-  accepted: boolean,
-  Lifespan: string
-  script: string,
+  name: string;
+  accepted: boolean;
+  Lifespan: string;
+  script: string;
 }
 interface cookieGroup {
-  name: string,
-  accepted: boolean,
-  showMore: boolean,
-  description: string,
-  cookies: cookie[]
+  name: string;
+  accepted: boolean;
+  showMore: boolean;
+  description: string;
+  cookies: cookie[];
 }
 interface cookieGetter {
   cookieJson: Ref<cookieGroup[]>;
   bannerIsHidden: Ref<boolean>;
-  convertAndSaveCookies: (setAllCookies:boolean, newStatus: boolean) => void;
+  convertAndSaveCookies: (setAllCookies: boolean, newStatus: boolean) => void;
   defaultCheckboxIndex: number;
   loadScriptsForCookieJson: () => void;
 }
 interface CookieGroupFromNuxtConfig {
-  groups: cookieGroup[]
+  groups: cookieGroup[];
 }
 
 interface cookieGroupInMem {
-  groupKey: { cookieKey: boolean }
+  groupKey: { cookieKey: boolean };
 }
 
 interface appContext {
-  get: (key: string) => cookieGroupInMem[]
+  get: (key: string) => cookieGroupInMem[];
 }
 
-export const useCookie = (appContext: appContext, initialCookieJsonFromConfig: CookieGroupFromNuxtConfig, defaultCookieKey: string, initCheckboxIndex: number) : cookieGetter => {
-  function loadScriptsForCookieJson () {
+export const useCookie = (
+  appContext: appContext,
+  initialCookieJsonFromConfig: CookieGroupFromNuxtConfig,
+  defaultCookieKey: string,
+  initCheckboxIndex: number
+): cookieGetter => {
+  function loadScriptsForCookieJson() {
     cookieJson.value.forEach((cookieGroup, groupIndex) => {
       cookieGroup.cookies.forEach((cookie, cookieIndex) => {
         if (cookie.accepted) {
-          const script = cookieJsonFromConfig.groups[groupIndex].cookies[cookieIndex].script;
-          if (script) {
-            eval(script);
+          const scripts =
+            cookieJsonFromConfig.groups[groupIndex].cookies[cookieIndex].script;
+          if (scripts && scripts.length) {
+            scripts.forEach((script) => {
+              try {
+                eval(script);
+              } catch (error) {
+                console.log('Error trying to load script');
+              }
+            });
           }
         }
       });
@@ -68,16 +80,16 @@ export const useCookie = (appContext: appContext, initialCookieJsonFromConfig: C
       maxAge: minimumOfAllMinimums,
     });
   }
-  function convertToSaveableJson (jsonList) {
+  function convertToSaveableJson(jsonList) {
     let toSave = [];
     toSave = jsonList.map((group) => ({
       [group.name]: group.cookies.map((cookie) => ({
-        [cookie.name]: cookie.accepted
+        [cookie.name]: cookie.accepted,
       })),
     }));
     return toSave;
   }
-  function convertAndSaveCookies (setAllCookies: boolean, newStatus: boolean) {
+  function convertAndSaveCookies(setAllCookies: boolean, newStatus: boolean) {
     if (setAllCookies) {
       // accept all or reject all case (update cookieJson and checkboxes from ui)
       cookieJson.value.forEach((group, index) => {
@@ -97,8 +109,8 @@ export const useCookie = (appContext: appContext, initialCookieJsonFromConfig: C
   const defaultCheckboxIndex = initCheckboxIndex;
   const cookieJsonFromConfig = initialCookieJsonFromConfig;
   const appCookies = appContext;
-  const cookieJson = ref(initialCookieJsonFromConfig.groups.map(
-    (group) => ({
+  const cookieJson = ref(
+    initialCookieJsonFromConfig.groups.map((group) => ({
       name: group.name,
       accepted: false,
       showMore: false,
@@ -106,31 +118,39 @@ export const useCookie = (appContext: appContext, initialCookieJsonFromConfig: C
       cookies: group.cookies.map((cookie) => ({
         ...cookie,
         accepted: false,
-        name: cookie.name
-      }))
-    })
-  ));
+        name: cookie.name,
+      })),
+    }))
+  );
   const existingCookieInMemory = appContext.get(defaultCookieKey);
-  // initiate cookieJson based on previosely saved cookies
-  existingCookieInMemory.forEach((group, index) => {
-    const cookiesFromMem = Object.values(group)[0];
-    let atLeastOneIsTrue = false;
-    cookiesFromMem.forEach((cookie, index2) => {
-      if (Object.values(cookie)[0]) {
-        cookieJson.value[index].cookies[index2].accepted = true;
-      }
-      atLeastOneIsTrue = Object.values(cookie)[0] ? true : atLeastOneIsTrue;
-    });
+  // initiate cookieJson based on previouly saved cookies
+  if (existingCookieInMemory) {
+    existingCookieInMemory.forEach((group, index) => {
+      const cookiesFromMem = Object.values(group)[0];
+      let atLeastOneIsTrue = false;
+      cookiesFromMem.forEach((cookie, index2) => {
+        if (Object.values(cookie)[0]) {
+          cookieJson.value[index].cookies[index2].accepted = true;
+        }
+        atLeastOneIsTrue = Object.values(cookie)[0] ? true : atLeastOneIsTrue;
+      });
 
-    cookieJson.value[index].accepted = atLeastOneIsTrue;
-  });
+      cookieJson.value[index].accepted = atLeastOneIsTrue;
+    });
+  }
   // Mark default checkbox group as true
   cookieJson.value[defaultCheckboxIndex].accepted = true;
   cookieJson.value[defaultCheckboxIndex].cookies =
-  cookieJson.value[0].cookies.map((cookie) => ({
-    ...cookie,
-    accepted: true
-  }));
+    cookieJson.value[0].cookies.map((cookie) => ({
+      ...cookie,
+      accepted: true,
+    }));
   loadScriptsForCookieJson();
-  return { cookieJson, bannerIsHidden, convertAndSaveCookies, loadScriptsForCookieJson, defaultCheckboxIndex};
+  return {
+    cookieJson,
+    bannerIsHidden,
+    convertAndSaveCookies,
+    loadScriptsForCookieJson,
+    defaultCheckboxIndex,
+  };
 };
