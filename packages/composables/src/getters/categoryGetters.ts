@@ -5,12 +5,16 @@ import type { Category, CategoryDetails } from '@vue-storefront/plentymarkets-ap
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getTree(category: Category): AgnosticCategoryTree {
   return {
-    label: getCategoryDetails(category.details).name || '',
-    slug: getCategoryDetails(category.details).nameUrl || '',
+    label: getCategoryDetails(category.details)?.name || '',
+    slug: getCategoryDetails(category.details)?.nameUrl || '',
     items: category.children ? category.children.map(cat => getTree(cat)) : [],
     isCurrent: false,
     count: category?.itemCount[0]?.count || 0
   };
+}
+
+function getNavigationTree(categories: Category[]): AgnosticCategoryTree[] {
+  return categories.map((cat) => getTree(cat)).filter((tree) => tree.label);
 }
 
 function findCategoryBySlug(categories: Category[], slug: string): Category {
@@ -65,5 +69,6 @@ export const categoryGetters: CategoryGetters<Category> = {
   findCategoryBySlug,
   getCategoryDetails,
   findCategoryPathById,
-  getMappedBreadcrumbs
+  getMappedBreadcrumbs,
+  getNavigationTree
 };
