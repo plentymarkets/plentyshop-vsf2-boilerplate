@@ -1,5 +1,5 @@
 import { Ref, ref } from '@nuxtjs/composition-api';
-
+import axios from 'axios';
 interface cookie {
   name: string;
   accepted: boolean;
