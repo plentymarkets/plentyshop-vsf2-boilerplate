@@ -186,7 +186,7 @@ const config = {
               Status:
                 'The consent cookies stores the user’s state of consent for cookies on our page.',
               'Privacy policy': '/PrivacyPolicy',
-              Lifespan: '1 days'
+              Lifespan: '1 days',
             },
             {
               name: 'Consent',
@@ -205,7 +205,8 @@ const config = {
               Lifespan: '100 days'
             }
           ],
-          showMore: false
+          showMore: false,
+
         },
         {
           id: 1,
@@ -220,7 +221,8 @@ const config = {
               Status:
                 'The consent cookies stores the user’s state of consent for cookies on our page.',
               'Privacy policy':'/PrivacyPolicy',
-              Lifespan: '100 days'
+              Lifespan: '100 days',
+              script: "console.log('External media script');"
             },
             {
               name: 'Consent',
