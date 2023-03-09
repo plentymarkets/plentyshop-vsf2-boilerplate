@@ -101,7 +101,7 @@ export const useCookie = (
     let toSave = [];
     toSave = jsonList.map((group) => ({
       [group.name]: group.cookies.map((cookie) => ({
-        [cookie.name]: cookie.accepted,
+        [cookie.name]: cookie.accepted
       })),
     }));
     return toSave;
@@ -161,7 +161,7 @@ export const useCookie = (
   cookieJson.value[defaultCheckboxIndex].cookies =
     cookieJson.value[0].cookies.map((cookie) => ({
       ...cookie,
-      accepted: true,
+      accepted: true
     }));
   onMounted(() => {
     loadScriptsForCookieJson();
@@ -172,6 +172,6 @@ export const useCookie = (
     bannerIsHidden,
     convertAndSaveCookies,
     loadScriptsForCookieJson,
-    defaultCheckboxIndex,
+    defaultCheckboxIndex
   };
 };
