@@ -1,10 +1,9 @@
-import { Ref, ref } from '@nuxtjs/composition-api';
-import axios from 'axios';
+import { Ref, ref, onMounted } from '@nuxtjs/composition-api';
 interface cookie {
   name: string;
   accepted: boolean;
   Lifespan: string;
-  script: string;
+  script: string[];
 }
 interface cookieGroup {
   name: string;
@@ -32,6 +31,10 @@ interface appContext {
   get: (key: string) => cookieGroupInMem[];
 }
 
+function checkIfScriptIsExternal(scriptName) {
+  return scriptName.startsWith('http');
+}
+
 export const useCookie = (
   appContext: appContext,
   initialCookieJsonFromConfig: CookieGroupFromNuxtConfig,
@@ -39,23 +42,37 @@ export const useCookie = (
   initCheckboxIndex: number
 ): cookieGetter => {
   function loadScriptsForCookieJson() {
-    cookieJson.value.forEach((cookieGroup, groupIndex) => {
-      cookieGroup.cookies.forEach((cookie, cookieIndex) => {
-        if (cookie.accepted) {
-          const scripts =
-            cookieJsonFromConfig.groups[groupIndex].cookies[cookieIndex].script;
-          if (scripts && scripts.length) {
-            scripts.forEach((script) => {
-              try {
-                eval(script);
-              } catch (error) {
-                console.log('Error trying to load script');
-              }
-            });
+    // execute third party script only on clinet
+    if (!process.server) {
+      cookieJson.value.forEach((cookieGroup, groupIndex) => {
+        cookieGroup.cookies.forEach((cookie, cookieIndex) => {
+          if (cookie.accepted) {
+            const scripts =
+              cookieJsonFromConfig.groups[groupIndex].cookies[cookieIndex]
+                .script;
+            if (scripts && scripts.length) {
+              scripts.forEach((script) => {
+                try {
+                  if (checkIfScriptIsExternal(script)) {
+                    fetch(script, {
+                      method: 'GET',
+                      mode: 'no-cors',
+                      credentials: 'same-origin',
+                    })
+                      .then((response) => response.text())
+                      .then((text) => (0, eval)(text));
+                  } else {
+                    (0, eval)(script);
+                  }
+                } catch (error) {
+                  console.log('not ok');
+                }
+              });
+            }
           }
-        }
+        });
       });
-    });
+    }
   }
   function getMinimumLifeSpan() {
     // expected minimum lifetime span to be in days
@@ -145,7 +162,10 @@ export const useCookie = (
       ...cookie,
       accepted: true,
     }));
-  loadScriptsForCookieJson();
+  onMounted(() => {
+    loadScriptsForCookieJson();
+  });
+
   return {
     cookieJson,
     bannerIsHidden,

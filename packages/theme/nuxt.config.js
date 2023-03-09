@@ -222,7 +222,7 @@ const config = {
                 'The consent cookies stores the user’s state of consent for cookies on our page.',
               'Privacy policy':'/PrivacyPolicy',
               Lifespan: '100 days',
-              script: ["console.log('Loaded cookie script example1');","https://raw.githubusercontent.com/plentymarkets/plentyshop-pwa/a713a31d2be36a84ea8bf443477ff14a1d7c52ea/scripts/testForCookiebar.js?token=GHSAT0AAAAAAB5URYLRHJ35ZUPEDMW5OX2QZAIVWAQ"]
+              script: ["console.log('Loaded cookie script example1');","https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly"]
             },
             {
               name: 'Consent',
