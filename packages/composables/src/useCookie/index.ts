@@ -41,6 +41,24 @@ export const useCookie = (
   defaultCookieKey: string,
   initCheckboxIndex: number
 ): cookieGetter => {
+  const bannerIsHidden = ref(false);
+  const defaultCheckboxIndex = initCheckboxIndex;
+  const cookieJsonFromConfig = initialCookieJsonFromConfig;
+  const appCookies = appContext;
+  const cookieJson = ref(
+    initialCookieJsonFromConfig.groups.map((group) => ({
+      name: group.name,
+      accepted: false,
+      showMore: false,
+      description: group.description,
+      cookies: group.cookies.map((cookie) => ({
+        ...cookie,
+        accepted: false,
+        name: cookie.name
+      }))
+    }))
+  );
+  const existingCookieInMemory = appContext.get(defaultCookieKey);
   function loadScriptsForCookieJson() {
     // execute third party script only on clinet
     if (!process.server) {
@@ -102,7 +120,7 @@ export const useCookie = (
     toSave = jsonList.map((group) => ({
       [group.name]: group.cookies.map((cookie) => ({
         [cookie.name]: cookie.accepted
-      })),
+      }))
     }));
     return toSave;
   }
@@ -123,24 +141,6 @@ export const useCookie = (
     bannerIsHidden.value = true;
     loadScriptsForCookieJson();
   }
-  const bannerIsHidden = ref(false);
-  const defaultCheckboxIndex = initCheckboxIndex;
-  const cookieJsonFromConfig = initialCookieJsonFromConfig;
-  const appCookies = appContext;
-  const cookieJson = ref(
-    initialCookieJsonFromConfig.groups.map((group) => ({
-      name: group.name,
-      accepted: false,
-      showMore: false,
-      description: group.description,
-      cookies: group.cookies.map((cookie) => ({
-        ...cookie,
-        accepted: false,
-        name: cookie.name,
-      })),
-    }))
-  );
-  const existingCookieInMemory = appContext.get(defaultCookieKey);
   // initiate cookieJson based on previouly saved cookies
   if (existingCookieInMemory) {
     existingCookieInMemory.forEach((group, index) => {
