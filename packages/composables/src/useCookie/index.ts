@@ -121,6 +121,7 @@ export const useCookie = (
     const toSave = convertToSaveableJson(cookieJson.value);
     saveCookies('plenty-shop-cookie', toSave, appCookies);
     bannerIsHidden.value = true;
+    loadScriptsForCookieJson();
   }
   const bannerIsHidden = ref(false);
   const defaultCheckboxIndex = initCheckboxIndex;
