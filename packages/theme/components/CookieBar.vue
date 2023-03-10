@@ -22,7 +22,7 @@
               </SfButton>
             </div>
             <!-- checkboxes -->
-            <div class="checkboxes">
+            <div class="flex flex-wrap md:flex-nowrap ml-xs">
               <div
                 v-for="(cookieGroup, index) in cookieJson"
                 :key="index"
@@ -43,13 +43,13 @@
           </div>
           <div
             v-else
-            class="furtherSettingsCard"
+            class="overflow-y-scroll	h-[300px] bg-[color:var(--_c-light-primary-lighten)]"
           >
-            <div class="furtherSettingsCardScrollable">
+            <div class="h-[250px]">
               <div
                 v-for="(cookieGroup, groupIndex) in cookieJson"
                 :key="groupIndex"
-                class="furtherSettingsCardGroup"
+                class="bg-[var(--_c-light-primary)] mt-[var(--spacer-xs)] p-[var(--spacer-xs)]"
               >
                 <div>
                   <SfCheckbox
@@ -88,14 +88,14 @@
                         v-for="propKey in Object.keys(cookie)"
                         :key="propKey"
                       >
-                        <div class="flex full-width mb-xs p-xs bg-white">
+                        <div class="flex w-full mb-xs p-xs bg-white">
                           <div
                             v-if="propKey !== 'name'"
-                            class="propKey"
+                            class="w-1/4"
                           >
                             {{ propKey }}
                           </div>
-                          <div class="propDescription">
+                          <div class="w-3/4">
                             <template v-if="propKey === 'Privacy policy'">
                               <SfLink :link="localePath(cookie[propKey])">
                                 {{ $t('CookieBar.Privacy Settings') }}
@@ -147,11 +147,11 @@
             </SfButton>
           </div>
           <!-- action buttons -->
-          <div class="actionButtons">
+          <div class="w-full flex flex-col md:flex-row">
             <div class="actionButton">
               <button
                 v-e2e="'accept-all'"
-                class="color-primary full-width sf-button"
+                class="color-primary w-full sf-button"
                 :aria-disabled="false"
                 type="button"
                 aria-label="button"
@@ -163,7 +163,7 @@
             <div class="actionButton">
               <button
                 v-e2e="'reject-all'"
-                class="color-primary full-width sf-button"
+                class="color-primary w-full sf-button"
                 :aria-disabled="false"
                 type="button"
                 aria-label="button"
@@ -175,7 +175,7 @@
             <div class="actionButton">
               <button
                 v-e2e="'accept-selection'"
-                class="sf-button full-width flat"
+                class="sf-button w-full flat"
                 :aria-disabled="false"
                 type="button"
                 @click="convertAndSaveCookies(false)"
@@ -201,7 +201,7 @@
           viewBox="0 0 24 24"
           :coverage="1"
         />
-        <div class="cookiesText">
+        <div class="hidden md:block">
           {{ $t('CookieBar.Privacy Settings') }}
         </div>
       </button>
@@ -344,16 +344,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.propKey {
-  width: 25%;
-}
-.propDescription {
-  width: 75%;
-}
 .cookieGroupCard {
   width: 33vw;
   position: fixed;
-  bottom: 0;
+  bottom: 40px;
   right: var(--spacer-xs);
   z-index: 1000;
   height: 362px;
@@ -373,7 +367,7 @@ export default {
 .furtherSettingsOn {
   width: 100%;
   position: fixed;
-  bottom: 0;
+  bottom: 40px;
   height: 420px;
   z-index: 1000;
   color: var(--c-text);
@@ -388,14 +382,6 @@ export default {
     z-index: 1000;
     right: var(--spacer-xs);
   }
-}
-.furtherSettingsCard {
-  overflow-y: scroll;
-  background: var(--_c-light-primary-lighten);
-  height: 300px;
-}
-.furtherSettingsCardScrollable {
-  height: 250px;
 }
 .sf-heading {
   text-align: center;
@@ -430,11 +416,6 @@ export default {
     bottom: 100px;
   }
 }
-.furtherSettingsCardGroup {
-  background: var(--_c-light-primary);
-  margin-top: var(--spacer-xs);
-  padding: var(--spacer-xs);
-}
 .card {
   background: var(--_c-light-primary-lighten);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -446,35 +427,10 @@ export default {
   font-size: var(--font-size--sm);
   line-height: 1.6;
 }
-.text-center {
-  text-align: center;
-}
 .flat {
   background: var(--_c-light-primary-lighten);
   border: 1px solid var(--c-primary);
   color: var(--c-text);
-}
-.flex-center {
-  align-items: center;
-}
-.flex {
-  width: 100%;
-  display: flex;
-}
-.bg-grey {
-  background: var(--_c-light-primary);
-}
-.col {
-  flex-grow: 1;
-}
-.col-2 {
-  flex: 2;
-}
-.col-4 {
-  flex: 4;
-}
-.full-width {
-  width: 100%;
 }
 .p-sm {
   padding: var(--spacer-sm);
@@ -482,20 +438,8 @@ export default {
 .p-xs {
   padding: var(--spacer-xs);
 }
-.px-xs {
-  padding: 0 var(--spacer-xs);
-}
-.mx-xs {
-  margin: 0 var(--spacer-xs);
-}
-.row {
-  flex-direction: row;
-}
 .mb-xs {
   margin: 0 0 var(--spacer-xs) 0;
-}
-.mt-xs {
-  margin-top: 30px;
 }
 .ml-xs {
   margin: 0 0 0 var(--spacer-xs);
@@ -509,22 +453,6 @@ export default {
 .bg-white {
   background: var(--_c-light-primary-lighten);
 }
-.actionButtons {
-  display: flex;
-  flex-direction: row;
-
-  @include for-mobile {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-}
-.cookiesText {
-  @include for-mobile {
-    display: none;
-  }
-}
-
 .actionButton {
   flex: 1;
   padding: 0 var(--spacer-xs) 0 var(--spacer-xs);
@@ -532,13 +460,6 @@ export default {
   @include for-mobile {
     width: 100%;
     margin-bottom: var(--spacer-xs);
-  }
-}
-.checkboxes {
-  display: flex;
-  margin: 0 0 0 var(--spacer-xs);
-  @include for-mobile {
-    flex-wrap: wrap;
   }
 }
 .checkbox {
