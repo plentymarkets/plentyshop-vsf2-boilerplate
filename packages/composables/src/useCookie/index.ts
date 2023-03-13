@@ -75,7 +75,7 @@ export const useCookie = (
                     fetch(script, {
                       method: 'GET',
                       mode: 'no-cors',
-                      credentials: 'same-origin',
+                      credentials: 'same-origin'
                     })
                       .then((response) => response.text())
                       .then((text) => (0, eval)(text));
@@ -112,7 +112,7 @@ export const useCookie = (
     const minimumOfAllMinimums = 60 * 60 * 24 * getMinimumLifeSpan();
     cookieContextObject.set(key, cookieValue, {
       path: '/',
-      maxAge: minimumOfAllMinimums,
+      maxAge: minimumOfAllMinimums
     });
   }
   function convertToSaveableJson(jsonList) {

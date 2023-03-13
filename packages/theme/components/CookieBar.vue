@@ -14,12 +14,18 @@
             <div class="barDescription p-xs">
               {{ cookieBarGetters.getBarDescription(cookieGroupsFromConfig) }}
 
-              <SfButton link="/PrivacyPolicy" class="sf-button--text">
+              <SfButton
+                link="/PrivacyPolicy"
+                class="sf-button--text"
+              >
                 {{ $t('CookieBar.Privacy Settings') }}
               </SfButton>
             </div>
             <!-- checkboxes -->
-            <div v-if="cookieJson" class="checkboxes">
+            <div
+              v-if="cookieJson"
+              class="checkboxes"
+            >
               <div
                 v-for="(cookieGroup, index) in cookieJson"
                 :key="index"
@@ -38,7 +44,10 @@
               </div>
             </div>
           </div>
-          <div v-else class="furtherSettingsCard">
+          <div
+            v-else
+            class="furtherSettingsCard"
+          >
             <div class="furtherSettingsCardScrollable">
               <div
                 v-for="(cookieGroup, groupIndex) in cookieJson"
@@ -83,7 +92,10 @@
                         :key="propKey"
                       >
                         <div class="flex full-width mb-xs p-xs bg-white">
-                          <div v-if="propKey !== 'name'" class="propKey">
+                          <div
+                            v-if="propKey !== 'name'"
+                            class="propKey"
+                          >
                             {{ propKey }}
                           </div>
                           <div class="propDescription">
