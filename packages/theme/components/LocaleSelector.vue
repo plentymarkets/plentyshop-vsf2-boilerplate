@@ -76,16 +76,14 @@ export default {
     const switchLocale = (lang) => {
       app.i18n.setLocaleCookie(lang);
 
-      router.push(app.switchLocalePath(lang));
-      return;
       if (facet.value && route.value.name.startsWith('category')) {
-        router.push(facet.value.data?.languageUrls[lang]);
-      }
-
-      if (product.value && route.value.name.startsWith('product')) {
-        router.push(product?.value[0].data?.languageUrls[lang]);
+        router.push(`/${lang}/c${facet.value.data?.languageUrls[lang]}`);
+      } else if (product.value && route.value.name.startsWith('product')) {
+        // router.push(app.switchLocalePath(product?.value[0].data?.languageUrls[lang]));
+        router.push(app.switchLocalePath(lang));
       } else {
         router.push(app.switchLocalePath(lang));
+
       }
     };
 
