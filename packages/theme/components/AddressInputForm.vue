@@ -132,6 +132,7 @@
             />
           </ValidationProvider>
           <ValidationProvider
+            v-if="!internalForm.country || states.length"
             v-slot="{ errors }"
             :name="$t('AddressInputForm.State/Province')"
             rules=""
