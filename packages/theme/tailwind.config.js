@@ -23,7 +23,8 @@ module.exports = {
         // 16px
         'sf-base': 'var(--font-size--base)',
         // 18px
-        'sf-lg': 'var(--font-size--lg)'
+        'sf-lg': 'var(--font-size--lg)',
+        'sf-xl': 'var(--font-size--xl)'
       },
       fontWeight: {
         // 300

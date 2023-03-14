@@ -5,13 +5,13 @@
         v-if="!bannerIsHidden"
         :class="!furtherSettingsOn ? 'cookieGroupCard' : 'furtherSettingsOn'"
       >
-        <div class="card p-xs">
+        <div class="bg-sf-c-light-lighten shadow-xl p-xs">
           <div v-if="!furtherSettingsOn">
             <!-- cookie info -->
-            <div class="sf-heading">
+            <div class="text-left md:text-center ml-sf-xs md:ml-0 font-sf-secondary non-italic font-sf-semibold pt-sf-xs text-sf-xl text-sf-c-primary">
               {{ cookieBarGetters.getBarTitle(cookieGroupsFromConfig) }}
             </div>
-            <div class="barDescription p-xs">
+            <div class="font-sf-secondary non-italic font-sf-normal text-sf-xs md:text-sf-sm leading-relaxed p-xs">
               {{ cookieBarGetters.getBarDescription(cookieGroupsFromConfig) }}
 
               <SfButton
@@ -22,7 +22,7 @@
               </SfButton>
             </div>
             <!-- checkboxes -->
-            <div class="flex flex-wrap md:flex-nowrap ml-xs">
+            <div class="flex flex-wrap md:flex-nowrap ml-sf-xs">
               <div
                 v-for="(cookieGroup, index) in cookieJson"
                 :key="index"
@@ -61,21 +61,21 @@
                       ($event) => setChildrenCheckboxes(cookieGroup, $event)
                     "
                   />
-                  <div class="cookieDescription ml-xs">
+                  <div class="font-sf-secondary non-italic text-sf-normal text-sf-sm leading-6 ml-sf-xs">
                     {{
                       cookieBarGetters.getCookieGroupDescription(cookieGroup)
                     }}
                   </div>
                   <div
                     v-if="cookieBarGetters.getShowMore(cookieGroup)"
-                    class="ml-xs cookieDetails"
+                    class="ml-sf-xs font-sf-light"
                   >
                     <div
                       v-for="(
                         cookie, cookieIndex
                       ) in cookieBarGetters.getCookiesList(cookieGroup)"
                       :key="cookieIndex"
-                      class="p-sm"
+                      class="p-sf-sm"
                     >
                       <SfCheckbox
                         v-model="cookie.accepted"
@@ -88,7 +88,7 @@
                         v-for="propKey in Object.keys(cookie)"
                         :key="propKey"
                       >
-                        <div class="flex w-full mb-xs p-xs bg-white">
+                        <div class="flex w-full mb-sf-xs p-sf-xs bg-white">
                           <div
                             v-if="propKey !== 'name'"
                             class="w-1/4"
@@ -110,7 +110,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="ml-xs">
+                <div class="ml-sf-xs">
                   <SfButton
                     v-if="!cookieBarGetters.getShowMore(cookieGroup)"
                     class="sf-button--text mb-xs"
@@ -130,7 +130,7 @@
             </div>
           </div>
           <!-- further settings / back button -->
-          <div class="furtherSettingMargin text-center">
+          <div class="mt-sf-xs mb-sf-sm text-center">
             <SfButton
               v-if="!furtherSettingsOn"
               class="sf-button--text"
@@ -175,7 +175,7 @@
             <div class="actionButton">
               <button
                 v-e2e="'accept-selection'"
-                class="sf-button w-full flat"
+                class="sf-button w-full border-solid border-1 border-sf-c-primary bg-white"
                 :aria-disabled="false"
                 type="button"
                 @click="convertAndSaveCookies(false)"
@@ -190,7 +190,7 @@
       <button
         v-else
         v-e2e="'cookie-show-banner-button'"
-        class="color-primary sf-button openCookies"
+        class="color-primary sf-button z-100 fixed bottom-100 md:bottom-0 right-sf-xs"
         aria-label="Cookie control"
         @click="bannerIsHidden = false"
       >
@@ -382,76 +382,6 @@ export default {
     z-index: 1000;
     right: var(--spacer-xs);
   }
-}
-.sf-heading {
-  text-align: center;
-  @include for-mobile {
-    text-align: left;
-    margin-left: var(--spacer-xs);
-  }
-  font-family: var(--font-family--secondary);
-  font-style: normal;
-  font-weight: var(--font-weight--semibold);
-  padding: var(--spacer-xs) 0 0 0;
-  font-size: var(--font-size--xl);
-  color: var(--c-primary);
-}
-.barDescription {
-  font-family: var(--font-family--secondary);
-  font-style: normal;
-  font-weight: var(--font-weight--normal);
-  font-size: var(--font-size--sm);
-  line-height: 1.6;
-  @include for-mobile {
-    font-size: 3vw;
-  }
-}
-
-.openCookies {
-  z-index: 1000;
-  position: fixed;
-  bottom: 0;
-  right: var(--spacer-xs);
-  @include for-mobile {
-    bottom: 100px;
-  }
-}
-.card {
-  background: var(--_c-light-primary-lighten);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-.cookieDescription {
-  font-family: var(--font-family--secondary);
-  font-style: normal;
-  font-weight: var(--font-weight--normal);
-  font-size: var(--font-size--sm);
-  line-height: 1.6;
-}
-.flat {
-  background: var(--_c-light-primary-lighten);
-  border: 1px solid var(--c-primary);
-  color: var(--c-text);
-}
-.p-sm {
-  padding: var(--spacer-sm);
-}
-.p-xs {
-  padding: var(--spacer-xs);
-}
-.mb-xs {
-  margin: 0 0 var(--spacer-xs) 0;
-}
-.ml-xs {
-  margin: 0 0 0 var(--spacer-xs);
-}
-.furtherSettingMargin {
-  margin: var(--spacer-xs) 0 var(--spacer-sm) 0;
-}
-.cookieDetails {
-  font-weight: var(--font-weight--light);
-}
-.bg-white {
-  background: var(--_c-light-primary-lighten);
 }
 .actionButton {
   flex: 1;
