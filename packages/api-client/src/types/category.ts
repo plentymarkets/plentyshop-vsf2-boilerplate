@@ -17,9 +17,6 @@ export interface ItemCount {
 export type Category = {
     id: number,
     type: string,
-    slug: string,
-    count: string,
-    items: AgnosticCategoryTree[],
     itemCount: ItemCount[],
     childCount: number,
     children: Category[],
