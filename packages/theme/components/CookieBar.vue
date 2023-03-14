@@ -227,9 +227,9 @@ export default {
     const { $config, app } = useContext();
     const { cookieJson, bannerIsHidden, convertAndSaveCookies, defaultCheckboxIndex } = useCookie(
       app.$cookies,
-      $config.cookieGroups,
       'plenty-shop-cookie',
-      0
+      0,
+      $config.cookieGroups
     );
     const furtherSettingsOn = ref(false);
 

@@ -17,7 +17,7 @@ interface cookieGetter {
   bannerIsHidden: Ref<boolean>;
   convertAndSaveCookies: (setAllCookies: boolean, newStatus: boolean) => void;
   defaultCheckboxIndex: number;
-  loadScriptsForCookieJson: () => void;
+  loadThirdPartyScripts: () => void;
 }
 interface CookieGroupFromNuxtConfig {
   groups: cookieGroup[];
@@ -37,9 +37,9 @@ function checkIfScriptIsExternal(scriptName) {
 
 export const useCookie = (
   appContext: appContext,
-  initialCookieJsonFromConfig: CookieGroupFromNuxtConfig,
   defaultCookieKey: string,
-  initCheckboxIndex: number
+  initCheckboxIndex: number,
+  initialCookieJsonFromConfig: CookieGroupFromNuxtConfig,
 ): cookieGetter => {
   const bannerIsHidden = ref(false);
   const defaultCheckboxIndex = initCheckboxIndex;
@@ -59,8 +59,7 @@ export const useCookie = (
     }))
   );
   const existingCookieInMemory = appContext.get(defaultCookieKey);
-  function loadScriptsForCookieJson() {
-    // execute third party script only on clinet
+  function loadThirdPartyScripts(): void {
     if (!process.server) {
       cookieJson.value.forEach((cookieGroup, groupIndex) => {
         cookieGroup.cookies.forEach((cookie, cookieIndex) => {
@@ -92,7 +91,7 @@ export const useCookie = (
       });
     }
   }
-  function getMinimumLifeSpan() {
+  function getMinimumLifeSpan(): number {
     // expected minimum lifetime span to be in days
     const convertToDays = (daysInString) => {
       return parseInt(daysInString.split(' ')[0]);
@@ -139,7 +138,7 @@ export const useCookie = (
     const toSave = convertToSaveableJson(cookieJson.value);
     saveCookies('plenty-shop-cookie', toSave, appCookies);
     bannerIsHidden.value = true;
-    loadScriptsForCookieJson();
+    loadThirdPartyScripts();
   }
   // initiate cookieJson based on previouly saved cookies
   if (existingCookieInMemory) {
@@ -164,14 +163,14 @@ export const useCookie = (
       accepted: true
     }));
   onMounted(() => {
-    loadScriptsForCookieJson();
+    loadThirdPartyScripts();
   });
 
   return {
     cookieJson,
     bannerIsHidden,
     convertAndSaveCookies,
-    loadScriptsForCookieJson,
+    loadThirdPartyScripts,
     defaultCheckboxIndex
   };
 };

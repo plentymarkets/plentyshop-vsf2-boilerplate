@@ -82,3 +82,24 @@ This is a quick hack which needs to be addressed soon, in [https://dev.azure.com
 
 - Ensure we are using english for the tests;
 - Refactor the page object approach to use it only for common parts of the app.
+
+## Cookies
+
+For customization of the cookiebar the developer can use the CookieBar component.
+For customization of the default values we can use the cookieConfig.js file.
+The Cookiebar component is based on the useCookie composable, which uses  Cookie-universal-nuxt Library to fetch and store cookies.
+
+##### Cookiebar.vue
+
+const { cookieJson, bannerIsHidden, convertAndSaveCookies, defaultCheckboxIndex } = useCookie(
+    NuxtContext,
+    cookieName,
+    defaultCheckbox
+    nuxtCookieConfig
+);
+
+| Parameter | Description |
+| `NuxtContext`  | Required for interacting with [cookie-universal-nuxt](https://www.npmjs.com/package/cookie-universal-nuxt). cookie-universal-nuxt gets, sets and removes cookies in client and server side Nuxt apps. |
+| `CookieName` | The name of the cookie used in the browser. Default: `plenty-shop` |
+| `DefaultCheckbox` | Default cookie group index. Disabled by default. |
+| `nuxtCookieConfig` | Consent groups defined in `cookieConfig.js`. |

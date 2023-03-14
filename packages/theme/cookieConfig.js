@@ -4,16 +4,13 @@ export default {
   // general description for cookiebar
   barDescription:
     'We use cookies and similar technologies on our website and process personal data of visitors to our website (e.g. IP address), e.g. to personalise content and advertisements, to integrate media from third-party providers or to analyse access to our website. Data processing only takes place when cookies are set. We share this data with third parties that we name in the settings.Data processing may be carried out with consent or on the basis of a legitimate interest. Consent can be given or refused. There is a right not to consent and to change or withdraw consent at a later date. We provide more information about the use of personal data and the services in our',
-  // cookie consent for consent
   groups: [
     {
       id: 0,
       name: 'Essentials',
-      // default check state
       accepted: false,
       description:
         'Essential cookies enable basic functions and are necessary for the proper functioning of the website.',
-      // list of cookies
       cookies: [
         {
           name: 'Session',
@@ -21,7 +18,7 @@ export default {
           Status:
             'The consent cookies stores the user’s state of consent for cookies on our page.',
           'Privacy policy': '/PrivacyPolicy',
-          // Lifespan must be respect this format, only days format accepted for current implementation.
+           // Lifespan must respect this format, currently only accepts days.
           Lifespan: '1 days'
         },
         {
@@ -40,8 +37,7 @@ export default {
           'Privacy policy': '/PrivacyPolicy',
           Lifespan: '100 days',
         },
-      ],
-      showMore: false,
+      ]
     },
     {
       id: 1,
@@ -79,7 +75,6 @@ export default {
           Lifespan: '100 days',
         },
       ],
-      showMore: false,
     },
     {
       id: 2,
@@ -112,8 +107,7 @@ export default {
           'Privacy policy': '/PrivacyPolicy',
           Lifespan: '100 days',
         },
-      ],
-      showMore: false,
+      ]
     },
     {
       id: 3,
@@ -146,8 +140,7 @@ export default {
           'Privacy policy': '/PrivacyPolicy',
           Lifespan: '100 days',
         },
-      ],
-      showMore: false,
+      ]
     },
   ]
 };
