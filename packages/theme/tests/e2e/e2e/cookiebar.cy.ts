@@ -1,14 +1,17 @@
 import page from '../pages/factory';
 context('CookieBar functionality', () => {
+  // default script for testing also defined in cookieConfig.js
+  let externalCookieScriptForTest = 'https://www.plentymarkets.com'
   beforeEach(function init() {
     page.home.visit();
   });
   it('Should successfully accept all cookies', function test() {
+    cy.intercept(externalCookieScriptForTest).as('testcookieload');
     // 1. Accept all
     cy.get('[data-e2e*="accept-all"]').click();
     // exists and all are checked
     cy.getCookie('plenty-shop-cookie').should('exist');
-    // check that all coookies in the all cookiegroups are true
+    // check that all coookies saved in memory are updated to true
     cy.getCookie('plenty-shop-cookie').then((cookie) => {
       const decodedGroup = JSON.parse(decodeURIComponent(cookie.value));
       decodedGroup.forEach((group) => {
@@ -17,10 +20,13 @@ context('CookieBar functionality', () => {
         expect(isConsented).to.equal(true);
       });
     });
+    // check if the request for the external Cookie Script is made
+    cy.wait('@testcookieload');
     // if we have set cookies check if the cookie banner is in hidden state
     cy.get('[data-e2e*="cookie-show-banner-button"]').click();
   });
-  it('Should successfully check first checkbox and click on accept selection button', function test() {
+  it('Should successfully check second checkbox and click on accept selection button', function test() {
+    cy.intercept(externalCookieScriptForTest).as('testcookieload');
     // check second checkbox
     cy.get('[data-e2e*="checkbox-1"]').click();
     cy.get('[data-e2e*="accept-selection"]').click();
@@ -37,10 +43,13 @@ context('CookieBar functionality', () => {
         }
       });
     });
+    // check if the request for the external Cookie Script is made
+    cy.wait('@testcookieload');
   });
   it('Should successfully reject all cookies', function test() {
+    cy.intercept(externalCookieScriptForTest).as('testcookieload');
     cy.get('[data-e2e*="reject-all"]').click();
-    // check if cookies from first group are true and the rest are false
+    // check that all coookies saved in memory except the first one are updated to false
     cy.getCookie('plenty-shop-cookie').then((cookie) => {
       const decodedGroup = JSON.parse(decodeURIComponent(cookie.value));
       decodedGroup.forEach((group, index) => {
@@ -53,25 +62,10 @@ context('CookieBar functionality', () => {
         }
       });
     });
-  });
-  it('Should successfully pass if the external third party script was called when the second checkbox was checked', function test() {
-    cy.intercept('https://www.plentymarkets.com').as('testcookieload');
-    cy.get('[data-e2e*="checkbox-1"]').click();
-    cy.get('[data-e2e*="accept-selection"]').click();
-    cy.getCookie('plenty-shop-cookie').then((cookie) => {
-      const decodedGroup = JSON.parse(decodeURIComponent(cookie.value));
-      decodedGroup.forEach((group, index) => {
-        if (index === 1) {
-          cy.wait('@testcookieload');
-        }
-      });
-    });
-  });
-  it('Should successfully pass when the second checkbox is not checked,and the external script call is not made', function test() {
-    cy.intercept('https://www.plentymarkets.com').as('testcookieload');
+    // check if the request for the external Cookie Script is not made
     cy.wait(2000);
     cy.get('@testcookieload.all').then((interceptions) => {
-        expect(interceptions).to.have.length(0);
+      expect(interceptions).to.have.length(0);
     });
   });
 });
