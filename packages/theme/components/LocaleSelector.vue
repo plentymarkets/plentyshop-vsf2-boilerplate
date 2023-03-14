@@ -19,16 +19,16 @@
       <SfList>
         <SfListItem
           v-for="lang in availableLocales"
-          :key="lang.code"
+          :key="localesGetters.getCode(lang)"
         >
           <a :href="switchLocalePath(lang.code)">
             <SfCharacteristic class="language">
               <template #title>
-                <span>{{ lang.label }}</span>
+                <span>{{ localesGetters.getLabel(lang) }}</span>
               </template>
               <template #icon>
                 <SfImage
-                  :src="addBasePath(`/icons/langs/${lang.code}.webp`)"
+                  :src="addBasePath(`/icons/langs/${localesGetters.getCode(lang)}.webp`)"
                   height="20"
                   width="20"
                   alt="Flag"
@@ -51,6 +51,7 @@ import {
   SfBottomModal,
   SfCharacteristic
 } from '@storefront-ui/vue';
+import { localesGetters } from '@vue-storefront/plentymarkets';
 import { ref, computed } from '@nuxtjs/composition-api';
 import { addBasePath } from '@vue-storefront/core';
 export default {
@@ -66,6 +67,7 @@ export default {
     const isLangModalOpen = ref(false);
     const availableLocales = computed(() => locales.filter(i => i.code !== locale));
     return {
+      localesGetters,
       availableLocales,
       locale,
       isLangModalOpen,
