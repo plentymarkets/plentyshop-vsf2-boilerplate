@@ -53,8 +53,8 @@ export default {
           Lifespan: '100 days',
           script: [
             'console.log(`Loaded cookie script example1`);',
-            'https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly',
-          ],
+            'https://www.plentymarkets.com'
+          ]
         },
         {
           name: 'Consent',
