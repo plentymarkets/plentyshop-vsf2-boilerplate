@@ -39,7 +39,7 @@ export const useCookie = (
   appContext: appContext,
   defaultCookieKey: string,
   initCheckboxIndex: number,
-  initialCookieJsonFromConfig: CookieGroupFromNuxtConfig,
+  initialCookieJsonFromConfig: CookieGroupFromNuxtConfig
 ): cookieGetter => {
   const bannerIsHidden = ref(false);
   const defaultCheckboxIndex = initCheckboxIndex;
