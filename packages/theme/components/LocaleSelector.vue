@@ -50,8 +50,10 @@ import {
   SfBottomModal,
   SfCharacteristic
 } from '@storefront-ui/vue';
-import { ref, computed, useRouter } from '@nuxtjs/composition-api';
+import { ref, computed, useRouter, useRoute, useContext} from '@nuxtjs/composition-api';
 import { addBasePath } from '@vue-storefront/core';
+import { useFacet, useProduct } from '@vue-storefront/plentymarkets';
+
 export default {
   components: {
     SfImage,
@@ -60,15 +62,31 @@ export default {
     SfBottomModal,
     SfCharacteristic
   },
-  setup(props, context) {
-    const { locales, locale } = context.root.$i18n;
+  setup() {
+    const { app } = useContext();
+    const { locales, locale } = app.i18n;
+
+    const route = useRoute();
     const router = useRouter();
     const isLangModalOpen = ref(false);
     const availableLocales = computed(() => locales.filter(i => i.code !== locale));
+    const { result: facet } = useFacet();
+    const { products: product } = useProduct('products');
 
     const switchLocale = (lang) => {
-      context.root.$i18n.setLocaleCookie(lang);
-      router.push(context.root.switchLocalePath(lang));
+      app.i18n.setLocaleCookie(lang);
+
+      router.push(app.switchLocalePath(lang));
+      return;
+      if (facet.value && route.value.name.startsWith('category')) {
+        router.push(facet.value.data?.languageUrls[lang]);
+      }
+
+      if (product.value && route.value.name.startsWith('product')) {
+        router.push(product?.value[0].data?.languageUrls[lang]);
+      } else {
+        router.push(app.switchLocalePath(lang));
+      }
     };
 
     return {

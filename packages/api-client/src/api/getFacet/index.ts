@@ -6,6 +6,7 @@ export async function getFacet(context: Context, params: FacetSearchCriteria): P
   const categoryId = params.categoryId?.toString() || '16';
   const url = new URL('/rest/io/category', context.config.api.url);
   url.searchParams.set('categoryId', categoryId);
+  url.searchParams.set('type', 'category');
 
   if (params.page) {
     url.searchParams.set('page', params.page?.toString());
@@ -28,7 +29,8 @@ export async function getFacet(context: Context, params: FacetSearchCriteria): P
     pagination: {
       totals: facetData.itemList.total
     },
-    facets: facetData.facets
+    facets: facetData.facets,
+    languageUrls: facetData.urls
   };
 }
 

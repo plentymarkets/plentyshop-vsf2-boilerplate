@@ -19,7 +19,7 @@ function getNavigationTree(categories: Category[]): AgnosticCategoryTree[] {
 
 function findCategoryBySlug(categories: Category[], slug: string): Category {
   for (const category of categories) {
-    if (getCategoryDetails(category.details).nameUrl === slug) {
+    if (getCategoryDetails(category.details)?.nameUrl === slug) {
       return category;
     }
     if (category.children) {
