@@ -31,7 +31,7 @@ interface appContext {
   get: (key: string) => cookieGroupInMem[];
 }
 
-function checkIfScriptIsExternal(scriptName) {
+function checkIfScriptIsExternal(scriptName): boolean {
   return scriptName.startsWith('http');
 }
 
@@ -82,7 +82,7 @@ export const useCookie = (
                     (0, eval)(script);
                   }
                 } catch (error) {
-                  console.log('not ok');
+                  console.log(error);
                 }
               });
             }
@@ -93,7 +93,7 @@ export const useCookie = (
   }
   function getMinimumLifeSpan(): number {
     // expected minimum lifetime span to be in days
-    const convertToDays = (daysInString) => {
+    const convertToDays = (daysInString): number => {
       return parseInt(daysInString.split(' ')[0]);
     };
 
@@ -107,14 +107,14 @@ export const useCookie = (
     });
     return minimum;
   }
-  function saveCookies(key, cookieValue, cookieContextObject) {
+  function saveCookies(key, cookieValue, cookieContextObject): void {
     const minimumOfAllMinimums = 60 * 60 * 24 * getMinimumLifeSpan();
     cookieContextObject.set(key, cookieValue, {
       path: '/',
       maxAge: minimumOfAllMinimums
     });
   }
-  function convertToSaveableJson(jsonList) {
+  function convertToSaveableJson(jsonList): Array<string> {
     let toSave = [];
     toSave = jsonList.map((group) => ({
       [group.name]: group.cookies.map((cookie) => ({
@@ -123,7 +123,7 @@ export const useCookie = (
     }));
     return toSave;
   }
-  function convertAndSaveCookies(setAllCookies: boolean, newStatus: boolean) {
+  function convertAndSaveCookies(setAllCookies: boolean, newStatus: boolean): void {
     if (setAllCookies) {
       // accept all or reject all case (update cookieJson and checkboxes from ui)
       cookieJson.value.forEach((group, index) => {
