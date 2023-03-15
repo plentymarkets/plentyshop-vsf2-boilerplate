@@ -3,7 +3,7 @@
     <div>
       <div
         v-if="!bannerIsHidden"
-        :class="!furtherSettingsOn ? 'cookieGroupCard' : 'furtherSettingsOn'"
+        :class="!furtherSettingsOn ? 'fixed bottom-0 w-full md:w-2/5 p-2 md:bottom-4 right-sf-xs z-1000 h-96 text-sf-c-text font-sf-medium font-sf-xl font-sf-secondary' : 'w0full fixed bottom-0 md:bottom-[40px] z-1000 right-sf-xs h-[420px] text-sf-c-text font-sf-secondary font-sf-medium font-sf-xl'"
       >
         <div class="bg-sf-c-light-lighten shadow-xl p-xs">
           <div v-if="!furtherSettingsOn">
@@ -26,7 +26,7 @@
               <div
                 v-for="(cookieGroup, index) in cookieJson"
                 :key="index"
-                class="checkbox"
+                class="mr-sf-sm"
               >
                 <SfCheckbox
                   v-model="cookieGroup.accepted"
@@ -148,7 +148,7 @@
           </div>
           <!-- action buttons -->
           <div class="w-full flex flex-col md:flex-row">
-            <div class="actionButton">
+            <div class="flex-1 pr-sf-xs pl-sf-xs text-center z-100000000 mb-sf-xs">
               <button
                 v-e2e="'accept-all'"
                 class="color-primary w-full sf-button"
@@ -160,7 +160,7 @@
                 {{ $t('CookieBar.Accept All') }}
               </button>
             </div>
-            <div class="actionButton">
+            <div class="flex-1 pr-sf-xs pl-sf-xs text-center z-100000000 mb-sf-xs">
               <button
                 v-e2e="'reject-all'"
                 class="color-primary w-full sf-button"
@@ -172,10 +172,10 @@
                 {{ $t('CookieBar.Reject All') }}
               </button>
             </div>
-            <div class="actionButton">
+            <div class="flex-1 pr-sf-xs pl-sf-xs text-center z-100000000 mb-sf-xs">
               <button
                 v-e2e="'accept-selection'"
-                class="sf-button w-full border-solid border-1 border-sf-c-primary bg-white"
+                class="sf-button w-full border-solid border-1 border-sf-c-primary"
                 :aria-disabled="false"
                 type="button"
                 @click="convertAndSaveCookies(false)"
@@ -342,60 +342,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.cookieGroupCard {
-  width: 33vw;
-  position: fixed;
-  bottom: 40px;
-  right: var(--spacer-xs);
-  z-index: 1000;
-  height: 362px;
-  color: var(--c-text);
-  font-weight: var(--font-weight--medium);
-  font-size: var(--font-size--xl);
-  font-family: var(--font-family--secondary);
-  @include for-mobile {
-    min-height: 75vh;
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-    z-index: 1000;
-    right: var(--spacer-xs);
-  }
-}
-.furtherSettingsOn {
-  width: 100%;
-  position: fixed;
-  bottom: 40px;
-  height: 420px;
-  z-index: 1000;
-  color: var(--c-text);
-  font-family: var(--font-family--secondary);
-  font-weight: var(--font-weight--medium);
-  font-size: var(--font-size--xl);
-  @include for-mobile {
-    min-height: 70vh;
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-    z-index: 1000;
-    right: var(--spacer-xs);
-  }
-}
-.actionButton {
-  flex: 1;
-  padding: 0 var(--spacer-xs) 0 var(--spacer-xs);
-  text-align: center;
-  @include for-mobile {
-    width: 100%;
-    margin-bottom: var(--spacer-xs);
-  }
-}
-.checkbox {
-  margin: 0 var(--spacer-sm) 0 0;
-  @include for-mobile {
-    width: 40vw;
-  }
-}
-</style>
