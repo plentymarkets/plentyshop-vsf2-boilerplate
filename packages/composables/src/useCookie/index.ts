@@ -143,9 +143,9 @@ export const useCookie = (
   // initiate cookieJson based from previouly saved cookies
   if (existingCookieInMemory) {
     existingCookieInMemory.forEach((group, index) => {
-      const cookiesFromMem = Object.values(group)[0];
+      const cookieGroupFromMemory = Object.values(group)[0];
       let atLeastOneIsTrue = false;
-      cookiesFromMem.forEach((cookie, index2) => {
+      cookieGroupFromMemory.forEach((cookie, index2) => {
         if (Object.values(cookie)[0]) {
           cookieJson.value[index].cookies[index2].accepted = true;
         }
@@ -153,7 +153,7 @@ export const useCookie = (
       });
 
       cookieJson.value[index].accepted = atLeastOneIsTrue;
-      bannerIsHidden.value = atLeastOneIsTrue;
+      bannerIsHidden.value = atLeastOneIsTrue ? atLeastOneIsTrue : bannerIsHidden.value;
     });
   }
   // Mark default checkbox group as true
