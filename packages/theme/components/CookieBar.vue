@@ -3,7 +3,7 @@
     <div>
       <div
         v-if="!bannerIsHidden"
-        :class="!furtherSettingsOn ? 'fixed bottom-0 w-full md:w-2/5 p-2 md:bottom-4 right-sf-xs z-1000 h-96 text-sf-c-text font-sf-medium font-sf-xl font-sf-secondary' : 'w0full fixed bottom-0 md:bottom-[40px] z-1000 right-sf-xs h-[420px] text-sf-c-text font-sf-secondary font-sf-medium font-sf-xl'"
+        :class="!furtherSettingsOn ? 'fixed bottom-32 w-full md:w-2/5 p-2 md:bottom-4 right-sf-xs z-100000 h-96 text-sf-c-text font-sf-medium font-sf-xl font-sf-secondary' : 'w0full fixed bottom-0 md:bottom-[40px] z-1000 right-sf-xs h-[420px] text-sf-c-text font-sf-secondary font-sf-medium font-sf-xl'"
       >
         <div class="bg-sf-c-light-lighten shadow-xl p-xs">
           <div v-if="!furtherSettingsOn">
@@ -11,7 +11,7 @@
             <div class="text-left md:text-center ml-sf-xs md:ml-0 font-sf-secondary non-italic font-sf-semibold pt-sf-xs text-sf-xl text-sf-c-primary">
               {{ cookieBarGetters.getBarTitle(cookieGroupsFromConfig) }}
             </div>
-            <div class="font-sf-secondary non-italic font-sf-normal text-sf-xs md:text-sf-sm leading-relaxed p-xs">
+            <div class="font-sf-secondary non-italic font-sf-normal text-sf-xs md:text-sf-sm leading-relaxed p-2">
               {{ cookieBarGetters.getBarDescription(cookieGroupsFromConfig) }}
 
               <SfButton
@@ -22,7 +22,7 @@
               </SfButton>
             </div>
             <!-- checkboxes -->
-            <div class="flex flex-wrap md:flex-nowrap ml-sf-xs">
+            <div class="flex flex-wrap md:flex-nowrap ml-sf-xs justify-around">
               <div
                 v-for="(cookieGroup, index) in cookieJson"
                 :key="index"
@@ -43,7 +43,7 @@
           </div>
           <div
             v-else
-            class="overflow-y-scroll	h-[300px] bg-[color:var(--_c-light-primary-lighten)]"
+            class="overflow-y-scroll	h-[300px] bg-[color:var(--_c-light-primary-lighten)] p-2"
           >
             <div class="h-[250px]">
               <div
