@@ -140,7 +140,7 @@ export const useCookie = (
     bannerIsHidden.value = true;
     loadThirdPartyScripts();
   }
-  // initiate cookieJson based on previouly saved cookies
+  // initiate cookieJson based from previouly saved cookies
   if (existingCookieInMemory) {
     existingCookieInMemory.forEach((group, index) => {
       const cookiesFromMem = Object.values(group)[0];
@@ -153,6 +153,7 @@ export const useCookie = (
       });
 
       cookieJson.value[index].accepted = atLeastOneIsTrue;
+      bannerIsHidden.value = atLeastOneIsTrue;
     });
   }
   // Mark default checkbox group as true
@@ -162,6 +163,7 @@ export const useCookie = (
       ...cookie,
       accepted: true
     }));
+
   onMounted(() => {
     loadThirdPartyScripts();
   });
