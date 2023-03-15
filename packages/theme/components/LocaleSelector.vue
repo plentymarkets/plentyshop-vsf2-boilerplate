@@ -20,7 +20,10 @@
           v-for="lang in availableLocales"
           :key="lang.code"
         >
-          <a @click="switchLocale(lang.code)">
+          <a
+            class="cursor-pointer"
+            @click="switchLocale(lang.code)"
+          >
             <SfCharacteristic class="language">
               <template #title>
                 <span>{{ lang.label }}</span>
@@ -73,18 +76,31 @@ export default {
     const { result: facet } = useFacet();
     const { products: product } = useProduct('products');
 
-    const switchLocale = (lang) => {
-      app.i18n.setLocaleCookie(lang);
+    /** Systems can be configured to append a slash at the end of the url.
+    *   This will crash the method that gets the category by slug. Thats why we remove the ending slash if there is one.
+    */
+    const removeTrailingSlashFromUrl = (url) => {
+      return url.slice(-1) === '/' ? url.slice(0, -1) : url;
+    };
+
+    const redirectToRoute = (lang) => {
+      const prefix = app.i18n.defaultLocale !== lang ? `/${lang}` : '';
 
       if (facet.value && route.value.name.startsWith('category')) {
-        router.push(`/${lang}/c${facet.value.data?.languageUrls[lang]}`);
+        const url = removeTrailingSlashFromUrl(facet.value.data?.languageUrls[lang]);
+        router.push(`${prefix}/c${url}`);
       } else if (product.value && route.value.name.startsWith('product')) {
+        // TODO: get product name for switched lang
         // router.push(app.switchLocalePath(product?.value[0].data?.languageUrls[lang]));
         router.push(app.switchLocalePath(lang));
       } else {
         router.push(app.switchLocalePath(lang));
-
       }
+    };
+
+    const switchLocale = (lang) => {
+      app.i18n.setLocaleCookie(lang);
+      redirectToRoute(lang);
     };
 
     return {

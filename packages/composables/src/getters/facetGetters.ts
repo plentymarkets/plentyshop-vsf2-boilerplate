@@ -103,9 +103,13 @@ function getPagination(params: FacetSearchResult<Facet>): AgnosticPagination {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getBreadcrumbs(params: FacetSearchResult<Facet>, categories?: Category[]): AgnosticBreadcrumb[] {
-  if (!categories) {
-    return [];
+  if (!categories || !params.input?.categoryId) {
+    return [{
+      text: 'Home',
+      link: '/'
+    }];
   }
+
   const breadcrumbs = categoryGetters.getMappedBreadcrumbs(categories, params.input.categoryId);
   return [
     {
