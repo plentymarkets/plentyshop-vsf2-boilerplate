@@ -1,8 +1,6 @@
 <template>
   <div class="custom-container">
-    <SfButton
-      @click="isLangModalOpen = !isLangModalOpen"
-    >
+    <SfButton @click="isLangModalOpen = !isLangModalOpen">
       <SfImage
         :src="addBasePath(`/icons/langs/${locale}.webp`)"
         height="20"
@@ -53,7 +51,13 @@ import {
   SfBottomModal,
   SfCharacteristic
 } from '@storefront-ui/vue';
-import { ref, computed, useRouter, useRoute, useContext} from '@nuxtjs/composition-api';
+import {
+  ref,
+  computed,
+  useRouter,
+  useRoute,
+  useContext
+} from '@nuxtjs/composition-api';
 import { addBasePath } from '@vue-storefront/core';
 import { useFacet, useProduct } from '@vue-storefront/plentymarkets';
 
@@ -72,26 +76,39 @@ export default {
     const route = useRoute();
     const router = useRouter();
     const isLangModalOpen = ref(false);
-    const availableLocales = computed(() => locales.filter(i => i.code !== locale));
+    const availableLocales = computed(() =>
+      locales.filter((i) => i.code !== locale)
+    );
     const { result: facet } = useFacet();
     const { products: product } = useProduct('products');
 
     /** Systems can be configured to append a slash at the end of the url.
-    *   This will crash the method that gets the category by slug. Thats why we remove the ending slash if there is one.
-    */
+     *   This will crash the method that gets the category by slug. Thats why we remove the ending slash if there is one.
+     */
     const removeTrailingSlashFromUrl = (url) => {
       return url.slice(-1) === '/' ? url.slice(0, -1) : url;
     };
 
+    /**
+     * Redirect to correct category or item url after locale change.
+     * @param lang
+     */
     const redirectToRoute = (lang) => {
       const prefix = app.i18n.defaultLocale !== lang ? `/${lang}` : '';
 
       if (facet.value && route.value.name.startsWith('category')) {
-        const url = removeTrailingSlashFromUrl(facet.value.data?.languageUrls[lang]);
+        const url = removeTrailingSlashFromUrl(
+          facet.value.data?.languageUrls[lang]
+        );
+
         router.push(`${prefix}/c${url}`);
       } else if (product.value && route.value.name.startsWith('product')) {
-        // TODO: get product name for switched lang
-        // router.push(app.switchLocalePath(product?.value[0].data?.languageUrls[lang]));
+        const url = product?.value[0].data?.languageUrls[lang];
+
+        if (url) {
+          router.push(`${prefix}/p/${url}`);
+          return;
+        }
         router.push(app.switchLocalePath(lang));
       } else {
         router.push(app.switchLocalePath(lang));
