@@ -58,6 +58,7 @@ function getCountry(countries: Country[], id: string): string {
   const country = countries.find(
     (country) => Number(country.id) === Number(id)
   );
+
   return country.name || country.isoCode2;
 }
 

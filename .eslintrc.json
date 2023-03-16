@@ -116,7 +116,7 @@
     "semi-spacing": 2,
     "one-var": [2, "never"],
     "eol-last": 2,
-    "newline-after-var": 0,
+    "newline-after-var": 1,
     "no-var": 2,
     "@typescript-eslint/no-empty-function": 0,
     "no-case-declarations": 0,

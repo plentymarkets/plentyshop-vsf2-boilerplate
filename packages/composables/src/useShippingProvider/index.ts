@@ -5,6 +5,7 @@ const params: UseShippingProviderParams<ShippingProvider, ShippingMethod> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   load: async (context: Context) => {
     const shippingProviders = await context.$plentymarkets.api.getShippingProvider();
+
     return shippingProviders;
   },
 

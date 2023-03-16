@@ -7,6 +7,7 @@ export class languageHelper {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const router: any = useRouter();
     const { locale } = router.app.$i18n;
+
     return locale;
   }
 
@@ -14,6 +15,7 @@ export class languageHelper {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const router: any = useRouter();
     const { locales } = router.app.$i18n;
+
     return locales;
   }
 

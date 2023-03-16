@@ -77,8 +77,10 @@ export default {
     const removeProductFromWishlist = (productItem) => {
       const productsInWishlist = computed(() => wishlistGetters.getItems(wishlist.value));
       const product = productsInWishlist.value.find(wishlistProduct => wishlistGetters.getId(wishlistProduct) === productGetters.getId(productItem));
+
       removeItemFromWishlist({ product });
     };
+
     return {
       productGetters,
       addItemToWishlist,

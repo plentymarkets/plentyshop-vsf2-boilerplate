@@ -245,6 +245,7 @@ export default {
         cookieJsonSaved.forEach((group, index) => {
           const cookies = Object.values(group)[0];
           let atLeastOneIsTrue = false;
+
           cookies.forEach((cookie, index2) => {
             cookieJson.value[index].cookies[index2].accepted =
               Object.values(cookie)[0];
@@ -270,6 +271,7 @@ export default {
       };
 
       let minimum = 100000;
+
       cookieGroupsFromConfig.value.groups.forEach((group) => {
         group.cookies.forEach((cookie) => {
           if (minimum > convertToDays(cookie.Lifespan)) {
@@ -282,6 +284,7 @@ export default {
     const bannerIsHidden = ref(cookieJsonSaved !== undefined);
     const saveCookies = (key, cookieValue) => {
       const minimumOfAllMinimums = 60 * 60 * 24 * getMinimumLifeSpan();
+
       app.$cookies.set(key, cookieValue, {
         path: '/',
         maxAge: minimumOfAllMinimums
@@ -289,6 +292,7 @@ export default {
     };
     const convertToSaveableJson = (jsonList) => {
       let toSave = [];
+
       toSave = jsonList.map((group) => ({
         [group.name]: group.cookies.map((cookie) => ({
           [cookie.name]: cookie.accepted
@@ -310,6 +314,7 @@ export default {
         });
       }
       const toSave = convertToSaveableJson(cookieJson.value, newStatus);
+
       saveCookies('plenty-shop-cookie', toSave);
       bannerIsHidden.value = true;
     };
