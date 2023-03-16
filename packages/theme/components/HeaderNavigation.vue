@@ -5,9 +5,9 @@
         v-for="(category, index) in categoryTree"
         :key="index"
         class="nav-item"
-        :data-e2e="`app-header-url_${category.slug}`"
-        :label="category.label"
-        :link="localePath(`/c/${category.slug}`)"
+        :data-e2e="`app-header-url_${categoryGetters.getSlug(category)}`"
+        :label="categoryGetters.getLabel(category)"
+        :link="localePath(`/c/${categoryGetters.getSlug(category)}`)"
       />
     </div>
     <SfModal
@@ -18,11 +18,11 @@
         v-for="(category, index) in categoryTree"
         :key="index"
         class="nav-item"
-        :data-e2e="`app-header-url_${category.slug}`"
+        :data-e2e="`app-header-url_${categoryGetters.getSlug(category)}`"
       >
         <template #mobile-navigation-item>
           <SfMenuItem
-            :label="category.label"
+            :label="categoryGetters.getLabel(category)"
             class="sf-header-navigation-item__menu-item"
             @click="routeToCategory(category)"
           />
@@ -67,6 +67,7 @@ export default {
     };
 
     return {
+      categoryGetters,
       categoryTree,
       isMobileMenuOpen,
       toggleMobileMenu,

@@ -29,6 +29,15 @@ function getItemPrice(item: CartItem): AgnosticPrice {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getRegularItemPrice(item: CartItem): AgnosticPrice {
+  return productGetters.getRegularPrice(item?.variation);
+}
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getSpecialItemPrice(item: CartItem): AgnosticPrice {
+  return productGetters.getSpecialPrice(item?.variation);
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getItemQty(item: CartItem): number {
   return item?.quantity ?? 1;
 }
@@ -48,6 +57,10 @@ function getItemSku(item: CartItem): string {
 
 function getItemId(item: CartItem): number {
   return item?.id ?? 0;
+}
+
+function getVariationId(item: CartItem): number {
+  return item?.variationId ?? 0;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -130,12 +143,15 @@ export const cartGetters: CartGetters<Cart, CartItem> = {
   getTotal,
   getVatValue,
   getToBePayed,
+  getVariationId,
   getCouponDiscount,
   getVatAmount,
   getShippingPrice,
   getItems,
   getItemName,
   getItemImage,
+  getRegularItemPrice,
+  getSpecialItemPrice,
   getItemPrice,
   getItemQty,
   getItemAttributes,

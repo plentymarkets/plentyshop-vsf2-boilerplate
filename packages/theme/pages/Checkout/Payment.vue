@@ -52,8 +52,8 @@
         </SfTableData>
         <SfTableData class="table__data price">
           <SfPrice
-            :regular="$n(cartGetters.getItemPrice(product).regular, 'currency')"
-            :special="cartGetters.getItemPrice(product).special && $n(cartGetters.getItemPrice(product).special, 'currency')"
+            :regular="$n(cartGetters.getRegularItemPrice(product), 'currency')"
+            :special="cartGetters.getSpecialItemPrice(product) && $n(cartGetters.getSpecialItemPrice(product), 'currency')"
             class="product-price"
           />
         </SfTableData>

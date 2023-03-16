@@ -1,7 +1,7 @@
 import {
   ProductsSearchParams
 } from '@vue-storefront/core';
-import { ReviewSearchParams } from '@vue-storefront/plentymarkets-api';
+import { ReviewSearchParams, ShippingMethod } from '@vue-storefront/plentymarkets-api';
 import { ComputedRef } from '@nuxtjs/composition-api';
 
 export type TODO = unknown;
@@ -32,4 +32,8 @@ export interface ComposableBaseResponse<T> {
   result: ComputedRef<T>
   loading: ComputedRef<boolean>
   error: ComputedRef<{search: unknown}>
+}
+
+export interface ShippingMethods {
+  shippingMethod: ShippingMethod[]
 }
