@@ -95,6 +95,7 @@ module.exports = {
         'sf-c-light-darken': 'var(--c-light-darken)',
         // #ffffff
         'sf-c-light-variant': 'var(--c-light-variant)',
+        'sf-c-light-primary': 'var(--_c-light-primary)',
         // #1d1f22
         'sf-c-on-light': 'var(--c-on-light)',
         // #72757E

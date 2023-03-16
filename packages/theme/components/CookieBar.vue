@@ -3,7 +3,7 @@
     <div>
       <div
         v-if="!bannerIsHidden"
-        :class="!furtherSettingsOn ? 'fixed bottom-32 w-full md:w-2/5 p-2 md:bottom-4 right-sf-xs z-100000 h-96 text-sf-c-text font-sf-medium font-sf-xl font-sf-secondary' : 'w0full fixed bottom-0 md:bottom-[40px] z-1000 right-sf-xs h-[420px] text-sf-c-text font-sf-secondary font-sf-medium font-sf-xl'"
+        :class="!furtherSettingsOn ? 'fixed bottom-32 w-full md:w-2/5 p-2 md:bottom-4 right-sf-xs z-1000 h-96 text-sf-c-text font-sf-medium font-sf-xl font-sf-secondary' : 'fixed bottom-0 md:bottom-[40px] z-1000 right-sf-xs h-[420px] text-sf-c-text font-sf-secondary font-sf-medium font-sf-xl'"
       >
         <div class="bg-sf-c-light-lighten shadow-xl p-xs">
           <div v-if="!furtherSettingsOn">
@@ -45,11 +45,11 @@
             v-else
             class="overflow-y-scroll	h-[300px] bg-[color:var(--_c-light-primary-lighten)] p-2"
           >
-            <div class="h-[250px]">
+            <div class="h-64">
               <div
                 v-for="(cookieGroup, groupIndex) in cookieJson"
                 :key="groupIndex"
-                class="bg-[var(--_c-light-primary)] mt-[var(--spacer-xs)] p-[var(--spacer-xs)]"
+                class="bg-sf-c-light-primary mt-sf-xs p-sf-xs"
               >
                 <div>
                   <SfCheckbox
