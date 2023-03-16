@@ -18,3 +18,4 @@ export * from './todo';
 export * from './user';
 export * from './wishlist';
 export * from './cookie';
+export * from './company';

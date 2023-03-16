@@ -63,7 +63,7 @@
           If you want to change the password to access your account, enter the
           following information:<br>
           Your current email address is
-          <span class="message__label">{{ account.email }}</span>
+          <span class="message__label">{{ userGetters.getEmailAddress(account) }}</span>
         </p>
       </slot>
       <div class="form">
@@ -108,6 +108,7 @@
 </template>
 <script>
 import { SfTabs, SfInput, SfButton } from '@storefront-ui/vue';
+import { userGetters } from '@vue-storefront/plentymarkets';
 export default {
   name: 'PsfMyProfile',
   components: {
@@ -120,6 +121,11 @@ export default {
       type: Object,
       default: () => ({})
     }
+  },
+  setup() {
+    return {
+      userGetters
+    };
   },
   data() {
     return {

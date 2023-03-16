@@ -34,16 +34,16 @@
           />
           <div class="contact">
             <p class="contact__name">
-              {{ companyDetails.name }}
+              {{ companyGetters.getName(companyDetails) }}
             </p>
             <p class="contact__street">
-              {{ companyDetails.street }}
+              {{ companyGetters.getStreet(companyDetails) }}
             </p>
             <p class="contact__city">
-              {{ companyDetails.city }}
+              {{ companyGetters.getCity(companyDetails) }}
             </p>
             <p class="contact__email">
-              {{ companyDetails.email }}
+              {{ companyGetters.getEmail(companyDetails) }}
             </p>
           </div>
         </div>
@@ -86,7 +86,7 @@
 import { SfHeading, SfButton, SfCallToAction } from '@storefront-ui/vue';
 import { ref } from '@nuxtjs/composition-api';
 import { addBasePath } from '@vue-storefront/core';
-
+import {companyGetters} from '@vue-storefront/plentymarkets';
 export default {
   components: {
     SfHeading,
@@ -106,6 +106,7 @@ export default {
 
     return {
       addBasePath,
+      companyGetters,
       companyDetails,
       orderNumber
     };
