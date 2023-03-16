@@ -28,8 +28,8 @@ export const useCookieBar = (
       cookies: group.cookies.map((cookie) => ({
         ...cookie,
         accepted: false,
-        name: cookie.name,
-      })),
+        name: cookie.name
+      }))
     }))
   );
   const existingCookieInMemory = appContext.get(defaultCookieKey);
@@ -48,7 +48,7 @@ export const useCookieBar = (
                     fetch(script, {
                       method: 'GET',
                       mode: 'no-cors',
-                      credentials: 'same-origin',
+                      credentials: 'same-origin'
                     })
                       .then((response) => response.text())
                       .then((text) => (0, eval)(text));
@@ -85,15 +85,15 @@ export const useCookieBar = (
     const minimumOfAllMinimums = 60 * 60 * 24 * getMinimumLifeSpan();
     cookieContextObject.set(key, cookieValue, {
       path: '/',
-      maxAge: minimumOfAllMinimums,
+      maxAge: minimumOfAllMinimums
     });
   }
   function convertToSaveableJson(jsonList): Array<string> {
     let toSave = [];
     toSave = jsonList.map((group) => ({
       [group.name]: group.cookies.map((cookie) => ({
-        [cookie.name]: cookie.accepted,
-      })),
+        [cookie.name]: cookie.accepted
+      }))
     }));
     return toSave;
   }
@@ -140,7 +140,7 @@ export const useCookieBar = (
   cookieJson.value[defaultCheckboxIndex].cookies =
     cookieJson.value[0].cookies.map((cookie) => ({
       ...cookie,
-      accepted: true,
+      accepted: true
     }));
 
   onMounted(() => {
@@ -152,6 +152,6 @@ export const useCookieBar = (
     bannerIsHidden,
     convertAndSaveCookies,
     loadThirdPartyScripts,
-    defaultCheckboxIndex,
+    defaultCheckboxIndex
   };
 };
