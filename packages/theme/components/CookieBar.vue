@@ -213,7 +213,7 @@
 </template>
 
 <script>
-import { cookieBarGetters, useCookie } from '@vue-storefront/plentymarkets';
+import { cookieBarGetters, useCookieBar } from '@vue-storefront/plentymarkets';
 import { ref, useContext } from '@nuxtjs/composition-api';
 import { SfCheckbox, SfIcon, SfButton, SfLink } from '@storefront-ui/vue';
 export default {
@@ -225,7 +225,7 @@ export default {
   },
   setup() {
     const { $config, app } = useContext();
-    const { cookieJson, bannerIsHidden, convertAndSaveCookies, defaultCheckboxIndex } = useCookie(
+    const { cookieJson, bannerIsHidden, convertAndSaveCookies, defaultCheckboxIndex } = useCookieBar(
       app.$cookies,
       'plenty-shop-cookie',
       0,

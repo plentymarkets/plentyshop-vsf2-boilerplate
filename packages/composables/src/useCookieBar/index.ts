@@ -1,41 +1,15 @@
-import { Ref, ref, onMounted } from '@nuxtjs/composition-api';
-interface cookie {
-  name: string;
-  accepted: boolean;
-  Lifespan: string;
-  script: string[];
-}
-interface cookieGroup {
-  name: string;
-  accepted: boolean;
-  showMore: boolean;
-  description: string;
-  cookies: cookie[];
-}
-interface cookieGetter {
-  cookieJson: Ref<cookieGroup[]>;
-  bannerIsHidden: Ref<boolean>;
-  convertAndSaveCookies: (setAllCookies: boolean, newStatus: boolean) => void;
-  defaultCheckboxIndex: number;
-  loadThirdPartyScripts: () => void;
-}
-interface CookieGroupFromNuxtConfig {
-  groups: cookieGroup[];
-}
-
-interface cookieGroupInMem {
-  groupKey: { cookieKey: boolean };
-}
-
-interface appContext {
-  get: (key: string) => cookieGroupInMem[];
-}
+import { ref, onMounted } from '@nuxtjs/composition-api';
+import type {
+  cookieGetter,
+  appContext,
+  CookieGroupFromNuxtConfig
+} from '@vue-storefront/plentymarkets-api';
 
 function checkIfScriptIsExternal(scriptName): boolean {
   return scriptName.startsWith('http');
 }
 
-export const useCookie = (
+export const useCookieBar = (
   appContext: appContext,
   defaultCookieKey: string,
   initCheckboxIndex: number,
@@ -54,8 +28,8 @@ export const useCookie = (
       cookies: group.cookies.map((cookie) => ({
         ...cookie,
         accepted: false,
-        name: cookie.name
-      }))
+        name: cookie.name,
+      })),
     }))
   );
   const existingCookieInMemory = appContext.get(defaultCookieKey);
@@ -74,7 +48,7 @@ export const useCookie = (
                     fetch(script, {
                       method: 'GET',
                       mode: 'no-cors',
-                      credentials: 'same-origin'
+                      credentials: 'same-origin',
                     })
                       .then((response) => response.text())
                       .then((text) => (0, eval)(text));
@@ -111,19 +85,22 @@ export const useCookie = (
     const minimumOfAllMinimums = 60 * 60 * 24 * getMinimumLifeSpan();
     cookieContextObject.set(key, cookieValue, {
       path: '/',
-      maxAge: minimumOfAllMinimums
+      maxAge: minimumOfAllMinimums,
     });
   }
   function convertToSaveableJson(jsonList): Array<string> {
     let toSave = [];
     toSave = jsonList.map((group) => ({
       [group.name]: group.cookies.map((cookie) => ({
-        [cookie.name]: cookie.accepted
-      }))
+        [cookie.name]: cookie.accepted,
+      })),
     }));
     return toSave;
   }
-  function convertAndSaveCookies(setAllCookies: boolean, newStatus: boolean): void {
+  function convertAndSaveCookies(
+    setAllCookies: boolean,
+    newStatus: boolean
+  ): void {
     if (setAllCookies) {
       // accept all or reject all case (update cookieJson and checkboxes from ui)
       cookieJson.value.forEach((group, index) => {
@@ -153,7 +130,9 @@ export const useCookie = (
       });
 
       cookieJson.value[index].accepted = atLeastOneIsTrue;
-      bannerIsHidden.value = atLeastOneIsTrue ? atLeastOneIsTrue : bannerIsHidden.value;
+      bannerIsHidden.value = atLeastOneIsTrue
+        ? atLeastOneIsTrue
+        : bannerIsHidden.value;
     });
   }
   // Mark default checkbox group as true
@@ -161,7 +140,7 @@ export const useCookie = (
   cookieJson.value[defaultCheckboxIndex].cookies =
     cookieJson.value[0].cookies.map((cookie) => ({
       ...cookie,
-      accepted: true
+      accepted: true,
     }));
 
   onMounted(() => {
@@ -173,6 +152,6 @@ export const useCookie = (
     bannerIsHidden,
     convertAndSaveCookies,
     loadThirdPartyScripts,
-    defaultCheckboxIndex
+    defaultCheckboxIndex,
   };
 };

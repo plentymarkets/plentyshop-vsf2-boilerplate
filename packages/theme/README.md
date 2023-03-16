@@ -87,11 +87,11 @@ This is a quick hack which needs to be addressed soon, in [https://dev.azure.com
 
 For customization of the cookiebar the developer can use the CookieBar component.
 For customization of the default values we can use the cookieConfig.js file.
-The Cookiebar component is based on the useCookie composable, which uses  Cookie-universal-nuxt Library to fetch and store cookies.
+The Cookiebar component is based on the useCookieBar composable, which uses  Cookie-universal-nuxt Library to fetch and store cookies.
 
 ##### Cookiebar.vue
 
-const { cookieJson, bannerIsHidden, convertAndSaveCookies, defaultCheckboxIndex } = useCookie(
+const { cookieJson, bannerIsHidden, convertAndSaveCookies, defaultCheckboxIndex } = useCookieBar(
     NuxtContext,
     cookieName,
     defaultCheckbox
