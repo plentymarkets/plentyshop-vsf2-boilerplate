@@ -13,8 +13,8 @@ function getTree(category: Category): AgnosticCategoryTree {
   };
 }
 
-function getNavigationTree(categories: Category[]): AgnosticCategoryTree[] {
-  return categories.map((cat) => getTree(cat)).filter((tree) => tree.label);
+function getTreeItems(categoryTree: AgnosticCategoryTree): AgnosticCategoryTree[] {
+  return categoryTree.items;
 }
 
 function findCategoryBySlug(categories: Category[], slug: string): Category {
@@ -64,11 +64,31 @@ function getCategoryDetails(details:CategoryDetails[]): CategoryDetails | null {
   return details ? details[0] : null;
 }
 
+function getCount(category: AgnosticCategoryTree): number {
+  return category ? category.count : 0;
+}
+
+function getLabel(category: AgnosticCategoryTree): string {
+  return category ? category.label : '';
+}
+
+function getSlug(category: AgnosticCategoryTree): string {
+  return category ? category.slug : '';
+}
+
+function getItems(category: AgnosticCategoryTree): AgnosticCategoryTree[] {
+  return category ? category.items : [];
+}
+
 export const categoryGetters: CategoryGetters<Category> = {
   getTree,
+  getCount,
+  getLabel,
+  getSlug,
+  getItems,
   findCategoryBySlug,
   getCategoryDetails,
   findCategoryPathById,
-  getMappedBreadcrumbs,
-  getNavigationTree
+  getTreeItems,
+  getMappedBreadcrumbs
 };

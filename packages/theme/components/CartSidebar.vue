@@ -48,11 +48,11 @@
                 :image-width="100"
                 :image-height="100"
                 :title="cartGetters.getItemName(product)"
-                :regular-price="$n(cartGetters.getItemPrice(product).regular, 'currency')"
-                :special-price="cartGetters.getItemPrice(product).special && $n(cartGetters.getItemPrice(product).special, 'currency')"
+                :regular-price="$n(cartGetters.getRegularItemPrice(product), 'currency')"
+                :special-price="cartGetters.getSpecialItemPrice(product) && $n(cartGetters.getSpecialItemPrice(product), 'currency')"
                 :stock="99999"
                 class="collected-product"
-                @click:remove="removeItem({ product: { id: product.id } })"
+                @click:remove="removeItem({ product: { id: cartGetters.getItemId(product) } })"
               >
                 <template #configuration>
                   <div class="collected-product__properties">
@@ -71,7 +71,7 @@
                       :disabled="loading"
                       :qty="cartGetters.getItemQty(product)"
                       class="sf-collected-product__quantity-selector"
-                      @input="updateQuantity({ product: { id: product.id, variationId: product.variationId }, quantity: Number($event) })"
+                      @input="updateQuantity({ product: { id: cartGetters.getItemId(product), variationId: cartGetters.getVariationId(product) }, quantity: Number($event) })"
                     />
                   </div>
                 </template>

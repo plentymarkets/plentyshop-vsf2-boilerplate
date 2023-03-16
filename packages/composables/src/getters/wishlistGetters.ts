@@ -36,6 +36,16 @@ function getItemPrice(item: WishlistItem): AgnosticPrice {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getSpecialItemPrice(item: WishlistItem): number {
+  return item?.prices?.default?.price?.value ?? 0;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getRegularItemPrice(item: WishlistItem): number {
+  return item?.prices?.rrp?.price?.value ?? 0;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getItemQty(item: WishlistItem): number {
   return 1;
 }
@@ -78,6 +88,8 @@ export const wishlistGetters: WishlistGetters<Wishlist, WishlistItem> = {
   getItemName,
   getItemImage,
   getItemPrice,
+  getSpecialItemPrice,
+  getRegularItemPrice,
   getItemQty,
   getItemAttributes,
   getShippingPrice,
