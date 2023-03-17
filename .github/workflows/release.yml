@@ -1,0 +1,21 @@
+name: Add zip file to S3 bucket
+
+on: [release]
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Make artifact directory
+        run: mkdir -p ./artifacts/${{ github.repository }}
+
+      - name: Zip Folder
+        run: zip -r ${{ github.event.repository.name }}.zip ./artifacts/${{ github.repository }}/
+
+      - name: Upload File
+        id: upload
+        uses: JantHsueh/upload-file-action@master
+        with:
+          url: ${{ secrets.URL_ENDPOINT }}
+          forms: '{"tokenName":"${{ secrets.URL_ENDPOINT_TOKEN }}","repositoryName":${{ github.event.repository.name }}}'
+          fileForms: '{"filename":"./artifacts/${{ github.repository }}/${{ github.event.repository.name }}.zip"}'
