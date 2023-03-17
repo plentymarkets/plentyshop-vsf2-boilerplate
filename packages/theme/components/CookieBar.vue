@@ -3,7 +3,7 @@
     <div>
       <div
         v-if="!bannerIsHidden"
-        :class="!furtherSettingsOn ? 'fixed bottom-32 w-full md:w-2/5 p-2 md:bottom-4 right-sf-xs z-1000 h-96 text-sf-c-text font-sf-medium font-sf-xl font-sf-secondary' : 'fixed bottom-0 md:bottom-[40px] z-1000 right-sf-xs h-[420px] text-sf-c-text font-sf-secondary font-sf-medium font-sf-xl'"
+        :class="['fixed right-sf-xs font-sf-xl z-1000', !furtherSettingsOn ? 'bottom-32 w-full md:w-2/5 p-2 md:bottom-4 h-96 text-sf-c-text font-sf-medium font-sf-secondary' : 'bottom-0 md:bottom-10 h-96 text-sf-c-text font-sf-secondary font-sf-medium']"
       >
         <div class="bg-sf-c-light-lighten shadow-xl p-xs">
           <div v-if="!furtherSettingsOn">
