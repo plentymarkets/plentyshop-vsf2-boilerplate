@@ -27,6 +27,7 @@ export interface UseUiHelperResponse {
   isFacetCheckbox(facet: unknown): boolean
   getSearchTermFromUrl(): void
   changeAttributeSelection(productId: string): void
+  isShippingAddressDifferent(facet: unknown): boolean
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -146,6 +147,12 @@ const useUiHelpers = (): UseUiHelperResponse => {
     console.warn('[VSF] please implement useUiHelpers.getSearchTermFromUrl.');
   };
 
+  const isShippingAddressDifferent = (facet): boolean => {
+    console.warn('[VSF] please implement useUiHelpers.isShippingAddressDifferent.');
+
+    return false;
+  };
+
   return {
     getFacetsFromURL,
     getCatLink,
@@ -156,7 +163,8 @@ const useUiHelpers = (): UseUiHelperResponse => {
     isFacetColor,
     isFacetCheckbox,
     getSearchTermFromUrl,
-    changeAttributeSelection
+    changeAttributeSelection,
+    isShippingAddressDifferent
   };
 };
 

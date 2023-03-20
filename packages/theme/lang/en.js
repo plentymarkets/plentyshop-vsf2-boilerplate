@@ -342,7 +342,7 @@ export default {
   // Shipping
   'Shipping': {
     'Continue to payment': 'Continue to payment',
-    'My billing and shipping address are the same': 'My billing and shipping address are the same',
+    'Use different shipping address': 'Use different shipping address',
     'Shipping details': '@:App.shippingDetails',
   },
   // ShippingDetails
