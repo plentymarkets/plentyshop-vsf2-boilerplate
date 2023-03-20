@@ -176,7 +176,6 @@ export default {
     const isSearchOpen = ref(false);
     const searchBarRef = ref(null);
     const { isGuest } = useGuest(user.value);
-    console.log(isGuest);
 
     const cartTotalItems = computed(() => {
       const count = cartGetters.getTotalItems(cart.value);
@@ -200,7 +199,7 @@ export default {
 
     // TODO: https://github.com/DivanteLtd/vue-storefront/issues/4927
     const handleAccountClick = async () => {
-      if (isAuthenticated.value) {
+      if (isAuthenticated.value && !isGuest.value) {
         const localeAccountPath = root.localePath({ name: 'my-account' });
         return router.push(localeAccountPath);
       }
