@@ -37,11 +37,12 @@
     </SfProperty>
 
     <SfProperty
+      v-if="couponDiscount"
       :name="$t('CartPreview.Coupon Discount')"
       class="sf-property--full-width"
     >
       <template #value>
-        <SfPrice :regular="$n(cartGetters.getCouponDiscount(totals), 'currency')" />
+        <SfPrice :regular="$n(couponDiscount, 'currency')" />
       </template>
     </SfProperty>
     <SfDivider />
@@ -74,9 +75,13 @@ export default {
   setup() {
     const { cart } = useCart();
 
+    const totals = computed(() => cartGetters.getTotals(cart.value));
+    const couponDiscount = computed(() => cartGetters.getCouponDiscount(totals));
+
     return {
       cartGetters,
-      totals: computed(() => cartGetters.getTotals(cart.value))
+      totals,
+      couponDiscount
     };
   }
 };

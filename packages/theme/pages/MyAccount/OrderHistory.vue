@@ -104,10 +104,10 @@
         </SfTable>
         <LazyHydrate on-interaction>
           <SfPagination
-            v-show="pagination.totalPages > 1"
+            v-show="paginationGetters.getTotalPages(pagination) > 1"
             class="products__pagination desktop-only"
-            :current="pagination.currentPage"
-            :total="pagination.totalPages"
+            :current="paginationGetters.getCurrentPage(pagination)"
+            :total="paginationGetters.getTotalPages(pagination)"
             :visible="5"
           />
         </LazyHydrate>
@@ -142,7 +142,7 @@ import {
 import LazyHydrate from 'vue-lazy-hydration';
 import { computed, ref } from '@nuxtjs/composition-api';
 import { getCurrentInstance } from '@nuxtjs/composition-api';
-import { useUserOrder, orderGetters } from '@vue-storefront/plentymarkets';
+import { useUserOrder, orderGetters, paginationGetters } from '@vue-storefront/plentymarkets';
 import { AgnosticOrderStatus } from '@vue-storefront/core';
 import { onSSR } from '@vue-storefront/core';
 
@@ -194,6 +194,7 @@ export default {
       orders,
       pagination,
       loading,
+      paginationGetters,
       totalOrders: computed(() => orderGetters.getOrdersTotal(orderResult.value)),
       getStatusTextClass,
       orderGetters,

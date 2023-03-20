@@ -29,6 +29,16 @@ function getPrice(product: Product): AgnosticPrice {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getSpecialPrice(product: Product): number {
+  return product?.prices?.default?.price?.value ?? 0;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getRegularPrice(product: Product): number {
+  return product?.prices?.rrp?.price?.value ?? 0;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getGallery(product: Product): AgnosticMediaGalleryItem[] {
   return productImageFilter(product);
 }
@@ -56,6 +66,10 @@ function getBreadcrumbs(product: Product, categories?: Category[]): AgnosticBrea
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getCoverImage(product: Product): string {
   return product ? productImageFilter(product)[0].small : '';
+}
+
+function getMiddleImage(product: Product): string {
+  return product ? product.images.all[0].urlMiddle : '';
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -177,11 +191,20 @@ function getTotalReviews(product: Product): number {
 function getAverageRating(product: Product): number {
   return Number(product?.feedback?.counts?.averageValue);
 }
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getMaxRating(product: Product): number {
+  // return product?.rating?.max;
+  return 5;
+}
 
 export const productGetters: ProductGetters<Product, ProductFilter> = {
   getName,
   getSlug,
   getPrice,
+  getMaxRating,
+  getMiddleImage,
+  getSpecialPrice,
+  getRegularPrice,
   getGallery,
   getCoverImage,
   getFiltered,

@@ -78,6 +78,7 @@ export default {
 
 <style lang="scss">
 @import "~@storefront-ui/vue/styles";
+@import "../assets/scss/theme";
 
 #layout {
   box-sizing: border-box;
@@ -94,7 +95,7 @@ export default {
 }
 
 // Reset CSS
-html {
+:root {
   width: auto;
 
   @include for-mobile {

@@ -22,7 +22,10 @@
               </SfButton>
             </div>
             <!-- checkboxes -->
-            <div class="checkboxes">
+            <div
+              v-if="cookieJson"
+              class="checkboxes"
+            >
               <div
                 v-for="(cookieGroup, index) in cookieJson"
                 :key="index"
@@ -178,7 +181,7 @@
                 class="sf-button full-width flat"
                 :aria-disabled="false"
                 type="button"
-                @click="convertAndSaveCookies(false)"
+                @click="convertAndSaveCookies(false, false)"
               >
                 {{ $t('CookieBar.Accept Selection') }}
               </button>
@@ -210,7 +213,7 @@
 </template>
 
 <script>
-import { cookieBarGetters } from '@vue-storefront/plentymarkets';
+import { cookieBarGetters, useCookieBar } from '@vue-storefront/plentymarkets';
 import { ref, useContext } from '@nuxtjs/composition-api';
 import { SfCheckbox, SfIcon, SfButton, SfLink } from '@storefront-ui/vue';
 export default {
@@ -222,97 +225,13 @@ export default {
   },
   setup() {
     const { $config, app } = useContext();
-    const cookieGroupsFromConfig = ref($config.cookieGroups);
-    const cookieJsonSaved = app.$cookies.get('plenty-shop-cookie');
-    const furtherSettingsOn = ref(false);
-    const defaultCheckboxIndex = 0;
-    const cookieJson = ref(
-      cookieGroupsFromConfig.value.groups.map((group) => ({
-        name: group.name,
-        accepted: false,
-        showMore: false,
-        description: group.description,
-        cookies: group.cookies.map((cookie) => ({
-          ...cookie,
-          accepted: false,
-          name: cookie.name
-        }))
-      }))
+    const { cookieJson, bannerIsHidden, convertAndSaveCookies, defaultCheckboxIndex } = useCookieBar(
+      app.$cookies,
+      'plenty-shop-cookie',
+      0,
+      $config.cookieGroups
     );
-
-    const initcookieJson = () => {
-      if (cookieJsonSaved) {
-        cookieJsonSaved.forEach((group, index) => {
-          const cookies = Object.values(group)[0];
-          let atLeastOneIsTrue = false;
-          cookies.forEach((cookie, index2) => {
-            cookieJson.value[index].cookies[index2].accepted =
-              Object.values(cookie)[0];
-            atLeastOneIsTrue = Object.values(cookie)[0]
-              ? true
-              : atLeastOneIsTrue;
-          });
-          cookieJson.value[index].accepted = atLeastOneIsTrue;
-        });
-      }
-      // Mark default checkbox group as true
-      cookieJson.value[defaultCheckboxIndex].accepted = true;
-      cookieJson.value[defaultCheckboxIndex].cookies =
-        cookieJson.value[0].cookies.map((cookie) => ({
-          ...cookie,
-          accepted: true
-        }));
-    };
-
-    const getMinimumLifeSpan = () => {
-      const convertToDays = (daysInString) => {
-        return parseInt(daysInString.split(' ')[0]);
-      };
-
-      let minimum = 100000;
-      cookieGroupsFromConfig.value.groups.forEach((group) => {
-        group.cookies.forEach((cookie) => {
-          if (minimum > convertToDays(cookie.Lifespan)) {
-            minimum = convertToDays(cookie.Lifespan);
-          }
-        });
-      });
-      return minimum;
-    };
-    const bannerIsHidden = ref(cookieJsonSaved !== undefined);
-    const saveCookies = (key, cookieValue) => {
-      const minimumOfAllMinimums = 60 * 60 * 24 * getMinimumLifeSpan();
-      app.$cookies.set(key, cookieValue, {
-        path: '/',
-        maxAge: minimumOfAllMinimums
-      });
-    };
-    const convertToSaveableJson = (jsonList) => {
-      let toSave = [];
-      toSave = jsonList.map((group) => ({
-        [group.name]: group.cookies.map((cookie) => ({
-          [cookie.name]: cookie.accepted
-        }))
-      }));
-      return toSave;
-    };
-
-    const convertAndSaveCookies = (setAllCookies, newStatus) => {
-      if (setAllCookies) {
-        // accept all or reject all case (update cookieJson and checkboxes from ui)
-        cookieJson.value.forEach((group, index) => {
-          if (index !== defaultCheckboxIndex) {
-            group.accepted = newStatus;
-            group.cookies.forEach((cookie) => {
-              cookie.accepted = newStatus;
-            });
-          }
-        });
-      }
-      const toSave = convertToSaveableJson(cookieJson.value, newStatus);
-      saveCookies('plenty-shop-cookie', toSave);
-      bannerIsHidden.value = true;
-    };
+    const furtherSettingsOn = ref(false);
 
     const setChildrenCheckboxes = (group, state) => {
       group.cookies = group.cookies.map((cookie) => ({
@@ -325,19 +244,16 @@ export default {
       group.accepted = group.cookies.some((cookie) => cookie.accepted);
     };
 
-    initcookieJson();
-
     return {
       defaultCheckboxIndex,
       furtherSettingsOn,
       bannerIsHidden,
       cookieBarGetters,
       cookieJson,
-      cookieJsonSaved,
-      cookieGroupsFromConfig,
+      convertAndSaveCookies,
+      cookieGroupsFromConfig: ref($config.cookieGroups),
       setChildrenCheckboxes,
-      updateParentCheckbox,
-      convertAndSaveCookies
+      updateParentCheckbox
     };
   }
 };

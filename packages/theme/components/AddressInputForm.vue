@@ -132,6 +132,7 @@
             />
           </ValidationProvider>
           <ValidationProvider
+            v-if="!internalForm.country || states.length"
             v-slot="{ errors }"
             :name="$t('AddressInputForm.State/Province')"
             rules=""
@@ -161,7 +162,6 @@
           <ValidationProvider
             v-slot="{ errors }"
             :name="$t('AddressInputForm.Phone no')"
-            rules="required|min:5"
             slim
           >
             <SfInput
@@ -169,7 +169,6 @@
               v-e2e="type + '-phoneNumber'"
               :name="type + '-phoneNumber'"
               :label="$t('AddressInputForm.Phone no')"
-              required
               :valid="!errors[0]"
               :error-message="errors[0]"
               class="form__element"

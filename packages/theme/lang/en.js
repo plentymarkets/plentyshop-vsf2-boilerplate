@@ -139,6 +139,7 @@ export default {
     'Add new address': '@:App.addNewAddress',
     'Cancel': '@:App.cancel',
     'Create address': '@:App.createAddress',
+    'Is this still your current address': 'Is this still your current address?',
     'Update address': '@:App.updateAddress',
   },
   // FiltersSidebar

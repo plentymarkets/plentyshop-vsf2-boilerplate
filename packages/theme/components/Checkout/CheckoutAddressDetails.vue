@@ -45,6 +45,9 @@
       </div>
       <div v-else>
         <slot name="shipping-list">
+          <div class="pb-sf-base">
+            {{ $t('CheckoutAddressDetails.Is this still your current address') }}
+          </div>
           <AddressPicker
             :countries="countries"
             :addresses="addressList"
@@ -66,7 +69,7 @@
 </template>
 <script>
 import { toRef } from '@nuxtjs/composition-api';
-import { useAddressForm, userAddressGetters } from '@vue-storefront/plentymarkets';
+import { useAddressForm } from '@vue-storefront/plentymarkets';
 import AddressInputForm from '~/components/AddressInputForm';
 import AddressPicker from '~/components/AddressPicker';
 import {
@@ -154,8 +157,7 @@ export default {
       setDefaultAddress,
       changeAddress,
       deleteAddress,
-      closeForm,
-      userAddressGetters
+      closeForm
     };
   }
 };

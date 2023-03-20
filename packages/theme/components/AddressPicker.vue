@@ -7,8 +7,8 @@
   >
     <SfAddress
       v-for="(address, key) in addresses"
-      :key="userAddressGetters.getId(address).toString()"
-      :name="userAddressGetters.getId(address).toString()"
+      :key="userAddressGetters.getId(address)"
+      :name="userAddressGetters.getId(address)"
     >
       <span>{{ userAddressGetters.getFirstName(address) }} {{ userAddressGetters.getLastName(address) }}</span>
       <span>{{ userAddressGetters.getStreetName(address) }} {{ userAddressGetters.getApartmentNumber(address) }}</span>
@@ -28,7 +28,7 @@
       <a
         v-if="!userAddressGetters.isDefault(address)"
         class="sf-link text-primary"
-        @click="userAddressGetters.getId(address).toString()"
+        @click="userAddressGetters.getId(address)"
       >
         {{ $t('AddressPicker.Make default') }}
       </a>
