@@ -136,7 +136,7 @@
 <script>
 import { SfHeader, SfImage, SfIcon, SfButton, SfBadge, SfSearchBar, SfOverlay } from '@storefront-ui/vue';
 import { useUiState } from '~/composables';
-import { useCart, useUser, cartGetters, useSearch, useWishlist } from '@vue-storefront/plentymarkets';
+import { useCart, useUser, cartGetters, useSearch, useWishlist, useGuest } from '@vue-storefront/plentymarkets';
 import { computed, ref, useRouter } from '@nuxtjs/composition-api';
 import { useUiHelpers } from '~/composables';
 import LocaleSelector from './LocaleSelector';
@@ -170,11 +170,13 @@ export default {
     const { setTermForUrl, getFacetsFromURL } = useUiHelpers();
     const { search: headerSearch, result } = useSearch();
     const { wishlist } = useWishlist();
-    const { isAuthenticated } = useUser();
+    const { isAuthenticated, user } = useUser();
     const { cart } = useCart();
     const term = ref(getFacetsFromURL().term);
     const isSearchOpen = ref(false);
     const searchBarRef = ref(null);
+    const { isGuest } = useGuest(user.value);
+    console.log(isGuest);
 
     const cartTotalItems = computed(() => {
       const count = cartGetters.getTotalItems(cart.value);
