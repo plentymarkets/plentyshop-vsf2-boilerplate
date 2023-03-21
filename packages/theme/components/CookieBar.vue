@@ -3,7 +3,7 @@
     <div>
       <div
         v-if="!bannerIsHidden"
-        :class="['fixed right-sf-xs font-sf-xl z-1000', !furtherSettingsOn ? 'bottom-32 w-full md:w-2/5 p-2 md:bottom-4 h-96 text-sf-c-text font-sf-medium font-sf-secondary' : 'bottom-0 md:bottom-10 h-96 text-sf-c-text font-sf-secondary font-sf-medium']"
+        :class="['fixed right-sf-xs font-sf-xl z-9999999999 shadow-2xl', !furtherSettingsOn ? 'bottom-32 w-full md:w-2/5 p-2 md:bottom-4 h-96 text-sf-c-text font-sf-medium font-sf-secondary' : 'bottom-24 md:bottom-0 md:bottom-10 md:h-96 text-sf-c-text font-sf-secondary font-sf-medium']"
       >
         <div class="bg-sf-c-light-lighten shadow-xl p-xs">
           <div v-if="!furtherSettingsOn">

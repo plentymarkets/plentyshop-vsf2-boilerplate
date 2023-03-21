@@ -40,7 +40,7 @@ context('Order placement', () => {
 
     page.product.header.openCart();
     cy.get('[data-e2e="collected-product"]').should('exist');
-    page.cart.goToCheckoutButton.click({ force: true });
+    page.cart.goToCheckoutButton.click();
 
     page.checkout.checkoutlogin.continueAsUser(data.customer);
     cy.wait(['@registerUser', '@loginUser', '@getActiveShippingCountries']);
