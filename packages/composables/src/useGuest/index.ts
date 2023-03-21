@@ -5,7 +5,7 @@ export const useGuest = (
   user: Ref<User>
 ): Guest => {
   const isGuest: ComputedRef<boolean> = computed(() => {
-    return user.value !== null && user.value.guestMail !== null;
+    return user.value !== null && user.value.guestMail !== undefined;
   });
 
   return {

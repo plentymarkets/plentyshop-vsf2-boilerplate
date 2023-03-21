@@ -199,10 +199,6 @@ export default {
 
     // TODO: https://github.com/DivanteLtd/vue-storefront/issues/4927
     const handleAccountClick = async () => {
-      console.log('account click');
-      console.log(isAuthenticated.value);
-      console.log(isGuest.value);
-      console.log(user.value);
       if (isAuthenticated.value && !isGuest.value) {
         const localeAccountPath = root.localePath({ name: 'my-account' });
         return router.push(localeAccountPath);
