@@ -15,6 +15,9 @@ module.exports = {
   darkMode: false,
   theme: {
     extend: {
+      zIndex: {
+        '9999': '9999'
+      },
       fontSize: {
         // 12px
         'sf-xs': 'var(--font-size--xs)',
