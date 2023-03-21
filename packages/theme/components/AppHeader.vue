@@ -194,7 +194,7 @@ export default {
       return result.value;
     });
 
-    const accountIcon = computed(() => isAuthenticated.value ? 'profile_fill' : 'profile');
+    const accountIcon = computed(() => isAuthenticated.value && !isGuest.value ? 'profile_fill' : 'profile');
     const wishlistIcon = computed(() => wishlistTotalItems.value > 0 ? 'heart_fill' : 'heart');
 
     // TODO: https://github.com/DivanteLtd/vue-storefront/issues/4927
