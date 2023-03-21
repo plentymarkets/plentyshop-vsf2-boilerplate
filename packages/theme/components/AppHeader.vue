@@ -175,7 +175,7 @@ export default {
     const term = ref(getFacetsFromURL().term);
     const isSearchOpen = ref(false);
     const searchBarRef = ref(null);
-    const { isGuest } = useGuest(user.value);
+    const { isGuest } = useGuest(user);
 
     const cartTotalItems = computed(() => {
       const count = cartGetters.getTotalItems(cart.value);
