@@ -19,6 +19,10 @@ const params: UseUserFactoryParams<User, UpdateParams, RegisterParams> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   load: async (context: Context) => {
     const data = await context.$plentymarkets.api.getSession(true);
+    // guest mail case
+    if (data.user && data.user.guestMail) {
+      return null;
+    }
     return data.user;
   },
 
@@ -39,9 +43,8 @@ const params: UseUserFactoryParams<User, UpdateParams, RegisterParams> = {
   register: async (context: Context, params: UserRegisterParams): Promise<User> => {
     if (!params.password || params.password.length === 0) {
       await context.$plentymarkets.api.loginAsGuest(params.email);
-      const session = await context.$plentymarkets.api.getSession(true);
 
-      return session.user;
+      return null;
     } else {
       await context.$plentymarkets.api.registerUser(params);
       const data = await context.$plentymarkets.api.loginUser(params.email, params.password);
@@ -52,7 +55,7 @@ const params: UseUserFactoryParams<User, UpdateParams, RegisterParams> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   logIn: async (context: Context, { username, password }) => {
 
-    const result = await context.$plentymarkets.api.loginUser(username, password);
+    await context.$plentymarkets.api.loginUser(username, password);
 
     const wishlist = await context.$plentymarkets.api.getWishlist();
     context.useWishlist.setWishlist(wishlist);

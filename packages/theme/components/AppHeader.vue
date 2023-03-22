@@ -136,7 +136,7 @@
 <script>
 import { SfHeader, SfImage, SfIcon, SfButton, SfBadge, SfSearchBar, SfOverlay } from '@storefront-ui/vue';
 import { useUiState } from '~/composables';
-import { useCart, useUser, cartGetters, useSearch, useWishlist, useGuest } from '@vue-storefront/plentymarkets';
+import { useCart, useUser, cartGetters, useSearch, useWishlist } from '@vue-storefront/plentymarkets';
 import { computed, ref, useRouter } from '@nuxtjs/composition-api';
 import { useUiHelpers } from '~/composables';
 import LocaleSelector from './LocaleSelector';
@@ -170,12 +170,11 @@ export default {
     const { setTermForUrl, getFacetsFromURL } = useUiHelpers();
     const { search: headerSearch, result } = useSearch();
     const { wishlist } = useWishlist();
-    const { isAuthenticated, user } = useUser();
+    const { isAuthenticated } = useUser();
     const { cart } = useCart();
     const term = ref(getFacetsFromURL().term);
     const isSearchOpen = ref(false);
     const searchBarRef = ref(null);
-    const { isGuest } = useGuest(user);
 
     const cartTotalItems = computed(() => {
       const count = cartGetters.getTotalItems(cart.value);
@@ -194,12 +193,12 @@ export default {
       return result.value;
     });
 
-    const accountIcon = computed(() => isAuthenticated.value && !isGuest.value ? 'profile_fill' : 'profile');
+    const accountIcon = computed(() => isAuthenticated.value ? 'profile_fill' : 'profile');
     const wishlistIcon = computed(() => wishlistTotalItems.value > 0 ? 'heart_fill' : 'heart');
 
     // TODO: https://github.com/DivanteLtd/vue-storefront/issues/4927
     const handleAccountClick = async () => {
-      if (isAuthenticated.value && !isGuest.value) {
+      if (isAuthenticated.value) {
         const localeAccountPath = root.localePath({ name: 'my-account' });
         return router.push(localeAccountPath);
       }
