@@ -63,11 +63,13 @@ export default {
     const getDefaultAddress = () => {
       if (props.addresses.length > 0) {
         const defaultAddress = userAddressGetters.getDefault(props.addresses);
+
         if (defaultAddress) {
           defaultAddressId.value = userAddressGetters.getId(defaultAddress);
         }
       }
     };
+
     getDefaultAddress();
     onUpdated(() => {
       getDefaultAddress();
@@ -75,6 +77,7 @@ export default {
 
     const getCountryName = (address) => {
       const country = countryGetters.getCountryById(props.countries, userAddressGetters.getCountryId(address));
+
       return countryGetters.getCountryName(country);
     };
 

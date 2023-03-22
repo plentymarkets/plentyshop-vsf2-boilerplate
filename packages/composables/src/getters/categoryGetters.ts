@@ -39,6 +39,7 @@ function findCategoryPathById(categories: Category[], id: number, path: Category
     }
     if (category.children) {
       const foundPath = findCategoryPathById(category.children, id, [...path, category]);
+
       if (foundPath?.length > path?.length) {
         return foundPath;
       }
@@ -52,6 +53,7 @@ function getMappedBreadcrumbs(categories: Category[], categoryId: number): Agnos
 
   return categoryPath.map((category) => {
     const categoryDetails = getCategoryDetails(category.details);
+
     return {
       text: categoryDetails.name,
       link: context.app.localePath('/c/' + categoryDetails.nameUrl)

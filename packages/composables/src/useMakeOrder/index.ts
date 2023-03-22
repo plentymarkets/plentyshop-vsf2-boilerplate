@@ -19,9 +19,11 @@ const factoryParams: UseMakeOrderFactoryParams<Order> = {
 
     const paymentType = preparePaymentResponse.type || 'errorCode';
     const paymentValue = preparePaymentResponse.value || '""';
+
     switch (paymentType) {
       case 'continue':
         const order: CreateOrderResponse = await context.$plentymarkets.api.placeOrder();
+
         await context.$plentymarkets.api.executePayment(order.data.order.id, params.paymentId);
         await context.$plentymarkets.api.deleteCart(context);
 

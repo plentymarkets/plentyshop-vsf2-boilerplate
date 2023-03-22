@@ -139,8 +139,10 @@ export default {
 
     const processOrder = async () => {
       const paymentMethodId = cart.value.methodOfPaymentId;
+
       await make({paymentId: paymentMethodId});
       const thankYouPath = { name: 'thank-you', query: { order: orderGetters.getId(order.value) }};
+
       router.push(context.root.localePath(thankYouPath));
       setCart({items: []});
     };
