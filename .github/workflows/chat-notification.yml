@@ -1,6 +1,6 @@
 on:
   pull_request:
-    types: [review_requested]
+    types: [ready_for_review]
 jobs:
   notify:
     runs-on: ubuntu-latest
@@ -10,7 +10,7 @@ jobs:
       uses: Co-qn/google-chat-notification@releases/v1
       with:
         name: Pull request review
-        url: https://chat.googleapis.com/v1/spaces/AAAA3YXYRzM/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=vnK8BbrnUQz-dBgcHgLy6N9pWXs0-2HedfzahsosPKo%3D
+        url: https://chat.googleapis.com/v1/spaces/AAAA_iUfT18/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=Qnrj63BATEim_jN7dwfOIg_dS8AB78TgZQTsRBDIJ5g%3D
         status: opened
       if: always()
      
