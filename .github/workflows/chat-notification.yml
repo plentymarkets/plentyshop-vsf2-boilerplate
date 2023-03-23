@@ -11,6 +11,6 @@ jobs:
       with:
         name: Pull request review test
         url: https://chat.googleapis.com/v1/spaces/AAAA_iUfT18/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=Qnrj63BATEim_jN7dwfOIg_dS8AB78TgZQTsRBDIJ5g%3D
-        status: opened
+        status: ${{ job.status }}
       if: always()
      
