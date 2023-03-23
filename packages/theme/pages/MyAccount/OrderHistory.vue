@@ -179,6 +179,7 @@ export default {
 
     const getStatusTextClass = (order) => {
       const status = orderGetters.getStatus(order);
+
       switch (status) {
         case AgnosticOrderStatus.Open:
           return 'text-warning';

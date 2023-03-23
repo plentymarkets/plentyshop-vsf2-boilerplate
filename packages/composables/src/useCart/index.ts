@@ -20,6 +20,7 @@ const migrateVariationData = (oldCart: Cart, newCart: Cart): Cart => {
     }
 
     const oldCartItemData = oldCart.items.find(oldCartItem => oldCartItem.id === newCartItem.id);
+
     if (!oldCartItemData?.variation) {
       return;
     }
@@ -34,12 +35,14 @@ const params: UseCartFactoryParams<Cart, CartItem, Product> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   load: async (context: Context, { customQuery }) => {
     const cart = await context.$plentymarkets.api.getCart();
+
     return cart;
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   addItem: async (context: Context, { currentCart, product, quantity }) => {
     let cart = await context.$plentymarkets.api.addCartItem({ productId: product.variation.id, quantity });
+
     cart.items.find((cartItem) => cartItem.variationId === product.variation.id).variation = product;
     cart = migrateVariationData(currentCart, cart);
     return cart;
@@ -48,6 +51,7 @@ const params: UseCartFactoryParams<Cart, CartItem, Product> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   removeItem: async (context: Context, { currentCart, product, customQuery }) => {
     let cart = await context.$plentymarkets.api.removeCartItem(product.id);
+
     cart = migrateVariationData(currentCart, cart);
     return cart;
   },
@@ -55,6 +59,7 @@ const params: UseCartFactoryParams<Cart, CartItem, Product> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   updateItemQty: async (context: Context, { currentCart, product, quantity, customQuery }) => {
     let cart = await context.$plentymarkets.api.updateCartItemQty({ productId: product.variationId, cartItemId: product.id, quantity });
+
     cart = migrateVariationData(currentCart, cart);
     return cart;
   },
@@ -62,6 +67,7 @@ const params: UseCartFactoryParams<Cart, CartItem, Product> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   clear: async (context: Context) => {
     const cart = await context.$plentymarkets.api.clearCart();
+
     return cart;
   },
 

@@ -145,6 +145,7 @@ export default {
 
     const setDefaultAddress = (addressId) => {
       const address = addressList.value.find((_address) => Number(_address.id) === Number(addressId));
+
       emit('set-default-address', address);
     };
 

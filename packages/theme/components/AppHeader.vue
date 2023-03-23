@@ -178,11 +178,13 @@ export default {
 
     const cartTotalItems = computed(() => {
       const count = cartGetters.getTotalItems(cart.value);
+
       return count ? count.toString() : null;
     });
 
     const wishlistTotalItems = computed(() => {
       const count = wishlist.value.items;
+
       return count ? count.length : null;
     });
 
@@ -200,6 +202,7 @@ export default {
     const handleAccountClick = async () => {
       if (isAuthenticated.value) {
         const localeAccountPath = root.localePath({ name: 'my-account' });
+
         return router.push(localeAccountPath);
       }
 
@@ -209,6 +212,7 @@ export default {
     const closeSearch = () => {
       const wishlistClassName = 'sf-product-card__wishlist-icon';
       const isWishlistIconClicked = event?.path?.find(p => wishlistClassName.search(p.className) > 0);
+
       if (isWishlistIconClicked || !isSearchOpen.value) return;
 
       term.value = '';
@@ -230,6 +234,7 @@ export default {
     };
 
     const { app } = useContext();
+
     app.i18n.locale === 'de' ? localize('de', de) : localize('en', en);
 
     return {
