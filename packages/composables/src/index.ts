@@ -18,6 +18,7 @@ export { useActiveShippingCountries } from './useActiveShippingCountries';
 export { usePaymentProvider } from './usePaymentProvider';
 export { useAddressForm } from './useAddressForm';
 export { useLegalInformation } from './useLegalInformation';
+export { useLocaleSwitchHelper } from './useLocaleSwitchHelper';
 
 // Getters
 export { cartGetters } from './getters/cartGetters';

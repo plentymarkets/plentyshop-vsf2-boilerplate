@@ -1,5 +1,5 @@
 <template>
-  <div class="custom-container">
+  <div>
     <SfButton @click="isLangModalOpen = !isLangModalOpen">
       <SfImage
         :src="addBasePath(`/icons/langs/${locale}.webp`)"
@@ -11,9 +11,10 @@
     <SfBottomModal
       :is-open="isLangModalOpen"
       title="Choose language"
+      class="left-0 z-10"
       @click:close="isLangModalOpen = !isLangModalOpen"
     >
-      <SfList>
+      <SfList class="md:lg:flex">
         <SfListItem
           v-for="lang in availableLocales"
           :key="localesGetters.getCode(lang)"
@@ -22,7 +23,7 @@
             class="cursor-pointer"
             @click="switchLocale(localesGetters.getCode(lang))"
           >
-            <SfCharacteristic class="language">
+            <SfCharacteristic class="p-sf-sm">
               <template #title>
                 <span>{{ localesGetters.getLabel(lang) }}</span>
               </template>
@@ -32,7 +33,7 @@
                   height="20"
                   width="20"
                   alt="Flag"
-                  class="language__flag"
+                  class="mr-sf-sm"
                 />
               </template>
             </SfCharacteristic>
@@ -58,9 +59,8 @@ import {
   useRoute,
   useContext
 } from '@nuxtjs/composition-api';
-import { localesGetters } from '@vue-storefront/plentymarkets';
+import { localesGetters, useFacet, useProduct, useLocaleSwitchHelper } from '@vue-storefront/plentymarkets';
 import { addBasePath } from '@vue-storefront/core';
-import { useFacet, useProduct } from '@vue-storefront/plentymarkets';
 
 export default {
   components: {
@@ -81,44 +81,18 @@ export default {
       locales.filter((i) => i.code !== locale)
     );
     const { result: facet } = useFacet();
-    const { products: product } = useProduct('products');
+    const { products: products } = useProduct('products');
+    const { routeToCategory, routeToProduct } = useLocaleSwitchHelper();
 
-    /** Systems can be configured to append a slash at the end of the url.
-     *   This will crash the method that gets the category by slug. Thats why we remove the ending slash if there is one.
-     */
-    const removeTrailingSlashFromUrl = (url) => {
-      return url.slice(-1) === '/' ? url.slice(0, -1) : url;
-    };
-
-    /**
-     * Redirect to correct category or item url after locale change.
-     * @param lang
-     */
-    const redirectToRoute = (lang) => {
-      const prefix = app.i18n.defaultLocale !== lang ? `/${lang}` : '';
-
+    const switchLocale = (language) => {
+      app.i18n.setLocaleCookie(language);
       if (facet.value && route.value.name.startsWith('category')) {
-        const url = removeTrailingSlashFromUrl(
-          facet.value.data?.languageUrls[lang]
-        );
-
-        router.push(`${prefix}/c${url}`);
-      } else if (product.value && route.value.name.startsWith('product')) {
-        const url = product?.value[0].data?.languageUrls[lang];
-
-        if (url) {
-          router.push(`${prefix}/p/${url}`);
-          return;
-        }
-        router.push(app.switchLocalePath(lang));
+        routeToCategory(facet, language);
+      } else if (products.value.length && route.value.name.startsWith('product')) {
+        routeToProduct(products.value, language);
       } else {
-        router.push(app.switchLocalePath(lang));
+        router.push(app.switchLocalePath(language));
       }
-    };
-
-    const switchLocale = (lang) => {
-      app.i18n.setLocaleCookie(lang);
-      redirectToRoute(lang);
     };
 
     return {
@@ -134,16 +108,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.custom-container {
-  margin: 0 -5px;
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  position: relative;
-
   .sf-bottom-modal {
-    z-index: 2;
-    left: 0;
     @include for-desktop {
       --bottom-modal-height: 100vh;
     }
@@ -153,31 +118,8 @@ export default {
     top: var(--spacer-xs);
     right: var(--spacer-xs);
   }
-
   .sf-button {
     --button-box-shadow-opacity: 0;
     --button-background: trasnparent;
   }
-  .sf-list {
-    .language {
-      padding: var(--spacer-sm);
-      &__flag {
-        margin-right: var(--spacer-sm);
-      }
-    }
-    @include for-desktop {
-      display: flex;
-    }
-  }
-  &__lang {
-    width: 20px;
-    --button-box-shadow: none;
-    background: none;
-    padding: 0 5px;
-    display: flex;
-    align-items: center;
-    opacity: 0.5;
-    border: none;
-  }
-}
 </style>

@@ -91,6 +91,11 @@ export interface Prices {
     graduatedPrices: Default[];
 }
 
+export interface LanguageNames {
+    [key: string]: string,
+    'x-default': string
+}
+
 export type Product = {
     attributes: {
         attributeId: number,
@@ -150,5 +155,6 @@ export type Product = {
     variationAttributeMap?: {
         attributes: ProductAttribute[],
         variations: ProductVariation[]
-    }
+    },
+    urls: LanguageNames
 }
