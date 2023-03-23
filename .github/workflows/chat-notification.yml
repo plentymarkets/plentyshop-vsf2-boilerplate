@@ -1,6 +1,6 @@
 on:
   pull_request:
-    types: [ready_for_review]
+    types: [opened]
 jobs:
   notify:
     runs-on: ubuntu-latest
