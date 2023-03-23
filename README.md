@@ -1,55 +1,108 @@
-# Getting Started
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/1626923/137092657-fb398d20-b592-4661-a1f9-4135db0b61d5.png" alt="Vue Storefront" height="80px" />
 
-## Prerequisites
-- Yarn
-- Node v14
+  <img src="https://cdn01.plentymarkets.com/avw8j9fg70hi/frontend/website_plentycom/plenty_Logos/plentymarkets/plentymarkets_Claim_RGB.png" alt="plentymarkets logo" height="160px" />
+</div>
 
-## Installation
-1. Clone the repository from GitHub
-2. Run `yarn` to install the project dependencies
-3. Run `yarn build` to build the project
+# Vue Storefront 2 integration with plentymarkets
 
-## Running the Project
-- Run `yarn dev` to start the project
+This project is a plentymarkets integration for Vue Storefront 2. The project takes a monorepo approach and contains all packages required to run the application.
 
-## Configuration
-- Middleware → Endpoint
-   - In `Middleware.config.js`, we set the endpoint for the back-end
-- Theme
-   - In `themeConfig.js`, we set the media files
-   - In `theme.scss`, we set the primary color
-- Cookies
-   - In `cookieConfig.js`, we set all cookie names and descriptions
-- Display languages/currency
-   - In `nuxt.config.js`, we set all the locale data and currency
+## Stay connected
 
-## Project Information
-### Package Structure
+[![GitHub Repo stars](https://img.shields.io/github/stars/vuestorefront/vue-storefront?style=social)](https://github.com/vuestorefront/vue-storefront)
+[![Twitter Follow](https://img.shields.io/twitter/follow/vuestorefront?style=social)](https://twitter.com/vuestorefront)
+[![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCkm1F3Cglty3CE1QwKQUhhg?style=social)](https://www.youtube.com/c/VueStorefront)
+[![Discord](https://img.shields.io/discord/770285988244750366?label=join%20discord&logo=Discord&logoColor=white)](https://discord.vuestorefront.io)
 
-| Package      | Responsibilities                                                                                      |
-|--------------|-------------------------------------------------------------------------------------------------------|
-| api-client   | In this space, we handle all the API calls. In the `api/` folder, the pattern is `use*Name*`. In `types`, we declare the type of each property. All changes here must be built with the `yarn build` command. |
-| composables  | In this space, we handle all the states of the app. In most use cases, we extend the "storefront" functionality. We prefer to separate most of the logic from the component to be handled by the composables.  |
-| theme        | In this space, we have all the front-end pages, components, styles, and scripts.                       |
+------
+
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
+
+## Getting started
+
+This section walks you through the first steps of working with the app.
+
+### Requirements
+
+* [Download NodeJS v14](https://nodejs.org/en/download/releases). If some of your projects require other NodeJS versions, use a node version manager like [nvm](https://github.com/nvm-sh/nvm) or [nvm-windows](https://github.com/coreybutler/nvm-windows) to quicky switch between the different versions.
+* [Install the Yarn package manager](https://yarnpkg.com/getting-started/install).
+
+### Installation
+
+1. Fork the repository.
+2. Clone your fork.
+3. To install the project dependencies, run `yarn`.
+4. To build the project, run `yarn build`.
+5. To start the project in development mode, run `yarn dev`.
+
+### Configuration
+
+* To connect the app to your plentymarkets system, open `packages/theme/middleware.config.js` and edit the `url`.
+* To update your theme, edit the following files:
+  * `packages/theme/assets/scss/theme.scss` for [global variables](https://docs.storefrontui.io/v1/?path=/docs/getting-started-development-guide-css-customization--page#global-variables)
+  * `packages/theme/tailwind.config.js` for utility classes
+  * `packages/theme/themeConfig.js` for media files
+* To update the available locales and currencies, open `packages/theme/nuxt.config.js` and edit `i18n`. Note that when editing internationalisation, you also have to configure your plentymarkets system accordingly. When adding languages, you also have to add new translations in `packages/theme/lang`.
+* To update cookie groups and decide when to load additional scripts, edit `packages/theme/cookieConfig.js`.
+
+<!-- ### Publishing the project (TBA) -->
+
+## Project overview
+
+This project extends Vue Storefront. This means it relies on Nuxt 2, VueJS 2 and TypeScript.
+
+> :notebook: Vue components use the composition API.
+
+### Package structure
+
+| Package | Responsibilities |
+|---------|------------------|
+| api-client | Queries data from external systems, for example to exchange data with the connected plentymarkets system. |
+| composables | Handles the app state and all major app logic. By default, most composables extend core storefront functionality. |
+| theme | Contains the presentation of the app. |
+
+For further information on each package, refer to that package's README.
+
+## How to start if you want to contribute?
+
+Want to contribute? Ping us on the `plentymarkets` channel on [our Discord](https://discord.vuestorefront.io)!
+
+Also, before getting started, check out to the [contribution guide](./CONTRIBUTING.md).
+
+## Resources
+
+Vue Storefront:
+
+<!-- * [plentymarkets integration Documentation](https://docs.vuestorefront.io/plentymarkets) -->
+* [Vue Storefront Documentation](https://docs.vuestorefront.io/v2/)
+* [Vue Storefront Boilerplate](https://github.com/vuestorefront/ecommerce-integration-boilerplate)
+* [Storefront UI Library](https://docs.storefrontui.io/v1/?path=/docs/welcome--page)
+
+General:
+
+* [Nuxt Documentation](https://nuxtjs.org/docs/get-started/installation)
+* [Introduction to Vue](https://vuejs.org/guide/introduction.html) | [Composition API FAQ](https://vuejs.org/guide/extras/composition-api-faq.html)
+* [HTTP Toolkit](https://httptoolkit.tech)
+
+## Support
+
+If you have any questions about this integration we will be happy to answer them on `plentymarkets` channel on [our Discord](discord.vuestorefront.io).
+
+## Contributors ✨
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 
 
-## External Documentation
-- Vue: [https://vuejs.org/guide/introduction.html](https://vuejs.org/guide/introduction.html)
-- Nuxt: [https://nuxt.com/docs](https://nuxt.com/docs)
-- Storefront UI Library: [https://docs.storefrontui.io/v1/?path=/docs/welcome--page](https://docs.storefrontui.io/v1/?path=/docs/welcome--page)
-- Vue Storefront Integration: [https://docs.vuestorefront.io/v2/getting-started/introduction.html](https://docs.vuestorefront.io/v2/getting-started/introduction.html)
-- Vue Storefront Boilerplate: [https://github.com/vuestorefront/ecommerce-integration-boilerplate](https://github.com/vuestorefront/ecommerce-integration-boilerplate)
-- HTTP Toolkit: [https://httptoolkit.tech](https://httptoolkit.tech)
-- NVM (node versioning): [https://github.com/nvm-sh/nvm](https://github.com/nvm-sh/nvm)
+--------------------
 
-## Guideline Suggestions
-- If you have a property that is a number and you need a string in the template, create another getter with the name `IdAsString`.
-- Don't use getters for props or local computed properties that are always defined (we use getters with TypeScript to avoid undefined errors and SSR errors that make the app crash). When using local computed properties, the responsibility of avoiding errors should lie within the local computed property in the component or the external getters used in the local computed property.
-- Don't try to extend Vue Storefront/core interfaces/composables if it's not absolutely necessary. Prefer creating new ones for the required scope.
-- If you need to extend basic functionality like login (for example, using third-party authentication) and want to use existing composables (`useUser`), keep in mind that you need to also respect TypeScript interfaces and are limited to the specific methods Storefront Core provides in the interfaces.
-- In TypeScript, explicitly set a type whenever possible.
-- Prefer Tailwind classes for styling over SCSS. Refer to the Tailwind config for extended variables.
-- For state management, you need to use composables.
+
+
 
 ## Storefront Components
 ### When do we customize storefront components and how?
