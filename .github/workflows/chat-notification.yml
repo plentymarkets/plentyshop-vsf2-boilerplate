@@ -1,0 +1,16 @@
+on:
+  pull_request:
+    types: [ready_for_review]
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    name: notify chat
+    steps:
+    - name: Google Chat Notification
+      uses: Co-qn/google-chat-notification@releases/v1
+      with:
+        name: Build
+        url: https://chat.googleapis.com/v1/spaces/AAAA3YXYRzM/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=vnK8BbrnUQz-dBgcHgLy6N9pWXs0-2HedfzahsosPKo%3D
+        status: ${{ job.status }}
+      if: always()
+     
