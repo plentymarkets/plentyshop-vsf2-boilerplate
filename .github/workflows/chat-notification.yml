@@ -9,8 +9,8 @@ jobs:
     - name: Google Chat Notification
       uses: Co-qn/google-chat-notification@releases/v1
       with:
-        name: Build
+        name: Pull request review
         url: https://chat.googleapis.com/v1/spaces/AAAA3YXYRzM/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=vnK8BbrnUQz-dBgcHgLy6N9pWXs0-2HedfzahsosPKo%3D
-        status: ${{ job.status }}
+        status: opened
       if: always()
      
