@@ -19,7 +19,7 @@ const params: UseUserFactoryParams<User, UpdateParams, RegisterParams> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   load: async (context: Context) => {
     const data = await context.$plentymarkets.api.getSession(true);
-    // guest mail case
+
     if (data.user && data.user.guestMail) {
       return null;
     }
