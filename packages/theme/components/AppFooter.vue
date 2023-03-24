@@ -95,6 +95,7 @@ export default {
   },
   setup() {
     const router = useRouter();
+
     return {
       router,
       addBasePath

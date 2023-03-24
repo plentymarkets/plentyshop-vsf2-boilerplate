@@ -48,6 +48,7 @@ const params: UseUserFactoryParams<User, UpdateParams, RegisterParams> = {
     } else {
       await context.$plentymarkets.api.registerUser(params);
       const data = await context.$plentymarkets.api.loginUser(params.email, params.password);
+
       return data.user;
     }
   },
@@ -58,9 +59,11 @@ const params: UseUserFactoryParams<User, UpdateParams, RegisterParams> = {
     await context.$plentymarkets.api.loginUser(username, password);
 
     const wishlist = await context.$plentymarkets.api.getWishlist();
+
     context.useWishlist.setWishlist(wishlist);
 
     const cart = await context.$plentymarkets.api.getCart();
+
     context.useCart.setCart(cart);
 
     const data = await context.$plentymarkets.api.getSession(true);
@@ -72,6 +75,7 @@ const params: UseUserFactoryParams<User, UpdateParams, RegisterParams> = {
   changePassword: async (context: Context, { currentPassword, newPassword }) => {
     await context.$plentymarkets.api.changePassword(currentPassword, newPassword);
     const data = await context.$plentymarkets.api.getSession(false);
+
     return data.user;
   }
 };

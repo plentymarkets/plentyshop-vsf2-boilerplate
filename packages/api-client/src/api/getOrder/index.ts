@@ -4,18 +4,21 @@ import { AdditionalInformationParams, Context, CreateOrderResponse, GetPaymentRe
 export async function additionalInformation(context: Context, params: AdditionalInformationParams): Promise<void> {
   const url: URL = new URL('/rest/io/order/additional_information', context.config.api.url);
   const { data } = await context.client.post(url.href, params);
+
   return data;
 }
 
 export async function preparePayment(context: Context): Promise<PreparePaymentResult> {
   const url: URL = new URL('/rest/io/checkout/payment', context.config.api.url);
   const { data } = await context.client.post(url.href);
+
   return data.data;
 }
 
 export async function placeOrder(context: Context): Promise<CreateOrderResponse> {
   const url: URL = new URL('/rest/io/order', context.config.api.url);
   const { data } = await context.client.post(url.href);
+
   return data;
 }
 
@@ -25,5 +28,6 @@ export async function executePayment(context: Context, orderId: number, paymentI
     orderId: orderId,
     paymentMethodId: paymentId
   });
+
   return data;
 }

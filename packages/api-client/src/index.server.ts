@@ -48,6 +48,7 @@ const filterCookies = (cookies: string): string => {
     if (cookies.includes(blacklistedCookie)) {
       const start = cookies.indexOf(blacklistedCookie);
       const end = cookies.indexOf(';', start) + 1;
+
       cookies = cookies.replace(cookies.slice(start, end), '');
     }
   });
@@ -67,6 +68,7 @@ function onCreate(settings: Settings): onCreateResponse {
   // Triggered after middleware gets a response from connected apis
   client.interceptors.response.use((response) => {
     const headers = response.headers['set-cookie'];
+
     if (headers && headers?.length > 0) {
       cookies = filterCookies(headers[0]);
     }

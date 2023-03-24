@@ -22,6 +22,7 @@ export async function loginAsGuest(context: Context, email: string): Promise<nul
 export async function logoutUser(context: Context): Promise<boolean> {
   const url: URL = new URL('/rest/io/customer/logout/', context.config.api.url);
   const { data } = await context.client.post(url.href);
+
   return data;
 }
 
@@ -42,6 +43,7 @@ export async function registerUser(context: Context, params: RegisterParams): Pr
       }
     }
   });
+
   return data;
 }
 
@@ -52,6 +54,7 @@ export async function changePassword(context: Context, currentPassword: string, 
     password: newPassword,
     password2: newPassword
   });
+
   return data;
 }
 

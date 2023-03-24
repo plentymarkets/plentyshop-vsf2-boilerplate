@@ -154,6 +154,7 @@ export default {
         lastName: this.lastName,
         email: this.email
       };
+
       this.$emit('update:personal', personal);
     },
     updatePassword() {
@@ -169,6 +170,7 @@ export default {
         newPassword: this.newPassword,
         repeatPassword: this.repeatPassword
       };
+
       this.$emit('update:password', password);
     }
   }
