@@ -40,6 +40,7 @@ const config = {
     '@nuxt/typescript-build',
     '@nuxtjs/composition-api/module',
     '@nuxtjs/google-fonts',
+    '@nuxtjs/pwa',
     '@nuxtjs/style-resources',
     '@nuxtjs/tailwindcss',
     ['@vue-storefront/nuxt', {
@@ -187,6 +188,85 @@ const config = {
     base64: false,
     fontsPath: '../fonts'
   },
+
+  pwa: {
+    meta: {
+      name: "plentyShop PWA",
+      author: "plentysystems AG",
+      lang: "en"
+    },
+    manifest: {
+      "background_color": "white",
+      "categories": ["shopping"],
+      "description": "A plentyShop demo app",
+      "display": "minimal-ui",
+      "launch_handler": {
+          "client_mode": ["auto"]
+      },
+      "name": "plentyShop PWA Demo App",
+      "screenshots": [],
+      "short_name": "plentyShop Demo",
+      "start_url": "/",
+      "theme_color": "008EBD"
+    },
+    workbox: {
+      runtimeCaching: [
+        {
+          urlPattern: new RegExp("^http://localhost:3000/.*"),
+          handler: 'cacheFirst',
+          strategyOptions: {
+            cacheableResponse: {
+              statuses: [0, 200, 204]
+            }
+          },
+          strategyPlugins: [{
+             use: 'Expiration',
+             config: {
+               maxEntries: 10,
+               maxAgeSeconds: 300
+             }
+           }]
+        },
+        {
+          urlPattern: new RegExp("^https://mevofvd5omld.c01-14.plentymarkets.com/.*"),
+          handler: 'cacheFirst',
+          strategyOptions: {
+            cacheableResponse: {
+              statuses: [0, 200, 204]
+            }
+          },
+          strategyPlugins: [{
+             use: 'Expiration',
+             config: {
+               maxEntries: 10,
+               maxAgeSeconds: 300
+             }
+           }]
+        },
+        {
+          urlPattern: new RegExp("^https://cdn02.plentymarkets.com/.*"),
+          handler: 'cacheFirst',
+          strategyOptions: {
+            cacheableResponse: {
+              cacheName: 'images',
+              statuses: [0, 200, 204]
+            }
+          },
+          strategyPlugins: [{
+             use: 'Expiration',
+             config: {
+               maxEntries: 10,
+               maxAgeSeconds: 300
+             }
+           }]
+        }
+      ],
+      routingExtensions: [],
+      cacheAssets: true,
+      assetsURLPattern: undefined,
+      pagesURLPattern: undefined,
+    }
+  }
 };
 
 if (process.env.MIDDLEWARE_URL) {
