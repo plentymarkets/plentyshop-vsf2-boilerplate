@@ -65,6 +65,18 @@ This project extends Vue Storefront. This means it relies on Nuxt 2, VueJS 2 and
 
 For further information on each package, refer to that package's README.
 
+### Workflow
+
+This section provides an overview of how to use the packages when adding new functionality. For example, imagine you want to display information from `https://petstore.swagger.io/v2/pet/findByStatus?status=available`.
+
+1. Create a new API in `packages/api-client`.
+2. Create a new inteface for the API.
+3. Build the api-client package with `yarn build`.
+4. Create a new composable in `packages/composables`.
+5. In the composable, create a method that uses the API to fetch information.
+6. In the composable, create a property that stores the fetched information.
+7. Import the property in a Vue component in `packages/theme`.
+
 ## How to start if you want to contribute?
 
 Want to contribute? Ping us on the `plentymarkets` channel on [our Discord](https://discord.vuestorefront.io)!
@@ -97,52 +109,3 @@ If you have any questions about this integration we will be happy to answer them
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
-
-
---------------------
-
-
-
-
-## Storefront Components
-### When do we customize storefront components and how?
-There are 2 types of customization:
-1. Changing the style of the component (e.g., change colors)
-  - Check the Storefront documentation, as many elements have customizable styles: [https://docs.storefrontui.io/v1/?path=/story/welcome--page](https://docs.storefrontui.io/v1/?path=/story/welcome--page)
-  - Add the desired CSS classes to the line where you include the component. For example:
-    ```html
-    <SfButton class="your-desired-tailwind-class" />
-    ```
-
-2. Changing the logic of the component (e.g., remove/data, change logic)
-  - For a different logic/behavior/style, we recommend creating a new component; we should not modify the internals of the Storefront components. You can find examples in `packages/theme/components`.
-  - First, check the Vue Storefront documentation for each component to see if it has props or settings that can achieve your desired functionality: [https://docs.storefrontui.io/v1/?path=/story/welcome--page](https://docs.storefrontui.io/v1/?path=/story/welcome--page)
-
-### What is essential to know to get started building a component?
-- Understand what functionality you already have ready to use and what should be implemented.
-- Decide on what to do and understand the steps needed to implement.
-
-### When to use yarn build
-We run `yarn build` only for updates inside the `packages/api-client` folder.
-
-### Example of a task with Storefront
-**Display some JSON information in a Vue component**
-
-If the JSON information is available in the client API (the Nuxt middleware method is defined), follow Step A.
-
-**Step A:**
-- Create a composable or use an existing one.
-- Define the method that calls the fetch from the Nuxt middleware.
-- After that, you can consume the information in two ways:
-  1. Use the fetch method in the composable, call it from the Vue component and await for the response, then use the response (Vue component -> composable -> Nuxt API client -> backend API).
-  2. Use the fetch method but update a property in the composable and use that property in the Vue component (this is the recommended way).
-
-Note: You may opt for creating your own composable or extending an existing one. If you choose the second option, keep in mind that you need to respect the TypeScript interfaces. In both cases, you need to create interfaces and build the API client (`packages/api`). Both cases require importing interfaces from `@vue-storefront/plentymarkets-api`. When you execute `yarn && yarn build`, interfaces defined in `api-client/src` get compiled in `@vue-storefront/plentymarkets-api` and are ready to be used.
-
-If the JSON information is not available in the client API, follow Step B.
-
-**Step B:**
-- Create an API in `packages/api`: [https://docs.vuestorefront.io/v2/integrate/integration-guide.html](https://docs.vuestorefront.io/v2/integrate/integration-guide.html)
-  - Proceed with Step A.
-
-**Note:** If the new interface is not recognized by the IDE in the composable, try reopening the file or the IDE.

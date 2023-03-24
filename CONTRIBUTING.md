@@ -9,7 +9,7 @@ We welcome contributions from the community. Please follow these guidelines when
 1. Fork the repository.
 2. Create a new branch for your changes.
 3. Run `yarn lint` to check for linting errors. `yarn lint --fix` resolves a subset of errors automatically.
-4. Make your changes and commit them.
+4. Make your changes and commit them. Commit messages have to follow the [Conventional Commit specification](https://www.conventionalcommits.org/en/v1.0.0/). Allowed types: `build`, `chore`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`, `revert`, `style`, `test`.
 5. Push your changes to your fork.
 6. Open a pull request from your branch to the main repository's `main` branch.
 7. Create a draft pull request and make sure all checks pass before requesting a review.
@@ -27,7 +27,9 @@ To keep the code base of @vuestorefront/plentymarkets neat and tidy, the followi
 
 ### Presentation
 
-- Use Tailwind classes instead of SCSS. For additional variables, refer to the [Tailwind configuration](./packages/theme/tailwind.config.js).
+- If possible, use existing [Storefront UI components](https://docs.storefrontui.io/v1/?path=/story/welcome--page) instead of creating new components. You can style the components with utility classes (for example `<SfButton class="rounded-full" />`). Storefront UI components also accept props and slots. For details, refer to the documentation of the component.
+- If no Storefront UI component fits your requirements, create new components in `packages/theme/components`.
+- Use [Tailwind classes](https://v2.tailwindcss.com/docs) instead of SCSS. For additional variables, refer to the [Tailwind configuration](./packages/theme/tailwind.config.js).
 
 ### Logic
 
