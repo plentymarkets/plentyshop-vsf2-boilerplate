@@ -194,6 +194,7 @@ const config = {
     meta: {
       name: "plentyShop PWA",
       author: "plentysystems AG",
+      description: "A PWA for plentymarkets shops",
       lang: "en"
     },
     manifest: {
