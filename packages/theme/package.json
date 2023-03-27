@@ -12,6 +12,7 @@
     "generate": "nuxt generate",
     "lint": "eslint . --ext .ts,.vue",
     "lint:fix": "eslint . --ext .ts,.vue --fix",
+    "prebuild": "node_modules/.bin/workbox copyLibraries static/",
     "precommit": "lint-staged",
     "start": "nuxt start",
     "test": "jest",
@@ -34,7 +35,8 @@
     "nuxt": "^2.15.8",
     "nuxt-i18n": "^6.5.0",
     "vee-validate": "^3.4.13",
-    "vue-scrollto": "^2.20.0"
+    "vue-scrollto": "^2.20.0",
+    "workbox-cli": "^6.5.4"
   },
   "devDependencies": {
     "@nuxt/types": "^2.15.8",

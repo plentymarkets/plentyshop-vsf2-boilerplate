@@ -211,14 +211,16 @@ const config = {
     },
     workbox: {
       // General
-      workboxVersion: require('workbox-cdn/package.json').version,
-      workboxURL: undefined,
+      // workboxVersion: require('workbox-cdn/package.json').version,
+      workboxURL: `/workbox-v6.5.4/workbox-sw.js?${Date.now()}`,
       importScripts: [],
       autoRegister: true,
       dev: true,
 
       // Config
-      config: {},
+      config: {
+        modulePathPrefix: '/workbox-v6.5.4'
+      },
       clientsClaim: true,
       skipWaiting: true,
       offlineAnalytics: false,
