@@ -40,7 +40,6 @@ const config = {
     '@nuxt/typescript-build',
     '@nuxtjs/composition-api/module',
     '@nuxtjs/google-fonts',
-    '@nuxtjs/pwa',
     '@nuxtjs/style-resources',
     '@nuxtjs/tailwindcss',
     ['@vue-storefront/nuxt', {
@@ -71,7 +70,8 @@ const config = {
     /* project-only-start
     ['@vue-storefront/nuxt-theme'],
     project-only-end */
-    ['@vue-storefront/plentymarkets/nuxt', {}]
+    ['@vue-storefront/plentymarkets/nuxt', {}],
+    '@nuxtjs/pwa',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -207,14 +207,44 @@ const config = {
       "screenshots": [],
       "short_name": "plentyShop Demo",
       "start_url": "/",
-      "theme_color": "008EBD"
+      "theme_color": "#008EBD"
     },
     workbox: {
+      // General
+      workboxVersion: require('workbox-cdn/package.json').version,
+      workboxURL: undefined,
+      importScripts: [],
+      autoRegister: true,
+      dev: true,
+
+      // Config
+      config: {},
+      clientsClaim: true,
+      skipWaiting: true,
+      offlineAnalytics: false,
+      workboxExtensions: [],
+
+      // Precache
+      preCaching: [],
+      cacheOptions: {
+        cacheId: undefined,
+        directoryIndex: '/',
+        revision: undefined
+      },
+      cachingExtensions: [],
+      cleanupOutdatedCaches: true,
+
+      // Offline
+      offline: true,
+      offlineStrategy: 'NetworkFirst',
+      offlinePage: null,
+      offlineAssets: [],
       runtimeCaching: [
         {
-          urlPattern: new RegExp("^http://localhost:3000/.*"),
-          handler: 'cacheFirst',
+          urlPattern: "/*",
+          handler: 'NetworkFirst',
           strategyOptions: {
+            cacheName: 'app-cache',
             cacheableResponse: {
               statuses: [0, 200, 204]
             }
@@ -222,49 +252,25 @@ const config = {
           strategyPlugins: [{
              use: 'Expiration',
              config: {
-               maxEntries: 10,
-               maxAgeSeconds: 300
+               maxEntries: 50,
+               purgeOnQuotaError: true
              }
            }]
         },
-        {
-          urlPattern: new RegExp("^https://mevofvd5omld.c01-14.plentymarkets.com/.*"),
-          handler: 'cacheFirst',
-          strategyOptions: {
-            cacheableResponse: {
-              statuses: [0, 200, 204]
-            }
-          },
-          strategyPlugins: [{
-             use: 'Expiration',
-             config: {
-               maxEntries: 10,
-               maxAgeSeconds: 300
-             }
-           }]
-        },
-        {
-          urlPattern: new RegExp("^https://cdn02.plentymarkets.com/.*"),
-          handler: 'cacheFirst',
-          strategyOptions: {
-            cacheableResponse: {
-              cacheName: 'images',
-              statuses: [0, 200, 204]
-            }
-          },
-          strategyPlugins: [{
-             use: 'Expiration',
-             config: {
-               maxEntries: 10,
-               maxAgeSeconds: 300
-             }
-           }]
-        }
       ],
       routingExtensions: [],
       cacheAssets: true,
       assetsURLPattern: undefined,
       pagesURLPattern: undefined,
+      // Sw
+      swTemplate: undefined,
+      swUrl: undefined,
+      swScope: undefined,
+      swDest: undefined,
+
+      // Router
+      routerBase: undefined,
+      publicPath: undefined
     }
   }
 };
