@@ -2,6 +2,22 @@ on:
   pull_request:
     types: [opened]
 jobs:
+  request:
+    name: Request reviews on opened PRs
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create PR review request
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr edit ${{ github.event.pull_request.html_url }} \
+              --add-reviewer @plentymarkets/shop-front-end
+
+on:
+  pull_request:
+    types: [review_requested]
+jobs:
   notify:
     runs-on: ubuntu-latest
     name: notify chat
