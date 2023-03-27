@@ -74,8 +74,8 @@ More information:
 
 ## Cookies
 
-* To customise cookie values, edit `cookieConfig.js`.
-* To customise the cookiebar itself, edit the CookieBar component.
+* To customize cookie values, edit `cookieConfig.js`.
+* To customize the cookiebar itself, edit the CookieBar component.
 * The CookieBar component uses the useCookieBar composable. The composable depends on [cookie-universal-nuxt](https://www.npmjs.com/package/cookie-universal-nuxt) to fetch and store cookies.
 
 ##### cookiebar.vue
