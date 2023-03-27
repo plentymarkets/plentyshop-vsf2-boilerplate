@@ -12,6 +12,7 @@ export async function loginUser(context: Context, email: string, password: strin
 
 export async function loginAsGuest(context: Context, email: string): Promise<null> {
   const url: URL = new URL('/rest/io/guest/', context.config.api.url);
+
   await context.client.post(url.href, {
     email
   });
