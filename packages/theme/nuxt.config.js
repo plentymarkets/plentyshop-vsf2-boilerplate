@@ -213,7 +213,7 @@ const config = {
     },
     workbox: {
       workboxURL: `/workbox-v6.5.4/workbox-sw.js?${Date.now()}`,
-      dev: true,
+      dev: false,
       config: {
         modulePathPrefix: '/workbox-v6.5.4'
       },
