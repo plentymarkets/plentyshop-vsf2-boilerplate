@@ -189,6 +189,7 @@ const config = {
     fontsPath: '../fonts'
   },
 
+  // PWA configuration: https://pwa.nuxtjs.org/
   pwa: {
     meta: {
       name: "plentyShop PWA",
@@ -210,37 +211,11 @@ const config = {
       "theme_color": "#008EBD"
     },
     workbox: {
-      // General
-      // workboxVersion: require('workbox-cdn/package.json').version,
       workboxURL: `/workbox-v6.5.4/workbox-sw.js?${Date.now()}`,
-      importScripts: [],
-      autoRegister: true,
       dev: true,
-
-      // Config
       config: {
         modulePathPrefix: '/workbox-v6.5.4'
       },
-      clientsClaim: true,
-      skipWaiting: true,
-      offlineAnalytics: false,
-      workboxExtensions: [],
-
-      // Precache
-      preCaching: [],
-      cacheOptions: {
-        cacheId: undefined,
-        directoryIndex: '/',
-        revision: undefined
-      },
-      cachingExtensions: [],
-      cleanupOutdatedCaches: true,
-
-      // Offline
-      offline: true,
-      offlineStrategy: 'NetworkFirst',
-      offlinePage: null,
-      offlineAssets: [],
       runtimeCaching: [
         {
           urlPattern: "/*",
@@ -260,19 +235,6 @@ const config = {
            }]
         },
       ],
-      routingExtensions: [],
-      cacheAssets: true,
-      assetsURLPattern: undefined,
-      pagesURLPattern: undefined,
-      // Sw
-      swTemplate: undefined,
-      swUrl: undefined,
-      swScope: undefined,
-      swDest: undefined,
-
-      // Router
-      routerBase: undefined,
-      publicPath: undefined
     }
   }
 };
