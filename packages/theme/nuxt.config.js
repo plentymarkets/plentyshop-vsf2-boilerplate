@@ -206,7 +206,7 @@ const config = {
       },
       "name": "plentyShop PWA Demo App",
       "screenshots": [],
-      "short_name": "plentyShop Demo",
+      "short_name": "plentyShop PWA",
       "start_url": "/",
       "theme_color": "#008EBD"
     },
