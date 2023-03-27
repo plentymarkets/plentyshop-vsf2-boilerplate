@@ -12,6 +12,7 @@ const params: UseCategoryFactoryParams<Category, SearchParams> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   categorySearch: async (context: Context) => {
     const data = await context.$plentymarkets.api.getCategory();
+
     return data;
   }
 };

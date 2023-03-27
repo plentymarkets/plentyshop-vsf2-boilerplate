@@ -66,6 +66,7 @@ export default {
     const { locales, locale } = context.root.$i18n;
     const isLangModalOpen = ref(false);
     const availableLocales = computed(() => locales.filter(i => i.code !== locale));
+
     return {
       localesGetters,
       availableLocales,

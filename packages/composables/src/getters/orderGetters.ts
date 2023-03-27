@@ -79,6 +79,7 @@ function getPagination(orders: GetOrdersResponse): AgnosticPagination {
 
 function getOrderItemLink(order: Order, productId: number): string {
   const link = `/p/${productId}/${productGetters.getSlug(order.variations[productId])}`;
+
   return link;
 }
 

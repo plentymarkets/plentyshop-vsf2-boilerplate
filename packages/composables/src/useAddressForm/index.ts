@@ -40,6 +40,7 @@ export const useAddressForm = (addresses: Ref<Address[]>): UseAddressFromRespons
 
   const changeAddress = (index: number): void => {
     const address = addresses.value[index];
+
     if (index > -1) {
       form.value = { ...address };
       editedAddress.value = index;
