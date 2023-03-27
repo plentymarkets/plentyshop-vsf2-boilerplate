@@ -83,6 +83,7 @@ export default {
 
     const sameAsBillingForm = computed(() => {
       const newAddress = userAddressGetters.getDefault(userAddressGetters.getAddresses(billing.value)) || userAddressGetters.getAddresses(billing.value)[0];
+
       return userAddressGetters.getAddressWithoutId(newAddress);
     });
 
@@ -110,6 +111,7 @@ export default {
 
       if (sameAsBilling.value) {
         const valid = await refs.sameAsBillingFormRef.validate();
+
         if (valid) {
           await saveAddress({address: sameAsBillingForm.value });
           router.push(root.localePath({name: 'payment' }));

@@ -8,5 +8,6 @@ export async function getOrders(context: Context, params: UseUserOrderSearchPara
   url.searchParams.set('items', '5');
 
   const { data } = await context.client.get(url.href);
+
   return data;
 }

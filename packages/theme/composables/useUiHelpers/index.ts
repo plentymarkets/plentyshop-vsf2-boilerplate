@@ -32,6 +32,7 @@ export interface UseUiHelperResponse {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getContext = (): Context => {
   const vm = getCurrentInstance();
+
   return vm.root.proxy;
 };
 
@@ -43,6 +44,7 @@ const useUiHelpers = (): UseUiHelperResponse => {
   const getFacetsFromURL = (): GetFacetsFromURLResponse => {
     const route = useRoute();
     const { query } = context.$router.currentRoute;
+
     return {
       categorySlug: route.value.path.split('/').pop(),
       page: parseInt(query.page as string, 10) || 1,
@@ -61,6 +63,7 @@ const useUiHelpers = (): UseUiHelperResponse => {
   // eslint-disable-next-line
   const changeSorting = (sort: string) => {
     const { query } = context.$router.currentRoute;
+
     context.$router.push({ query: { ...query, sort } });
   };
 
@@ -83,6 +86,7 @@ const useUiHelpers = (): UseUiHelperResponse => {
 
   const changeFilters = (filters: Filters): void => {
     const filtersIds = Object.values(filters).filter((entry: string []) => entry.length > 0).join(',');
+
     if (filtersIds) {
       context.$router.push({
         query: {

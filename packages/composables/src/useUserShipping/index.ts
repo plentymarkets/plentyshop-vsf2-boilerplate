@@ -15,6 +15,7 @@ const params: UseUserShippingFactoryParams<Address[], Address> = {
     await context.$plentymarkets.api.saveAddress(AddressType.Shipping, params.address);
 
     const data = await context.$plentymarkets.api.loadAddresses(AddressType.Shipping);
+
     return data ?? null;
   },
 
@@ -22,6 +23,7 @@ const params: UseUserShippingFactoryParams<Address[], Address> = {
   deleteAddress: async (context: Context, params: ShippingAddressDetailsParams) => {
     await context.$plentymarkets.api.deleteAddress(params.address.id, AddressType.Shipping);
     const data = await context.$plentymarkets.api.loadAddresses(AddressType.Shipping);
+
     return data ?? null;
   },
 
@@ -34,6 +36,7 @@ const params: UseUserShippingFactoryParams<Address[], Address> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   load: async (context: Context, params): Promise<Address[]> => {
     const data = await context.$plentymarkets.api.loadAddresses(AddressType.Shipping);
+
     return data?.length > 0 ? data : [];
   },
 
@@ -41,6 +44,7 @@ const params: UseUserShippingFactoryParams<Address[], Address> = {
   setDefaultAddress: async (context: Context, params: ShippingAddressDetailsParams) => {
     await context.$plentymarkets.api.setAddressAsDefault(params.address.id, AddressType.Shipping);
     const data = await context.$plentymarkets.api.loadAddresses(AddressType.Shipping);
+
     return data ?? null;
   }
 };

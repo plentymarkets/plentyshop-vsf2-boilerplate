@@ -33,6 +33,7 @@ export const useCookieBar = (
     }))
   );
   const existingCookieInMemory = appContext.get(defaultCookieKey);
+
   function loadThirdPartyScripts(): void {
     if (!process.server) {
       cookieJson.value.forEach((cookieGroup, groupIndex) => {
@@ -41,6 +42,7 @@ export const useCookieBar = (
             const scripts =
               cookieJsonFromConfig.groups[groupIndex].cookies[cookieIndex]
                 .script;
+
             if (scripts && scripts.length) {
               scripts.forEach((script) => {
                 try {
@@ -72,6 +74,7 @@ export const useCookieBar = (
     };
 
     let minimum = 100000;
+
     cookieJsonFromConfig.groups.forEach((group) => {
       group.cookies.forEach((cookie) => {
         if (minimum > convertToDays(cookie.Lifespan)) {
@@ -83,6 +86,7 @@ export const useCookieBar = (
   }
   function saveCookies(key, cookieValue, cookieContextObject): void {
     const minimumOfAllMinimums = 60 * 60 * 24 * getMinimumLifeSpan();
+
     cookieContextObject.set(key, cookieValue, {
       path: '/',
       maxAge: minimumOfAllMinimums
@@ -90,6 +94,7 @@ export const useCookieBar = (
   }
   function convertToSaveableJson(jsonList): Array<string> {
     let toSave = [];
+
     toSave = jsonList.map((group) => ({
       [group.name]: group.cookies.map((cookie) => ({
         [cookie.name]: cookie.accepted
@@ -113,6 +118,7 @@ export const useCookieBar = (
       });
     }
     const toSave = convertToSaveableJson(cookieJson.value);
+
     saveCookies('plenty-shop-cookie', toSave, appCookies);
     bannerIsHidden.value = true;
     loadThirdPartyScripts();
@@ -122,6 +128,7 @@ export const useCookieBar = (
     existingCookieInMemory.forEach((group, index) => {
       const cookieGroupFromMemory = Object.values(group)[0];
       let atLeastOneIsTrue = false;
+
       cookieGroupFromMemory.forEach((cookie, index2) => {
         if (Object.values(cookie)[0]) {
           cookieJson.value[index].cookies[index2].accepted = true;
