@@ -189,8 +189,8 @@ export default {
 
 <style lang="scss" scoped>
 #cart {
-  --sidebar-z-index: 3;
-  --overlay-z-index: 3;
+  --sidebar-z-index: 30;
+  --overlay-z-index: 30;
   @include for-desktop {
     & > * {
       --sidebar-bottom-padding: var(--spacer-base);
