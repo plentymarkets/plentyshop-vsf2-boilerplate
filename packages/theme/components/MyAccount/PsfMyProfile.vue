@@ -140,9 +140,9 @@ export default {
   watch: {
     account: {
       handler(value) {
-        this.firstName = value.firstName;
-        this.lastName = value.lastName;
-        this.email = value.email;
+        this.firstName = value?.firstName;
+        this.lastName = value?.lastName;
+        this.email = value?.email;
       },
       immediate: true
     }
