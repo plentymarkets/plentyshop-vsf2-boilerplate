@@ -108,8 +108,8 @@ export default {
   .modal {
     display: flex;
     justify-content: center;
-    --modal-index: 3;
-    --overlay-z-index: 3;
+    --modal-index: 30;
+    --overlay-z-index: 30;
     --modal-content-padding: var(--spacer-xl);
     &__input,
     .sf-input__label {

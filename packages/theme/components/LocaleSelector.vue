@@ -86,7 +86,7 @@ export default {
   align-items: center;
   position: relative;
   .sf-bottom-modal {
-    z-index: 2;
+    z-index: 20;
     left: 0;
     @include for-desktop {
       --bottom-modal-height: 100vh;
