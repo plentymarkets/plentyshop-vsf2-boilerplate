@@ -128,7 +128,7 @@ import {
   SfImage
 } from '@storefront-ui/vue';
 import { computed } from '@nuxtjs/composition-api';
-import { useWishlist, useUser, wishlistGetters } from '@vue-storefront/plentymarkets';
+import { useWishlist, wishlistGetters } from '@vue-storefront/plentymarkets';
 import { useUiState } from '~/composables';
 import { addBasePath } from '@vue-storefront/core';
 
@@ -147,14 +147,12 @@ export default {
   setup() {
     const { isWishlistSidebarOpen, toggleWishlistSidebar } = useUiState();
     const { wishlist, removeItem } = useWishlist();
-    const { isAuthenticated } = useUser();
     const products = computed(() => wishlistGetters.getItems(wishlist.value));
     const totals = computed(() => wishlistGetters.getTotals(wishlist.value));
     const totalItems = computed(() => wishlistGetters.getTotalItems(wishlist.value));
 
     return {
       addBasePath,
-      isAuthenticated,
       products,
       removeItem,
       isWishlistSidebarOpen,
