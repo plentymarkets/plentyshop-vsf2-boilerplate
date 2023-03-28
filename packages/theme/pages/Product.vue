@@ -4,143 +4,177 @@
       class="breadcrumbs desktop-only"
       :breadcrumbs="breadcrumbs"
     />
-    <div class="product">
-      <LazyHydrate when-idle>
-        <SfGallery
-          :image-width="100"
-          :image-height="100"
-          :images="productGallery"
-          class="product__gallery"
-        />
-      </LazyHydrate>
+    <div
+      v-if="productLoading"
+      class="flex justify-center items-center mt-sf-3xl"
+    >
+      <SfLoader />
+    </div>
+    <div v-else>
+      <div v-if="product">
+        <div class="product">
+          <LazyHydrate when-idle>
+            <SfGallery
+              :image-width="100"
+              :image-height="100"
+              :images="productGallery"
+              class="product__gallery"
+            />
+          </LazyHydrate>
 
-      <div class="product__info">
-        <div class="product__header">
-          <SfHeading
-            :title="productGetters.getName(product)"
-            :level="3"
-            class="sf-heading--no-underline sf-heading--left"
-          />
-          <SfIcon
-            icon="drag"
-            size="xxl"
-            color="var(--c-text-disabled)"
-            class="product__drag-icon smartphone-only"
-          />
-        </div>
-        <div class="product__price-and-rating">
-          <SfPrice
-            :regular="$n(productGetters.getRegularPrice(product), 'currency')"
-            :special="productGetters.getSpecialPrice(product) && $n(productGetters.getSpecialPrice(product), 'currency')"
-          />
-          <div>
-            <div class="product__rating">
-              <SfRating
-                :score="averageRating"
-                :max="5"
+          <div class="product__info">
+            <div class="product__header">
+              <SfHeading
+                :title="productGetters.getName(product)"
+                :level="3"
+                class="sf-heading--no-underline sf-heading--left"
               />
-              <a
-                v-if="!!totalReviews"
-                href="#"
-                class="product__count"
-              >
-                ({{ totalReviews }})
-              </a>
+              <SfIcon
+                icon="drag"
+                size="xxl"
+                color="var(--c-text-disabled)"
+                class="product__drag-icon smartphone-only"
+              />
             </div>
-            <SfButton class="sf-button--text">
-              {{ $t('Product.Read all reviews') }}
-            </SfButton>
+            <div class="product__price-and-rating">
+              <SfPrice
+                :regular="$n(productGetters.getRegularPrice(product), 'currency')"
+                :special="
+                  productGetters.getSpecialPrice(product) &&
+                    $n(productGetters.getSpecialPrice(product), 'currency')
+                "
+              />
+              <div>
+                <div class="product__rating">
+                  <SfRating
+                    :score="averageRating"
+                    :max="5"
+                  />
+                  <a
+                    v-if="!!totalReviews"
+                    href="#"
+                    class="product__count"
+                  >
+                    ({{ totalReviews }})
+                  </a>
+                </div>
+                <SfButton class="sf-button--text">
+                  {{ $t('Product.Read all reviews') }}
+                </SfButton>
+              </div>
+            </div>
+            <div>
+              <div
+                class="product__description desktop-only"
+                v-html="productGetters.getShortDescription(product)"
+              />
+              <SfButton class="sf-button--text desktop-only product__guide">
+                {{ $t('Product.Size guide') }}
+              </SfButton>
+
+              <AttributeSelection
+                @selection-changed="attributeSelectionChanged($event)"
+              />
+
+              <SfAddToCart
+                v-model="qty"
+                :data-e2e="'product_add-to-cart'"
+                :stock="stock"
+                :disabled="loading || !isAttributeSelectionValid"
+                :can-add-to-cart="stock > 0"
+                class="product__add-to-cart"
+                @click="addItem({ product, quantity: parseInt(qty) })"
+              />
+            </div>
+
+            <LazyHydrate when-idle>
+              <SfTabs
+                :open-tab="1"
+                class="product__tabs"
+              >
+                <SfTab :title="$t('Product.Description')">
+                  <div
+                    class="product__description"
+                    v-html="productGetters.getDescription(product)"
+                  />
+                  <SfProperty
+                    v-for="(property, i) in properties"
+                    :key="i"
+                    :name="propertyGetters.getName(property)"
+                    :value="propertyGetters.getValue(property)"
+                    class="product__property"
+                  >
+                    <template
+                      v-if="propertyGetters.getName(property) === 'Category'"
+                      #value
+                    >
+                      <SfButton class="product__property__button sf-button--text">
+                        {{ propertyGetters.getValue(property) }}
+                      </SfButton>
+                    </template>
+                  </SfProperty>
+                </SfTab>
+                <SfTab :title="$t('Product.Read reviews')">
+                  <SfReview
+                    v-for="review in reviews"
+                    :key="reviewGetters.getReviewId(review)"
+                    :author="reviewGetters.getReviewAuthor(review)"
+                    :date="reviewGetters.getReviewDate(review)"
+                    :message="reviewGetters.getReviewMessage(review)"
+                    :max-rating="5"
+                    :rating="reviewGetters.getReviewRating(review)"
+                    :char-limit="250"
+                    read-more-text="Read more"
+                    hide-full-text="Read less"
+                    class="product__review"
+                  />
+                </SfTab>
+                <SfTab
+                  :title="$t('Product.Additional information')"
+                  class="product__additional-info"
+                >
+                  <div
+                    class="product__additional-info"
+                    v-html="productGetters.getTechnicalData(product)"
+                  />
+                </SfTab>
+              </SfTabs>
+            </LazyHydrate>
           </div>
         </div>
-        <div>
-          <div
-            class="product__description desktop-only"
-            v-html="productGetters.getShortDescription(product)"
+
+        <LazyHydrate when-visible>
+          <RelatedProducts
+            :products="relatedProducts"
+            :loading="relatedLoading"
+            :title="$t('Product.Match it with')"
           />
-          <SfButton class="sf-button--text desktop-only product__guide">
-            {{ $t('Product.Size guide') }}
-          </SfButton>
+        </LazyHydrate>
 
-          <AttributeSelection @selection-changed="attributeSelectionChanged($event)" />
-
-          <SfAddToCart
-            v-model="qty"
-            :data-e2e="'product_add-to-cart'"
-            :stock="stock"
-            :disabled="loading || !isAttributeSelectionValid"
-            :can-add-to-cart="stock > 0"
-            class="product__add-to-cart"
-            @click="addItem({ product, quantity: parseInt(qty) })"
-          />
-        </div>
-
-        <LazyHydrate when-idle>
-          <SfTabs
-            :open-tab="1"
-            class="product__tabs"
-          >
-            <SfTab :title="$t('Product.Description')">
-              <div
-                class="product__description"
-                v-html="productGetters.getDescription(product)"
-              />
-              <SfProperty
-                v-for="(property, i) in properties"
-                :key="i"
-                :name="propertyGetters.getName(property)"
-                :value="propertyGetters.getValue(property)"
-                class="product__property"
-              >
-                <template
-                  v-if="propertyGetters.getName(property) === 'Category'"
-                  #value
-                >
-                  <SfButton class="product__property__button sf-button--text">
-                    {{ propertyGetters.getValue(property) }}
-                  </SfButton>
-                </template>
-              </SfProperty>
-            </SfTab>
-            <SfTab :title="$t('Product.Read reviews')">
-              <SfReview
-                v-for="review in reviews"
-                :key="reviewGetters.getReviewId(review)"
-                :author="reviewGetters.getReviewAuthor(review)"
-                :date="reviewGetters.getReviewDate(review)"
-                :message="reviewGetters.getReviewMessage(review)"
-                :max-rating="5"
-                :rating="reviewGetters.getReviewRating(review)"
-                :char-limit="250"
-                read-more-text="Read more"
-                hide-full-text="Read less"
-                class="product__review"
-              />
-            </SfTab>
-            <SfTab
-              :title="$t('Product.Additional information')"
-              class="product__additional-info"
-            >
-              <div
-                class="product__additional-info"
-                v-html="productGetters.getTechnicalData(product)"
-              />
-            </SfTab>
-          </SfTabs>
+        <LazyHydrate when-visible>
+          <InstagramFeed />
         </LazyHydrate>
       </div>
+      <div
+        v-else
+        class="flex flex-col justify-center items-center gap-sf-lg"
+      >
+        <SfImage
+          :width="412"
+          :height="412"
+          :src="addBasePath('/error/error.svg')"
+          class="before-results__picture"
+          alt="error"
+          loading="lazy"
+        />
+        <p class="before-results__paragraph text-sf-lg">
+          {{ $t('SearchResults.No results found') }}
+        </p>
+        <SfButton @click="toggleLangModal">
+          {{ $t('Product.Try other languages') }}
+        </SfButton>
+      </div>
     </div>
-
-    <LazyHydrate when-visible>
-      <RelatedProducts
-        :products="relatedProducts"
-        :loading="relatedLoading"
-        :title="$t('Product.Match it with')"
-      />
-    </LazyHydrate>
-
-    <LazyHydrate when-visible>
-      <InstagramFeed />
-    </LazyHydrate>
   </div>
 </template>
 <script>
@@ -155,18 +189,28 @@ import {
   SfIcon,
   SfReview,
   SfBreadcrumbs,
-  SfButton
+  SfButton,
+  SfImage,
+  SfLoader
 } from '@storefront-ui/vue';
 
 import AttributeSelection from '~/components/AttributeSelection.vue';
 import InstagramFeed from '~/components/InstagramFeed.vue';
 import RelatedProducts from '~/components/RelatedProducts.vue';
 import { ref, computed, useRoute } from '@nuxtjs/composition-api';
-import { useProduct, useCart, productGetters, useReview, reviewGetters, propertyGetters, useCategory } from '@vue-storefront/plentymarkets';
+import {
+  useProduct,
+  useCart,
+  productGetters,
+  useReview,
+  reviewGetters,
+  propertyGetters,
+  useCategory
+} from '@vue-storefront/plentymarkets';
 import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
 import { addBasePath } from '@vue-storefront/core';
-import { useUiHelpers } from '~/composables';
+import { useUiHelpers, useUiState } from '~/composables';
 
 export default {
   name: 'Product',
@@ -185,32 +229,47 @@ export default {
     InstagramFeed,
     RelatedProducts,
     LazyHydrate,
-    AttributeSelection
+    AttributeSelection,
+    SfImage,
+    SfLoader
   },
   transition: 'fade',
   setup() {
     const qty = ref(1);
     const route = useRoute();
     const th = useUiHelpers();
-    const { products, search } = useProduct('products');
-    const { products: relatedProducts, search: searchRelatedProducts, loading: relatedLoading } = useProduct('relatedProducts');
+    const { products, search, loading: productLoadingState } = useProduct('products');
+    const {
+      products: relatedProducts,
+      search: searchRelatedProducts,
+      loading: relatedLoading
+    } = useProduct('relatedProducts');
     const { addItem, loading } = useCart();
-    const { reviews: productReviews, search: searchReviews } = useReview('productReviews');
+    const { reviews: productReviews, search: searchReviews } =
+      useReview('productReviews');
     const { categories: breadcrumbCategories } = useCategory('categories');
-
+    const { toggleLangModal } = useUiState();
     const id = computed(() => route.value.params.id);
-    const product = computed(() => productGetters.getFiltered(products.value, { master: true, attributes: route.value.query })[0]);
+    const product = computed(
+      () =>
+        productGetters.getFiltered(products.value, {
+          master: true,
+          attributes: route.value.query
+        })[0]
+    );
     const categories = computed(() => productGetters.getCategoryIds(product.value));
     const reviews = computed(() => reviewGetters.getItems(productReviews.value));
 
     // TODO: Breadcrumbs are temporary disabled because productGetters return undefined. We have a mocks in data
     const breadcrumbs = computed(() => productGetters.getBreadcrumbs(product.value, breadcrumbCategories.value));
-    const productGallery = computed(() => productGetters.getGallery(product.value).map(img => ({
-      mobile: { url: addBasePath(img.small) },
-      desktop: { url: addBasePath(img.normal) },
-      big: { url: addBasePath(img.big) },
-      alt: productGetters.getName(product.value)
-    })));
+    const productGallery = computed(() =>
+      productGetters.getGallery(product.value).map((img) => ({
+        mobile: { url: addBasePath(img.small) },
+        desktop: { url: addBasePath(img.normal) },
+        big: { url: addBasePath(img.big) },
+        alt: productGetters.getName(product.value)
+      }))
+    );
 
     const isAttributeSelectionValid = ref(true);
     const attributeSelectionChanged = (value) => {
@@ -224,18 +283,23 @@ export default {
 
     onSSR(async () => {
       await search({ id: id.value });
-
       await searchRelatedProducts({ catId: [categories.value[0]], limit: 8 });
-      await searchReviews({ productId: productGetters.getItemId(product.value) });
+      await searchReviews({ productId: productGetters.getItemId(product.value)});
     });
 
     return {
       product,
       reviews,
       reviewGetters,
-      averageRating: computed(() => productGetters.getAverageRating(product.value)),
-      totalReviews: computed(() => productGetters.getTotalReviews(product.value)),
-      relatedProducts: computed(() => productGetters.getFiltered(relatedProducts.value, { master: true })),
+      averageRating: computed(() =>
+        productGetters.getAverageRating(product.value)
+      ),
+      totalReviews: computed(() =>
+        productGetters.getTotalReviews(product.value)
+      ),
+      relatedProducts: computed(() =>
+        productGetters.getFiltered(relatedProducts.value, { master: true })
+      ),
       relatedLoading,
       qty,
       addItem,
@@ -245,7 +309,10 @@ export default {
       productGallery,
       breadcrumbs,
       attributeSelectionChanged,
-      isAttributeSelectionValid
+      isAttributeSelectionValid,
+      addBasePath,
+      toggleLangModal,
+      productLoading: computed(() => productLoadingState.value)
     };
   },
   data() {
@@ -269,10 +336,11 @@ export default {
           value: 'Germany'
         }
       ],
-      description: 'Find stunning women cocktail and party dresses. Stand out in lace and metallic cocktail dresses and party dresses from all your favorite brands.',
+      description:
+        'Find stunning women cocktail and party dresses. Stand out in lace and metallic cocktail dresses and party dresses from all your favorite brands.',
       detailsIsActive: false,
       brand:
-          'Brand name is the perfect pairing of quality and design. This label creates major everyday vibes with its collection of modern brooches, silver and gold jewellery, or clips it back with hair accessories in geo styles.',
+        'Brand name is the perfect pairing of quality and design. This label creates major everyday vibes with its collection of modern brooches, silver and gold jewellery, or clips it back with hair accessories in geo styles.',
       careInstructions: 'Do not wash!'
     };
   }

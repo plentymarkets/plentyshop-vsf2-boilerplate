@@ -48,13 +48,12 @@ function findCategoryPathById(categories: Category[], id: number, path: Category
 
 function getMappedBreadcrumbs(categories: Category[], categoryId: number): AgnosticBreadcrumb[] {
   const categoryPath = findCategoryPathById(categories, categoryId);
-  const context = useContext();
 
   return categoryPath.map((category) => {
     const categoryDetails = getCategoryDetails(category.details);
     return {
       text: categoryDetails.name,
-      link: context.app.localePath('/c/' + categoryDetails.nameUrl)
+      link: '/c/' + categoryDetails.nameUrl
     };
   });
 }

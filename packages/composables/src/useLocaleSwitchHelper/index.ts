@@ -1,10 +1,9 @@
-import { Facet, Product } from '@vue-storefront/plentymarkets-api';
+import { Facet } from '@vue-storefront/plentymarkets-api';
 import { Ref, useRouter } from '@nuxtjs/composition-api';
 import { useVSFContext } from '@vue-storefront/core';
 
 export interface LocaleSwitchHelper {
   routeToCategory: (facet: Ref<{data: Facet}>, language: string) => void
-  routeToProduct: (product: Ref<Product>, language: string) => void
 }
 
 export const useLocaleSwitchHelper = (): LocaleSwitchHelper => {
@@ -28,17 +27,16 @@ export const useLocaleSwitchHelper = (): LocaleSwitchHelper => {
     router.push(`${getLanguagePrefix(language)}/c${url}`);
   };
 
-  const routeToProduct = (product: Ref<Product>, language: string): void => {
+  /* const routeToProduct = (product: Ref<Product>, language: string): void => {
     const url = product?.value.urls[language];
     if (url) {
       router.push(`${getLanguagePrefix(language)}/p/${url}`);
       return;
     }
     router.push(context.app.switchLocalePath(language));
-  };
+  }; */
 
   return {
-    routeToCategory,
-    routeToProduct
+    routeToCategory
   };
 };

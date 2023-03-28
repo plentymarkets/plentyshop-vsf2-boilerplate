@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SfButton @click="isLangModalOpen = !isLangModalOpen">
+    <SfButton @click="toggleLangModal()">
       <SfImage
         :src="addBasePath(`/icons/langs/${locale}.webp`)"
         height="20"
@@ -12,7 +12,7 @@
       :is-open="isLangModalOpen"
       title="Choose language"
       class="left-0 z-10"
-      @click:close="isLangModalOpen = !isLangModalOpen"
+      @click:close="toggleLangModal()"
     >
       <SfList class="md:lg:flex">
         <SfListItem
@@ -53,14 +53,14 @@ import {
   SfCharacteristic
 } from '@storefront-ui/vue';
 import {
-  ref,
   computed,
   useRouter,
   useRoute,
   useContext
 } from '@nuxtjs/composition-api';
-import { localesGetters, useFacet, useProduct, useLocaleSwitchHelper } from '@vue-storefront/plentymarkets';
+import { localesGetters, useFacet, useLocaleSwitchHelper } from '@vue-storefront/plentymarkets';
 import { addBasePath } from '@vue-storefront/core';
+import { useUiState } from '~/composables';
 
 export default {
   components: {
@@ -72,24 +72,22 @@ export default {
   },
   setup() {
     const { app } = useContext();
-    const { locales, locale } = app.i18n;
 
+    const { isLangModalOpen, toggleLangModal } = useUiState();
+
+    const { locales, locale } = app.i18n;
     const route = useRoute();
     const router = useRouter();
-    const isLangModalOpen = ref(false);
     const availableLocales = computed(() =>
       locales.filter((i) => i.code !== locale)
     );
     const { result: facet } = useFacet();
-    const { products: products } = useProduct('products');
-    const { routeToCategory, routeToProduct } = useLocaleSwitchHelper();
+    const { routeToCategory } = useLocaleSwitchHelper();
 
     const switchLocale = (language) => {
       app.i18n.setLocaleCookie(language);
       if (facet.value && route.value.name.startsWith('category')) {
         routeToCategory(facet, language);
-      } else if (products.value.length && route.value.name.startsWith('product')) {
-        routeToProduct(products.value, language);
       } else {
         router.push(app.switchLocalePath(language));
       }
@@ -99,9 +97,10 @@ export default {
       localesGetters,
       availableLocales,
       locale,
-      isLangModalOpen,
       addBasePath,
-      switchLocale
+      switchLocale,
+      isLangModalOpen,
+      toggleLangModal
     };
   }
 };
@@ -118,6 +117,7 @@ export default {
     top: var(--spacer-xs);
     right: var(--spacer-xs);
   }
+
   .sf-button {
     --button-box-shadow-opacity: 0;
     --button-background: trasnparent;
