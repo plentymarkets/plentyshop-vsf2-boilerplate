@@ -24,6 +24,7 @@ export const useLocaleSwitchHelper = (): LocaleSwitchHelper => {
 
   const routeToCategory = (facet: Ref<{data: Facet}>, language: string): void => {
     const url = removeTrailingSlashFromUrl(facet.value?.data.languageUrls[language]);
+
     router.push(`${getLanguagePrefix(language)}/c${url}`);
   };
 

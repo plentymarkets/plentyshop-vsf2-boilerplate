@@ -1,4 +1,3 @@
-import { useContext } from '@nuxtjs/composition-api';
 import { CategoryGetters, AgnosticCategoryTree, AgnosticBreadcrumb } from '@vue-storefront/core';
 import type { Category, CategoryDetails } from '@vue-storefront/plentymarkets-api';
 
