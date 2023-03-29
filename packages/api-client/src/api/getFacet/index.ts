@@ -5,6 +5,7 @@ export async function getFacet(context: Context, params: FacetSearchCriteria): P
   // TODO: use default category id
   const categoryId = params.categoryId?.toString() || '16';
   const url = new URL('/rest/storefront/items', context.config.api.url);
+
   url.searchParams.set('categoryId', categoryId);
   url.searchParams.set('type', 'category');
 

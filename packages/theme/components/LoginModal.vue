@@ -418,8 +418,8 @@ export default {
   justify-content: center;
 }
 .modal {
-  --modal-index: 3;
-  --overlay-z-index: 3;
+  --modal-index: 30;
+  --overlay-z-index: 30;
 }
 .form {
   margin-top: var(--spacer-sm);

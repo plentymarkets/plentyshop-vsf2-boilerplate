@@ -1,29 +1,32 @@
 <div align="center">
-<img src="https://blog.vuestorefront.io/wp-content/uploads/2020/01/1QU9F6hQlFyHsJIbsdmt6FA.png" height="80px"/>  
+  <img src="https://user-images.githubusercontent.com/1626923/137092657-fb398d20-b592-4661-a1f9-4135db0b61d5.png" alt="Vue Storefront" height="80px" />
+
+  <img src="https://cdn01.plentymarkets.com/avw8j9fg70hi/frontend/website_plentycom/plenty_Logos/plentymarkets/plentymarkets_Claim_RGB.png" alt="plentymarkets logo" height="160px" />
 </div>
 
-## Vue Storefront 2 integration with plentymarkets
+# Vue Storefront 2 integration with plentymarkets
+
+This package handles the app state and all major app logic. By default, most composables extend core storefront functionality.
 
 ------
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-
-## How to start if you want to try out the integration
-
-```
-yarn global add @vue-storefront/cli
-```
-```
-vsf init <project_name> && cd <project_name> && yarn && yarn dev
-```
-
 ## Resources
 
-- [Vue Storefront Documentation](https://docs.vuestorefront.io/v2/)
-- [plentymarkets integration Documentation](https://docs.vuestorefront.io/plentymarkets)
-- [Community Chat](https://discord.vuestorefront.io)
+Vue Storefront:
+
+<!-- * [plentymarkets integration Documentation](https://docs.vuestorefront.io/plentymarkets) -->
+* [Vue Storefront Documentation](https://docs.vuestorefront.io/v2/)
+* [Vue Storefront Boilerplate](https://github.com/vuestorefront/ecommerce-integration-boilerplate)
+* [Storefront UI Library](https://docs.storefrontui.io/v1/?path=/docs/welcome--page)
+
+General:
+
+* [Nuxt Documentation](https://nuxtjs.org/docs/get-started/installation)
+* [Introduction to Vue](https://vuejs.org/guide/introduction.html) | [Composition API FAQ](https://vuejs.org/guide/extras/composition-api-faq.html)
+* [HTTP Toolkit](https://httptoolkit.tech)
 
 ## Support
 

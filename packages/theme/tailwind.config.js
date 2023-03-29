@@ -23,7 +23,8 @@ module.exports = {
         // 16px
         'sf-base': 'var(--font-size--base)',
         // 18px
-        'sf-lg': 'var(--font-size--lg)'
+        'sf-lg': 'var(--font-size--lg)',
+        'sf-xl': 'var(--font-size--xl)'
       },
       fontWeight: {
         // 300
@@ -94,6 +95,8 @@ module.exports = {
         'sf-c-light-darken': 'var(--c-light-darken)',
         // #ffffff
         'sf-c-light-variant': 'var(--c-light-variant)',
+        'sf-c-light-primary-lighten': 'var(--_c-light-primary-lighten)',
+        'sf-c-light-primary': 'var(--_c-light-primary)',
         // #1d1f22
         'sf-c-on-light': 'var(--c-on-light)',
         // #72757E

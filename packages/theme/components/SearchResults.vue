@@ -205,6 +205,7 @@ export default {
     const removeProductFromWishlist = (productItem) => {
       const productsInWhishlist = computed(() => wishlistGetters.getItems(wishlist.value));
       const product = productsInWhishlist.value.find(wishlistProduct => wishlistProduct.variant.sku === productItem.sku);
+
       removeItemFromWishlist({ product });
     };
 
@@ -227,7 +228,7 @@ export default {
     position: absolute;
     right: 0;
     left: 0;
-    z-index: 3;
+    z-index: 30;
     --mega-menu-column-header-margin: var(--spacer-sm) 0 var(--spacer-xl);
     --mega-menu-content-padding: 0;
     --mega-menu-height: auto;

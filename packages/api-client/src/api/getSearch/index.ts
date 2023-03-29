@@ -3,6 +3,7 @@ import { Context, ItemSearchParams } from 'src/types';
 
 export async function getSearch(context: Context, params: ItemSearchParams): Promise<ItemSearchResult> {
   const url: URL = new URL('/rest/io/item/search/', context.config.api.url);
+
   if (!params.term) {
     console.warn('product search is missing search term');
   }

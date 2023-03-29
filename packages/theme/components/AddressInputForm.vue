@@ -239,6 +239,7 @@ export default {
 
     const validate = async () => {
       const validation = await refs.validationObserver.validateWithInfo();
+
       if (validation.isValid) {
         return internalForm;
       }

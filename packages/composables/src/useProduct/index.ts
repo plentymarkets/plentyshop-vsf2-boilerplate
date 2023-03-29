@@ -11,6 +11,7 @@ import type {
 const params: UseProductFactoryParams<Product[], SearchParams> = {
   productsSearch: async (context: Context, params) => {
     const data = await context.$plentymarkets.api.getProduct(params);
+
     return data;
   }
 };

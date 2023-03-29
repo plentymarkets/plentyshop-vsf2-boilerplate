@@ -20,6 +20,7 @@ function getAll(params: FacetSearchResult<Facet>, criteria?: FacetSearchCriteria
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getGrouped(params: FacetSearchResult<Facet>, criteria?: FacetSearchCriteria): AgnosticGroupedFacet[] {
   const selectedFacets = params.input?.facets?.split(',');
+
   if (!params?.data?.facets) {
     return [];
   }
@@ -70,6 +71,7 @@ function getSortOptions(params: FacetSearchResult<Facet>): AgnosticSort {
     }
   ].map(o => ({ ...o, selected: o.id === params.input.sort }));
   const selected = options.find(o => o.id === params.input.sort)?.id;
+
   return { selected, options };
 }
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -111,6 +113,7 @@ function getBreadcrumbs(params: FacetSearchResult<Facet>, categories?: Category[
   }
 
   const breadcrumbs = categoryGetters.getMappedBreadcrumbs(categories, params.input.categoryId);
+
   return [
     {
       text: 'Home',
