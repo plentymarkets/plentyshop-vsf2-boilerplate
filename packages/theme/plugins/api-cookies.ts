@@ -27,7 +27,7 @@ const plugin: Plugin = ({ app }) => {
       if (app.$vsf.$plentymarkets.config.cookies) {
         reqCookies = app.$vsf.$plentymarkets.config.cookies + ';';
         // Always send locale to the browser
-        reqCookies = reqCookies + `vsf-locale=${app.$cookies.get('vsf-locale')};`;
+        reqCookies += `vsf-locale=${app.$cookies.get('vsf-locale')};`;
       } else {
         // Use the cookies send by the browser
         Object.entries(app.$cookies.getAll()).forEach(([key, val]) => {
