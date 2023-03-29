@@ -325,7 +325,7 @@ export default {
     'Read all reviews': 'Alle Bewertungen lesen',
     'Read reviews': 'Bewertungen lesen',
     'Size guide': '@:App.sizeGuide',
-    'Try other languages': 'Versuche die Sprache zu wechseln'
+    'Try a different language': 'Versuche die Sprache zu wechseln'
   },
   // SearchResults
   'SearchResults': {
