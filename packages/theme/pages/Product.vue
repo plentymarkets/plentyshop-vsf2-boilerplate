@@ -171,7 +171,7 @@
           {{ $t('SearchResults.No results found') }}
         </p>
         <SfButton @click="toggleLangModal">
-          {{ $t('Product.Try other languages') }}
+          {{ $t('Product.Try a different language') }}
         </SfButton>
       </div>
     </div>
