@@ -3,19 +3,34 @@ name: Add zip file to S3 bucket
 on: [release]
 
 jobs:
-  preview:
+  create-zip:
     runs-on: ubuntu-latest
     steps:
-      - name: Make artifact directory
-        run: mkdir -p ./artifacts/${{ github.repository }}
+      - uses: actions/checkout@v2
+      - uses: vimtor/action-zip@v1
+        with:
+          files: ./
+          dest: filename.zip
 
-      - name: Zip Folder
-        run: zip -r ${{ github.event.repository.name }}.zip ./artifacts/${{ github.repository }}/
+      - uses: actions/upload-artifact@v1
+        with:
+          name: zip-repository
+          path: ${{ github.workspace }}/filename.zip
 
+
+  send-zip:
+    runs-on: ubuntu-latest
+    needs: create-zip
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: zip-repository
+          path: ./
       - name: Upload File
         id: upload
         uses: JantHsueh/upload-file-action@master
         with:
           url: ${{ secrets.URL_ENDPOINT }}
-          forms: '{"tokenName":"${{ secrets.URL_ENDPOINT_TOKEN }}","repositoryName":${{ github.event.repository.name }}}'
-          fileForms: '{"filename":"./artifacts/${{ github.repository }}/${{ github.event.repository.name }}.zip"}'
+          forms: '{ "tokenName":"${{ secrets.URL_ENDPOINT_TOKEN }}", "repositoryName":"${{ github.event.repository.name }}" }'
+          fileForms: '{ "filename" : "${{ github.workspace }}/filename.zip" }'
