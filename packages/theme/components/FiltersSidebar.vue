@@ -174,7 +174,7 @@ export default {
 
 <style lang="scss" scoped>
 .sidebar-filters {
-  --overlay-z-index: 3;
+  --overlay-z-index: 30;
   --sidebar-title-display: none;
   --sidebar-top-padding: 0;
   @include for-desktop {
@@ -183,7 +183,7 @@ export default {
   }
 }
 ::v-deep .sf-sidebar__aside {
-  --sidebar-z-index: 3;
+  --sidebar-z-index: 30;
 }
 .filters {
   &__title {

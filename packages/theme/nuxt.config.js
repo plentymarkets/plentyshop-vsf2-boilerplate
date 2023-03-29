@@ -70,7 +70,8 @@ const config = {
     /* project-only-start
     ['@vue-storefront/nuxt-theme'],
     project-only-end */
-    ['@vue-storefront/plentymarkets/nuxt', {}]
+    ['@vue-storefront/plentymarkets/nuxt', {}],
+    '@nuxtjs/pwa',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -187,6 +188,56 @@ const config = {
     base64: false,
     fontsPath: '../fonts'
   },
+
+  // PWA configuration: https://pwa.nuxtjs.org/
+  pwa: {
+    meta: {
+      name: "plentyShop PWA",
+      author: "plentysystems AG",
+      description: "A PWA for plentymarkets shops",
+      lang: "en"
+    },
+    manifest: {
+      "background_color": "white",
+      "categories": ["shopping"],
+      "description": "A plentyShop demo app",
+      "display": "minimal-ui",
+      "launch_handler": {
+          "client_mode": ["auto"]
+      },
+      "name": "plentyShop PWA Demo App",
+      "screenshots": [],
+      "short_name": "plentyShop PWA",
+      "start_url": "/",
+      "theme_color": "#008EBD"
+    },
+    workbox: {
+      workboxURL: `/workbox-v6.5.4/workbox-sw.js?${Date.now()}`,
+      dev: false,
+      config: {
+        modulePathPrefix: '/workbox-v6.5.4'
+      },
+      runtimeCaching: [
+        {
+          urlPattern: "/*",
+          handler: 'NetworkFirst',
+          strategyOptions: {
+            cacheName: 'app-cache',
+            cacheableResponse: {
+              statuses: [0, 200, 204]
+            }
+          },
+          strategyPlugins: [{
+             use: 'Expiration',
+             config: {
+               maxEntries: 50,
+               purgeOnQuotaError: true
+             }
+           }]
+        },
+      ],
+    }
+  }
 };
 
 if (process.env.MIDDLEWARE_URL) {
