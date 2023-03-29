@@ -326,7 +326,7 @@ export default {
     'Read all reviews': 'Read all reviews',
     'Read reviews': 'Read reviews',
     'Size guide': '@:App.sizeGuide',
-    'Try other languages': 'Try other languages'
+    'Try a different language': 'Try a different language'
   },
   // SearchResults
   'SearchResults': {
