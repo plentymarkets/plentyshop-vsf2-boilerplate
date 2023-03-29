@@ -12,4 +12,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh pr edit ${{ github.event.pull_request.html_url }} \
-              --add-reviewer plentymarkets/shop-front-end
+              --add-reviewer info@roelldev.de
