@@ -28,19 +28,19 @@ export async function getProduct(context: Context, params: ProductsSearchParams)
   const { data } = await context.client.get(url.href);
 
   if (params.id) {
-    const product: Product[] = data.item.documents.map(document => document.data);
 
-    product[0].feedback = await getFeedbackAvarage(context, [product[0].item.id.toString()]);
+    const products: Product[] = data.item.documents.map(document => document.data);
+
+    products[0].feedback = await getFeedbackAvarage(context, [products[0].item.id.toString()]);
 
     // set the variation attribute map into the variations data
     if (data.attributes || data.variations) {
-      product[0].variationAttributeMap = {
+      products[0].variationAttributeMap = {
         attributes: data.attributes,
         variations: data.variations
       };
     }
-
-    return product;
+    return products;
   } else {
     // TODO: load feedback for products
     return data.data.itemList.documents.map(document => document.data);

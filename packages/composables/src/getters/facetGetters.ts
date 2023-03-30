@@ -108,6 +108,7 @@ function getBreadcrumbs(params: FacetSearchResult<Facet>, categories?: Category[
   if (!categories) {
     return [];
   }
+
   const breadcrumbs = categoryGetters.getMappedBreadcrumbs(categories, params.input.categoryId);
 
   return [

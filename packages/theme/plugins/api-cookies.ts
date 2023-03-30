@@ -25,7 +25,9 @@ const plugin: Plugin = ({ app }) => {
       // if multiple requests were sent by the middleware, it uses the config.cookies object to receive the latest cookie
 
       if (app.$vsf.$plentymarkets.config.cookies) {
-        reqCookies = app.$vsf.$plentymarkets.config.cookies;
+        reqCookies = app.$vsf.$plentymarkets.config.cookies + ';';
+        // Always send locale to the browser
+        reqCookies += `vsf-locale=${app.$cookies.get('vsf-locale')};`;
       } else {
         // Use the cookies send by the browser
         Object.entries(app.$cookies.getAll()).forEach(([key, val]) => {

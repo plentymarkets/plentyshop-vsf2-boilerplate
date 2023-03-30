@@ -36,6 +36,7 @@ const factoryParams = {
     const data = await context.$plentymarkets.api.getFacet(facetSearchCriteria);
 
     return {
+      languageUrls: data.languageUrls,
       products: data.products,
       tree: treeWrapper,
       facets: data.facets,

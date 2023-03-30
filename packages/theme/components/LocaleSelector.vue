@@ -1,9 +1,6 @@
 <template>
-  <div class="container">
-    <SfButton
-      class="container__lang container__lang--selected"
-      @click="isLangModalOpen = !isLangModalOpen"
-    >
+  <div>
+    <SfButton @click="toggleLangModal()">
       <SfImage
         :src="addBasePath(`/icons/langs/${locale}.webp`)"
         height="20"
@@ -14,15 +11,19 @@
     <SfBottomModal
       :is-open="isLangModalOpen"
       title="Choose language"
-      @click:close="isLangModalOpen = !isLangModalOpen"
+      class="left-0 z-10"
+      @click:close="toggleLangModal()"
     >
-      <SfList>
+      <SfList class="md:lg:flex">
         <SfListItem
           v-for="lang in availableLocales"
           :key="localesGetters.getCode(lang)"
         >
-          <a :href="switchLocalePath(lang.code)">
-            <SfCharacteristic class="language">
+          <a
+            class="cursor-pointer"
+            @click="switchLocale(localesGetters.getCode(lang))"
+          >
+            <SfCharacteristic class="p-sf-sm">
               <template #title>
                 <span>{{ localesGetters.getLabel(lang) }}</span>
               </template>
@@ -32,7 +33,7 @@
                   height="20"
                   width="20"
                   alt="Flag"
-                  class="language__flag"
+                  class="mr-sf-sm"
                 />
               </template>
             </SfCharacteristic>
@@ -51,9 +52,16 @@ import {
   SfBottomModal,
   SfCharacteristic
 } from '@storefront-ui/vue';
-import { localesGetters } from '@vue-storefront/plentymarkets';
-import { ref, computed } from '@nuxtjs/composition-api';
+import {
+  computed,
+  useRouter,
+  useRoute,
+  useContext
+} from '@nuxtjs/composition-api';
+import { localesGetters, useFacet, useLocaleSwitchHelper } from '@vue-storefront/plentymarkets';
 import { addBasePath } from '@vue-storefront/core';
+import { useUiState } from '~/composables';
+
 export default {
   components: {
     SfImage,
@@ -62,32 +70,44 @@ export default {
     SfBottomModal,
     SfCharacteristic
   },
-  setup(props, context) {
-    const { locales, locale } = context.root.$i18n;
-    const isLangModalOpen = ref(false);
-    const availableLocales = computed(() => locales.filter(i => i.code !== locale));
+  setup() {
+    const { app } = useContext();
+
+    const { isLangModalOpen, toggleLangModal } = useUiState();
+
+    const { locales, locale } = app.i18n;
+    const route = useRoute();
+    const router = useRouter();
+    const availableLocales = computed(() =>
+      locales.filter((i) => i.code !== locale)
+    );
+    const { result: facet } = useFacet();
+    const { routeToCategory } = useLocaleSwitchHelper();
+
+    const switchLocale = (language) => {
+      app.i18n.setLocaleCookie(language);
+      if (facet.value && route.value.name.startsWith('category')) {
+        routeToCategory(facet, language);
+      } else {
+        router.push(app.switchLocalePath(language));
+      }
+    };
 
     return {
       localesGetters,
       availableLocales,
       locale,
+      addBasePath,
+      switchLocale,
       isLangModalOpen,
-      addBasePath
+      toggleLangModal
     };
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.container {
-  margin: 0 -5px;
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  position: relative;
   .sf-bottom-modal {
-    z-index: 20;
-    left: 0;
     @include for-desktop {
       --bottom-modal-height: 100vh;
     }
@@ -97,30 +117,9 @@ export default {
     top: var(--spacer-xs);
     right: var(--spacer-xs);
   }
-  .sf-list {
-    .language {
-      padding: var(--spacer-sm);
-      &__flag {
-        margin-right: var(--spacer-sm);
-      }
-    }
-    @include for-desktop {
-      display: flex;
-    }
+
+  .sf-button {
+    --button-box-shadow-opacity: 0;
+    --button-background: trasnparent;
   }
-  &__lang {
-    width: 20px;
-    --button-box-shadow: none;
-    background: none;
-    padding: 0 5px;
-    display: flex;
-    align-items: center;
-    opacity: 0.5;
-    border: none;
-    &:hover,
-    &--selected {
-      opacity: 1;
-    }
-  }
-}
 </style>

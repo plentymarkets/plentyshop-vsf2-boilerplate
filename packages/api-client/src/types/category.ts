@@ -25,9 +25,14 @@ export type Category = {
 
 export interface ItemList {
     total: number,
-    documents: {data: Product}[],
+    documents: { data: Product }[],
     inactiveVariationIds: number[],
     'categories.all': { [key: string]: number };
+}
+
+export interface LanguageUrls {
+    [key: string]: string,
+    'x-default': string
 }
 
 export type Facet = {
@@ -37,12 +42,14 @@ export type Facet = {
     pagination: {
         perPageOptioons: number[],
         total: number
-    }
+    },
+    languageUrls: LanguageUrls
 };
 
 export interface FacetResponse {
     itemList: ItemList;
     facets: FilterGroup[];
+    urls: LanguageUrls
 }
 
 export interface FacetSearchCriteria {
@@ -58,5 +65,6 @@ export type CategoryPage = {
     facets: FilterGroup[],
     pagination: {
         totals: number
-    }
+    },
+    languageUrls: LanguageUrls
 }
