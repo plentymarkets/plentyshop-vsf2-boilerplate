@@ -20,15 +20,15 @@ export interface UseUiStateResponse {
     isFilterSidebarOpen: ComputedRef<boolean>,
     isMobileMenuOpen: ComputedRef<boolean>,
     isLangModalOpen: ComputedRef<boolean>,
-    toggleCartSidebar: void,
-    toggleWishlistSidebar: void,
-    toggleLoginModal: void,
-    toggleNewsletterModal: void,
-    changeToCategoryGridView: void,
-    changeToCategoryListView: void,
-    toggleFilterSidebar: void,
-    toggleMobileMenu: void,
-    toggleLangModal: void
+    toggleCartSidebar: () => void,
+    toggleWishlistSidebar: () => void,
+    toggleLoginModal: () => void,
+    toggleNewsletterModal: () => void,
+    changeToCategoryGridView: () => void,
+    changeToCategoryListView: () => void,
+    toggleFilterSidebar: () => void,
+    toggleMobileMenu: () => void,
+    toggleLangModal: () => void
 }
 
 const useUiState = (): UseUiStateResponse => {
