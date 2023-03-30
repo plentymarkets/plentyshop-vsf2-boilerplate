@@ -9,7 +9,7 @@ jobs:
     - name: Google Chat Notification
       uses: Co-qn/google-chat-notification@releases/v1
       with:
-        name: Pull request review ready
+        name: ${GITHUB_REF##*/}
         url: ${{ secrets.GOOGLE_CHAT_WEBHOOK_PR }}
         status: ${{ job.status }}
       if: always()
