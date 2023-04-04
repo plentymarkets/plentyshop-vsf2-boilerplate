@@ -39,6 +39,10 @@ export interface PlentymarketsApiMethods {
     getProduct(
         params: ProductsSearchParams
     ): Promise<Product[]>,
+    
+    getLiveProducts(
+        params: any
+    ): Promise<any>,
 
     getCategory(): Promise<Category[]>,
 

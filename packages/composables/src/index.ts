@@ -5,6 +5,7 @@ export { useFacet } from './useFacet';
 export { useForgotPassword } from './useForgotPassword';
 export { useMakeOrder } from './useMakeOrder';
 export { useProduct } from './useProduct';
+export { useLiveProducts } from './useLiveProducts';
 export { useCookieBar } from './useCookieBar';
 export { useReview } from './useReview';
 export { useShippingProvider } from './useShippingProvider';

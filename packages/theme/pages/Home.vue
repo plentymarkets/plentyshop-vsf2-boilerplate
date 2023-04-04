@@ -142,7 +142,7 @@ import NewsletterModal from '~/components/NewsletterModal.vue';
 import LazyHydrate from 'vue-lazy-hydration';
 import { useUiState } from '../composables';
 import { addBasePath } from '@vue-storefront/core';
-import { productGetters, bannerGetters, heroesGetters } from '@vue-storefront/plentymarkets';
+import { productGetters, bannerGetters, heroesGetters, useLiveProducts } from '@vue-storefront/plentymarkets';
 
 export default {
   name: 'Home',
@@ -241,6 +241,10 @@ export default {
     const toggleWishlist = (index) => {
       products.value[index].isInWishlist = !products.value[index].isInWishlist;
     };
+
+    useLiveProducts('2').then((response) => {
+      console.log('I GOT RESPONSE', response);
+    });
 
     return {
       productGetters,
