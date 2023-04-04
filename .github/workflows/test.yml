@@ -1,11 +1,6 @@
 name: Test & Lint
 
 on:
-  push:
-    branches:
-      - master
-      - main
-      - develop
   pull_request:
     branches:
       - master
@@ -50,6 +45,9 @@ jobs:
         run: yarn lint
 
   test:
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
     name: Test all packages
     needs: prepare_dependencies
     runs-on: ubuntu-latest
