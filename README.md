@@ -81,7 +81,7 @@ This section provides an overview of how to use the packages when adding new fun
 
 Want to contribute? Ping us on the `plentymarkets` channel on [our Discord](https://discord.vuestorefront.io)!
 
-Also, before getting started, check out to the [contribution guide](./CONTRIBUTING.md).
+Also, before getting started, check out to the [contribution guide](https://github.com/plentymarkets/plentyshop-pwa/blob/main/.github/CONTRIBUTING.md).
 
 ## Resources
 
@@ -100,7 +100,7 @@ General:
 
 ## Support
 
-If you have any questions about this integration we will be happy to answer them on `plentymarkets` channel on [our Discord](discord.vuestorefront.io).
+If you have any questions about this integration we will be happy to answer them on `plentymarkets` channel on [our Discord](https://discord.vuestorefront.io/).
 
 ## Contributors ✨
 
