@@ -71,7 +71,7 @@
             @click="go('next')"
           />
         </template>
-        <SfCarouselItem
+        <!-- <SfCarouselItem
           v-for="(product, i) in products"
           :key="i"
           class="carousel__item"
@@ -86,6 +86,28 @@
             :special-price="productGetters.getSpecialPrice(product) && $n(productGetters.getSpecialPrice(product), 'currency')"
             :max-rating="productGetters.getMaxRating(product)"
             :score-rating="productGetters.getAverageRating(product)"
+            :show-add-to-cart-button="true"
+            :link="localePath({ name: 'home' })"
+            class="carousel__item__product"
+            @click:wishlist="toggleWishlist(i)"
+          />
+        </SfCarouselItem> -->
+
+        <SfCarouselItem
+          v-for="(item, i) in result"
+          :key="i"
+          class="carousel__item"
+        >
+          <SfProductCard
+            :data-e2e="'category-product-card'"
+            :title="liveProductGetters.getName(item)"
+            :image-width="100"
+            :image-height="100"
+            :image="addBasePath(productGetters.getCoverImage(products[0]))"
+            :regular-price="$n(productGetters.getRegularPrice(products[0]), 'currency')"
+            :special-price="productGetters.getSpecialPrice(products[0]) && $n(productGetters.getSpecialPrice(products[0]), 'currency')"
+            :max-rating="productGetters.getMaxRating(products[0])"
+            :score-rating="productGetters.getAverageRating(products[0])"
             :show-add-to-cart-button="true"
             :link="localePath({ name: 'home' })"
             class="carousel__item__product"
@@ -265,7 +287,9 @@ export default {
       addBasePath,
       banners,
       heroes,
-      products
+      products,
+      result,
+      liveProductGetters
     };
   },
 };
