@@ -23,6 +23,7 @@ export { useLegalInformation } from './useLegalInformation';
 export { useLocaleSwitchHelper } from './useLocaleSwitchHelper';
 
 // Getters
+export { liveProductGetters } from './getters/liveProductGetters';
 export { cartGetters } from './getters/cartGetters';
 export { categoryGetters } from './getters/categoryGetters';
 export { facetGetters } from './getters/facetGetters';

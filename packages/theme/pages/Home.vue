@@ -136,13 +136,13 @@ import {
   SfArrow,
   SfButton
 } from '@storefront-ui/vue';
-import { ref, useContext } from '@nuxtjs/composition-api';
+import { ref, useContext, computed } from '@nuxtjs/composition-api';
 import InstagramFeed from '~/components/InstagramFeed.vue';
 import NewsletterModal from '~/components/NewsletterModal.vue';
 import LazyHydrate from 'vue-lazy-hydration';
 import { useUiState } from '../composables';
-import { addBasePath } from '@vue-storefront/core';
-import { productGetters, bannerGetters, heroesGetters, useLiveProducts } from '@vue-storefront/plentymarkets';
+import { addBasePath, onSSR, sharedRef } from '@vue-storefront/core';
+import { productGetters, bannerGetters, heroesGetters, useLiveProducts, liveProductGetters } from '@vue-storefront/plentymarkets';
 
 export default {
   name: 'Home',
@@ -242,10 +242,19 @@ export default {
       products.value[index].isInWishlist = !products.value[index].isInWishlist;
     };
 
-    useLiveProducts('2').then((response) => {
-      console.log('I GOT RESPONSE', response);
+    const { search, result, loading, error } = useLiveProducts();
+    console.log('result', result.value);
+    for (const item of result.value ?? []) {
+        console.log('item', item);
+        const name = liveProductGetters.getName(item);
+        console.log('name', name);
+    }
+    console.log('loading', loading.value);
+    console.log('error', error.value);
+    
+    onSSR(async () => {
+        await search();
     });
-
     return {
       productGetters,
       bannerGetters,
@@ -258,7 +267,7 @@ export default {
       heroes,
       products
     };
-  }
+  },
 };
 </script>
 
