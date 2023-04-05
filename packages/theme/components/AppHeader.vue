@@ -136,7 +136,7 @@
 <script>
 import { SfHeader, SfImage, SfIcon, SfButton, SfBadge, SfSearchBar, SfOverlay } from '@storefront-ui/vue';
 import { useUiState } from '~/composables';
-import { useCart, useUser, cartGetters, useSearch, useWishlist } from '@vue-storefront/plentymarkets';
+import { useCart, useUser, cartGetters, useSearch, useWishlist, wishlistGetters } from '@vue-storefront/plentymarkets';
 import { computed, ref, useRouter } from '@nuxtjs/composition-api';
 import { useUiHelpers } from '~/composables';
 import LocaleSelector from './LocaleSelector';
@@ -183,7 +183,7 @@ export default {
     });
 
     const wishlistTotalItems = computed(() => {
-      const count = wishlist.value.items;
+      const count = wishlistGetters.getItems(wishlist.value);
 
       return count ? count.length : null;
     });
