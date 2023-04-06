@@ -97,22 +97,11 @@
                     class="product__description"
                     v-html="productGetters.getDescription(product)"
                   />
-                  <SfProperty
-                    v-for="(property, i) in properties"
-                    :key="i"
-                    :name="propertyGetters.getName(property)"
-                    :value="propertyGetters.getValue(property)"
-                    class="product__property"
-                  >
-                    <template
-                      v-if="propertyGetters.getName(property) === 'Category'"
-                      #value
-                    >
-                      <SfButton class="product__property__button sf-button--text">
-                        {{ propertyGetters.getValue(property) }}
-                      </SfButton>
-                    </template>
-                  </SfProperty>
+                  <Property
+                    v-for="property in propertyGetters.getProperties(propertyGetters.getGroup(6, productGetters.getPropertyGroups(product)))"
+                    :property="property"
+                    :key="propertyGetters.getPropertyId(property)"
+                  />
                 </SfTab>
                 <SfTab :title="$t('Product.Read reviews')">
                   <SfReview
@@ -211,10 +200,14 @@ import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
 import { addBasePath } from '@vue-storefront/core';
 import { useUiHelpers, useUiState } from '~/composables';
+import PropertyGroup from '~/components/PropertyGroup.vue';
+import Property from '~/components/Property.vue';
 
 export default {
   name: 'Product',
   components: {
+    Property,
+    PropertyGroup,
     SfProperty,
     SfHeading,
     SfPrice,
