@@ -1,23 +1,20 @@
 import { useVSFContext } from '@vue-storefront/core';
 
-export const useReviewFeedback = async (id: string): Promise<any> => {
+export const useReviewFeedback = (): Object => {
 
   const context = useVSFContext();
 
-  const usePlaceReviewFeedback = async (params: any): Promise<any> => {
+  async function postReview(params: any): Promise<any> {
     try {
       console.log('usePlaceReviewFeedback');
-      const send = await context.$plentymarkets.api.placeReview(params);
+      const send = await context.$plentymarkets.api.postReview(params);
       console.log(send);
     } catch (err) {
       console.log({err});
     }
   };
-const params = {
-  'name':'test-name',
-  'title':'test-title',
-  'ratings':5,
-  'comment':'test-comment',
-};
-  return usePlaceReviewFeedback(params);
+
+  return {
+    postReview
+  }
 };

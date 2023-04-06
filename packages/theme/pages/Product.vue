@@ -153,6 +153,8 @@
           />
         </LazyHydrate>
 
+        <ReviewForm/>
+
         <LazyHydrate when-visible>
           <InstagramFeed />
         </LazyHydrate>
@@ -214,6 +216,7 @@ import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
 import { addBasePath } from '@vue-storefront/core';
 import { useUiHelpers, useUiState } from '~/composables';
+import ReviewForm from '../components/ReviewForm.vue';
 
 export default {
   name: 'Product',
@@ -234,7 +237,8 @@ export default {
     LazyHydrate,
     AttributeSelection,
     SfImage,
-    SfLoader
+    SfLoader,
+    ReviewForm
   },
   transition: 'fade',
   setup() {
@@ -262,7 +266,6 @@ export default {
     );
     const categories = computed(() => productGetters.getCategoryIds(product.value));
     const reviews = computed(() => reviewGetters.getItems(productReviews.value));
-
     // TODO: Breadcrumbs are temporary disabled because productGetters return undefined. We have a mocks in data
     const breadcrumbs = computed(() => productGetters.getBreadcrumbs(product.value, breadcrumbCategories.value));
     const productGallery = computed(() =>
@@ -283,9 +286,6 @@ export default {
         isAttributeSelectionValid.value = false;
       }
     };
-    useReviewFeedback(1008).then((response) => {
-      console.log('I GOT RESPONSE', response);
-    });
 
     onSSR(async () => {
       await search({ id: id.value });

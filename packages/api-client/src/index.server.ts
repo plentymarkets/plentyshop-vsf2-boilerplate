@@ -147,7 +147,7 @@ const { createApiClient } = apiClientFactory<Settings, Endpoints>({
     getOrders,
     executePayment,
     getLegalInformation,
-    getReviewFeedback
+    postReview: getReviewFeedback
   },
   extensions: [cookieExtension]
 });

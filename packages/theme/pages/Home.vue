@@ -242,9 +242,6 @@ export default {
       products.value[index].isInWishlist = !products.value[index].isInWishlist;
     };
 
-    useReviewFeedback(1008).then((response) => {
-      console.log('I GOT RESPONSE', response);
-    });
 
     return {
       productGetters,

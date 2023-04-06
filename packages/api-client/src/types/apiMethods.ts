@@ -124,7 +124,7 @@ export interface PlentymarketsApiMethods {
 
     getLegalInformation(type: string): Promise<LegalInformationResponse>
 
-    placeReview(params: any): Promise<void>
+    postReview(params: any): Promise<void>
 
 }
 
