@@ -22,11 +22,14 @@ export const useLiveProducts = (): UseLiveProductsResponse => {
       loading.value = true;
       const liveProduct = [];
       for (let i = 1; i <= 10; i++) {
-        const item = await context.$plentymarkets.api.getLiveProducts(i);
-        if (!Array.isArray(item)) {
-            liveProduct.push(item);
+        const data = await context.$plentymarkets.api.getLiveProducts(i)
+
+        if(data.length === 0) {
+          continue;
         }
-    }
+
+        liveProduct.push(data);
+      }
       result.value = liveProduct;
       error.value = null;
     } catch (err) {
