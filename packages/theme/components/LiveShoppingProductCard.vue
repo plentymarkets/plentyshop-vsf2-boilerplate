@@ -213,6 +213,10 @@ export default defineComponent({
       type: Object,
       default: null,
     },
+    rrpPrice: {
+      type: String,
+      default: ''
+    }
   },
   data() {
     return {

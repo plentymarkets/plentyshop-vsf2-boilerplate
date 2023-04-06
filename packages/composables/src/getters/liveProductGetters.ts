@@ -20,6 +20,10 @@ function getTimeLeft(item: LiveProductResponse): number {
   return Number(item?.liveShopping?.toTime);
 }
 
+function getRrpPrice(item: LiveProductResponse): string {
+  return item?.item?.prices?.rrp?.price?.formatted ?? '';
+}
+
 function getId(item: LiveProductResponse): number {
   return Number(item?.item?.variation?.id);
 }
@@ -38,5 +42,6 @@ export const liveProductGetters = {
   getQuantityLeft,
   getTimeLeft,
   getSlug,
-  getId
+  getId,
+  getRrpPrice,
 };

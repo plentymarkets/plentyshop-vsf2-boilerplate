@@ -31,85 +31,6 @@
       </SfBannerGrid>
     </LazyHydrate>
 
-    <LazyHydrate when-visible>
-      <div class="similar-products">
-        <SfHeading title="Match with it" :level="2" />
-        <nuxt-link :to="localePath('/c/women')" class="smartphone-only">
-          {{ $t('Home.See all') }}
-        </nuxt-link>
-      </div>
-    </LazyHydrate>
-
-    <LazyHydrate when-visible>
-      <SfCarousel
-        class="carousel"
-        :settings="{ peek: 16, breakpoints: { 1023: { peek: 0, perView: 2 } } }"
-      >
-        <template #prev="{ go }">
-          <SfArrow
-            aria-label="prev"
-            class="sf-arrow--left sf-arrow--long"
-            @click="go('prev')"
-          />
-        </template>
-        <template #next="{ go }">
-          <SfArrow
-            aria-label="next"
-            class="sf-arrow--right sf-arrow--long"
-            @click="go('next')"
-          />
-        </template>
-        <!-- <SfCarouselItem
-          v-for="(product, i) in products"
-          :key="i"
-          class="carousel__item"
-        >
-          <SfProductCard
-            :data-e2e="'category-product-card'"
-            :title="productGetters.getName(product)"
-            :image-width="100"
-            :image-height="100"
-            :image="addBasePath(productGetters.getCoverImage(product))"
-            :regular-price="
-              $n(productGetters.getRegularPrice(product), 'currency')
-            "
-            :special-price="
-              productGetters.getSpecialPrice(product) &&
-              $n(productGetters.getSpecialPrice(product), 'currency')
-            "
-            :max-rating="productGetters.getMaxRating(product)"
-            :score-rating="productGetters.getAverageRating(product)"
-            :show-add-to-cart-button="true"
-            :link="localePath({ name: 'home' })"
-            class="carousel__item__product"
-            @click:wishlist="toggleWishlist(i)"
-          />
-        </SfCarouselItem> -->
-
-        <SfCarouselItem
-          v-for="(item, i) in result"
-          :key="i"
-          class="carousel__item"
-        >
-          <SfProductCard
-            :data-e2e="'category-product-card'"
-            :title="liveProductGetters.getName(item)"
-            :image-width="100"
-            :image-height="100"
-            :image="addBasePath(productGetters.getCoverImage(products[0]))"
-            :regular-price="$n(productGetters.getRegularPrice(products[0]), 'currency')"
-            :special-price="productGetters.getSpecialPrice(products[0]) && $n(productGetters.getSpecialPrice(products[0]), 'currency')"
-            :max-rating="productGetters.getMaxRating(products[0])"
-            :score-rating="productGetters.getAverageRating(products[0])"
-            :show-add-to-cart-button="true"
-            :link="localePath({ name: 'home' })"
-            class="carousel__item__product"
-            @click:wishlist="toggleWishlist(i)"
-          />
-        </SfCarouselItem>
-      </SfCarousel>
-    </LazyHydrate>
-
     <h1 class="text-center">Special Offers!</h1>
     <LazyHydrate when-visible>
       <div v-if="result.length" class="flex justify-center flex-wrap gap-10">
@@ -122,10 +43,11 @@
             :image-width="100"
             :image-height="100"
             :image="liveProductGetters.getCoverImage(product)"
-            :regular-price="liveProductGetters.getRegularPrice(product)"
+            :special-price="liveProductGetters.getRegularPrice(product)"
             :link="localePath(`/p/${liveProductGetters.getId(product)}/${liveProductGetters.getSlug(product)}`)"
             :quantityLeft="liveProductGetters.getQuantityLeft(product)"
             :timeLeft = "liveProductGetters.getTimeLeft(product)"
+            :regular-price = "liveProductGetters.getRrpPrice(product)"
             class="carousel__item__product"
           />
       </div>
@@ -1164,6 +1086,7 @@ export default {
     };
 
     const { search, result } = useLiveProducts();
+    console.log('result', result.value);
     onSSR(async () => {
       await search();
     });
