@@ -3,7 +3,7 @@
   <video v-else-if="propertyGetters.isMP4File(property)" controls>
     <source :src="'https://cdn02.plentymarkets.com/kmqpidx3aw6i/propertyItems/'+propertyGetters.getPropertyValue(property)" type="video/mp4">
   </video>
-  <div v-else-if="propertyGetters.isHTML(property)"></div>
+  <div v-else-if="propertyGetters.isHTML(property)" v-html="propertyGetters.getPropertyValue(property)"></div>
   <SfProperty
     v-else-if="propertyGetters.isText(property)"
     :name="propertyGetters.getPropertyName(property)"
