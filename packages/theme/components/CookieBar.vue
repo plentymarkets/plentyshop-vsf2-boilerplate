@@ -48,7 +48,7 @@
           </div>
           <div
             v-else
-            class="overflow-y-auto h-80 bg-sf-c-light-primary-lighten' p-2"
+            class="overflow-y-auto h-80 bg-sf-c-light-primary-lighten p-2"
           >
             <div class="h-64">
               <div
@@ -156,7 +156,7 @@
             <div class="flex-1 mb-sf-xs">
               <button
                 v-e2e="'accept-all'"
-                class="color-primary w-full sf-button"
+                class="color-sf-c-primary w-full sf-button"
                 :aria-disabled="false"
                 type="button"
                 aria-label="button"
@@ -168,7 +168,7 @@
             <div class="flex-1 mb-sf-xs">
               <button
                 v-e2e="'reject-all'"
-                class="color-primary w-full sf-button"
+                class="color-sf-c-primary w-full sf-button"
                 :aria-disabled="false"
                 type="button"
                 aria-label="button"
@@ -195,7 +195,7 @@
       <button
         v-else
         v-e2e="'cookie-show-banner-button'"
-        class="color-primary sf-button z-10 fixed bottom-sf-2xl xl:bottom-sf-xs left-0 xl:left-auto xl:right-sf-xs"
+        class="color-sf-c-primary sf-button z-10 fixed bottom-sf-2xl xl:bottom-sf-xs left-0 xl:left-auto xl:right-sf-xs"
         aria-label="Cookie control"
         @click="bannerIsHidden = false"
       >
