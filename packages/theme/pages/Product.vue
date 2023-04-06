@@ -129,10 +129,12 @@
                     class="product__review"
                   />
                 </SfTab>
-                <SfTab
-                  :title="$t('Product.Additional information')"
+                  <SfTab :title="$t('Product.New reviews')">
+                    <div>hello</div>
+                  </SfTab>
+                  <SfTab :title="$t('Product.Additional information')"
                   class="product__additional-info"
-                >
+                  >
                   <div
                     class="product__additional-info"
                     v-html="productGetters.getTechnicalData(product)"
@@ -205,7 +207,8 @@ import {
   useReview,
   reviewGetters,
   propertyGetters,
-  useCategory
+  useCategory,
+  useReviewFeedback
 } from '@vue-storefront/plentymarkets';
 import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
@@ -280,6 +283,9 @@ export default {
         isAttributeSelectionValid.value = false;
       }
     };
+    useReviewFeedback(1008).then((response) => {
+      console.log('I GOT RESPONSE', response);
+    });
 
     onSSR(async () => {
       await search({ id: id.value });
