@@ -10,7 +10,7 @@ import { AdditionalInformationParams, CreateOrderResponse, GetOrdersResponse } f
 import { GetPaymentResponse, PaymentProviders, PreparePaymentResult } from './payment';
 import { Product } from './product';
 import { RegisterParams } from './register';
-import { Review, ReviewSearchParams } from './review';
+import { Review, ReviewAddParams, ReviewSearchParams } from './review';
 import { SessionResult } from './session';
 import { ShippingProvider } from './shipping';
 import { UserChangeResponse } from './user';
@@ -48,6 +48,10 @@ export interface PlentymarketsApiMethods {
 
     getReview(
         params: ReviewSearchParams
+    ): Promise<Review>
+
+    addReview(
+        params: ReviewAddParams
     ): Promise<Review>
 
     getSearch(

@@ -86,3 +86,11 @@ export type ReviewAverage = {
       highestCount: string
     }
 }
+
+export type ReviewAddParams = {
+    productId: string,
+    title: string,
+    message: string,
+    ratingValue: string,
+    authorName: string
+}
