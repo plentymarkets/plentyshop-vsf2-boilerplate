@@ -1,9 +1,9 @@
-import { ItemSearchParams, ItemSearchResult } from '@vue-storefront/plentymarkets-api';
+import { LiveProductResponse } from '@vue-storefront/plentymarkets-api';
 import { computed, ref } from '@nuxtjs/composition-api';
 import { sharedRef, useVSFContext } from '@vue-storefront/core';
 import { ComposableBaseResponse } from '../types';
 
-export interface UseLiveProductsResponse extends ComposableBaseResponse<ItemSearchResult> {
+export interface UseLiveProductsResponse extends ComposableBaseResponse<LiveProductResponse> {
   search: () => Promise<void>
 }
 

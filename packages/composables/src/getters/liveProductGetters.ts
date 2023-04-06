@@ -1,19 +1,9 @@
-import {
-  AgnosticMediaGalleryItem,
-  AgnosticAttribute,
-  AgnosticPrice,
-  ProductGetters,
-  AgnosticBreadcrumb
-} from '@vue-storefront/core';
-import type { Category, Product, ProductFilter, ProductVariation } from '@vue-storefront/plentymarkets-api';
-import { productImageFilter } from '../helpers/productImageFilter';
+import type { LiveProductResponse } from '@vue-storefront/plentymarkets-api';
 
-const NO_SELECTION_ID = -1;
-
-function getName(item: any): string {
+function getName(item: LiveProductResponse): string {
   return item?.item?.texts?.name1 ?? '';
 }
 
-export const liveProductGetters: any = {
+export const liveProductGetters = {
   getName,
 };

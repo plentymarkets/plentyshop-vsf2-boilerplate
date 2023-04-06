@@ -1,9 +1,8 @@
-import { ProductsSearchParams } from '@vue-storefront/core';
-import { Product, Context, ReviewAverage } from 'src/types';
+import { Context, LiveProductResponse } from 'src/types';
 
-export async function getLiveProducts(context: Context, params: any): Promise<any> {
+export async function getLiveProducts(context: Context, id: number): Promise<LiveProductResponse> {
   let url: URL;
-  url = new URL(`/rest/storefront/items/?type=live-shopping&liveShoppingId=${ params }`, context.config.api.url);
+  url = new URL(`/rest/storefront/items/?type=live-shopping&liveShoppingId=${ id }`, context.config.api.url);
 
   const { data } = await context.client.get(url.href);
 
