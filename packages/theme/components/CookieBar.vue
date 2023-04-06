@@ -9,11 +9,11 @@
           <div v-if="!furtherSettingsOn">
             <!-- cookie info -->
             <div
-              class="text-left md:text-center ml-sf-xs md:ml-0 font-sf-secondary non-italic font-sf-semibold pt-sf-xs text-sf-xl text-sf-c-primary"
+              class="text-left md:text-center ml-sf-xs md:ml-0 non-italic font-sf-semibold pt-sf-xs text-sf-xl text-sf-c-primary"
             >
               {{ cookieBarGetters.getBarTitle(cookieGroupsFromConfig) }}
             </div>
-            <div class="font-sf-secondary non-italic font-sf-normal text-sf-xs md:text-sf-sm leading-relaxed p-2">
+            <div class="non-italic font-sf-normal text-sf-xs md:text-sf-sm leading-relaxed p-2">
               {{ cookieBarGetters.getBarDescription(cookieGroupsFromConfig) }}
 
               <SfButton
@@ -66,7 +66,7 @@
                       ($event) => setChildrenCheckboxes(cookieGroup, $event)
                     "
                   />
-                  <div class="font-sf-secondary non-italic text-sf-normal text-sf-sm leading-6">
+                  <div class="non-italic text-sf-normal text-sf-sm leading-6">
                     {{
                       cookieBarGetters.getCookieGroupDescription(cookieGroup)
                     }}
