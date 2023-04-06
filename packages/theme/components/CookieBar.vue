@@ -3,17 +3,17 @@
     <div>
       <div
         v-if="!bannerIsHidden"
-        class="fixed font-sf-xl z-10 w-full xl:w-3/5 text-sf-c-text font-sf-secondary font-sf-medium xl:right-sf-sm bottom-0 xl:bottom-sf-sm"
+        :class="['fixed right-sf-xs font-sf-xl z-10 shadow-2xl', !furtherSettingsOn ? 'bottom-32 w-full md:w-2/5 p-2 md:bottom-4 h-96 text-sf-c-text font-sf-medium font-sf-secondary' : 'bottom-24 md:bottom-0 md:bottom-10 md:h-96 text-sf-c-text font-sf-secondary font-sf-medium']"
       >
         <div class="bg-sf-c-light-lighten shadow-xl p-xs">
           <div v-if="!furtherSettingsOn">
             <!-- cookie info -->
             <div
-              class="text-left md:text-center ml-sf-xs md:ml-0 non-italic font-sf-semibold pt-sf-xs text-sf-xl text-sf-c-primary"
+              class="text-left md:text-center ml-sf-xs md:ml-0 font-sf-secondary non-italic font-sf-semibold pt-sf-xs text-sf-xl text-sf-c-primary"
             >
               {{ cookieBarGetters.getBarTitle(cookieGroupsFromConfig) }}
             </div>
-            <div class="non-italic font-sf-normal text-sf-xs md:text-sf-sm leading-relaxed p-2">
+            <div class="font-sf-secondary non-italic font-sf-normal text-sf-xs md:text-sf-sm leading-relaxed p-2">
               {{ cookieBarGetters.getBarDescription(cookieGroupsFromConfig) }}
 
               <SfButton
@@ -48,7 +48,7 @@
           </div>
           <div
             v-else
-            class="overflow-y-auto h-80 bg-sf-c-light-primary-lighten p-2"
+            class="overflow-y-auto h-80 bg-sf-c-light-primary-lighten' p-2"
           >
             <div class="h-64">
               <div
@@ -66,14 +66,14 @@
                       ($event) => setChildrenCheckboxes(cookieGroup, $event)
                     "
                   />
-                  <div class="non-italic text-sf-normal text-sf-sm leading-6">
+                  <div class="font-sf-secondary non-italic text-sf-normal text-sf-sm leading-6 ml-sf-xs">
                     {{
                       cookieBarGetters.getCookieGroupDescription(cookieGroup)
                     }}
                   </div>
                   <div
                     v-if="cookieBarGetters.getShowMore(cookieGroup)"
-                    class="font-sf-light"
+                    class="ml-sf-xs font-sf-light"
                   >
                     <div
                       v-for="(
@@ -115,7 +115,7 @@
                     </div>
                   </div>
                 </div>
-                <div>
+                <div class="ml-sf-xs">
                   <SfButton
                     v-if="!cookieBarGetters.getShowMore(cookieGroup)"
                     class="sf-button--text mb-xs"
@@ -135,7 +135,7 @@
             </div>
           </div>
           <!-- further settings / back button -->
-          <div class="my-sf-sm text-center">
+          <div class="mt-sf-xs mb-sf-sm text-center">
             <SfButton
               v-if="!furtherSettingsOn"
               class="sf-button--text"
@@ -152,11 +152,11 @@
             </SfButton>
           </div>
           <!-- action buttons -->
-          <div class="w-full flex flex-col xl:flex-row gap-sf-xs p-sf-xs">
-            <div class="flex-1 mb-sf-xs">
+          <div class="w-full flex flex-col md:flex-row">
+            <div class="flex-1 pr-sf-xs pl-sf-xs text-center z-100000000 mb-sf-xs">
               <button
                 v-e2e="'accept-all'"
-                class="color-sf-c-primary w-full sf-button"
+                class="color-primary w-full sf-button"
                 :aria-disabled="false"
                 type="button"
                 aria-label="button"
@@ -165,10 +165,10 @@
                 {{ $t('CookieBar.Accept All') }}
               </button>
             </div>
-            <div class="flex-1 mb-sf-xs">
+            <div class="flex-1 pr-sf-xs pl-sf-xs text-center z-100000000 mb-sf-xs">
               <button
                 v-e2e="'reject-all'"
-                class="color-sf-c-primary w-full sf-button"
+                class="color-primary w-full sf-button"
                 :aria-disabled="false"
                 type="button"
                 aria-label="button"
@@ -177,7 +177,7 @@
                 {{ $t('CookieBar.Reject All') }}
               </button>
             </div>
-            <div class="flex-1 mb-sf-xs">
+            <div class="flex-1 pr-sf-xs pl-sf-xs text-center z-100000000 mb-sf-xs">
               <button
                 v-e2e="'accept-selection'"
                 class="sf-button w-full border-solid border-1 border-sf-c-primary"
@@ -195,7 +195,7 @@
       <button
         v-else
         v-e2e="'cookie-show-banner-button'"
-        class="color-sf-c-primary sf-button z-10 fixed bottom-sf-2xl xl:bottom-sf-xs left-0 xl:left-auto xl:right-sf-xs"
+        class="color-primary sf-button z-100 fixed bottom-100 md:bottom-0 right-sf-xs"
         aria-label="Cookie control"
         @click="bannerIsHidden = false"
       >
@@ -206,6 +206,9 @@
           viewBox="0 0 24 24"
           :coverage="1"
         />
+        <div class="hidden md:block">
+          {{ $t('CookieBar.Privacy Settings') }}
+        </div>
       </button>
     </div>
   </client-only>

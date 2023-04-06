@@ -9,7 +9,7 @@ import { productImageFilter } from '../helpers/productImageFilter';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getItems(wishlist: Wishlist): WishlistItem[] {
-  return wishlist?.items ?? [];
+  return wishlist.items;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

@@ -150,6 +150,8 @@ export type Product = {
         id: number
     },
     sku: string,
+    setComponents: Default[],
+    quantity: number,
     prices: Prices,
     feedback: ReviewAverage,
     variationAttributeMap?: {

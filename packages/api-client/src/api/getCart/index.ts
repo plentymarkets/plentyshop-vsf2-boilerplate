@@ -1,4 +1,4 @@
-import {Cart, Context} from '../../types';
+import {AddCartItemParams, Cart, Context} from '../../types';
 
 export async function getCart(context: Context): Promise<Cart> {
   const url: URL = new URL('/rest/io/session/', context.config.api.url);
@@ -12,9 +12,11 @@ export async function getCart(context: Context): Promise<Cart> {
   return cart;
 }
 
-export async function addItem(context: Context, params: { productId: number, quantity?: number }): Promise<Cart> {
+export async function addItem(context: Context, params: AddCartItemParams): Promise<Cart> {
   const url: URL = new URL('/rest/io/basket/items/', context.config.api.url);
-  const { data } = await context.client.post(url.href, { variationId: params.productId, quantity: params.quantity ?? 1 });
+  const payload = { variationId: params.productId, quantity: params.quantity ?? 1, setComponents: params.setComponents ?? [] };
+
+  const { data } = await context.client.post(url.href, payload);
 
   return { ...data.events.AfterBasketChanged.basket, items: data.events.AfterBasketChanged.basketItems };
 }
