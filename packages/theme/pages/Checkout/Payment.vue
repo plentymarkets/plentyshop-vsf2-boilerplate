@@ -5,7 +5,7 @@
       class="spacer"
       @status="isPaymentReady = true"
     />
-    <SfTable class="sf-table--bordered table desktop-only">
+    <SfTable class="sf-table--bordered table">
       <SfTableHeading class="table__row">
         <SfTableHeader class="table__header table__image">
           {{ $t('Payment.Item') }}
