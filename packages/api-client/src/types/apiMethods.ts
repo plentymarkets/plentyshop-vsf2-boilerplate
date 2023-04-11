@@ -2,8 +2,9 @@ import { ApiClientMethods, IntegrationContext, ProductsSearchParams, UseUserOrde
 import { AxiosInstance } from 'axios';
 import { AddressType, DeleteAddressResponse, SetAddressDefaultResponse, SaveAddressResponse, Address } from './address';
 import { Cart } from './cart';
-import { Category, CategoryPage, FacetSearchCriteria } from './category';
+import { Category } from './category';
 import { ActiveShippingCountry } from './country';
+import { FacetResponse, FacetSearchCriteria } from './facet';
 import { ItemSearchParams, ItemSearchResult } from './itemSearch';
 import { LegalInformationResponse } from './legal';
 import { AdditionalInformationParams, CreateOrderResponse, GetOrdersResponse } from './order';
@@ -44,7 +45,7 @@ export interface PlentymarketsApiMethods {
 
     getFacet(
         params: FacetSearchCriteria
-    ): Promise<CategoryPage>,
+    ): Promise<FacetResponse>,
 
     getReview(
         params: ReviewSearchParams
