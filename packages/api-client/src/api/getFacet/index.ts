@@ -1,8 +1,6 @@
 import { AgnosticFacetSearchParams } from '@vue-storefront/core';
 import { Context, FacetResponse, FacetSearchPlentyApiResponse } from 'src/types';
 
-const ITEMS_PER_PAGE = [20, 40, 100];
-
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export async function getFacet(context: Context, params: AgnosticFacetSearchParams): Promise<FacetResponse> {
   // TODO: use default category id
