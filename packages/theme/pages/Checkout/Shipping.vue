@@ -1,8 +1,7 @@
 <template>
   <SfLoader
-    :class="{ loading }"
+    :class="{ loading, 'mt-10': loading }"
     :loading="loading"
-    class="mt-10"
   >
     <div
       v-if="!loading"
