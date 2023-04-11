@@ -1,59 +1,65 @@
 <template>
-  <div
-    v-if="!loading"
-    id="shipping"
+  <SfLoader
+    :class="{ loading }"
+    :loading="loading"
+    class="mt-10"
   >
-    <div class="spacer-top">
-      <SfCheckbox
-        v-model="sameAsBilling"
-        v-e2e="'copy-address'"
-        :label="$t('Shipping.My billing and shipping address are the same')"
-        name="copyShippingAddress"
-        class="form__element"
-      />
-    </div>
-    <div v-if="!sameAsBilling">
-      <CheckoutAddressDetails
-        ref="CheckoutAddressDetailsRef"
-        :type="'shipping'"
-        :addresses="shippingAddresses"
-        :countries="countries"
-        :heading-title="$t('Shipping.Shipping details')"
-        :heading-title-level="2"
-        @set-default-address="setDefaultAddress({ address: $event })"
-        @delete-address="deleteAddress({ address: $event })"
-        @update-address="saveAddress({ address: $event })"
-      />
-    </div>
+    <div
+      v-if="!loading"
+      id="shipping"
+    >
+      <div class="spacer-top">
+        <SfCheckbox
+          v-model="sameAsBilling"
+          v-e2e="'copy-address'"
+          :label="$t('Shipping.My billing and shipping address are the same')"
+          name="copyShippingAddress"
+          class="form__element"
+        />
+      </div>
+      <div v-if="!sameAsBilling">
+        <CheckoutAddressDetails
+          ref="CheckoutAddressDetailsRef"
+          :type="'shipping'"
+          :addresses="shippingAddresses"
+          :countries="countries"
+          :heading-title="$t('Shipping.Shipping details')"
+          :heading-title-level="2"
+          @set-default-address="setDefaultAddress({ address: $event })"
+          @delete-address="deleteAddress({ address: $event })"
+          @update-address="saveAddress({ address: $event })"
+        />
+      </div>
 
-    <div v-if="sameAsBilling">
-      <SfHeading
-        :title="$t('Shipping details')"
-        :level="2"
-        class="sf-heading--left sf-heading--no-underline title"
-      />
-      <AddressInputForm
-        ref="sameAsBillingFormRef"
-        :form="sameAsBillingForm"
-        :type="'shipping'"
-        :countries="countries"
-      />
+      <div v-if="sameAsBilling">
+        <SfHeading
+          :title="$t('Shipping details')"
+          :level="2"
+          class="sf-heading--left sf-heading--no-underline title"
+        />
+        <AddressInputForm
+          ref="sameAsBillingFormRef"
+          :form="sameAsBillingForm"
+          :type="'shipping'"
+          :countries="countries"
+        />
+      </div>
+      <div class="spacer-top buttons">
+        <SfButton
+          data-e2e="continue-to-payment"
+          class="form__action-button"
+          @click="continueToNextStep"
+        >
+          {{ $t('Shipping.Continue to payment') }}
+        </SfButton>
+      </div>
     </div>
-    <div class="spacer-top buttons">
-      <SfButton
-        data-e2e="continue-to-payment"
-        class="form__action-button"
-        @click="continueToNextStep"
-      >
-        {{ $t('Shipping.Continue to payment') }}
-      </SfButton>
-    </div>
-  </div>
+  </SfLoader>
 </template>
 
 <script>
 import { onSSR } from '@vue-storefront/core';
-import { SfButton, SfCheckbox, SfHeading} from '@storefront-ui/vue';
+import { SfButton, SfCheckbox, SfHeading, SfLoader } from '@storefront-ui/vue';
 import { ref, useRouter, computed, watch } from '@nuxtjs/composition-api';
 import {
   useActiveShippingCountries,
@@ -67,6 +73,7 @@ import AddressInputForm from '~/components/AddressInputForm';
 export default {
   name: 'Shipping',
   components: {
+    SfLoader,
     SfButton,
     SfCheckbox,
     CheckoutAddressDetails,

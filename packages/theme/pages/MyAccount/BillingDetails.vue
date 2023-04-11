@@ -1,23 +1,30 @@
 <template>
-  <MyAccountAddressDetails
-    v-if="!loading"
-    :tab-title="$t('BillingDetails.Billing details')"
-    :addresses="billing"
-    :countries="countries"
-    :type="'billing'"
-    @set-default-address="setDefaultAddress({address: $event })"
-    @delete-address="deleteAddress({address: $event})"
-    @update-address="addAddress({address: $event})"
-  />
+  <SfLoader
+    :class="{ loading }"
+    :loading="loading"
+  >
+    <MyAccountAddressDetails
+      v-if="!loading"
+      :tab-title="$t('BillingDetails.Billing details')"
+      :addresses="billing"
+      :countries="countries"
+      :type="'billing'"
+      @set-default-address="setDefaultAddress({address: $event })"
+      @delete-address="deleteAddress({address: $event})"
+      @update-address="addAddress({address: $event})"
+    />
+  </SfLoader>
 </template>
 <script>
 import MyAccountAddressDetails from '~/components/MyAccount/MyAccountAddressDetails';
 import { useUserBilling, useActiveShippingCountries } from '@vue-storefront/plentymarkets';
 import { onSSR } from '@vue-storefront/core';
+import { SfLoader } from '@storefront-ui/vue';
 
 export default {
   name: 'BillingDetails',
   components: {
+    SfLoader,
     MyAccountAddressDetails
   },
   setup() {
