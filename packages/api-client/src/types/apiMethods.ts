@@ -124,6 +124,8 @@ export interface PlentymarketsApiMethods {
 
     getLegalInformation(type: string): Promise<LegalInformationResponse>
 
+    postReview(params: any): Promise<void>
+
 }
 
 export type Context = IntegrationContext<ClientInstance, Settings, ApiClientMethods<PlentymarketsApiMethods>>;
