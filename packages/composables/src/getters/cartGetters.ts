@@ -46,7 +46,8 @@ function getItemQty(item: CartItem): number {
 function getItemAttributes(item: CartItem, filterByAttributeName?: Array<string>): Record<string, AgnosticAttribute | string> {
   // TODO
   return {
-    color: 'red'
+    color: '-',
+    size: '-'
   };
 }
 
