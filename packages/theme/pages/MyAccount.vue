@@ -72,13 +72,13 @@ export default {
     const activePage = computed(() => {
       const { pageName } = route.value.params;
 
-      if (!pageName) {
-        return '';
+      if (pageName) {
+        const transformUrlToPageName = pageName.charAt(0).toUpperCase() + pageName.slice(1).replace('-', ' ');
+
+        return transformUrlToPageName;
       }
 
-      const transformUrlToPageName = pageName.charAt(0).toUpperCase() + pageName.slice(1).replace('-', ' ');
-
-      return transformUrlToPageName;
+      return '';
     });
 
     const changeActivePage = async (title) => {
