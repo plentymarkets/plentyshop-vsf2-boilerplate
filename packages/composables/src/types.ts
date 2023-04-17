@@ -1,7 +1,7 @@
 import {
   ProductsSearchParams
 } from '@vue-storefront/core';
-import { ReviewSearchParams, ShippingMethod } from '@vue-storefront/plentymarkets-api';
+import {ReviewAddParams, ReviewSearchParams, ShippingMethod} from '@vue-storefront/plentymarkets-api';
 import { ComputedRef } from '@nuxtjs/composition-api';
 
 export type TODO = unknown;
@@ -16,7 +16,7 @@ export type UseProductSearchParams = ProductsSearchParams;
 
 export type UseReviewSearchParams = ReviewSearchParams;
 
-export type UseReviewAddParams = TODO;
+export type UseReviewAddParams = ReviewAddParams;
 
 export type UseShippingAddParams = TODO;
 

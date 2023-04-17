@@ -3,7 +3,7 @@ import axios, { AxiosInstance } from 'axios';
 import { getProduct } from './api/getProduct';
 import { getCategory } from './api/getCategory';
 import { getFacet } from './api/getFacet';
-import { getReview } from './api/getReview';
+import { addReview, getReview } from './api/getReview';
 import { addWishlistItem, getWishlist, removeWishlistItem } from './api/getWishlist';
 import { getSearch } from './api/getSearch';
 import { deleteAddress, loadAddresses, saveAddress, setAddressAsDefault } from './api/getAddress';
@@ -115,6 +115,7 @@ const { createApiClient } = apiClientFactory<Settings, Endpoints>({
     getCategory,
     getFacet,
     getReview,
+    addReview,
     getWishlist,
     addWishlistItem,
     removeWishlistItem,

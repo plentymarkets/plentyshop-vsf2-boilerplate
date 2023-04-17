@@ -115,6 +115,10 @@
                   </SfProperty>
                 </SfTab>
                 <SfTab :title="$t('Product.Read reviews')">
+                  <ReviewForm
+                    class="product__review__form"
+                    :productId="productGetters.getId(product)"
+                  />
                   <SfReview
                     v-for="review in reviews"
                     :key="reviewGetters.getReviewId(review)"
@@ -207,6 +211,7 @@ import {
   propertyGetters,
   useCategory
 } from '@vue-storefront/plentymarkets';
+import ReviewForm from '~/components/ReviewForm.vue';
 import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
 import { addBasePath } from '@vue-storefront/core';
@@ -231,7 +236,8 @@ export default {
     LazyHydrate,
     AttributeSelection,
     SfImage,
-    SfLoader
+    SfLoader,
+    ReviewForm
   },
   transition: 'fade',
   setup() {
