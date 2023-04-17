@@ -167,14 +167,19 @@
           </transition-group>
 
           <LazyHydrate on-interaction>
-            <SfPagination
-              v-if="!loading"
-              v-show="paginationGetters.getTotalPages(pagination) > 1"
-              class="products__pagination desktop-only"
-              :current="pagination.currentPage"
-              :total="paginationGetters.getTotalPages(pagination)"
-              :visible="5"
-            />
+            <SfLoader
+              :class="{ loading }"
+              :loading="loading"
+            >
+              <SfPagination
+                v-if="!loading"
+                v-show="paginationGetters.getTotalPages(pagination) > 1"
+                class="products__pagination desktop-only"
+                :current="pagination.currentPage"
+                :total="paginationGetters.getTotalPages(pagination)"
+                :visible="5"
+              />
+            </SfLoader>
           </LazyHydrate>
 
           <div
