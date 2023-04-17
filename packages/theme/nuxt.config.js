@@ -129,6 +129,15 @@ const config = {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    babel: {
+      plugins: [['babel-plugin-istanbul', {
+        extension: [
+          '.js',
+          '.ts',
+          '.vue'
+        ]
+      }]],
+    },
     transpile: [
       'vee-validate/dist/rules'
     ],
