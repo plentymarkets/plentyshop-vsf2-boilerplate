@@ -112,3 +112,15 @@ jobs:
           wait-on: 'http://${{ env.ip_address }}:3000'
         env:
           CYPRESS_BASE_URL: 'http://${{ env.ip_address }}:3000'
+
+      - name: Upload code coverage report
+        if: ${{ always() && !cancelled() }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: Code Coverage Report
+          path: ${{ github.workspace }}/packages/theme/tests/e2e/coverage/lcov-report/
+
+      - name: Add code coverage summary
+        if: ${{ always() && !cancelled() }}
+        run: |
+          jq '.total' ${{ github.workspace }}/packages/theme/tests/e2e/coverage/coverage-summary.json  >> $GITHUB_STEP_SUMMARY
