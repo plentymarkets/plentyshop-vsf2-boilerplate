@@ -24,9 +24,9 @@
         class="sf-link text-primary"
         @click="deleteAddress(address)"
       >{{ $t('AddressPicker.Delete') }}</a>
-      <b v-if="!userAddressGetters.isDefault(address)">|</b>
+      <b v-if="!isDefaultAddress(address)">|</b>
       <a
-        v-if="!userAddressGetters.isDefault(address)"
+        v-if="!isDefaultAddress(address)"
         class="sf-link text-primary"
         @click="userAddressGetters.getId(address)"
       >
@@ -62,12 +62,16 @@ export default {
 
     const getDefaultAddress = () => {
       if (props.addresses.length > 0) {
-        const defaultAddress = userAddressGetters.getDefault(props.addresses);
+        const defaultAddress = userAddressGetters.getDefault(props.addresses) || userAddressGetters.getAddresses(props.addresses)[0];
 
         if (defaultAddress) {
           defaultAddressId.value = userAddressGetters.getId(defaultAddress);
         }
       }
+    };
+
+    const isDefaultAddress = (address) => {
+      return userAddressGetters.isDefault(address) || props.addresses.length === 1;
     };
 
     getDefaultAddress();
@@ -108,6 +112,7 @@ export default {
       setDefaultAddress,
       getCountryName,
       getStateName,
+      isDefaultAddress,
       userAddressGetters,
       defaultAddressId
     };
