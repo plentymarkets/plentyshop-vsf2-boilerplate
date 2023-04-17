@@ -81,7 +81,7 @@
                 @click="toggleLoginModal()"
               >
                 {{ $t('PsfPersonalDetails.Already have an account?') }}
-                <span class="sf-link text-primary">
+                <span class="sf-link text-primary text-base">
                   {{ $t('PsfPersonalDetails.Log in now') }}
                 </span>
               </a>

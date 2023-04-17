@@ -109,7 +109,7 @@
         <transition name="sf-fade">
           <div v-if="totalItems">
             <CartTotals />
-            <nuxt-link :to="localePath({ name: 'login' })">
+            <nuxt-link :to="isAuthenticated ? localePath(`billing`) : localePath({ name: 'login' })">
               <SfButton
                 class="sf-button--full-width color-secondary"
                 @click="toggleCartSidebar"
@@ -142,7 +142,7 @@ import {
   SfQuantitySelector
 } from '@storefront-ui/vue';
 import { computed } from '@nuxtjs/composition-api';
-import { useCart, cartGetters } from '@vue-storefront/plentymarkets';
+import { useCart, cartGetters, useUser } from '@vue-storefront/plentymarkets';
 import { useUiState } from '~/composables';
 import debounce from 'lodash.debounce';
 import { addBasePath } from '@vue-storefront/core';
@@ -160,6 +160,7 @@ export default {
     CartTotals: () => import('~/components/CartTotals')
   },
   setup() {
+    const { isAuthenticated } = useUser();
     const { isCartSidebarOpen, toggleCartSidebar } = useUiState();
     const { cart, removeItem, updateItemQty, clear, loading } = useCart();
     const products = computed(() => cartGetters.getItems(cart.value));
@@ -171,6 +172,7 @@ export default {
     }, 200);
 
     return {
+      isAuthenticated,
       addBasePath,
       updateQuantity,
       loading,
