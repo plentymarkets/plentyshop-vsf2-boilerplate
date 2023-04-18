@@ -15,6 +15,7 @@ import { SessionResult } from './session';
 import { ShippingProvider } from './shipping';
 import { UserChangeResponse } from './user';
 import { Wishlist } from './wishlist';
+import { LiveProductResponse } from './liveProduct';
 
 export type ClientInstance = AxiosInstance;
 
@@ -39,6 +40,10 @@ export interface PlentymarketsApiMethods {
     getProduct(
         params: ProductsSearchParams
     ): Promise<Product[]>,
+    
+    getLiveProducts(
+        id: number
+    ): Promise<LiveProductResponse>,
 
     getCategory(): Promise<Category[]>,
 

@@ -5,6 +5,7 @@ export { useFacet } from './useFacet';
 export { useForgotPassword } from './useForgotPassword';
 export { useMakeOrder } from './useMakeOrder';
 export { useProduct } from './useProduct';
+export { useLiveProducts } from './useLiveProducts';
 export { useCookieBar } from './useCookieBar';
 export { useReview } from './useReview';
 export { useShippingProvider } from './useShippingProvider';
@@ -22,6 +23,7 @@ export { useLegalInformation } from './useLegalInformation';
 export { useLocaleSwitchHelper } from './useLocaleSwitchHelper';
 
 // Getters
+export { liveProductGetters } from './getters/liveProductGetters';
 export { cartGetters } from './getters/cartGetters';
 export { categoryGetters } from './getters/categoryGetters';
 export { facetGetters } from './getters/facetGetters';
