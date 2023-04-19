@@ -406,7 +406,103 @@
         }
       ]
     },
-    "documents": [],
+    "documents": [
+      {
+        "id": 90,
+        "type": "invoice",
+        "number": "5",
+        "numberWithPrefix": "5",
+        "directoryId": null,
+        "path": "2023/invoice/2023-04-19/34831/invoice_5.pdf",
+        "userId": "3",
+        "source": "admin",
+        "createdAt": "2023-04-19T12:19:37+02:00",
+        "updatedAt": "2023-04-19T12:19:37+02:00",
+        "displayDate": "2023-04-19T12:19:33+02:00",
+        "newOrderArchitecture": "1",
+        "status": "done",
+        "pivot": {
+          "plenty_document_reference_value": "678",
+          "plenty_document_reference_document_id": "90"
+        }
+      },
+      {
+        "id": 91,
+        "type": "delivery_note",
+        "number": "1",
+        "numberWithPrefix": "1",
+        "directoryId": null,
+        "path": "2023/delivery_note/2023-04-19/34831/delivery_note_1.pdf",
+        "userId": "3",
+        "source": "admin",
+        "createdAt": "2023-04-19T12:44:26+02:00",
+        "updatedAt": "2023-04-19T12:44:26+02:00",
+        "displayDate": "2023-04-19T12:44:11+02:00",
+        "newOrderArchitecture": "1",
+        "status": "done",
+        "pivot": {
+          "plenty_document_reference_value": "678",
+          "plenty_document_reference_document_id": "91"
+        }
+      },
+      {
+        "id": 92,
+        "type": "success_confirmation",
+        "number": "1",
+        "numberWithPrefix": "1",
+        "directoryId": null,
+        "path": "2023/success_confirmation/2023-04-19/34831/success_confirmation_1.pdf",
+        "userId": "3",
+        "source": "admin",
+        "createdAt": "2023-04-19T12:44:45+02:00",
+        "updatedAt": "2023-04-19T12:44:45+02:00",
+        "displayDate": "2023-04-19T12:44:32+02:00",
+        "newOrderArchitecture": "1",
+        "status": "done",
+        "pivot": {
+          "plenty_document_reference_value": "678",
+          "plenty_document_reference_document_id": "92"
+        }
+      },
+      {
+        "id": 93,
+        "type": "return_note",
+        "number": "7",
+        "numberWithPrefix": "7",
+        "directoryId": null,
+        "path": "2023/return_note/2023-04-19/34831/return_note_7.pdf",
+        "userId": "3",
+        "source": "admin",
+        "createdAt": "2023-04-19T12:50:20+02:00",
+        "updatedAt": "2023-04-19T12:50:21+02:00",
+        "displayDate": "2023-04-19T12:50:09+02:00",
+        "newOrderArchitecture": "1",
+        "status": "done",
+        "pivot": {
+          "plenty_document_reference_value": "678",
+          "plenty_document_reference_document_id": "93"
+        }
+      },
+      {
+        "id": 94,
+        "type": "uploaded",
+        "number": "1",
+        "numberWithPrefix": "Test External document",
+        "directoryId": null,
+        "path": "2023/uploaded/2023-04-19/34831/uploaded_rest_Test External document.docx",
+        "userId": "3",
+        "source": "rest",
+        "createdAt": "2023-04-19T12:51:03+02:00",
+        "updatedAt": "2023-04-19T12:51:03+02:00",
+        "displayDate": "2023-04-19T12:51:03+02:00",
+        "newOrderArchitecture": "0",
+        "status": "done",
+        "pivot": {
+          "plenty_document_reference_value": "678",
+          "plenty_document_reference_document_id": "94"
+        }
+      }
+    ],
     "accessKey": "VK7LPNC9O"
   },
   "status": "",
