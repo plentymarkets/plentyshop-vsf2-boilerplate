@@ -58,6 +58,7 @@ export default {
 
     const handleStepClick = (stepIndex) => {
       const key = Object.keys(STEPS)[stepIndex];
+
       router.push(context.root.localePath(key));
     };
 

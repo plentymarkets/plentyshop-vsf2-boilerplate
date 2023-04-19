@@ -136,7 +136,7 @@
 <script>
 import { SfHeader, SfImage, SfIcon, SfButton, SfBadge, SfSearchBar, SfOverlay } from '@storefront-ui/vue';
 import { useUiState } from '~/composables';
-import { useCart, useUser, cartGetters, useSearch, useWishlist } from '@vue-storefront/plentymarkets';
+import { useCart, useUser, cartGetters, useSearch, useWishlist, wishlistGetters } from '@vue-storefront/plentymarkets';
 import { computed, ref, useRouter } from '@nuxtjs/composition-api';
 import { useUiHelpers } from '~/composables';
 import LocaleSelector from './LocaleSelector';
@@ -178,11 +178,13 @@ export default {
 
     const cartTotalItems = computed(() => {
       const count = cartGetters.getTotalItems(cart.value);
+
       return count ? count.toString() : null;
     });
 
     const wishlistTotalItems = computed(() => {
-      const count = wishlist.value.items;
+      const count = wishlistGetters.getItems(wishlist.value);
+
       return count ? count.length : null;
     });
 
@@ -199,7 +201,8 @@ export default {
     // TODO: https://github.com/DivanteLtd/vue-storefront/issues/4927
     const handleAccountClick = async () => {
       if (isAuthenticated.value) {
-        const localeAccountPath = root.localePath({ name: 'my-account' });
+        const localeAccountPath = root.localePath('/my-account/my-profile');
+
         return router.push(localeAccountPath);
       }
 
@@ -209,6 +212,7 @@ export default {
     const closeSearch = () => {
       const wishlistClassName = 'sf-product-card__wishlist-icon';
       const isWishlistIconClicked = event?.path?.find(p => wishlistClassName.search(p.className) > 0);
+
       if (isWishlistIconClicked || !isSearchOpen.value) return;
 
       term.value = '';
@@ -230,6 +234,7 @@ export default {
     };
 
     const { app } = useContext();
+
     app.i18n.locale === 'de' ? localize('de', de) : localize('en', en);
 
     return {
@@ -266,7 +271,7 @@ export default {
   }
 }
 .header-on-top {
-  z-index: 2;
+  z-index: 20;
 }
 .nav-item {
   --header-navigation-item-margin: 0 var(--spacer-base);

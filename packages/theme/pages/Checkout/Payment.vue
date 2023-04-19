@@ -5,7 +5,7 @@
       class="spacer"
       @status="isPaymentReady = true"
     />
-    <SfTable class="sf-table--bordered table desktop-only">
+    <SfTable class="sf-table--bordered table">
       <SfTableHeading class="table__row">
         <SfTableHeader class="table__header table__image">
           {{ $t('Payment.Item') }}
@@ -139,8 +139,10 @@ export default {
 
     const processOrder = async () => {
       const paymentMethodId = cart.value.methodOfPaymentId;
+
       await make({paymentId: paymentMethodId});
       const thankYouPath = { name: 'thank-you', query: { order: orderGetters.getId(order.value) }};
+
       router.push(context.root.localePath(thankYouPath));
       setCart({items: []});
     };

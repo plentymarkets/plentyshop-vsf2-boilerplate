@@ -30,12 +30,14 @@ function getCountryById(countries: Country[], countryId: string): Country | null
   const country = countries.find(
     (country) => Number(country.id) === Number(countryId)
   );
+
   return country;
 }
 
 function getStateById(country: Country, stateId: string): State | null {
   if (country?.states?.length > 0) {
     const state = country.states.find((state) => Number(state.id) === Number(stateId));
+
     return state;
   }
   return null;

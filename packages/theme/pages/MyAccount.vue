@@ -9,7 +9,7 @@
       :title="$t('MyAccount.My account')"
       :active="activePage"
       class="my-account"
-      @click:change="changeActivePage"
+      @click:change="changeActivePage($event)"
     >
       <SfContentCategory :title="$t('MyAccount.User data')">
         <SfContentPage :title="$t('MyAccount.My profile')">
@@ -73,10 +73,12 @@ export default {
       const { pageName } = route.value.params;
 
       if (pageName) {
-        return (pageName.charAt(0).toUpperCase() + pageName.slice(1)).replace('-', ' ');
-      } else {
-        return 'My profile';
+        const transformUrlToPageName = pageName.charAt(0).toUpperCase() + pageName.slice(1).replace('-', ' ');
+
+        return transformUrlToPageName;
       }
+
+      return '';
     });
 
     const changeActivePage = async (title) => {

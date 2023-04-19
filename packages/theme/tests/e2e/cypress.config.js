@@ -26,7 +26,10 @@ module.exports = defineConfig({
     // We've imported your old cypress plugins here.
     // You may want to clean this up later by importing these.
     setupNodeEvents(on, config) {
-      return require('~/tests/e2e/plugins/index.ts')(on, config);
+      require('~/tests/e2e/plugins/index.ts')(on, config);
+      require('@cypress/code-coverage/task')(on, config);
+
+      return config;
     },
     baseUrl: process.env.CYPRESS_DEFAULT_DEV_URL,
     specPattern: 'tests/e2e/e2e/**/*.cy.{js,jsx,ts,tsx}',

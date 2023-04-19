@@ -324,7 +324,8 @@ export default {
     'Match it with': 'Kombiniere es mit',
     'Read all reviews': 'Alle Bewertungen lesen',
     'Read reviews': 'Bewertungen lesen',
-    'Size guide': '@:App.sizeGuide'
+    'Size guide': '@:App.sizeGuide',
+    'Try a different language': 'Versuche die Sprache zu wechseln'
   },
   // SearchResults
   'SearchResults': {
