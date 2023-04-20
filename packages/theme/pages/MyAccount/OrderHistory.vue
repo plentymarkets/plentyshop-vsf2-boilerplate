@@ -30,6 +30,18 @@
             class="sf-property--full-width property"
           />
         </div>
+
+        ---------
+
+        <BaseTable
+          table-class="products"
+          :table-headers="productsTableHeaders"
+          v-if="currentOrderItems && currentOrderItems.length"
+          :items="currentOrderItems"
+        />
+
+        ---------
+
         <SfTable class="products">
           <SfTableHeading>
             <SfTableHeader class="products__name">
@@ -67,50 +79,21 @@
             {{ $t('OrderHistory.Start shopping') }}
           </SfButton>
         </div>
-        <SfTable
-          v-else
-          class="orders"
-        >
-          <SfTableHeading>
-            <SfTableHeader
-              v-for="tableHeader in tableHeaders"
-              :key="tableHeader"
-            >
-              {{ $t(tableHeader) }}
-            </SfTableHeader>
-            <SfTableHeader class="orders__element--right" />
-          </SfTableHeading>
-          <SfTableRow
-            v-for="order in orders"
-            :key="orderGetters.getId(order)"
-          >
-            <SfTableData v-e2e="'order-number'">
-              {{ orderGetters.getId(order) }}
-            </SfTableData>
-            <SfTableData>{{ orderGetters.getDate(order) }}</SfTableData>
-            <SfTableData>{{ $n(orderGetters.getPrice(order), 'currency') }}</SfTableData>
-            <SfTableData>
-              <span :class="getStatusTextClass(order)">{{ orderGetters.getStatus(order) }}</span>
-            </SfTableData>
-            <SfTableData class="orders__view orders__element--right">
-              <SfButton
-                class="sf-button--text desktop-only"
-                @click="currentOrder = order"
-              >
-                {{ $t('OrderHistory.View details') }}
-              </SfButton>
-            </SfTableData>
-          </SfTableRow>
-        </SfTable>
-        <LazyHydrate on-interaction>
-          <SfPagination
-            v-show="paginationGetters.getTotalPages(pagination) > 1"
-            class="products__pagination desktop-only"
-            :current="paginationGetters.getCurrentPage(pagination)"
-            :total="paginationGetters.getTotalPages(pagination)"
-            :visible="5"
-          />
-        </LazyHydrate>
+
+        <BaseTable
+          table-class="orders"
+          :table-headers="tableHeaders"
+          :items="tableItems"
+          action-buttons-class="orders__view orders__element--right text-right"
+          :actions="tableActions"
+          :show-pagination="paginationGetters.getTotalPages(pagination) > 1"
+          pagination-class="products__pagination desktop-only"
+          :current-page="paginationGetters.getCurrentPage(pagination)"
+          :total-pages="paginationGetters.getTotalPages(pagination)"
+          :pagination-visible="5"
+          @view-details="setCurrentOrder"
+        />
+
         <p>{{ $t('OrderHistory.Total orders') }} - {{ totalOrders }}</p>
       </div>
     </SfTab>
@@ -136,28 +119,28 @@ import {
   SfTable,
   SfButton,
   SfProperty,
-  SfLink,
-  SfPagination
+  SfLink
 } from '@storefront-ui/vue';
-import LazyHydrate from 'vue-lazy-hydration';
-import { computed, ref } from '@nuxtjs/composition-api';
+import { computed, ref, useContext } from '@nuxtjs/composition-api';
 import { getCurrentInstance } from '@nuxtjs/composition-api';
 import { useUserOrder, orderGetters, paginationGetters } from '@vue-storefront/plentymarkets';
 import { AgnosticOrderStatus } from '@vue-storefront/core';
 import { onSSR } from '@vue-storefront/core';
+import BaseTable from '~/components/BaseTable.vue';
 
 export default {
   name: 'PersonalDetails',
   components: {
+    BaseTable,
     SfTabs,
     SfTable,
     SfButton,
     SfProperty,
-    SfLink,
-    SfPagination,
-    LazyHydrate
+    SfLink
   },
   setup() {
+    const { app } = useContext();
+
     const ctx = getCurrentInstance().root.proxy;
     const { query } = ctx.$router.currentRoute;
 
@@ -165,17 +148,6 @@ export default {
     const currentOrder = ref(null);
     const pagination = computed(() => orderGetters.getPagination(orderResult.value));
     const orders = computed(() => orderResult.value?.data?.entries);
-
-    onSSR(async () => {
-      await search(query);
-    });
-
-    const tableHeaders = [
-      'OrderHistory.Order ID',
-      'OrderHistory.Order date',
-      'OrderHistory.Amount',
-      'OrderHistory.Status'
-    ];
 
     const getStatusTextClass = (order) => {
       const status = orderGetters.getStatus(order);
@@ -190,8 +162,86 @@ export default {
       }
     };
 
+    const tableActions = [
+      {
+        text: 'OrderHistory.View details',
+        event: 'view-details',
+        class: 'sf-button--text desktop-only'
+      }
+    ];
+
+    const productsTableHeaders = [
+      'OrderHistory.Product',
+      'OrderHistory.Quantity',
+      'OrderHistory.Price'
+    ];
+
+    const tableHeaders = [
+      'OrderHistory.Order ID',
+      'OrderHistory.Order date',
+      'OrderHistory.Amount',
+      'OrderHistory.Status'
+    ];
+
+    onSSR(async () => {
+      await search(query);
+    });
+
+    const setCurrentOrder = (item) => {
+      currentOrder.value = orders.value.find(
+        order => order.order.id.toString() === item['OrderHistory.Order ID'].value
+      );
+    };
+
+    const tableItems = computed(() => {
+      const result = [];
+
+      if (orders.value && orders.value.length) {
+        orders.value.forEach(order => {
+          result.push({
+            'OrderHistory.Order ID': {
+              value: orderGetters.getId(order),
+              e2e: 'order-number'
+            },
+            'OrderHistory.Order date': orderGetters.getDate(order),
+            'OrderHistory.Amount': app.i18n.n(orderGetters.getPrice(order), 'currency'),
+            'OrderHistory.Status': {
+              value: orderGetters.getStatus(order),
+              class: getStatusTextClass(order)
+            }
+          });
+        });
+      }
+
+      return result;
+    });
+
+    const currentOrderItems = computed(() => {
+      const items = orderGetters.getItems(currentOrder.value);
+
+      const result = [];
+
+      items.forEach(item => {
+        result.push({
+          'OrderHistory.Product': {
+            value: orderGetters.getItemName(item),
+            class: 'products__name',
+            url: app.localePath(orderGetters.getOrderItemLink(currentOrder.value, item.itemVariationId))
+          },
+          'OrderHistory.Quantity': orderGetters.getItemQty(item),
+          'OrderHistory.Price': app.i18n.n(orderGetters.getItemPrice(item), 'currency')
+        });
+      });
+
+      return result;
+    });
+
     return {
+      setCurrentOrder,
+      currentOrderItems,
+      tableItems,
       tableHeaders,
+      productsTableHeaders,
       orders,
       pagination,
       loading,
@@ -199,7 +249,8 @@ export default {
       totalOrders: computed(() => orderGetters.getOrdersTotal(orderResult.value)),
       getStatusTextClass,
       orderGetters,
-      currentOrder
+      currentOrder,
+      tableActions
     };
   }
 };
