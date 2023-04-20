@@ -141,7 +141,7 @@ export default {
       const paymentMethodId = cart.value.methodOfPaymentId;
 
       await make({paymentId: paymentMethodId});
-      const thankYouPath = { name: 'thank-you', query: { order: orderGetters.getId(order.value) }};
+      const thankYouPath = { name: 'thank-you', query: { orderId: orderGetters.getId(order.value) }, orderAccessKey: orderGetters.getAccessKey(order.value)};
 
       router.push(context.root.localePath(thankYouPath));
       setCart({items: []});
