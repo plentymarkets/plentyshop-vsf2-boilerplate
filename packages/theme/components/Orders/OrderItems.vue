@@ -46,7 +46,6 @@ export default {
         result.push({
           'OrderHistory.Product': {
             value: orderGetters.getItemName(item),
-            textClass: 'products__name',
             tdClass: 'mr-sf-sm flex-2',
             url: app.localePath(orderGetters.getOrderItemLink(props.order, item.itemVariationId))
           },
