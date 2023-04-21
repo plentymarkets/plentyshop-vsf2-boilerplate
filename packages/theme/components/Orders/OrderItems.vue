@@ -64,21 +64,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-  .sf-bottom-modal {
-    @include for-desktop {
-      --bottom-modal-height: 100vh;
-    }
-  }
-  .sf-bottom-modal::v-deep .sf-bottom-modal__close {
-    position: var(--circle-icon-position, absolute);
-    top: var(--spacer-xs);
-    right: var(--spacer-xs);
-  }
-
-  .sf-button {
-    --button-box-shadow-opacity: 0;
-    --button-background: trasnparent;
-  }
-</style>
