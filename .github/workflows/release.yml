@@ -6,15 +6,15 @@ jobs:
   create-zip:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: vimtor/action-zip@v1
         with:
           files: ./
           dest: filename.zip
 
-      - uses: actions/upload-artifact@v1
+      - uses: actions/upload-artifact@v3
         with:
-          name: zip-repository
+          name: pwa
           path: ${{ github.workspace }}/filename.zip
 
 
@@ -25,7 +25,7 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
-          name: zip-repository
+          name: pwa
           path: ./
       - name: Upload File
         id: upload
