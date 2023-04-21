@@ -26,7 +26,7 @@
           v-for="(header, headerKey) in headersKeys"
           :key="headerKey"
           :class="getTdClass(item[header])"
-          v-bind="getProps(item[header])"
+          v-bind="getBindings(item[header])"
         >
           <nuxt-link
             v-if="getItemUrl(item[header])"
@@ -130,7 +130,7 @@ export default {
     const headersKeys = props.tableHeaders
       .map(tableHeader => tableHeader instanceof Object ? tableHeader.value : tableHeader);
 
-    const getProps = (item) => {
+    const getBindings = (item) => {
       const result = {};
 
       if (item instanceof Object && item.e2e) {
@@ -156,7 +156,7 @@ export default {
     return {
       getText,
       headersKeys,
-      getProps,
+      getBindings,
       getTextClass,
       getTdClass,
       getItemUrl
