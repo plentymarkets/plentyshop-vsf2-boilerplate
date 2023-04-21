@@ -1,10 +1,10 @@
 <template>
   <div>
     <BaseTable
-      table-class="orders"
+      table-class="orders table-column-flex-1"
       :table-headers="headers"
       :items="items"
-      action-buttons-class="orders__view orders__element--right text-right"
+      action-buttons-class="text-right"
       :actions="actions"
       :show-pagination="paginationGetters.getTotalPages(pagination) > 1"
       pagination-class="products__pagination desktop-only"

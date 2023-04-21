@@ -164,3 +164,9 @@ export default {
   }
 };
 </script>
+
+<style lang='scss'>
+  .table-column-flex-1 {
+    --table-column-flex: 1;
+  }
+</style>

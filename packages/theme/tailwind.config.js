@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 module.exports = {
   purge: [
     '**/components/**/*.{vue,js,ts}',
@@ -15,6 +17,10 @@ module.exports = {
   darkMode: false,
   theme: {
     extend: {
+      screens: {
+        xs: '300px',
+        ...defaultTheme.screens
+      },
       fontSize: {
         // 12px
         'sf-xs': 'var(--font-size--xs)',
