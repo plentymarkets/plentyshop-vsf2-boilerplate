@@ -84,9 +84,10 @@
 
 <script>
 import { SfHeading, SfButton, SfCallToAction } from '@storefront-ui/vue';
-import { ref } from '@nuxtjs/composition-api';
-import { addBasePath } from '@vue-storefront/core';
-import {companyGetters} from '@vue-storefront/plentymarkets';
+import { computed, ref, useRoute } from '@nuxtjs/composition-api';
+import { addBasePath, onSSR } from '@vue-storefront/core';
+import { useOrder, orderGetters, companyGetters, legalGetters } from '@vue-storefront/plentymarkets';
+
 export default {
   components: {
     SfHeading,
@@ -102,7 +103,17 @@ export default {
       city: 'Kassel, Germany',
       email: 'sales@plentymarkets.com'
     });
-    const orderNumber = ref('80932031-030-00');
+
+    const route = useRoute();
+    const { order, load } = useOrder();
+
+    onSSR(async () => {
+      await load(route.value.query.orderId, route.value.query.orderAccessKey);
+    });
+
+    const orderNumber = computed(() => {
+      return orderGetters.getId({ order: order.value });
+    });
 
     return {
       addBasePath,
