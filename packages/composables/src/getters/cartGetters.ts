@@ -45,9 +45,10 @@ function getItemQty(item: CartItem): number {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getItemAttributes(item: CartItem, filterByAttributeName?: Array<string>): Record<string, AgnosticAttribute | string> {
   const attr = item?.variation.attributes[0];
-
-  const sizeName = attr?.attribute?.fruugoAttribute == 'size' ? attr.value.names.name : '-';
-  const colorName = attr?.attribute?.fruugoAttribute == 'color' ? attr.value.names.name : '-';
+  // @ts-ignore
+  const sizeName = attr?.attribute?.fruugoAttribute === 'size' ? attr?.value?.names.name : '-';
+  // @ts-ignore
+  const colorName = attr?.attribute?.fruugoAttribute === 'color' ? attr?.value?.names.name : '-';
 
   return {
     size: sizeName,
