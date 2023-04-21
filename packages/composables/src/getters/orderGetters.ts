@@ -11,6 +11,12 @@ function getDate(order: Order): string {
   return '';
 }
 
+function getById(orders: Order[], id: string): Order {
+  return orders.find(
+    order => order.order?.id.toString() === id
+  );
+}
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getId(order: Order): string {
   return order.order?.id.toString() || '';
@@ -86,6 +92,7 @@ function getOrderItemLink(order: Order, productId: number): string {
 export const orderGetters: UserOrderGetters<Order, OrderItem> = {
   getDate,
   getId,
+  getById,
   getStatus,
   getPrice,
   getItems,

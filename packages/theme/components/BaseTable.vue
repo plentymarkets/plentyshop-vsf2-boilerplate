@@ -6,17 +6,15 @@
     >
       <SfTableHeading>
         <SfTableHeader
-          v-for="tableHeader in tableHeaders"
-          :key="tableHeader"
+          v-for="(header, headerKey) in tableHeaders"
+          :key="headerKey"
+          :class="getTextClass(header)"
         >
-          <span v-if="tableHeader instanceof Object">
-            {{ $t(tableHeader.label) }}
-          </span>
-          <span v-else>{{ $t(tableHeader) }}</span>
+          <span>{{ $t(getText(header)) }}</span>
         </SfTableHeader>
         <SfTableHeader
           v-if="actions.length"
-          class="orders__element--right text-right"
+          class="text-right"
         />
       </SfTableHeading>
 
@@ -25,23 +23,24 @@
         :key="key"
       >
         <SfTableData
-          v-for="(tableHeader, headerKey) in tableHeaders"
+          v-for="(header, headerKey) in headersKeys"
           :key="headerKey"
-          v-e2e="item[tableHeader] instanceof Object ? item[tableHeader].e2e : ''"
+          :class="getTdClass(item[header])"
+          v-bind="getProps(item[header])"
         >
           <nuxt-link
-            v-if="getItemUrl(item[tableHeader])"
-            :to="getItemUrl(item[tableHeader])"
-            :class="getItemClass(item[tableHeader])"
+            v-if="getItemUrl(item[header])"
+            :to="getItemUrl(item[header])"
+            :class="getTextClass(item[header])"
           >
-            {{ getText(item[tableHeader]) }}
+            {{ getText(item[header]) }}
           </nuxt-link>
 
           <span
             v-else
-            :class="getItemClass(item[tableHeader])"
+            :class="getTextClass(item[header])"
           >
-            {{ getText(item[tableHeader]) }}
+            {{ getText(item[header]) }}
           </span>
         </SfTableData>
 
@@ -51,11 +50,11 @@
         >
           <SfButton
             v-for="action in actions"
-            :key="action.text"
+            :key="action.value"
             :class="action.class"
             @click="$emit(action.event, item)"
           >
-            {{ $t(action.text) }}
+            {{ $t(action.value) }}
           </SfButton>
         </SfTableData>
       </SfTableRow>
@@ -127,29 +126,41 @@ export default {
       default: () => []
     }
   },
-  setup() {
+  setup(props) {
+    const headersKeys = props.tableHeaders
+      .map(tableHeader => tableHeader instanceof Object ? tableHeader.value : tableHeader);
+
+    const getProps = (item) => {
+      const result = {};
+
+      if (item instanceof Object && item.e2e) {
+        result['data-e2e'] = item.e2e;
+      }
+
+      return result;
+    };
 
     const getText = (item) => {
       return item instanceof Object ? item.value : item;
     };
-    const getItemClass = (item) => {
-      return item instanceof Object ? item.class : '';
+    const getTextClass = (item) => {
+      return item instanceof Object ? item.textClass : '';
+    };
+    const getTdClass = (item) => {
+      return item instanceof Object ? item.tdClass : '';
     };
     const getItemUrl = (item) => {
-
       return item instanceof Object ? item.url : '';
     };
 
     return {
       getText,
-      getItemClass,
+      headersKeys,
+      getProps,
+      getTextClass,
+      getTdClass,
       getItemUrl
     };
   }
 };
 </script>
-<style lang="scss" scoped>
-.spacer {
-  margin: var(--spacer-xs) 0;
-}
-</style>

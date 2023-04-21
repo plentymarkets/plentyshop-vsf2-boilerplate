@@ -195,6 +195,9 @@ module.exports = {
         'sf-primary': 'var(--font-family--primary)',
         // "Raleway",sans-serif
         'sf-secondary': 'var(--font-family--secondary)'
+      },
+      flex: {
+        2: '2 2 0%'
       }
     }
   },

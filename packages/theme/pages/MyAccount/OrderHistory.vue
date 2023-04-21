@@ -31,38 +31,8 @@
           />
         </div>
 
-        ---------
+        <OrderItems :order="currentOrder" />
 
-        <BaseTable
-          table-class="products"
-          :table-headers="productsTableHeaders"
-          v-if="currentOrderItems && currentOrderItems.length"
-          :items="currentOrderItems"
-        />
-
-        ---------
-
-        <SfTable class="products">
-          <SfTableHeading>
-            <SfTableHeader class="products__name">
-              {{ $t('OrderHistory.Product') }}
-            </SfTableHeader>
-            <SfTableHeader>{{ $t('OrderHistory.Quantity') }}</SfTableHeader>
-            <SfTableHeader>{{ $t('OrderHistory.Price') }}</SfTableHeader>
-          </SfTableHeading>
-          <SfTableRow
-            v-for="(item, i) in orderGetters.getItems(currentOrder)"
-            :key="i"
-          >
-            <SfTableData class="products__name">
-              <nuxt-link :to="localePath(orderGetters.getOrderItemLink(currentOrder, item.itemVariationId))">
-                {{ orderGetters.getItemName(item) }}
-              </nuxt-link>
-            </SfTableData>
-            <SfTableData>{{ orderGetters.getItemQty(item) }}</SfTableData>
-            <SfTableData>{{ $n(orderGetters.getItemPrice(item), 'currency') }}</SfTableData>
-          </SfTableRow>
-        </SfTable>
       </div>
       <div v-else>
         <p class="message">
@@ -80,19 +50,7 @@
           </SfButton>
         </div>
 
-        <BaseTable
-          table-class="orders"
-          :table-headers="tableHeaders"
-          :items="tableItems"
-          action-buttons-class="orders__view orders__element--right text-right"
-          :actions="tableActions"
-          :show-pagination="paginationGetters.getTotalPages(pagination) > 1"
-          pagination-class="products__pagination desktop-only"
-          :current-page="paginationGetters.getCurrentPage(pagination)"
-          :total-pages="paginationGetters.getTotalPages(pagination)"
-          :pagination-visible="5"
-          @view-details="setCurrentOrder"
-        />
+        <OrdersOverview @set-current-order="setCurrentOrder" />
 
         <p>{{ $t('OrderHistory.Total orders') }} - {{ totalOrders }}</p>
       </div>
@@ -116,141 +74,51 @@
 <script lang="js">
 import {
   SfTabs,
-  SfTable,
   SfButton,
   SfProperty,
   SfLink
 } from '@storefront-ui/vue';
-import { computed, ref, useContext } from '@nuxtjs/composition-api';
+import { computed, ref } from '@nuxtjs/composition-api';
 import { getCurrentInstance } from '@nuxtjs/composition-api';
-import { useUserOrder, orderGetters, paginationGetters } from '@vue-storefront/plentymarkets';
-import { AgnosticOrderStatus } from '@vue-storefront/core';
+import { useUserOrder, orderGetters } from '@vue-storefront/plentymarkets';
 import { onSSR } from '@vue-storefront/core';
-import BaseTable from '~/components/BaseTable.vue';
+import OrderItems from '~/components/Orders/OrderItems.vue';
+import OrdersOverview from '~/components/Orders/OrdersOverview.vue';
 
 export default {
   name: 'PersonalDetails',
   components: {
-    BaseTable,
+    OrdersOverview,
+    OrderItems,
     SfTabs,
-    SfTable,
     SfButton,
     SfProperty,
     SfLink
   },
   setup() {
-    const { app } = useContext();
-
     const ctx = getCurrentInstance().root.proxy;
     const { query } = ctx.$router.currentRoute;
-
-    const { orders: orderResult, search, loading } = useUserOrder();
+    const { orders: orderResult, search } = useUserOrder();
     const currentOrder = ref(null);
-    const pagination = computed(() => orderGetters.getPagination(orderResult.value));
     const orders = computed(() => orderResult.value?.data?.entries);
+    const totalOrders = computed(() => orderGetters.getOrdersTotal(orderResult.value));
 
-    const getStatusTextClass = (order) => {
-      const status = orderGetters.getStatus(order);
+    const setCurrentOrder = (item) => {
+      const orderId = item['OrderHistory.Order ID'].value;
 
-      switch (status) {
-        case AgnosticOrderStatus.Open:
-          return 'text-warning';
-        case AgnosticOrderStatus.Complete:
-          return 'text-success';
-        default:
-          return '';
-      }
+      currentOrder.value = orderGetters.getById(orders.value, orderId);
     };
-
-    const tableActions = [
-      {
-        text: 'OrderHistory.View details',
-        event: 'view-details',
-        class: 'sf-button--text desktop-only'
-      }
-    ];
-
-    const productsTableHeaders = [
-      'OrderHistory.Product',
-      'OrderHistory.Quantity',
-      'OrderHistory.Price'
-    ];
-
-    const tableHeaders = [
-      'OrderHistory.Order ID',
-      'OrderHistory.Order date',
-      'OrderHistory.Amount',
-      'OrderHistory.Status'
-    ];
 
     onSSR(async () => {
       await search(query);
     });
 
-    const setCurrentOrder = (item) => {
-      currentOrder.value = orders.value.find(
-        order => order.order.id.toString() === item['OrderHistory.Order ID'].value
-      );
-    };
-
-    const tableItems = computed(() => {
-      const result = [];
-
-      if (orders.value && orders.value.length) {
-        orders.value.forEach(order => {
-          result.push({
-            'OrderHistory.Order ID': {
-              value: orderGetters.getId(order),
-              e2e: 'order-number'
-            },
-            'OrderHistory.Order date': orderGetters.getDate(order),
-            'OrderHistory.Amount': app.i18n.n(orderGetters.getPrice(order), 'currency'),
-            'OrderHistory.Status': {
-              value: orderGetters.getStatus(order),
-              class: getStatusTextClass(order)
-            }
-          });
-        });
-      }
-
-      return result;
-    });
-
-    const currentOrderItems = computed(() => {
-      const items = orderGetters.getItems(currentOrder.value);
-
-      const result = [];
-
-      items.forEach(item => {
-        result.push({
-          'OrderHistory.Product': {
-            value: orderGetters.getItemName(item),
-            class: 'products__name',
-            url: app.localePath(orderGetters.getOrderItemLink(currentOrder.value, item.itemVariationId))
-          },
-          'OrderHistory.Quantity': orderGetters.getItemQty(item),
-          'OrderHistory.Price': app.i18n.n(orderGetters.getItemPrice(item), 'currency')
-        });
-      });
-
-      return result;
-    });
-
     return {
-      setCurrentOrder,
-      currentOrderItems,
-      tableItems,
-      tableHeaders,
-      productsTableHeaders,
       orders,
-      pagination,
-      loading,
-      paginationGetters,
-      totalOrders: computed(() => orderGetters.getOrdersTotal(orderResult.value)),
-      getStatusTextClass,
+      totalOrders,
       orderGetters,
       currentOrder,
-      tableActions
+      setCurrentOrder
     };
   }
 };
@@ -269,16 +137,6 @@ export default {
     }
   }
 }
-.orders {
-  @include for-desktop {
-    &__element {
-      &--right {
-        --table-column-flex: 1;
-        text-align: right;
-      }
-    }
-  }
-}
 .all-orders {
   --button-padding: var(--spacer-base) 0;
 }
@@ -293,35 +151,6 @@ export default {
     text-decoration: none;
     &:hover {
       color: var(--c-text);
-    }
-  }
-}
-.product {
-  &__properties {
-    margin: var(--spacer-xl) 0 0 0;
-  }
-  &__property,
-  &__action {
-    font-size: var(--font-size--sm);
-  }
-  &__action {
-    color: var(--c-gray-variant);
-    font-size: var(--font-size--sm);
-    margin: 0 0 var(--spacer-sm) 0;
-    &:last-child {
-      margin: 0;
-    }
-  }
-  &__qty {
-    color: var(--c-text);
-  }
-}
-.products {
-  --table-column-flex: 1;
-  &__name {
-    margin-right: var(--spacer-sm);
-    @include for-desktop {
-      --table-column-flex: 2;
     }
   }
 }
@@ -352,5 +181,4 @@ export default {
     --property-value-font-weight: var(--font-weight--semibold);
   }
 }
-
 </style>
