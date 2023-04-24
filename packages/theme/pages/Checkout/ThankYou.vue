@@ -86,7 +86,7 @@
 import { SfHeading, SfButton, SfCallToAction } from '@storefront-ui/vue';
 import { computed, ref, useRoute } from '@nuxtjs/composition-api';
 import { addBasePath, onSSR } from '@vue-storefront/core';
-import { useOrder, orderGetters, companyGetters, legalGetters } from '@vue-storefront/plentymarkets';
+import { useOrder, orderGetters, companyGetters } from '@vue-storefront/plentymarkets';
 
 export default {
   components: {
