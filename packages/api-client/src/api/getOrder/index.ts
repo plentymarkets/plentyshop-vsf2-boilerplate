@@ -1,4 +1,15 @@
-import { AdditionalInformationParams, Context, CreateOrderResponse, GetPaymentResponse, PreparePaymentResult } from 'src/types';
+import { AdditionalInformationParams, Context, CreateOrderResponse, GetPaymentResponse, PreparePaymentResult, OrderDetails } from 'src/types';
+
+export async function getOrder(context: Context, orderId: string, orderAccessKey: string): Promise<OrderDetails> {
+  const url: URL = new URL('/rest/storefront/order', context.config.api.url);
+
+  url.searchParams.set('orderId', orderId);
+  url.searchParams.set('accessKey', orderAccessKey);
+
+  const { data } = await context.client.get(url.href);
+
+  return data;
+}
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export async function additionalInformation(context: Context, params: AdditionalInformationParams): Promise<void> {
