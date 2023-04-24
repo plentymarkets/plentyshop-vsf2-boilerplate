@@ -15,23 +15,18 @@ export interface LanguageUrls {
     'x-default': string
 }
 
-export interface FacetSearchPlentyApiResponse {
+export interface FacetApiResponse {
     category: Category,
     itemList: ItemList;
     facets: FilterGroup[];
     urls: LanguageUrls
 }
-export interface FacetResponse {
+
+export interface Facet {
     category: Category,
     facets: FilterGroup[],
     products: Product[],
-    pagination: {
-        totals: number
-    },
     languageUrls: LanguageUrls
-}
-
-export interface Facet extends FacetResponse {
     pagination: {
         totals: number,
         perPageOptions: number[]

@@ -4,7 +4,7 @@ import { AddressType, DeleteAddressResponse, SetAddressDefaultResponse, SaveAddr
 import { Cart } from './cart';
 import { Category } from './category';
 import { ActiveShippingCountry } from './country';
-import { FacetResponse, FacetSearchCriteria } from './facet';
+import { FacetSearchCriteria, FacetApiResponse } from './facet';
 import { ItemSearchParams, ItemSearchResult } from './itemSearch';
 import { LegalInformationResponse } from './legal';
 import { AdditionalInformationParams, CreateOrderResponse, GetOrdersResponse } from './order';
@@ -45,7 +45,7 @@ export interface PlentymarketsApiMethods {
 
     getFacet(
         params: FacetSearchCriteria
-    ): Promise<FacetResponse>,
+    ): Promise<FacetApiResponse>,
 
     getReview(
         params: ReviewSearchParams

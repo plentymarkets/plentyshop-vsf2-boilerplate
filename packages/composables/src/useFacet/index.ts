@@ -28,16 +28,18 @@ const factoryParams = {
       searchParams.categoryId = treeCategory.id;
     }
 
-    const { languageUrls, products, facets, pagination, category } = await context.$plentymarkets.api.getFacet(searchParams);
+    const { urls, itemList, facets, category } = await context.$plentymarkets.api.getFacet(searchParams);
+
+    const products = itemList.documents.map(document => document.data);
 
     return {
       category,
-      languageUrls,
+      languageUrls: urls,
       products,
       facets,
       pagination: {
         perPageOptions: ITEMS_PER_PAGE,
-        totals: pagination?.totals || 0
+        totals: products.length || 0
       },
       tree
     };
