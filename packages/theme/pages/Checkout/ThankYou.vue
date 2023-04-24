@@ -16,6 +16,9 @@
         </div>
       </template>
     </SfCallToAction>
+
+    <OrderItems v-e2e="'thank-you-items'" :order="getOrder()" />
+
     <section class="section">
       <div class="order">
         <SfHeading
@@ -87,9 +90,11 @@ import { SfHeading, SfButton, SfCallToAction } from '@storefront-ui/vue';
 import { computed, ref, useRoute } from '@nuxtjs/composition-api';
 import { addBasePath, onSSR } from '@vue-storefront/core';
 import { useOrder, orderGetters, companyGetters } from '@vue-storefront/plentymarkets';
+import OrderItems from '~/components/Orders/OrderItems.vue';
 
 export default {
   components: {
+    OrderItems,
     SfHeading,
     SfButton,
     SfCallToAction
@@ -115,10 +120,15 @@ export default {
       return orderGetters.getId({ order: order.value });
     });
 
+    const getOrder = () => {
+      return order.value;
+    };
+
     return {
       addBasePath,
       companyGetters,
       companyDetails,
+      getOrder,
       orderNumber
     };
   }
