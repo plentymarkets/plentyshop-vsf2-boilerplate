@@ -1,8 +1,8 @@
 import { CategoryGetters, AgnosticCategoryTree, AgnosticBreadcrumb } from '@vue-storefront/core';
-import type { Category, CategoryDetails } from '@vue-storefront/plentymarkets-api';
+import type { CategoryTreeItemDetails, CategoryTreeItem } from '@vue-storefront/plentymarkets-api';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function getTree(category: Category): AgnosticCategoryTree {
+function getTree(category: CategoryTreeItem): AgnosticCategoryTree {
   return {
     label: getCategoryDetails(category.details)?.name || '',
     slug: getCategoryDetails(category.details)?.nameUrl || '',
@@ -16,7 +16,7 @@ function getTreeItems(categoryTree: AgnosticCategoryTree): AgnosticCategoryTree[
   return categoryTree.items;
 }
 
-function findCategoryBySlug(categories: Category[], slug: string): Category {
+function findCategoryBySlug(categories: CategoryTreeItem[], slug: string): CategoryTreeItem {
   for (const category of categories) {
     if (getCategoryDetails(category.details)?.nameUrl === slug) {
       return category;
@@ -31,7 +31,7 @@ function findCategoryBySlug(categories: Category[], slug: string): Category {
   }
 }
 
-function findCategoryPathById(categories: Category[], id: number, path: Category[] = []): Category[] {
+function findCategoryPathById(categories: CategoryTreeItem[], id: number, path: CategoryTreeItem[] = []): CategoryTreeItem[] {
   for (const category of categories) {
     if (category.id === id) {
       return [...path, category];
@@ -46,7 +46,7 @@ function findCategoryPathById(categories: Category[], id: number, path: Category
   }
 }
 
-function getMappedBreadcrumbs(categories: Category[], categoryId: number): AgnosticBreadcrumb[] {
+function getMappedBreadcrumbs(categories: CategoryTreeItem[], categoryId: number): AgnosticBreadcrumb[] {
   const categoryPath = findCategoryPathById(categories, categoryId);
 
   return categoryPath.map((category) => {
@@ -59,9 +59,13 @@ function getMappedBreadcrumbs(categories: Category[], categoryId: number): Agnos
   });
 }
 
-function getCategoryDetails(details:CategoryDetails[]): CategoryDetails | null {
+function getCategoryDetails(details:CategoryTreeItemDetails[]): CategoryTreeItemDetails | null {
   // TODO:  return correct details for selected language and webstoreId
   return details ? details[0] : null;
+}
+
+function getCategoryName(category: CategoryTreeItem): string {
+  return category ? getCategoryDetails(category.details)?.name : '';
 }
 
 function getCount(category: AgnosticCategoryTree): number {
@@ -80,7 +84,7 @@ function getItems(category: AgnosticCategoryTree): AgnosticCategoryTree[] {
   return category ? category.items : [];
 }
 
-export const categoryGetters: CategoryGetters<Category> = {
+export const categoryGetters: CategoryGetters<CategoryTreeItem> = {
   getTree,
   getCount,
   getLabel,
@@ -90,5 +94,6 @@ export const categoryGetters: CategoryGetters<Category> = {
   getCategoryDetails,
   findCategoryPathById,
   getTreeItems,
-  getMappedBreadcrumbs
+  getMappedBreadcrumbs,
+  getCategoryName
 };

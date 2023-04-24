@@ -1,6 +1,7 @@
 export * from './address';
 export * from './apiMethods';
 export * from './cart';
+export * from './categoryTree';
 export * from './category';
 export * from './country';
 export * from './events';
