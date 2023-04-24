@@ -40,7 +40,7 @@ type onCreateResponse = {
 
 let cookies: string | string[] = '';
 
-const cookieBlacklist = ['domain', 'secure', 'httponly'];
+/* const cookieBlacklist = ['domain', 'secure', 'httponly'];
 
 // Filter list of cookie names that should be removed
 const filterCookies = (cookies: string): string => {
@@ -53,7 +53,7 @@ const filterCookies = (cookies: string): string => {
     }
   });
   return cookies;
-};
+}; */
 
 const getPlentyIdCookie = (cookies: string): string => {
   const start = cookies.indexOf('plentyID');
