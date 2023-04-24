@@ -4,6 +4,7 @@ import { AddressType, DeleteAddressResponse, SetAddressDefaultResponse, SaveAddr
 import { Cart } from './cart';
 import { CategoryTreeItem } from './categoryTree';
 import { ActiveShippingCountry } from './country';
+import { FacetSearchCriteria, FacetApiResponse } from './facet';
 import { ItemSearchParams, ItemSearchResult } from './itemSearch';
 import { LegalInformationResponse } from './legal';
 import { AdditionalInformationParams, CreateOrderResponse, GetOrdersResponse } from './order';
@@ -43,8 +44,8 @@ export interface PlentymarketsApiMethods {
     getCategory(): Promise<CategoryTreeItem[]>,
 
     getFacet(
-        params: unknown
-    ): Promise<unknown>,
+        params: FacetSearchCriteria
+    ): Promise<FacetApiResponse>,
 
     getReview(
         params: ReviewSearchParams

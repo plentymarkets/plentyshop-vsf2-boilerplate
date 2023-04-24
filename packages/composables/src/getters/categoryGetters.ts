@@ -90,10 +90,10 @@ export const categoryGetters: CategoryGetters<CategoryTreeItem> = {
   getLabel,
   getSlug,
   getItems,
+  getCategoryName,
   findCategoryBySlug,
   getCategoryDetails,
   findCategoryPathById,
   getTreeItems,
-  getMappedBreadcrumbs,
-  getCategoryName
+  getMappedBreadcrumbs
 };
