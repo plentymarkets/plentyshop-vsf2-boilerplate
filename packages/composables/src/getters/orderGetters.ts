@@ -13,7 +13,7 @@ function getDate(order: Order): string {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getId(order: Order): string {
-  return order.order?.id.toString() || '';
+  return order.order?.id?.toString() || '';
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
