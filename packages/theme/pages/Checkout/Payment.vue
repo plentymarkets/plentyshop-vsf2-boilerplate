@@ -1,6 +1,6 @@
 <template>
   <div>
-    <VsfShippingProvider class="spacer" />
+    <VsfShippingProvider @shippingPrivacyHintAccepted="shippingPrivacyHintAccepted = $event" class="spacer" />
     <VsfPaymentProvider
       class="spacer"
       @status="isPaymentReady = true"
@@ -130,6 +130,7 @@ export default {
 
     const isPaymentReady = ref(false);
     const terms = ref(false);
+    const shippingPrivacyHintAccepted = ref(false);
 
     onSSR(async () => {
       await load();
@@ -140,7 +141,7 @@ export default {
     const processOrder = async () => {
       const paymentMethodId = cart.value.methodOfPaymentId;
 
-      await make({paymentId: paymentMethodId});
+      await make({paymentId: paymentMethodId, shippingPrivacyHintAccepted: shippingPrivacyHintAccepted.value});
       const thankYouPath = { name: 'thank-you', query: { order: orderGetters.getId(order.value) }};
 
       router.push(context.root.localePath(thankYouPath));
@@ -148,6 +149,7 @@ export default {
     };
 
     return {
+      shippingPrivacyHintAccepted,
       addBasePath,
       router,
       isPaymentReady,
