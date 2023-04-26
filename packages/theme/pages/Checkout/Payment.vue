@@ -2,8 +2,7 @@
   <div>
     <VsfShippingProvider class="spacer" />
     <VsfPaymentProvider
-      class="spacer"
-      @status="isPaymentReady = true"
+      @shippingPrivacyHintAccepted="shippingPrivacyHintAccepted = $event" class="spacer"
     />
     <SfTable class="sf-table--bordered table">
       <SfTableHeading class="table__row">
@@ -138,7 +137,7 @@ export default {
     });
 
     const processOrder = async () => {
-      const paymentMethodId = cart.value.methodOfPaymentId;
+      await make({ paymentId: paymentMethodId, shippingPrivacyHintAccepted: shippingPrivacyHintAccepted.value });
 
       await make({paymentId: paymentMethodId});
       const thankYouPath = { name: 'thank-you', query: { order: orderGetters.getId(order.value) }};
@@ -148,6 +147,7 @@ export default {
     };
 
     return {
+      shippingPrivacyHintAccepted,
       addBasePath,
       router,
       isPaymentReady,
