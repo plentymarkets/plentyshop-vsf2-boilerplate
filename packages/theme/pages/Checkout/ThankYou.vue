@@ -14,6 +14,7 @@
           <span>{{ $t('ThankYou.Order no') }}</span>
           <strong>{{ orderNumber }}</strong>
         </div>
+        <OrderTotals></OrderTotals>
       </template>
     </SfCallToAction>
     <section class="section">
@@ -87,12 +88,13 @@ import { SfHeading, SfButton, SfCallToAction } from '@storefront-ui/vue';
 import { computed, ref, useRoute } from '@nuxtjs/composition-api';
 import { addBasePath, onSSR } from '@vue-storefront/core';
 import { useOrder, orderGetters, companyGetters } from '@vue-storefront/plentymarkets';
-
+import OrderTotals from '~/components/OrderTotals';
 export default {
   components: {
     SfHeading,
     SfButton,
-    SfCallToAction
+    SfCallToAction,
+    OrderTotals
   },
   setup(props, context) {
     context.emit('changeStep', 4);
