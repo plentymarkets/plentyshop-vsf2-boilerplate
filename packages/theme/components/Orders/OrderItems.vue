@@ -5,6 +5,7 @@
       table-class="products table-column-flex-1"
       :table-headers="productsTableHeaders"
       :items="currentOrderItems"
+      v-e2e="'thank-you-items'"
     />
   </div>
 </template>
@@ -38,7 +39,7 @@ export default {
     ];
 
     const currentOrderItems = computed(() => {
-      const items = orderGetters.getItems(props.order);
+      const items = orderGetters.getOrderItems(props.order);
 
       const result = [];
 
@@ -47,7 +48,8 @@ export default {
           'OrderHistory.Product': {
             value: orderGetters.getItemName(item),
             tdClass: 'mr-sf-sm sm:flex-2',
-            url: app.localePath(orderGetters.getOrderItemLink(props.order, item.itemVariationId))
+            e2e: 'order-item-product-name'
+            // url: app.localePath(orderGetters.getOrderItemLink(props.order, item.itemVariationId))
           },
           'OrderHistory.Quantity': orderGetters.getItemQty(item),
           'OrderHistory.Price': app.i18n.n(orderGetters.getItemPrice(item), 'currency')

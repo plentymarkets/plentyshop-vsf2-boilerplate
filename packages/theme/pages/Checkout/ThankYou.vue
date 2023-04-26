@@ -17,7 +17,10 @@
       </template>
     </SfCallToAction>
 
-    <OrderItems v-e2e="'thank-you-items'" :order="getOrder()" />
+    <OrderItems
+      v-if="getOrder()"
+      :order="getOrder()"
+    />
 
     <section class="section">
       <div class="order">
