@@ -5,7 +5,7 @@
     :selected="defaultAddressId"
     @change="setDefaultAddress($event)"
   >
-    <SfAddress
+    <SfAddress class="w-80"
       v-for="(address, key) in addresses"
       :key="userAddressGetters.getId(address)"
       :name="userAddressGetters.getId(address)"
