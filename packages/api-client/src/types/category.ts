@@ -1,7 +1,3 @@
-import { AgnosticCategoryTree } from '@vue-storefront/core';
-import { Product } from './product';
-import { FilterGroup } from './filters';
-
 export type CategoryDetails = {
     name: string,
     lang: string,
@@ -22,49 +18,3 @@ export type Category = {
     children: Category[],
     details: CategoryDetails[]
 };
-
-export interface ItemList {
-    total: number,
-    documents: { data: Product }[],
-    inactiveVariationIds: number[],
-    'categories.all': { [key: string]: number };
-}
-
-export interface LanguageUrls {
-    [key: string]: string,
-    'x-default': string
-}
-
-export type Facet = {
-    products: Product[],
-    tree: AgnosticCategoryTree,
-    facets: FilterGroup[],
-    pagination: {
-        perPageOptioons: number[],
-        total: number
-    },
-    languageUrls: LanguageUrls
-};
-
-export interface FacetResponse {
-    itemList: ItemList;
-    facets: FilterGroup[];
-    urls: LanguageUrls
-}
-
-export interface FacetSearchCriteria {
-    categoryId: string,
-    page: number,
-    itemsPerPage: number,
-    sort: string,
-    facets: string
-}
-
-export type CategoryPage = {
-    products: Product[],
-    facets: FilterGroup[],
-    pagination: {
-        totals: number
-    },
-    languageUrls: LanguageUrls
-}
