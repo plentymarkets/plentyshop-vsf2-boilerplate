@@ -20,6 +20,7 @@
     <OrderItems
       v-if="getOrder"
       :order="getOrder"
+      class="mb-10"
     />
 
     <section class="section">
