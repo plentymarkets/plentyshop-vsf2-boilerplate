@@ -107,7 +107,7 @@ body {
   overflow-x: hidden;
   color: var(--c-text);
   font-size: var(--font-size--base);
-  font-family: var(--font-family--primary);
+  font-family: var(--font-family--secondary);
   margin: 0;
   padding: 0;
 

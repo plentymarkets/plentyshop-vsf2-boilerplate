@@ -186,10 +186,6 @@ const config = {
       Raleway: {
         wght: [300, 400, 500, 600, 700],
         ital: [400]
-      },
-      Roboto: {
-        wght: [300, 400, 500, 700],
-        ital: [300, 400]
       }
     },
     display: 'swap',

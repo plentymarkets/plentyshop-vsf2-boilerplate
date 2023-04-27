@@ -425,6 +425,7 @@ export default {
   margin-top: var(--spacer-sm);
   &__element {
     margin: 0 0 var(--spacer-xl) 0;
+    font: var(--font-family--secondary);
   }
 }
 .action {

@@ -209,7 +209,7 @@ export default {
 .no-orders {
   &__title {
     margin: 0 0 var(--spacer-lg) 0;
-    font: var(--font-weight--normal) var(--font-size--base) / 1.6 var(--font-family--primary);
+    font: var(--font-weight--normal) var(--font-size--base) / 1.6 var(--font-family--secondary);
   }
   &__button {
     --button-width: 100%;
@@ -233,11 +233,11 @@ export default {
 }
 .message {
   margin: 0 0 var(--spacer-xl) 0;
-  font: var(--font-weight--light) var(--font-size--base) / 1.6 var(--font-family--primary);
+  font: var(--font-weight--light) var(--font-size--base) / 1.6 var(--font-family--secondary);
   &__link {
     color: var(--c-primary);
     font-weight: var(--font-weight--medium);
-    font-family: var(--font-family--primary);
+    font-family: var(--font-family--secondary);
     font-size: var(--font-size--base);
     text-decoration: none;
     &:hover {

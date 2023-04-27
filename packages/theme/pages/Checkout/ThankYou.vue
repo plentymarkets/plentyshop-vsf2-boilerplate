@@ -132,7 +132,7 @@ export default {
   margin: 0;
   color: var(--c-link);
   font: var(--font-weight--normal) var(--font-size--base) / 1.6
-    var(--font-family--primary);
+    var(--font-family--secondary);
   @include for-desktop {
     font-weight: var(--font-weight--light);
     font-size: var(--font-size--sm);
@@ -151,7 +151,7 @@ export default {
     display: flex;
     flex-direction: column;
     font: var(--font-weight--light) var(--font-size--sm) / 1.4
-      var(--font-family--primary);
+      var(--font-family--secondary);
     @include for-desktop {
       flex-direction: row;
       font-size: var(--font-size--normal);

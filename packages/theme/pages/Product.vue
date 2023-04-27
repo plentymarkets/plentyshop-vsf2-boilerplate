@@ -414,7 +414,7 @@ export default {
       var(--font-weight--light),
       var(--font-size--base),
       1.6,
-      var(--font-family--primary)
+      var(--font-family--secondary)
     );
   }
   &__select-size {
@@ -482,7 +482,7 @@ export default {
       var(--font-weight--light),
       var(--font-size--sm),
       1.6,
-      var(--font-family--primary)
+      var(--font-family--secondary)
     );
     &__title {
       font-weight: var(--font-weight--normal);

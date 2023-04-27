@@ -315,7 +315,7 @@ export default {
       }
     }
     &__paragraph {
-      font-family: var(--font-family--primary);
+      font-family: var(--font-family--secondary);
       font-weight: var(--font-weight--normal);
       font-size: var(--font-size--base);
       color: var(--c-text-muted);

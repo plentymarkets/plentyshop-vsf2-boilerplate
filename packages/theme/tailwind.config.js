@@ -191,7 +191,7 @@ module.exports = {
         'sf-3xl': 'var(--spacer-3xl)'
       },
       fontFamily: {
-        // "Roboto",serif
+        // "\",serif
         'sf-primary': 'var(--font-family--primary)',
         // "Raleway",sans-serif
         'sf-secondary': 'var(--font-family--secondary)'
