@@ -18,8 +18,8 @@
     </SfCallToAction>
 
     <OrderItems
-      v-if="getOrder()"
-      :order="getOrder()"
+      v-if="getOrder"
+      :order="getOrder"
     />
 
     <section class="section">
@@ -90,8 +90,8 @@
 
 <script>
 import { SfHeading, SfButton, SfCallToAction } from '@storefront-ui/vue';
-import { computed, ref, useRoute } from '@nuxtjs/composition-api';
-import { addBasePath, onSSR } from '@vue-storefront/core';
+import { computed, ref, useRoute, onMounted } from '@nuxtjs/composition-api';
+import { addBasePath } from '@vue-storefront/core';
 import { useOrder, orderGetters, companyGetters } from '@vue-storefront/plentymarkets';
 import OrderItems from '~/components/Orders/OrderItems.vue';
 
@@ -115,17 +115,17 @@ export default {
     const route = useRoute();
     const { order, load } = useOrder();
 
-    onSSR(async () => {
-      await load(route.value.query.orderId, route.value.query.orderAccessKey);
+    onMounted(async () => {
+      await load(route.value.query.orderId, route.value.query.accessKey);
     });
 
     const orderNumber = computed(() => {
       return orderGetters.getId({ order: order.value });
     });
 
-    const getOrder = () => {
+    const getOrder = computed(() => {
       return order.value;
-    };
+    });
 
     return {
       addBasePath,

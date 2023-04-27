@@ -60,7 +60,7 @@ context('Order placement', () => {
     page.checkout.payment.paymentMethods.first().click();
     page.checkout.payment.terms.click();
     page.checkout.payment.makeAnOrderButton.click();
-    cy.wait(['@additionalInformation', '@preparePayment', '@placeOrder', '@executePayment', '@deleteCart']);
+    cy.wait(['@additionalInformation', '@preparePayment', '@placeOrder', '@executePayment']);
 
     page.checkout.thankyou.heading.should('be.visible');
 
@@ -81,12 +81,15 @@ context('Check Thank You Page', () => {
         data: fixture
       };
     });
-    page.home.visit();
   });
   it(['happyPath', 'regression'], 'Should successfully see order items data in thank you page', function test () {
-    page.checkout.thankyou.visit(this.fixtures.data.order.id, this.fixtures.data.order.accessKey);
-    page.checkout.thankyou.itemsTable.should('be.visible');
+    cy.intercept('/api/plentymarkets/getOrder', { fixture: 'order.json' }).as('getOrder');
 
+    page.checkout.thankyou.visit('', '');
+
+    cy.wait('@getOrder')
+
+    page.checkout.thankyou.itemsTable.should('be.visible');
     cy.get('[data-e2e*="order-item-product-name"]').should('be.visible');
   });
 });
