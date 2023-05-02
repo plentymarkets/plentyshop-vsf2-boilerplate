@@ -1,7 +1,7 @@
 import { AdditionalInformationParams, Context, CreateOrderResponse, GetPaymentResponse, PreparePaymentResult, OrderDetails } from 'src/types';
 
 export async function getOrder(context: Context, orderId: string, orderAccessKey: string): Promise<OrderDetails> {
-  const url: URL = new URL('/rest/storefront/order', context.config.api.url);
+  const url: URL = new URL('/rest/storefront/order/secure', context.config.api.url);
 
   url.searchParams.set('orderId', orderId);
   url.searchParams.set('accessKey', orderAccessKey);

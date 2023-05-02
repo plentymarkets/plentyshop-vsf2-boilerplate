@@ -10,6 +10,9 @@
       }"
     >
       <template #description>
+        <pre>
+          {{ error }}
+        </pre>
         <div class="banner__order-number">
           <span>{{ $t('ThankYou.Order no') }}</span>
           <strong>{{ orderNumber }}</strong>
@@ -105,10 +108,12 @@ export default {
     });
 
     const route = useRoute();
-    const { order, load } = useOrder();
+    const { order, load, error: orderError } = useOrder();
+
+    const error = computed(() => orderError.value);
 
     onSSR(async () => {
-      await load(route.value.query.orderId, route.value.query.orderAccessKey);
+      await load(route.value.query.orderId, route.value.query.accessKey);
     });
 
     const orderNumber = computed(() => {
@@ -116,6 +121,7 @@ export default {
     });
 
     return {
+      error,
       addBasePath,
       companyGetters,
       companyDetails,
