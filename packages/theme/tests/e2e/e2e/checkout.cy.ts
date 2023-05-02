@@ -60,7 +60,7 @@ context('Order placement', () => {
     page.checkout.payment.paymentMethods.first().click();
     page.checkout.payment.terms.click();
     page.checkout.payment.makeAnOrderButton.click();
-    cy.wait(['@additionalInformation', '@preparePayment', '@placeOrder', '@executePayment']);
+    cy.wait(['@additionalInformation', '@preparePayment', '@placeOrder', '@executePayment', '@deleteCart']);
 
     page.checkout.thankyou.heading.should('be.visible');
 
