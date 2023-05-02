@@ -169,7 +169,7 @@ class ThankYou {
   }
 
   visit(orderId, accesskey): Cypress.Chainable {
-  return cy.visit('/checkout/thank-you?orderId=' + orderId + '&accessKey=' + accesskey);
+  return cy.visit('/checkout/thank-you?orderId=' + orderId + '&orderAccessKey=' + accesskey);
   }
 }
 

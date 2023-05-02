@@ -117,7 +117,7 @@ export default {
     const { order, load } = useOrder();
 
     onMounted(async () => {
-      await load(route.value.query.orderId, route.value.query.accessKey);
+      await load(route.value.query.orderId, route.value.query.orderAccessKey);
     });
 
     const orderNumber = computed(() => {
