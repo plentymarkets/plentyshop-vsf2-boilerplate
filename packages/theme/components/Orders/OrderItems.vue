@@ -39,7 +39,7 @@ export default {
     ];
 
     const currentOrderItems = computed(() => {
-      const items = orderGetters.getOrderItems(props.order);
+      const items = orderGetters.getOrderItems(props.order?.order || props.order);
 
       const result = [];
 
