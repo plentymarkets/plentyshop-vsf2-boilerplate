@@ -16,6 +16,29 @@
         </div>
       </template>
     </SfCallToAction>
+    <section>
+      <div class="order">
+        <SfHeading
+          :title="$t('ThankYou.Order Summary')"
+          class="order__heading heading sf-heading--left order-summary-title"
+          :level="3"
+        />
+        <table class="order-summary-table">
+          <tr>
+            <td class="title">{{ $t('ThankYou.Order Number') }}</td>
+            <td>{{ orderNumber }}</td>
+          </tr>
+          <tr>
+            <td class="title">{{ $t('ThankYou.Order Date') }}</td>
+            <td>{{ orderDate }}</td>
+          </tr>
+          <tr>
+            <td class="title">{{ $t('ThankYou.Order Status') }}</td>
+            <td>{{ orderStatus }}</td>
+          </tr>
+        </table>
+      </div>
+    </section>
     <section class="section">
       <div class="order">
         <SfHeading
@@ -115,11 +138,21 @@ export default {
       return orderGetters.getId({ order: order.value });
     });
 
+    const orderDate = computed(() => {
+      return orderGetters.getDate({ order: order.value });
+    });
+
+    const orderStatus = computed(() => {
+      return orderGetters.getStatus({ order: order.value });
+    });
+
     return {
       addBasePath,
       companyGetters,
       companyDetails,
-      orderNumber
+      orderNumber,
+      orderDate,
+      orderStatus
     };
   }
 };
@@ -138,6 +171,9 @@ export default {
   @include for-desktop {
     --heading-padding: var(--spacer-sm) 0 var(--spacer-xs) 0;
   }
+}
+.order-summary-title .sf-heading__title {
+  color: var(--c-primary);
 }
 .paragraph {
   margin: 0;
@@ -180,7 +216,6 @@ export default {
   }
 }
 .order {
-  background: var(--c-light);
   padding-bottom: var(--spacer-sm);
   @include for-desktop {
     width: 100%;
@@ -221,6 +256,15 @@ export default {
     @include for-desktop {
       margin: var(--spacer-xl) 0 0 0;
     }
+  }
+}
+.order-summary-table {
+  width: 50%;
+  .title {
+    font-weight: bold;
+  }
+  tr {
+    line-height: 28px;
   }
 }
 .contact {

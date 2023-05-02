@@ -362,7 +362,11 @@ export default {
     'Thank you for your order!': 'Thank you for your order!',
     'What can we improve': 'What can we improve',
     'Your account': 'Your account',
-    'Your purchase': 'Your purchase'
+    'Your purchase': 'Your purchase',
+    'Order Number': 'Order Number',
+    'Order Date': 'Order Date',
+    'Order Summary': 'Order Summary',
+    'Order Status': 'Order Status'
   },
   // TopBar
   'TopBar': {
