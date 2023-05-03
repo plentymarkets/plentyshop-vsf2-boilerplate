@@ -26,7 +26,13 @@ export const useOrder = (id: string): UseOrderResponse => {
 
     try {
       loading.value = true;
-      order.value = await context.$plentymarkets.api.getOrder(orderId, orderAccessKey);
+      const orderData = await context.$plentymarkets.api.getOrder(orderId, orderAccessKey);
+
+      if (orderData.error) {
+        error.value.load = orderData.error;
+        return;
+      }
+      order.value = orderData;
       error.value.load = null;
     } catch (err) {
       error.value.load = err;

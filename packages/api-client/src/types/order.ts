@@ -213,6 +213,11 @@ export interface OrderDetails {
   deliveryAddress: AddressData;
   documents: unknown[];
   accessKey: string;
+  error: {
+    message: string,
+    code: string,
+    data: unknown
+  }
 }
 
 export interface Order {
