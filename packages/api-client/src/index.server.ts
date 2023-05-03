@@ -1,6 +1,7 @@
 import { ApiClientExtension, apiClientFactory } from '@vue-storefront/core';
 import axios, { AxiosInstance } from 'axios';
 import { getProduct } from './api/getProduct';
+import { getProducts } from './api/getProducts';
 import { getCategory } from './api/getCategory';
 import { getFacet } from './api/getFacet';
 import { getReview } from './api/getReview';
@@ -112,6 +113,7 @@ const { createApiClient } = apiClientFactory<Settings, Endpoints>({
   onCreate,
   api: {
     getProduct,
+    getProducts,
     getCategory,
     getFacet,
     getReview,

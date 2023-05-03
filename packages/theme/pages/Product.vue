@@ -197,7 +197,7 @@ import {
 import AttributeSelection from '~/components/AttributeSelection.vue';
 import InstagramFeed from '~/components/InstagramFeed.vue';
 import RelatedProducts from '~/components/RelatedProducts.vue';
-import { ref, computed, useRoute } from '@nuxtjs/composition-api';
+import { ref, computed, useRoute, onMounted } from '@nuxtjs/composition-api';
 import {
   useProduct,
   useCart,
@@ -205,7 +205,8 @@ import {
   useReview,
   reviewGetters,
   propertyGetters,
-  useCategory
+  useCategory,
+  useLastSeen
 } from '@vue-storefront/plentymarkets';
 import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
@@ -238,6 +239,7 @@ export default {
     const qty = ref(1);
     const route = useRoute();
     const th = useUiHelpers();
+    const { addItem: addToLastSeen, search: searchLastSeen } = useLastSeen();
     const { products, search, loading: productLoadingState } = useProduct('products');
     const {
       products: relatedProducts,
@@ -280,6 +282,11 @@ export default {
         isAttributeSelectionValid.value = false;
       }
     };
+
+    onMounted(async () => {
+      addToLastSeen(productGetters.getId(product.value));
+      searchLastSeen();
+    });
 
     onSSR(async () => {
       await search({ id: id.value });
