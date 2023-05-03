@@ -19,7 +19,17 @@
         </div>
       </template>
     </SfCallToAction>
-    <section class="section">
+
+    <SoftLogin
+      v-if="error.load"
+      :error="error"
+      @submit="loadOrder"
+    />
+
+    <section
+      v-else
+      class="section"
+    >
       <div class="order">
         <SfHeading
           :title="$t('ThankYou.Your purchase')"
@@ -90,9 +100,11 @@ import { SfHeading, SfButton, SfCallToAction } from '@storefront-ui/vue';
 import { computed, ref, useRoute } from '@nuxtjs/composition-api';
 import { addBasePath, onSSR } from '@vue-storefront/core';
 import { useOrder, orderGetters, companyGetters } from '@vue-storefront/plentymarkets';
+import SoftLogin from '~/components/SoftLogin.vue';
 
 export default {
   components: {
+    SoftLogin,
     SfHeading,
     SfButton,
     SfCallToAction
@@ -113,8 +125,19 @@ export default {
     const error = computed(() => orderError.value);
 
     onSSR(async () => {
-      await load(route.value.query.orderId, route.value.query.accessKey);
+      await load({
+        orderId: route.value.query.orderId,
+        accessKey: route.value.query.accessKey
+      });
     });
+
+    const loadOrder = async (data) => {
+      await load({
+        orderId: route.value.query.orderId,
+        accessKey: route.value.query.accessKey,
+        ...data
+      });
+    };
 
     const orderNumber = computed(() => {
       return orderGetters.getId({ order: order.value });
@@ -123,6 +146,7 @@ export default {
     return {
       error,
       addBasePath,
+      loadOrder,
       companyGetters,
       companyDetails,
       orderNumber

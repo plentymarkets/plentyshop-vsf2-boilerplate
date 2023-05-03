@@ -12,6 +12,13 @@ interface VariationStringMap {
   [variationId: string]: string
 }
 
+export interface OrderSearchParams {
+  orderId: string;
+  accessKey: string;
+  name: string;
+  postcode: string;
+}
+
 export interface AddressRelation {
   id: number;
   orderId: number;

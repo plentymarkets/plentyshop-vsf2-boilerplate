@@ -1,10 +1,33 @@
-import { AdditionalInformationParams, Context, CreateOrderResponse, GetPaymentResponse, PreparePaymentResult, OrderDetails } from 'src/types';
+import {
+  AdditionalInformationParams,
+  Context,
+  CreateOrderResponse,
+  GetPaymentResponse,
+  PreparePaymentResult,
+  OrderDetails,
+  OrderSearchParams
+} from 'src/types';
 
-export async function getOrder(context: Context, orderId: string, orderAccessKey: string): Promise<OrderDetails> {
+export async function getOrder(context: Context, params: OrderSearchParams): Promise<OrderDetails> {
   const url: URL = new URL('/rest/storefront/order/secure', context.config.api.url);
 
-  url.searchParams.set('orderId', orderId);
-  url.searchParams.set('accessKey', orderAccessKey);
+  if (params.orderId) {
+    url.searchParams.set('orderId', params.orderId);
+  }
+
+  if (params.name) {
+    url.searchParams.set('name', params.name);
+  }
+
+  if (params.accessKey) {
+    url.searchParams.set('accessKey', params.accessKey);
+  }
+
+  if (params.postcode) {
+    url.searchParams.set('postcode', params.postcode);
+  }
+
+  console.log('url.href', url.href)
 
   const { data } = await context.client.get(url.href);
 
