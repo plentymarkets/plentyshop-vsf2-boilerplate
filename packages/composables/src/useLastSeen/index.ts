@@ -26,18 +26,23 @@ export const useLastSeen = (id: string): UseLastSeenResponse => {
   const addItem = (variationId: string): void => {
 
     let lastSeen = window.localStorage.getItem(key);
+    let newLastSeen;
 
-    if (lastSeen && lastSeen.includes(variationId + ',')) {
+    if (lastSeen) {
+      lastSeen = JSON.parse(lastSeen);
+      newLastSeen = JSON.stringify([variationId, ...lastSeen]);
+      window.localStorage.setItem(key, newLastSeen);
+    } else {
+      window.localStorage.setItem(key, JSON.stringify([variationId]));
+    }
+
+    /* if (lastSeen && lastSeen.includes(variationId)) {
       lastSeen = lastSeen.replace(variationId + ',', '');
     }
 
     if (lastSeen && lastSeen.includes(variationId)) {
       lastSeen = lastSeen.replace(variationId, '');
-    }
-
-    const newLastSeen = lastSeen ? `${variationId},${lastSeen}` : variationId;
-
-    window.localStorage.setItem(key, newLastSeen);
+    } */
   };
 
   const search = async (): Promise<void> => {
