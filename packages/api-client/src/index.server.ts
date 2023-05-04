@@ -40,7 +40,7 @@ type onCreateResponse = {
 
 let cookies: string | string[] = '';
 
-const cookieBlacklist = ['domain', 'secure', 'httponly'];
+/* const cookieBlacklist = ['domain', 'secure', 'httponly'];
 
 // Filter list of cookie names that should be removed
 const filterCookies = (cookies: string): string => {
@@ -53,6 +53,14 @@ const filterCookies = (cookies: string): string => {
     }
   });
   return cookies;
+}; */
+
+const getPlentyIdCookie = (cookies: string): string => {
+  const start = cookies.indexOf('plentyID');
+  const end = cookies.indexOf(';', start) + 1;
+  const cookie = cookies.slice(start, end);
+
+  return cookie || cookies;
 };
 
 function onCreate(settings: Settings): onCreateResponse {
@@ -67,10 +75,12 @@ function onCreate(settings: Settings): onCreateResponse {
   // Add a response interceptor
   // Triggered after middleware gets a response from connected apis
   client.interceptors.response.use((response) => {
+
+    // takes the set-cookie header from the incomming request (plentymarkets backend)
     const headers = response.headers['set-cookie'];
 
     if (headers && headers?.length > 0) {
-      cookies = filterCookies(headers[0]);
+      cookies = getPlentyIdCookie(headers[0]);
     }
     return response;
   }, (error) => {
