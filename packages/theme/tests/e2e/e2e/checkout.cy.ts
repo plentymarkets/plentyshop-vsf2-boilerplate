@@ -85,7 +85,7 @@ context('Check Thank You Page', () => {
   it(['happyPath', 'regression'], 'Should successfully see order items data in thank you page', function test () {
     cy.intercept('/api/plentymarkets/getOrder', { fixture: 'order.json' }).as('getOrder');
 
-    page.checkout.thankyou.visit('', '');
+    page.checkout.thankyou.visit('', '', '');
 
     cy.wait('@getOrder')
 

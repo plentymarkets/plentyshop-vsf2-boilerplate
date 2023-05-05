@@ -37,10 +37,6 @@ function getItems(order: Order): OrderItem[] {
   return order.order.orderItems || [];
 }
 
-function getOrderItems(orderDetails: OrderDetails): OrderItem[] {
-  return orderDetails.orderItems || [];
-}
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getItemSku(item: OrderItem): string {
   return '';
@@ -105,7 +101,6 @@ export const orderGetters: UserOrderGetters<Order, OrderItem> = {
   getStatus,
   getPrice,
   getItems,
-  getOrderItems,
   getItemSku,
   getItemName,
   getItemQty,
