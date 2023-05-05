@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 module.exports = {
   purge: [
     '**/components/**/*.{vue,js,ts}',
@@ -15,6 +17,10 @@ module.exports = {
   darkMode: false,
   theme: {
     extend: {
+      screens: {
+        xs: '300px',
+        ...defaultTheme.screens
+      },
       fontSize: {
         // 12px
         'sf-xs': 'var(--font-size--xs)',
@@ -195,6 +201,9 @@ module.exports = {
         'sf-primary': 'var(--font-family--primary)',
         // "Raleway",sans-serif
         'sf-secondary': 'var(--font-family--secondary)'
+      },
+      flex: {
+        2: '2 2 0%'
       }
     }
   },

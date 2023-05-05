@@ -19,6 +19,13 @@
         </div>
       </template>
     </SfCallToAction>
+
+    <OrderItems
+      v-if="getOrder"
+      :order="getOrder"
+      class="mb-10"
+    />
+
     <section class="section">
       <div class="order">
         <SfHeading
@@ -87,12 +94,14 @@
 
 <script>
 import { SfHeading, SfButton, SfCallToAction } from '@storefront-ui/vue';
-import { computed, ref, useRoute } from '@nuxtjs/composition-api';
-import { addBasePath, onSSR } from '@vue-storefront/core';
+import { computed, ref, useRoute, onMounted } from '@nuxtjs/composition-api';
+import { addBasePath } from '@vue-storefront/core';
 import { useOrder, orderGetters, companyGetters } from '@vue-storefront/plentymarkets';
+import OrderItems from '~/components/Orders/OrderItems.vue';
 
 export default {
   components: {
+    OrderItems,
     SfHeading,
     SfButton,
     SfCallToAction
@@ -112,7 +121,7 @@ export default {
 
     const error = computed(() => orderError.value);
 
-    onSSR(async () => {
+    onMounted(async () => {
       await load(route.value.query.orderId, route.value.query.accessKey);
     });
 
@@ -120,11 +129,16 @@ export default {
       return orderGetters.getId({ order: order.value });
     });
 
+    const getOrder = computed(() => {
+      return order.value;
+    });
+
     return {
       error,
       addBasePath,
       companyGetters,
       companyDetails,
+      getOrder,
       orderNumber
     };
   }

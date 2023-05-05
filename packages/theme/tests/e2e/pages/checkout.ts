@@ -164,6 +164,13 @@ class ThankYou {
   get heading(): Cypress.Chainable {
     return el('thank-you-banner', 'h2');
   }
+  get itemsTable(): Cypress.Chainable {
+    return el('thank-you-items');
+  }
+
+  visit(orderId, accesskey, postcode): Cypress.Chainable {
+  return cy.visit('/checkout/thank-you?orderId=' + orderId + '&orderAccessKey=' + accesskey + '&postcode=' + postcode);
+  }
 }
 
 export {
