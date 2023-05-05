@@ -31,7 +31,7 @@ const plugin: Plugin = ({ app }) => {
       } else {
         // Use the cookies send by the browser
         Object.entries(app.$cookies.getAll()).forEach(([key, val]) => {
-          reqCookies += `${key}=${val}; `;
+          reqCookies += `${key}=${encodeURIComponent(val.toString())}; `;
         });
       }
       request.headers.cookie = reqCookies;

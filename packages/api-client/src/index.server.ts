@@ -58,7 +58,11 @@ const filterCookies = (cookies: string): string => {
 const getPlentyIdCookie = (cookies: string): string => {
   const start = cookies.indexOf('plentyID');
   const end = cookies.indexOf(';', start) + 1;
-  const cookie = cookies.slice(start, end);
+  let cookie = cookies.slice(start, end);
+
+  if (cookie) {
+    cookie += 'path=/; secure; httponly;';
+  }
 
   return cookie || cookies;
 };
