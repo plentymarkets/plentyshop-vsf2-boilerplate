@@ -2,6 +2,7 @@
   <ValidationObserver
     v-slot="{ handleSubmit }"
     key="log-in"
+    class="w-6/12"
   >
     <form
       class="form"
@@ -43,7 +44,7 @@
         v-e2e="'login-modal-remember-me'"
         name="remember-me"
         :label="$t('LoginModal.Remember me')"
-        class="form__element checkbox"
+        class="form__element checkbox mb-10"
       />
       <div v-if="error.login">
         {{ error.login }}
