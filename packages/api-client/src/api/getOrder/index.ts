@@ -27,8 +27,6 @@ export async function getOrder(context: Context, params: OrderSearchParams): Pro
     url.searchParams.set('postcode', params.postcode);
   }
 
-  console.log('url.href', url.href)
-
   const { data } = await context.client.get(url.href);
 
   return data;
