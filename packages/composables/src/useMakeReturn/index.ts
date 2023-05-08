@@ -1,13 +1,14 @@
 import {
-  Context,
-  useMakeOrderFactory
+  useVSFContext
 } from '@vue-storefront/core';
 import type {
   CreateReturnResponse, MakeReturnParams
 } from '@vue-storefront/plentymarkets-api';
 
-export const useMakeReturn = async (context: Context, params: MakeReturnParams): Promise<CreateReturnResponse> => {
-  return await context.$plentymarkets.api.makeOrderReturn(
+export const useMakeReturn = (params: MakeReturnParams): Promise<CreateReturnResponse> => {
+  const context = useVSFContext();
+
+  return context.$plentymarkets.api.makeOrderReturn(
     103, 'orderKey', [1103, 1], ''
   );
 };
