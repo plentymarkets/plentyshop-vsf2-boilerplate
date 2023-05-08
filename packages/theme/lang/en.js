@@ -277,7 +277,8 @@ export default {
     'Status': 'Status',
     'Total orders': 'Total orders',
     'View details': 'View details',
-    'You currently have no orders': 'You currently have no orders'
+    'You currently have no orders': 'You currently have no orders',
+    'Return items': 'Return items'
   },
   // Payment
   'Payment': {

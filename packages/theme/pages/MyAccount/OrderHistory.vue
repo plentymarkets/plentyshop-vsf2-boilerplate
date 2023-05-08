@@ -4,7 +4,7 @@
       <div v-if="currentOrder">
         <SfButton
           class="sf-button--text all-orders"
-          @click="currentOrder = null"
+          @click="currentOrder = null, returnOrder = false"
         >
           {{ $t('OrderHistory.All orders') }}
         </SfButton>
@@ -37,6 +37,7 @@
             </SfTableHeader>
             <SfTableHeader>{{ $t('OrderHistory.Quantity') }}</SfTableHeader>
             <SfTableHeader>{{ $t('OrderHistory.Price') }}</SfTableHeader>
+            <SfTableHeader v-if="returnOrder"></SfTableHeader>
           </SfTableHeading>
           <SfTableRow
             v-for="(item, i) in orderGetters.getItems(currentOrder)"
@@ -49,8 +50,20 @@
             </SfTableData>
             <SfTableData>{{ orderGetters.getItemQty(item) }}</SfTableData>
             <SfTableData>{{ $n(orderGetters.getItemPrice(item), 'currency') }}</SfTableData>
+            <SfTableData v-if="returnOrder" class="flex">
+              <SfButton class="sf-button--text text-2xl no-underline	">-</SfButton>
+              <span class="p-8">0</span>
+              <SfButton class="sf-button--text text-2xl no-underline	">+</SfButton>
+            </SfTableData>
           </SfTableRow>
         </SfTable>
+        <SfButton
+              v-if="returnOrder"
+              class="sf-button--full-width sf-c-light-primary-lighten"
+              @click=""
+            >
+              {{ $t('OrderHistory.Return items') }}
+            </SfButton>
       </div>
       <div v-else>
         <p class="message">
@@ -98,6 +111,12 @@
                 @click="currentOrder = order"
               >
                 {{ $t('OrderHistory.View details') }}
+              </SfButton>
+              <SfButton
+                class="sf-button--text desktop-only"
+                @click="currentOrder = order, returnOrder = true"
+              >
+                {{ $t('OrderHistory.Return items') }}
               </SfButton>
             </SfTableData>
           </SfTableRow>
@@ -165,6 +184,7 @@ export default {
     const currentOrder = ref(null);
     const pagination = computed(() => orderGetters.getPagination(orderResult.value));
     const orders = computed(() => orderResult.value?.data?.entries);
+    const returnOrder = false;
 
     onSSR(async () => {
       await search(query);
@@ -199,7 +219,8 @@ export default {
       totalOrders: computed(() => orderGetters.getOrdersTotal(orderResult.value)),
       getStatusTextClass,
       orderGetters,
-      currentOrder
+      currentOrder,
+      returnOrder
     };
   }
 };
