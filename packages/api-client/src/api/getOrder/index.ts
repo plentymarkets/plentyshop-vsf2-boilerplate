@@ -1,4 +1,4 @@
-import { AdditionalInformationParams, Context, CreateOrderResponse, GetPaymentResponse, PreparePaymentResult } from 'src/types';
+import { AdditionalInformationParams, Context, CreateOrderResponse, GetPaymentResponse, PreparePaymentResult, CreateReturnResponse } from 'src/types';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export async function additionalInformation(context: Context, params: AdditionalInformationParams): Promise<void> {
@@ -27,6 +27,18 @@ export async function executePayment(context: Context, orderId: number, paymentI
   const { data } = await context.client.post(url.href, {
     orderId: orderId,
     paymentMethodId: paymentId
+  });
+
+  return data;
+}
+
+export async function makeOrderReturn(context: Context, orderId: number, orderAccessKey:string, variationIds: object, returnNote: string): Promise<CreateReturnResponse> {
+  const url: URL = new URL('/rest/io/customer/order/return', context.config.api.url);
+  const { data } = await context.client.post(url.href,{
+    orderId: orderId,
+    orderAccessKey: orderAccessKey,
+    variationIds: variationIds,
+    returnNote: returnNote
   });
 
   return data;

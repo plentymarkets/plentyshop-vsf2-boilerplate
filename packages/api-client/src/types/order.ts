@@ -255,3 +255,15 @@ export interface MakeOrderParams {
   paymentId: number,
   customQuery?: CustomQuery;
 }
+
+export interface MakeReturnParams {
+  orderId: number,
+  orderAccessKey: string,
+  variationIds: object,
+  returnNote: string
+}
+
+export interface CreateReturnResponse {
+  status: number,
+  message: string
+}

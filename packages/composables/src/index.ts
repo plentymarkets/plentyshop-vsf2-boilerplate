@@ -4,6 +4,7 @@ export { useCategory } from './useCategory';
 export { useFacet } from './useFacet';
 export { useForgotPassword } from './useForgotPassword';
 export { useMakeOrder } from './useMakeOrder';
+export { useMakeReturn } from './useMakeReturn';
 export { useProduct } from './useProduct';
 export { useCookieBar } from './useCookieBar';
 export { useReview } from './useReview';
