@@ -26,7 +26,7 @@
           >
             <SfAccordion
               v-e2e="'categories-accordion'"
-              :open="activeCategory"
+              :open="categoryGetters.getCategoryName(category)"
               :show-chevron="true"
             >
               <SfAccordionItem
@@ -265,17 +265,7 @@ export default {
     const categoryTree = computed(() => facetGetters.getCategoryTree(result.value));
     const breadcrumbs = computed(() => facetGetters.getBreadcrumbs(result.value, categories.value));
     const pagination = computed(() => facetGetters.getPagination(result.value));
-    const activeCategory = computed(() => {
-      const items = categoryTree.value.items;
-
-      if (!items || !items.length) {
-        return '';
-      }
-
-      const category = items.find(({ isCurrent, items }) => isCurrent || items.find(({ isCurrent }) => isCurrent));
-
-      return category?.label || items[0].label;
-    });
+    const category = computed(() => facetGetters.getCategory(result.value));
 
     const removeProductFromWishlist = (productItem) => {
       const productsInWhishlist = computed(() => wishlistGetters.getItems(wishlist.value));
@@ -307,7 +297,7 @@ export default {
       categoryGetters,
       productGetters,
       pagination,
-      activeCategory,
+      category,
       breadcrumbs,
       addItemToWishlist,
       removeProductFromWishlist,

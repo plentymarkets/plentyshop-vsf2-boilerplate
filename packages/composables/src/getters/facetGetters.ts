@@ -17,6 +17,10 @@ function getAll(params: FacetSearchResult<Facet>, criteria?: FacetSearchCriteria
   return [];
 }
 
+function getCategory(params: FacetSearchResult<Facet>): Category {
+  return params?.data?.category;
+}
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getGrouped(params: FacetSearchResult<Facet>, criteria?: FacetSearchCriteria): AgnosticGroupedFacet[] {
   const selectedFacets = params.input?.facets?.split(',');
@@ -76,8 +80,8 @@ function getSortOptions(params: FacetSearchResult<Facet>): AgnosticSort {
 }
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getCategoryTree(params: FacetSearchResult<Facet>): AgnosticCategoryTree {
-  return params?.data?.tree || {
-    label: 'Placeholder',
+  return params?.data?.tree ?? {
+    label: '',
     items: [],
     isCurrent: false
   };
@@ -90,9 +94,10 @@ function getProducts(products: FacetSearchResult<Facet>): Product[] {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getPagination(params: FacetSearchResult<Facet>): AgnosticPagination {
-  const totals = params.data?.pagination?.total || 1;
-  const pageOptions = params.data?.pagination?.perPageOptioons || [20, 40, 100];
-  const totalItems = params.data?.pagination?.total || 1;
+
+  const totals = params.data?.pagination?.totals || 1;
+  const pageOptions = params.data?.pagination?.perPageOptions || [20, 40, 100];
+  const totalItems = params.data?.pagination?.totals || 1;
 
   return {
     currentPage: params.input.page,
@@ -121,11 +126,12 @@ function getBreadcrumbs(params: FacetSearchResult<Facet>, categories?: Category[
 }
 
 export const facetGetters: FacetsGetters<Facet, Product[], FacetSearchCriteria> = {
-  getSortOptions,
-  getGrouped,
   getAll,
-  getProducts,
-  getCategoryTree,
   getBreadcrumbs,
-  getPagination
+  getCategory,
+  getCategoryTree,
+  getGrouped,
+  getPagination,
+  getProducts,
+  getSortOptions
 };

@@ -64,6 +64,10 @@ function getCategoryDetails(details:CategoryDetails[]): CategoryDetails | null {
   return details ? details[0] : null;
 }
 
+function getCategoryName(category: Category): string {
+  return category ? getCategoryDetails(category.details)?.name : '';
+}
+
 function getCount(category: AgnosticCategoryTree): number {
   return category ? category.count : 0;
 }
@@ -86,6 +90,7 @@ export const categoryGetters: CategoryGetters<Category> = {
   getLabel,
   getSlug,
   getItems,
+  getCategoryName,
   findCategoryBySlug,
   getCategoryDetails,
   findCategoryPathById,
