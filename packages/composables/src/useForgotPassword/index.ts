@@ -7,8 +7,9 @@ import {
 const factoryParams: UseForgotPasswordFactoryParams<unknown> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   resetPassword: async (context: Context, { email, customQuery }) => {
-    console.log('Mocked: resetPassword');
-    return {};
+    const result =  await context.$plentymarkets.api.placeOrder();
+    // should call the new route and send email.
+    return result;
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

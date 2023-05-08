@@ -104,7 +104,8 @@
         </div>
       </div>
       <div v-else-if="currentScreen === SCREEN_FORGOTTEN">
-        <p>{{ $t('LoginModal.Forgot password') }}</p>
+        <p class="forgot-password">{{ $t('LoginModal.Forgot password') }} ? </p>
+        <p>{{ $t('LoginModal.Forgot password details') }} ? </p>
         <ValidationObserver
           v-slot="{ handleSubmit }"
           key="log-in"
@@ -141,7 +142,7 @@
                 :class="{ loader: forgotPasswordLoading }"
                 :loading="forgotPasswordLoading"
               >
-                <div>{{ $t('LoginModal.Reset Password') }}</div>
+                <div>{{ $t('LoginModal.Reset password') }}</div>
               </SfLoader>
             </SfButton>
           </form>
@@ -292,7 +293,7 @@ export default {
     const rememberMe = ref(false);
     const { register, login, loading, error: userError } = useUser();
     const {
-      request,
+      resetPassword,
       error: forgotPasswordError,
       loading: forgotPasswordLoading
     } = useForgotPassword();
@@ -376,7 +377,7 @@ export default {
 
     const handleForgotten = async () => {
       userEmail.value = form.value.username;
-      await request({ email: userEmail.value });
+      await resetPassword({ email: userEmail.value });
 
       if (!forgotPasswordError.value.request) {
         setCurrentScreen(SCREEN_THANK_YOU);
@@ -416,6 +417,12 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.forgot-password {
+  color: var(--_c-blue-primary);
+  font-size: var(--h3-font-size);
+  font-weight: var(--font-weight--semibold);
+  font-family: var(--font-family--secondary);
 }
 .modal {
   --modal-index: 30;

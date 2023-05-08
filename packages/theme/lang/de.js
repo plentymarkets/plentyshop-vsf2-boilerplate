@@ -178,6 +178,7 @@ export default {
     'or fill in the details below': 'oder füllen Sie die Details unten aus',
     'Last name': '@:App.lastName',
     'Order as guest': 'Als Gast bestellen',
+    'Forgot password': 'Passwort vergessen',
     'User data': '@:App.userData',
     'Register': '@:App.register',
     'Email': '@:App.email'
@@ -198,6 +199,7 @@ export default {
     'Remember me': 'Meine Angaben speichern',
     'Reset forgotten password': 'Wenn du dein Passwort vergessen hast, kannst du es zurücksetzen.',
     'Reset password': 'Passwort zurücksetzen',
+    'Forgot password details': `Keine Sorge. Wir senden Ihnen Anweisungen zum Zurücksetzen Ihres Passworts an Ihre E-Mail-Adresse`,
     'Sign in': 'Anmelden',
     'Thank you inbox': 'Wenn die Nachricht nicht in Ihrem Posteingang angezeigt wird, prüfen Sie eine andere E-Mail-Adresse, die Sie möglicherweise zum Registrieren verwendet haben.'
   },

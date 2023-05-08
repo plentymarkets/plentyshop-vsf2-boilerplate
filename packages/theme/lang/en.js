@@ -198,6 +198,8 @@ export default {
     'Register today': 'Register today',
     'Remember me': 'Remember me',
     'Reset forgotten password': `If you can't remember your password, you can reset it.`,
+    'Forgot password': 'Forgot password',
+    'Forgot password details': `Keine Sorge. Wir senden Ihnen Anweisungen zum Zurücksetzen Ihres Passworts an Ihre E-Mail-Adresse`,
     'Reset password': 'Reset password',
     'Sign in': 'Sign in',
     'Thank you inbox': `If the message doesn't arrive in your inbox, check another email address you might've used to register.`,
