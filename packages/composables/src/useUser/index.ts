@@ -40,20 +40,6 @@ const params: UseUserFactoryParams<User, UpdateParams, RegisterParams> = {
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  register: async (context: Context, params: UserRegisterParams): Promise<User> => {
-    if (!params.password || params.password.length === 0) {
-      await context.$plentymarkets.api.loginAsGuest(params.email);
-
-      return null;
-    } else {
-      await context.$plentymarkets.api.registerUser(params);
-      const data = await context.$plentymarkets.api.loginUser(params.email, params.password);
-
-      return data.user;
-    }
-  },
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   logIn: async (context: Context, { username, password }) => {
 
     await context.$plentymarkets.api.loginUser(username, password);
@@ -69,6 +55,30 @@ const params: UseUserFactoryParams<User, UpdateParams, RegisterParams> = {
     const data = await context.$plentymarkets.api.getSession(true);
 
     return data.user;
+  },
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  register: async (context: Context, params: UserRegisterParams): Promise<User> => {
+    if (!params.password || params.password.length === 0) {
+      await context.$plentymarkets.api.loginAsGuest(params.email);
+
+      return null;
+    } else {
+      await context.$plentymarkets.api.registerUser(params);
+
+      const data = await context.$plentymarkets.api.loginUser(params.email, params.password);
+
+      const wishlist = await context.$plentymarkets.api.getWishlist();
+
+      context.useWishlist.setWishlist(wishlist);
+
+      const cart = await context.$plentymarkets.api.getCart();
+
+      context.useCart.setCart(cart);
+
+      return data.events.AfterAccountAuthentication.accountContact || null;
+
+    }
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
