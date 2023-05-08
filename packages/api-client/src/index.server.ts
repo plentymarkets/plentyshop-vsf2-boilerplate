@@ -17,7 +17,7 @@ import {
 } from './api/getCart';
 import { getSession } from './api/getSession';
 import { getShippingProvider, selectShippingProvider } from './api/getShippingProvider';
-import { changePassword, loginAsGuest, loginUser, logoutUser, registerUser } from './api/getUser';
+import { changePassword, loginAsGuest, loginUser, logoutUser, registerUser, requestChangePasswordEmail,changePasswordBasedOnHash } from './api/getUser';
 import { getActiveShippingCountries } from './api/getActiveShippingCountries';
 import { getPaymentProviders, setPaymentProvider } from './api/getPaymentProvider';
 import { additionalInformation, executePayment, placeOrder, preparePayment } from './api/getOrder';
@@ -136,6 +136,8 @@ const { createApiClient } = apiClientFactory<Settings, Endpoints>({
     clearCart,
     deleteCart,
     getSession,
+    requestChangePasswordEmail,
+    changePasswordBasedOnHash,
     loginUser,
     registerUser,
     logoutUser,

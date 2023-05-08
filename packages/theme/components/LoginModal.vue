@@ -106,47 +106,17 @@
       <div v-else-if="currentScreen === SCREEN_FORGOTTEN">
         <p class="forgot-password">{{ $t('LoginModal.Forgot password') }} ? </p>
         <p>{{ $t('LoginModal.Forgot password details') }} ? </p>
-        <ValidationObserver
-          v-slot="{ handleSubmit }"
-          key="log-in"
-        >
-          <form
-            class="form"
-            @submit.prevent="handleSubmit(handleForgotten)"
+        <SfInput
+          v-model="form.email"
+          name="email"
+          :label="$t('LoginModal.Email')"
+          class="form__element"
+          />
+        <SfButton
+            @click="handleForgotten()"
           >
-            <ValidationProvider
-              v-slot="{ errors }"
-              :name="$t('LoginModal.Email')"
-              rules="required|email"
-            >
-              <SfInput
-                v-model="form.username"
-                v-e2e="'forgot-modal-email'"
-                :valid="!errors[0]"
-                :error-message="errors[0]"
-                name="email"
-                :label="$t('LoginModal.Email')"
-                class="form__element"
-              />
-            </ValidationProvider>
-            <div v-if="forgotPasswordError.request">
-              {{ forgotPasswordError.request.message }}
-            </div>
-            <SfButton
-              v-e2e="'forgot-modal-submit'"
-              type="submit"
-              class="sf-button--full-width form__button"
-              :disabled="forgotPasswordLoading"
-            >
-              <SfLoader
-                :class="{ loader: forgotPasswordLoading }"
-                :loading="forgotPasswordLoading"
-              >
-                <div>{{ $t('LoginModal.Reset password') }}</div>
-              </SfLoader>
-            </SfButton>
-          </form>
-        </ValidationObserver>
+            {{ $t('LoginModal.Forgot password') }}
+          </SfButton>
       </div>
       <div
         v-else-if="currentScreen === SCREEN_THANK_YOU"
@@ -379,9 +349,9 @@ export default {
       userEmail.value = form.value.username;
       await resetPassword({ email: userEmail.value });
 
-      if (!forgotPasswordError.value.request) {
-        setCurrentScreen(SCREEN_THANK_YOU);
-      }
+      // if (!forgotPasswordError.value.request) {
+      //   setCurrentScreen(SCREEN_THANK_YOU);
+      // }
     };
 
     return {

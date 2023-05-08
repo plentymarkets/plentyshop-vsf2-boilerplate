@@ -201,6 +201,9 @@ export default {
     'Reset password': 'Passwort zurücksetzen',
     'Forgot password details': `Keine Sorge. Wir senden Ihnen Anweisungen zum Zurücksetzen Ihres Passworts an Ihre E-Mail-Adresse`,
     'Sign in': 'Anmelden',
+    'Enter new password': 'Neues Passwort eingeben',
+    'Confirm new password': 'Bestätige neues Passwort',
+    'Save new password': 'Neues Passwort speichern',
     'Thank you inbox': 'Wenn die Nachricht nicht in Ihrem Posteingang angezeigt wird, prüfen Sie eine andere E-Mail-Adresse, die Sie möglicherweise zum Registrieren verwendet haben.'
   },
   // MyAccount

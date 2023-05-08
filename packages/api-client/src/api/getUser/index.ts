@@ -48,6 +48,25 @@ export async function registerUser(context: Context, params: RegisterParams): Pr
   return data;
 }
 
+export async function requestChangePasswordEmail(context: Context, email: string): Promise<void> {
+  const url: URL = new URL('/rest/storefront/customer/password_reset', context.config.api.url);
+  const { data } = await context.client.post(url.href, {
+    email: email
+  });
+  return;
+}
+
+export async function changePasswordBasedOnHash(context: Context,hash: string, password: string, password2: string, contactId: string): Promise<void> {
+  const url: URL = new URL(`/rest/storefront/customer/reset`, context.config.api.url);
+  const { data } = await context.client.post(url.href, {
+    hash,
+    password,
+    password2,
+    contactId
+  });
+  return;
+}
+
 export async function changePassword(context: Context, currentPassword: string, newPassword: string): Promise<UserChangeResponse> {
   const url: URL = new URL('/rest/io/customer/password/', context.config.api.url);
   const { data } = await context.client.post(url.href, {

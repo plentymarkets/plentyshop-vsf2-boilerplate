@@ -1,22 +1,22 @@
 import {
   Context,
-  useForgotPasswordFactory,
-  UseForgotPasswordFactoryParams
 } from '@vue-storefront/core';
 
-const factoryParams: UseForgotPasswordFactoryParams<unknown> = {
+export const useForgotPassword = () => {
+  
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  resetPassword: async (context: Context, { email, customQuery }) => {
-    const result =  await context.$plentymarkets.api.placeOrder();
+  function resetPassword(context: Context, email:string): void {
+    context.$plentymarkets.api.requestChangePasswordEmail(email);
     // should call the new route and send email.
-    return result;
-  },
+  }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  setNewPassword: async (context: Context, { tokenValue, newPassword, customQuery }) => {
-    console.log('Mocked: setNewPassword');
-    return {};
+  function setNewPassword (context: Context, { hash, newPassword,newPassword2, contactId }): void {
+    context.$plentymarkets.api.changePasswordBasedOnHash(hash, newPassword, newPassword2, contactId)
+    // should i check i have a valid response like in
+  }
+  return {
+    resetPassword,
+    setNewPassword
   }
 };
-
-export const useForgotPassword = useForgotPasswordFactory<unknown>(factoryParams);
