@@ -125,7 +125,7 @@ export interface PlentymarketsApiMethods {
 
     placeOrder(): Promise<CreateOrderResponse>
 
-    makeOrderReturn(): Promise<CreateReturnResponse>
+    makeOrderReturn(orderId: number, orderAccessKey:string, variationIds: object, returnNote: string): Promise<CreateReturnResponse>
 
     getOrders(params: UseUserOrderSearchParams): Promise<GetOrdersResponse>
 
