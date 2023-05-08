@@ -39,7 +39,7 @@ export default {
     ];
 
     const currentOrderItems = computed(() => {
-      const items = orderGetters.getItems(props.order?.order || props.order);
+      const items = orderGetters.getItems(props.order);
 
       const result = [];
 
@@ -48,8 +48,8 @@ export default {
           'OrderHistory.Product': {
             value: orderGetters.getItemName(item),
             tdClass: 'mr-sf-sm sm:flex-2',
-            e2e: 'order-item-product-name',
-            url: app.localePath(orderGetters.getOrderItemLink(props.order, item.itemVariationId))
+            e2e: 'order-item-product-name'
+            // url: app.localePath(orderGetters.getOrderItemLink(props.order, item.itemVariationId))
           },
           'OrderHistory.Quantity': orderGetters.getItemQty(item),
           'OrderHistory.Price': app.i18n.n(orderGetters.getItemPrice(item), 'currency')
