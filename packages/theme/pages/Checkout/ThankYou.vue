@@ -26,75 +26,76 @@
       @submit="loadOrder"
     />
 
-    <OrderItems
-      v-if="getOrder"
-      :order="getOrder"
-      class="mb-10"
-    />
+    <div v-else>
+      <OrderItems
+        v-if="getOrder"
+        :order="getOrder"
+        class="mb-10"
+      />
 
-    <section
-      v-else
-      class="section"
-    >
-      <div class="order">
-        <SfHeading
-          :title="$t('ThankYou.Your purchase')"
-          class="order__heading heading sf-heading--left"
-          :level="3"
-        />
-        <p class="order__paragraph paragraph">
-          {{ $t('ThankYou.Successfully placed order') }}
-        </p>
-        <div class="order__contact">
+      <section
+        class="section"
+      >
+        <div class="order">
           <SfHeading
-            :level="6"
-            class="heading sf-heading--left sf-heading--no-underline"
-            :title="$t('ThankYou.Primary contacts for any questions')"
+            :title="$t('ThankYou.Your purchase')"
+            class="order__heading heading sf-heading--left"
+            :level="3"
           />
-          <div class="contact">
-            <p class="contact__name">
-              {{ companyGetters.getName(companyDetails) }}
-            </p>
-            <p class="contact__street">
-              {{ companyGetters.getStreet(companyDetails) }}
-            </p>
-            <p class="contact__city">
-              {{ companyGetters.getCity(companyDetails) }}
-            </p>
-            <p class="contact__email">
-              {{ companyGetters.getEmail(companyDetails) }}
-            </p>
+          <p class="order__paragraph paragraph">
+            {{ $t('ThankYou.Successfully placed order') }}
+          </p>
+          <div class="order__contact">
+            <SfHeading
+              :level="6"
+              class="heading sf-heading--left sf-heading--no-underline"
+              :title="$t('ThankYou.Primary contacts for any questions')"
+            />
+            <div class="contact">
+              <p class="contact__name">
+                {{ companyGetters.getName(companyDetails) }}
+              </p>
+              <p class="contact__street">
+                {{ companyGetters.getStreet(companyDetails) }}
+              </p>
+              <p class="contact__city">
+                {{ companyGetters.getCity(companyDetails) }}
+              </p>
+              <p class="contact__email">
+                {{ companyGetters.getEmail(companyDetails) }}
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="additional-info">
-        <div>
-          <SfHeading
-            :title="$t('ThankYou.Your account')"
-            class="heading sf-heading--left"
-            :level="3"
-          />
-          <p class="paragraph">
-            {{ $t('ThankYou.Info after order') }}
-          </p>
+        <div class="additional-info">
+          <div>
+            <SfHeading
+              :title="$t('ThankYou.Your account')"
+              class="heading sf-heading--left"
+              :level="3"
+            />
+            <p class="paragraph">
+              {{ $t('ThankYou.Info after order') }}
+            </p>
+          </div>
+          <div>
+            <SfHeading
+              :title="$t('ThankYou.What can we improve')"
+              class="heading sf-heading--left"
+              :level="3"
+            />
+            <p class="paragraph">
+              {{ $t('ThankYou.Feedback') }}
+            </p>
+            <SfButton
+              class="feedback-button color-secondary sf-button--full-width button-size"
+            >
+              {{ $t('ThankYou.Send feedback') }}
+            </SfButton>
+          </div>
         </div>
-        <div>
-          <SfHeading
-            :title="$t('ThankYou.What can we improve')"
-            class="heading sf-heading--left"
-            :level="3"
-          />
-          <p class="paragraph">
-            {{ $t('ThankYou.Feedback') }}
-          </p>
-          <SfButton
-            class="feedback-button color-secondary sf-button--full-width button-size"
-          >
-            {{ $t('ThankYou.Send feedback') }}
-          </SfButton>
-        </div>
-      </div>
-    </section>
+      </section>
+    </div>
     <SfButton class="back-button color-secondary button-size">
       {{ $t('ThankYou.Go back to shop') }}
     </SfButton>
