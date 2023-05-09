@@ -51,9 +51,12 @@
             <SfTableData>{{ orderGetters.getItemQty(item) }}</SfTableData>
             <SfTableData>{{ $n(orderGetters.getItemPrice(item), 'currency') }}</SfTableData>
             <SfTableData v-if="returnOrder" class="flex">
-              <SfButton class="sf-button--text text-2xl no-underline	">-</SfButton>
-              <span class="p-8">0</span>
-              <SfButton class="sf-button--text text-2xl no-underline	">+</SfButton>
+              <SfQuantitySelector
+                      :disabled="loading"
+                      :qty="orderGetters.getItemQty(item)"
+                      class="sf-collected-product__quantity-selector"
+                      @input=""
+                    />
             </SfTableData>
           </SfTableRow>
         </SfTable>
@@ -156,7 +159,8 @@ import {
   SfButton,
   SfProperty,
   SfLink,
-  SfPagination
+  SfPagination,
+  SfQuantitySelector
 } from '@storefront-ui/vue';
 import LazyHydrate from 'vue-lazy-hydration';
 import { computed, ref } from '@nuxtjs/composition-api';
@@ -174,7 +178,8 @@ export default {
     SfProperty,
     SfLink,
     SfPagination,
-    LazyHydrate
+    LazyHydrate,
+    SfQuantitySelector
   },
   setup() {
     const ctx = getCurrentInstance().root.proxy;
