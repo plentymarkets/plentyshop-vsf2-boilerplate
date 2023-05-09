@@ -26,6 +26,12 @@
       @submit="loadOrder"
     />
 
+    <OrderItems
+      v-if="getOrder"
+      :order="getOrder"
+      class="mb-10"
+    />
+
     <section
       v-else
       class="section"
@@ -97,13 +103,15 @@
 
 <script>
 import { SfHeading, SfButton, SfCallToAction } from '@storefront-ui/vue';
-import { computed, ref, useRoute } from '@nuxtjs/composition-api';
-import { addBasePath, onSSR } from '@vue-storefront/core';
+import { computed, ref, useRoute, onMounted } from '@nuxtjs/composition-api';
+import { addBasePath } from '@vue-storefront/core';
 import { useOrder, orderGetters, companyGetters } from '@vue-storefront/plentymarkets';
 import SoftLogin from '~/components/SoftLogin.vue';
+import OrderItems from '~/components/Orders/OrderItems.vue';
 
 export default {
   components: {
+    OrderItems,
     SoftLogin,
     SfHeading,
     SfButton,
@@ -124,7 +132,7 @@ export default {
 
     const error = computed(() => orderError.value);
 
-    onSSR(async () => {
+    onMounted(async () => {
       await load({
         orderId: route.value.query.orderId,
         accessKey: route.value.query.accessKey
@@ -143,12 +151,17 @@ export default {
       return orderGetters.getId({ order: order.value });
     });
 
+    const getOrder = computed(() => {
+      return order.value;
+    });
+
     return {
       error,
       addBasePath,
       loadOrder,
       companyGetters,
       companyDetails,
+      getOrder,
       orderNumber
     };
   }
