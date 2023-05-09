@@ -41,8 +41,9 @@ type onCreateResponse = {
 let cookies: string | string[] = '';
 
 const getPlentyIdCookie = (cookies: string): string => {
-  let cookieMatch = cookies.match(/plentyID=[^;]+;/);
-  if(cookieMatch)
+  const cookieMatch = cookies.match(/plentyID=[^;]+;/);
+
+  if (cookieMatch)
     return cookieMatch[0] + 'path=/; secure; httponly;';
 
   return cookies;
