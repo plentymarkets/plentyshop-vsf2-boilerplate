@@ -142,7 +142,7 @@ import {
 import LazyHydrate from 'vue-lazy-hydration';
 import { computed, ref } from '@nuxtjs/composition-api';
 import { getCurrentInstance } from '@nuxtjs/composition-api';
-import { useUserOrder, orderGetters, paginationGetters } from '@vue-storefront/plentymarkets';
+import { useUserOrder, orderGetters, paginationGetters, useMakeReturn } from '@vue-storefront/plentymarkets';
 import { AgnosticOrderStatus } from '@vue-storefront/core';
 import { onSSR } from '@vue-storefront/core';
 
@@ -165,6 +165,11 @@ export default {
     const currentOrder = ref(null);
     const pagination = computed(() => orderGetters.getPagination(orderResult.value));
     const orders = computed(() => orderResult.value?.data?.entries);
+    // eslint-disable-next-line no-undef
+    const params = {orderId: 1, orderAccessKey: 'ASDFD', variationIds: [112, 1], returnNote: ''};
+    const makeReturn = useMakeReturn(params);
+
+    console.log(makeReturn);
 
     onSSR(async () => {
       await search(query);

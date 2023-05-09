@@ -33,7 +33,7 @@ export async function executePayment(context: Context, orderId: number, paymentI
 }
 
 export async function makeOrderReturn(context: Context, orderId: number, orderAccessKey:string, variationIds: object, returnNote: string): Promise<CreateReturnResponse> {
-  const url: URL = new URL('/rest/io/customer/order/return', context.config.api.url);
+  const url: URL = new URL('/rest/io/order/return', context.config.api.url);
   const { data } = await context.client.post(url.href,{
     orderId: orderId,
     orderAccessKey: orderAccessKey,
