@@ -129,6 +129,7 @@ export default {
 
     const isPaymentReady = ref(false);
     const terms = ref(false);
+    const shippingPrivacyHintAccepted = ref(false);
 
     onSSR(async () => {
       await load();
