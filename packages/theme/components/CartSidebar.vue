@@ -111,7 +111,7 @@
             <CartTotals />
             <nuxt-link :to="isAuthenticated ? localePath(`billing`) : localePath({ name: 'login' })">
               <SfButton
-                v-e2e="'go-to-checkout'"
+                :data-e2e="'go-to-checkout'"
                 class="sf-button--full-width color-secondary"
                 @click="toggleCartSidebar"
               >
