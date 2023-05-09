@@ -20,11 +20,15 @@
       </template>
     </SfCallToAction>
 
-    <OrderItems
-      v-if="getOrder"
-      :order="getOrder"
-      class="mb-10"
-    />
+    <div class="order-info flex">
+      <OrderItems
+        v-if="getOrder"
+        :order="getOrder"
+        class="mb-10 flex-1"
+      />
+
+      <DocumentsListing v-if="getOrder" :documents="getOrder.order.documents"/>
+    </div>
 
     <section class="section">
       <div class="order">
@@ -98,9 +102,11 @@ import { computed, ref, useRoute, onMounted } from '@nuxtjs/composition-api';
 import { addBasePath } from '@vue-storefront/core';
 import { useOrder, orderGetters, companyGetters } from '@vue-storefront/plentymarkets';
 import OrderItems from '~/components/Orders/OrderItems.vue';
+import DocumentsListing from '~/components/DocumentsListing.vue';
 
 export default {
   components: {
+    DocumentsListing,
     OrderItems,
     SfHeading,
     SfButton,
@@ -126,10 +132,11 @@ export default {
     });
 
     const orderNumber = computed(() => {
-      return orderGetters.getId({ order: order.value });
+      return orderGetters.getId({order: order.value});
     });
 
     const getOrder = computed(() => {
+      console.log('order', order.value)
       return order.value;
     });
 

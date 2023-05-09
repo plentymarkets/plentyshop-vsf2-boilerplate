@@ -279,6 +279,18 @@ export default {
     'View details': 'View details',
     'You currently have no orders': 'You currently have no orders'
   },
+  'Documents' : {
+    'Correction Documents': 'Correction Documents',
+    'Credit Note': 'Credit Note',
+    'Delivery Note': 'Delivery Note',
+    'Dunning Letter': 'Dunning Letter',
+    'Invoice External': 'Invoice External',
+    'Invoice': 'Invoice',
+    'Offer': 'Offer',
+    'Order Confirmation': 'Order Confirmation',
+    'Pickup Delivery': 'Pickup Delivery',
+
+  },
   // Payment
   'Payment': {
     'Item': 'Item',

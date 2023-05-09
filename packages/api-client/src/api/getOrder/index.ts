@@ -5,6 +5,9 @@ export async function getOrder(context: Context, orderId: string, orderAccessKey
 
   url.searchParams.set('orderId', orderId);
   url.searchParams.set('accessKey', orderAccessKey);
+  url.searchParams.set('postcode', 'Test');
+
+  console.log('url', url)
 
   const { data } = await context.client.get(url.href);
 
