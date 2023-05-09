@@ -40,31 +40,12 @@ type onCreateResponse = {
 
 let cookies: string | string[] = '';
 
-/* const cookieBlacklist = ['domain', 'secure', 'httponly'];
-
-// Filter list of cookie names that should be removed
-const filterCookies = (cookies: string): string => {
-  cookieBlacklist.forEach((blacklistedCookie) => {
-    if (cookies.includes(blacklistedCookie)) {
-      const start = cookies.indexOf(blacklistedCookie);
-      const end = cookies.indexOf(';', start) + 1;
-
-      cookies = cookies.replace(cookies.slice(start, end), '');
-    }
-  });
-  return cookies;
-}; */
-
 const getPlentyIdCookie = (cookies: string): string => {
-  const start = cookies.indexOf('plentyID');
-  const end = cookies.indexOf(';', start) + 1;
-  let cookie = cookies.slice(start, end);
+  let cookieMatch = cookies.match(/plentyID=[^;]+;/);
+  if(cookieMatch)
+    return cookieMatch[0] + 'path=/; secure; httponly;';
 
-  if (cookie) {
-    cookie += 'path=/; secure; httponly;';
-  }
-
-  return cookie || cookies;
+  return cookies;
 };
 
 function onCreate(settings: Settings): onCreateResponse {
