@@ -101,12 +101,12 @@ const config = {
       {code: 'en', label: 'English', file: 'en.js', iso: 'en'},
       {code: 'de', label: 'German', file: 'de.js', iso: 'de'}
     ],
-    defaultLocale: 'en',
+    defaultLocale: 'de',
     lazy: true,
     seo: true,
     langDir: 'lang/',
     vueI18n: {
-      fallbackLocale: 'en',
+      fallbackLocale: 'de',
       numberFormats: {
         en: {
           currency: {

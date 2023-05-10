@@ -96,6 +96,27 @@ export interface LanguageNames {
     'x-default': string
 }
 
+export interface VariationProperty {
+    id: number,
+    cast: string,
+    groupId: number,
+    names: {
+        name: string,
+        description: string
+    },
+    values: {
+        id: number,
+        value: string,
+        description: string
+    }
+}
+export interface VariationPropertyGroup {
+    id: number,
+    name: string,
+    description: string,
+    properties: VariationProperty[]
+}
+
 export type Product = {
     attributes: {
         attributeId: number,
@@ -111,6 +132,7 @@ export type Product = {
         urlPath: string,
         lang: string,
     },
+    variationProperties: VariationPropertyGroup[],
     images: {
         all: {
             position: string,

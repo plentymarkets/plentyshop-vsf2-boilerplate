@@ -6,8 +6,15 @@ import {
   ProductGetters,
   AgnosticBreadcrumb
 } from '@vue-storefront/core';
-import type { Category, Product, ProductFilter, ProductVariation } from '@vue-storefront/plentymarkets-api';
+import type {
+  Category,
+  Product,
+  ProductFilter,
+  ProductVariation, VariationProperty,
+  VariationPropertyGroup
+} from '@vue-storefront/plentymarkets-api';
 import { productImageFilter } from '../helpers/productImageFilter';
+import {propertyGetters} from './propertyGetters';
 
 const NO_SELECTION_ID = -1;
 
@@ -148,6 +155,18 @@ function getVariariationById(product: Product, variationId: number): ProductVari
   return product.variationAttributeMap.variations.find(variation => variation.variationId === variationId);
 }
 
+function getPropertyGroups(product: Product): VariationPropertyGroup[] {
+    return product?.variationProperties;
+}
+
+function getPropertyGroupById(id: number, product: Product): VariationPropertyGroup {
+    return propertyGetters.getGroup(id, getPropertyGroups(product));
+}
+
+function getPropertyById(id: number, product: Product): VariationProperty {
+    return propertyGetters.getProperty(id, getPropertyGroups(product));
+}
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getDescription(product: Product): string {
   return product?.texts?.description ?? '';
@@ -221,5 +240,8 @@ export const productGetters: ProductGetters<Product, ProductFilter> = {
   getItemId,
   getVariariationById,
   getVariationIdForAttributes,
-  getUnits
+  getUnits,
+  getPropertyGroups,
+  getPropertyGroupById,
+  getPropertyById
 };
