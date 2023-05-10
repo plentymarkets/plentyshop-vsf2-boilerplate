@@ -20,14 +20,17 @@
       </template>
     </SfCallToAction>
 
-    <div class="order-info grid gap-20 grid-cols-2/1">
+    <div class="order-info sm:grid gap-20 grid-cols-2/1">
       <OrderItems
         v-if="getOrder"
         :order="getOrder"
         class="mb-10"
       />
 
-      <DocumentsList v-if="getOrder" :documents="getOrder.order.documents"/>
+      <DocumentsList
+        v-if="getOrder"
+        :documents="getOrder.order.documents"
+      />
     </div>
 
     <section class="section">
@@ -136,7 +139,6 @@ export default {
     });
 
     const getOrder = computed(() => {
-      console.log('order', order.value)
       return order.value;
     });
 
