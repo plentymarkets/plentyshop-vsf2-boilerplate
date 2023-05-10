@@ -1,7 +1,9 @@
 import page from '../pages/factory';
 context('CookieBar functionality', () => {
   // default script for testing also defined in cookieConfig.js
-  let externalCookieScriptForTest = 'https://www.plentymarkets.com'
+  const externalCookieScriptForTest = 'https://www.plentymarkets.com';
+  const cookieName = 'consent-cookie';
+
   beforeEach(function init() {
     page.home.visit();
   });
@@ -10,9 +12,9 @@ context('CookieBar functionality', () => {
     // 1. Accept all
     cy.get('[data-e2e*="accept-all"]').click();
     // exists and all are checked
-    cy.getCookie('plenty-shop-cookie').should('exist');
+    cy.getCookie(cookieName).should('exist');
     // check that all coookies saved in memory are updated to true
-    cy.getCookie('plenty-shop-cookie').then((cookie) => {
+    cy.getCookie(cookieName).then((cookie) => {
       const decodedGroup = JSON.parse(decodeURIComponent(cookie.value));
       decodedGroup.forEach((group) => {
         const cookieList = Object.values(group)[0] as Array<any>;
@@ -31,7 +33,7 @@ context('CookieBar functionality', () => {
     cy.get('[data-e2e*="checkbox-1"]').click();
     cy.get('[data-e2e*="accept-selection"]').click();
     // check if cookies from first group are true and the rest are false
-    cy.getCookie('plenty-shop-cookie').then((cookie) => {
+    cy.getCookie(cookieName).then((cookie) => {
       const decodedGroup = JSON.parse(decodeURIComponent(cookie.value));
       decodedGroup.forEach((group, index) => {
         const cookieList = Object.values(group)[0] as Array<any>;
@@ -50,7 +52,7 @@ context('CookieBar functionality', () => {
     cy.intercept(externalCookieScriptForTest).as('testcookieload');
     cy.get('[data-e2e*="reject-all"]').click();
     // check that all coookies saved in memory except the first one are updated to false
-    cy.getCookie('plenty-shop-cookie').then((cookie) => {
+    cy.getCookie(cookieName).then((cookie) => {
       const decodedGroup = JSON.parse(decodeURIComponent(cookie.value));
       decodedGroup.forEach((group, index) => {
         const cookieList = Object.values(group)[0] as Array<any>;
