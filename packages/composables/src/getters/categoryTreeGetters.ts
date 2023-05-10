@@ -1,11 +1,13 @@
 import { CategoryGetters, AgnosticCategoryTree, AgnosticBreadcrumb } from '@vue-storefront/core';
 import type { CategoryTreeItemDetails, CategoryTreeItem } from '@vue-storefront/plentymarkets-api';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getTree(category: CategoryTreeItem): AgnosticCategoryTree {
+
+  const details = getCategoryDetails(category.details);
+
   return {
-    label: getCategoryDetails(category.details)?.name || '',
-    slug: getCategoryDetails(category.details)?.nameUrl || '',
+    label: details?.name || '',
+    slug: details?.nameUrl || '',
     items: category.children ? category.children.map(cat => getTree(cat)) : [],
     isCurrent: false,
     count: category?.itemCount[0]?.count || 0

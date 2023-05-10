@@ -1,8 +1,8 @@
 import type { Category, CategoryDetails } from '@vue-storefront/plentymarkets-api';
 
 interface categoryGetters {
-  getCategoryName(category: Category),
-  getCategoryDetails(category: Category)
+  getCategoryName(category: Category): string,
+  getCategoryDetails(category: Category): CategoryDetails | null
 }
 
 function getCategoryDetails(category: Category): CategoryDetails | null {
