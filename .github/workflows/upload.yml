@@ -1,6 +1,8 @@
 name: Add zip file to S3 bucket
 
-on: [release]
+on:
+  release:
+    types: [published]
 
 jobs:
   create-zip:
