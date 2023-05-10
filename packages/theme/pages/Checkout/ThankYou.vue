@@ -149,7 +149,7 @@ export default {
     };
 
     const orderNumber = computed(() => {
-      return orderGetters.getId({ order: order.value });
+      return orderGetters.getId(order.value);
     });
 
     const getOrder = computed(() => {
