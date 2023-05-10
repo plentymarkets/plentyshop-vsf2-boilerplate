@@ -30,20 +30,20 @@ export default {
     const { app } = useContext();
 
     const translations = {
-      correction_document: app.i18n.t('Correction Documents'),
-      credit_note: app.i18n.t('Credit Note'),
-      delivery_note: app.i18n.t('Delivery Note'),
-      dunning_letter: app.i18n.t('Dunning Letter'),
-      invoice_external: app.i18n.t('Invoice External'),
-      invoice: app.i18n.t('Invoice'),
-      offer: app.i18n.t('Offer'),
-      order_confirmation: app.i18n.t('Order Confirmation'),
-      pickup_delivery: app.i18n.t('Pickup Delivery'),
-      // pro_forma_invoice: TranslationService.translate('Ceres::Template.myAccountOrderDocumentsProFormaInvoice'),
-      // receipt: TranslationService.translate('Ceres::Template.myAccountOrderDocumentsReceipt'),
-      // return_note: TranslationService.translate('Ceres::Template.myAccountOrderDocumentsReturnNote'),
-      // success_confirmation: TranslationService.translate('Ceres::Template.myAccountOrderDocumentsSuccessConfirmation'),
-      // reversal_document: TranslationService.translate('Ceres::Template.myAccountOrderDocumentsReversalDocument')
+      correction_document: app.i18n.t('Documents.Correction Documents'),
+      credit_note: app.i18n.t('Documents.Credit Note'),
+      delivery_note: app.i18n.t('Documents.Delivery Note'),
+      dunning_letter: app.i18n.t('Documents.Dunning Letter'),
+      invoice_external: app.i18n.t('Documents.Invoice External'),
+      invoice: app.i18n.t('Documents.Invoice'),
+      offer: app.i18n.t('Documents.Offer'),
+      order_confirmation: app.i18n.t('Documents.Order Confirmation'),
+      pickup_delivery: app.i18n.t('Documents.Pickup Delivery'),
+      pro_forma_invoice: app.i18n.t('Documents.Pro Forma Invoice'),
+      receipt: app.i18n.t('Documents.Receipt'),
+      return_note: app.i18n.t('Documents.Return Note'),
+      success_confirmation: app.i18n.t('Documents.Success Confirmation'),
+      reversal_document: app.i18n.t('Documents.Reversal Document')
     };
 
     const getTypeName = (type) => {

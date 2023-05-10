@@ -20,11 +20,11 @@
       </template>
     </SfCallToAction>
 
-    <div class="order-info flex">
+    <div class="order-info grid gap-20 grid-cols-2/1">
       <OrderItems
         v-if="getOrder"
         :order="getOrder"
-        class="mb-10 flex-1"
+        class="mb-10"
       />
 
       <DocumentsListing v-if="getOrder" :documents="getOrder.order.documents"/>

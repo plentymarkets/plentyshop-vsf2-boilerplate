@@ -203,7 +203,11 @@ module.exports = {
         'sf-secondary': 'var(--font-family--secondary)'
       },
       flex: {
-        2: '2 2 0%'
+        2: '2 2 0%',
+        3: '3 3 0%'
+      },
+      gridTemplateColumns: {
+        '2/1': '2fr 1fr'
       }
     }
   },
