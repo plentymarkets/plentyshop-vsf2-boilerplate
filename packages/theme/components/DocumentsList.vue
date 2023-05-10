@@ -1,5 +1,9 @@
 <template>
-  <div class="documents-listing">
+  <div
+    v-if="documents && documents.length"
+    v-e2e="'documents-list'"
+    class="documents-list"
+  >
     <SfButton
       v-for="(document, key) in documents"
       :key="key"
@@ -15,18 +19,16 @@ import { SfButton } from '@storefront-ui/vue';
 import { useContext } from '@nuxtjs/composition-api';
 
 export default {
-  name: 'DocumentsListing',
+  name: 'DocumentsList',
   components: { SfButton },
   props: {
     documents: {
-      // eslint-disable-next-line vue/require-prop-type-constructor
-      type: Array | Object,
+      type: Array,
       default: () => []
     }
   },
 
-  setup () {
-
+  setup() {
     const { app } = useContext();
 
     const translations = {

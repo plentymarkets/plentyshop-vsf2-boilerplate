@@ -27,7 +27,7 @@
         class="mb-10"
       />
 
-      <DocumentsListing v-if="getOrder" :documents="getOrder.order.documents"/>
+      <DocumentsList v-if="getOrder" :documents="getOrder.order.documents"/>
     </div>
 
     <section class="section">
@@ -102,11 +102,11 @@ import { computed, ref, useRoute, onMounted } from '@nuxtjs/composition-api';
 import { addBasePath } from '@vue-storefront/core';
 import { useOrder, orderGetters, companyGetters } from '@vue-storefront/plentymarkets';
 import OrderItems from '~/components/Orders/OrderItems.vue';
-import DocumentsListing from '~/components/DocumentsListing.vue';
+import DocumentsList from '~/components/DocumentsList.vue';
 
 export default {
   components: {
-    DocumentsListing,
+    DocumentsList,
     OrderItems,
     SfHeading,
     SfButton,
