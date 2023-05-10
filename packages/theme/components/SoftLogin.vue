@@ -6,7 +6,7 @@
       <LoginForm @submit="$emit('submit')" />
     </template>
 
-    <template v-else>
+    <template v-else-if="errorType === 'fullName' || errorType === 'postcode'">
       <form>
         <div
           v-if="errorType === 'postcode'"
