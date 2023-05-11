@@ -164,5 +164,5 @@ export const orderGetters: UserOrderGetters<Order, OrderItem> = {
   getShippingAddress,
   getPaymentMethodName,
   getPaymentStatus,
-  getShippingProvider,
+  getShippingProvider
 };
