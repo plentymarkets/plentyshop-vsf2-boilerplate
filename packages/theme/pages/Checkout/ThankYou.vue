@@ -65,6 +65,10 @@
           v-if="getOrder"
           :documents="getOrder.order.documents"
         />
+        <OrderTotals
+          v-if="getOrder"
+          :order="getOrder"
+        />
       </div>
 
       <section
@@ -144,12 +148,14 @@ import { useOrder, orderGetters, companyGetters } from '@vue-storefront/plentyma
 import SoftLogin from '~/components/SoftLogin.vue';
 import OrderItems from '~/components/Orders/OrderItems.vue';
 import DocumentsList from '~/components/DocumentsList.vue';
+import OrderTotals from '~/components/OrderTotals.vue';
 
 export default {
   components: {
     DocumentsList,
     OrderItems,
     SoftLogin,
+    OrderTotals,
     SfHeading,
     SfButton,
     SfCallToAction

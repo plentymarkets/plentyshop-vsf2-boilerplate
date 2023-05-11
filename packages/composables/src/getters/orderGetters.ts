@@ -1,5 +1,5 @@
 import { AgnosticPagination, UserOrderGetters } from '@vue-storefront/core';
-import type { GetOrdersResponse, Order, OrderItem } from '@vue-storefront/plentymarkets-api';
+import type { GetOrdersResponse, Order, OrderItem, OrderTotals } from '@vue-storefront/plentymarkets-api';
 import { productGetters } from './productGetters';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -71,6 +71,30 @@ function getAccessKey(order: Order): string {
   return order?.order?.accessKey || '';
 }
 
+function getTotals(order: Order): OrderTotals {
+  return order?.totals;
+}
+
+function getSubTotal(totals: OrderTotals): number {
+  return totals?.itemSumGross;
+}
+
+function getShippingAmount(totals: OrderTotals): number {
+  return totals?.shippingGross;
+}
+
+function getVatRate(totals: OrderTotals): number {
+  return totals?.vats[0].rate;
+}
+
+function getVatAmount(totals: OrderTotals): number {
+  return totals?.vats[0].value;
+}
+
+function getTotal(totals: OrderTotals): number {
+  return totals?.totalGross;
+}
+
 function getPagination(orders: GetOrdersResponse): AgnosticPagination {
   const totalPages = orders?.data?.lastPageNumber || 1;
   const pageOptions = [orders?.data?.itemsPerPage] || [5];
@@ -95,18 +119,24 @@ function getOrderItemLink(order: Order, productId: number): string {
 
 export const orderGetters: UserOrderGetters<Order, OrderItem> = {
   getAccessKey,
-  getDate,
-  getId,
   getById,
-  getStatus,
-  getPrice,
+  getDate,
+  getFormattedPrice,
+  getId,
+  getItemName,
+  getItemPrice,
+  getItemQty,
   getItems,
   getItemSku,
-  getItemName,
-  getItemQty,
-  getItemPrice,
-  getFormattedPrice,
+  getOrderItemLink,
   getOrdersTotal,
   getPagination,
-  getOrderItemLink
+  getPrice,
+  getShippingAmount,
+  getStatus,
+  getSubTotal,
+  getTotal,
+  getTotals,
+  getVatAmount,
+  getVatRate
 };
