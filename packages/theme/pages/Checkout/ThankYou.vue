@@ -47,6 +47,11 @@
             v-if="getOrder"
             :documents="getOrder.order.documents"
           />
+
+          <OrderTotals
+            v-if="getOrder"
+            :order="getOrder"
+          />
         </div>
       </div>
 
@@ -130,6 +135,7 @@ import DocumentsList from '~/components/DocumentsList.vue';
 import OrderShippingSummary from '~/components/OrderShippingSummary.vue';
 import OrderPaymentSummary from '~/components/OrderPaymentSummary.vue';
 import OrderSummary from '~/components/OrderSummary.vue';
+import OrderTotals from '~/components/OrderTotals.vue';
 
 export default {
   components: {
@@ -139,6 +145,7 @@ export default {
     DocumentsList,
     OrderItems,
     SoftLogin,
+    OrderTotals,
     SfHeading,
     SfButton,
     SfCallToAction

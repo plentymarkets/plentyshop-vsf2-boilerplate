@@ -112,6 +112,13 @@ export default {
     'Subtotal': 'Zwischensumme',
     'Total': 'Summe'
   },
+  // OrderTotals
+  'OrderTotals': {
+    'Vat total': 'MwSt.',
+    'Shipping': 'Versand',
+    'Subtotal': 'Zwischensumme',
+    'Total': 'Summe'
+  },
   // Category
   'Category': {
     'Categories': 'Kategorien',

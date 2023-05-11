@@ -31,6 +31,8 @@ export default {
   setup() {
     const { app } = useContext();
 
+    // disable eslint this mapping cant use camelcase
+    /* eslint-disable */
     const translations = {
       correction_document: app.i18n.t('Documents.Correction Documents'),
       credit_note: app.i18n.t('Documents.Credit Note'),
@@ -47,6 +49,7 @@ export default {
       success_confirmation: app.i18n.t('Documents.Success Confirmation'),
       reversal_document: app.i18n.t('Documents.Reversal Document')
     };
+    /* eslint-enable */
 
     const getTypeName = (type) => {
       return translations[type];

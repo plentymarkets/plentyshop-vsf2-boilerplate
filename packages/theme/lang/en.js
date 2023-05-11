@@ -113,6 +113,14 @@ export default {
     'Subtotal': 'Subtotal',
     'Total': 'Total',
   },
+
+   // OrderTotals
+   'OrderTotals': {
+    'Shipping': 'Shipping',
+    'Vat total': 'VAT',
+    'Subtotal': 'Subtotal',
+    'Total': 'Total',
+  },
   // Category
   'Category': {
     'Categories': 'Categories',
