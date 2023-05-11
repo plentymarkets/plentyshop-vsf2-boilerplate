@@ -362,10 +362,10 @@ export default {
     'What can we improve': 'Was können wir verbessern',
     'Your account': 'Ihr Konto',
     'Your purchase': 'Ihr Kauf',
-    'Order Number': 'Order Number',
-    'Order Date': 'Order Date',
-    'Order Summary': 'Order Summary',
-    'Order Status': 'Order Status'
+    'Order Number': 'Auftrags-ID',
+    'Order Date': 'Auftragsdatum',
+    'Order Summary': 'Auftragsübersicht',
+    'Order Status': 'Status'
   },
   // TopBar
   'TopBar': {
