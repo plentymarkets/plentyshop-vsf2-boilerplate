@@ -10,9 +10,6 @@
       }"
     >
       <template #description>
-        <pre>
-          {{ error }}
-        </pre>
         <div class="banner__order-number">
           <span>{{ $t('ThankYou.Order no') }}</span>
           <strong>{{ orderNumber }}</strong>
@@ -149,7 +146,7 @@ export default {
     };
 
     const orderNumber = computed(() => {
-      return orderGetters.getId({ order: order.value });
+      return orderGetters.getId(order.value);
     });
 
     const getOrder = computed(() => {

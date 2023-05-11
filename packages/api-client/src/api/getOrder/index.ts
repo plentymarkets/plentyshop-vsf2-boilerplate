@@ -9,7 +9,7 @@ import {
 } from 'src/types';
 
 export async function getOrder(context: Context, params: OrderSearchParams): Promise<OrderDetails> {
-  const url: URL = new URL('/rest/storefront/order/secure', context.config.api.url);
+  const url: URL = new URL('/rest/storefront/order', context.config.api.url);
 
   if (params.orderId) {
     url.searchParams.set('orderId', params.orderId);
