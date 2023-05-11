@@ -26,6 +26,22 @@ function getId(order: Order): string {
 function getBillingAddress(order: Order): AddressData | {} {
   return order?.order?.billingAddress || {};
 }
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getShippingAddress(order: Order): AddressData | {} {
+  return order?.order?.deliveryAddress || {};
+}
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getPaymentMethodName(order: Order): AddressData | {} {
+  return order?.paymentMethodName || {};
+}
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getPaymentStatus(order: Order): AddressData | {} {
+  return order?.paymentStatus || {};
+}
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getShippingProvider(order: Order): AddressData | {} {
+  return order?.shippingProvider || '';
+}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getStatus(order: Order): string {
@@ -104,6 +120,10 @@ export const orderGetters: UserOrderGetters<Order, OrderItem> = {
   getId,
   getById,
   getBillingAddress,
+  getShippingAddress,
+  getPaymentMethodName,
+  getPaymentStatus,
+  getShippingProvider,
   getStatus,
   getPrice,
   getItems,

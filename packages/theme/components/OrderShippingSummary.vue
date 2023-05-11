@@ -1,49 +1,54 @@
 <template>
   <div class="shipping-summary">
-    <SfHeading
-      :title="$t('ThankYou.Shipping Summary')"
-      class="mb-10 order__heading heading sf-heading--left order-summary-title"
-      :level="3"
-    />
+    <h3
+      class="mb-5 sf-c-primary font-semibold"
+    >
+      {{ $t('ThankYou.Shipping Summary') }}
+    </h3>
 
-    <p class="font-bold">
-      {{ $t('ThankYou.Ship To') }}
-    </p>
+    <div class="shipping-address mb-5">
+      <p class="font-bold">
+        {{ $t('ThankYou.Ship To') }}
+      </p>
 
-    <div class="font-light">
-      {{ address.name1 }}
-      {{ address.name2 }}
-      {{ address.name3 }}
-      {{ address.name4 }}
+      <OrderAddress />
     </div>
-    <div class="font-light">
-      {{ address.address1 }}
-      {{ address.address2 }}
-      {{ address.address3 }}
-      {{ address.address4 }},
-      {{ address.postalCode }}
-    </div>
-    <div class="font-light">
-      {{ address.town }} {{ address.countryId }}
+
+    <div
+      v-if="shippingProvider"
+      class="shipping-method"
+    >
+      <p class="font-bold">
+        {{ $t('ThankYou.Shipping Method') }}
+      </p>
+
+      <div class="font-light">
+        {{ shippingProvider }}
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { SfButton } from '@storefront-ui/vue';
+import { computed } from '@nuxtjs/composition-api';
+import { orderGetters, useOrder } from '@vue-storefront/plentymarkets';
+import OrderAddress from '~/components/OrderAddress.vue';
 
 export default {
   name: 'OrderShippingSummary',
-  components: { SfButton },
-  props: {
-    address: {
-      type: Array,
-      default: () => []
-    }
-  },
+
+  components: { OrderAddress },
 
   setup() {
+    const { order } = useOrder();
 
+    const shippingProvider = computed(() => {
+      return orderGetters.getShippingProvider(order.value);
+    });
+
+    return {
+      shippingProvider
+    };
 
   }
 };

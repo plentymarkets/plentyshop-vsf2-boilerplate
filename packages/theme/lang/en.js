@@ -387,6 +387,11 @@ export default {
     'Payment Summary': 'Payment Summary',
     'Shipping Summary': 'Shipping Summary',
     'Ship To': 'Ship To',
+    'Billing address': 'Billing address',
+    'Status': 'Status',
+    'Payment method': 'Payment method',
+    'Same As Shipping Address': 'Same As Shipping Address',
+    'Shipping Method': 'Shipping Method',
   },
   // TopBar
   'TopBar': {

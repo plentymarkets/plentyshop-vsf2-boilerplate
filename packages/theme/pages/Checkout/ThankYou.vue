@@ -67,14 +67,10 @@
         </div>
 
         <div class="right">
-          <OrderShippingSummary />
-          <div class="payment-summary">
-            <SfHeading
-              :title="$t('ThankYou.Payment Summary')"
-              class="mb-10 order__heading heading sf-heading--left order-summary-title"
-              :level="3"
-            />
-          </div>
+          <OrderShippingSummary class="mb-10" />
+
+          <OrderPaymentSummary class="mb-10" />
+
           <DocumentsList
             v-if="getOrder"
             :documents="getOrder.order.documents"
@@ -160,9 +156,11 @@ import SoftLogin from '~/components/SoftLogin.vue';
 import OrderItems from '~/components/Orders/OrderItems.vue';
 import DocumentsList from '~/components/DocumentsList.vue';
 import OrderShippingSummary from '~/components/OrderShippingSummary.vue';
+import OrderPaymentSummary from '~/components/OrderPaymentSummary.vue';
 
 export default {
   components: {
+    OrderPaymentSummary,
     OrderShippingSummary,
     DocumentsList,
     OrderItems,
@@ -205,10 +203,6 @@ export default {
       return orderGetters.getId(order.value);
     });
 
-    const orderBillingAddress = computed(() => {
-      return orderGetters.getBillingAddress(order.value);
-    });
-
     const getOrder = computed(() => {
       return order.value;
     });
@@ -224,7 +218,6 @@ export default {
     return {
       error,
       addBasePath,
-      orderBillingAddress,
       loadOrder,
       companyGetters,
       companyDetails,
