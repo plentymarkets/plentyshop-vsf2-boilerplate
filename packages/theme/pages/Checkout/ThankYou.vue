@@ -27,37 +27,9 @@
     />
 
     <div v-else>
-      <div class="order-info sm:grid gap-20 grid-cols-2/1">
+      <div class="order-info sm:grid gap-20 grid-cols-2/1 mb-10 sm:pl-20 sm:pr-20">
         <div class="left">
-          <section>
-            <div class="order">
-              <SfHeading
-                :title="$t('ThankYou.Order Summary')"
-                class="order__heading heading sf-heading--left order-summary-title"
-                :level="3"
-              />
-              <table class="order-summary-table">
-                <tr>
-                  <td class="title">
-                    {{ $t('ThankYou.Order Number') }}
-                  </td>
-                  <td>{{ orderNumber }}</td>
-                </tr>
-                <tr>
-                  <td class="title">
-                    {{ $t('ThankYou.Order Date') }}
-                  </td>
-                  <td>{{ orderDate }}</td>
-                </tr>
-                <tr>
-                  <td class="title">
-                    {{ $t('ThankYou.Order Status') }}
-                  </td>
-                  <td>{{ orderStatus }}</td>
-                </tr>
-              </table>
-            </div>
-          </section>
+          <OrderSummary class="mb-20" />
 
           <OrderItems
             v-if="getOrder"
@@ -81,7 +53,7 @@
       <section
         class="section"
       >
-        <div class="order">
+        <div class="order mb-10">
           <SfHeading
             :title="$t('ThankYou.Your purchase')"
             class="order__heading heading sf-heading--left"
@@ -157,9 +129,11 @@ import OrderItems from '~/components/Orders/OrderItems.vue';
 import DocumentsList from '~/components/DocumentsList.vue';
 import OrderShippingSummary from '~/components/OrderShippingSummary.vue';
 import OrderPaymentSummary from '~/components/OrderPaymentSummary.vue';
+import OrderSummary from '~/components/OrderSummary.vue';
 
 export default {
   components: {
+    OrderSummary,
     OrderPaymentSummary,
     OrderShippingSummary,
     DocumentsList,
@@ -207,14 +181,6 @@ export default {
       return order.value;
     });
 
-    const orderDate = computed(() => {
-      return orderGetters.getDate(order.value);
-    });
-
-    const orderStatus = computed(() => {
-      return orderGetters.getStatus(order.value);
-    });
-
     return {
       error,
       addBasePath,
@@ -222,9 +188,7 @@ export default {
       companyGetters,
       companyDetails,
       getOrder,
-      orderNumber,
-      orderDate,
-      orderStatus
+      orderNumber
     };
   }
 };
