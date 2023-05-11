@@ -1,7 +1,7 @@
 <template>
   <div>
     <SfProperty
-      :name="$t('CartPreview.Subtotal')"
+      :name="$t('OrderTotals.Subtotal')"
       class="sf-property--full-width spacer"
     >
       <template #value>
@@ -10,7 +10,7 @@
     </SfProperty>
 
     <SfProperty
-      :name="$t('CartPreview.Shipping')"
+      :name="$t('OrderTotals.Shipping')"
       class="sf-property--full-width"
     >
       <template #value>
@@ -19,7 +19,7 @@
     </SfProperty>
 
     <SfProperty
-      :name="$t('CartPreview.Vat total') + ' (' + orderGetters.getVatRate(totals) + '%)'"
+      :name="$t('OrderTotals.Vat total') + ' (' + orderGetters.getVatRate(totals) + '%)'"
       class="sf-property--full-width"
     >
       <template #value>
@@ -28,7 +28,7 @@
     </SfProperty>
     <SfDivider />
     <SfProperty
-      :name="$t('CartPreview.Total')"
+      :name="$t('OrderTotals.Total')"
       class="sf-property--full-width sf-property--large my-cart__total-price spacer"
     >
       <template #value>
