@@ -178,11 +178,11 @@ export default {
     });
 
     const orderDate = computed(() => {
-      return orderGetters.getDate({ order: order.value });
+      return orderGetters.getDate(order.value);
     });
 
     const orderStatus = computed(() => {
-      return orderGetters.getStatus({ order: order.value });
+      return orderGetters.getStatus(order.value);
     });
 
     return {
