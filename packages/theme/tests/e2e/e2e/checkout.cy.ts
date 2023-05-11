@@ -21,7 +21,6 @@ context('Order placement', () => {
     cy.intercept('/api/plentymarkets/getProduct').as('getProduct');
     cy.intercept('/api/plentymarkets/getShippingProvider').as('getShippingProvider');
     cy.intercept('/api/plentymarkets/loadAddresses').as('loadAddresses');
-    cy.intercept('/api/plentymarkets/loginUser').as('loginUser');
     cy.intercept('/api/plentymarkets/placeOrder').as('placeOrder');
     cy.intercept('/api/plentymarkets/preparePayment').as('preparePayment');
     cy.intercept('/api/plentymarkets/saveAddress').as('saveAddress');
@@ -43,7 +42,7 @@ context('Order placement', () => {
     page.cart.goToCheckoutButton.click();
 
     page.checkout.checkoutlogin.continueAsUser(data.customer);
-    cy.wait(['@registerUser', '@loginUser', '@getActiveShippingCountries']);
+    cy.wait(['@registerUser', '@getActiveShippingCountries']);
 
     page.checkout.billing.fillForm(data.customer);
     page.checkout.billing.continueToShipping.click();

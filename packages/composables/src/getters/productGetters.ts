@@ -1,4 +1,3 @@
-import { categoryGetters } from './categoryGetters';
 import {
   AgnosticMediaGalleryItem,
   AgnosticAttribute,
@@ -6,8 +5,9 @@ import {
   ProductGetters,
   AgnosticBreadcrumb
 } from '@vue-storefront/core';
-import type { Category, Product, ProductFilter, ProductVariation } from '@vue-storefront/plentymarkets-api';
+import type { CategoryTreeItem, Product, ProductFilter, ProductVariation } from '@vue-storefront/plentymarkets-api';
 import { productImageFilter } from '../helpers/productImageFilter';
+import { categoryTreeGetters } from './categoryTreeGetters';
 
 const NO_SELECTION_ID = -1;
 
@@ -43,12 +43,12 @@ function getGallery(product: Product): AgnosticMediaGalleryItem[] {
   return productImageFilter(product);
 }
 
-function getBreadcrumbs(product: Product, categories?: Category[]): AgnosticBreadcrumb [] {
+function getBreadcrumbs(product: Product, categories?: CategoryTreeItem[]): AgnosticBreadcrumb [] {
   if (categories.length <= 0 || !product) {
     return [];
   }
 
-  const breadcrumbs = categoryGetters.getMappedBreadcrumbs(categories, product.defaultCategories[0].id);
+  const breadcrumbs = categoryTreeGetters.getMappedBreadcrumbs(categories, product.defaultCategories[0].id);
 
   return [
     {
