@@ -190,6 +190,7 @@ export default {
     const pagination = computed(() => orderGetters.getPagination(orderResult.value));
     const orders = computed(() => orderResult.value?.data?.entries);
     const returnOrder = false;
+    const allItems = computed(() => orderGetters.getItems(currentOrder));
 
     onSSR(async () => {
       await search(query);
@@ -201,6 +202,13 @@ export default {
       'OrderHistory.Amount',
       'OrderHistory.Status'
     ];
+
+    const setSelectorQuantity = () => {
+      allItems.value.forEach(item => {
+        item.set("slectorQuantity", orderGetters.getItemQty(item));
+        console.log(item)
+      });
+    }
 
     const getStatusTextClass = (order) => {
       const status = orderGetters.getStatus(order);
@@ -225,7 +233,8 @@ export default {
       getStatusTextClass,
       orderGetters,
       currentOrder,
-      returnOrder
+      returnOrder,
+      setSelectorQuantity
     };
   }
 };
