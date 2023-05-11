@@ -144,7 +144,7 @@ export default {
       const thankYouPath = { name: 'thank-you',
         query: {
           orderId: orderGetters.getId(order.value),
-          orderAccessKey: orderGetters.getAccessKey(order.value)
+          accessKey: orderGetters.getAccessKey(order.value)
         }};
 
       router.push(context.root.localePath(thankYouPath));
