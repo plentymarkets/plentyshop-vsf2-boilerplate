@@ -41,7 +41,7 @@
 </template>
 <script>
 import { SfBreadcrumbs, SfContentPages } from '@storefront-ui/vue';
-import { computed, useRoute, useRouter } from '@nuxtjs/composition-api';
+import { computed, useRoute, useRouter, useContext } from '@nuxtjs/composition-api';
 import { useUser } from '@vue-storefront/plentymarkets';
 import MyNewsletter from './MyAccount/MyNewsletter';
 import OrderHistory from './MyAccount/OrderHistory';
@@ -66,6 +66,7 @@ export default {
   setup(props, {root}) {
     const route = useRoute();
     const router = useRouter();
+    const { app } = useContext();
 
     const { logout } = useUser();
 
@@ -82,7 +83,7 @@ export default {
     });
 
     const changeActivePage = async (title) => {
-      if (title === 'Log out') {
+      if (title === app.i18n.t('MyAccount.Log out')) {
         await logout();
         window.location.reload();
       }

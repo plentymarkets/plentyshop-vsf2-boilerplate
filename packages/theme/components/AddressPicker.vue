@@ -8,6 +8,7 @@
     <SfAddress
       v-for="(address, key) in addresses"
       :key="userAddressGetters.getId(address)"
+      class="w-80"
       :name="userAddressGetters.getId(address)"
     >
       <span>{{ userAddressGetters.getFirstName(address) }} {{ userAddressGetters.getLastName(address) }}</span>

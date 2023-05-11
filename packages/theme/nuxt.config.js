@@ -3,7 +3,7 @@ import theme from './themeConfig';
 import cookieGroups from './cookieConfig';
 
 const appPort = process.env.PORT || 80;
-const appIP = process.env.IP || 'localhost';
+const appIP = 'localhost';
 const config = {
   server: {
     port: appPort,

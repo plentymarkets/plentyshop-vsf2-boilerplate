@@ -10,6 +10,9 @@ const hasCartProducts = (): void => {
 
 context('Cart', () => {
   beforeEach(function init () {
+    Cypress.Cookies.debug(true);
+    cy.setCookie("vsf-locale", "en");
+
     page.home.visit();
     page.home.addCartItem(1100, 1);
   });
@@ -18,7 +21,7 @@ context('Cart', () => {
     cy.intercept('/api/plentymarkets/clearCart').as('clearCart');
 
     hasCartProducts();
-    
+
     cy.get('[data-e2e="clear-cart"]').click();
     cy.wait('@clearCart');
     cy.get('[data-e2e="collected-product"]').should('not.exist');
@@ -26,7 +29,7 @@ context('Cart', () => {
 
   it(['happyPath', 'regression'], 'Should navigate to login if not authenticated', function test() {
     hasCartProducts();
-    
+
     page.cart.goToCheckoutButton.click();
     cy.url().should('include', '/Checkout/login')
   });
@@ -39,7 +42,7 @@ context('Cart', () => {
     cy.reload();
 
     hasCartProducts();
-    
+
     page.cart.goToCheckoutButton.click();
     cy.wait(['@loadAddresses', '@getActiveShippingCountries']);
     cy.url().should('include', '/checkout/billing');

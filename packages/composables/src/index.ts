@@ -25,6 +25,7 @@ export { useLocaleSwitchHelper } from './useLocaleSwitchHelper';
 // Getters
 export { cartGetters } from './getters/cartGetters';
 export { categoryGetters } from './getters/categoryGetters';
+export { categoryTreeGetters } from './getters/categoryTreeGetters';
 export { facetGetters } from './getters/facetGetters';
 export { forgotPasswordGetters } from './getters/forgotPasswordGetters';
 export { orderGetters } from './getters/orderGetters';
