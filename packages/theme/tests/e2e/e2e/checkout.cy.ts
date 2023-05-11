@@ -90,6 +90,8 @@ context('Check Thank You Page', () => {
 
     page.checkout.thankyou.itemsTable.should('be.visible');
     cy.get('[data-e2e*="order-item-product-name"]').should('be.visible');
+
+    page.checkout.thankyou.documentsList.should('be.visible');
   });
 });
 

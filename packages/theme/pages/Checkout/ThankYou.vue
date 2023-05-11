@@ -48,11 +48,18 @@
         </div>
       </section>
 
-      <OrderItems
-        v-if="getOrder"
-        :order="getOrder"
-        class="mb-10"
-      />
+      <div class="order-info sm:grid gap-20 grid-cols-2/1">
+        <OrderItems
+          v-if="getOrder"
+          :order="getOrder"
+          class="mb-10"
+        />
+
+        <DocumentsList
+          v-if="getOrder"
+          :documents="getOrder.order.documents"
+        />
+      </div>
 
       <section
         class="section"
@@ -130,9 +137,11 @@ import { addBasePath } from '@vue-storefront/core';
 import { useOrder, orderGetters, companyGetters } from '@vue-storefront/plentymarkets';
 import SoftLogin from '~/components/SoftLogin.vue';
 import OrderItems from '~/components/Orders/OrderItems.vue';
+import DocumentsList from '~/components/DocumentsList.vue';
 
 export default {
   components: {
+    DocumentsList,
     OrderItems,
     SoftLogin,
     SfHeading,

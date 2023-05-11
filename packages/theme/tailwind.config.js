@@ -204,6 +204,9 @@ module.exports = {
       },
       flex: {
         2: '2 2 0%'
+      },
+      gridTemplateColumns: {
+        '2/1': '2fr 1fr'
       }
     }
   },

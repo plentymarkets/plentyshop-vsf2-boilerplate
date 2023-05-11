@@ -278,6 +278,23 @@ export default {
     'View details': 'Details ansehen',
     'You currently have no orders': 'Sie haben derzeit keine Bestellungen'
   },
+  // Documents
+  'Documents' : {
+    'Correction Documents': 'Korrekturbeleg',
+    'Credit Note': 'Gutschrift',
+    'Delivery Note': 'Lieferschein',
+    'Dunning Letter': 'Mahnung',
+    'Invoice External': 'Externe Rechnung',
+    'Invoice': 'Rechnung',
+    'Offer': 'Angebot',
+    'Order Confirmation': 'AuftragsbestÃ¤tigung',
+    'Pickup Delivery': 'Abhollieferung',
+    'Pro Forma Invoice': 'Proformarechnung',
+    'Receipt': 'Kassenbeleg',
+    'Return Note': 'RÃ¼cksendeschein',
+    'Success Confirmation': 'Stornobeleg',
+    'Reversal Document': 'GelangensbestÃ¤tigung',
+  },
   // Payment
   'Payment': {
     'Item': 'Artikel',

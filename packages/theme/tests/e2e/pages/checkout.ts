@@ -168,6 +168,10 @@ class ThankYou {
     return el('thank-you-items');
   }
 
+  get documentsList(): Cypress.Chainable {
+    return el('documents-list');
+  }
+
   visit(orderId, accesskey, postcode): Cypress.Chainable {
   return cy.visit('/checkout/thank-you?orderId=' + orderId + '&orderAccessKey=' + accesskey + '&postcode=' + postcode);
   }

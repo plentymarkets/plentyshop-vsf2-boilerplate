@@ -279,6 +279,23 @@ export default {
     'View details': 'View details',
     'You currently have no orders': 'You currently have no orders'
   },
+  // Documents
+  'Documents' : {
+    'Correction Documents': 'Correction Documents',
+    'Credit Note': 'Credit Note',
+    'Delivery Note': 'Delivery Note',
+    'Dunning Letter': 'Dunning Letter',
+    'Invoice External': 'Invoice External',
+    'Invoice': 'Invoice',
+    'Offer': 'Offer',
+    'Order Confirmation': 'Order Confirmation',
+    'Pickup Delivery': 'Pickup Delivery',
+    'Pro Forma Invoice': 'Pro Forma Invoice',
+    'Receipt': 'Receipt',
+    'Return Note': 'Return Note',
+    'Success Confirmation': 'Success Confirmation',
+    'Reversal Document': 'Reversal Document',
+  },
   // Payment
   'Payment': {
     'Item': 'Item',
