@@ -23,6 +23,10 @@ import {
     SfLoader,
     SfBar
 } from '@storefront-ui/vue';
+import {
+  useRouter,
+  useRoute,
+} from '@nuxtjs/composition-api';
 import { useForgotPassword } from '@vue-storefront/plentymarkets';
 import { ref } from '@nuxtjs/composition-api';
 export default {
@@ -35,21 +39,27 @@ export default {
         SfBar
     },
     setup() {
+        const route = useRoute();
+        const router = useRouter();
         const {
             setNewPassword,
         } = useForgotPassword();
+        console.log(route.value.params.contactId)
         const form = ref({
-            hash: '',
-            contactId: '',
+            hash: route.value.params.hash,
+            contactId: route.value.params.contactId,
             password: '',
             password2: ''
         })
         const SCREEN_REGISTER = 'register';
         const resetPassword = () => {
-            setNewPassword(hash, newPassword, newPassword2, contactId)
+            setNewPassword(form.value.hash, form.value.password, form.value.password2, form.value.contactId)
+            alert('Password was updated')
+            router.push('/')
         }
         const email = 'oldemail@gmail.com'
-        return { form, resetPassword,email  }
+
+        return { form, resetPassword,email, route, router  }
     }
 }
 </script>

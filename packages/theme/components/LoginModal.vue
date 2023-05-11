@@ -122,13 +122,6 @@
         v-else-if="currentScreen === SCREEN_THANK_YOU"
         class="thank-you"
       >
-        <i18n
-          tag="p"
-          class="thank-you__paragraph"
-          path="forgotPasswordConfirmation"
-        >
-          <span class="thank-you__paragraph--bold">{{ userEmail }}</span>
-        </i18n>
         <p class="thank-you__paragraph">
           {{ $t('LoginModal.Thank you inbox') }}
         </p>
@@ -350,7 +343,7 @@ export default {
       await resetPassword({ email: userEmail.value });
 
       // if (!forgotPasswordError.value.request) {
-      //   setCurrentScreen(SCREEN_THANK_YOU);
+        setCurrentScreen(SCREEN_THANK_YOU);
       // }
     };
 
