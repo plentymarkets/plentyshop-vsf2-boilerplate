@@ -1,4 +1,4 @@
-import { OrderDetails } from '@vue-storefront/plentymarkets-api';
+import { OrderDetails, OrderSearchParams } from '@vue-storefront/plentymarkets-api';
 import { computed, ComputedRef } from '@nuxtjs/composition-api';
 import { sharedRef, useVSFContext } from '@vue-storefront/core';
 
@@ -10,7 +10,7 @@ export interface UseOrderResponse {
     order: ComputedRef<OrderDetails>
     loading: ComputedRef<boolean>
     error: ComputedRef<SearchError>
-    load: (orderId: string, orderAccessKey: string) => Promise<void>
+    load: (params: OrderSearchParams) => Promise<void>
 }
 
 export const useOrder = (id: string): UseOrderResponse => {
@@ -22,11 +22,17 @@ export const useOrder = (id: string): UseOrderResponse => {
     load: null
   }, `useOrder-error-${id}`);
 
-  const load = async (orderId: string, orderAccessKey: string): Promise<void> => {
+  const load = async (params: OrderSearchParams): Promise<void> => {
 
     try {
       loading.value = true;
-      order.value = await context.$plentymarkets.api.getOrder(orderId, orderAccessKey);
+      const orderData = await context.$plentymarkets.api.getOrder(params);
+
+      if (orderData.error) {
+        error.value.load = orderData.error;
+        return;
+      }
+      order.value = orderData;
       error.value.load = null;
     } catch (err) {
       error.value.load = err;
