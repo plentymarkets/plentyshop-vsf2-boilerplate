@@ -1,4 +1,3 @@
-import { categoryGetters } from './../getters/categoryGetters';
 import { useCategory } from './../useCategory/index';
 import {
   Context,
@@ -6,7 +5,8 @@ import {
   FacetSearchResult,
   AgnosticCategoryTree
 } from '@vue-storefront/core';
-import { FacetSearchCriteria, Facet } from '@vue-storefront/plentymarkets-api';
+import { FacetSearchCriteria, Facet} from '@vue-storefront/plentymarkets-api';
+import { categoryTreeGetters } from 'src/getters/categoryTreeGetters';
 
 const ITEMS_PER_PAGE = [20, 40, 100];
 
@@ -17,10 +17,10 @@ const factoryParams = {
     const { categories } = useCategory('categories');
     const searchParams = params.input as FacetSearchCriteria;
 
-    const treeCategory = categoryGetters.findCategoryBySlug(categories.value, params.input.categorySlug);
+    const treeCategory = categoryTreeGetters.findCategoryBySlug(categories.value, params.input.categorySlug);
     const tree: AgnosticCategoryTree = {
       label: '',
-      items: [categoryGetters.getTree(treeCategory)],
+      items: [categoryTreeGetters.getTree(treeCategory)],
       isCurrent: false
     };
 

@@ -13,13 +13,13 @@ function getDate(order: Order): string {
 
 function getById(orders: Order[], id: string): Order {
   return orders.find(
-    order => order.order?.id.toString() === id
+    order => order?.order?.id.toString() === id
   );
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getId(order: Order): string {
-  return order.order?.id?.toString() || '';
+  return order?.order?.id?.toString() || '';
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -67,8 +67,8 @@ function getOrdersTotal(orders: any): number {
   return orders?.data?.totalsCount || 0;
 }
 
-function getAccessKey(order: OrderDetails): string {
-  return order.accessKey || '';
+function getAccessKey(order: Order): string {
+  return order?.order?.accessKey || '';
 }
 
 function getPagination(orders: GetOrdersResponse): AgnosticPagination {

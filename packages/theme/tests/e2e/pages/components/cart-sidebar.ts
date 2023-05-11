@@ -1,6 +1,6 @@
 class Cart {
   get goToCheckoutButton(): Cypress.Chainable {
-    return cy.contains('Go to checkout');
+    return cy.get('[data-e2e="go-to-checkout"]')
   }
 }
 
