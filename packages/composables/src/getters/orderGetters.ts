@@ -1,5 +1,5 @@
 import { AgnosticPagination, UserOrderGetters } from '@vue-storefront/core';
-import type { GetOrdersResponse, Order, OrderItem, OrderTotals} from '@vue-storefront/plentymarkets-api';
+import type { GetOrdersResponse, Order, OrderItem, OrderTotals } from '@vue-storefront/plentymarkets-api';
 import { productGetters } from './productGetters';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

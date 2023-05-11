@@ -1,7 +1,9 @@
 <template>
   <div class="flex flex-col items-center mb-40">
     <template v-if="errorType === 'login'">
-      <h3 class="mb-10">Login to access your order</h3>
+      <h3 class="mb-10">
+        Login to access your order
+      </h3>
 
       <LoginForm @submit="$emit('submit')" />
     </template>

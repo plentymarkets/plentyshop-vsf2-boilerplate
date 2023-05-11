@@ -32,7 +32,6 @@
         </div>
 
         <OrderItems :order="currentOrder" />
-
       </div>
       <div v-else>
         <p class="message">

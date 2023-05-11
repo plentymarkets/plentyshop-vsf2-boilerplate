@@ -8,11 +8,11 @@ import { FacetSearchCriteria, FacetApiResponse } from './facet';
 import { ItemSearchParams, ItemSearchResult } from './itemSearch';
 import { LegalInformationResponse } from './legal';
 import {
-    AdditionalInformationParams,
-    CreateOrderResponse,
-    GetOrdersResponse,
-    OrderDetails,
-    OrderSearchParams
+  AdditionalInformationParams,
+  CreateOrderResponse,
+  GetOrdersResponse,
+  OrderDetails,
+  OrderSearchParams
 } from './order';
 import { GetPaymentResponse, PaymentProviders, PreparePaymentResult } from './payment';
 import { Product } from './product';

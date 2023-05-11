@@ -2,10 +2,10 @@
   <div>
     <BaseTable
       v-if="currentOrderItems && currentOrderItems.length"
+      v-e2e="'thank-you-items'"
       table-class="products table-column-flex-1"
       :table-headers="productsTableHeaders"
       :items="currentOrderItems"
-      v-e2e="'thank-you-items'"
     />
   </div>
 </template>
