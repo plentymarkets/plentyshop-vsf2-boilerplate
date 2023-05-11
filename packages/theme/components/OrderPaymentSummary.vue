@@ -1,7 +1,7 @@
 <template>
   <div class="payment-summary">
     <h3
-      class="mb-5 sf-c-primary font-semibold"
+      class="mb-5 text-sf-c-primary font-semibold"
     >
       {{ $t('ThankYou.Payment Summary') }}
     </h3>

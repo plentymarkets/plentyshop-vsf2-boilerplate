@@ -34,7 +34,12 @@
           <OrderItems
             v-if="getOrder"
             :order="getOrder"
-            class="mb-10"
+            class="mb-20"
+          />
+
+          <OrderTotals
+            v-if="getOrder"
+            :order="getOrder"
           />
         </div>
 
@@ -46,11 +51,6 @@
           <DocumentsList
             v-if="getOrder"
             :documents="getOrder.order.documents"
-          />
-
-          <OrderTotals
-            v-if="getOrder"
-            :order="getOrder"
           />
         </div>
       </div>
