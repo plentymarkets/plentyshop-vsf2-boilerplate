@@ -383,7 +383,10 @@ export default {
     'Order Number': 'Order Number',
     'Order Date': 'Order Date',
     'Order Summary': 'Order Summary',
-    'Order Status': 'Order Status'
+    'Order Status': 'Order Status',
+    'Payment Summary': 'Payment Summary',
+    'Shipping Summary': 'Shipping Summary',
+    'Ship To': 'Ship To',
   },
   // TopBar
   'TopBar': {

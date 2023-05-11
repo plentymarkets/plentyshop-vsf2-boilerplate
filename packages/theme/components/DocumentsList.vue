@@ -7,7 +7,7 @@
     <SfButton
       v-for="(document, key) in documents"
       :key="key"
-      class="sf-button--full-width color-primary mb-5"
+      class="sf-button--full-width color-primary mb-2"
     >
       {{ getTypeName(document.type) }}
     </SfButton>

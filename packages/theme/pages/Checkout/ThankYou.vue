@@ -9,7 +9,10 @@
         desktop: addBasePath('/thankyou/bannerD.png'),
       }"
     >
-      <template #description>
+      <template
+        v-if="orderNumber"
+        #description
+      >
         <div class="banner__order-number">
           <span>{{ $t('ThankYou.Order no') }}</span>
           <strong>{{ orderNumber }}</strong>
@@ -24,41 +27,59 @@
     />
 
     <div v-else>
-      <section>
-        <div class="order">
-          <SfHeading
-            :title="$t('ThankYou.Order Summary')"
-            class="order__heading heading sf-heading--left order-summary-title"
-            :level="3"
-          />
-          <table class="order-summary-table">
-            <tr>
-              <td class="title">{{ $t('ThankYou.Order Number') }}</td>
-              <td>{{ orderNumber }}</td>
-            </tr>
-            <tr>
-              <td class="title">{{ $t('ThankYou.Order Date') }}</td>
-              <td>{{ orderDate }}</td>
-            </tr>
-            <tr>
-              <td class="title">{{ $t('ThankYou.Order Status') }}</td>
-              <td>{{ orderStatus }}</td>
-            </tr>
-          </table>
-        </div>
-      </section>
-
       <div class="order-info sm:grid gap-20 grid-cols-2/1">
-        <OrderItems
-          v-if="getOrder"
-          :order="getOrder"
-          class="mb-10"
-        />
+        <div class="left">
+          <section>
+            <div class="order">
+              <SfHeading
+                :title="$t('ThankYou.Order Summary')"
+                class="order__heading heading sf-heading--left order-summary-title"
+                :level="3"
+              />
+              <table class="order-summary-table">
+                <tr>
+                  <td class="title">
+                    {{ $t('ThankYou.Order Number') }}
+                  </td>
+                  <td>{{ orderNumber }}</td>
+                </tr>
+                <tr>
+                  <td class="title">
+                    {{ $t('ThankYou.Order Date') }}
+                  </td>
+                  <td>{{ orderDate }}</td>
+                </tr>
+                <tr>
+                  <td class="title">
+                    {{ $t('ThankYou.Order Status') }}
+                  </td>
+                  <td>{{ orderStatus }}</td>
+                </tr>
+              </table>
+            </div>
+          </section>
 
-        <DocumentsList
-          v-if="getOrder"
-          :documents="getOrder.order.documents"
-        />
+          <OrderItems
+            v-if="getOrder"
+            :order="getOrder"
+            class="mb-10"
+          />
+        </div>
+
+        <div class="right">
+          <OrderShippingSummary />
+          <div class="payment-summary">
+            <SfHeading
+              :title="$t('ThankYou.Payment Summary')"
+              class="mb-10 order__heading heading sf-heading--left order-summary-title"
+              :level="3"
+            />
+          </div>
+          <DocumentsList
+            v-if="getOrder"
+            :documents="getOrder.order.documents"
+          />
+        </div>
       </div>
 
       <section
@@ -138,9 +159,11 @@ import { useOrder, orderGetters, companyGetters } from '@vue-storefront/plentyma
 import SoftLogin from '~/components/SoftLogin.vue';
 import OrderItems from '~/components/Orders/OrderItems.vue';
 import DocumentsList from '~/components/DocumentsList.vue';
+import OrderShippingSummary from '~/components/OrderShippingSummary.vue';
 
 export default {
   components: {
+    OrderShippingSummary,
     DocumentsList,
     OrderItems,
     SoftLogin,
@@ -182,6 +205,10 @@ export default {
       return orderGetters.getId(order.value);
     });
 
+    const orderBillingAddress = computed(() => {
+      return orderGetters.getBillingAddress(order.value);
+    });
+
     const getOrder = computed(() => {
       return order.value;
     });
@@ -197,6 +224,7 @@ export default {
     return {
       error,
       addBasePath,
+      orderBillingAddress,
       loadOrder,
       companyGetters,
       companyDetails,

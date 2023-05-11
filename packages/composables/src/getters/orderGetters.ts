@@ -1,5 +1,5 @@
 import { AgnosticPagination, UserOrderGetters } from '@vue-storefront/core';
-import type { GetOrdersResponse, Order, OrderDetails, OrderItem } from '@vue-storefront/plentymarkets-api';
+import type { AddressData, GetOrdersResponse, Order, OrderDetails, OrderItem } from '@vue-storefront/plentymarkets-api';
 import { productGetters } from './productGetters';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -20,6 +20,11 @@ function getById(orders: Order[], id: string): Order {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getId(order: Order): string {
   return order?.order?.id?.toString() || '';
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getBillingAddress(order: Order): AddressData | {} {
+  return order?.order?.billingAddress || {};
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -98,6 +103,7 @@ export const orderGetters: UserOrderGetters<Order, OrderItem> = {
   getDate,
   getId,
   getById,
+  getBillingAddress,
   getStatus,
   getPrice,
   getItems,
