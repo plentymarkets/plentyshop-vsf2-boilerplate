@@ -33,15 +33,21 @@
           />
           <table class="order-summary-table">
             <tr>
-              <td class="title">{{ $t('ThankYou.Order Number') }}</td>
+              <td class="title">
+                {{ $t('ThankYou.Order Number') }}
+              </td>
               <td>{{ orderNumber }}</td>
             </tr>
             <tr>
-              <td class="title">{{ $t('ThankYou.Order Date') }}</td>
+              <td class="title">
+                {{ $t('ThankYou.Order Date') }}
+              </td>
               <td>{{ orderDate }}</td>
             </tr>
             <tr>
-              <td class="title">{{ $t('ThankYou.Order Status') }}</td>
+              <td class="title">
+                {{ $t('ThankYou.Order Status') }}
+              </td>
               <td>{{ orderStatus }}</td>
             </tr>
           </table>
