@@ -361,7 +361,11 @@ export default {
     'Thank you for your order!': 'Vielen Dank für Ihre Bestellung!',
     'What can we improve': 'Was können wir verbessern',
     'Your account': 'Ihr Konto',
-    'Your purchase': 'Ihr Kauf'
+    'Your purchase': 'Ihr Kauf',
+    'Order Number': 'Auftrags-ID',
+    'Order Date': 'Auftragsdatum',
+    'Order Summary': 'Auftragsübersicht',
+    'Order Status': 'Status'
   },
   // TopBar
   'TopBar': {
