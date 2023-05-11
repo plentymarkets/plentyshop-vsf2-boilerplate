@@ -389,7 +389,15 @@ export default {
     'Order Number': 'Auftrags-ID',
     'Order Date': 'Auftragsdatum',
     'Order Summary': 'Auftragsübersicht',
-    'Order Status': 'Status'
+    'Order Status': 'Auftragsstatus',
+    'Payment Summary': 'Zahlungsübersicht',
+    'Shipping Summary': 'Versandübersicht',
+    'Ship To': 'Versand nach',
+    'Billing address': 'Rechnungsadresse',
+    'Status': 'Status',
+    'Payment method': 'Zahlungsart',
+    'Same As Shipping Address': 'Entspricht Lieferadresse',
+    'Shipping Method': 'Versandart',
   },
   // TopBar
   'TopBar': {
