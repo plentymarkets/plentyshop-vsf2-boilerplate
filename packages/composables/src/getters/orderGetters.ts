@@ -1,5 +1,5 @@
 import { AgnosticPagination, UserOrderGetters } from '@vue-storefront/core';
-import type { GetOrdersResponse, Order, OrderItem, OrderTotals } from '@vue-storefront/plentymarkets-api';
+import type { AddressData, GetOrdersResponse, Order, OrderItem, OrderTotals } from '@vue-storefront/plentymarkets-api';
 import { productGetters } from './productGetters';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -20,6 +20,27 @@ function getById(orders: Order[], id: string): Order {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getId(order: Order): string {
   return order?.order?.id?.toString() || '';
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getBillingAddress(order: Order): AddressData | {} {
+  return order?.order?.billingAddress || {};
+}
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getShippingAddress(order: Order): AddressData | {} {
+  return order?.order?.deliveryAddress || {};
+}
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getPaymentMethodName(order: Order): AddressData | {} {
+  return order?.paymentMethodName || {};
+}
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getPaymentStatus(order: Order): AddressData | {} {
+  return order?.paymentStatus || {};
+}
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getShippingProvider(order: Order): AddressData | {} {
+  return order?.shippingProvider || '';
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -138,5 +159,10 @@ export const orderGetters: UserOrderGetters<Order, OrderItem> = {
   getTotal,
   getTotals,
   getVatAmount,
-  getVatRate
+  getVatRate,
+  getBillingAddress,
+  getShippingAddress,
+  getPaymentMethodName,
+  getPaymentStatus,
+  getShippingProvider,
 };

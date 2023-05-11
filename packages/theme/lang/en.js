@@ -391,7 +391,15 @@ export default {
     'Order Number': 'Order Number',
     'Order Date': 'Order Date',
     'Order Summary': 'Order Summary',
-    'Order Status': 'Order Status'
+    'Order Status': 'Order Status',
+    'Payment Summary': 'Payment Summary',
+    'Shipping Summary': 'Shipping Summary',
+    'Ship To': 'Ship To',
+    'Billing address': 'Billing address',
+    'Status': 'Status',
+    'Payment method': 'Payment method',
+    'Same As Shipping Address': 'Same As Shipping Address',
+    'Shipping Method': 'Shipping Method',
   },
   // TopBar
   'TopBar': {
