@@ -26,7 +26,8 @@ import {
 import {
   useRouter,
   useRoute,
-  useContext
+  useContext,
+  onMounted
 } from '@nuxtjs/composition-api';
 import { useForgotPassword } from '@vue-storefront/plentymarkets';
 import { ref } from '@nuxtjs/composition-api';
@@ -65,17 +66,18 @@ export default {
             toggleLoginModal()
         }
        
-        let email = 'oldmail@gmail.com'
+        let email = ref('oldmail@gmail.com')
         
         // fetch email based on contactId and hash and check if hash is valid
-        
-        // email = verifyHash(route.value.params.contactId, route.value.params.hash)
-        // if(!email) {
-        // router.push('/')
-        //  send({ message: app.i18n.t('Your hash has expired! Please try again'), type: 'danger' });
-        // router.push('/?loginmodal=true')
-        // }
-
+        onMounted(async () =>{
+            email.value = await verifyHash(route.value.params.contactId, route.value.params.hash)
+            if(!email) {
+                router.push('/')
+                 send({ message: app.i18n.t('Your hash has expired! Please try again'), type: 'danger' });
+                router.push('/?loginmodal=true')
+                }
+                
+            })
         return { form, resetPassword, email  }
     }
 }

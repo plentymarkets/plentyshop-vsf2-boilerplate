@@ -340,8 +340,7 @@ export default {
     const handleLogin = async () => handleForm(login)();
 
     const handleForgotten = async () => {
-      userEmail.value = form.value.username;
-      await resetPassword({ email: userEmail.value });
+      await resetPassword({ email: form.value.email });
       toggleLoginModal();
       send({ message: app.i18n.t('LoginModal.Reset Password Link was sent to your email address'), type: 'success' });
       // if (!forgotPasswordError.value.request) {

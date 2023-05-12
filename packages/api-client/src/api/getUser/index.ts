@@ -79,7 +79,7 @@ export async function changePassword(context: Context, currentPassword: string, 
 }
 
 export async function verifyHash(context: Context, contactId: string, hash: string): Promise<UserEmailResponse> {
-  const url: URL = new URL('/rest/io/customer/verify_hash', context.config.api.url);
+  const url: URL = new URL('/rest/storefront/customer/verify_hash', context.config.api.url);
   const { data } = await context.client.post(url.href, {
     contactId: contactId,
     hash: hash
