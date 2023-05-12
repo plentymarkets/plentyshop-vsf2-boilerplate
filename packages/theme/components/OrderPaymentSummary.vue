@@ -1,5 +1,8 @@
 <template>
-  <div class="payment-summary">
+  <div
+    v-e2e="'payment-summary'"
+    class="payment-summary"
+  >
     <h3
       class="mb-5 text-sf-c-primary font-semibold"
     >

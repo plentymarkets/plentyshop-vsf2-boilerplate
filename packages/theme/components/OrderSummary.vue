@@ -1,5 +1,8 @@
 <template>
-  <div class="order-summary">
+  <div
+    v-e2e="'order-summary'"
+    class="order-summary"
+  >
     <h3
       class="mb-5 text-sf-c-primary font-semibold"
     >

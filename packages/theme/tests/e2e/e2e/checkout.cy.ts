@@ -66,6 +66,11 @@ context('Order placement', () => {
     page.checkout.thankyou.itemsTable.should('be.visible');
     cy.get('[data-e2e*="order-item-product-name"]').should('be.visible');
 
+    page.checkout.thankyou.orderSummary.should('be.visible');
+    page.checkout.thankyou.paymentSummary.should('be.visible');
+    page.checkout.thankyou.shippingSummary.should('be.visible');
+    page.checkout.thankyou.orderTotals.should('be.visible');
+
     // TODO: #40624
     // cy.reload()
     // page.product.header.openCart();
@@ -92,6 +97,10 @@ context('Check Thank You Page', () => {
     cy.get('[data-e2e*="order-item-product-name"]').should('be.visible');
 
     page.checkout.thankyou.documentsList.should('be.visible');
+    page.checkout.thankyou.orderSummary.should('be.visible');
+    page.checkout.thankyou.paymentSummary.should('be.visible');
+    page.checkout.thankyou.shippingSummary.should('be.visible');
+    page.checkout.thankyou.orderTotals.should('be.visible');
   });
 });
 
