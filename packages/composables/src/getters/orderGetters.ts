@@ -47,8 +47,8 @@ function getPaymentStatus(order: Order): AddressData | {} {
   return order?.paymentStatus || {};
 }
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function getShippingProvider(order: Order): AddressData | {} {
-  return order?.shippingProvider || '';
+function getShippingProfileName(order: Order): AddressData | {} {
+  return order?.shippingProfileName || '';
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -173,5 +173,5 @@ export const orderGetters: UserOrderGetters<Order, OrderItem> = {
   getShippingAddress,
   getPaymentMethodName,
   getPaymentStatus,
-  getShippingProvider
+  getShippingProfileName
 };

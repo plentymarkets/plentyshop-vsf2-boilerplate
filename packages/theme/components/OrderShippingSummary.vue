@@ -15,7 +15,7 @@
     </div>
 
     <div
-      v-if="shippingProvider"
+      v-if="shippingProfileName"
       class="shipping-method"
     >
       <p class="font-bold">
@@ -23,7 +23,7 @@
       </p>
 
       <div class="font-light">
-        {{ shippingProvider }}
+        {{ shippingProfileName }}
       </div>
     </div>
   </div>
@@ -42,12 +42,12 @@ export default {
   setup() {
     const { order } = useOrder();
 
-    const shippingProvider = computed(() => {
-      return orderGetters.getShippingProvider(order.value);
+    const shippingProfileName = computed(() => {
+      return orderGetters.getShippingProfileName(order.value);
     });
 
     return {
-      shippingProvider
+      shippingProfileName
     };
 
   }
