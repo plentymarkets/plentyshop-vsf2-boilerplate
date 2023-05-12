@@ -1,7 +1,7 @@
 import page from '../pages/factory';
 
 context('Order placement', () => {
-  beforeEach(function init () {
+  beforeEach(function init() {
     cy.fixture('customer').then((fixture) => {
       this.fixtures = {
         data: fixture
@@ -9,7 +9,7 @@ context('Order placement', () => {
     });
     page.home.visit();
   });
-  it(['happyPath', 'regression'], 'Should successfully place an order as a guest user', function test () {
+  it(['happyPath', 'regression'], 'Should successfully place an order as a guest user', function test() {
     const data = this.fixtures.data;
     cy.intercept('/api/plentymarkets/addCartItem').as('addCartItem');
     cy.intercept('/api/plentymarkets/additionalInformation').as('additionalInformation');
@@ -71,6 +71,12 @@ context('Order placement', () => {
     page.checkout.thankyou.shippingSummary.should('be.visible');
     page.checkout.thankyou.orderTotals.should('be.visible');
 
+    cy.get('head meta[name="robots"]').should(
+      'have.attr',
+      'content',
+      'noindex'
+    );
+
     // TODO: #40624
     // cy.reload()
     // page.product.header.openCart();
@@ -79,19 +85,19 @@ context('Order placement', () => {
 });
 
 context('Check Thank You Page', () => {
-  beforeEach(function init () {
+  beforeEach(function init() {
     cy.fixture('order').then((fixture) => {
       this.fixtures = {
         data: fixture
       };
     });
   });
-  it(['happyPath', 'regression'], 'Should successfully see order items data in thank you page', function test () {
+  it(['happyPath', 'regression'], 'Should successfully see order items data in thank you page', function test() {
     cy.intercept('/api/plentymarkets/getOrder', { fixture: 'order.json' }).as('getOrder');
 
     page.checkout.thankyou.visit('', '', '');
 
-    cy.wait('@getOrder')
+    cy.wait('@getOrder');
 
     page.checkout.thankyou.itemsTable.should('be.visible');
     cy.get('[data-e2e*="order-item-product-name"]').should('be.visible');
@@ -101,6 +107,13 @@ context('Check Thank You Page', () => {
     page.checkout.thankyou.paymentSummary.should('be.visible');
     page.checkout.thankyou.shippingSummary.should('be.visible');
     page.checkout.thankyou.orderTotals.should('be.visible');
+
+    cy.get('head meta[name="robots"]').should(
+      'have.attr',
+      'content',
+      'noindex'
+    );
+
   });
 });
 
