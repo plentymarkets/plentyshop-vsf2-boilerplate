@@ -10,7 +10,7 @@ export interface UseLegalInformationResponse extends ComposableBaseResponse<Lega
 export const useLegalInformation = (id: string): UseLegalInformationResponse => {
 
   const context = useVSFContext();
-  const result = sharedRef(null, `useLegalInformation-${id}`);
+  const result = sharedRef(null, `suseLegalInformation-${id}`);
   const loading = sharedRef(false, `useLegalInformation-loading-${id}`);
   const error = sharedRef({
     search: null

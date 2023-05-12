@@ -102,6 +102,8 @@
             </SfTableData>
           </SfTableRow>
         </SfTable>
+
+        <button @click="makeReturnAction">Make Return</button>
         <LazyHydrate on-interaction>
           <SfPagination
             v-show="paginationGetters.getTotalPages(pagination) > 1"
@@ -166,10 +168,28 @@ export default {
     const pagination = computed(() => orderGetters.getPagination(orderResult.value));
     const orders = computed(() => orderResult.value?.data?.entries);
     // eslint-disable-next-line no-undef
-    const params = {orderId: 1, orderAccessKey: 'ASDFD', variationIds: [112, 1], returnNote: ''};
-    const makeReturn = useMakeReturn(params);
 
-    console.log(makeReturn);
+    const returnParams = ref({
+      orderId: 866,
+      orderAccessKey: 'KD8M4D809',
+      variationIds: {1063: 1},
+      returnNote: ''
+    });
+
+    const { makeReturn, result, error } = useMakeReturn('make-return');
+
+    const makeReturnAction = async () => {
+      await makeReturn(returnParams.value);
+      if (error.value.makeReturn) {
+        console.log('An error occurred:', error.value.makeReturn);
+        if (error.value.makeReturn.validation_errors) {
+          console.log('Validation errors:', error.value.makeReturn.validation_errors);
+        }
+      } else {
+        console.log('Return successful. Result:', result.value);
+      }
+    };
+
 
     onSSR(async () => {
       await search(query);
@@ -204,7 +224,8 @@ export default {
       totalOrders: computed(() => orderGetters.getOrdersTotal(orderResult.value)),
       getStatusTextClass,
       orderGetters,
-      currentOrder
+      currentOrder,
+      makeReturnAction
     };
   }
 };

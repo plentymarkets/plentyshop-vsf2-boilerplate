@@ -34,12 +34,16 @@ export async function executePayment(context: Context, orderId: number, paymentI
 
 export async function makeOrderReturn(context: Context, orderId: number, orderAccessKey:string, variationIds: object, returnNote: string): Promise<CreateReturnResponse> {
   const url: URL = new URL('/rest/io/order/return', context.config.api.url);
-  const { data } = await context.client.post(url.href,{
-    orderId: orderId,
-    orderAccessKey: orderAccessKey,
-    variationIds: variationIds,
-    returnNote: returnNote
-  });
+  try {
+    const { data } = await context.client.post(url.href,{
+      orderId: orderId,
+      orderAccessKey: orderAccessKey,
+      variationIds: variationIds,
+      returnNote: returnNote
+    });
 
-  return data;
+    return data;
+  } catch (err) {
+    throw err.response && err.response.data ? err.response.data : err;
+  }
 }

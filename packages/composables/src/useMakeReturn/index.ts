@@ -1,14 +1,33 @@
-import {
-  useVSFContext
-} from '@vue-storefront/core';
-import type {
-  CreateReturnResponse, MakeReturnParams
-} from '@vue-storefront/plentymarkets-api';
+import { computed } from '@nuxtjs/composition-api';
+import { useVSFContext, sharedRef } from '@vue-storefront/core';
 
-export const useMakeReturn = (params: { orderId: number, orderAccessKey: string, variationIds: object, returnNote: string}): Promise<CreateReturnResponse> => {
+export const useMakeReturn = (id) => {
   const context = useVSFContext();
+  const result = sharedRef(null, `useMakeReturn-${id}`);
+  const loading = sharedRef(false, `useMakeReturn-loading-${id}`);
+  const error = sharedRef({
+    makeReturn: null
+  }, `useMakeReturn-error-${id}`);
 
-  return context.$plentymarkets.api.makeOrderReturn(
-    866, 'KD8M4D809', [1063], ''
-  );
+  const makeReturn = async (params) => {
+    try {
+      loading.value = true;
+      result.value = await context.$plentymarkets.api.makeOrderReturn(
+        params.orderId, params.orderAccessKey, params.variationIds, params.returnNote
+      );
+      error.value.makeReturn = null;
+    } catch (err) {
+      error.value.makeReturn = typeof err === 'object' ? err : { message: err.toString() };
+    } finally {
+      loading.value = false;
+    }
+  };
+
+
+  return {
+    makeReturn,
+    result: computed(() => result.value),
+    loading: computed(() => loading.value),
+    error: computed(() => error.value)
+  };
 };
