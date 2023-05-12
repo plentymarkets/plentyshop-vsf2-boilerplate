@@ -25,7 +25,7 @@ function getId(order: Order): string {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getOrderEmail(order: Order): string {
   const option = order?.order?.deliveryAddress?.options
-    .find(op => op.typeId === 5)
+    .find(op => op.typeId === 5);
 
   return option?.value || '';
 }

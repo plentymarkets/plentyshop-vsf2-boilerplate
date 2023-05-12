@@ -1,5 +1,8 @@
 <template>
-  <div class="order-totals" v-e2e="'order-totals'">
+  <div
+    v-e2e="'order-totals'"
+    class="order-totals"
+  >
     <SfProperty
       :name="$t('OrderTotals.Subtotal')"
       class="sf-property--full-width spacer"
