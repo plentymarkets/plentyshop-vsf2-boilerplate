@@ -24,7 +24,10 @@ function getId(order: Order): string {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getOrderEmail(order: Order): string {
-  return order?.order?.deliveryAddress?.options[0]?.value || '';
+  const option = order?.order?.deliveryAddress?.options
+    .find(op => op.typeId === 5)
+
+  return option?.value || '';
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
