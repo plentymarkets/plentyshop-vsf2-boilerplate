@@ -14,7 +14,7 @@ import { RegisterParams } from './register';
 import { Review, ReviewSearchParams } from './review';
 import { SessionResult } from './session';
 import { ShippingProvider } from './shipping';
-import { UserChangeResponse } from './user';
+import { UserChangeResponse, UserEmailResponse } from './user';
 import { Wishlist } from './wishlist';
 
 export type ClientInstance = AxiosInstance;
@@ -96,6 +96,8 @@ export interface PlentymarketsApiMethods {
     requestChangePasswordEmail(email: string): Promise<void> 
 
     changePasswordBasedOnHash(hash: string, password: string, password2: string, contactId: string): Promise<void>
+    
+    verifyHash(contactId: string, hash: String): Promise<UserEmailResponse>
 
     getShippingProvider(): Promise<ShippingProvider>
 

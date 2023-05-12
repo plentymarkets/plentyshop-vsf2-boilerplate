@@ -223,7 +223,7 @@ import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { required, email } from 'vee-validate/dist/rules';
 import { useUser, useForgotPassword } from '@vue-storefront/plentymarkets';
 import { useUiState, useUiNotification } from '~/composables';
-
+import {useRouter, useRoute} from '@nuxtjs/composition-api';
 extend('email', {
   ...email
 });
@@ -249,7 +249,8 @@ export default {
     const SCREEN_REGISTER = 'register';
     const SCREEN_THANK_YOU = 'thankYouAfterForgotten';
     const SCREEN_FORGOTTEN = 'forgottenPassword';
-
+    const route = useRoute();
+    const router = useRouter();
     const { isLoginModalOpen, toggleLoginModal } = useUiState();
     const form = ref({});
     const userEmail = ref('');
@@ -341,12 +342,17 @@ export default {
     const handleForgotten = async () => {
       userEmail.value = form.value.username;
       await resetPassword({ email: userEmail.value });
-
+      toggleLoginModal();
+      send({ message: app.i18n.t('LoginModal.Reset Password Link was sent to your email address'), type: 'success' });
       // if (!forgotPasswordError.value.request) {
-        setCurrentScreen(SCREEN_THANK_YOU);
+        // setCurrentScreen(SCREEN_THANK_YOU);
       // }
     };
-
+    // if(route)
+    // console.log('cgheck route')
+    if(route.value.query.loginmodal==='true') {
+      toggleLoginModal()
+    }
     return {
       form,
       error,

@@ -69,3 +69,7 @@ export interface UserChangeResponse {
         FrontendUpdateCustomerSettings: FrontendUpdateCustomerSettings
     }
 }
+
+export interface UserEmailResponse {
+    email: string
+}

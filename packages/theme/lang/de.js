@@ -204,6 +204,9 @@ export default {
     'Enter new password': 'Neues Passwort eingeben',
     'Confirm new password': 'Bestätige neues Passwort',
     'Save new password': 'Neues Passwort speichern',
+    'Password was changed succesfully':'Das Passwort wurde erfolgreich geändert',
+    'Reset Password Link was sent to your email address': 'Link zum Zurücksetzen des Passworts wurde an Ihre E-Mail-Adresse gesendet',
+    'Your hash has expired! Please try again': 'Ihr Hash ist abgelaufen! Bitte versuchen Sie es erneut.',
     'Thank you inbox': 'Wenn die Nachricht nicht in Ihrem Posteingang angezeigt wird, prüfen Sie eine andere E-Mail-Adresse, die Sie möglicherweise zum Registrieren verwendet haben.'
   },
   // MyAccount
