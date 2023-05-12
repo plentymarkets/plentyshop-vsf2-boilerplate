@@ -108,6 +108,7 @@ context('Check Thank You Page', () => {
     page.checkout.thankyou.shippingSummary.should('be.visible');
     page.checkout.thankyou.orderTotals.should('be.visible');
 
+
     cy.get('head meta[name="robots"]').should(
       'have.attr',
       'content',
