@@ -1,15 +1,22 @@
 <template>
-    <div id="checkout">
-        <div class="checkout">
-            <div>
-                <p class="forgot-password">{{ $t('LoginModal.Forgot password') }} </p>
+    <div class="main">
+        <div class="form md:form2">
+            <p class="reset-password">{{ $t('LoginModal.Reset password') }} </p>
+            <div class="my-5">
                 <p>Enter new password for {{ email }}</p>
-                <!-- <SfInput v-model="form.hash" name="hash" label="hash" class="form__element" /> -->
-                <!-- <SfInput v-model="form.contactId" name="contactId" label="contactId" class="form__element" /> -->
-                <SfInput v-model="form.password" name="password" :label="$t('LoginModal.Enter new password')" class="form__element" />
-                <SfInput v-model="form.password2" name="password" :label="$t('LoginModal.Confirm new password')" class="form__element" />
-                <SfButton @click="resetPassword()">
-                    {{ $t('LoginModal.Save new password') }}
+            </div>
+
+            <SfInput v-model="form.password" name="password" :label="$t('LoginModal.Enter new password')"
+                class="form__element" />
+            <SfInput v-model="form.password2" name="password" :label="$t('LoginModal.Confirm new password')"
+                class="form__element" />
+            <SfButton class="sf-button--full-width" @click="resetPassword()">
+                {{ $t('LoginModal.Save new password') }}
+            </SfButton>
+            <div class="mt-5 login-text">
+                {{ $t('LoginModal.Remember your password') }}?
+                <SfButton class="sf-button--text login" @click="toggleLoginModal()">
+                    Login
                 </SfButton>
             </div>
         </div>
@@ -24,10 +31,10 @@ import {
     SfBar
 } from '@storefront-ui/vue';
 import {
-  useRouter,
-  useRoute,
-  useContext,
-  onMounted
+    useRouter,
+    useRoute,
+    useContext,
+    onMounted
 } from '@nuxtjs/composition-api';
 import { useForgotPassword } from '@vue-storefront/plentymarkets';
 import { ref } from '@nuxtjs/composition-api';
@@ -58,35 +65,69 @@ export default {
             password: '',
             password2: ''
         })
-        
+
         const resetPassword = () => {
             setNewPassword(form.value.hash, form.value.password, form.value.password2, form.value.contactId)
-            send({ message: app.i18n.t('Password was changed succesfully'), type: 'success' });
+            send({ message: app.i18n.t('LoginModal.Your new password was saved'), type: 'success' });
             router.push('/')
             toggleLoginModal()
         }
-       
+
         let email = ref('oldmail@gmail.com')
-        
+
         // fetch email based on contactId and hash and check if hash is valid
-        onMounted(async () =>{
+        onMounted(async () => {
             email.value = await verifyHash(route.value.params.contactId, route.value.params.hash)
-            if(!email) {
+            if (!email) {
                 router.push('/')
-                 send({ message: app.i18n.t('Your hash has expired! Please try again'), type: 'danger' });
-                router.push('/?loginmodal=true')
-                }
-                
-            })
-        return { form, resetPassword, email  }
+                send({ message: app.i18n.t('LoginModal.Your hash has expired!'), type: 'danger' });
+                toggleLoginModal()
+            }
+
+        })
+        return { form, resetPassword, email, toggleLoginModal }
     }
 }
 </script>
-<style>
-.forgot-password {
-  color: var(--_c-blue-primary);
-  font-size: var(--h3-font-size);
-  font-weight: var(--font-weight--semibold);
-  font-family: var(--font-family--secondary);
+<style lang="scss" scoped>
+.reset-password {
+    color: var(--_c-blue-primary);
+    font-size: var(--h3-font-size);
+    font-weight: var(--font-weight--semibold);
+    font-family: var(--font-family--secondary);
+}
+
+.main {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.form {
+    margin-top: var(--spacer-sm);
+    width: 50%;
+    @include for-mobile {
+        width: 90%;
+      }
+    &__element {
+        margin: 0 0 var(--spacer-xl) 0;
+    }
+}
+
+.form2 {
+    margin-top: var(--spacer-sm);
+    width: 50%;
+
+    &__element {
+        margin: 0 0 var(--spacer-xl) 0;
+    }
+}
+.login-text {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 18px;
+}
+.login {
+    color: var(--c-primary);
 }
 </style>

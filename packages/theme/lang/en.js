@@ -205,9 +205,10 @@ export default {
     'Confirm new password': 'Confirm New Password',
     'Save new password': 'Save new password',
     'Sign in': 'Sign in',
-    'Reset Password Link was sent to your email address': 'Reset Password Link was sent to your email address',
-    'Password was changed succesfully': 'Password was changed succesfully',
-    'Your hash has expired! Please try again': 'Your hash has expired! Please try again',
+    'Remember your password': 'Remember your password',
+    'Check your e-mail': 'Check your e-mail: We have sent instructions on how to reset your password',
+    'Your new password was saved': 'Your new password was saved',
+    'Your hash has expired!': 'Your hash has expired!',
     'Thank you inbox': `If the message doesn't arrive in your inbox, check another email address you might've used to register.`,
   },
   // MyAccount
