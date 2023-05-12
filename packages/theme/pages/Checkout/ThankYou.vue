@@ -197,6 +197,15 @@ export default {
       getOrder,
       orderEmail
     };
+  },
+  head: {
+    meta: [
+      {
+        hid: 'description',
+        name: 'robots',
+        content: 'noindex'
+      }
+    ]
   }
 };
 </script>
