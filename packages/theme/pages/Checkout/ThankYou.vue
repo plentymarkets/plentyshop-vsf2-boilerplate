@@ -27,7 +27,7 @@
     />
 
     <div v-else>
-      <div class="order-info sm:grid gap-20 grid-cols-2/1 mb-10 sm:pl-20 sm:pr-20">
+      <div class="order-info sm:grid gap-20 grid-cols-2/1 mb-10 xs-sm:pl-5 xs-sm:pr-5 sm:pl-20 sm:pr-20">
         <div class="left">
           <OrderSummary class="mb-20" />
 

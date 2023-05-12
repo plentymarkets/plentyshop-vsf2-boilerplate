@@ -18,6 +18,7 @@ module.exports = {
   theme: {
     extend: {
       screens: {
+        'xs-sm': {min: '300px', max: '640px'},
         xs: '300px',
         ...defaultTheme.screens
       },
