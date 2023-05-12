@@ -10,12 +10,12 @@
       }"
     >
       <template
-        v-if="orderNumber"
+        v-if="orderEmail"
         #description
       >
         <div class="banner__order-number">
-          <span>{{ $t('ThankYou.Order no') }}</span>
-          <strong>{{ orderNumber }}</strong>
+          <span class="pr-1">{{ $t('ThankYou.A confirmation has been sent to') }}</span>
+          <strong>{{ orderEmail }}</strong>
         </div>
       </template>
     </SfCallToAction>
@@ -180,8 +180,8 @@ export default {
       });
     };
 
-    const orderNumber = computed(() => {
-      return orderGetters.getId(order.value);
+    const orderEmail = computed(() => {
+      return orderGetters.getOrderEmail(order.value);
     });
 
     const getOrder = computed(() => {
@@ -195,7 +195,7 @@ export default {
       companyGetters,
       companyDetails,
       getOrder,
-      orderNumber
+      orderEmail
     };
   }
 };

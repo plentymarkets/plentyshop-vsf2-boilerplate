@@ -400,6 +400,7 @@ export default {
     'Payment method': 'Payment method',
     'Same As Shipping Address': 'Same As Shipping Address',
     'Shipping Method': 'Shipping Method',
+    'A confirmation has been sent to': 'A confirmation has been sent to',
   },
   // TopBar
   'TopBar': {

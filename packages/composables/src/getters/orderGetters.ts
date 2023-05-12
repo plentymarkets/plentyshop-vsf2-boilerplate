@@ -23,6 +23,11 @@ function getId(order: Order): string {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getOrderEmail(order: Order): string {
+  return order?.order?.deliveryAddress?.options[0]?.value || '';
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getBillingAddress(order: Order): AddressData | {} {
   return order?.order?.billingAddress || {};
 }
@@ -141,6 +146,7 @@ function getOrderItemLink(order: Order, productId: number): string {
 export const orderGetters: UserOrderGetters<Order, OrderItem> = {
   getAccessKey,
   getById,
+  getOrderEmail,
   getDate,
   getFormattedPrice,
   getId,
