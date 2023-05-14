@@ -2,7 +2,7 @@ import webpack from 'webpack';
 import theme from './themeConfig';
 import cookieGroups from './cookieConfig';
 
-const appPort = process.env.PORT || 80;
+const appPort = process.env.PORT || 8080;
 const appIP = 'localhost';
 const config = {
   server: {
