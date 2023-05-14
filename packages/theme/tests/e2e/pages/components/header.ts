@@ -48,6 +48,7 @@ class Header {
 
   login(mail = uniqueEmail, pw = password, isRememberChecked = false): void {
     this.openAccount();
+    
     if (mail) {
       this.accountModalForm.find('input#email').clear().type(mail, { force: true });
     }
