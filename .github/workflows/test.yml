@@ -90,7 +90,7 @@ jobs:
           config-file: tests/e2e/cypress.config.js
           install: false
           project: ${{ github.workspace }}/packages/theme/
-          start: yarn start --port 3000"
+          start: yarn start --port 3000
           wait-on: 'http://localhost:3000'
         env:
           CYPRESS_BASE_URL: 'http://localhost:3000'
