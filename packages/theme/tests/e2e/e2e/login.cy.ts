@@ -31,6 +31,8 @@ context('Login', () => {
   });
 
   beforeEach(function init () {
+    cy.intercept('/api/plentymarkets/loginUser').as('loginUser');
+
     page.home.visit();
     page.home.header.openAccount();
   });
@@ -46,8 +48,6 @@ context('Login', () => {
   });
 
   it(['exceptionPath', 'regression'], 'Fails due to wrong email', function test() {
-    cy.intercept('/api/plentymarkets/loginUser').as('loginUser');
-
     loginHelper(wrongEmail, password);
     cy.wait('@loginUser').its('response.statusCode').should('eq', 401);
     cy.get('.notifications').find('.sf-notification').should('have.class', 'color-danger');
@@ -59,16 +59,12 @@ context('Login', () => {
   });
 
   it(['exceptionPath', 'regression'], 'Fails due to wrong password', function test() {
-    cy.intercept('/api/plentymarkets/loginUser').as('loginUser');
-
     loginHelper(uniqueEmail, wrongPassword);
     cy.wait('@loginUser').its('response.statusCode').should('eq', 401);
     cy.get('.notifications').find('.sf-notification').should('have.class', 'color-danger');
   });
 
   it(['happyPath', 'regression'], 'Should login successfully', function test() {
-    cy.intercept('/api/plentymarkets/loginUser').as('loginUser');
-
     loginHelper(uniqueEmail, password);
     cy.wait('@loginUser').its('response.statusCode').should('eq', 200);
   });

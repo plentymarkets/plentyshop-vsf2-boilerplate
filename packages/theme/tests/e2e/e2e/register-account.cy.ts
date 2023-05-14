@@ -26,6 +26,8 @@ const registerHelper = (email: string, password: string): void => {
 
 context('Register account', () => {
   beforeEach(function init () {
+    cy.intercept('/api/plentymarkets/registerUser').as('registerUser');
+
     page.home.visit();
     page.home.header.openAccount();
     page.home.header.openRegistrationButton.click();
@@ -43,8 +45,6 @@ context('Register account', () => {
   });
 
   it(['happyPath', 'regression'], 'Should register a new account', function test() {
-    cy.intercept('/api/plentymarkets/registerUser').as('registerUser');
-
     registerHelper(uniqueMail, password);
     cy.wait('@registerUser').its('response.statusCode').should('eq', 200);
   });
