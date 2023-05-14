@@ -82,36 +82,11 @@ jobs:
       - name: Test theme
         run: yarn test:theme
 
-  test-e2e:
-    name: Run all end-to-end tests
-    needs: prepare_dependencies
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: '14'
-          cache: 'yarn'
-
-      - name: Install dependencies
-        run: yarn --frozen-lockfile
-
-      - name: Get IP4 address
-        run: echo "ip_address=localhost" >> $GITHUB_ENV
-
-      - name: E2E in Chrome
-        uses: cypress-io/github-action@v5.0.5
-        with:
-          browser: chrome
-          build: yarn build
-          config-file: tests/e2e/cypress.config.js
-          project: ${{ github.workspace }}/packages/theme/
-          start: ${{ github.workspace }}/node_modules/.bin/concurrently --kill-others "yarn dev:api-client" "yarn dev:composables" "yarn dev:theme --hostname '${{ env.ip_address }}' --port 3000"
-          wait-on: 'http://${{ env.ip_address }}:3000'
-        env:
-          CYPRESS_BASE_URL: 'http://${{ env.ip_address }}:3000'
+      - name: Run all end-to-end tests
+        if: ${{ matrix.os == 'ubuntu' }}
+        run: |
+          yarn start
+          yarn test:e2e:hl
 
       - name: Upload code coverage report
         if: ${{ always() && !cancelled() }}
