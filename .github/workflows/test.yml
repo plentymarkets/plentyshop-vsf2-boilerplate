@@ -83,7 +83,7 @@ jobs:
         run: yarn test:theme
 
       - name: Run all end-to-end tests
-        if: ${{ matrix.os == 'ubuntu' }}
+        if: ${{ matrix.os == 'ubuntu-latest' }}
         run: |
           yarn start
           yarn test:e2e:hl
