@@ -1,5 +1,8 @@
 import { el } from '../utils/element';
 
+const uniqueEmail = `e2etestemail-${new Date().getTime()}@plentymarkets.com`;
+const password = 'Testuser1234';
+    
 class Header {
   get cart(): Cypress.Chainable {
     return el('header-icons').children().eq(2);
@@ -43,16 +46,13 @@ class Header {
     });
   }
 
-  login(isRememberChecked = false): void {
-    const uniqueEmail = `e2etestemail-${new Date().getTime()}@plentymarkets.com`;
-    const password = 'Testuser1234';
-
+  login(mail = uniqueEmail, pw = password, isRememberChecked = false): void {
     this.openAccount();
-    if (uniqueEmail) {
-      this.accountModalForm.find('input#email').clear().type(uniqueEmail, { force: true });
+    if (mail) {
+      this.accountModalForm.find('input#email').clear().type(mail, { force: true });
     }
-    if (password) {
-      this.accountModalForm.find('input#password').clear().type(password, { force: true });
+    if (pw) {
+      this.accountModalForm.find('input#password').clear().type(pw, { force: true });
     }
     if (isRememberChecked) {
       this.accountModalForm.find('label.sf-checkbox__container').click();
