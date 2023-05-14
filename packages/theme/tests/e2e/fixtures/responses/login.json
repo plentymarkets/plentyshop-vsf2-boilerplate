@@ -1,0 +1,392 @@
+{
+    "events": {
+        "AfterBasketChanged": {
+            "basket": {
+                "id": 4463,
+                "sessionId": "CaKx7OfXeGWTWQlxzmOBQJSaLVVBmI6XvfT7UpTR",
+                "orderId": null,
+                "customerId": 158,
+                "customerShippingAddressId": null,
+                "currency": "GBP",
+                "referrerId": 1,
+                "shippingCountryId": 3,
+                "methodOfPaymentId": 6000,
+                "shippingProviderId": 101,
+                "shippingProfileId": 6,
+                "itemSum": 1300,
+                "itemSumNet": 1092.44,
+                "basketAmount": 1308.71,
+                "basketAmountNet": 1099.75,
+                "shippingAmount": 8.71,
+                "shippingAmountNet": 7.32,
+                "paymentAmount": 0,
+                "couponCode": "",
+                "couponDiscount": 0,
+                "shippingDeleteByCoupon": false,
+                "basketRebate": 0,
+                "maxFsk": 0,
+                "orderTimestamp": null,
+                "createdAt": "2023-05-13T15:02:15+02:00",
+                "updatedAt": "2023-05-14T11:11:28+02:00",
+                "basketRebateType": "0",
+                "customerInvoiceAddressId": 1063,
+                "itemQuantity": 2,
+                "totalVats": [
+                    {
+                        "vatAmount": 208.96,
+                        "vatValue": 19
+                    }
+                ],
+                "subAmount": 1099.75,
+                "isExportDelivery": false,
+                "shopCountryId": 1,
+                "itemWishListIds": []
+            },
+            "showNetPrices": false,
+            "basketItems": [
+                {
+                    "id": 3500,
+                    "quantity": 2,
+                    "price": 650,
+                    "itemId": 154,
+                    "variation": null,
+                    "variationId": 1097,
+                    "basketItemOrderParams": [],
+                    "inputLength": 0,
+                    "inputWidth": 0,
+                    "setComponents": [],
+                    "itemType": 0
+                }
+            ]
+        },
+        "CheckoutChanged": {
+            "checkout": {
+                "currency": "GBP",
+                "currencyList": [
+                    {
+                        "name": "AED",
+                        "symbol": "AED"
+                    },
+                    {
+                        "name": "ARS",
+                        "symbol": "ARS"
+                    },
+                    {
+                        "name": "AUD",
+                        "symbol": "AU$"
+                    },
+                    {
+                        "name": "BGN",
+                        "symbol": "BGN"
+                    },
+                    {
+                        "name": "BHD",
+                        "symbol": "BHD"
+                    },
+                    {
+                        "name": "BRL",
+                        "symbol": "R$"
+                    },
+                    {
+                        "name": "CAD",
+                        "symbol": "CA$"
+                    },
+                    {
+                        "name": "CHF",
+                        "symbol": "CHF"
+                    },
+                    {
+                        "name": "CNY",
+                        "symbol": "CN¥"
+                    },
+                    {
+                        "name": "CZK",
+                        "symbol": "CZK"
+                    },
+                    {
+                        "name": "DKK",
+                        "symbol": "DKK"
+                    },
+                    {
+                        "name": "EUR",
+                        "symbol": "€"
+                    },
+                    {
+                        "name": "GBP",
+                        "symbol": "£"
+                    },
+                    {
+                        "name": "HKD",
+                        "symbol": "HK$"
+                    },
+                    {
+                        "name": "HRK",
+                        "symbol": "HRK"
+                    },
+                    {
+                        "name": "HUF",
+                        "symbol": "HUF"
+                    },
+                    {
+                        "name": "IDR",
+                        "symbol": "IDR"
+                    },
+                    {
+                        "name": "INR",
+                        "symbol": "₹"
+                    },
+                    {
+                        "name": "JPY",
+                        "symbol": "¥"
+                    },
+                    {
+                        "name": "KES",
+                        "symbol": "KES"
+                    },
+                    {
+                        "name": "MXN",
+                        "symbol": "MX$"
+                    },
+                    {
+                        "name": "MYR",
+                        "symbol": "MYR"
+                    },
+                    {
+                        "name": "NOK",
+                        "symbol": "NOK"
+                    },
+                    {
+                        "name": "NZD",
+                        "symbol": "NZ$"
+                    },
+                    {
+                        "name": "PHP",
+                        "symbol": "PHP"
+                    },
+                    {
+                        "name": "PLN",
+                        "symbol": "PLN"
+                    },
+                    {
+                        "name": "QAR",
+                        "symbol": "QAR"
+                    },
+                    {
+                        "name": "RON",
+                        "symbol": "RON"
+                    },
+                    {
+                        "name": "RUB",
+                        "symbol": "RUB"
+                    },
+                    {
+                        "name": "SEK",
+                        "symbol": "SEK"
+                    },
+                    {
+                        "name": "SGD",
+                        "symbol": "SGD"
+                    },
+                    {
+                        "name": "THB",
+                        "symbol": "฿"
+                    },
+                    {
+                        "name": "TRY",
+                        "symbol": "TRY"
+                    },
+                    {
+                        "name": "TWD",
+                        "symbol": "NT$"
+                    },
+                    {
+                        "name": "UAH",
+                        "symbol": "UAH"
+                    },
+                    {
+                        "name": "USD",
+                        "symbol": "$"
+                    },
+                    {
+                        "name": "VND",
+                        "symbol": "₫"
+                    },
+                    {
+                        "name": "XCD",
+                        "symbol": "EC$"
+                    },
+                    {
+                        "name": "ZAR",
+                        "symbol": "ZAR"
+                    }
+                ],
+                "methodOfPaymentId": 6000,
+                "methodOfPaymentList": [
+                    {
+                        "id": 6000,
+                        "pluginKey": "plenty",
+                        "paymentKey": "PREPAYMENT",
+                        "name": "prepayment"
+                    }
+                ],
+                "shippingCountryId": 3,
+                "shippingProfileId": 6,
+                "shippingProfileList": [
+                    {
+                        "parcelServicePresetId": 6,
+                        "parcelServicePresetName": "Standardpaket",
+                        "parcelServiceType": 2,
+                        "parcelServiceId": 101,
+                        "parcelServiceName": "DHL",
+                        "shippingAmount": 8.707284,
+                        "shippingPrivacyInformation": [
+                            {
+                                "showDataPrivacyAgreementHint": true,
+                                "id": 6,
+                                "parcelServiceId": 101,
+                                "parcelServiceName": "DHL",
+                                "parcelServiceAddress": ""
+                            }
+                        ],
+                        "isPostOffice": false,
+                        "isParcelBox": false,
+                        "icon": null,
+                        "excludedPaymentMethodIds": [
+                            4
+                        ],
+                        "allowedPaymentMethodNames": [
+                            "Vorkasse"
+                        ]
+                    },
+                    {
+                        "parcelServicePresetId": 7,
+                        "parcelServicePresetName": "Selbstabholer",
+                        "parcelServiceType": 1,
+                        "parcelServiceId": 102,
+                        "parcelServiceName": "Selbstabholer",
+                        "shippingAmount": 0,
+                        "shippingPrivacyInformation": [
+                            {
+                                "showDataPrivacyAgreementHint": false,
+                                "id": 7,
+                                "parcelServiceId": 102,
+                                "parcelServiceName": "Selbstabholer",
+                                "parcelServiceAddress": ""
+                            }
+                        ],
+                        "isPostOffice": false,
+                        "isParcelBox": false,
+                        "icon": null,
+                        "excludedPaymentMethodIds": [],
+                        "allowedPaymentMethodNames": [
+                            "Vorkasse"
+                        ]
+                    }
+                ],
+                "deliveryAddressId": 0,
+                "billingAddressId": 1063,
+                "paymentDataList": [
+                    {
+                        "id": 6000,
+                        "name": "Vorkasse",
+                        "fee": 0,
+                        "icon": "https://cdn02.plentymarkets.com/mevofvd5omld/plugin/2/prepayment/images/icon.png",
+                        "description": "",
+                        "sourceUrl": "",
+                        "isSelectable": true,
+                        "key": "plenty"
+                    }
+                ],
+                "maxDeliveryDays": [],
+                "readOnly": false,
+                "contactWish": null
+            }
+        },
+        "AfterAccountAuthentication": {
+            "isSuccess": true,
+            "accountContact": {
+                "id": 158,
+                "number": null,
+                "externalId": "",
+                "typeId": 1,
+                "firstName": "Kevin",
+                "lastName": "Stederoth",
+                "gender": "male",
+                "title": "",
+                "formOfAddress": "",
+                "newsletterAllowanceAt": null,
+                "classId": 1,
+                "blocked": 0,
+                "rating": null,
+                "bookAccount": null,
+                "lang": "de",
+                "referrerId": 1,
+                "userId": null,
+                "birthdayAt": null,
+                "lastLoginAt": "2023-05-14T11:11:28+02:00",
+                "lastOrderAt": "2023-04-27T08:31:16+02:00",
+                "createdAt": "2022-11-22T12:09:30+01:00",
+                "updatedAt": "2023-05-14T11:11:28+02:00",
+                "valuta": null,
+                "discountDays": null,
+                "discountPercent": null,
+                "timeForPaymentAllowedDays": null,
+                "salesRepresentativeContactId": null,
+                "anonymizeAt": null,
+                "isLead": false,
+                "leadStatusKey": "",
+                "plentyId": 60796,
+                "email": "kevin.stederoth+logout@plentymarkets.com",
+                "ebayName": "",
+                "privatePhone": "6123456789",
+                "privateFax": "",
+                "privateMobile": "",
+                "paypalEmail": "",
+                "paypalPayerId": "",
+                "klarnaPersonalId": "",
+                "dhlPostIdent": "",
+                "singleAccess": "",
+                "contactPerson": "",
+                "marketplacePartner": "",
+                "fullName": "Kevin Stederoth",
+                "inLeadStatusSince": 0,
+                "options": [
+                    {
+                        "id": 61,
+                        "contactId": 158,
+                        "typeId": 1,
+                        "subTypeId": 4,
+                        "value": "6123456789",
+                        "priority": 0,
+                        "createdAt": "2022-11-22T12:11:29+01:00",
+                        "updatedAt": "2022-11-22T12:11:29+01:00"
+                    },
+                    {
+                        "id": 60,
+                        "contactId": 158,
+                        "typeId": 2,
+                        "subTypeId": 4,
+                        "value": "kevin.stederoth+logout@plentymarkets.com",
+                        "priority": 0,
+                        "createdAt": "2022-11-22T12:09:30+01:00",
+                        "updatedAt": "2022-11-22T12:09:30+01:00"
+                    }
+                ],
+                "accounts": []
+            }
+        },
+        "FrontendUpdateCustomerSettings": {
+            "deliveryCountryId": 1,
+            "showNetPrice": null,
+            "ebaySellerAccount": null,
+            "accountContactSign": null,
+            "accountContactClassId": null,
+            "salesAgent": null,
+            "accountContractClassId": null
+        },
+        "FrontendLanguageChanged": {
+            "language": "de"
+        }
+    },
+    "data": null
+}

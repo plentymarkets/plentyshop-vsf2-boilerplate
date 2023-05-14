@@ -1,0 +1,56 @@
+{
+    "id": 4463,
+    "sessionId": "CaKx7OfXeGWTWQlxzmOBQJSaLVVBmI6XvfT7UpTR",
+    "orderId": null,
+    "customerId": null,
+    "customerShippingAddressId": null,
+    "currency": "GBP",
+    "referrerId": 1,
+    "shippingCountryId": 12,
+    "methodOfPaymentId": 6000,
+    "shippingProviderId": 101,
+    "shippingProfileId": 6,
+    "itemSum": 650,
+    "itemSumNet": 546.22,
+    "basketAmount": 663.07,
+    "basketAmountNet": 557.2,
+    "shippingAmount": 13.07,
+    "shippingAmountNet": 10.98,
+    "paymentAmount": 0,
+    "couponCode": "",
+    "couponDiscount": 0,
+    "shippingDeleteByCoupon": false,
+    "basketRebate": 0,
+    "maxFsk": 0,
+    "orderTimestamp": null,
+    "createdAt": "2023-05-13T15:02:15+02:00",
+    "updatedAt": "2023-05-14T11:21:44+02:00",
+    "basketRebateType": "0",
+    "customerInvoiceAddressId": null,
+    "itemQuantity": 1,
+    "totalVats": [
+        {
+            "vatAmount": 110.5116,
+            "vatValue": 19
+        }
+    ],
+    "subAmount": 557.2,
+    "isExportDelivery": true,
+    "shopCountryId": 1,
+    "itemWishListIds": [],
+    "items": [
+        {
+            "id": 3556,
+            "quantity": 1,
+            "price": 546.22,
+            "itemId": 154,
+            "variation": null,
+            "variationId": 1097,
+            "basketItemOrderParams": [],
+            "inputLength": 0,
+            "inputWidth": 0,
+            "setComponents": [],
+            "itemType": 0
+        }
+    ]
+}

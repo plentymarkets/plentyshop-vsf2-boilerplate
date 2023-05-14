@@ -1,0 +1,324 @@
+{
+    "id": 4463,
+    "sessionId": "UzFQ5jiGeusmicyvjBudEIs3pmbVchGHcdjHg0xh",
+    "orderId": null,
+    "customerId": 158,
+    "customerShippingAddressId": null,
+    "currency": "GBP",
+    "referrerId": 1,
+    "shippingCountryId": 3,
+    "methodOfPaymentId": 6000,
+    "shippingProviderId": 101,
+    "shippingProfileId": 6,
+    "itemSum": 1300,
+    "itemSumNet": 1092.44,
+    "basketAmount": 1308.71,
+    "basketAmountNet": 1099.75,
+    "shippingAmount": 8.71,
+    "shippingAmountNet": 7.32,
+    "paymentAmount": 0,
+    "couponCode": "",
+    "couponDiscount": 0,
+    "shippingDeleteByCoupon": false,
+    "basketRebate": 0,
+    "maxFsk": 0,
+    "orderTimestamp": null,
+    "createdAt": "2023-05-13T15:02:15+02:00",
+    "updatedAt": "2023-05-14T11:56:11+02:00",
+    "basketRebateType": "0",
+    "customerInvoiceAddressId": 1063,
+    "itemQuantity": 2,
+    "totalVats": [
+        {
+            "vatAmount": 208.96,
+            "vatValue": 19
+        }
+    ],
+    "subAmount": 1099.75,
+    "isExportDelivery": false,
+    "shopCountryId": 1,
+    "itemWishListIds": [],
+    "items": [
+        {
+            "id": 3556,
+            "quantity": 2,
+            "price": 650,
+            "itemId": 154,
+            "variation": {
+                "item": {
+                    "id": 154,
+                    "manufacturerId": 0,
+                    "itemType": "default",
+                    "manufacturer": [],
+                    "rebate": 0,
+                    "customsTariffNumber": "",
+                    "producingCountry": {
+                        "names": []
+                    },
+                    "condition": {
+                        "names": []
+                    }
+                },
+                "texts": {
+                    "name3": "",
+                    "lang": "en",
+                    "urlPath": "drone-omega",
+                    "description": "<h2 class=\"mb-4\">Our most elegant piece</h2> <p>Crafted from a blend of organic pineapple peels and eucalyptus fibers this item resembles the most sustainable and yet elegant component in our collection. It comes in three different colors that were inspired by the Mongolian landscapes. Charcoal, Sand and Berry Red.&nbsp;</p> <div class=\"d-flex align-items-center justify-content-between py-4 px-0 px-md-4\"><div class=\"d-inline-block text-center\"><span class=\"fa-3x\">&nbsp;</span> <div class=\"fa fa-3x fa-tree mb-2\">&nbsp;</div> <p>Sustainable</p></div> <div class=\"d-inline-block text-center\"><span class=\"fa-3x\">&nbsp;</span> <div class=\"fa fa-3x fa-heart mb-2\">&nbsp;</div> <p>Hand-crafted</p></div> <div class=\"d-inline-block text-center\"><span class=\"fa-3x\">&nbsp;</span> <div class=\"fa fa-3x fa-flask mb-2\">&nbsp;</div> <p>Material science</p></div></div> <p class=\"mb-4\"><img alt=\"Hand-crafted with love\" src=\"https://cdn15.plentymarkets.com/ksvjcz2xpb12/frontend/story-handcrafted-1920x.jpg\" ></p> <p>Every thread and every fibre is carefully manufactured in our local facilities. In addition, each piece goes through our strict quality assurance processes, so that you can enjoy flawless products, every time.</p>",
+                    "name2": "",
+                    "name1": "Drone Omega",
+                    "shortDescription": ""
+                },
+                "variation": {
+                    "itemId": 154,
+                    "number": "1142",
+                    "availabilityId": 1,
+                    "maximumOrderQuantity": null,
+                    "minimumOrderQuantity": 1,
+                    "intervalOrderQuantity": 1,
+                    "name": "",
+                    "vatId": 0,
+                    "bundleType": null,
+                    "mayShowUnitPrice": false,
+                    "availability": {
+                        "id": 1,
+                        "icon": "av1.gif",
+                        "averageDays": 2,
+                        "createdAt": "2022-06-27 09:20:16",
+                        "updatedAt": "2022-06-27 09:20:16",
+                        "names": {
+                            "id": 42,
+                            "availabilityId": 1,
+                            "lang": "en",
+                            "name": "Ready for shipping, delivery in 48h",
+                            "createdAt": "2022-06-27 09:20:16",
+                            "updatedAt": "2022-06-27 09:20:16"
+                        }
+                    },
+                    "id": 1097,
+                    "availabilityUpdatedAt": "2022-02-15T16:55:59+01:00",
+                    "model": ""
+                },
+                "images": {
+                    "all": [
+                        {
+                            "names": [],
+                            "path": "S3:154:gear-drone-01.png",
+                            "url": "https://cdn02.plentymarkets.com/mevofvd5omld/item/images/154/full/gear-drone-01.png",
+                            "position": 0,
+                            "urlPreview": "https://cdn02.plentymarkets.com/mevofvd5omld/item/images/154/preview/gear-drone-01.png",
+                            "urlSecondPreview": "https://cdn02.plentymarkets.com/mevofvd5omld/item/images/154/secondPreview/gear-drone-01.png",
+                            "urlMiddle": "https://cdn02.plentymarkets.com/mevofvd5omld/item/images/154/middle/gear-drone-01.png",
+                            "cleanImageName": "gear-drone-01.png"
+                        }
+                    ],
+                    "variation": []
+                },
+                "filter": {
+                    "isSalable": true,
+                    "isSalableAndActive": true
+                },
+                "unit": {
+                    "names": {
+                        "unitId": 1,
+                        "lang": "en",
+                        "name": "piece"
+                    },
+                    "unitOfMeasurement": "C62",
+                    "content": 1,
+                    "htmlUnit": "mm"
+                },
+                "properties": [],
+                "hasOrderProperties": false,
+                "hasRequiredOrderProperty": false,
+                "prices": {
+                    "default": {
+                        "price": {
+                            "value": 650,
+                            "formatted": "GBP 650.00"
+                        },
+                        "unitPrice": {
+                            "value": 650,
+                            "formatted": "GBP 650.00"
+                        },
+                        "basePrice": "",
+                        "baseLot": null,
+                        "baseUnit": null,
+                        "baseSinglePrice": null,
+                        "minimumOrderQuantity": 1,
+                        "contactClassDiscount": {
+                            "percent": 0,
+                            "amount": 0
+                        },
+                        "categoryDiscount": {
+                            "percent": 0,
+                            "amount": 0
+                        },
+                        "currency": "GBP",
+                        "lowestPrice": {
+                            "value": null,
+                            "formatted": ""
+                        },
+                        "vat": {
+                            "id": 0,
+                            "value": 19
+                        },
+                        "isNet": false,
+                        "data": {
+                            "salesPriceId": 1,
+                            "price": 650,
+                            "priceNet": 546.21848739496,
+                            "basePrice": 650,
+                            "basePriceNet": 546.21848739496,
+                            "unitPrice": 650,
+                            "unitPriceNet": 546.21848739496,
+                            "lowestPrice": null,
+                            "lowestPriceNet": null,
+                            "customerClassDiscountPercent": 0,
+                            "customerClassDiscount": 0,
+                            "customerClassDiscountNet": 0,
+                            "categoryDiscountPercent": 0,
+                            "categoryDiscount": 0,
+                            "categoryDiscountNet": 0,
+                            "vatId": 0,
+                            "vatValue": 19,
+                            "currency": "GBP",
+                            "interval": "none",
+                            "conversionFactor": 0.8716,
+                            "minimumOrderQuantity": "1.00",
+                            "updatedAt": "2022-02-15 16:56:11",
+                            "type": "default"
+                        }
+                    },
+                    "rrp": {
+                        "price": {
+                            "value": 999.99,
+                            "formatted": "GBP 999.99"
+                        },
+                        "unitPrice": {
+                            "value": 999.99,
+                            "formatted": "GBP 999.99"
+                        },
+                        "basePrice": "",
+                        "baseLot": null,
+                        "baseUnit": null,
+                        "baseSinglePrice": null,
+                        "minimumOrderQuantity": 0,
+                        "contactClassDiscount": {
+                            "percent": 0,
+                            "amount": 0
+                        },
+                        "categoryDiscount": {
+                            "percent": 0,
+                            "amount": 0
+                        },
+                        "currency": "GBP",
+                        "lowestPrice": {
+                            "value": null,
+                            "formatted": ""
+                        },
+                        "vat": {
+                            "id": 0,
+                            "value": 19
+                        },
+                        "isNet": false,
+                        "data": {
+                            "salesPriceId": 2,
+                            "price": 999.99,
+                            "priceNet": 840.32773109244,
+                            "basePrice": 999.99,
+                            "basePriceNet": 840.32773109244,
+                            "unitPrice": 999.99,
+                            "unitPriceNet": 840.32773109244,
+                            "lowestPrice": null,
+                            "lowestPriceNet": null,
+                            "customerClassDiscountPercent": 0,
+                            "customerClassDiscount": 0,
+                            "customerClassDiscountNet": 0,
+                            "categoryDiscountPercent": 0,
+                            "categoryDiscount": 0,
+                            "categoryDiscountNet": 0,
+                            "vatId": 0,
+                            "vatValue": 19,
+                            "currency": "GBP",
+                            "interval": "none",
+                            "conversionFactor": 0.8716,
+                            "minimumOrderQuantity": "0.00",
+                            "updatedAt": "2023-01-26 16:29:12",
+                            "type": "rrp"
+                        }
+                    },
+                    "set": null,
+                    "specialOffer": null,
+                    "graduatedPrices": [
+                        {
+                            "price": {
+                                "value": 650,
+                                "formatted": "GBP 650.00"
+                            },
+                            "unitPrice": {
+                                "value": 650,
+                                "formatted": "GBP 650.00"
+                            },
+                            "basePrice": "",
+                            "baseLot": null,
+                            "baseUnit": null,
+                            "baseSinglePrice": null,
+                            "minimumOrderQuantity": 1,
+                            "contactClassDiscount": {
+                                "percent": 0,
+                                "amount": 0
+                            },
+                            "categoryDiscount": {
+                                "percent": 0,
+                                "amount": 0
+                            },
+                            "currency": "GBP",
+                            "lowestPrice": {
+                                "value": null,
+                                "formatted": ""
+                            },
+                            "vat": {
+                                "id": 0,
+                                "value": 19
+                            },
+                            "isNet": false,
+                            "data": {
+                                "salesPriceId": 1,
+                                "price": 650,
+                                "priceNet": 546.21848739496,
+                                "basePrice": 650,
+                                "basePriceNet": 546.21848739496,
+                                "unitPrice": 650,
+                                "unitPriceNet": 546.21848739496,
+                                "lowestPrice": null,
+                                "lowestPriceNet": null,
+                                "customerClassDiscountPercent": 0,
+                                "customerClassDiscount": 0,
+                                "customerClassDiscountNet": 0,
+                                "categoryDiscountPercent": 0,
+                                "categoryDiscount": 0,
+                                "categoryDiscountNet": 0,
+                                "vatId": 0,
+                                "vatValue": 19,
+                                "currency": "GBP",
+                                "interval": "none",
+                                "conversionFactor": 0.8716,
+                                "minimumOrderQuantity": "1.00",
+                                "updatedAt": "2022-02-15 16:56:11",
+                                "type": "default"
+                            }
+                        }
+                    ]
+                },
+                "facets": [],
+                "attributes": []
+            },
+            "variationId": 1097,
+            "basketItemOrderParams": [],
+            "inputLength": 0,
+            "inputWidth": 0,
+            "setComponents": [],
+            "itemType": 0
+        }
+    ]
+}
