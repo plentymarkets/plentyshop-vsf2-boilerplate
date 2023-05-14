@@ -35,6 +35,7 @@ module.exports = defineConfig({
     specPattern: 'tests/e2e/e2e/**/*.cy.{js,jsx,ts,tsx}',
     supportFile: 'tests/e2e/support/index.js'
   },
+  chromeWebSecurity: false,
 
   env: {
     CYPRESS_DEFAULT_ACCOUNT_EMAIL: process.env.CYPRESS_DEFAULT_ACCOUNT_EMAIL,
