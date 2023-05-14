@@ -10,7 +10,7 @@ context('CookieBar functionality', () => {
   it('Should successfully accept all cookies', function test() {
     cy.intercept(externalCookieScriptForTest).as('testcookieload');
     // 1. Accept all
-    cy.get('[data-e2e*="accept-all"]').click();
+    cy.get('[v-e2e*="accept-all"]').click();
     // exists and all are checked
     cy.getCookie(cookieName).should('exist');
     // check that all coookies saved in memory are updated to true
@@ -25,13 +25,13 @@ context('CookieBar functionality', () => {
     // check if the request for the external Cookie Script is made
     cy.wait('@testcookieload');
     // if we have set cookies check if the cookie banner is in hidden state
-    cy.get('[data-e2e*="cookie-show-banner-button"]').click();
+    cy.get('[v-e2e*="cookie-show-banner-button"]').click();
   });
   it('Should successfully check second checkbox and click on accept selection button', function test() {
     cy.intercept(externalCookieScriptForTest).as('testcookieload');
     // check second checkbox
-    cy.get('[data-e2e*="checkbox-1"]').click();
-    cy.get('[data-e2e*="accept-selection"]').click();
+    cy.get('[v-e2e*="checkbox-1"]').click();
+    cy.get('[v-e2e*="accept-selection"]').click();
     // check if cookies from first group are true and the rest are false
     cy.getCookie(cookieName).then((cookie) => {
       const decodedGroup = JSON.parse(decodeURIComponent(cookie.value));
@@ -50,7 +50,7 @@ context('CookieBar functionality', () => {
   });
   it('Should successfully reject all cookies', function test() {
     cy.intercept(externalCookieScriptForTest).as('testcookieload');
-    cy.get('[data-e2e*="reject-all"]').click();
+    cy.get('[v-e2e*="reject-all"]').click();
     // check that all coookies saved in memory except the first one are updated to false
     cy.getCookie(cookieName).then((cookie) => {
       const decodedGroup = JSON.parse(decodeURIComponent(cookie.value));
