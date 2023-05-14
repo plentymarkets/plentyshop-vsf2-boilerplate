@@ -84,10 +84,17 @@ jobs:
 
       - name: Run all end-to-end tests
         if: ${{ matrix.os == 'ubuntu-latest' }}
-        run: |
-          yarn start
-          yarn test:e2e:hl
-
+        uses: cypress-io/github-action@v5.0.5
+        with:
+          browser: chrome
+          config-file: tests/e2e/cypress.config.js
+          install: false
+          project: ${{ github.workspace }}/packages/theme/
+          start: yarn start --port 3000"
+          wait-on: 'http://localhost:3000'
+        env:
+          CYPRESS_BASE_URL: 'http://localhost:3000'
+          
       - name: Upload code coverage report
         if: ${{ always() && !cancelled() }}
         uses: actions/upload-artifact@v3
