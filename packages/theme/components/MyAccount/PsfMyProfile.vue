@@ -41,7 +41,7 @@
           <SfButton
             class="form__button"
             disabled
-            data-testid="save-changes-button"
+            :v-e2e="'save-changes-button'"
             @click="updatePersonal"
           >
             {{ $t('PsfMyProfile.Save changes') }}
@@ -96,7 +96,7 @@
           />
           <SfButton
             class="form__button"
-            data-testid="update-password-button"
+            :v-e2e="'update-password-button'"
             @click="updatePassword"
           >
             {{ $t('PsfMyProfile.Update password') }}

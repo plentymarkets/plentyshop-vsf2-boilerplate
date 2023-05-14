@@ -27,7 +27,7 @@
             >
               <SfInput
                 v-model="personalDetails.email"
-                v-e2e="'register-mail-input'"
+                :v-e2e="'register-mail-input'"
                 :label="$t('PsfPersonalDetails.Email')"
                 name="registerMail"
                 class="form__element"
@@ -53,7 +53,7 @@
                   :label="$t('PsfPersonalDetails.Password')"
                   class="form__element"
                   required
-                  data-e2e="create-password-input"
+                  :v-e2e="'create-password-input'"
                   :valid="!errors[0]"
                   :error-message="errors[0]"
                   @input="updateField('password', $event)"
@@ -71,13 +71,13 @@
                 name="createAccount"
                 :label="$t('PsfPersonalDetails.I want to create an account')"
                 class="form__checkbox"
-                data-e2e="create-account-checkbox"
+                :v-e2e="'create-account-checkbox'"
                 @change="$emit('create-account', createAccount)"
               />
             </slot>
             <div class="signin">
               <a
-                data-testid="login-button"
+                :v-e2e="'login-button'"
                 @click="toggleLoginModal()"
               >
                 {{ $t('PsfPersonalDetails.Already have an account?') }}

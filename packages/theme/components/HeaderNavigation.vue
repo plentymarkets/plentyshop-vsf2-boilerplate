@@ -5,7 +5,7 @@
         v-for="(category, index) in categoryTree"
         :key="index"
         class="nav-item"
-        :data-e2e="`app-header-url_${categoryTreeGetters.getSlug(category)}`"
+        :v-e2e="`app-header-url_${categoryTreeGetters.getSlug(category)}`"
         :label="categoryTreeGetters.getLabel(category)"
         :link="localePath(`/c/${categoryTreeGetters.getSlug(category)}`)"
       />
@@ -18,7 +18,7 @@
         v-for="(category, index) in categoryTree"
         :key="index"
         class="nav-item"
-        :data-e2e="`app-header-url_${categoryTreeGetters.getSlug(category)}`"
+        :v-e2e="`app-header-url_${categoryTreeGetters.getSlug(category)}`"
       >
         <template #mobile-navigation-item>
           <SfMenuItem

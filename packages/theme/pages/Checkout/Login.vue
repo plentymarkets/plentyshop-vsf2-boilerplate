@@ -20,7 +20,7 @@
       v-if="!createAccountCheckbox"
       type="button"
       class="sf-button color-primary summary__back-button"
-      data-e2e="continue-to-billing"
+      :v-e2e="'continue-to-billing'"
       @click="goToBilling"
     >
       {{ $t('Login.Order as guest') }}
@@ -29,7 +29,7 @@
       v-if="createAccountCheckbox"
       type="button"
       class="sf-button color-primary summary__back-button"
-      data-e2e="continue-to-billing"
+      :v-e2e="'continue-to-billing'"
       @click="goToBilling"
     >
       {{ $t('Login.Register and continue') }}

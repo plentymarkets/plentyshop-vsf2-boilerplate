@@ -20,7 +20,7 @@
       />
       <div class="spacer-top buttons">
         <SfButton
-          data-e2e="continue-to-shipping"
+          :v-e2e="'continue-to-shipping'"
           class="form__action-button"
           @click="continueToNextStep"
         >

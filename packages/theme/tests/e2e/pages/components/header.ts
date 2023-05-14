@@ -6,7 +6,7 @@ class Header {
   }
 
   get categories(): Cypress.Chainable {
-    return cy.get('[data-e2e*="app-header"]');
+    return cy.get('[v-e2e*="app-header"]');
   }
 
   get category() {
@@ -21,7 +21,7 @@ class Header {
   }
 
   get accountModalForm() {
-    return cy.get('[data-e2e="login-modal"]').find('form');
+    return cy.get('[v-e2e="login-modal"]').find('form');
   }
 
   get openRegistrationButton(): Cypress.Chainable {
@@ -31,7 +31,7 @@ class Header {
   openCart(): Cypress.Chainable {
     const click = ($el) => $el.click();
     return this.cart.pipe(click).should(() => {
-      expect(Cypress.$('[data-e2e="sidebar-cart"]')).to.exist;
+      expect(Cypress.$('[v-e2e="sidebar-cart"]')).to.exist;
     });
   }
 
@@ -39,7 +39,7 @@ class Header {
     const click = ($el) => $el.click();
 
     return this.account.pipe(click).should(() => {
-      expect(Cypress.$('[data-e2e="login-modal"]')).to.exist;
+      expect(Cypress.$('[v-e2e="login-modal"]')).to.exist;
     });
   }
 }

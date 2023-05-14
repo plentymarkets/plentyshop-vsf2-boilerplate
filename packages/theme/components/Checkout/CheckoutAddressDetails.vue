@@ -23,7 +23,7 @@
             v-if="inEditState"
             type="submit"
             class="action-button update-button"
-            data-e2e="update-address-button"
+            :v-e2e="'update-address-button'"
             @click.prevent="submit()"
           >
             <template v-if="inEditState">
@@ -36,7 +36,7 @@
             v-if="(addressList.length > 0)"
             type="button"
             class="action-button color-secondary"
-            data-e2e="close-address-button"
+            :v-e2e="'close-address-button'"
             @click="closeForm"
           >
             {{ $t('CheckoutAddressDetails.Cancel') }}
@@ -58,7 +58,7 @@
         </slot>
         <SfButton
           class="action-button"
-          data-testid="add-new-address"
+          :v-e2e="'add-new-address'"
           @click="changeAddress(-1)"
         >
           {{ $t('CheckoutAddressDetails.Add new address') }}

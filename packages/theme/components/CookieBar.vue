@@ -35,7 +35,7 @@
               >
                 <SfCheckbox
                   v-model="cookieGroup.accepted"
-                  v-e2e="`checkbox-${index}`"
+                  :v-e2e="`checkbox-${index}`"
                   :disabled="index === defaultCheckboxIndex"
                   :name="cookieBarGetters.getCookieGroupName(cookieGroup)"
                   :label="cookieBarGetters.getCookieGroupName(cookieGroup)"
@@ -155,7 +155,7 @@
           <div class="w-full flex flex-col xl:flex-row gap-sf-xs p-sf-xs">
             <div class="flex-1 mb-sf-xs">
               <button
-                v-e2e="'accept-all'"
+                :v-e2e="'accept-all'"
                 class="color-sf-c-primary w-full sf-button"
                 :aria-disabled="false"
                 type="button"
@@ -167,7 +167,7 @@
             </div>
             <div class="flex-1 mb-sf-xs">
               <button
-                v-e2e="'reject-all'"
+                :v-e2e="'reject-all'"
                 class="color-sf-c-primary w-full sf-button"
                 :aria-disabled="false"
                 type="button"
@@ -179,7 +179,7 @@
             </div>
             <div class="flex-1 mb-sf-xs">
               <button
-                v-e2e="'accept-selection'"
+                :v-e2e="'accept-selection'"
                 class="sf-button w-full border-solid border-1 border-sf-c-primary"
                 :aria-disabled="false"
                 type="button"
@@ -194,7 +194,7 @@
       <!-- button to open cookie tab -->
       <button
         v-else
-        v-e2e="'cookie-show-banner-button'"
+        :v-e2e="'cookie-show-banner-button'"
         class="color-sf-c-primary sf-button z-10 fixed bottom-sf-2xl xl:bottom-sf-xs left-0 xl:left-auto xl:right-sf-xs"
         aria-label="Cookie control"
         @click="bannerIsHidden = false"

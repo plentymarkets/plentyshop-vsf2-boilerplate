@@ -1,7 +1,7 @@
 <template>
   <div id="cart">
     <SfSidebar
-      :data-e2e="'sidebar-cart'"
+      :v-e2e="'sidebar-cart'"
       :visible="isCartSidebarOpen"
       :title="$t('CartSidebar.My cart')"
       class="sf-sidebar--right"
@@ -19,7 +19,7 @@
           />
           <SfButton
             class="sf-button--text"
-            :data-e2e="'clear-cart'"
+            :v-e2e="'clear-cart'"
             @click="clear()"
           >
             {{ $t('CartSidebar.Clear') }}
@@ -43,7 +43,7 @@
               <SfCollectedProduct
                 v-for="product in products"
                 :key="cartGetters.getItemId(product)"
-                :data-e2e="'collected-product'"
+                :v-e2e="'collected-product'"
                 :image="addBasePath(cartGetters.getItemImage(product))"
                 :image-width="100"
                 :image-height="100"
@@ -111,7 +111,7 @@
             <CartTotals />
             <nuxt-link :to="isAuthenticated ? localePath(`billing`) : localePath({ name: 'login' })">
               <SfButton
-                :data-e2e="'go-to-checkout'"
+                :v-e2e="'go-to-checkout'"
                 class="sf-button--full-width color-secondary"
                 @click="toggleCartSidebar"
               >

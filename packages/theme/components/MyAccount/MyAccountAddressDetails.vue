@@ -6,7 +6,7 @@
         key="edit-address"
         :open-tab="1"
         class="tab-orphan"
-        data-testid="shipping-details-tabs"
+        :v-e2e="'shipping-details-tabs'"
       >
         <SfTab
           :title="
@@ -28,7 +28,7 @@
             <SfButton
               type="submit"
               class="action-button"
-              data-testid="update-address-button"
+              :v-e2e="'update-address-button'"
               @click.prevent="submit()"
             >
               <template v-if="inEditState">
@@ -45,7 +45,7 @@
             <SfButton
               type="button"
               class="action-button color-secondary cancel-button"
-              data-testid="update-address-button"
+              :v-e2e="'update-address-button'"
               @click="closeForm"
             >
               {{ $t('MyAccountAddressDetails.Cancel') }}
@@ -76,7 +76,7 @@
           </slot>
           <SfButton
             class="action-button"
-            data-testid="add-new-address"
+            :v-e2e="'add-new-address'"
             @click="changeAddress(-1)"
           >
             {{ $t('MyAccountAddressDetails.Add new address') }}

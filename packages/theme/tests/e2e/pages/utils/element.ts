@@ -1,7 +1,7 @@
 const baseUrl = Cypress.config('baseUrl');
 
 export function el(selector: string, children?: string): Cypress.Chainable<JQuery<HTMLElement>> {
-  return children ? cy.get(`[data-e2e="${selector}"] ${children}`) : cy.get(`[data-e2e="${selector}"]`);
+  return children ? cy.get(`[v-e2e="${selector}"] ${children}`) : cy.get(`[v-e2e="${selector}"]`);
 }
 
 /**
@@ -66,9 +66,8 @@ export function addCartItem (productId: number, quantity: number): void {
         quantity: quantity
       }
     });
-  }).then(() => {
-    cy.reload();
-  });
+  })
+  ;
 
   /*
   cy.request(

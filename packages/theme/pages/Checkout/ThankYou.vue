@@ -1,7 +1,7 @@
 <template>
   <div id="thank-you">
     <SfCallToAction
-      v-e2e="'thank-you-banner'"
+      :v-e2e="'thank-you-banner'"
       class="banner"
       :title="$t('ThankYou.Thank you for your order!')"
       :image="{

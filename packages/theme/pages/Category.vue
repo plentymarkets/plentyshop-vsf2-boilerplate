@@ -93,7 +93,7 @@
             <SfProductCard
               v-for="(product, i) in products"
               :key="productGetters.getSlug(product)"
-              :data-e2e="'category-product-card'"
+              :v-e2e="'category-product-card'"
               :style="{ '--index': i }"
               :title="productGetters.getName(product)"
               :image-width="100"
@@ -122,7 +122,7 @@
             <SfProductCardHorizontal
               v-for="(product, i) in products"
               :key="productGetters.getSlug(product)"
-              :data-e2e="'category-product-card'"
+              :v-e2e="'category-product-card'"
               class="products__product-card-horizontal"
               :style="{ '--index': i }"
               :title="productGetters.getName(product)"

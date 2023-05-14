@@ -10,7 +10,7 @@
       <div class="spacer-top">
         <SfCheckbox
           v-model="sameAsBilling"
-          v-e2e="'copy-address'"
+          :v-e2e="'copy-address'"
           :label="$t('Shipping.My billing and shipping address are the same')"
           name="copyShippingAddress"
           class="form__element"
@@ -45,7 +45,7 @@
       </div>
       <div class="spacer-top buttons">
         <SfButton
-          data-e2e="continue-to-payment"
+          :v-e2e="'continue-to-payment'"
           class="form__action-button"
           @click="continueToNextStep"
         >
