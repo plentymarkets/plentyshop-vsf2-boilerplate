@@ -53,7 +53,7 @@ export default {
           Lifespan: '100 days',
           script: [
             'console.log(`Loaded cookie script example1`);',
-            'https://www.plentymarkets.com'
+            'https://cdn01.plentymarkets.com/avw8j9fg70hi/frontend/layout/plentycom/js/jquery-3_5_1.min.js'
           ]
         },
         {
