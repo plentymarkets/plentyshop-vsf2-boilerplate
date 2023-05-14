@@ -8,7 +8,7 @@ const hasCartProducts = (): void => {
 context('Cart', () => {
   beforeEach(function init () {
     cy.intercept('/api/plentymarkets/addCartItem', {fixture: 'responses/add-cart-item'}).as('addCartItem');
-    cy.intercept('/api/plentymarkets/getCart', { fixture: 'responses/get-Cart' }).as('getCart');
+    cy.intercept('/api/plentymarkets/getCart', { fixture: 'responses/get-cart' }).as('getCart');
     cy.intercept('/api/plentymarkets/loginUser', { fixture: 'responses/login' }).as('loginUser');
 
     page.category.visit('/c/gear');
