@@ -13,7 +13,7 @@ class Checkout {
   }
 
   get firstName(): Cypress.Chainable {
-    return el(`${this.step}-firstName`, 'input');
+    return el(`${this.step}-firstName`);
   }
 
   get lastName(): Cypress.Chainable {
