@@ -1,5 +1,8 @@
 <template>
-  <div class="shipping-summary">
+  <div
+    v-e2e="'shipping-summary'"
+    class="shipping-summary"
+  >
     <h3
       class="mb-5 text-sf-c-primary font-semibold"
     >
