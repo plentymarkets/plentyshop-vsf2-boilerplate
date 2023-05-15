@@ -199,6 +199,7 @@ export default {
     'Remember me': 'Remember me',
     'Reset forgotten password': `If you can't remember your password, you can reset it.`,
     'Forgot password': 'Forgot password',
+    'Forgot password error': 'Something went wrong, Please try again!',
     'Forgot password details': `Don't worry.We'll send instructions on how to reset your password to your E-Mail`,
     'Reset password': 'Reset password',
     'Enter new password': 'Enter New Password',

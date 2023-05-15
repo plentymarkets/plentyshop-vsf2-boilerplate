@@ -356,10 +356,11 @@ export default {
     const handleForgotten = async () => {
       await resetPassword({ email: form.value.email });
       toggleLoginModal();
-      send({ message: app.i18n.t('LoginModal.Check your e-mail'), type: 'success' });
-      // if (!forgotPasswordError.value.request) {
-        // setCurrentScreen(SCREEN_THANK_YOU);
-      // }
+      if (!forgotPasswordError.value.load) {
+        send({ message: app.i18n.t('LoginModal.Check your e-mail'), type: 'success' });
+      } else {
+        send({ message: app.i18n.t('LoginModal.Forgot password error'), type: 'danger' });
+      }
     };
     if(route.value.query.loginmodal==='true') {
       toggleLoginModal()

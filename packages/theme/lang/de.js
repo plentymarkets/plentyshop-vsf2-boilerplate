@@ -199,6 +199,7 @@ export default {
     'Remember me': 'Meine Angaben speichern',
     'Reset forgotten password': 'Wenn du dein Passwort vergessen hast, kannst du es zurücksetzen.',
     'Reset password': 'Passwort zurücksetzen',
+    'Forgot password error': 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut!',
     'Forgot password details': `Keine Sorge. Wir senden Ihnen Anweisungen zum Zurücksetzen Ihres Passworts an Ihre E-Mail-Adresse`,
     'Sign in': 'Anmelden',
     'Enter new password': 'Neues Passwort eingeben',
