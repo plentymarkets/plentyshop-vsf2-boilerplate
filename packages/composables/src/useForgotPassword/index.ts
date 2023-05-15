@@ -3,10 +3,10 @@ import {
 } from '@vue-storefront/core';
 export const useForgotPassword = (id: string) => {
   const context = useVSFContext();
-  // const loading = sharedRef(false, `useForgot-loading-${id}`);
-  // const error = sharedRef({
-  //   load: null
-  // }, `useForgot-error-${id}`);
+  const loading = sharedRef(false, `useForgot-loading-${id}`);
+  const error = sharedRef({
+    load: null
+  }, `useForgot-error-${id}`);
 
   const resetPassword = async (email): Promise<void> => {
     try {
@@ -56,8 +56,8 @@ export const useForgotPassword = (id: string) => {
     }
   }
   return {
-    // loading,
-    // error,
+    loading,
+    error,
     resetPassword,
     setNewPassword,
     verifyHash,

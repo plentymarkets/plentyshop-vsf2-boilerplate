@@ -56,7 +56,9 @@ export default {
         const { toggleLoginModal } = useUiState();
         const {
             setNewPassword,
-            verifyHash
+            verifyHash,
+            error: forgotPasswordError,
+            loading: forgotPasswordLoading
         } = useForgotPassword();
 
         const form = ref({
@@ -68,9 +70,13 @@ export default {
 
         const resetPassword = () => {
             setNewPassword(form.value.hash, form.value.password, form.value.password2, form.value.contactId)
-            send({ message: app.i18n.t('LoginModal.Your new password was saved'), type: 'success' });
-            router.push('/')
-            toggleLoginModal()
+            if (!forgotPasswordError.value.load) {
+                send({ message: app.i18n.t('LoginModal.Your new password was saved'), type: 'success' });
+                router.push('/')
+                toggleLoginModal()
+            } else {
+                send({ message: app.i18n.t('LoginModal.Forgot password error'), type: 'danger' });
+            }
         }
 
         let email = ref('oldmail@gmail.com')
@@ -79,13 +85,13 @@ export default {
         onMounted(async () => {
             try {
                 email.value = await verifyHash(route.value.params.contactId, route.value.params.hash)
-                if (!email) {
+                if (forgotPasswordError.value.load) {
                     router.push('/')
                     send({ message: app.i18n.t('LoginModal.Your hash has expired!'), type: 'danger' });
                     toggleLoginModal()
                 }
             } catch (error) {
-                
+                send({ message: app.i18n.t('LoginModal.Your hash has expired!'), type: 'danger' });
             }
 
         })
