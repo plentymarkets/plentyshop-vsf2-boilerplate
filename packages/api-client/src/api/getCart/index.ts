@@ -1,7 +1,7 @@
 import {Cart, Context} from '../../types';
 
 export async function getCart(context: Context): Promise<Cart> {
-  const url: URL = new URL('/rest/io/session/', context.config.api.url);
+  const url: URL = new URL('/rest/storefront/session/', context.config.api.url);
   const { data } = await context.client.get(url.href);
   const mappedBasketItems = data.data.basketItems.map(basketItem => {
     basketItem.variation = basketItem.variation.data;
