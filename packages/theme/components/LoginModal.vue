@@ -109,14 +109,28 @@
         <SfInput
           v-model="form.email"
           name="email"
+          class="mt-3"
           :label="$t('LoginModal.Email')"
-          class="form__element"
           />
         <SfButton
             @click="handleForgotten()"
           >
             {{ $t('LoginModal.Forgot password') }}
           </SfButton>
+          <div class="mt-5">
+            <div class="flex row">
+              <p>
+                {{ $t("LoginModal.Do not have an account yet?") }}
+              </p>
+              <SfButton
+                data-e2e="open-registration-form"
+                class="sf-button--text ml-2 register-link"
+                @click="setCurrentScreen(SCREEN_REGISTER)"
+              >
+                {{ $t('LoginModal.Register today') }}
+              </SfButton>
+          </div>
+        </div>
       </div>
       <div
         v-else-if="currentScreen === SCREEN_THANK_YOU"
@@ -378,6 +392,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.register-link {
+  color: var(--_c-blue-primary);
+}
 .customer-text {
   margin: var(--spacer-sm) 0 var(--spacer-sm) 0;
   display: flex;

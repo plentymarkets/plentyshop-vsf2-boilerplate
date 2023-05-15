@@ -77,11 +77,15 @@ export default {
 
         // fetch email based on contactId and hash and check if hash is valid
         onMounted(async () => {
-            email.value = await verifyHash(route.value.params.contactId, route.value.params.hash)
-            if (!email) {
-                router.push('/')
-                send({ message: app.i18n.t('LoginModal.Your hash has expired!'), type: 'danger' });
-                toggleLoginModal()
+            try {
+                email.value = await verifyHash(route.value.params.contactId, route.value.params.hash)
+                if (!email) {
+                    router.push('/')
+                    send({ message: app.i18n.t('LoginModal.Your hash has expired!'), type: 'danger' });
+                    toggleLoginModal()
+                }
+            } catch (error) {
+                
             }
 
         })
