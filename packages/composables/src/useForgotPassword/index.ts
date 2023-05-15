@@ -3,7 +3,6 @@ import {
 } from '@vue-storefront/core';
 export const useForgotPassword = () => {
   const context = useVSFContext();
-  const error = null // there are 2 ways to do that, either interpret response type, or check for returned string
   const resetPassword = async (email): Promise<void> => {
     context.$plentymarkets.api.requestChangePasswordEmail(email);
     //Todo here should interpret what i get from server, if error or not!
@@ -23,6 +22,5 @@ export const useForgotPassword = () => {
     resetPassword,
     setNewPassword,
     verifyHash,
-    error
   }
 };
