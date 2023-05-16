@@ -68,8 +68,8 @@ export default {
             password2: ''
         })
 
-        const resetPassword = () => {
-            setNewPassword(form.value.hash, form.value.password, form.value.password2, form.value.contactId)
+        const resetPassword = async () => {
+            await setNewPassword(form.value.hash, form.value.password, form.value.password2, form.value.contactId)
             if (!forgotPasswordError.value.load) {
                 send({ message: app.i18n.t('LoginModal.Your new password was saved'), type: 'success' });
                 router.push('/')
@@ -81,7 +81,6 @@ export default {
 
         let email = ref('oldmail@gmail.com')
 
-        // fetch email based on contactId and hash and check if hash is valid
         onMounted(async () => {
             try {
                 email.value = await verifyHash(route.value.params.contactId, route.value.params.hash)

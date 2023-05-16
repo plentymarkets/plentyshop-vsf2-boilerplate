@@ -1,4 +1,4 @@
-import { Context, SessionResult, RegisterParams, UserChangeResponse, UserEmailResponse} from 'src/types';
+import { Context, SessionResult, RegisterParams, UserChangeResponse, UserEmailResponse, ForgotPasswordResponse } from 'src/types';
 
 export async function loginUser(context: Context, email: string, password: string): Promise<SessionResult> {
   const url: URL = new URL('/rest/io/customer/login/', context.config.api.url);
@@ -48,15 +48,15 @@ export async function registerUser(context: Context, params: RegisterParams): Pr
   return data;
 }
 
-export async function requestChangePasswordEmail(context: Context, email: string): Promise<void> {
+export async function requestChangePasswordEmail(context: Context, email: string): Promise<ForgotPasswordResponse> {
   const url: URL = new URL('/rest/storefront/customer/password_reset', context.config.api.url);
   const { data } = await context.client.post(url.href, {
     email: email
   });
-  return;
+  return data;
 }
 
-export async function changePasswordBasedOnHash(context: Context,hash: string, password: string, password2: string, contactId: string): Promise<void> {
+export async function changePasswordBasedOnHash(context: Context,hash: string, password: string, password2: string, contactId: string): Promise<ForgotPasswordResponse> {
   const url: URL = new URL(`/rest/storefront/customer/reset`, context.config.api.url);
   const { data } = await context.client.post(url.href, {
     hash,
@@ -64,7 +64,7 @@ export async function changePasswordBasedOnHash(context: Context,hash: string, p
     password2,
     contactId
   });
-  return;
+  return data;
 }
 
 export async function changePassword(context: Context, currentPassword: string, newPassword: string): Promise<UserChangeResponse> {

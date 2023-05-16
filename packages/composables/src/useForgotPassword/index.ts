@@ -10,49 +10,45 @@ export const useForgotPassword = (id: string) => {
 
   const resetPassword = async (email): Promise<void> => {
     try {
-      // loading.value = true;
-      // const userData =
-      context.$plentymarkets.api.requestChangePasswordEmail(email);
-      // if (userData.error) {
-      //   error.value.load = userData.error;
-      //   return;
-      // }
+      loading.value = true;
+      const response = await context.$plentymarkets.api.requestChangePasswordEmail(email);
+      if (response && response.error) {
+        error.value.load = response.error;
+        return;
+      }
     } catch (err) {
-      // error.value.load = err;
+      error.value.load = err;
     } finally {
-      // loading.value = false;
+      loading.value = false;
     }
-    //Todo here should interpret what i get from server, if error or not!
   }
   const setNewPassword = async (hash, newPassword, newPassword2, contactId): Promise<void> => {
     try {
-      // loading.value = true;
-      // const userData =
-      context.$plentymarkets.api.changePasswordBasedOnHash(hash, newPassword, newPassword2, contactId)
-      // if (userData.error) {
-      //   error.value.load = userData.error;
-      //   return;
-      // }
+      loading.value = true;
+      const response = await context.$plentymarkets.api.changePasswordBasedOnHash(hash, newPassword, newPassword2, contactId)
+      if (response && response.error) {
+        error.value.load = response.error;
+        return;
+      }
     } catch (err) {
-      // error.value.load = err;
+      error.value.load = err;
     } finally {
-      // loading.value = false;
+      loading.value = false;
     }
   }
   const verifyHash = async (contactId, hash): Promise<string> => {
     try {
-      // loading.value = true;
-      // const userData =
-      const data = await context.$plentymarkets.api.verifyHash(contactId, hash) // error case treated currently as string
-      // if (userData.error) {
-      //   error.value.load = userData.error;
-      //   return;
-      // }
-      return data.email
+      loading.value = true;
+      const response = await context.$plentymarkets.api.verifyHash(contactId, hash) // error case treated currently as string
+      if (response && response.error) {
+        error.value.load = response.error;
+        return;
+      }
+      return response.email
     } catch (err) {
-      // error.value.load = err;
+      error.value.load = err;
     } finally {
-      // loading.value = false;
+      loading.value = false;
     }
   }
   return {

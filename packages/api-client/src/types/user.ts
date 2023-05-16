@@ -71,5 +71,21 @@ export interface UserChangeResponse {
 }
 
 export interface UserEmailResponse {
-    email: string
+    email: string,
+    error: {
+        message: string,
+        code: string,
+        data: unknown
+    }
+}
+
+export interface ForgotPasswordResponse {
+    data: {
+        message: '',
+    },
+    error: {
+        message: string,
+        code: string,
+        data: unknown
+    }
 }
