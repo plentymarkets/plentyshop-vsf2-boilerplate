@@ -59,7 +59,7 @@
               $n(orderGetters.getItemPrice(item), 'currency')
             }}</SfTableData>
             <SfTableData v-if="returnOrder" class="flex">
-              <div class="sf-quantity-selector" aria-label="Quantity">
+              <div class="sf-quantity-selector flex justify-around" aria-label="Quantity">
                 <button
                   class="sf-button--pure sf-quantity-selector__button sf-button"
                   :aria-disabled="false"
@@ -67,6 +67,7 @@
                   type="button"
                   aria-label="button"
                   data-testid="decrease"
+                  @click="decreaseSelectorQuantity(item)"
                 >
                   −
                 </button>
@@ -78,6 +79,7 @@
                   type="button"
                   aria-label="button"
                   data-testid="increase"
+                  @click="increaseSelectorQuantity(item)"
                 >
                   +
                 </button>
@@ -212,6 +214,16 @@ export default {
       };
     }));
 
+    const decreaseSelectorQuantity = (i) => {
+      i.selectorQuantity--;
+      console.log(i.selectorQuantity)
+    }
+
+    const increaseSelectorQuantity = (i) => {
+      i.selectorQuantity++;
+      console.log(i.selectorQuantity)
+    }
+
     onSSR(async () => {
       await search(query);
     });
@@ -257,7 +269,9 @@ export default {
       returnOrder,
       updateQuantity,
       allItems,
-      setCurrentOrder
+      setCurrentOrder,
+      decreaseSelectorQuantity,
+      increaseSelectorQuantity
     };
   }
 };
