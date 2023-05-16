@@ -20,10 +20,10 @@ const params: UseUserFactoryParams<User, UpdateParams, RegisterParams> = {
   load: async (context: Context) => {
     const data = await context.$plentymarkets.api.getSession(true);
 
-    if (data.user && data.user.guestMail) {
+    if (data.guest) {
       return null;
     }
-    return data.user;
+    return data.contact;
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -82,7 +82,7 @@ const params: UseUserFactoryParams<User, UpdateParams, RegisterParams> = {
     await context.$plentymarkets.api.changePassword(currentPassword, newPassword);
     const data = await context.$plentymarkets.api.getSession(false);
 
-    return data.user;
+    return data.contact;
   }
 };
 

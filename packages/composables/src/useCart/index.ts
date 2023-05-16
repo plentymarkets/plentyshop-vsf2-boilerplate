@@ -41,6 +41,9 @@ const params: UseCartFactoryParams<Cart, CartItem, Product> = {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   addItem: async (context: Context, { currentCart, product, quantity }) => {
+
+    console.log('currentCart', currentCart);
+
     let cart = await context.$plentymarkets.api.addCartItem({ productId: product.variation.id, quantity });
 
     cart.items.find((cartItem) => cartItem.variationId === product.variation.id).variation = product;

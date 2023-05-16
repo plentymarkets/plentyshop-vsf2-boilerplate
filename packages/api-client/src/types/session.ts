@@ -5,6 +5,8 @@ export type SessionSearchPramas = {
 }
 
 export type SessionResult = {
-    basket: Cart,
-    user: User,
+    cart: Cart,
+    cartItems: unknown,
+    contact: User,
+    guest: string
 }
