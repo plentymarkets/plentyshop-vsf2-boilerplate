@@ -55,7 +55,7 @@
             </SfTableData>
           </SfTableRow>
         </SfTable>
-        <SfButton v-if="returnOrder" class="sf-button--full-width sf-c-light-primary-lighten" @click="">
+        <SfButton v-if="returnOrder" class="sf-button--full-width sf-c-light-primary-lighten" @click="makeReturnAction">
           {{ $t('OrderHistory.Return items') }}
         </SfButton>
       </div>
@@ -101,6 +101,8 @@
             </SfTableData>
           </SfTableRow>
         </SfTable>
+
+        <button @click="makeReturnAction">Make Return</button>
         <LazyHydrate on-interaction>
           <SfPagination v-show="paginationGetters.getTotalPages(pagination) > 1" class="products__pagination desktop-only"
             :current="paginationGetters.getCurrentPage(pagination)" :total="paginationGetters.getTotalPages(pagination)"
@@ -134,7 +136,7 @@ import {
 import LazyHydrate from 'vue-lazy-hydration';
 import { computed, ref } from '@nuxtjs/composition-api';
 import { getCurrentInstance } from '@nuxtjs/composition-api';
-import { useUserOrder, orderGetters, paginationGetters } from '@vue-storefront/plentymarkets';
+import { useUserOrder, orderGetters, paginationGetters, useMakeReturn } from '@vue-storefront/plentymarkets';
 import { AgnosticOrderStatus } from '@vue-storefront/core';
 import { onSSR } from '@vue-storefront/core';
 
@@ -182,7 +184,28 @@ export default {
       }
       console.log(item.selectorQuantity);
     };
+    // eslint-disable-next-line no-undef
 
+    const { makeReturn, result, error } = useMakeReturn('make-return');
+
+
+    const makeReturnAction = async () => {
+      const returnParams = ref({
+        orderId: 866,
+        orderAccessKey: 'KD8M4D809sss',
+        variationIds: { 1063: 1 },
+        returnNote: ''
+      });
+      await makeReturn(returnParams.value);
+      if (error.value.makeReturn) {
+        console.log('An error occurred:', error.value.makeReturn);
+        if (error.value.makeReturn.validation_errors) {
+          console.log('Validation errors:', error.value.makeReturn.validation_errors);
+        }
+      } else {
+        console.log('Return successful. Result:', result.value);
+      }
+    };
     onSSR(async () => {
       await search(query);
     });
@@ -230,7 +253,8 @@ export default {
       allItems,
       setCurrentOrder,
       decreaseSelectorQuantity,
-      increaseSelectorQuantity
+      increaseSelectorQuantity,
+      makeReturnAction
     };
   }
 };
