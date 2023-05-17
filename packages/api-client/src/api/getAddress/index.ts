@@ -1,19 +1,26 @@
-import { Address, AddressData, AddressOptionType, AddressType, Context, SetAddressDefaultResponse, SaveAddressResponse } from 'src/types';
+import {
+  Address,
+  AddressData,
+  AddressOptionType,
+  AddressType,
+  Context,
+  SaveAddressResponse,
+  SetAddressDefaultResponse
+} from 'src/types';
 
 export async function loadAddresses(context: Context, typeId: AddressType): Promise<Address[]> {
-  const url: URL = new URL('/rest/io/customer/address', context.config.api.url);
+  const url: URL = new URL('/rest/storefront/contact/addresses', context.config.api.url);
 
-  url.searchParams.set('typeId', typeId.toString());
+  url.searchParams.set('addressTypeId', typeId.toString());
 
   const { data } = await context.client.get(url.href);
-
-  return (data.data as AddressData[]).map(addressData => mapAddressForClient(addressData)) || [];
+  return (data as AddressData[]).map(addressData => mapAddressForClient(addressData)) || [];
 }
 
 export async function saveAddress(context: Context, typeId: AddressType = AddressType.Billing, addressData: Address): Promise<SaveAddressResponse> {
-  const url: URL = new URL('/rest/io/customer/address/', context.config.api.url);
+  const url: URL = new URL('/rest/storefront/contact/addresses/', context.config.api.url);
 
-  url.searchParams.set('typeId', typeId.toString());
+  url.searchParams.set('addressTypeId', typeId.toString());
 
   const payload = {
     ...mapAddressForServer(addressData)
@@ -25,16 +32,16 @@ export async function saveAddress(context: Context, typeId: AddressType = Addres
 }
 
 export async function setAddressAsDefault(context: Context, addressId: number, typeId: number): Promise<SetAddressDefaultResponse> {
-  const url: URL = new URL(`/rest/io/customer/address/${addressId}`, context.config.api.url);
+  const url: URL = new URL(`/rest/storefront/contact/addresses/${addressId}`, context.config.api.url);
 
-  url.searchParams.set('typeId', typeId.toString());
+  url.searchParams.set('addressTypeId', typeId.toString());
   return await context.client.put(url.href);
 }
 
 export async function deleteAddress(context: Context, addressId: number, typeId: number): Promise<boolean> {
-  const url: URL = new URL(`/rest/io/customer/address/${addressId}`, context.config.api.url);
+  const url: URL = new URL(`/rest/storefront/contact/addresses/${addressId}`, context.config.api.url);
 
-  url.searchParams.set('typeId', typeId.toString());
+  url.searchParams.set('addressTypeId', typeId.toString());
   const { data } = await context.client.delete(url.href);
 
   return Boolean(data);
@@ -43,7 +50,7 @@ export async function deleteAddress(context: Context, addressId: number, typeId:
 function mapAddressForServer(addressData): object {
   return {
     id: addressData.id,
-    gender: 'male',
+    gender: "male",
     countryId: addressData.country,
     email: addressData.email,
     name1: null,

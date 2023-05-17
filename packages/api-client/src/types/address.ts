@@ -45,16 +45,26 @@ export type AddressData = {
     address4?: string;
     postalCode: string;
     town: string;
-    countryId: string | null;
-    stateId?: string | null;
+    countryId: number;
+    stateId?: number | null;
     readOnly: boolean;
-    checkedAt?: Date;
+    checkedAt?: Date | null;
     createdAt: Date;
     updatedAt: Date;
+    primary: number;
     title: string;
     contactPerson: string;
+    taxIdNumber: string;
+    pivot: AddressPivot;
     options: AddressOption[];
-    primary: number;
+}
+
+export type AddressPivot = {
+    contactId: number;
+    addressId: number;
+    id: number;
+    typeId: number;
+    isPrimary: number;
 }
 
 export type Address = {
