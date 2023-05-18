@@ -92,11 +92,11 @@ export interface PlentymarketsApiMethods {
     logoutUser(): Promise<boolean>
 
     changePassword(currentPassword, newPassword): Promise<UserChangeResponse>
-    
-    requestChangePasswordEmail(email: string): Promise<ForgotPasswordResponse> 
+
+    requestChangePasswordEmail(email: string): Promise<ForgotPasswordResponse>
 
     changePasswordBasedOnHash(hash: string, password: string, password2: string, contactId: string): Promise<ForgotPasswordResponse>
-    
+
     verifyHash(contactId: string, hash: String): Promise<UserEmailResponse>
 
     getShippingProvider(): Promise<ShippingProvider>

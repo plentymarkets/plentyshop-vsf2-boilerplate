@@ -1,5 +1,5 @@
 import {
-  sharedRef, useVSFContext, Context
+  sharedRef, useVSFContext
 } from '@vue-storefront/core';
 export const useForgotPassword = (id: string) => {
   const context = useVSFContext();
@@ -12,6 +12,7 @@ export const useForgotPassword = (id: string) => {
     try {
       loading.value = true;
       const response = await context.$plentymarkets.api.requestChangePasswordEmail(email);
+
       if (response && response.error) {
         error.value.load = response.error;
         return;
@@ -21,11 +22,12 @@ export const useForgotPassword = (id: string) => {
     } finally {
       loading.value = false;
     }
-  }
+  };
   const setNewPassword = async (hash, newPassword, newPassword2, contactId): Promise<void> => {
     try {
       loading.value = true;
-      const response = await context.$plentymarkets.api.changePasswordBasedOnHash(hash, newPassword, newPassword2, contactId)
+      const response = await context.$plentymarkets.api.changePasswordBasedOnHash(hash, newPassword, newPassword2, contactId);
+
       if (response && response.error) {
         error.value.load = response.error;
         return;
@@ -35,27 +37,29 @@ export const useForgotPassword = (id: string) => {
     } finally {
       loading.value = false;
     }
-  }
+  };
   const verifyHash = async (contactId, hash): Promise<string> => {
     try {
       loading.value = true;
-      const response = await context.$plentymarkets.api.verifyHash(contactId, hash) // error case treated currently as string
+      const response = await context.$plentymarkets.api.verifyHash(contactId, hash);
+
       if (response && response.error) {
         error.value.load = response.error;
         return;
       }
-      return response.email
+      return response.email;
     } catch (err) {
       error.value.load = err;
     } finally {
       loading.value = false;
     }
-  }
+  };
+
   return {
     loading,
     error,
     resetPassword,
     setNewPassword,
-    verifyHash,
-  }
+    verifyHash
+  };
 };

@@ -104,31 +104,33 @@
         </div>
       </div>
       <div v-else-if="currentScreen === SCREEN_FORGOTTEN">
-        <p class="forgot-password">{{ $t('LoginModal.Forgot password') }} ? </p>
+        <p class="forgot-password">
+          {{ $t('LoginModal.Forgot password') }} ?
+        </p>
         <p>{{ $t('LoginModal.Forgot password details') }} ? </p>
         <SfInput
           v-model="form.email"
           name="email"
           class="mt-3"
           :label="$t('LoginModal.Email')"
-          />
+        />
         <SfButton
-            @click="handleForgotten()"
-          >
-            {{ $t('LoginModal.Forgot password') }}
-          </SfButton>
-          <div class="mt-5">
-            <div class="flex row">
-              <p>
-                {{ $t("LoginModal.Do not have an account yet?") }}
-              </p>
-              <SfButton
-                data-e2e="open-registration-form"
-                class="sf-button--text ml-2 register-link"
-                @click="setCurrentScreen(SCREEN_REGISTER)"
-              >
-                {{ $t('LoginModal.Register today') }}
-              </SfButton>
+          @click="handleForgotten()"
+        >
+          {{ $t('LoginModal.Forgot password') }}
+        </SfButton>
+        <div class="mt-5">
+          <div class="flex row">
+            <p>
+              {{ $t("LoginModal.Do not have an account yet?") }}
+            </p>
+            <SfButton
+              data-e2e="open-registration-form"
+              class="sf-button--text ml-2 register-link"
+              @click="setCurrentScreen(SCREEN_REGISTER)"
+            >
+              {{ $t('LoginModal.Register today') }}
+            </SfButton>
           </div>
         </div>
       </div>
@@ -237,7 +239,7 @@ import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { required, email } from 'vee-validate/dist/rules';
 import { useUser, useForgotPassword } from '@vue-storefront/plentymarkets';
 import { useUiState, useUiNotification } from '~/composables';
-import {useRouter, useRoute} from '@nuxtjs/composition-api';
+import { useRoute} from '@nuxtjs/composition-api';
 extend('email', {
   ...email
 });
@@ -264,7 +266,6 @@ export default {
     const SCREEN_THANK_YOU = 'thankYouAfterForgotten';
     const SCREEN_FORGOTTEN = 'forgottenPassword';
     const route = useRoute();
-    const router = useRouter();
     const { isLoginModalOpen, toggleLoginModal } = useUiState();
     const form = ref({});
     const userEmail = ref('');
@@ -362,8 +363,9 @@ export default {
         send({ message: app.i18n.t('LoginModal.Forgot password error'), type: 'danger' });
       }
     };
-    if(route.value.query.loginmodal==='true') {
-      toggleLoginModal()
+
+    if (route.value.query.loginmodal === 'true') {
+      toggleLoginModal();
     }
     return {
       form,
