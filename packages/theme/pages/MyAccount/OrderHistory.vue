@@ -190,10 +190,15 @@ export default {
 
 
     const makeReturnAction = async () => {
+
+      let variationIdsArray;
+      this.allItems.forEach(item => {
+        variationIdsArray.push(item.itemVariationId , item.selectorQuantity );
+      });
       const returnParams = ref({
-        orderId: 866,
-        orderAccessKey: 'KD8M4D809sss',
-        variationIds: { 1063: 1 },
+        orderId: currentOrder.value.id,
+        orderAccessKey: currentOrder.value.orderAccessKey,
+        variationIds: variationIdsArray,
         returnNote: ''
       });
       await makeReturn(returnParams.value);
