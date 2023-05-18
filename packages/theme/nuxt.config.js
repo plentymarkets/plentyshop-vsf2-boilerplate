@@ -3,11 +3,11 @@ import theme from './themeConfig';
 import cookieGroups from './cookieConfig';
 
 const appPort = process.env.PORT || 80;
-const appIP = process.env.IP || 'localhost';
+const appIP = 'localhost';
 const config = {
   server: {
     port: appPort,
-    host: '0.0.0.0'
+    host: appIP
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head

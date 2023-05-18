@@ -10,7 +10,7 @@ import {
 } from '@vue-storefront/core';
 import type { Category, Facet, FacetSearchCriteria, Product } from '@vue-storefront/plentymarkets-api';
 import { useContext } from '@nuxtjs/composition-api';
-import { categoryGetters } from './categoryGetters';
+import { categoryTreeGetters } from './categoryTreeGetters';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getAll(params: FacetSearchResult<Facet>, criteria?: FacetSearchCriteria): AgnosticFacet[] {
@@ -114,7 +114,7 @@ function getBreadcrumbs(params: FacetSearchResult<Facet>, categories?: Category[
     return [];
   }
 
-  const breadcrumbs = categoryGetters.getMappedBreadcrumbs(categories, params.input.categoryId);
+  const breadcrumbs = categoryTreeGetters.getMappedBreadcrumbs(categories, params.input.categoryId);
 
   return [
     {

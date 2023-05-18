@@ -1,6 +1,6 @@
 import { Context, SessionResult, RegisterParams, UserChangeResponse, UserEmailResponse, ForgotPasswordResponse } from 'src/types';
 
-export async function loginUser(context: Context, email: string, password: string): Promise<SessionResult> {
+export async function loginUser(context: Context, email: string, password: string): Promise<UserChangeResponse> {
   const url: URL = new URL('/rest/io/customer/login/', context.config.api.url);
   const { data } = await context.client.post(url.href, {
     email,

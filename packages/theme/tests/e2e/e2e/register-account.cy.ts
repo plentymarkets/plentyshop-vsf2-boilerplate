@@ -43,11 +43,9 @@ context('Register account', () => {
   });
 
   it(['happyPath', 'regression'], 'Should register a new account', function test() {
-    cy.intercept('/api/plentymarkets/loginUser').as('loginUser');
     cy.intercept('/api/plentymarkets/registerUser').as('registerUser');
 
     registerHelper(uniqueMail, password);
-    cy.wait('@registerUser');
-    cy.wait('@loginUser').its('response.statusCode').should('eq', 200);
+    cy.wait('@registerUser').its('response.statusCode').should('eq', 200);
   });
 });

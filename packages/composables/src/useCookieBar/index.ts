@@ -119,7 +119,7 @@ export const useCookieBar = (
     }
     const toSave = convertToSaveableJson(cookieJson.value);
 
-    saveCookies('plenty-shop-cookie', toSave, appCookies);
+    saveCookies('consent-cookie', toSave, appCookies);
     bannerIsHidden.value = true;
     loadThirdPartyScripts();
   }
