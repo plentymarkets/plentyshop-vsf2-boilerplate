@@ -14,6 +14,7 @@ export async function loadAddresses(context: Context, typeId: AddressType): Prom
   url.searchParams.set('addressTypeId', typeId.toString());
 
   const { data } = await context.client.get(url.href);
+
   return (data as AddressData[]).map(addressData => mapAddressForClient(addressData)) || [];
 }
 
