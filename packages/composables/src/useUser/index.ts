@@ -39,7 +39,7 @@ const params: UseUserFactoryParams<User, UpdateParams, RegisterParams> = {
     return {};
   },
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   logIn: async (context: Context, { username, password }) => {
     await context.$plentymarkets.api.loginUser(username, password);
 
