@@ -7,7 +7,7 @@ const appIP = 'localhost';
 const config = {
   server: {
     port: appPort,
-    host: '0.0.0.0'
+    host: appIP
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
