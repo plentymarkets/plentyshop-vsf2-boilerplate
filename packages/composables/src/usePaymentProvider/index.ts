@@ -5,7 +5,7 @@ import { ComposableBaseResponse } from 'src/types';
 
 export interface useActiveShippingCountriesResponse extends ComposableBaseResponse<PaymentProviders> {
   load: (type: string) => Promise<void>
-  save: (aymentId: number) => Promise<void>
+  save: (paymentId: number) => Promise<void>
 }
 
 export const usePaymentProvider = (id: string): useActiveShippingCountriesResponse => {

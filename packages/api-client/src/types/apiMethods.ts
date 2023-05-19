@@ -95,7 +95,7 @@ export interface PlentymarketsApiMethods {
 
     getShippingProvider(): Promise<ShippingProvider>
 
-    selectShippingProvider(shippingId: number): Promise<string>
+    selectShippingProvider(shippingId: number): Promise<void>
 
     loginAsGuest(email: string): Promise<SessionResult>
 
@@ -111,7 +111,7 @@ export interface PlentymarketsApiMethods {
 
     getPaymentProviders(): Promise<PaymentProviders>
 
-    setPaymentProvider(paymentId: number): Promise<string>
+    setPaymentProvider(paymentId: number): Promise<void>
 
     additionalInformation(params: AdditionalInformationParams): Promise<void>
 
