@@ -32,6 +32,14 @@ export type AddressOption = {
     updatedAt: Date;
 }
 
+export type AddressPivot = {
+    contactId: number;
+    addressId: number;
+    id: number;
+    typeId: number;
+    isPrimary: number;
+}
+
 export type AddressData = {
     id: number;
     gender: string;
@@ -57,14 +65,6 @@ export type AddressData = {
     taxIdNumber: string;
     pivot: AddressPivot;
     options: AddressOption[];
-}
-
-export type AddressPivot = {
-    contactId: number;
-    addressId: number;
-    id: number;
-    typeId: number;
-    isPrimary: number;
 }
 
 export type Address = {

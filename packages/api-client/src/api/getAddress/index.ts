@@ -50,7 +50,7 @@ export async function deleteAddress(context: Context, addressId: number, typeId:
 function mapAddressForServer(addressData): object {
   return {
     id: addressData.id,
-    gender: "male",
+    gender: 'male',
     countryId: addressData.country,
     email: addressData.email,
     name1: null,
