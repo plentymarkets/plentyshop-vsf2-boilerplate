@@ -3,7 +3,7 @@ import {
   useMakeOrderFactory,
   UseMakeOrderFactoryParams
 } from '@vue-storefront/core';
-import type { CreateOrderResponse, Order, MakeOrderParams} from '@vue-storefront/plentymarkets-api';
+import type { Order, MakeOrderParams} from '@vue-storefront/plentymarkets-api';
 
 const factoryParams: UseMakeOrderFactoryParams<Order> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

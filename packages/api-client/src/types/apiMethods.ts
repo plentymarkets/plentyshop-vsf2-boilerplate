@@ -9,7 +9,6 @@ import { ItemSearchParams, ItemSearchResult } from './itemSearch';
 import { LegalInformationResponse } from './legal';
 import {
   AdditionalInformationParams,
-  CreateOrderResponse,
   GetOrdersResponse,
   Order,
   OrderDetails,

@@ -1,7 +1,6 @@
 import {
   AdditionalInformationParams,
   Context,
-  CreateOrderResponse,
   GetPaymentResponse,
   PreparePaymentResult,
   OrderDetails,
