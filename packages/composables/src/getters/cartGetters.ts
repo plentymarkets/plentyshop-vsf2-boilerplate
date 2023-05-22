@@ -1,12 +1,11 @@
 import {
   CartGetters,
   AgnosticPrice,
-  AgnosticTotals,
   AgnosticCoupon,
   AgnosticDiscount,
   AgnosticAttribute
 } from '@vue-storefront/core';
-import type { Cart, CartItem } from '@vue-storefront/plentymarkets-api';
+import type { Cart, CartItem, PlentyAgnosticTotals as AgnosticTotals } from '@vue-storefront/plentymarkets-api';
 import { productGetters } from './productGetters';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -27,6 +26,15 @@ function getItemImage(item: CartItem): string {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getItemPrice(item: CartItem): AgnosticPrice {
   return productGetters.getPrice(item?.variation);
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getRegularItemPrice(item: CartItem): AgnosticPrice {
+  return productGetters.getRegularPrice(item?.variation);
+}
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getSpecialItemPrice(item: CartItem): AgnosticPrice {
+  return productGetters.getSpecialPrice(item?.variation);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -51,14 +59,56 @@ function getItemId(item: CartItem): number {
   return item?.id ?? 0;
 }
 
+function getVariationId(item: CartItem): number {
+  return item?.variationId ?? 0;
+}
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getTotals(cart: Cart): AgnosticTotals {
   return {
     total: cart?.basketAmount ?? 0,
+    shippingAmount: cart?.shippingAmount ?? 0,
+    vatValue: cart?.totalVats[0]?.vatValue ?? 0,
+    vatAmount: cart?.totalVats[0]?.vatAmount ?? 0,
     subtotal: cart?.itemSum ?? 0,
     special: cart?.basketAmount ?? 0,
-    rebate: cart?.basketRebate ?? 0
+    rebate: cart?.basketRebate ?? 0,
+    couponDiscount: cart?.couponDiscount ?? 0,
+    toBePayed: cart?.basketAmount ?? 0 - cart?.couponDiscount ?? 0
   };
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getSubTotal(total: AgnosticTotals): number {
+  return total?.subtotal ?? 0;
+}
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getShippingAmount(total: AgnosticTotals): number {
+  return total?.shippingAmount ?? 0;
+}
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getVatAmount(total: AgnosticTotals): number {
+  return total?.vatAmount ?? 0;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getTotal(total: AgnosticTotals): number {
+  return total?.total ?? 0;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getCouponDiscount(total: AgnosticTotals): number {
+  return total?.couponDiscount ?? 0;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getVatValue(total: AgnosticTotals): number {
+  return total?.vatValue ?? 0;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getToBePayed(total: AgnosticTotals): number {
+  return total?.toBePayed ?? 0;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -88,10 +138,20 @@ function getDiscounts(cart: Cart): AgnosticDiscount[] {
 
 export const cartGetters: CartGetters<Cart, CartItem> = {
   getTotals,
+  getSubTotal,
+  getShippingAmount,
+  getTotal,
+  getVatValue,
+  getToBePayed,
+  getVariationId,
+  getCouponDiscount,
+  getVatAmount,
   getShippingPrice,
   getItems,
   getItemName,
   getItemImage,
+  getRegularItemPrice,
+  getSpecialItemPrice,
   getItemPrice,
   getItemQty,
   getItemAttributes,

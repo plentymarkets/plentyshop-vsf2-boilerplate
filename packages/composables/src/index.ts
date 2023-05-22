@@ -1,14 +1,12 @@
 // Composables
-export { useBilling } from './useBilling';
 export { useCart } from './useCart';
 export { useCategory } from './useCategory';
-export { useContent } from './useContent';
 export { useFacet } from './useFacet';
 export { useForgotPassword } from './useForgotPassword';
 export { useMakeOrder } from './useMakeOrder';
 export { useProduct } from './useProduct';
+export { useCookieBar } from './useCookieBar';
 export { useReview } from './useReview';
-export { useShipping } from './useShipping';
 export { useShippingProvider } from './useShippingProvider';
 export { useStore } from './useStore';
 export { useUser } from './useUser';
@@ -19,10 +17,14 @@ export { useWishlist } from './useWishlist';
 export { useSearch } from './useSearch';
 export { useActiveShippingCountries } from './useActiveShippingCountries';
 export { usePaymentProvider } from './usePaymentProvider';
+export { useAddressForm } from './useAddressForm';
+export { useLegalInformation } from './useLegalInformation';
+export { useLocaleSwitchHelper } from './useLocaleSwitchHelper';
 
 // Getters
 export { cartGetters } from './getters/cartGetters';
 export { categoryGetters } from './getters/categoryGetters';
+export { categoryTreeGetters } from './getters/categoryTreeGetters';
 export { facetGetters } from './getters/facetGetters';
 export { forgotPasswordGetters } from './getters/forgotPasswordGetters';
 export { orderGetters } from './getters/orderGetters';
@@ -35,6 +37,15 @@ export { userShippingGetters } from './getters/userShippingGetters';
 export { wishlistGetters } from './getters/wishlistGetters';
 export { shippingProviderGetters } from './getters/shippingProviderGetters';
 export { paymentProviderGetters } from './getters/paymentProviderGetters';
-
+export { userAddressGetters } from './getters/userAddressGetters';
+export { countryGetters } from './getters/countryGetters';
+export { cookieBarGetters } from './getters/cookieBarGetters';
+export { legalGetters } from './getters/legalGetters';
+export { companyGetters } from './getters/companyGetters';
+export { paginationGetters } from './getters/paginationGetters';
+export { bannerGetters } from './getters/bannerGetters';
+export { heroesGetters } from './getters/heroesGetters';
+export { propertyGetters } from './getters/propertyGetters';
+export { localesGetters } from './getters/localesGetters';
 // Types
 export * from './types';

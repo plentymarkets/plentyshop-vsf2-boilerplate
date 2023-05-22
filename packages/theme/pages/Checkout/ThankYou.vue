@@ -3,7 +3,7 @@
     <SfCallToAction
       v-e2e="'thank-you-banner'"
       class="banner"
-      title="Thank you for your order!"
+      :title="$t('ThankYou.Thank you for your order!')"
       :image="{
         mobile: addBasePath('/thankyou/bannerM.png'),
         desktop: addBasePath('/thankyou/bannerD.png'),
@@ -11,7 +11,7 @@
     >
       <template #description>
         <div class="banner__order-number">
-          <span>{{ $t('Order No.') }}</span>
+          <span>{{ $t('ThankYou.Order no') }}</span>
           <strong>{{ orderNumber }}</strong>
         </div>
       </template>
@@ -19,60 +19,66 @@
     <section class="section">
       <div class="order">
         <SfHeading
-          title="Your Purchase"
+          :title="$t('ThankYou.Your purchase')"
           class="order__heading heading sf-heading--left"
           :level="3"
         />
         <p class="order__paragraph paragraph">
-          {{ $t('Successful placed order') }}
+          {{ $t('ThankYou.Successfully placed order') }}
         </p>
         <div class="order__contact">
           <SfHeading
             :level="6"
             class="heading sf-heading--left sf-heading--no-underline"
-            title="Primary contacts for any questions"
-          ></SfHeading>
+            :title="$t('ThankYou.Primary contacts for any questions')"
+          />
           <div class="contact">
-            <p class="contact__name">{{ companyDetails.name }}</p>
-            <p class="contact__street">{{ companyDetails.street }}</p>
-            <p class="contact__city">{{ companyDetails.city }}</p>
-            <p class="contact__email">{{ companyDetails.email }}</p>
+            <p class="contact__name">
+              {{ companyGetters.getName(companyDetails) }}
+            </p>
+            <p class="contact__street">
+              {{ companyGetters.getStreet(companyDetails) }}
+            </p>
+            <p class="contact__city">
+              {{ companyGetters.getCity(companyDetails) }}
+            </p>
+            <p class="contact__email">
+              {{ companyGetters.getEmail(companyDetails) }}
+            </p>
           </div>
         </div>
-        <SfButton class="order__notifications-button button-size"
-          >{{ $t('Allow order notifications') }}</SfButton
-        >
       </div>
       <div class="additional-info">
         <div>
           <SfHeading
-            title="Your Account"
+            :title="$t('ThankYou.Your account')"
             class="heading sf-heading--left"
             :level="3"
           />
           <p class="paragraph">
-            {{ $t('Info after order') }}
+            {{ $t('ThankYou.Info after order') }}
           </p>
         </div>
         <div>
           <SfHeading
-            title="What can we improve"
+            :title="$t('ThankYou.What can we improve')"
             class="heading sf-heading--left"
             :level="3"
           />
           <p class="paragraph">
-            {{ $t('Feedback') }}
+            {{ $t('ThankYou.Feedback') }}
           </p>
           <SfButton
             class="feedback-button color-secondary sf-button--full-width button-size"
-            >{{ $t('Send my feedback') }}</SfButton
           >
+            {{ $t('ThankYou.Send feedback') }}
+          </SfButton>
         </div>
       </div>
     </section>
-    <SfButton class="back-button color-secondary button-size"
-      >{{ $t('Go back to shop') }}</SfButton
-    >
+    <SfButton class="back-button color-secondary button-size">
+      {{ $t('ThankYou.Go back to shop') }}
+    </SfButton>
   </div>
 </template>
 
@@ -80,7 +86,7 @@
 import { SfHeading, SfButton, SfCallToAction } from '@storefront-ui/vue';
 import { ref } from '@nuxtjs/composition-api';
 import { addBasePath } from '@vue-storefront/core';
-
+import {companyGetters} from '@vue-storefront/plentymarkets';
 export default {
   components: {
     SfHeading,
@@ -91,15 +97,16 @@ export default {
     context.emit('changeStep', 4);
 
     const companyDetails = ref({
-      name: 'Divante Headquarter',
-      street: 'St. Dmowskiego 17, 53-534',
-      city: 'Wroclaw, Poland',
-      email: 'demo@vuestorefront.io'
+      name: 'plentysystems AG',
+      street: 'Johanna-Waescher-Straße 7',
+      city: 'Kassel, Germany',
+      email: 'sales@plentymarkets.com'
     });
     const orderNumber = ref('80932031-030-00');
 
     return {
       addBasePath,
+      companyGetters,
       companyDetails,
       orderNumber
     };

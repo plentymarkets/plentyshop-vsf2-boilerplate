@@ -5,5 +5,6 @@
 declare namespace Cypress {
   interface Chainable {
     fixtures?: any;
+    login(email: string, password: string, isRememberChecked?: boolean): void;
   }
 }

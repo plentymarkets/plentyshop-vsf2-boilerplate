@@ -1,28 +1,29 @@
 import Category from './category';
-import { Billing, Payment, Shipping, ThankYou } from './checkout';
+import { CheckoutLogin, Billing, Payment, Shipping, ThankYou } from './checkout';
 import Cart from './components/cart-sidebar';
 import Home from './home';
 import Product from './product';
 
 const page = {
-  get cart() {
+  get cart(): any {
     return Cart;
   },
-  get category() {
+  get category(): any {
     return Category;
   },
-  get checkout() {
+  get checkout(): any {
     return {
+      checkoutlogin: new CheckoutLogin(),
       shipping: new Shipping(),
       billing: new Billing(),
       payment: new Payment(),
       thankyou: new ThankYou()
     };
   },
-  get home() {
+  get home(): any {
     return Home;
   },
-  get product() {
+  get product(): any {
     return Product;
   }
 };

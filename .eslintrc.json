@@ -3,7 +3,8 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:vue/recommended"
   ],
   "parser": "vue-eslint-parser",
   "parserOptions": {
@@ -65,7 +66,7 @@
     "dot-notation": 2,
     "no-alert": 2,
     "no-empty-function": 0,
-    "no-eval": 2,
+    "no-eval": ["error", {"allowIndirect": true}],
     "no-extend-native": 2,
     "no-extra-bind": 2,
     "no-implicit-coercion": 2,
@@ -115,13 +116,12 @@
     "semi-spacing": 2,
     "one-var": [2, "never"],
     "eol-last": 2,
-    "newline-after-var": 0,
+    "newline-after-var": 1,
     "no-var": 2,
     "@typescript-eslint/no-empty-function": 0,
     "no-case-declarations": 0,
     "@typescript-eslint/no-var-requires": 0,
-    "@typescript-eslint/no-explicit-any": 0,
-    "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-unused-vars": 2,
     "@typescript-eslint/ban-ts-ignore": 0,
     "@typescript-eslint/explicit-module-boundary-types": "off"
@@ -135,9 +135,39 @@
       }
     },
     {
-      "files": ["*.ts", "*.tsx"],
+      "files": [
+        "./packages/api-client/**/*.ts",
+        "./packages/api-client/**/*.tsx",
+        "./packages/composables/**/*.ts",
+        "./packages/composables/**/*.tsx",
+        "./packages/theme/**/*.ts",
+        "./packages/theme/**/*.tsx"
+      ],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "parser": "@typescript-eslint/parser",
+        "project": [
+          "./packages/api-client/tsconfig.json",
+          "./packages/composables/tsconfig.json",
+          "./packages/theme/tsconfig.json"
+        ],
+        "ecmaVersion": 2021,
+        "sourceType": "module"
+      },
       "rules": {
-        "@typescript-eslint/explicit-module-boundary-types": ["error"]
+        "@typescript-eslint/explicit-function-return-type": ["warn"],
+        "@typescript-eslint/explicit-module-boundary-types": ["warn"],
+        "@typescript-eslint/no-unsafe-call": "off",
+        "@typescript-eslint/no-unsafe-argument": "off",
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "@typescript-eslint/no-explicit-any": "error",
+        "@typescript-eslint/ban-types": "off"
+      }
+    },
+    {
+      "files": ["**/pages/**/*.vue"],
+      "rules": {
+        "vue/multi-word-component-names": "off"
       }
     }
   ]

@@ -1,39 +1,33 @@
 import webpack from 'webpack';
 import theme from './themeConfig';
+import cookieGroups from './cookieConfig';
 
-export default {
+const appPort = process.env.PORT || 80;
+const appIP = 'localhost';
+const config = {
   server: {
-    port: 3000,
-    host: '0.0.0.0'
+    port: appPort,
+    host: appIP
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'Vue Storefront',
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
+      {charset: 'utf-8'},
+      {name: 'viewport', content: 'width=device-width, initial-scale=1'},
+      {hid: 'description', name: 'description', content: process.env.npm_package_description || ''}
     ],
     link: [
       {
         rel: 'icon',
         type: 'image/x-icon',
         href: '/favicon.ico'
-      },
-      {
-        rel: 'preconnect',
-        href: 'https://fonts.gstatic.com',
-        crossorigin: 'crossorigin'
-      },
-      {
-        rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css?family=Raleway:300,400,400i,500,600,700|Roboto:300,300i,400,400i,500,700&display=swap'
       }
     ]
   },
 
-  loading: { color: '#fff' },
+  loading: {color: '#fff'},
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
@@ -43,9 +37,11 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // to core
-    '@nuxtjs/composition-api/module',
     '@nuxt/typescript-build',
+    '@nuxtjs/composition-api/module',
+    '@nuxtjs/google-fonts',
     '@nuxtjs/style-resources',
+    '@nuxtjs/tailwindcss',
     ['@vue-storefront/nuxt', {
       // @core-development-only-start
       coreDevelopment: true,
@@ -76,14 +72,15 @@ export default {
     /* project-only-start
     ['@vue-storefront/nuxt-theme'],
     project-only-end */
-    ['@vue-storefront/plentymarkets/nuxt', {}]
+    ['@vue-storefront/plentymarkets/nuxt', {}],
+    '@nuxtjs/pwa',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     ['@vue-storefront/pp-plentymarkets/nuxt', {}],
     ['nuxt-i18n', {
-      baseUrl: process.env.BASE_URL || 'http://localhost:3000'
+      baseUrl: process.env.BASE_URL || `http://localhost:${appPort}`
     }],
     'cookie-universal-nuxt',
     'vue-scrollto/nuxt',
@@ -94,18 +91,18 @@ export default {
     currency: 'USD',
     country: 'US',
     countries: [
-      { name: 'US', label: 'United States', states: ['California', 'Nevada'] },
-      { name: 'AT', label: 'Austria' },
-      { name: 'DE', label: 'Germany' },
-      { name: 'NL', label: 'Netherlands' }
+      {name: 'US', label: 'United States', states: ['California', 'Nevada']},
+      {name: 'AT', label: 'Austria'},
+      {name: 'DE', label: 'Germany'},
+      {name: 'NL', label: 'Netherlands'}
     ],
     currencies: [
-      { name: 'EUR', label: 'Euro' },
-      { name: 'USD', label: 'Dollar' }
+      {name: 'EUR', label: 'Euro'},
+      {name: 'USD', label: 'Dollar'}
     ],
     locales: [
-      { code: 'en', label: 'English', file: 'en.js', iso: 'en' },
-      { code: 'de', label: 'German', file: 'de.js', iso: 'de' }
+      {code: 'en', label: 'English', file: 'en.js', iso: 'en'},
+      {code: 'de', label: 'German', file: 'de.js', iso: 'de'}
     ],
     defaultLocale: 'en',
     lazy: true,
@@ -130,14 +127,28 @@ export default {
   },
 
   styleResources: {
-    scss: [require.resolve('@storefront-ui/shared/styles/_helpers.scss', { paths: [process.cwd()] })]
+    scss: [require.resolve('@storefront-ui/shared/styles/_helpers.scss', {paths: [process.cwd()]})]
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    babel: {
+      plugins: [['babel-plugin-istanbul', {
+        extension: [
+          '.js',
+          '.ts',
+          '.vue'
+        ]
+      }]],
+    },
     transpile: [
       'vee-validate/dist/rules'
     ],
+    postcss: {
+      plugins: {
+        'postcss-custom-properties': false
+      }
+    },
     plugins: [
       new webpack.DefinePlugin({
         'process.VERSION': JSON.stringify({
@@ -149,7 +160,7 @@ export default {
     ],
     extend(config, ctx) {
       if (ctx.isDev) {
-        config.devtool = 'eval-source-map'
+        config.devtool = ctx.isClient ? 'source-map' : 'inline-source-map'
       }
     }
   },
@@ -168,12 +179,83 @@ export default {
   },
 
   publicRuntimeConfig: {
-    theme
+    middlewareUrl: process.env.MIDDLEWARE_URL || `http://${appIP}:${appPort}/api/`,
+    theme,
+    cookieGroups: cookieGroups
   },
 
+  googleFonts: {
+    families: {
+      Raleway: {
+        wght: [300, 400, 500, 600, 700],
+        ital: [400]
+      },
+      Roboto: {
+        wght: [300, 400, 500, 700],
+        ital: [300, 400]
+      }
+    },
+    display: 'swap',
+    download: true,
+    base64: false,
+    fontsPath: '../fonts'
+  },
+
+  // PWA configuration: https://pwa.nuxtjs.org/
   pwa: {
     meta: {
-      theme_color: '#5ECE7B'
+      name: "plentyShop PWA",
+      author: "plentysystems AG",
+      description: "A PWA for plentymarkets shops",
+      lang: "en"
+    },
+    manifest: {
+      "background_color": "white",
+      "categories": ["shopping"],
+      "description": "A plentyShop demo app",
+      "display": "minimal-ui",
+      "launch_handler": {
+          "client_mode": ["auto"]
+      },
+      "name": "plentyShop PWA Demo App",
+      "screenshots": [],
+      "short_name": "plentyShop PWA",
+      "start_url": "/",
+      "theme_color": "#008EBD"
+    },
+    workbox: {
+      workboxURL: `/workbox-v6.5.4/workbox-sw.js?${Date.now()}`,
+      dev: false,
+      config: {
+        modulePathPrefix: '/workbox-v6.5.4'
+      },
+      runtimeCaching: [
+        {
+          urlPattern: "/*",
+          handler: 'NetworkFirst',
+          strategyOptions: {
+            cacheName: 'app-cache',
+            cacheableResponse: {
+              statuses: [0, 200, 204]
+            }
+          },
+          strategyPlugins: [{
+             use: 'Expiration',
+             config: {
+               maxEntries: 50,
+               purgeOnQuotaError: true
+             }
+           }]
+        },
+      ],
     }
   }
 };
+
+if (process.env.MIDDLEWARE_URL) {
+  config.privateRuntimeConfig = {
+    middlewareUrl: `http://localhost:${appPort}/api/`
+  }
+}
+
+export default config;

@@ -1,16 +1,26 @@
 <template>
-  <SfSection :title-heading="title" class="section">
-    <SfLoader :class="{ loading }" :loading="loading">
+  <SfSection
+    :title-heading="title"
+    class="section"
+  >
+    <SfLoader
+      :class="{ loading }"
+      :loading="loading"
+    >
       <SfCarousel
         :settings="{ peek: 16, breakpoints: { 1023: { peek: 0, perView: 2 } } }"
         class="carousel"
       >
-        <SfCarouselItem class="carousel__item" v-for="(product, i) in products" :key="i">
+        <SfCarouselItem
+          v-for="(product, i) in products"
+          :key="i"
+          class="carousel__item"
+        >
           <SfProductCard
             :title="productGetters.getName(product)"
-            :image="addBasePath(product.images.all[0].urlMiddle)"
-            :regular-price="$n(productGetters.getFormattedPrice(productGetters.getPrice(product).regular), 'currency')"
-            :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
+            :image="addBasePath(productGetters.getMiddleImage(product))"
+            :regular-price="$n(productGetters.getFormattedPrice(productGetters.getRegularPrice(product)), 'currency')"
+            :special-price="productGetters.getSpecialPrice(product) && $n(productGetters.getSpecialPrice(product), 'currency')"
             :max-rating="5"
             :score-rating="productGetters.getAverageRating(product)"
             :show-add-to-cart-button="true"
@@ -18,6 +28,8 @@
             :is-added-to-cart="isInCart({ product })"
             :link="localePath(`/p/${productGetters.getId(product)}/${productGetters.getSlug(product)}`)"
             class="product-card"
+            :image-width="100"
+            :image-height="100"
             @click:wishlist="!isInWishlist({ product }) ? addItemToWishlist({ product }) : removeProductFromWishlist(product)"
             @click:add-to-cart="addItemToCart({ product, quantity: 1 })"
           />
@@ -47,9 +59,17 @@ export default {
     SfLoader
   },
   props: {
-    title: String,
-    products: Array,
-    loading: Boolean
+    title: {
+      type: String,
+      default: ''
+    },
+    products: {
+      type: Array,
+      default: () => []
+    },
+    loading: {
+      type: Boolean
+    }
   },
   setup() {
     const { addItem: addItemToCart, isInCart } = useCart();
@@ -57,8 +77,10 @@ export default {
     const removeProductFromWishlist = (productItem) => {
       const productsInWishlist = computed(() => wishlistGetters.getItems(wishlist.value));
       const product = productsInWishlist.value.find(wishlistProduct => wishlistGetters.getId(wishlistProduct) === productGetters.getId(productItem));
+
       removeItemFromWishlist({ product });
     };
+
     return {
       productGetters,
       addItemToWishlist,

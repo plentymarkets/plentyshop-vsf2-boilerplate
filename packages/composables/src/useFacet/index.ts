@@ -1,4 +1,3 @@
-import { categoryGetters } from './../getters/categoryGetters';
 import { useCategory } from './../useCategory/index';
 import {
   Context,
@@ -6,41 +5,45 @@ import {
   FacetSearchResult,
   AgnosticCategoryTree
 } from '@vue-storefront/core';
-import type {
-  UseFacetSearchParams as SearchParams
-} from '../types';
-import { Facet } from '@vue-storefront/plentymarkets-api';
+import { FacetSearchCriteria, Facet} from '@vue-storefront/plentymarkets-api';
+import { categoryTreeGetters } from 'src/getters/categoryTreeGetters';
 
 const ITEMS_PER_PAGE = [20, 40, 100];
 
 const factoryParams = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  search: async (context: Context, params: FacetSearchResult<SearchParams>) => {
+  search: async (context: Context, params: FacetSearchResult<Facet>): Promise<Facet> => {
 
     const { categories } = useCategory('categories');
+    const searchParams = params.input as FacetSearchCriteria;
 
-    const category = categoryGetters.findCategoryBySlug(categories.value, params.input.categorySlug);
-
-    const tree: AgnosticCategoryTree = categoryGetters.getTree(category);
-    const treeWrapper: AgnosticCategoryTree = {
+    const treeCategory = categoryTreeGetters.findCategoryBySlug(categories.value, params.input.categorySlug);
+    const tree: AgnosticCategoryTree = {
       label: '',
-      items: [tree],
+      items: [categoryTreeGetters.getTree(treeCategory)],
       isCurrent: false
     };
-    if (category) {
-      params.input.categoryId = category.id;
+
+    if (treeCategory) {
+      searchParams.categoryId = treeCategory.id;
     }
-    const data = await context.$plentymarkets.api.getFacet(params.input);
+
+    const { urls, itemList, facets, category } = await context.$plentymarkets.api.getFacet(searchParams);
+
+    const products = itemList.documents.map(document => document.data);
+
     return {
-      products: data.products,
-      tree: treeWrapper,
-      facets: data.facets,
+      category,
+      languageUrls: urls,
+      products,
+      facets,
       pagination: {
-        perPageOptioons: ITEMS_PER_PAGE,
-        total: data.pagination.totals
-      }
-    } as Facet;
+        perPageOptions: ITEMS_PER_PAGE,
+        totals: products.length || 0
+      },
+      tree
+    };
   }
 };
 
-export const useFacet = useFacetFactory<SearchParams>(factoryParams);
+export const useFacet = useFacetFactory<Facet>(factoryParams);

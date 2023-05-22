@@ -13,78 +13,118 @@
         @click:close="closeModal"
       />
     </template>
-    <transition name="sf-fade" mode="out-in">
+    <transition
+      name="sf-fade"
+      mode="out-in"
+    >
       <div v-if="currentScreen === SCREEN_LOGIN">
-        <ValidationObserver v-slot="{ handleSubmit }" key="log-in">
-          <form class="form" @submit.prevent="handleSubmit(handleLogin)">
-            <ValidationProvider rules="required|email" v-slot="{ errors }">
+        <ValidationObserver
+          v-slot="{ handleSubmit }"
+          key="log-in"
+        >
+          <form
+            class="form"
+            @submit.prevent="handleSubmit(handleLogin)"
+          >
+            <ValidationProvider
+              v-slot="{ errors }"
+              :name="$t('LoginModal.Email')"
+              rules="required|email"
+            >
               <SfInput
-                v-e2e="'login-modal-email'"
                 v-model="form.username"
+                v-e2e="'login-modal-email'"
                 :valid="!errors[0]"
-                :errorMessage="errors[0]"
+                :error-message="errors[0]"
                 name="email"
-                label="Your email"
+                :label="$t('LoginModal.Email')"
                 class="form__element"
               />
             </ValidationProvider>
-            <ValidationProvider rules="required" v-slot="{ errors }">
+            <ValidationProvider
+              v-slot="{ errors }"
+              :name="$t('LoginModal.Password')"
+              rules="required"
+            >
               <SfInput
-                v-e2e="'login-modal-password'"
                 v-model="form.password"
+                v-e2e="'login-modal-password'"
                 :valid="!errors[0]"
-                :errorMessage="errors[0]"
+                :error-message="errors[0]"
                 name="password"
-                label="Password"
+                :label="$t('LoginModal.Password')"
                 type="password"
                 class="form__element"
               />
             </ValidationProvider>
             <SfCheckbox
-              v-e2e="'login-modal-remember-me'"
               v-model="rememberMe"
+              v-e2e="'login-modal-remember-me'"
               name="remember-me"
-              label="Remember me"
+              :label="$t('LoginModal.Remember me')"
               class="form__element checkbox"
             />
             <div v-if="error.login">
               {{ error.login }}
             </div>
-            <SfButton v-e2e="'login-modal-submit'"
+            <SfButton
+              v-e2e="'login-modal-submit'"
               type="submit"
               class="sf-button--full-width form__button"
               :disabled="loading"
             >
-              <SfLoader :class="{ loader: loading }" :loading="loading">
-                <div>{{ $t('Login') }}</div>
+              <SfLoader
+                :class="{ loader: loading }"
+                :loading="loading"
+              >
+                <div>{{ $t('LoginModal.Login') }}</div>
               </SfLoader>
             </SfButton>
           </form>
         </ValidationObserver>
         <div class="action">
-          <SfButton class="sf-button--text" @click="setCurrentScreen(SCREEN_FORGOTTEN)">
-            {{ $t('Forgotten password?') }}
+          <SfButton
+            class="sf-button--text"
+            @click="setCurrentScreen(SCREEN_FORGOTTEN)"
+          >
+            {{ $t('LoginModal.Forgotten your password?') }}
           </SfButton>
         </div>
         <div class="bottom">
-          <p class="bottom__paragraph">{{ $t('No account') }}</p>
-          <SfButton class="sf-button--text" @click="setCurrentScreen(SCREEN_REGISTER)">
-            {{ $t('Register today') }}
+          <p class="bottom__paragraph">
+            {{ $t("LoginModal.Do not have an account yet?") }}
+          </p>
+          <SfButton
+            data-e2e="open-registration-form"
+            class="sf-button--text"
+            @click="setCurrentScreen(SCREEN_REGISTER)"
+          >
+            {{ $t('LoginModal.Register today') }}
           </SfButton>
         </div>
       </div>
       <div v-else-if="currentScreen === SCREEN_FORGOTTEN">
-        <p>{{ $t('Forgot Password') }}</p>
-        <ValidationObserver v-slot="{ handleSubmit }" key="log-in">
-          <form class="form" @submit.prevent="handleSubmit(handleForgotten)">
-            <ValidationProvider rules="required|email" v-slot="{ errors }">
+        <p>{{ $t('LoginModal.Forgot password') }}</p>
+        <ValidationObserver
+          v-slot="{ handleSubmit }"
+          key="log-in"
+        >
+          <form
+            class="form"
+            @submit.prevent="handleSubmit(handleForgotten)"
+          >
+            <ValidationProvider
+              v-slot="{ errors }"
+              :name="$t('LoginModal.Email')"
+              rules="required|email"
+            >
               <SfInput
-                v-e2e="'forgot-modal-email'"
                 v-model="form.username"
+                v-e2e="'forgot-modal-email'"
                 :valid="!errors[0]"
-                :errorMessage="errors[0]"
+                :error-message="errors[0]"
                 name="email"
-                :label="$t('Forgot Password Modal Email')"
+                :label="$t('LoginModal.Email')"
                 class="form__element"
               />
             </ValidationProvider>
@@ -97,41 +137,71 @@
               class="sf-button--full-width form__button"
               :disabled="forgotPasswordLoading"
             >
-              <SfLoader :class="{ loader: forgotPasswordLoading }" :loading="forgotPasswordLoading">
-                <div>{{ $t('Reset Password') }}</div>
+              <SfLoader
+                :class="{ loader: forgotPasswordLoading }"
+                :loading="forgotPasswordLoading"
+              >
+                <div>{{ $t('LoginModal.Reset Password') }}</div>
               </SfLoader>
             </SfButton>
           </form>
         </ValidationObserver>
       </div>
-      <div v-else-if="currentScreen === SCREEN_THANK_YOU" class="thank-you">
-        <i18n tag="p" class="thank-you__paragraph" path="forgotPasswordConfirmation">
+      <div
+        v-else-if="currentScreen === SCREEN_THANK_YOU"
+        class="thank-you"
+      >
+        <i18n
+          tag="p"
+          class="thank-you__paragraph"
+          path="forgotPasswordConfirmation"
+        >
           <span class="thank-you__paragraph--bold">{{ userEmail }}</span>
         </i18n>
-        <p class="thank-you__paragraph">{{ $t('Thank You Inbox') }}</p>
+        <p class="thank-you__paragraph">
+          {{ $t('LoginModal.Thank you inbox') }}
+        </p>
       </div>
-      <div v-else class="form">
-        <ValidationObserver v-slot="{ handleSubmit }" key="sign-up">
-          <form class="form" @submit.prevent="handleSubmit(handleRegister)" autocomplete="off">
-            <ValidationProvider rules="required|email" v-slot="{ errors }">
+      <div
+        v-else
+        class="form"
+      >
+        <ValidationObserver
+          v-slot="{ handleSubmit }"
+          key="sign-up"
+        >
+          <form
+            class="form"
+            autocomplete="off"
+            @submit.prevent="handleSubmit(handleRegister)"
+          >
+            <ValidationProvider
+              v-slot="{ errors }"
+              :name="$t('LoginModal.Email')"
+              rules="required|email"
+            >
               <SfInput
-                v-e2e="'login-modal-email'"
                 v-model="form.email"
+                v-e2e="'login-modal-email'"
                 :valid="!errors[0]"
-                :errorMessage="errors[0]"
+                :error-message="errors[0]"
                 name="email"
-                label="Your email"
+                :label="$t('LoginModal.Email')"
                 class="form__element"
               />
             </ValidationProvider>
-            <ValidationProvider rules="required" v-slot="{ errors }">
+            <ValidationProvider
+              v-slot="{ errors }"
+              :name="$t('LoginModal.Password')"
+              rules="required"
+            >
               <SfInput
-                v-e2e="'login-modal-password'"
                 v-model="form.password"
+                v-e2e="'login-modal-password'"
                 :valid="!errors[0]"
-                :errorMessage="errors[0]"
+                :error-message="errors[0]"
                 name="password"
-                label="Password"
+                :label="$t('LoginModal.Password')"
                 type="password"
                 class="form__element"
               />
@@ -144,38 +214,58 @@
               class="sf-button--full-width form__button"
               :disabled="loading"
             >
-              <SfLoader :class="{ loader: loading }" :loading="loading">
-                <div>{{ $t('Create an account') }}</div>
+              <SfLoader
+                :class="{ loader: loading }"
+                :loading="loading"
+              >
+                <div>{{ $t('LoginModal.Create an account') }}</div>
               </SfLoader>
             </SfButton>
           </form>
         </ValidationObserver>
-        <div class="customer-text"> {{ $t('or') }} </div>
-        <SfButton
-              class="sf-button--full-width form__button" @click="setCurrentScreen(SCREEN_LOGIN)"
-            >
-            {{ $t('login in to your account') }}
-        </SfButton>
+        <div class="bottom top">
+          <p class="bottom__paragraph">
+            {{ $t("LoginModal.Already have an account?") }}
+          </p>
+          <SfButton
+            data-e2e="open-login-form"
+            class="sf-button--text"
+            @click="setCurrentScreen(SCREEN_LOGIN)"
+          >
+            {{ $t('LoginModal.Log in now') }}
+          </SfButton>
+        </div>
       </div>
     </transition>
   </SfModal>
 </template>
 <script>
-import { ref, watch, reactive, computed } from '@nuxtjs/composition-api';
-import { SfModal, SfInput, SfButton, SfCheckbox, SfLoader, SfAlert, SfBar } from '@storefront-ui/vue';
+import {
+  ref,
+  watch,
+  reactive,
+  computed,
+  useContext
+} from '@nuxtjs/composition-api';
+import {
+  SfModal,
+  SfInput,
+  SfButton,
+  SfCheckbox,
+  SfLoader,
+  SfBar
+} from '@storefront-ui/vue';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { required, email } from 'vee-validate/dist/rules';
 import { useUser, useForgotPassword } from '@vue-storefront/plentymarkets';
-import { useUiState } from '~/composables';
+import { useUiState, useUiNotification } from '~/composables';
 
 extend('email', {
-  ...email,
-  message: 'Invalid email'
+  ...email
 });
 
 extend('required', {
-  ...required,
-  message: 'This field is required'
+  ...required
 });
 
 export default {
@@ -186,7 +276,6 @@ export default {
     SfButton,
     SfCheckbox,
     SfLoader,
-    SfAlert,
     ValidationProvider,
     ValidationObserver,
     SfBar
@@ -202,8 +291,15 @@ export default {
     const userEmail = ref('');
     const rememberMe = ref(false);
     const { register, login, loading, error: userError } = useUser();
-    const { request, error: forgotPasswordError, loading: forgotPasswordLoading } = useForgotPassword();
-    const currentScreen = ref(SCREEN_REGISTER);
+    const {
+      request,
+      error: forgotPasswordError,
+      loading: forgotPasswordLoading
+    } = useForgotPassword();
+    const { send } = useUiNotification();
+    const { app } = useContext();
+
+    const currentScreen = ref(SCREEN_LOGIN);
 
     const error = reactive({
       login: null,
@@ -218,11 +314,11 @@ export default {
     const barTitle = computed(() => {
       switch (currentScreen.value) {
         case SCREEN_LOGIN:
-          return 'Sign in';
+          return 'LoginModal.Sign in';
         case SCREEN_REGISTER:
-          return 'Register';
+          return 'LoginModal.Register';
         default:
-          return 'Reset Password';
+          return 'LoginModal.Reset password';
       }
     });
 
@@ -242,13 +338,30 @@ export default {
       resetErrorValues();
       await fn({ user: form.value });
 
-      const hasUserErrors = userError.value.register || userError.value.login;
+      error.login = userError.value.login;
+      error.register = userError.value.register;
 
-      if (hasUserErrors) {
-        error.login = userError.value.login?.message;
-        error.register = userError.value.register?.message;
+      if (error.login) {
+        send({
+          message: app.i18n.t('An error occurred while logging in'),
+          type: 'danger',
+          persist: true
+        });
+        send({ message: error.login, type: 'danger', persist: true });
         return;
       }
+
+      if (error.register) {
+        send({
+          message: app.i18n.t('An error occurred during the registration'),
+          type: 'danger',
+          persist: true
+        });
+        send({ message: error.register, type: 'danger', persist: true });
+        return;
+      }
+
+      send({ message: app.i18n.t('LoginModal.Login successful'), type: 'success' });
       toggleLoginModal();
     };
 
@@ -305,8 +418,8 @@ export default {
   justify-content: center;
 }
 .modal {
-  --modal-index: 3;
-  --overlay-z-index: 3;
+  --modal-index: 30;
+  --overlay-z-index: 30;
 }
 .form {
   margin-top: var(--spacer-sm);
@@ -319,7 +432,8 @@ export default {
   align-items: center;
   justify-content: center;
   margin: var(--spacer-xl) 0 var(--spacer-xl) 0;
-  font: var(--font-weight--light) var(--font-size--base) / 1.6 var(--font-family--secondary);
+  font: var(--font-weight--light) var(--font-size--base) / 1.6
+  var(--font-family--secondary);
   & > * {
     margin: 0 0 0 var(--spacer-xs);
   }
@@ -344,11 +458,25 @@ export default {
     }
   }
 }
+.top {
+  margin-top: var(--spacer-lg);
+}
 .thank-you {
   &__paragraph {
     &--bold {
       font-weight: var(--font-weight--semibold);
     }
   }
+}
+.signin {
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+.signin-link {
+  text-decoration: none;
+}
+.signin-now {
+  margin-bottom: 10px;
+  color: green;
 }
 </style>

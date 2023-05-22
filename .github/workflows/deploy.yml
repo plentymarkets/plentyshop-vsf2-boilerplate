@@ -1,0 +1,22 @@
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: self-hosted
+    name: build it
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build and Deploy
+        uses: kciter/aws-ecr-action@v1
+        with:
+          dockerfile: Dockerfile
+          access_key_id: ${{ secrets.PLENTY_ECR_ACCESS_KEY_ID }}
+          secret_access_key: ${{ secrets.PLENTY_ECR_SECRET_ACCESS_KEY }}
+          account_id: ${{ secrets.PLENTY_ECR_ACCOUNT_ID }}
+          repo: plentyshop-pwa
+          region: eu-central-1
+          tags: latest,${{ github.event.release.tag_name }}
+          create_repo: true

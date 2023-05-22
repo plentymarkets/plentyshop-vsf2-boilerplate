@@ -2,22 +2,25 @@
   <div id="filters">
     <SfSidebar
       :visible="isFilterSidebarOpen"
-      title="Filters"
+      :title="$t('FiltersSidebar.Filters')"
       class="sidebar-filters"
       @close="toggleFilterSidebar"
     >
       <div class="filters desktop-only">
-        <div v-for="(facet, i) in facets" :key="i">
+        <div
+          v-for="(facet, i) in facets"
+          :key="i"
+        >
           <SfHeading
+            :key="`filter-title-${facet.id}`"
             :level="4"
             :title="facet.label"
             class="filters__title sf-heading--left"
-            :key="`filter-title-${facet.id}`"
           />
           <div
             v-if="isFacetColor(facet)"
-            class="filters__colors"
             :key="`${facet.id}-colors`"
+            class="filters__colors"
           >
             <SfColor
               v-for="option in facet.options"
@@ -41,7 +44,10 @@
         </div>
       </div>
       <SfAccordion class="filters smartphone-only">
-        <div v-for="(facet, i) in facets" :key="i">
+        <div
+          v-for="(facet, i) in facets"
+          :key="i"
+        >
           <SfAccordionItem
             :key="`filter-title-${facet.id}`"
             :header="facet.label"
@@ -64,16 +70,14 @@
             class="sf-button--full-width"
             @click="applyFilters"
           >
-            {{ $t('Done') }}
-          </SfButton
-          >
+            {{ $t('FiltersSidebar.Done') }}
+          </SfButton>
           <SfButton
             class="sf-button--full-width filters__button-clear"
             @click="clearFilters"
           >
-            {{ $t('Clear all') }}
-          </SfButton
-          >
+            {{ $t('FiltersSidebar.Clear all') }}
+          </SfButton>
         </div>
       </template>
     </SfSidebar>
@@ -170,7 +174,7 @@ export default {
 
 <style lang="scss" scoped>
 .sidebar-filters {
-  --overlay-z-index: 3;
+  --overlay-z-index: 30;
   --sidebar-title-display: none;
   --sidebar-top-padding: 0;
   @include for-desktop {
@@ -179,7 +183,7 @@ export default {
   }
 }
 ::v-deep .sf-sidebar__aside {
-  --sidebar-z-index: 3;
+  --sidebar-z-index: 30;
 }
 .filters {
   &__title {

@@ -1,0 +1,29 @@
+{
+  "customer": {
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "johndoe@mailinator.com",
+    "address": {
+      "shipping": {
+        "streetName": "1 VueStorefront Rd.",
+        "apartment": "23",
+        "city": "Kassel",
+        "country": "Germany",
+        "state": "Hessen",
+        "zipCode": "45678",
+        "phoneNumber": "123456789",
+        "email": "johndoe@mailinator.com"
+      },
+      "billing": {
+        "streetName": "1 VueStorefront Rd.",
+        "apartment": "23",
+        "city": "Kassel",
+        "country": "Germany",
+        "state": "Hessen",
+        "zipCode": "45678",
+        "phoneNumber": "123456789",
+        "email": "johndoe@mailinator.com"
+      }
+    }
+  }
+}

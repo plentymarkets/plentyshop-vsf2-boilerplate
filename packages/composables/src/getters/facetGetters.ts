@@ -10,16 +10,21 @@ import {
 } from '@vue-storefront/core';
 import type { Category, Facet, FacetSearchCriteria, Product } from '@vue-storefront/plentymarkets-api';
 import { useContext } from '@nuxtjs/composition-api';
-import { categoryGetters } from './categoryGetters';
+import { categoryTreeGetters } from './categoryTreeGetters';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getAll(params: FacetSearchResult<Facet>, criteria?: FacetSearchCriteria): AgnosticFacet[] {
   return [];
 }
 
+function getCategory(params: FacetSearchResult<Facet>): Category {
+  return params?.data?.category;
+}
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getGrouped(params: FacetSearchResult<Facet>, criteria?: FacetSearchCriteria): AgnosticGroupedFacet[] {
   const selectedFacets = params.input?.facets?.split(',');
+
   if (!params?.data?.facets) {
     return [];
   }
@@ -35,7 +40,7 @@ function getGrouped(params: FacetSearchResult<Facet>, criteria?: FacetSearchCrit
           type: group.type,
           count: filter.count,
           id: filter.id.toString(),
-          value: filter.name.toString()
+          value: filter?.name?.toString()
         };
       })
     };
@@ -46,35 +51,37 @@ function getGrouped(params: FacetSearchResult<Facet>, criteria?: FacetSearchCrit
 function getSortOptions(params: FacetSearchResult<Facet>): AgnosticSort {
 
   const { app } = useContext();
+  // TODO: Move translations to CategoryPageHeader component.
   const options = [
     {
       id: 'texts.name1_asc',
-      value: app.i18n.t('name-a-z'),
+      value: app.i18n.t('CategoryPageHeader.name-a-z'),
       type: 'sort'
     },
     {
       id: 'texts.name1_desc',
-      value: app.i18n.t('name-z-a'),
+      value: app.i18n.t('CategoryPageHeader.name-z-a'),
       type: 'sort'
     },
     {
       id: 'sorting.price.avg_asc',
-      value: app.i18n.t('price-up'),
+      value: app.i18n.t('CategoryPageHeader.price-up'),
       type: 'sort'
     },
     {
       id: 'sorting.price.avg_desc',
-      value: app.i18n.t('price-down'),
+      value: app.i18n.t('CategoryPageHeader.price-down'),
       type: 'sort'
     }
   ].map(o => ({ ...o, selected: o.id === params.input.sort }));
   const selected = options.find(o => o.id === params.input.sort)?.id;
+
   return { selected, options };
 }
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getCategoryTree(params: FacetSearchResult<Facet>): AgnosticCategoryTree {
-  return params?.data?.tree || {
-    label: 'Placeholder',
+  return params?.data?.tree ?? {
+    label: '',
     items: [],
     isCurrent: false
   };
@@ -87,9 +94,10 @@ function getProducts(products: FacetSearchResult<Facet>): Product[] {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getPagination(params: FacetSearchResult<Facet>): AgnosticPagination {
-  const totals = params.data?.pagination?.total || 1;
-  const pageOptions = params.data?.pagination?.perPageOptioons || [20, 40, 100];
-  const totalItems = params.data?.pagination?.total || 1;
+
+  const totals = params.data?.pagination?.totals || 1;
+  const pageOptions = params.data?.pagination?.perPageOptions || [20, 40, 100];
+  const totalItems = params.data?.pagination?.totals || 1;
 
   return {
     currentPage: params.input.page,
@@ -105,7 +113,9 @@ function getBreadcrumbs(params: FacetSearchResult<Facet>, categories?: Category[
   if (!categories) {
     return [];
   }
-  const breadcrumbs = categoryGetters.getMappedBreadcrumbs(categories, params.input.categoryId);
+
+  const breadcrumbs = categoryTreeGetters.getMappedBreadcrumbs(categories, params.input.categoryId);
+
   return [
     {
       text: 'Home',
@@ -115,12 +125,13 @@ function getBreadcrumbs(params: FacetSearchResult<Facet>, categories?: Category[
   ];
 }
 
-export const facetGetters: FacetsGetters<Facet, FacetSearchCriteria> = {
-  getSortOptions,
-  getGrouped,
+export const facetGetters: FacetsGetters<Facet, Product[], FacetSearchCriteria> = {
   getAll,
-  getProducts,
-  getCategoryTree,
   getBreadcrumbs,
-  getPagination
+  getCategory,
+  getCategoryTree,
+  getGrouped,
+  getPagination,
+  getProducts,
+  getSortOptions
 };

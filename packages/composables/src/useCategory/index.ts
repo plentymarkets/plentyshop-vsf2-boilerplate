@@ -3,17 +3,18 @@ import {
   useCategoryFactory,
   UseCategoryFactoryParams
 } from '@vue-storefront/core';
-import type { Category } from '@vue-storefront/plentymarkets-api';
+import type { CategoryTreeItem } from '@vue-storefront/plentymarkets-api';
 import type {
   UseCategorySearchParams as SearchParams
 } from '../types';
 
-const params: UseCategoryFactoryParams<Category, SearchParams> = {
+const params: UseCategoryFactoryParams<CategoryTreeItem, SearchParams> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  categorySearch: async (context: Context, { customQuery, ...params }) => {
-    const data = await context.$plentymarkets.api.getCategory(params);
+  categorySearch: async (context: Context) => {
+    const data = await context.$plentymarkets.api.getCategory();
+
     return data;
   }
 };
 
-export const useCategory = useCategoryFactory<Category, SearchParams>(params);
+export const useCategory = useCategoryFactory<CategoryTreeItem, SearchParams>(params);

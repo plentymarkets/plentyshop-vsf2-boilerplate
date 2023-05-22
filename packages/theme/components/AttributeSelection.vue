@@ -1,49 +1,54 @@
 <template>
-    <div>
-        <SfSelect
-          class="sf-select--underlined product__select-size"
-          v-e2e="'size-select'"
-          v-for="(option, key) in options"
-          @input="optionValueKey => selectOption(key, optionValueKey || NO_SELECTION_ID)"
-          :key="key"
-          :label="option.label"
-          :value="selectedAttributes[key]"
-          :required="true"
-          :disabled="loading"
-          >
-            <SfSelectOption v-if="hasEmptyOption || selectedAttributes[key] === NO_SELECTION_ID" :value="NO_SELECTION_ID">
-              {{ $t('no selection') }}
-            </SfSelectOption>
-            <SfSelectOption
-              v-for="(optionValue, valueKey) in option.value"
-              :key="valueKey"
-              :value="valueKey"
-              :disabled="loading"
-            >
-                {{ optionValue }}
-            </SfSelectOption>
-        </SfSelect>
+  <div>
+    <SfSelect
+      v-for="(option, key) in options"
+      :key="key"
+      v-e2e="'size-select'"
+      class="sf-select--underlined product__select-size"
+      :label="option.label"
+      :value="selectedAttributes[key]"
+      :required="true"
+      :disabled="loading"
+      @input="optionValueKey => selectOption(key, optionValueKey || NO_SELECTION_ID)"
+    >
+      <SfSelectOption
+        v-if="hasEmptyOption || selectedAttributes[key] === NO_SELECTION_ID"
+        :value="NO_SELECTION_ID"
+      >
+        {{ $t('AttributeSelection.No selection') }}
+      </SfSelectOption>
+      <SfSelectOption
+        v-for="(optionValue, valueKey) in option.value"
+        :key="valueKey"
+        :value="valueKey"
+        :disabled="loading"
+      >
+        {{ optionValue }}
+      </SfSelectOption>
+    </SfSelect>
 
-        <SfSelect
-          v-if="Object.keys(units).length > 1"
-          class="sf-select--underlined product__select-size"
-          v-e2e="'content-select'"
-          :label="$t('content')"
-          :required="true"
-          v-model="selectedUnit"
-          @input="optionValueKey => selectOption()"
-        >
-            <SfSelectOption
-              v-for="(unitName, unitCombinationId) in units"
-              :key="unitCombinationId"
-              :value="unitCombinationId"
-            >
-              {{ unitName }}
-            </SfSelectOption>
-        </SfSelect>
+    <SfSelect
+      v-if="Object.keys(units).length > 1"
+      v-model="selectedUnit"
+      v-e2e="'content-select'"
+      class="sf-select--underlined product__select-size"
+      :label="$t('AttributeSelection.Content')"
+      :required="true"
+      @input="optionValueKey => selectOption()"
+    >
+      <SfSelectOption
+        v-for="(unitName, unitCombinationId) in units"
+        :key="unitCombinationId"
+        :value="unitCombinationId"
+      >
+        {{ unitName }}
+      </SfSelectOption>
+    </SfSelect>
 
-        <p v-if="!selectedVariationId">{{ $t('please select variation') }}</p>
-    </div>
+    <p v-if="!selectedVariationId">
+      {{ $t('AttributeSelection.Select a valid variation') }}
+    </p>
+  </div>
 </template>
 
 <script>
@@ -56,6 +61,9 @@ import { computed, reactive, ref, watch } from '@vue/composition-api';
 
 export default {
   name: 'AttributeSelection',
+  components: {
+    SfSelect
+  },
   setup(props, context) {
     const { products, loading } = useProduct('products');
     const product = computed(() => productGetters.getFiltered(products.value, { })[0]);
@@ -126,9 +134,6 @@ export default {
       hasEmptyOption,
       NO_SELECTION_ID
     };
-  },
-  components: {
-    SfSelect
   }
 };
 </script>

@@ -4,25 +4,27 @@ export default async ({ app, $vsf }) => {
   if (!currentPath) {
     return;
   }
-
-  const cart = await $vsf.$plentymarkets.api.getCart();
-
+  // const session = await $vsf.$plentymarkets.api.getSession();
+  // const isAuthenticated = session.user;
   const redirectWithLocalePath = path => app.context.redirect(app.localePath(path));
+  const BILLING_TYPE = 1;
 
   switch (currentPath) {
     case 'login':
-      console.log('navigate to login');
       break;
     case 'billing':
-      console.log('navigate to billing');
       break;
     case 'shipping':
-      if (!cart.customerInvoiceAddressId) {
+      const billing = await $vsf.$plentymarkets.api.loadAddresses(BILLING_TYPE);
+      if (billing.length <= 0) {
         redirectWithLocalePath('billing');
       }
       break;
     case 'payment':
-      console.log('navigate to payment');
+      const _billing = await $vsf.$plentymarkets.api.loadAddresses(BILLING_TYPE);
+      if (_billing.length <= 0) {
+        redirectWithLocalePath('shipping');
+      }
       break;
   }
 };

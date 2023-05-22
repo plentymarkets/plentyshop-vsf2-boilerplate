@@ -1,4 +1,12 @@
-# Vue Storefront 2
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/1626923/137092657-fb398d20-b592-4661-a1f9-4135db0b61d5.png" alt="Vue Storefront" height="80px" />
+
+  <img src="https://cdn01.plentymarkets.com/avw8j9fg70hi/frontend/website_plentycom/plenty_Logos/plentymarkets/plentymarkets_Claim_RGB.png" alt="plentymarkets logo" height="160px" />
+</div>
+
+# Vue Storefront 2 integration with plentymarkets
+
+This package contains the presentation of the app.
 
 ## Build Setup
 
@@ -49,3 +57,54 @@ Example: `/static/robots.txt` is mapped as `/robots.txt`.
 ### `store`
 
 This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
+
+## E2e testing with Cypress
+
+We are currently using the default BE api and not mocking anything.
+
+- Please remember to create your `.env` file in `./tests/e2e`, based on the `.env.example` file;
+- When adding new values in the env file, remember to update `./tests/e2e/cypress.config.js`
+
+For mobile testing, you can specify a resolution with the tests command, for example `yarn test:e2e --config viewportWidth=1280,viewportHeight=720`.
+
+More information:
+
+- [https://docs.cypress.io/api/commands/viewport#Syntax](https://docs.cypress.io/api/commands/viewport#Syntax);
+- [https://docs.cypress.io/guides/references/configuration#Configuration-File](https://docs.cypress.io/guides/references/configuration#Configuration-File).
+
+## Cookies
+
+* To customize cookie values, edit `cookieConfig.js`.
+* To customize the cookiebar itself, edit the CookieBar component.
+* The CookieBar component uses the useCookieBar composable. The composable depends on [cookie-universal-nuxt](https://www.npmjs.com/package/cookie-universal-nuxt) to fetch and store cookies.
+
+##### cookiebar.vue
+```js
+const { cookieJson, bannerIsHidden, convertAndSaveCookies, defaultCheckboxIndex } = useCookieBar(
+    NuxtContext,
+    cookieName,
+    defaultCheckbox
+    nuxtCookieConfig
+);
+```
+
+| Parameter | Description |
+| `NuxtContext`  | Required for interacting with [cookie-universal-nuxt](https://www.npmjs.com/package/cookie-universal-nuxt). cookie-universal-nuxt gets, sets and removes cookies in client and server side Nuxt apps. |
+| `CookieName` | The name of the cookie used in the browser. Default: `plenty-shop` |
+| `DefaultCheckbox` | Default cookie group index. Disabled by default. |
+| `nuxtCookieConfig` | Consent groups defined in `cookieConfig.js`. |
+
+## Resources
+
+Vue Storefront:
+
+<!-- * [plentymarkets integration Documentation](https://docs.vuestorefront.io/plentymarkets) -->
+* [Vue Storefront Documentation](https://docs.vuestorefront.io/v2/)
+* [Vue Storefront Boilerplate](https://github.com/vuestorefront/ecommerce-integration-boilerplate)
+* [Storefront UI Library](https://docs.storefrontui.io/v1/?path=/docs/welcome--page)
+
+General:
+
+* [Nuxt Documentation](https://nuxtjs.org/docs/get-started/installation)
+* [Introduction to Vue](https://vuejs.org/guide/introduction.html) | [Composition API FAQ](https://vuejs.org/guide/extras/composition-api-faq.html)
+* [HTTP Toolkit](https://httptoolkit.tech)

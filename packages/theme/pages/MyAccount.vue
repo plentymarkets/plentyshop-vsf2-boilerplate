@@ -6,104 +6,96 @@
     />
     <SfContentPages
       v-e2e="'my-account-content-pages'"
-      title="My Account"
+      :title="$t('MyAccount.My account')"
       :active="activePage"
       class="my-account"
-      @click:change="changeActivePage"
+      @click:change="changeActivePage($event)"
     >
-      <SfContentCategory title="Personal Details">
-        <SfContentPage title="My profile">
-          <MyProfile />
+      <SfContentCategory :title="$t('MyAccount.User data')">
+        <SfContentPage :title="$t('MyAccount.My profile')">
+          <ProfileDetails />
         </SfContentPage>
 
-        <SfContentPage title="Shipping details">
+        <SfContentPage :title="$t('MyAccount.Shipping details')">
           <ShippingDetails />
         </SfContentPage>
 
-        <SfContentPage title="Billing details">
+        <SfContentPage :title="$t('MyAccount.Billing details')">
           <BillingDetails />
         </SfContentPage>
 
-        <SfContentPage title="My newsletter">
+        <SfContentPage :title="$t('MyAccount.My newsletter')">
           <MyNewsletter />
         </SfContentPage>
       </SfContentCategory>
 
-      <SfContentCategory title="Order details">
-        <SfContentPage title="Order history">
+      <SfContentCategory :title="$t('MyAccount.Order details')">
+        <SfContentPage :title="$t('MyAccount.Order history')">
           <OrderHistory />
         </SfContentPage>
       </SfContentCategory>
 
-      <SfContentPage title="Log out" />
+      <SfContentPage :title="$t('MyAccount.Log out')" />
     </SfContentPages>
   </div>
 </template>
 <script>
 import { SfBreadcrumbs, SfContentPages } from '@storefront-ui/vue';
-import { computed, onBeforeUnmount, useRoute, useRouter } from '@nuxtjs/composition-api';
+import { computed, useRoute, useRouter, useContext } from '@nuxtjs/composition-api';
 import { useUser } from '@vue-storefront/plentymarkets';
-import MyProfile from './MyAccount/MyProfile';
-import ShippingDetails from './MyAccount/ShippingDetails';
-import BillingDetails from './MyAccount/BillingDetails';
 import MyNewsletter from './MyAccount/MyNewsletter';
 import OrderHistory from './MyAccount/OrderHistory';
-import {
-  mapMobileObserver,
-  unMapMobileObserver
-} from '@storefront-ui/vue/src/utilities/mobile-observer.js';
+import ShippingDetails from './MyAccount/ShippingDetails';
+import BillingDetails from './MyAccount/BillingDetails';
+import ProfileDetails from './MyAccount/ProfileDetails';
 
 export default {
   name: 'MyAccount',
   components: {
     SfBreadcrumbs,
     SfContentPages,
-    MyProfile,
     ShippingDetails,
     BillingDetails,
+    ProfileDetails,
     MyNewsletter,
     OrderHistory
   },
   middleware: [
     'is-authenticated'
   ],
-  setup(props, context) {
+  setup(props, {root}) {
     const route = useRoute();
     const router = useRouter();
+    const { app } = useContext();
 
     const { logout } = useUser();
-    const isMobile = computed(() => mapMobileObserver().isMobile.get());
+
     const activePage = computed(() => {
       const { pageName } = route.value.params;
 
       if (pageName) {
-        return (pageName.charAt(0).toUpperCase() + pageName.slice(1)).replace('-', ' ');
-      } else if (!isMobile.value) {
-        return 'My profile';
-      } else {
-        return '';
+        const transformUrlToPageName = pageName.charAt(0).toUpperCase() + pageName.slice(1).replace('-', ' ');
+
+        return transformUrlToPageName;
       }
+
+      return '';
     });
 
     const changeActivePage = async (title) => {
-      if (title === 'Log out') {
+      if (title === app.i18n.t('MyAccount.Log out')) {
         await logout();
-        router.push(context.root.localePath({ name: 'home' }));
-        return;
+        window.location.reload();
       }
 
       const slugifiedTitle = (title || '').toLowerCase().replace(' ', '-');
       const transformedPath = `/my-account/${slugifiedTitle}`;
-      const localeTransformedPath = context.root.localePath(transformedPath);
+      const localeTransformedPath = root.localePath(transformedPath);
 
       router.push(localeTransformedPath);
     };
 
-    onBeforeUnmount(() => {
-      unMapMobileObserver();
-    });
-
-    return { changeActivePage, activePage };
+    return { activePage, changeActivePage };
   },
 
   data() {
@@ -111,11 +103,11 @@ export default {
       breadcrumbs: [
         {
           text: 'Home',
-          route: { link: '#' }
+          link: '#'
         },
         {
           text: 'My Account',
-          route: { link: '#' }
+          link: '#'
         }
       ]
     };

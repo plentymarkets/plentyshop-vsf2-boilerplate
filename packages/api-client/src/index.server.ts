@@ -1,25 +1,34 @@
 import { ApiClientExtension, apiClientFactory } from '@vue-storefront/core';
-import axios from 'axios';
-import type { Endpoints, Settings } from './types';
+import axios, { AxiosInstance } from 'axios';
 import { getProduct } from './api/getProduct';
 import { getCategory } from './api/getCategory';
 import { getFacet } from './api/getFacet';
 import { getReview } from './api/getReview';
 import { addWishlistItem, getWishlist, removeWishlistItem } from './api/getWishlist';
 import { getSearch } from './api/getSearch';
-import { loadAddresses, saveAddress, saveBillingIsShipping } from './api/getAddress';
+import { deleteAddress, loadAddresses, saveAddress, setAddressAsDefault } from './api/getAddress';
 import {
   addItem as addCartItem,
   getCart,
   removeItem as removeCartItem,
-  updateItemQty as updateCartItemQty
+  updateItemQty as updateCartItemQty,
+  clearCart,
+  deleteCart
 } from './api/getCart';
 import { getSession } from './api/getSession';
 import { getShippingProvider, selectShippingProvider } from './api/getShippingProvider';
-import { loginAsGuest, loginUser, logoutUser, registerUser } from './api/getUser';
+import { changePassword, loginAsGuest, loginUser, logoutUser, registerUser } from './api/getUser';
 import { getActiveShippingCountries } from './api/getActiveShippingCountries';
 import { getPaymentProviders, setPaymentProvider } from './api/getPaymentProvider';
 import { additionalInformation, executePayment, placeOrder, preparePayment } from './api/getOrder';
+import { getOrders } from './api/getOrders';
+import { getLegalInformation } from './api/getLegal';
+import { Settings } from './types/apiMethods';
+type Endpoints = unknown;
+type onCreateResponse = {
+  config: Settings,
+  client: AxiosInstance
+}
 
 /**
  * Event flow
@@ -31,30 +40,34 @@ import { additionalInformation, executePayment, placeOrder, preparePayment } fro
 
 let cookies: string | string[] = '';
 
-const cookieBlacklist = ['domain', 'secure', 'httponly'];
+const getPlentyIdCookie = (cookies: string): string => {
+  const cookieMatch = cookies.match(/plentyID=[^;]+;/);
 
-// Filter list of cookie names that should be removed
-const filterCookies = (cookies: string): string => {
-  cookieBlacklist.forEach((blacklistedCookie) => {
-    if (cookies.includes(blacklistedCookie)) {
-      const start = cookies.indexOf(blacklistedCookie);
-      const end = cookies.indexOf(';', start) + 1;
-      cookies = cookies.replace(cookies.slice(start, end), '');
-    }
-  });
+  if (cookieMatch)
+    return cookieMatch[0] + 'path=/; secure; httponly;';
+
   return cookies;
 };
 
-function onCreate(settings: Settings) {
+function onCreate(settings: Settings): onCreateResponse {
   const client = axios.create({
     baseURL: settings.api.url,
-    withCredentials: true
+    withCredentials: true,
+    validateStatus: (status) => {
+      return status >= 200 && status < 400 && status !== 226;
+    }
   });
 
   // Add a response interceptor
   // Triggered after middleware gets a response from connected apis
   client.interceptors.response.use((response) => {
-    cookies = filterCookies(response.headers['set-cookie'][0]);
+
+    // takes the set-cookie header from the incomming request (plentymarkets backend)
+    const headers = response.headers['set-cookie'];
+
+    if (headers && headers?.length > 0) {
+      cookies = getPlentyIdCookie(headers[0]);
+    }
     return response;
   }, (error) => {
     return Promise.reject(error);
@@ -62,7 +75,9 @@ function onCreate(settings: Settings) {
 
   // Triggered before middleware executes a request
   client.interceptors.request.use((request) => {
-    request.headers.cookie = Array.isArray(cookies) ? cookies[0] : cookies;
+    if (request.headers) {
+      request.headers.cookie = Array.isArray(cookies) ? cookies[0] : cookies;
+    }
     return request;
   }, (error) => {
     return Promise.reject(error);
@@ -77,11 +92,11 @@ function onCreate(settings: Settings) {
 const cookieExtension: ApiClientExtension = {
   name: 'cookieExtension',
   hooks: (req, res) => ({
-    beforeCreate: ({ configuration }) => {
+    beforeCreate: ({ configuration }): unknown => {
       cookies = req.headers.cookie ?? '';
       return configuration;
     },
-    afterCall: ({ response }) => {
+    afterCall: ({ response }): unknown => {
       res.set('set-cookie', cookies);
       cookies = '';
       return response;
@@ -104,15 +119,19 @@ const { createApiClient } = apiClientFactory<Settings, Endpoints>({
     addCartItem,
     removeCartItem,
     updateCartItemQty,
+    clearCart,
+    deleteCart,
     getSession,
     loginUser,
     registerUser,
     logoutUser,
+    changePassword,
     getShippingProvider,
     loginAsGuest,
     loadAddresses,
     saveAddress,
-    saveBillingIsShipping,
+    deleteAddress,
+    setAddressAsDefault,
     getActiveShippingCountries,
     getPaymentProviders,
     selectShippingProvider,
@@ -120,7 +139,9 @@ const { createApiClient } = apiClientFactory<Settings, Endpoints>({
     additionalInformation,
     preparePayment,
     placeOrder,
-    executePayment
+    getOrders,
+    executePayment,
+    getLegalInformation
   },
   extensions: [cookieExtension]
 });

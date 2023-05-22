@@ -1,11 +1,15 @@
 import { Customer } from '../types/customer';
-import { el } from './utils/element';
+import { el, uniquePlentyMarketsEmail } from './utils/element';
 
 class Checkout {
   protected step: string;
 
   get heading(): Cypress.Chainable {
     return cy.get(`h3:contains("${Cypress._.capitalize(this.step)}")`);
+  }
+
+  public url(): Cypress.Chainable {
+    return cy.location('pathname').should('eq', `/checkout/${this.step}`);
   }
 
   get firstName(): Cypress.Chainable {
@@ -28,22 +32,59 @@ class Checkout {
     return el(`${this.step}-city`);
   }
 
-  get state(): Cypress.Chainable {
-    return el(`${this.step}-state`, 'input');
+  get country(): Cypress.Chainable {
+    return el(`${this.step}-country`);
   }
 
-  get country(): Cypress.Chainable {
-    return el(`${this.step}-country`, 'select');
+  get state(): Cypress.Chainable {
+    return el(`${this.step}-state`);
   }
 
   get zipcode(): Cypress.Chainable {
-    return el(`${this.step}-zipcode`);
+    return el(`${this.step}-zipCode`);
   }
 
   get phone(): Cypress.Chainable {
-    return el(`${this.step}-phone`);
+    return el(`${this.step}-phoneNumber`);
   }
 
+  public get createAddress(): Cypress.Chainable {
+    return el('update-address-button');
+  }
+
+}
+
+class CheckoutLogin {
+
+  get email(): Cypress.Chainable {
+    return el('register-mail-input');
+  }
+
+  get continueToBilling(): Cypress.Chainable {
+    return el('continue-to-billing');
+  }
+
+  get createAccountCheckbox(): Cypress.Chainable {
+    return el('create-account-checkbox');
+  }
+
+  get setAccountPassword(): Cypress.Chainable {
+    return el('create-password-input');
+  }
+
+  public continueAsUser(customer: Customer): void {
+    const mail = uniquePlentyMarketsEmail(customer.email);
+    this.email.type(mail);
+    this.createAccountCheckbox.click();
+    this.setAccountPassword.type('Testuser1234');
+    this.continueToBilling.click();
+  }
+
+  public continueAsGuest(customer: Customer): void {
+    const mail = uniquePlentyMarketsEmail(customer.email);
+    this.email.type(mail);
+    this.continueToBilling.click();
+  }
 }
 
 class Shipping extends Checkout {
@@ -52,8 +93,8 @@ class Shipping extends Checkout {
     this.step = 'shipping';
   }
 
-  get continueToBillingButton(): Cypress.Chainable {
-    return cy.contains('Continue to billing');
+  get continueToPaymentButton(): Cypress.Chainable {
+    return el('continue-to-payment');
   }
 
   get selectShippingButton(): Cypress.Chainable {
@@ -64,16 +105,18 @@ class Shipping extends Checkout {
     return el('shipping-method', 'label');
   }
 
-  public fillForm(customer: Customer) {
+  public fillForm(customer: Customer): void {
     this.firstName.type(customer.firstName);
     this.lastName.type(customer.lastName);
     this.streetName.type(customer.address.shipping.streetName);
     this.apartment.type(customer.address.shipping.apartment);
     this.city.type(customer.address.shipping.city);
-    this.country.select(customer.address.shipping.country);
-    this.state.type(customer.address.shipping.state);
-    this.zipcode.type(customer.address.shipping.zipcode);
-    this.phone.type(customer.address.shipping.phone);
+    this.country.click();
+    el(`${this.step}-country-${customer.address.shipping.country}`).click();
+    this.zipcode.type(customer.address.shipping.zipCode);
+    this.state.click();
+    el(`${this.step}-state-${customer.address.shipping.state}`).click();
+    this.phone.type(customer.address.shipping.phoneNumber);
   }
 }
 
@@ -83,20 +126,22 @@ class Billing extends Checkout {
     this.step = 'billing';
   }
 
-  get continueToPaymentButton(): Cypress.Chainable {
-    return cy.contains('Continue to payment');
+  get continueToShipping(): Cypress.Chainable {
+    return el('continue-to-shipping');
   }
 
-  public fillForm(customer: Customer) {
+  public fillForm(customer: Customer): void {
     this.firstName.type(customer.firstName);
     this.lastName.type(customer.lastName);
     this.streetName.type(customer.address.billing.streetName);
     this.apartment.type(customer.address.billing.apartment);
     this.city.type(customer.address.billing.city);
-    this.country.select(customer.address.billing.country);
-    this.state.type(customer.address.billing.state);
-    this.zipcode.type(customer.address.billing.zipcode);
-    this.phone.type(customer.address.billing.phone);
+    this.country.click();
+    el(`${this.step}-country-${customer.address.billing.country}`).click();
+    this.zipcode.type(customer.address.billing.zipCode);
+    this.state.click();
+    el(`${this.step}-state-${customer.address.billing.state}`).click();
+    this.phone.type(customer.address.billing.phoneNumber);
   }
 
 }
@@ -122,6 +167,7 @@ class ThankYou {
 }
 
 export {
+  CheckoutLogin,
   Shipping,
   Billing,
   Payment,

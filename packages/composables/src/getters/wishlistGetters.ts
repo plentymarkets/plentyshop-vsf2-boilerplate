@@ -9,7 +9,7 @@ import { productImageFilter } from '../helpers/productImageFilter';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getItems(wishlist: Wishlist): WishlistItem[] {
-  return wishlist.items;
+  return wishlist?.items ?? [];
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -33,6 +33,16 @@ function getItemPrice(item: WishlistItem): AgnosticPrice {
     special: item?.prices?.default?.price?.value ?? 0,
     regular: item?.prices?.rrp?.price?.value ?? 0
   };
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getSpecialItemPrice(item: WishlistItem): number {
+  return item?.prices?.default?.price?.value ?? 0;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getRegularItemPrice(item: WishlistItem): number {
+  return item?.prices?.rrp?.price?.value ?? 0;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -78,6 +88,8 @@ export const wishlistGetters: WishlistGetters<Wishlist, WishlistItem> = {
   getItemName,
   getItemImage,
   getItemPrice,
+  getSpecialItemPrice,
+  getRegularItemPrice,
   getItemQty,
   getItemAttributes,
   getShippingPrice,

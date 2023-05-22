@@ -83,6 +83,9 @@ dist
 # IDE / Editor
 .idea
 
+# Workbox
+static/workbox*
+
 # Service worker
 sw.*
 

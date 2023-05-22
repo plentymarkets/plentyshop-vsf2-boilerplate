@@ -1,39 +1,43 @@
 <template>
-  <div class="sf-header__navigation desktop" v-if="!isMobile">
-    <SfHeaderNavigationItem
-      v-for="(category, index) in categoryTree"
-      :key="index"
-      class="nav-item"
-      v-e2e="`app-header-url_${category.slug}`"
-      :label="category.label"
-      :link="localePath(`/c/${category.slug}`)"
-    />
-  </div>
-  <SfModal v-else :visible="isMobileMenuOpen">
-    <SfHeaderNavigationItem
-      v-for="(category, index) in categoryTree"
-      :key="index"
-      class="nav-item"
-      v-e2e="`app-header-url_${category.slug}`"
+  <div>
+    <div class="sf-header__navigation desktop-only">
+      <SfHeaderNavigationItem
+        v-for="(category, index) in categoryTree"
+        :key="index"
+        class="nav-item"
+        :data-e2e="`app-header-url_${categoryTreeGetters.getSlug(category)}`"
+        :label="categoryTreeGetters.getLabel(category)"
+        :link="localePath(`/c/${categoryTreeGetters.getSlug(category)}`)"
+      />
+    </div>
+    <SfModal
+      class="smartphone-only"
+      :visible="isMobileMenuOpen"
     >
-      <template #mobile-navigation-item>
-        <SfMenuItem
-          :label="category.label"
-          class="sf-header-navigation-item__menu-item"
-          :link="localePath(`/c/${category.slug}`)"
-          @click="toggleMobileMenu"
-        />
-      </template>
-    </SfHeaderNavigationItem>
-  </SfModal>
+      <SfHeaderNavigationItem
+        v-for="(category, index) in categoryTree"
+        :key="index"
+        class="nav-item"
+        :data-e2e="`app-header-url_${categoryTreeGetters.getSlug(category)}`"
+      >
+        <template #mobile-navigation-item>
+          <SfMenuItem
+            :label="categoryTreeGetters.getLabel(category)"
+            class="sf-header-navigation-item__menu-item"
+            @click="routeToCategory(category)"
+          />
+        </template>
+      </SfHeaderNavigationItem>
+    </SfModal>
+  </div>
 </template>
 
 <script>
 import { SfMenuItem, SfModal } from '@storefront-ui/vue';
 import { useUiState } from '~/composables';
-import { categoryGetters, useCategory } from '@vue-storefront/plentymarkets';
+import { categoryTreeGetters, useCategory } from '@vue-storefront/plentymarkets';
 import { onSSR } from '@vue-storefront/core';
-import { computed } from '@nuxtjs/composition-api';
+import { computed, useRouter } from '@nuxtjs/composition-api';
 
 export default {
   name: 'HeaderNavigation',
@@ -47,20 +51,27 @@ export default {
       default: false
     }
   },
-  setup() {
+  setup(props, context) {
     const { isMobileMenuOpen, toggleMobileMenu } = useUiState();
+    const router = useRouter();
     // eslint-disable-next-line prefer-const
     const { categories, search, loading } = useCategory('categories');
-    const categoryTree = computed(() => loading && categories.value.map((cat) => categoryGetters.getTree(cat)));
+    const categoryTree = computed(() => loading && categories.value.map((cat) => categoryTreeGetters.getTree(cat)));
 
     onSSR(async () => {
-      await search({});
+      await search();
     });
+    const routeToCategory = (category) => {
+      router.push(context.root.localePath(`/c/${category.slug}`));
+      toggleMobileMenu();
+    };
 
     return {
+      categoryTreeGetters,
       categoryTree,
       isMobileMenuOpen,
-      toggleMobileMenu
+      toggleMobileMenu,
+      routeToCategory
     };
   }
 };

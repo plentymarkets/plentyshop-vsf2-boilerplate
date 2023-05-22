@@ -13,7 +13,7 @@
     "build:pp-integration": "cd packages/pp-integration && yarn build",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate",
-    "dev": "concurrently \"yarn:dev:*\"",
+    "dev": "concurrently --kill-others \"yarn:dev:*\"",
     "dev:api-client": "cd packages/api-client && yarn dev",
     "dev:composables": "cd packages/composables && yarn dev",
     "dev:theme": "cd packages/theme && yarn dev",
@@ -32,7 +32,10 @@
     "test:composables": "cd packages/composables && yarn test --passWithNoTests",
     "test:theme": "cd packages/theme && yarn test --passWithNoTests",
     "update:check": "ncu && lerna run update:check --stream",
-    "update:update": "ncu -u && lerna run update:update --stream"
+    "update:update": "ncu -u && lerna run update:update --stream",
+    "test:e2e": "cd packages/theme && yarn test:e2e",
+    "test:e2e:generate:report": "cd packages/theme && yarn test:e2e:generate:report",
+    "test:e2e:hl": "cd packages/theme && yarn test:e2e:hl"
   },
   "devDependencies": {
     "@babel/core": "^7.17.5",

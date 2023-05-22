@@ -1,22 +1,16 @@
-import { AddressData, AddressOptionType, AddressType, Context } from 'src/types';
+import { Address, AddressData, AddressOptionType, AddressType, Context, SetAddressDefaultResponse, SaveAddressResponse } from 'src/types';
 
-export async function loadAddresses(context: Context, typeId: AddressType): Promise<any> {
+export async function loadAddresses(context: Context, typeId: AddressType): Promise<Address[]> {
   const url: URL = new URL('/rest/io/customer/address', context.config.api.url);
+
   url.searchParams.set('typeId', typeId.toString());
 
   const { data } = await context.client.get(url.href);
 
-  return (data.data as AddressData[]).map(addressData => mapAddressForClient(addressData));
+  return (data.data as AddressData[]).map(addressData => mapAddressForClient(addressData)) || [];
 }
 
-export async function saveBillingIsShipping(context: Context): Promise<any> {
-  const url: URL = new URL('/rest/io/customer/address/-99/', context.config.api.url);
-  url.searchParams.set('typeId', AddressType.Shipping.toString());
-  const { data } = await context.client.put(url.href, { supressNotifications: true, templateType: 'checkout'});
-  return data;
-}
-
-export async function saveAddress(context: Context, typeId: AddressType = AddressType.Billing, addressData: AddressData): Promise<any> {
+export async function saveAddress(context: Context, typeId: AddressType = AddressType.Billing, addressData: Address): Promise<SaveAddressResponse> {
   const url: URL = new URL('/rest/io/customer/address/', context.config.api.url);
 
   url.searchParams.set('typeId', typeId.toString());
@@ -28,6 +22,22 @@ export async function saveAddress(context: Context, typeId: AddressType = Addres
   const { data } = await context.client.post(url.href, payload);
 
   return data.data;
+}
+
+export async function setAddressAsDefault(context: Context, addressId: number, typeId: number): Promise<SetAddressDefaultResponse> {
+  const url: URL = new URL(`/rest/io/customer/address/${addressId}`, context.config.api.url);
+
+  url.searchParams.set('typeId', typeId.toString());
+  return await context.client.put(url.href);
+}
+
+export async function deleteAddress(context: Context, addressId: number, typeId: number): Promise<boolean> {
+  const url: URL = new URL(`/rest/io/customer/address/${addressId}`, context.config.api.url);
+
+  url.searchParams.set('typeId', typeId.toString());
+  const { data } = await context.client.delete(url.href);
+
+  return Boolean(data);
 }
 
 function mapAddressForServer(addressData): object {
@@ -43,14 +53,14 @@ function mapAddressForServer(addressData): object {
     contactPerson: '',
     address1: addressData.streetName,
     address2: addressData.apartment,
-    postalCode: addressData.postalCode,
+    postalCode: addressData.zipCode,
     town: addressData.city,
-    telephone: addressData.phone,
+    telephone: addressData.phoneNumber,
     stateId: addressData.state
   };
 }
 
-function mapAddressForClient(addressData: AddressData) {
+function mapAddressForClient(addressData: AddressData): Address {
   const address = {
     id: addressData.id,
     firstName: addressData.name2,
@@ -60,15 +70,16 @@ function mapAddressForClient(addressData: AddressData) {
     city: addressData.town,
     state: addressData.stateId?.toString(),
     country: addressData.countryId?.toString(),
-    postalCode: addressData.postalCode,
-    phone: null,
-    email: 'null'
+    zipCode: addressData.postalCode,
+    phoneNumber: '',
+    email: '',
+    primary: addressData.primary
   };
 
   addressData.options.forEach(option => {
     switch (option.typeId) {
       case AddressOptionType.Telephone:
-        address.phone = option.value;
+        address.phoneNumber = option.value;
         break;
       case AddressOptionType.Email:
         address.email = option.value;

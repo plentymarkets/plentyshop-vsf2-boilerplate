@@ -3,11 +3,11 @@ import {
   useMakeOrderFactory,
   UseMakeOrderFactoryParams
 } from '@vue-storefront/core';
-import type { Order } from '@vue-storefront/plentymarkets-api';
+import type { CreateOrderResponse, Order, MakeOrderParams} from '@vue-storefront/plentymarkets-api';
 
 const factoryParams: UseMakeOrderFactoryParams<Order> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  make: async (context: Context, params: any) => {
+  make: async (context: Context, params: MakeOrderParams): Promise<Order> => {
     await context.$plentymarkets.api.additionalInformation({
       orderContactWish: null,
       orderCustomerSign: null,
@@ -19,11 +19,15 @@ const factoryParams: UseMakeOrderFactoryParams<Order> = {
 
     const paymentType = preparePaymentResponse.type || 'errorCode';
     const paymentValue = preparePaymentResponse.value || '""';
+
     switch (paymentType) {
       case 'continue':
-        const order = await context.$plentymarkets.api.placeOrder();
+        const order: CreateOrderResponse = await context.$plentymarkets.api.placeOrder();
+
         await context.$plentymarkets.api.executePayment(order.data.order.id, params.paymentId);
-        break;
+        await context.$plentymarkets.api.deleteCart(context);
+
+        return order.data;
       case 'redirectUrl':
         // redirect to given payment provider
         window.location.assign(paymentValue);

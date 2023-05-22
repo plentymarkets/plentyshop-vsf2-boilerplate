@@ -1,0 +1,7 @@
+:root {
+  @include generate-color-variants(--_c-blue-primary, #04485B);
+  @include generate-color-variants(--_c-blue-primary-variant, #012E35);
+
+  @include assign-color-variants(--c-primary, --_c-blue-primary);
+  @include assign-color-variants(--c-primary-variant, --_c-blue-primary-variant);
+}
