@@ -247,8 +247,7 @@ export interface Order {
 }
 
 export type CreateOrderResponse = {
-  events: TODO[],
-  data: Order
+  order: Order
 }
 
 export type GetOrdersResponse = {

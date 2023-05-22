@@ -5,7 +5,8 @@ import {
   GetPaymentResponse,
   PreparePaymentResult,
   OrderDetails,
-  OrderSearchParams
+  OrderSearchParams,
+  Order
 } from 'src/types';
 
 export async function getOrder(context: Context, params: OrderSearchParams): Promise<OrderDetails> {
@@ -47,8 +48,8 @@ export async function preparePayment(context: Context): Promise<PreparePaymentRe
   return data.data;
 }
 
-export async function placeOrder(context: Context): Promise<CreateOrderResponse> {
-  const url: URL = new URL('/rest/io/order', context.config.api.url);
+export async function placeOrder(context: Context): Promise<Order> {
+  const url: URL = new URL('/rest/storefront/order', context.config.api.url);
   const { data } = await context.client.post(url.href);
 
   return data;

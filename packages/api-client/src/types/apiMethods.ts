@@ -11,6 +11,7 @@ import {
   AdditionalInformationParams,
   CreateOrderResponse,
   GetOrdersResponse,
+  Order,
   OrderDetails,
   OrderSearchParams
 } from './order';
@@ -125,7 +126,7 @@ export interface PlentymarketsApiMethods {
 
     preparePayment(): Promise<PreparePaymentResult>
 
-    placeOrder(): Promise<CreateOrderResponse>
+    placeOrder(): Promise<Order>
 
     getOrders(params: UseUserOrderSearchParams): Promise<GetOrdersResponse>
 
