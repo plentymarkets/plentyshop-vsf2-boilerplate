@@ -244,6 +244,11 @@ export type GetOrdersResponse = {
   data: PaginatedResult<Order>
 }
 
+export type GetReturnsResponse = {
+  events: TODO[],
+  data: PaginatedResult<Order>
+}
+
 export interface AdditionalInformationParams {
   orderContactWish: string|null,
   orderCustomerSign: string|null,

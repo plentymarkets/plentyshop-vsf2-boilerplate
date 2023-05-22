@@ -142,7 +142,7 @@ import {
 import LazyHydrate from 'vue-lazy-hydration';
 import { computed, ref } from '@nuxtjs/composition-api';
 import { getCurrentInstance } from '@nuxtjs/composition-api';
-import { useUserOrder, orderGetters, paginationGetters } from '@vue-storefront/plentymarkets';
+import { useUserReturn, orderGetters, paginationGetters } from '@vue-storefront/plentymarkets';
 import { AgnosticOrderStatus } from '@vue-storefront/core';
 import { onSSR } from '@vue-storefront/core';
 
@@ -161,7 +161,7 @@ export default {
     const ctx = getCurrentInstance().root.proxy;
     const { query } = ctx.$router.currentRoute;
 
-    const { orders: orderResult, search, loading } = useUserOrder();
+    const { orders: orderResult, search, loading } = useUserReturn();
     const currentOrder = ref(null);
     const pagination = computed(() => orderGetters.getPagination(orderResult.value));
     const orders = computed(() => orderResult.value?.data?.entries);

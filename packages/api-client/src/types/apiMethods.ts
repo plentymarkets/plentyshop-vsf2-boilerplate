@@ -7,7 +7,7 @@ import { ActiveShippingCountry } from './country';
 import { FacetSearchCriteria, FacetApiResponse } from './facet';
 import { ItemSearchParams, ItemSearchResult } from './itemSearch';
 import { LegalInformationResponse } from './legal';
-import { AdditionalInformationParams, CreateOrderResponse, GetOrdersResponse } from './order';
+import { AdditionalInformationParams, CreateOrderResponse, GetOrdersResponse, GetReturnsResponse } from './order';
 import { GetPaymentResponse, PaymentProviders, PreparePaymentResult } from './payment';
 import { Product } from './product';
 import { RegisterParams } from './register';
@@ -120,6 +120,8 @@ export interface PlentymarketsApiMethods {
     placeOrder(): Promise<CreateOrderResponse>
 
     getOrders(params: UseUserOrderSearchParams): Promise<GetOrdersResponse>
+
+    getReturns(params: UseUserOrderSearchParams): Promise<GetReturnsResponse>
 
     executePayment(orderId: number, paymentId: number): Promise<GetPaymentResponse>
 

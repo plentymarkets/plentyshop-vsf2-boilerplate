@@ -12,6 +12,7 @@ export { useStore } from './useStore';
 export { useUser } from './useUser';
 export { useUserBilling } from './useUserBilling';
 export { useUserOrder } from './useUserOrder';
+export { useUserReturn } from './useUserReturn';
 export { useUserShipping } from './useUserShipping';
 export { useWishlist } from './useWishlist';
 export { useSearch } from './useSearch';
