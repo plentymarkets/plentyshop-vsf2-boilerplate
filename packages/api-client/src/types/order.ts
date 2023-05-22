@@ -245,8 +245,8 @@ export type GetOrdersResponse = {
 }
 
 export interface AdditionalInformationParams {
-  orderContactWish: null,
-  orderCustomerSign: null,
+  orderContactWish: string|null,
+  orderCustomerSign: string|null,
   shippingPrivacyHintAccepted: boolean,
   templateType: string
 }
