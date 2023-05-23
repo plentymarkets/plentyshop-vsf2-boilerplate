@@ -20,6 +20,7 @@ export { usePaymentProvider } from './usePaymentProvider';
 export { useAddressForm } from './useAddressForm';
 export { useLegalInformation } from './useLegalInformation';
 export { useLocaleSwitchHelper } from './useLocaleSwitchHelper';
+export { useNewsletter } from './useNewsletter';
 
 // Getters
 export { cartGetters } from './getters/cartGetters';
