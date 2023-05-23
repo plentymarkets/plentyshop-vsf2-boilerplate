@@ -8,10 +8,14 @@ import type { Order, MakeOrderParams} from '@vue-storefront/plentymarkets-api';
 const factoryParams: UseMakeOrderFactoryParams<Order> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   make: async (context: Context, params: MakeOrderParams): Promise<Order> => {
+
+
+    console.log('accepted: ', params.shippingPrivacyHintAccepted)
+
     await context.$plentymarkets.api.additionalInformation({
       orderContactWish: null,
       orderCustomerSign: null,
-      shippingPrivacyHintAccepted: false,
+      shippingPrivacyHintAccepted: params.shippingPrivacyHintAccepted,
       templateType: 'checkout'
     });
 

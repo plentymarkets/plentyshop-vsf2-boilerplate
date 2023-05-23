@@ -31,7 +31,9 @@ export interface ShippingProvider {
 export interface ShippingProviderGetters {
     getShippingProviders(shippingProvider: ShippingProvider): ShippingMethod[]
     getShippingMethodName(shippingMethod: ShippingMethod): string
+    getShippingPrivacyInformation(shippingMethod: ShippingMethod): any
     getShippingAmount(shippingMethod: ShippingMethod): string
+    getDataPrivacyAgreementHint(shippingMethod: ShippingMethod): any
     getValue(shippingMethod: ShippingMethod): ShippingMethod
     getParcelServicePresetId(shippingMethod: ShippingMethod): string
     getShippingProfileId(cart: Cart): string

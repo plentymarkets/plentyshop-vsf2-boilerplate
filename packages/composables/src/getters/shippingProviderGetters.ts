@@ -34,7 +34,7 @@ function getShippingProfileId(cart: Cart): string {
 
 export const shippingProviderGetters: ShippingProviderGetters = {
   getShippingMethodName,
-  getShippingPrivacyInformation, //TODO There seems to be a problem with the data type "any"
+  getShippingPrivacyInformation,
   getShippingAmount,
   getDataPrivacyAgreementHint,
   getShippingProviders,

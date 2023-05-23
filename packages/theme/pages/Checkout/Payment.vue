@@ -2,7 +2,8 @@
   <div>
     <VsfShippingProvider class="spacer" />
     <VsfPaymentProvider
-      @shippingPrivacyHintAccepted="shippingPrivacyHintAccepted = $event" class="spacer"
+      class="spacer"
+      @shippingPrivacyHintAccepted="shippingPrivacyHintAccepted = $event"
     />
     <SfTable class="sf-table--bordered table">
       <SfTableHeading class="table__row">
@@ -138,7 +139,10 @@ export default {
     });
 
     const processOrder = async () => {
-      await make({ paymentId: paymentMethodId, shippingPrivacyHintAccepted: shippingPrivacyHintAccepted.value });
+      await make({
+        paymentId: paymentMethodId,
+        shippingPrivacyHintAccepted: shippingPrivacyHintAccepted.value
+      });
 
       await make({paymentId: paymentMethodId});
       const thankYouPath = { name: 'thank-you',
