@@ -112,6 +112,13 @@ export default {
     'Subtotal': 'Zwischensumme',
     'Total': 'Summe'
   },
+  // OrderTotals
+  'OrderTotals': {
+    'Vat total': 'MwSt.',
+    'Shipping': 'Versand',
+    'Subtotal': 'Zwischensumme',
+    'Total': 'Summe'
+  },
   // Category
   'Category': {
     'Categories': 'Kategorien',
@@ -278,6 +285,23 @@ export default {
     'View details': 'Details ansehen',
     'You currently have no orders': 'Sie haben derzeit keine Bestellungen'
   },
+  // Documents
+  'Documents' : {
+    'Correction Documents': 'Korrekturbeleg',
+    'Credit Note': 'Gutschrift',
+    'Delivery Note': 'Lieferschein',
+    'Dunning Letter': 'Mahnung',
+    'Invoice External': 'Externe Rechnung',
+    'Invoice': 'Rechnung',
+    'Offer': 'Angebot',
+    'Order Confirmation': 'AuftragsbestÃ¤tigung',
+    'Pickup Delivery': 'Abhollieferung',
+    'Pro Forma Invoice': 'Proformarechnung',
+    'Receipt': 'Kassenbeleg',
+    'Return Note': 'RÃ¼cksendeschein',
+    'Success Confirmation': 'Stornobeleg',
+    'Reversal Document': 'GelangensbestÃ¤tigung',
+  },
   // Payment
   'Payment': {
     'Item': 'Artikel',
@@ -361,7 +385,19 @@ export default {
     'Thank you for your order!': 'Vielen Dank für Ihre Bestellung!',
     'What can we improve': 'Was können wir verbessern',
     'Your account': 'Ihr Konto',
-    'Your purchase': 'Ihr Kauf'
+    'Your purchase': 'Ihr Kauf',
+    'Order Number': 'Auftrags-ID',
+    'Order Date': 'Auftragsdatum',
+    'Order Summary': 'Auftragsübersicht',
+    'Order Status': 'Auftragsstatus',
+    'Payment Summary': 'Zahlungsübersicht',
+    'Shipping Summary': 'Versandübersicht',
+    'Ship To': 'Versand nach',
+    'Billing address': 'Rechnungsadresse',
+    'Status': 'Status',
+    'Payment method': 'Zahlungsart',
+    'Same As Shipping Address': 'Entspricht Lieferadresse',
+    'Shipping Method': 'Versandart',
   },
   // TopBar
   'TopBar': {

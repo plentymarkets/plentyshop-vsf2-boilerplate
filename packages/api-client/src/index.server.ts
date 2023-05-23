@@ -20,7 +20,7 @@ import { getShippingProvider, selectShippingProvider } from './api/getShippingPr
 import { changePassword, loginAsGuest, loginUser, logoutUser, registerUser } from './api/getUser';
 import { getActiveShippingCountries } from './api/getActiveShippingCountries';
 import { getPaymentProviders, setPaymentProvider } from './api/getPaymentProvider';
-import { additionalInformation, executePayment, placeOrder, preparePayment } from './api/getOrder';
+import { additionalInformation, executePayment, getOrder, placeOrder, preparePayment } from './api/getOrder';
 import { getOrders } from './api/getOrders';
 import { getLegalInformation } from './api/getLegal';
 import { Settings } from './types/apiMethods';
@@ -138,6 +138,7 @@ const { createApiClient } = apiClientFactory<Settings, Endpoints>({
     setPaymentProvider,
     additionalInformation,
     preparePayment,
+    getOrder,
     placeOrder,
     getOrders,
     executePayment,

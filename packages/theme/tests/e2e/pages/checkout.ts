@@ -164,6 +164,33 @@ class ThankYou {
   get heading(): Cypress.Chainable {
     return el('thank-you-banner', 'h2');
   }
+  get itemsTable(): Cypress.Chainable {
+    return el('thank-you-items');
+  }
+
+  get documentsList(): Cypress.Chainable {
+    return el('documents-list');
+  }
+
+  get shippingSummary(): Cypress.Chainable {
+    return el('shipping-summary');
+  }
+
+  get paymentSummary(): Cypress.Chainable {
+    return el('payment-summary');
+  }
+
+  get orderSummary(): Cypress.Chainable {
+    return el('order-summary');
+  }
+
+  get orderTotals(): Cypress.Chainable {
+    return el('order-totals');
+  }
+
+  visit(orderId, accesskey, postcode): Cypress.Chainable {
+  return cy.visit('/checkout/thank-you?orderId=' + orderId + '&orderAccessKey=' + accesskey + '&postcode=' + postcode);
+  }
 }
 
 export {
