@@ -11,6 +11,7 @@ export { useShippingProvider } from './useShippingProvider';
 export { useStore } from './useStore';
 export { useUser } from './useUser';
 export { useUserBilling } from './useUserBilling';
+export { useOrder } from './useOrder';
 export { useUserOrder } from './useUserOrder';
 export { useUserShipping } from './useUserShipping';
 export { useWishlist } from './useWishlist';
@@ -24,6 +25,7 @@ export { useLocaleSwitchHelper } from './useLocaleSwitchHelper';
 // Getters
 export { cartGetters } from './getters/cartGetters';
 export { categoryGetters } from './getters/categoryGetters';
+export { categoryTreeGetters } from './getters/categoryTreeGetters';
 export { facetGetters } from './getters/facetGetters';
 export { forgotPasswordGetters } from './getters/forgotPasswordGetters';
 export { orderGetters } from './getters/orderGetters';

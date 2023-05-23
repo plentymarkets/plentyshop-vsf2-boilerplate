@@ -141,7 +141,11 @@ export default {
       await make({ paymentId: paymentMethodId, shippingPrivacyHintAccepted: shippingPrivacyHintAccepted.value });
 
       await make({paymentId: paymentMethodId});
-      const thankYouPath = { name: 'thank-you', query: { order: orderGetters.getId(order.value) }};
+      const thankYouPath = { name: 'thank-you',
+        query: {
+          orderId: orderGetters.getId(order.value),
+          accessKey: orderGetters.getAccessKey(order.value)
+        }};
 
       router.push(context.root.localePath(thankYouPath));
       setCart({items: []});

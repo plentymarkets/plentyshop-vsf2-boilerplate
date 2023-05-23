@@ -99,7 +99,7 @@ jobs:
         run: yarn --frozen-lockfile
 
       - name: Get IP4 address
-        run: echo "ip_address=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | head -1)" >> $GITHUB_ENV
+        run: echo "ip_address=localhost" >> $GITHUB_ENV
 
       - name: E2E in Chrome
         uses: cypress-io/github-action@v5.0.5

@@ -61,12 +61,10 @@ export default {
     const { load: loadWishlist } = useWishlist();
 
     onSSR(async () => {
-      await Promise.all([
-        loadStores(),
-        loadUser(),
-        loadCart(),
-        loadWishlist()
-      ]);
+      await loadStores();
+      await loadUser();
+      await loadCart();
+      await loadWishlist();
     });
 
     return {
