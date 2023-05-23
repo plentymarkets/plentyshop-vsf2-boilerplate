@@ -1,4 +1,10 @@
-import { Cart, ShippingMethod, ShippingProvider, ShippingProviderGetters } from '@vue-storefront/plentymarkets-api';
+import {
+  Cart,
+  ShippingMethod,
+  ShippingPrivacyInformation,
+  ShippingProvider,
+  ShippingProviderGetters
+} from '@vue-storefront/plentymarkets-api';
 
 function getShippingProviders(shippingProvider: ShippingProvider): ShippingMethod[] {
   return shippingProvider?.list ?? [];
@@ -6,6 +12,14 @@ function getShippingProviders(shippingProvider: ShippingProvider): ShippingMetho
 
 function getShippingMethodName(shippingMethod: ShippingMethod): string {
   return `${shippingMethod?.parcelServiceName} - ${shippingMethod?.parcelServicePresetName}`;
+}
+
+function getShippingPrivacyInformation(shippingMethod: ShippingMethod): ShippingPrivacyInformation {
+  return shippingMethod?.shippingPrivacyInformation[0];
+}
+
+function getDataPrivacyAgreementHint(shippingMethod: ShippingMethod): boolean {
+  return shippingMethod?.shippingPrivacyInformation[0]?.showDataPrivacyAgreementHint;
 }
 
 function getShippingAmount(shippingMethod: ShippingMethod): string {
@@ -26,6 +40,8 @@ function getShippingProfileId(cart: Cart): string {
 
 export const shippingProviderGetters: ShippingProviderGetters = {
   getShippingMethodName,
+  getShippingPrivacyInformation,
+  getDataPrivacyAgreementHint,
   getShippingAmount,
   getShippingProviders,
   getParcelServicePresetId,

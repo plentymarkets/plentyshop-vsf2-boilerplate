@@ -264,5 +264,6 @@ export interface AdditionalInformationParams {
 
 export interface MakeOrderParams {
   paymentId: number,
+  shippingPrivacyHintAccepted: boolean,
   customQuery?: CustomQuery;
 }
