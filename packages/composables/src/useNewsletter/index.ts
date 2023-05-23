@@ -1,7 +1,13 @@
 import {useVSFContext, sharedRef} from '@vue-storefront/core';
-import { computed } from '@nuxtjs/composition-api';
+import {computed, Ref} from '@nuxtjs/composition-api';
 
-export const useNewsletter = () => {
+export interface UseNewsletterResponse {
+  subscribeNewsletter: (email: string, firstName: string, lastName: string) => Promise<void>
+  loading: Ref<boolean>
+  error: Ref<object>
+}
+
+export const useNewsletter = () : UseNewsletterResponse => {
   const context = useVSFContext();
 
   const loading = sharedRef(false, 'useNewsletter-loading');
