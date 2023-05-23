@@ -2,17 +2,33 @@
   <SfTabs :open-tab="1">
     <SfTab :title="$t('OrderHistory.My orders')">
       <div v-if="currentOrder">
-        <SfButton class="sf-button--text all-orders" @click="(currentOrder = null), (returnOrder = false)">
+        <SfButton
+          class="sf-button--text all-orders"
+          @click="(currentOrder = null), (returnOrder = false)"
+        >
           {{ $t('OrderHistory.All orders') }}
         </SfButton>
         <div class="highlighted highlighted--total">
-          <SfProperty name="Order ID" :value="orderGetters.getId(currentOrder)"
-            class="sf-property--full-width property" />
-          <SfProperty name="Date" :value="orderGetters.getDate(currentOrder)" class="sf-property--full-width property" />
-          <SfProperty name="Status" :value="orderGetters.getStatus(currentOrder)"
-            class="sf-property--full-width property" />
-          <SfProperty name="Total" :value="$n(orderGetters.getPrice(currentOrder), 'currency')"
-            class="sf-property--full-width property" />
+          <SfProperty
+            name="Order ID"
+            :value="orderGetters.getId(currentOrder)"
+            class="sf-property--full-width property"
+          />
+          <SfProperty
+            name="Date"
+            :value="orderGetters.getDate(currentOrder)"
+            class="sf-property--full-width property"
+          />
+          <SfProperty
+            name="Status"
+            :value="orderGetters.getStatus(currentOrder)"
+            class="sf-property--full-width property"
+          />
+          <SfProperty
+            name="Total"
+            :value="$n(orderGetters.getPrice(currentOrder), 'currency')"
+            class="sf-property--full-width property"
+          />
         </div>
         <SfTable class="products">
           <SfTableHeading>
@@ -21,41 +37,72 @@
             </SfTableHeader>
             <SfTableHeader>{{ $t('OrderHistory.Quantity') }}</SfTableHeader>
             <SfTableHeader>{{ $t('OrderHistory.Price') }}</SfTableHeader>
-            <SfTableHeader v-if="returnOrder"></SfTableHeader>
+            <SfTableHeader v-if="returnOrder" />
           </SfTableHeading>
-          <SfTableRow v-for="item of allItems" :key="item.id">
+          <SfTableRow
+            v-for="item of allItems"
+            :key="item.id"
+          >
             <SfTableData class="products__name">
-              <nuxt-link :to="
-                localePath(
-                  orderGetters.getOrderItemLink(
-                    currentOrder,
-                    item.itemVariationId
+              <nuxt-link
+                :to="
+                  localePath(
+                    orderGetters.getOrderItemLink(
+                      currentOrder,
+                      item.itemVariationId
+                    )
                   )
-                )
-              ">
+                "
+              >
                 {{ orderGetters.getItemName(item) }}
               </nuxt-link>
             </SfTableData>
             <SfTableData>{{ orderGetters.getItemQty(item) }}</SfTableData>
-            <SfTableData>{{
-              $n(orderGetters.getItemPrice(item), 'currency')
-            }}</SfTableData>
-            <SfTableData v-if="returnOrder" class="flex">
-              <div class="sf-quantity-selector flex justify-around" aria-label="Quantity">
-                <button class="sf-button--pure sf-quantity-selector__button sf-button" :aria-disabled="false" :link="null"
-                  type="button" aria-label="button" data-testid="decrease" @click="decreaseSelectorQuantity(item)">
+            <SfTableData>
+              {{
+                $n(orderGetters.getItemPrice(item), 'currency')
+              }}
+            </SfTableData>
+            <SfTableData
+              v-if="returnOrder"
+              class="flex"
+            >
+              <div
+                class="sf-quantity-selector flex justify-around"
+                aria-label="Quantity"
+              >
+                <button
+                  class="sf-button--pure sf-quantity-selector__button sf-button"
+                  :aria-disabled="false"
+                  :link="null"
+                  type="button"
+                  aria-label="button"
+                  data-testid="decrease"
+                  @click="decrease(item)"
+                >
                   −
                 </button>
                 <span>{{ item.selectorQuantity }}</span>
-                <button class="sf-button--pure sf-quantity-selector__button sf-button" :aria-disabled="false" :link="null"
-                  type="button" aria-label="button" data-testid="increase" @click="increaseSelectorQuantity(item)">
+                <button
+                  class="sf-button--pure sf-quantity-selector__button sf-button"
+                  :aria-disabled="false"
+                  :link="null"
+                  type="button"
+                  aria-label="button"
+                  data-testid="increase"
+                  @click="increase(item)"
+                >
                   +
                 </button>
               </div>
             </SfTableData>
           </SfTableRow>
         </SfTable>
-        <SfButton v-if="returnOrder" class="sf-button--full-width sf-c-light-primary-lighten" @click="makeReturnAction">
+        <SfButton
+          v-if="returnOrder"
+          class="sf-button--full-width sf-c-light-primary-lighten"
+          @click="makeReturnAction"
+        >
           {{ $t('OrderHistory.Return items') }}
         </SfButton>
       </div>
@@ -63,7 +110,10 @@
         <p class="message">
           {{ $t('OrderHistory.Details and order status') }}
         </p>
-        <div v-if="totalOrders === 0" class="no-orders">
+        <div
+          v-if="totalOrders === 0"
+          class="no-orders"
+        >
           <p class="no-orders__title">
             {{ $t('OrderHistory.You currently have no orders') }}
           </p>
@@ -71,42 +121,65 @@
             {{ $t('OrderHistory.Start shopping') }}
           </SfButton>
         </div>
-        <SfTable v-else class="orders">
+        <SfTable
+          v-else
+          class="orders"
+        >
           <SfTableHeading>
-            <SfTableHeader v-for="tableHeader in tableHeaders" :key="tableHeader">
+            <SfTableHeader
+              v-for="tableHeader in tableHeaders"
+              :key="tableHeader"
+            >
               {{ $t(tableHeader) }}
             </SfTableHeader>
             <SfTableHeader class="orders__element--right" />
           </SfTableHeading>
-          <SfTableRow v-for="order in orders" :key="orderGetters.getId(order)">
+          <SfTableRow
+            v-for="order in orders"
+            :key="orderGetters.getId(order)"
+          >
             <SfTableData v-e2e="'order-number'">
               {{ orderGetters.getId(order) }}
             </SfTableData>
             <SfTableData>{{ orderGetters.getDate(order) }}</SfTableData>
-            <SfTableData>{{
-              $n(orderGetters.getPrice(order), 'currency')
-            }}</SfTableData>
+            <SfTableData>
+              {{
+                $n(orderGetters.getPrice(order), 'currency')
+              }}
+            </SfTableData>
             <SfTableData>
               <span :class="getStatusTextClass(order)">{{
                 orderGetters.getStatus(order)
               }}</span>
             </SfTableData>
             <SfTableData class="orders__view orders__element--right">
-              <SfButton class="sf-button--text desktop-only" @click="setCurrentOrder(order)">
+              <SfButton
+                class="sf-button--text desktop-only"
+                @click="setCurrentOrder(order)"
+              >
                 {{ $t('OrderHistory.View details') }}
               </SfButton>
-              <SfButton class="sf-button--text desktop-only" @click="setCurrentOrder(order), (returnOrder = true)">
+              <SfButton
+                class="sf-button--text desktop-only"
+                @click="setCurrentOrder(order), (returnOrder = true)"
+              >
                 {{ $t('OrderHistory.Return items') }}
               </SfButton>
             </SfTableData>
           </SfTableRow>
         </SfTable>
 
-        <button @click="makeReturnAction">Make Return</button>
+        <button @click="makeReturnAction">
+          Make Return
+        </button>
         <LazyHydrate on-interaction>
-          <SfPagination v-show="paginationGetters.getTotalPages(pagination) > 1" class="products__pagination desktop-only"
-            :current="paginationGetters.getCurrentPage(pagination)" :total="paginationGetters.getTotalPages(pagination)"
-            :visible="5" />
+          <SfPagination
+            v-show="paginationGetters.getTotalPages(pagination) > 1"
+            class="products__pagination desktop-only"
+            :current="paginationGetters.getCurrentPage(pagination)"
+            :total="paginationGetters.getTotalPages(pagination)"
+            :visible="5"
+          />
         </LazyHydrate>
         <p>{{ $t('OrderHistory.Total orders') }} - {{ totalOrders }}</p>
       </div>
@@ -114,8 +187,11 @@
     <SfTab :title="$t('OrderHistory.Returns')">
       <p class="message">
         This feature is not implemented yet! Please take a look at
-        <br />
-        <SfLink class="message__link" link="#">
+        <br>
+        <SfLink
+          class="message__link"
+          link="#"
+        >
           https://github.com/DivanteLtd/vue-storefront/issues
         </SfLink>
         for our Roadmap!
@@ -134,7 +210,7 @@ import {
   SfPagination
 } from '@storefront-ui/vue';
 import LazyHydrate from 'vue-lazy-hydration';
-import { computed, ref } from '@nuxtjs/composition-api';
+import { computed, ref, watch} from '@nuxtjs/composition-api';
 import { getCurrentInstance } from '@nuxtjs/composition-api';
 import { useUserOrder, orderGetters, paginationGetters, useMakeReturn } from '@vue-storefront/plentymarkets';
 import { AgnosticOrderStatus } from '@vue-storefront/core';
@@ -156,54 +232,52 @@ export default {
     const { query } = ctx.$router.currentRoute;
 
     const { orders: orderResult, search, loading } = useUserOrder();
-    const currentOrder = ref(null);
+    const currentOrder = ref({});
     const pagination = computed(() => orderGetters.getPagination(orderResult.value));
     const orders = computed(() => orderResult.value?.data?.entries);
     const returnOrder = false;
-    const selectorQuantities = ref([]);
-    const allItems = computed(() => orderGetters.getItems(currentOrder.value).map((item) => {
-      return {
-        ...item,
-        selectorQuantities.value.push({id: item.itemVariationId, qty: orderGetters.getItemQty(item)});
-      };
-    }));
+    const allItems = ref([]);
 
-    const decreaseSelectorQuantity = (item) => {
-      const index = allItems.value.findIndex(i => i.id === item.id);
-      if (index !== -1 && allItems.value[index].selectorQuantity > 0) {
-        allItems.value[index].selectorQuantity--;
-        allItems.value = [...allItems.value]; // replace the array
+    watch(currentOrder, async (selectedOrder) => {
+      allItems.value = orderGetters.getItems(selectedOrder).map((item) => {
+        return {
+          ...item,
+          selectorQuantity: 0
+        };
+      });
+    }, {deep: true});
+
+    const increase = (item) => {
+      if (item.selectorQuantity < orderGetters.getItemQty(item)) {
+        item.selectorQuantity++;
       }
-      console.log(item.selectorQuantity);
     };
 
-    const increaseSelectorQuantity = (item) => {
-      const index = allItems.value.findIndex(i => i.id === item.id);
-      if (index !== -1) {
-        allItems.value[index].selectorQuantity++;
-        allItems.value = [...allItems.value]; // replace the array
+    const decrease = (item) => {
+      if (item.selectorQuantity > 0) {
+        item.selectorQuantity--;
       }
-      console.log(item.selectorQuantity);
     };
-    // eslint-disable-next-line no-undef
 
     const { makeReturn, result, error } = useMakeReturn('make-return');
-
 
     const makeReturnAction = async () => {
 
       let variationIdsArray = '';
+
       this.allItems.forEach(item => {
         variationIdsArray += 'variationIds[' + item.variationIds + ']=' + item.selectorQuantity + '&';
       });
       variationIdsArray = variationIdsArray.slice(0, -1);
       console.log(variationIdsArray);
+
       const returnParams = ref({
         orderId: currentOrder.value.id,
         orderAccessKey: currentOrder.value.orderAccessKey,
         variationIds: variationIdsArray,
         returnNote: ''
       });
+
       await makeReturn(returnParams.value);
       if (error.value.makeReturn) {
         console.log('An error occurred:', error.value.makeReturn);
@@ -214,6 +288,7 @@ export default {
         console.log('Return successful. Result:', result.value);
       }
     };
+
     onSSR(async () => {
       await search(query);
     });
@@ -231,7 +306,7 @@ export default {
 
     const updateQuantity = (item, quantity) => {
       item.selectorQuantity = quantity;
-    }
+    };
 
     const getStatusTextClass = (order) => {
       const status = orderGetters.getStatus(order);
@@ -260,9 +335,9 @@ export default {
       updateQuantity,
       allItems,
       setCurrentOrder,
-      decreaseSelectorQuantity,
-      increaseSelectorQuantity,
-      makeReturnAction
+      makeReturnAction,
+      increase,
+      decrease
     };
   }
 };
@@ -272,7 +347,8 @@ export default {
 .no-orders {
   &__title {
     margin: 0 0 var(--spacer-lg) 0;
-    font: var(--font-weight--normal) var(--font-size--base) / 1.6 var(--font-family--primary);
+    font: var(--font-weight--normal) var(--font-size--base) / 1.6
+      var(--font-family--primary);
   }
 
   &__button {
@@ -301,7 +377,8 @@ export default {
 
 .message {
   margin: 0 0 var(--spacer-xl) 0;
-  font: var(--font-weight--light) var(--font-size--base) / 1.6 var(--font-family--primary);
+  font: var(--font-weight--light) var(--font-size--base) / 1.6
+    var(--font-family--primary);
 
   &__link {
     color: var(--c-primary);
