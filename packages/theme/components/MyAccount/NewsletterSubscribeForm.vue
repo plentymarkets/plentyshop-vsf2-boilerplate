@@ -85,7 +85,7 @@
         <template #label>
           <div
             class="sf-checkbox__label"
-            v-html="$t('NewsletterSubscribeForm.FormConfirmation', { policy: policyTag })"
+            v-html="$t('NewsletterSubscribeForm.FormConfirmation', { policy: `<a style='text-decoration: underline;' href='#'>` + $t('NewsletterSubscribeForm.Privacy policy') + '</a>' })"
           />
         </template>
       </SfCheckbox>
@@ -122,10 +122,6 @@ export default {
     const { subscribeNewsletter, error, loading } = useNewsletter();
     const { send } = useUiNotification();
     const { app } = useContext();
-    const policyTag = '<a style="text-decoration: underline;" href="#">' + app.i18n.t('NewsletterSubscribeForm.Privacy policy') + '</a>';
-
-    console.log(useNewsletter());
-    console.log(typeof(error));
 
     const emailAddress = ref('');
     const firstName = ref('');
@@ -143,12 +139,11 @@ export default {
         return;
       }
 
-      send({ message: app.i18n.t('LoginModal.Login successful'), type: 'success' });
+      send({ message: app.i18n.t('NewsletterSubscribeForm.Subscribe successful'), type: 'success' });
       emit('onSubscribed');
     };
 
     return {
-      policyTag,
       emailAddress,
       firstName,
       lastName,

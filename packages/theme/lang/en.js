@@ -252,6 +252,7 @@ export default {
     'Need to accept the privacy policy': 'You need to accept our privacy policy.',
     'subscribeToNewsletterContent': 'After signing up for the newsletter, you will receive special offers and messages from us via email.',
     'Privacy policy': 'privacy policy',
+    'Subscribe successful': 'You successfully subscribed our newsletter.'
   },
   // OrderHistory
   'OrderHistory': {

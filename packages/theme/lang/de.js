@@ -251,6 +251,7 @@ export default {
     'Need to accept the privacy policy': 'Sie müssen unsere Datenschutzerklärung zustimmen.',
     'subscribeToNewsletterContent': 'Nach der Anmeldung zum Newsletter erhalten Sie von uns Sonderangebote und Mitteilungen per E-Mail.',
     'Privacy policy': 'Datenschutzerklärung',
+    'Subscribe successful': 'Sie haben unseren Newsletter erfolgreich abonniert.'
   },
   // OrderHistory
   'OrderHistory': {
