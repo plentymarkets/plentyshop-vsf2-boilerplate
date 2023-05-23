@@ -8,7 +8,7 @@
       @submit.prevent="handleSubmit(submit)"
     >
       <p class="message m-b-10">
-        After signing up for the newsletter, you will receive special offers and messages from us via email.
+        {{ $t('NewsletterSubscribeForm.subscribeToNewsletterContent') }}
       </p>
       <ValidationProvider
         v-slot="{ errors }"
@@ -122,18 +122,19 @@ export default {
     const { subscribeNewsletter, error, loading } = useNewsletter();
     const { send } = useUiNotification();
     const { app } = useContext();
-    const policyTag = '<a style="text-decoration: underline;" href="#">privacy policy</a>';
+    const policyTag = '<a style="text-decoration: underline;" href="#">' + app.i18n.t('NewsletterSubscribeForm.Privacy policy') + '</a>';
+
+    console.log(useNewsletter());
+    console.log(typeof(error));
 
     const emailAddress = ref('');
     const firstName = ref('');
     const lastName = ref('');
     const formConfirmation = ref(false);
 
-    console.log(app.i18n.t('NewsletterSubscribeForm.FormConfirmation', { policy: 'Policy' }));
-
     const submit = async () => {
       if (!formConfirmation.value) {
-        send({ message: 'Häkchen muss gesetzt sein', type: 'danger', persist: true });
+        send({ message: app.i18n.t('NewsletterSubscribeForm.Need to accept the privacy policy'), type: 'danger', persist: true });
         return;
       }
       await subscribeNewsletter(emailAddress.value, firstName.value, lastName.value);

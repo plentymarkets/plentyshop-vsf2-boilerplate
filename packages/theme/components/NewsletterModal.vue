@@ -8,7 +8,7 @@
       <SfBar
         class="modal__title smartphone-only"
         :close="true"
-        :title="$t('NewsletterModal.Subscribe to newsletter')"
+        :title="$t('NewsletterModal.Subscribe to our newsletter')"
         @click:close="closeModal"
       />
     </template>
@@ -19,7 +19,7 @@
       <div>
         <SfHeading
           :level="3"
-          :title="$t('NewsletterModal.Subscribe to newsletter')"
+          :title="$t('NewsletterModal.Subscribe to our newsletter')"
           class="modal__title desktop-only"
         />
         <NewsletterSubscribeForm @onSubscribed="closeModal" />
