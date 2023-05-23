@@ -160,10 +160,11 @@ export default {
     const pagination = computed(() => orderGetters.getPagination(orderResult.value));
     const orders = computed(() => orderResult.value?.data?.entries);
     const returnOrder = false;
+    const selectorQuantities = ref([]);
     const allItems = computed(() => orderGetters.getItems(currentOrder.value).map((item) => {
       return {
         ...item,
-        selectorQuantity: orderGetters.getItemQty(item)
+        selectorQuantities.value.push({id: item.itemVariationId, qty: orderGetters.getItemQty(item)});
       };
     }));
 
@@ -191,10 +192,12 @@ export default {
 
     const makeReturnAction = async () => {
 
-      let variationIdsArray;
+      let variationIdsArray = '';
       this.allItems.forEach(item => {
-        variationIdsArray.push(item.itemVariationId , item.selectorQuantity );
+        variationIdsArray += 'variationIds[' + item.variationIds + ']=' + item.selectorQuantity + '&';
       });
+      variationIdsArray = variationIdsArray.slice(0, -1);
+      console.log(variationIdsArray);
       const returnParams = ref({
         orderId: currentOrder.value.id,
         orderAccessKey: currentOrder.value.orderAccessKey,
