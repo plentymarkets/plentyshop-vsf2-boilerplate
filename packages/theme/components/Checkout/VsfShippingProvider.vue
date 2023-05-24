@@ -1,6 +1,5 @@
 <template>
   <div v-if="shippingMethods && shippingMethods.length > 0">
-    {{ shippingMethods }}
     <h4>{{ $t("VsfShippingProvider.Shipping method") }}</h4>
     <SfRadio
       v-for="method in shippingMethods"
@@ -40,9 +39,8 @@ export default {
       save,
       state: shippingProvider
     } = useShippingProvider();
-    const { load: loadCart } = useCart();
     const { load: loadPaymentProviders } = usePaymentProvider();
-    const { cart } = useCart();
+    const { cart, load: loadCart, setCart  } = useCart();
     const shippingMethods = computed(() => shippingProviderGetters.getShippingProviders(shippingProvider.value));
 
     if (shippingProviderGetters.getShippingProfileId(cart?.value)) {
@@ -52,9 +50,8 @@ export default {
       await save({ shippingMethod: shippingProviderGetters.getValue(method)});
       selectedMethod.value = shippingProviderGetters.getParcelServicePresetId(method);
       await loadPaymentProviders();
-      console.log('feth cart')
+      setCart(null)
       await loadCart()
-      console.log(cart.value)
     };
 
     const getShippingAmount = (method) => {
