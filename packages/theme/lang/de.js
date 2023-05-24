@@ -247,10 +247,9 @@ export default {
     'First name': 'Vorname',
     'Last name': 'Nachname',
     'Subscribe': 'Abonnieren',
-    'FormConfirmation': 'Hiermit bestätige ich, dass ich die {policy} gelesen und eingewilligt habe. Meine Einwilligung kann ich jederzeit widerrufen.',
+    'FormConfirmation': 'Hiermit bestätige ich, dass ich die <a href="#" class="sf-link">Datenschutzerklärung</a> gelesen und eingewilligt habe. Meine Einwilligung kann ich jederzeit widerrufen.',
     'Need to accept the privacy policy': 'Sie müssen unsere Datenschutzerklärung zustimmen.',
     'subscribeToNewsletterContent': 'Nach der Anmeldung zum Newsletter erhalten Sie von uns Sonderangebote und Mitteilungen per E-Mail.',
-    'Privacy policy': 'Datenschutzerklärung',
     'Subscribe successful': 'Sie haben unseren Newsletter erfolgreich abonniert.'
   },
   // OrderHistory
