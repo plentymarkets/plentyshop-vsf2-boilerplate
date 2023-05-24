@@ -29,6 +29,7 @@ export { categoryTreeGetters } from './getters/categoryTreeGetters';
 export { facetGetters } from './getters/facetGetters';
 export { forgotPasswordGetters } from './getters/forgotPasswordGetters';
 export { orderGetters } from './getters/orderGetters';
+export { returnGetters } from './getters/returnGetters';
 export { productGetters } from './getters/productGetters';
 export { reviewGetters } from './getters/reviewGetters';
 export { storeGetters } from './getters/storeGetters';

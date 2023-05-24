@@ -1,20 +1,37 @@
-import {
-  Context,
-  useUserOrderFactory,
-  UseUserOrderFactoryParams
-} from '@vue-storefront/core';
-import type { GetReturnsResponse } from '@vue-storefront/plentymarkets-api';
-import type {
-  useUserOrderSearchParams as SearchParams
-} from '../types';
-//
-const params: UseUserOrderFactoryParams<GetReturnsResponse, SearchParams> = {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  searchOrders: async (context: Context, params) => {
-    const orderReturns = await context.$plentymarkets.api.getReturns(params);
+import { computed } from '@nuxtjs/composition-api';
+import { useVSFContext, sharedRef } from '@vue-storefront/core';
 
-    return orderReturns;
-  }
+export interface UseUserReturnResponse {
+  load: () => Promise<void>
+  result: ReturnType<typeof computed>
+  loading: ReturnType<typeof computed>
+  error: ReturnType<typeof computed>
+}
+
+export const useUserReturn = (id: string): UseUserReturnResponse => {
+  const context = useVSFContext();
+  const result = sharedRef(null, `useUserReturn-${id}`);
+  const loading = sharedRef(false, `useUserReturn-loading-${id}`);
+  const error = sharedRef({
+    search: null
+  }, `useUserReturn-error-${id}`);
+
+  const load = async (): Promise<void> => {
+    try {
+      loading.value = true;
+      result.value = await context.$plentymarkets.api.getReturns();
+      error.value.search = null;
+    } catch (err) {
+      error.value.search = err;
+    } finally {
+      loading.value = false;
+    }
+  };
+
+  return {
+    load,
+    result: computed(() => result.value),
+    loading: computed(() => loading.value),
+    error: computed(() => error.value)
+  };
 };
-
-export const useUserReturn = useUserOrderFactory<GetReturnsResponse, SearchParams>(params);
