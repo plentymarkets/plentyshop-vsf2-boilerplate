@@ -113,11 +113,13 @@ export interface PlentymarketsApiMethods {
 
     setPaymentProvider(paymentId: number): Promise<string>
 
+    getOrder(params: OrderSearchParams): Promise<OrderDetails>
+
     additionalInformation(params: AdditionalInformationParams): Promise<void>
 
     preparePayment(): Promise<PreparePaymentResult>
 
-    placeOrder(): Promise<CreateOrderResponse>
+    placeOrder(): Promise<Order>
 
     getOrders(params: UseUserOrderSearchParams): Promise<GetOrdersResponse>
 

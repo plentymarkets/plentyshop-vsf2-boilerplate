@@ -113,6 +113,14 @@ export default {
     'Subtotal': 'Subtotal',
     'Total': 'Total',
   },
+
+   // OrderTotals
+   'OrderTotals': {
+    'Shipping': 'Shipping',
+    'Vat total': 'VAT',
+    'Subtotal': 'Subtotal',
+    'Total': 'Total',
+  },
   // Category
   'Category': {
     'Categories': 'Categories',
@@ -282,6 +290,23 @@ export default {
     'View details': 'View details',
     'You currently have no orders': 'You currently have no orders'
   },
+  // Documents
+  'Documents' : {
+    'Correction Documents': 'Correction Documents',
+    'Credit Note': 'Credit Note',
+    'Delivery Note': 'Delivery Note',
+    'Dunning Letter': 'Dunning Letter',
+    'Invoice External': 'Invoice External',
+    'Invoice': 'Invoice',
+    'Offer': 'Offer',
+    'Order Confirmation': 'Order Confirmation',
+    'Pickup Delivery': 'Pickup Delivery',
+    'Pro Forma Invoice': 'Pro Forma Invoice',
+    'Receipt': 'Receipt',
+    'Return Note': 'Return Note',
+    'Success Confirmation': 'Success Confirmation',
+    'Reversal Document': 'Reversal Document',
+  },
   // Payment
   'Payment': {
     'Item': 'Item',
@@ -365,7 +390,20 @@ export default {
     'Thank you for your order!': 'Thank you for your order!',
     'What can we improve': 'What can we improve',
     'Your account': 'Your account',
-    'Your purchase': 'Your purchase'
+    'Your purchase': 'Your purchase',
+    'Order Number': 'Order Number',
+    'Order Date': 'Order Date',
+    'Order Summary': 'Order Summary',
+    'Order Status': 'Order Status',
+    'Payment Summary': 'Payment Summary',
+    'Shipping Summary': 'Shipping Summary',
+    'Ship To': 'Ship To',
+    'Billing address': 'Billing address',
+    'Status': 'Status',
+    'Payment method': 'Payment method',
+    'Same As Shipping Address': 'Same As Shipping Address',
+    'Shipping Method': 'Shipping Method',
+    'A confirmation has been sent to': 'A confirmation has been sent to',
   },
   // TopBar
   'TopBar': {
@@ -379,7 +417,8 @@ export default {
   },
   //VsfShippingProvider
   'VsfShippingProvider': {
-    'Shipping method': 'Shipping method'
+    'Shipping method': 'Shipping method',
+    'ShowDataPrivacyAgreementHint': 'I agree that my email address and my phone number will be transmitted to {parcelServiceInformation}, so that they can contact me via email or phone in order to determine a delivery date or to communicate status information about the delivery of the shipment. I can revoke this agreement at any time.',
   },
   // WishlistSidebar
   'WishlistSidebar': {
