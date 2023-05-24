@@ -6,7 +6,7 @@
   >
     <template #modal-bar>
       <SfBar
-        class="modal__title smartphone-only"
+        class="modal__title smartphone-only text-left"
         :close="true"
         :title="$t('NewsletterModal.Subscribe to our newsletter')"
         @click:close="closeModal"
@@ -20,7 +20,7 @@
         <SfHeading
           :level="3"
           :title="$t('NewsletterModal.Subscribe to our newsletter')"
-          class="modal__title desktop-only"
+          class="modal__title desktop-only text-left"
         />
         <NewsletterSubscribeForm @onSubscribed="closeModal" />
       </div>
@@ -84,9 +84,6 @@ export default {
     }
     .sf-scrollable__view-all.sf-button {
       font-weight: var(--font-weight--light);
-    }
-    .sf-heading__title{
-      text-align: left;
     }
   }
 
