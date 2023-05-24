@@ -85,8 +85,12 @@
         <template #label>
           <div
             class="sf-checkbox__label"
-            v-html="$t('NewsletterSubscribeForm.FormConfirmation', { policy: `<a style='text-decoration: underline;' href='#'>` + $t('NewsletterSubscribeForm.Privacy policy') + '</a>' })"
-          />
+          >
+            <TranslationWithLink
+              :text="$t('NewsletterSubscribeForm.FormConfirmation')"
+              :replacements="[{ search: 'policy', replace: $t('NewsletterSubscribeForm.Privacy policy'), url: '#' }]"
+            />
+          </div>
         </template>
       </SfCheckbox>
     </form>
@@ -99,6 +103,7 @@ import {ref, useContext} from '@nuxtjs/composition-api';
 import { useNewsletter } from '@vue-storefront/plentymarkets';
 import { useUiNotification } from '~/composables';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
+import TranslationWithLink from '~/components/TranslationWithLink.vue';
 
 extend('email', {
   ...email
@@ -116,7 +121,8 @@ export default {
     SfCheckbox,
     SfLoader,
     ValidationProvider,
-    ValidationObserver
+    ValidationObserver,
+    TranslationWithLink
   },
   setup(props, { emit }) {
     const { subscribeNewsletter, error, loading } = useNewsletter();
