@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SfProperty
+      <SfProperty
       :name="$t('CartPreview.Subtotal')"
       class="sf-property--full-width spacer"
     >
@@ -79,6 +79,7 @@ export default {
     const couponDiscount = computed(() => cartGetters.getCouponDiscount(totals));
 
     return {
+      cart,
       cartGetters,
       totals,
       couponDiscount

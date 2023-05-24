@@ -1,5 +1,6 @@
 <template>
   <div v-if="shippingMethods && shippingMethods.length > 0">
+    {{ shippingMethods }}
     <h4>{{ $t("VsfShippingProvider.Shipping method") }}</h4>
     <SfRadio
       v-for="method in shippingMethods"
@@ -10,7 +11,7 @@
       name="shippingMethod"
       class="form__radio shipping"
       :label="shippingProviderGetters.getShippingMethodName(method)"
-      :description="shippingProviderGetters.getShippingAmount(method)"
+      :description="getShippingAmount(method)"
       @change="selectMethod(method)"
     />
   </div>
@@ -39,6 +40,7 @@ export default {
       save,
       state: shippingProvider
     } = useShippingProvider();
+    const { load: loadCart } = useCart();
     const { load: loadPaymentProviders } = usePaymentProvider();
     const { cart } = useCart();
     const shippingMethods = computed(() => shippingProviderGetters.getShippingProviders(shippingProvider.value));
@@ -50,9 +52,17 @@ export default {
       await save({ shippingMethod: shippingProviderGetters.getValue(method)});
       selectedMethod.value = shippingProviderGetters.getParcelServicePresetId(method);
       await loadPaymentProviders();
+      console.log('feth cart')
+      await loadCart()
+      console.log(cart.value)
     };
 
+    const getShippingAmount = (method) => {
+      return shippingProviderGetters.getShippingAmount(method) === '0' ? 'Free' : shippingProviderGetters.getShippingAmount(method)
+    }
+
     return {
+      getShippingAmount,
       shippingMethods,
       selectedMethod,
       selectMethod,
