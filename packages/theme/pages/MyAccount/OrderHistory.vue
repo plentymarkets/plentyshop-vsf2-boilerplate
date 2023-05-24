@@ -232,7 +232,7 @@ export default {
     const { query } = ctx.$router.currentRoute;
 
     const { orders: orderResult, search, loading } = useUserOrder();
-    const currentOrder = ref({});
+    const currentOrder = ref(null);
     const pagination = computed(() => orderGetters.getPagination(orderResult.value));
     const orders = computed(() => orderResult.value?.data?.entries);
     const returnOrder = false;
@@ -265,8 +265,8 @@ export default {
 
       let variationIdsArray = '';
 
-      this.allItems.forEach(item => {
-        variationIdsArray += 'variationIds[' + item.variationIds + ']=' + item.selectorQuantity + '&';
+      allItems.value.forEach(item => {
+        variationIdsArray += 'variationIds[' + item.id + ']=' + item.selectorQuantity + '&';
       });
       variationIdsArray = variationIdsArray.slice(0, -1);
       console.log(variationIdsArray);
