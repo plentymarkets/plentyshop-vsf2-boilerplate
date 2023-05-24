@@ -1,6 +1,6 @@
 <template>
   <div>
-      <SfProperty
+    <SfProperty
       :name="$t('CartPreview.Subtotal')"
       class="sf-property--full-width spacer"
     >
@@ -14,7 +14,10 @@
       class="sf-property--full-width"
     >
       <template #value>
-        <SfPrice v-if="cartGetters.getShippingAmount(totals) !==0 " :regular="$n(cartGetters.getShippingAmount(totals), 'currency')" />
+        <SfPrice
+          v-if="cartGetters.getShippingAmount(totals)!==0"
+          :regular="$n(cartGetters.getShippingAmount(totals), 'currency')"
+        />
         <div v-else>
           Free
         </div>

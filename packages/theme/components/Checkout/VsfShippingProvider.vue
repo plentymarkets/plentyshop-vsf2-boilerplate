@@ -40,7 +40,7 @@ export default {
       state: shippingProvider
     } = useShippingProvider();
     const { load: loadPaymentProviders } = usePaymentProvider();
-    const { cart, load: loadCart, setCart  } = useCart();
+    const { cart, load: loadCart, setCart } = useCart();
     const shippingMethods = computed(() => shippingProviderGetters.getShippingProviders(shippingProvider.value));
 
     if (shippingProviderGetters.getShippingProfileId(cart?.value)) {
@@ -50,13 +50,13 @@ export default {
       await save({ shippingMethod: shippingProviderGetters.getValue(method)});
       selectedMethod.value = shippingProviderGetters.getParcelServicePresetId(method);
       await loadPaymentProviders();
-      setCart(null)
-      await loadCart()
+      setCart(null);
+      await loadCart();
     };
 
     const getShippingAmount = (method) => {
-      return shippingProviderGetters.getShippingAmount(method) === '0' ? 'Free' : shippingProviderGetters.getShippingAmount(method)
-    }
+      return shippingProviderGetters.getShippingAmount(method) === '0' ? 'Free' : shippingProviderGetters.getShippingAmount(method);
+    };
 
     return {
       getShippingAmount,
