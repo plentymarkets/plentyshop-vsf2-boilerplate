@@ -30,27 +30,8 @@
             class="sf-property--full-width property"
           />
         </div>
-        <SfTable class="products">
-          <SfTableHeading>
-            <SfTableHeader class="products__name">
-              {{ $t('OrderHistory.Product') }}
-            </SfTableHeader>
-            <SfTableHeader>{{ $t('OrderHistory.Quantity') }}</SfTableHeader>
-            <SfTableHeader>{{ $t('OrderHistory.Price') }}</SfTableHeader>
-          </SfTableHeading>
-          <SfTableRow
-            v-for="(item, i) in orderGetters.getItems(currentOrder)"
-            :key="i"
-          >
-            <SfTableData class="products__name">
-              <nuxt-link :to="localePath(orderGetters.getOrderItemLink(currentOrder, item.itemVariationId))">
-                {{ orderGetters.getItemName(item) }}
-              </nuxt-link>
-            </SfTableData>
-            <SfTableData>{{ orderGetters.getItemQty(item) }}</SfTableData>
-            <SfTableData>{{ $n(orderGetters.getItemPrice(item), 'currency') }}</SfTableData>
-          </SfTableRow>
-        </SfTable>
+
+        <OrderItems :order="currentOrder" />
       </div>
       <div v-else>
         <p class="message">
@@ -67,50 +48,9 @@
             {{ $t('OrderHistory.Start shopping') }}
           </SfButton>
         </div>
-        <SfTable
-          v-else
-          class="orders"
-        >
-          <SfTableHeading>
-            <SfTableHeader
-              v-for="tableHeader in tableHeaders"
-              :key="tableHeader"
-            >
-              {{ $t(tableHeader) }}
-            </SfTableHeader>
-            <SfTableHeader class="orders__element--right" />
-          </SfTableHeading>
-          <SfTableRow
-            v-for="order in orders"
-            :key="orderGetters.getId(order)"
-          >
-            <SfTableData v-e2e="'order-number'">
-              {{ orderGetters.getId(order) }}
-            </SfTableData>
-            <SfTableData>{{ orderGetters.getDate(order) }}</SfTableData>
-            <SfTableData>{{ $n(orderGetters.getPrice(order), 'currency') }}</SfTableData>
-            <SfTableData>
-              <span :class="getStatusTextClass(order)">{{ orderGetters.getStatus(order) }}</span>
-            </SfTableData>
-            <SfTableData class="orders__view orders__element--right">
-              <SfButton
-                class="sf-button--text desktop-only"
-                @click="currentOrder = order"
-              >
-                {{ $t('OrderHistory.View details') }}
-              </SfButton>
-            </SfTableData>
-          </SfTableRow>
-        </SfTable>
-        <LazyHydrate on-interaction>
-          <SfPagination
-            v-show="paginationGetters.getTotalPages(pagination) > 1"
-            class="products__pagination desktop-only"
-            :current="paginationGetters.getCurrentPage(pagination)"
-            :total="paginationGetters.getTotalPages(pagination)"
-            :visible="5"
-          />
-        </LazyHydrate>
+
+        <OrdersOverview @set-current-order="setCurrentOrder" />
+
         <p>{{ $t('OrderHistory.Total orders') }} - {{ totalOrders }}</p>
       </div>
     </SfTab>
@@ -133,73 +73,51 @@
 <script lang="js">
 import {
   SfTabs,
-  SfTable,
   SfButton,
   SfProperty,
-  SfLink,
-  SfPagination
+  SfLink
 } from '@storefront-ui/vue';
-import LazyHydrate from 'vue-lazy-hydration';
 import { computed, ref } from '@nuxtjs/composition-api';
 import { getCurrentInstance } from '@nuxtjs/composition-api';
-import { useUserOrder, orderGetters, paginationGetters } from '@vue-storefront/plentymarkets';
-import { AgnosticOrderStatus } from '@vue-storefront/core';
+import { useUserOrder, orderGetters } from '@vue-storefront/plentymarkets';
 import { onSSR } from '@vue-storefront/core';
+import OrderItems from '~/components/Orders/OrderItems.vue';
+import OrdersOverview from '~/components/Orders/OrdersOverview.vue';
 
 export default {
   name: 'PersonalDetails',
   components: {
+    OrdersOverview,
+    OrderItems,
     SfTabs,
-    SfTable,
     SfButton,
     SfProperty,
-    SfLink,
-    SfPagination,
-    LazyHydrate
+    SfLink
   },
   setup() {
     const ctx = getCurrentInstance().root.proxy;
     const { query } = ctx.$router.currentRoute;
-
-    const { orders: orderResult, search, loading } = useUserOrder();
+    const { orders: orderResult, search } = useUserOrder();
     const currentOrder = ref(null);
-    const pagination = computed(() => orderGetters.getPagination(orderResult.value));
     const orders = computed(() => orderResult.value?.data?.entries);
+    const totalOrders = computed(() => orderGetters.getOrdersTotal(orderResult.value));
+
+    const setCurrentOrder = (item) => {
+      const orderId = item['OrderHistory.Order ID'].value;
+
+      currentOrder.value = orderGetters.getById(orders.value, orderId);
+    };
 
     onSSR(async () => {
       await search(query);
     });
 
-    const tableHeaders = [
-      'OrderHistory.Order ID',
-      'OrderHistory.Order date',
-      'OrderHistory.Amount',
-      'OrderHistory.Status'
-    ];
-
-    const getStatusTextClass = (order) => {
-      const status = orderGetters.getStatus(order);
-
-      switch (status) {
-        case AgnosticOrderStatus.Open:
-          return 'text-warning';
-        case AgnosticOrderStatus.Complete:
-          return 'text-success';
-        default:
-          return '';
-      }
-    };
-
     return {
-      tableHeaders,
       orders,
-      pagination,
-      loading,
-      paginationGetters,
-      totalOrders: computed(() => orderGetters.getOrdersTotal(orderResult.value)),
-      getStatusTextClass,
+      totalOrders,
       orderGetters,
-      currentOrder
+      currentOrder,
+      setCurrentOrder
     };
   }
 };
@@ -218,16 +136,6 @@ export default {
     }
   }
 }
-.orders {
-  @include for-desktop {
-    &__element {
-      &--right {
-        --table-column-flex: 1;
-        text-align: right;
-      }
-    }
-  }
-}
 .all-orders {
   --button-padding: var(--spacer-base) 0;
 }
@@ -242,35 +150,6 @@ export default {
     text-decoration: none;
     &:hover {
       color: var(--c-text);
-    }
-  }
-}
-.product {
-  &__properties {
-    margin: var(--spacer-xl) 0 0 0;
-  }
-  &__property,
-  &__action {
-    font-size: var(--font-size--sm);
-  }
-  &__action {
-    color: var(--c-gray-variant);
-    font-size: var(--font-size--sm);
-    margin: 0 0 var(--spacer-sm) 0;
-    &:last-child {
-      margin: 0;
-    }
-  }
-  &__qty {
-    color: var(--c-text);
-  }
-}
-.products {
-  --table-column-flex: 1;
-  &__name {
-    margin-right: var(--spacer-sm);
-    @include for-desktop {
-      --table-column-flex: 2;
     }
   }
 }
@@ -301,5 +180,4 @@ export default {
     --property-value-font-weight: var(--font-weight--semibold);
   }
 }
-
 </style>
