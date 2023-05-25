@@ -23,7 +23,6 @@ export const useMakeReturn = (id) => {
     }
   };
 
-
   return {
     makeReturn,
     result: computed(() => result.value),
