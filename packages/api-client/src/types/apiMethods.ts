@@ -121,7 +121,7 @@ export interface PlentymarketsApiMethods {
 
     getOrders(params: UseUserOrderSearchParams): Promise<GetOrdersResponse>
 
-    getReturns(params: UseUserOrderSearchParams): Promise<GetReturnsResponse>
+    getReturns(): Promise<GetReturnsResponse>
 
     executePayment(orderId: number, paymentId: number): Promise<GetPaymentResponse>
 
