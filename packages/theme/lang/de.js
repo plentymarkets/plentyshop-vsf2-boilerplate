@@ -241,32 +241,24 @@ export default {
     'Reject All': 'Alle ablehnen',
     'Accept Selection': 'Auswahl akzeptieren'
   },
+  // NewletterModal
+  'NewsletterModal': {
+    'Subscribe to our newsletter': 'Abonniere unseren Newsletter',
+  },
   // MyNewsletter
   'MyNewsletter': {
-    'Commercial information': 'und bin damit einverstanden, personalisierte Werbeinformationen von Marke via E-Mail zu erhalten',
-    'Cookies policy': 'Cookie-Erklärung',
-    'I have read and understand': 'Ich habe folgende Informationen gelesen und verstanden',
-    'Kids': 'Kinder',
-    'Men': 'Herren',
-    'My newsletter': 'Mein Newsletter',
-    'Privacy policy': 'Datenschutzerklärung',
-    'Save changes': 'Änderungen speichern',
-    'Sections that interest you': 'Abschnitte, die Sie interessieren',
-    'Set up newsletter': 'Richten Sie Ihren Newsletter ein und wir senden Ihnen wöchentlich Informationen zu neuen Produkten und Trends aus den von Ihnen ausgewählten Bereichen.',
-    'Women': 'Damen'
+    'My newsletter': 'Mein Newsletter'
   },
-  // NewsletterModal
-  'NewsletterModal': {
-    'Email address': 'E-Mail-Adresse',
-    'Hide': 'Verstecken',
-    'Confirm subscription': 'Abonnement bestätigen',
-    'Show more': 'Mehr zeigen',
+  // NewsletterSubscribeForm
+  'NewsletterSubscribeForm': {
+    'Email address': 'E-Mail Adresse',
+    'First name': 'Vorname',
+    'Last name': 'Nachname',
     'Subscribe': 'Abonnieren',
-    'Subscribe to newsletter': 'Newsletter abonnieren',
-    'subscribeToNewsletterModalContent': 'Wenn du den Newsletter abonnierst, erhältst du Sonderangebote und Nachrichten von VSF via E-Mail. Wir werden Ihre E-Mail-Adresse zu keiner Zeit an Dritte verkaufen oder mit Dritten teilen. Weitere Informationen finden Sie in unserer {0}.',
-    'Privacy policy': 'Datenschutzerklärung',
-    'You can unsubscribe at any time': 'Sie können das Abonnement zu jeder Zeit kündigen.',
-    'Your email': 'Ihre E-Mail-Adresse'
+    'FormConfirmation': 'Hiermit bestätige ich, dass ich die <a href="{url}" class="sf-link">Datenschutzerklärung</a> gelesen und eingewilligt habe. Meine Einwilligung kann ich jederzeit widerrufen.',
+    'Need to accept the privacy policy': 'Sie müssen unsere Datenschutzerklärung zustimmen.',
+    'subscribeToNewsletterContent': 'Nach der Anmeldung zum Newsletter erhalten Sie von uns Sonderangebote und Mitteilungen per E-Mail.',
+    'Subscribe successful': 'Sie haben unseren Newsletter erfolgreich abonniert.'
   },
   // OrderHistory
   'OrderHistory': {

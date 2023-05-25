@@ -23,6 +23,7 @@ import { SessionResult } from './session';
 import { ShippingProvider } from './shipping';
 import { UserChangeResponse } from './user';
 import { Wishlist } from './wishlist';
+import { NewsletterParams } from './newsletter';
 
 export type ClientInstance = AxiosInstance;
 
@@ -136,6 +137,7 @@ export interface PlentymarketsApiMethods {
 
     getLegalInformation(type: string): Promise<LegalInformationResponse>
 
+    subscribeNewsletter(params: NewsletterParams): Promise<string>
 }
 
 export type Context = IntegrationContext<ClientInstance, Settings, ApiClientMethods<PlentymarketsApiMethods>>;
