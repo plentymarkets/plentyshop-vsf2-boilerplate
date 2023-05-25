@@ -218,10 +218,10 @@
         </SfTable>
         <LazyHydrate on-interaction>
           <SfPagination
-            v-show="paginationGetters.getTotalPages(pagination) > 1"
+            v-show="paginationGetters.getTotalPages(returnsPagination) > 1"
             class="products__pagination desktop-only"
-            :current="paginationGetters.getCurrentPage(pagination)"
-            :total="paginationGetters.getTotalPages(pagination)"
+            :current="paginationGetters.getCurrentPage(returnsPagination)"
+            :total="paginationGetters.getTotalPages(returnsPagination)"
             :visible="5"
           />
         </LazyHydrate>
@@ -270,6 +270,7 @@ export default {
 
     userReturn.load();
     const returns = computed(() => returnGetters.getOrders(userReturn.result.value));
+    const returnsPagination = computed(() => returnGetters.getPagination(userReturn.result.value));
 
     onSSR(async () => {
       await search(query);
@@ -300,6 +301,7 @@ export default {
       orders,
       returns,
       pagination,
+      returnsPagination,
       loading,
       paginationGetters,
       totalOrders: computed(() => orderGetters.getOrdersTotal(orderResult.value)),
