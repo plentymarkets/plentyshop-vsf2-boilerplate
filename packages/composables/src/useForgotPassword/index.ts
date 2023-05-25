@@ -1,7 +1,8 @@
 import {
   sharedRef, useVSFContext
 } from '@vue-storefront/core';
-export const useForgotPassword = (id: string) => {
+import type { ForgotPassword } from '@vue-storefront/plentymarkets-api';
+export const useForgotPassword = (id: string): ForgotPassword => {
   const context = useVSFContext();
   const loading = sharedRef(false, `useForgot-loading-${id}`);
   const error = sharedRef({

@@ -1,12 +1,12 @@
 <template>
   <div class="main">
     <div class="form md:form2">
-      <p class="reset-password">
+      <p class="reset-password mb-5">
         {{ $t('LoginModal.Reset password') }}
       </p>
-      <div class="my-5">
+      <!-- <div class="my-5">
         <p>Enter new password for {{ email }}</p>
-      </div>
+      </div> -->
 
       <SfInput
         v-model="form.password"
@@ -46,8 +46,7 @@ import {
 import {
   useRouter,
   useRoute,
-  useContext,
-  onMounted
+  useContext
 } from '@nuxtjs/composition-api';
 import { useForgotPassword } from '@vue-storefront/plentymarkets';
 import { ref } from '@nuxtjs/composition-api';
@@ -77,7 +76,7 @@ export default {
       password2: ''
     });
 
-    const resetPassword = async () => {
+    const updatePassword = async () => {
       await setNewPassword(form.value.hash, form.value.password, form.value.password2, form.value.contactId);
       if (!forgotPasswordError.value.load) {
         send({ message: app.i18n.t('LoginModal.Your new password was saved'), type: 'success' });
@@ -88,22 +87,21 @@ export default {
       }
     };
 
-    const email = ref('oldmail@gmail.com');
-
-    onMounted(async () => {
+    const resetPassword = async () => {
       try {
-        email.value = await verifyHash(route.value.params.contactId, route.value.params.hash);
+        await verifyHash(route.value.params.contactId, route.value.params.hash);
         if (forgotPasswordError.value.load) {
           router.push('/');
           send({ message: app.i18n.t('LoginModal.Your hash has expired!'), type: 'danger' });
           toggleLoginModal();
         }
+        updatePassword();
       } catch (error) {
         send({ message: app.i18n.t('LoginModal.Your hash has expired!'), type: 'danger' });
       }
+    };
 
-    });
-    return { form, resetPassword, email, toggleLoginModal };
+    return { form, resetPassword, toggleLoginModal };
   }
 };
 </script>
