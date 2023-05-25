@@ -223,7 +223,6 @@ export default {
     SfButton,
     SfProperty,
     SfLink,
-    SfPagination,
     LazyHydrate
   },
   setup() {
