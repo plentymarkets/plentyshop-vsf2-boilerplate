@@ -20,7 +20,7 @@ import { RegisterParams } from './register';
 import { Review, ReviewSearchParams } from './review';
 import { SessionResult } from './session';
 import { ShippingProvider } from './shipping';
-import { UserChangeResponse } from './user';
+import { UserChangeResponse, UserEmailResponse, ForgotPasswordResponse } from './user';
 import { Wishlist } from './wishlist';
 import { NewsletterParams } from './newsletter';
 
@@ -99,6 +99,12 @@ export interface PlentymarketsApiMethods {
     logoutUser(): Promise<boolean>
 
     changePassword(currentPassword, newPassword): Promise<UserChangeResponse>
+
+    requestChangePasswordEmail(email: string): Promise<ForgotPasswordResponse>
+
+    changePasswordBasedOnHash(hash: string, password: string, password2: string, contactId: string): Promise<ForgotPasswordResponse>
+
+    verifyHash(contactId: string, hash: String): Promise<UserEmailResponse>
 
     getShippingProvider(): Promise<ShippingProvider>
 

@@ -1,6 +1,6 @@
 import { CustomQuery } from '@vue-storefront/core';
 import { AfterAccountAuthentication, AfterBasketChanged, CheckoutChanged, FrontendUpdateCustomerSettings } from './events';
-
+import { Ref } from '@nuxtjs/composition-api';
 export type User = {
     guestMail?: string,
     accounts?: []
@@ -68,4 +68,34 @@ export interface UserChangeResponse {
         AfterAccountAuthentication: AfterAccountAuthentication,
         FrontendUpdateCustomerSettings: FrontendUpdateCustomerSettings
     }
+}
+
+export interface UserEmailResponse {
+    email: string,
+    error: {
+        message: string,
+        code: string,
+        data: unknown
+    }
+}
+
+export interface ForgotPasswordResponse {
+    data: {
+        message: '',
+    },
+    error: {
+        message: string,
+        code: string,
+        data: unknown
+    }
+}
+
+export interface ForgotPassword {
+    loading: Ref<boolean>;
+    error: Ref<{
+        load: null
+    }>;
+    resetPassword:(email:String) => Promise<void>;
+    setNewPassword:(hash:String, newPassword:String, newPassword2:String, contactId:String) => Promise<void>;
+    verifyHash(contactId:String, hash:String): Promise<string>
 }

@@ -185,6 +185,7 @@ export default {
     'or fill in the details below': 'oder füllen Sie die Details unten aus',
     'Last name': '@:App.lastName',
     'Order as guest': 'Als Gast bestellen',
+    'Forgot password': 'Passwort vergessen',
     'User data': '@:App.userData',
     'Register': '@:App.register',
     'Email': '@:App.email'
@@ -205,7 +206,16 @@ export default {
     'Remember me': 'Meine Angaben speichern',
     'Reset forgotten password': 'Wenn du dein Passwort vergessen hast, kannst du es zurücksetzen.',
     'Reset password': 'Passwort zurücksetzen',
+    'Forgot password error': 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut!',
+    'Forgot password details': `Keine Sorge. Wir senden Ihnen Anweisungen zum Zurücksetzen Ihres Passworts an Ihre E-Mail-Adresse`,
     'Sign in': 'Anmelden',
+    'Enter new password': 'Neues Passwort eingeben',
+    'Confirm new password': 'Bestätige neues Passwort',
+    'Check your e-mail:': 'Überprüfen Sie Ihre E-Mail: Wir haben Anweisungen zum Zurücksetzen Ihres Passworts gesendet.',
+    'Your new password was saved': 'Ihr neues Passwort wurde gespeichert',
+    'Save new password': 'Neues Passwort speichern',
+    'Remember your password': 'Passwort merken',
+    'Your hash has expired!': 'Ihr Hash ist abgelaufen!',
     'Thank you inbox': 'Wenn die Nachricht nicht in Ihrem Posteingang angezeigt wird, prüfen Sie eine andere E-Mail-Adresse, die Sie möglicherweise zum Registrieren verwendet haben.'
   },
   // MyAccount
