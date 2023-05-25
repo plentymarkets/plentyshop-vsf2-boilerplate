@@ -269,11 +269,11 @@ export default {
   },
   // OrderHistory
   'OrderHistory': {
-    'All orders': 'All orders',
-    'All returns': 'All returns',
+    'All orders': 'Alle Bestellungen',
+    'All returns': 'Alle Rücksendungen',
     'Amount': 'Summe',
     'Details and order status': 'Überprüfen Sie die Details und den Status Ihrer Bestellungen im Online-Shop. Sie können Ihre Bestellung auch stornieren oder eine Rücksendung anfordern.',
-    'Details and return status': 'Check the details and status of your returns in the online shop.',
+    'Details and return status': 'Details und den Status Ihrer Rücksendungen.',
     'My orders': 'Meine Bestellungen',
     'Order date': 'Bestelldatum',
     'Order ID': 'Bestell-ID',
@@ -284,7 +284,7 @@ export default {
     'Start shopping': '@:App.startShopping',
     'Status': 'Status',
     'Total orders': 'Gesamtzahl Aufträge',
-    'Total returns': 'Total returns',
+    'Total returns': 'Gesamtzahl Retouren',
     'View details': 'Details ansehen',
     'You currently have no orders': 'Sie haben derzeit keine Bestellungen'
   },
