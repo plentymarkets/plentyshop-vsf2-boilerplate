@@ -256,7 +256,7 @@ export default {
     'First name': 'First name',
     'Last name': 'Last name',
     'Subscribe': 'Subscribe',
-    'FormConfirmation': 'I hereby confirm that I have read and accept the <a href="#" class="sf-link">privacy policy</a>. I can revoke my consent at any time.',
+    'FormConfirmation': 'I hereby confirm that I have read and accept the <a href="{url}" class="sf-link">privacy policy</a>. I can revoke my consent at any time.',
     'Need to accept the privacy policy': 'You need to accept our privacy policy.',
     'subscribeToNewsletterContent': 'After signing up for the newsletter, you will receive special offers and messages from us via email.',
     'Subscribe successful': 'You successfully subscribed our newsletter.'

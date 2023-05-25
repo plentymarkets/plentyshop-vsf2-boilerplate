@@ -7,14 +7,14 @@
       class="form-modal"
       @submit.prevent="handleSubmit(submit)"
     >
-      <p class="message m-b-10">
+      <p class="message mb-2">
         {{ $t('NewsletterSubscribeForm.subscribeToNewsletterContent') }}
       </p>
       <ValidationProvider
         v-slot="{ errors }"
         :name="$t('NewsletterSubscribeForm.Email address')"
         rules="required|email"
-        class="m-b-10"
+        class="mt-4 mb-3"
         tag="div"
       >
         <SfInput
@@ -33,7 +33,7 @@
           v-slot="{ errors }"
           :name="$t('NewsletterSubscribeForm.First name')"
           rules="required"
-          class="full-width m-b-10"
+          class="full-width mb-3"
           tag="div"
         >
           <SfInput
@@ -50,7 +50,7 @@
           v-slot="{ errors }"
           :name="$t('NewsletterSubscribeForm.Last name')"
           rules="required"
-          class="full-width m-b-10"
+          class="full-width mb-3"
           tag="div"
         >
           <SfInput
@@ -66,7 +66,7 @@
       </div>
       -->
       <SfButton
-        class="sf-button form__button"
+        class="sf-button form__button mb-3"
         type="submit"
         :disabled="loading"
       >
@@ -85,7 +85,7 @@
         <template #label>
           <div
             class="sf-checkbox__label"
-            v-html="$t('NewsletterSubscribeForm.FormConfirmation')"
+            v-html="$t('NewsletterSubscribeForm.FormConfirmation', { 'url': '#' })"
           />
         </template>
       </SfCheckbox>
@@ -96,7 +96,7 @@
 import { SfInput, SfButton, SfCheckbox, SfLoader } from '@storefront-ui/vue';
 import { required, email } from 'vee-validate/dist/rules';
 import {ref, useContext} from '@nuxtjs/composition-api';
-import { useNewsletter } from '@vue-storefront/plentymarkets';
+import { useNewsletter, useUser } from '@vue-storefront/plentymarkets';
 import { useUiNotification } from '~/composables';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 
@@ -122,8 +122,10 @@ export default {
     const { subscribeNewsletter, error, loading } = useNewsletter();
     const { send } = useUiNotification();
     const { app } = useContext();
+    const { user } = useUser();
 
-    const emailAddress = ref('');
+    const emailPlaceholder = user ? user.value?.email ?? '' : '';
+    const emailAddress = ref(emailPlaceholder);
     const firstName = ref('');
     const lastName = ref('');
     const formConfirmation = ref(false);
@@ -133,7 +135,7 @@ export default {
         send({ message: app.i18n.t('NewsletterSubscribeForm.Need to accept the privacy policy'), type: 'danger', persist: true });
         return;
       }
-      await subscribeNewsletter(emailAddress.value, firstName.value, lastName.value);
+      await subscribeNewsletter(emailAddress.value, firstName.value, lastName.value, '10');
       if (error.value.subscribe) {
         send({ message: error.value.subscribe, type: 'danger', persist: true });
         return;
@@ -156,14 +158,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.checkbox{
-  margin-top: 20px;
-}
-
-.m-b-10{
-  margin-bottom: 15px;
-}
-
 .flex-names{
   display: flex;
   flex-direction: row;

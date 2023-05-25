@@ -2,7 +2,7 @@ import {useVSFContext, sharedRef} from '@vue-storefront/core';
 import {computed, Ref} from '@nuxtjs/composition-api';
 
 export interface UseNewsletterResponse {
-  subscribeNewsletter: (email: string, firstName: string, lastName: string) => Promise<void>
+  subscribeNewsletter: (email: string, firstName: string, lastName: string, emailFolder: string) => Promise<void>
   loading: Ref<boolean>
   error: Ref<object>
 }
@@ -16,14 +16,14 @@ export const useNewsletter = () : UseNewsletterResponse => {
     subscribe: null
   }, 'useNewsletter-error');
 
-  const subscribeNewsletter = async (email: string, firstName: string, lastName: string): Promise<void> => {
+  const subscribeNewsletter = async (email: string, firstName: string, lastName: string, emailFolder: string = '10'): Promise<void> => {
     try {
       loading.value = true;
       await context.$plentymarkets.api.subscribeNewsletter({
         email: email,
         firstName: firstName,
         lastName: lastName,
-        emailFolder: '10'
+        emailFolder: emailFolder
       });
       error.value.subscribe = null;
     } catch (err) {
