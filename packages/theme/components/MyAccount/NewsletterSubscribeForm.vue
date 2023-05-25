@@ -27,13 +27,12 @@
           :error-message="errors[0]"
         />
       </ValidationProvider>
-      <!--
-      <div class="flex-names">
+      <!-- <div class="flex-names flex w-full gap-30">
         <ValidationProvider
           v-slot="{ errors }"
           :name="$t('NewsletterSubscribeForm.First name')"
           rules="required"
-          class="full-width mb-3"
+          class="w-full mb-3"
           tag="div"
         >
           <SfInput
@@ -41,7 +40,7 @@
             type="text"
             :name="$t('NewsletterSubscribeForm.First name')"
             :label="$t('NewsletterSubscribeForm.First name')"
-            class="modal__input--full-width"
+            class="modal__input--w-full"
             :valid="!errors[0]"
             :error-message="errors[0]"
           />
@@ -50,7 +49,7 @@
           v-slot="{ errors }"
           :name="$t('NewsletterSubscribeForm.Last name')"
           rules="required"
-          class="full-width mb-3"
+          class="w-full mb-3"
           tag="div"
         >
           <SfInput
@@ -58,13 +57,13 @@
             type="text"
             :name="$t('NewsletterSubscribeForm.Last name')"
             :label="$t('NewsletterSubscribeForm.Last name')"
-            class="modal__input--full-width"
+            class="modal__input--w-full"
             :valid="!errors[0]"
             :error-message="errors[0]"
           />
         </ValidationProvider>
-      </div>
-      -->
+      </div> -->
+
       <SfButton
         class="sf-button form__button mb-3"
         type="submit"
@@ -158,29 +157,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.flex-names{
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  column-gap: 30px;
-}
-
-.full-width {
-  width: 100%;
-}
 
 .sf-button{
   min-width: 300px;
 }
 
-.policy_link {
-  text-decoration: underline !important;
-  font-weight: bold;
-}
-
 .modal {
   .flex-names{
     flex-direction: column;
+    gap: 0 !important;
   }
   .sf-button{
     width: 100%;
