@@ -16,7 +16,7 @@ export const useNewsletter = () : UseNewsletterResponse => {
     subscribe: null
   }, 'useNewsletter-error');
 
-  const subscribeNewsletter = async (email: string, firstName: string, lastName: string, emailFolder: string = '10'): Promise<void> => {
+  const subscribeNewsletter = async (email: string, firstName: string, lastName: string, emailFolder: string): Promise<void> => {
     try {
       loading.value = true;
       await context.$plentymarkets.api.subscribeNewsletter({
