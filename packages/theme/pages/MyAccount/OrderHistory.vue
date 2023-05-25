@@ -43,7 +43,7 @@
             :key="i"
           >
             <SfTableData class="products__name">
-              <nuxt-link :to="localePath(orderGetters.getOrderItemLink(currentOrder, item.itemVariationId))">
+              <nuxt-link :to="localePath(orderGetters.getOrderItemLink(currentOrder, orderGetters.getItemVariationId(item)))">
                 {{ orderGetters.getItemName(item) }}
               </nuxt-link>
             </SfTableData>
@@ -157,7 +157,7 @@
             :key="i"
           >
             <SfTableData class="products__name">
-              <nuxt-link :to="localePath(returnGetters.getOrderItemLink(currentReturn, item.itemVariationId))">
+              <nuxt-link :to="localePath(returnGetters.getOrderItemLink(currentReturn, returnGetters.getItemVariationId(item)))">
                 {{ returnGetters.getItemName(item) }}
               </nuxt-link>
             </SfTableData>
@@ -268,7 +268,7 @@ export default {
     const userReturn = useUserReturn('user-return');
     const currentReturn = ref(null);
 
-    userReturn.load();
+    userReturn.load(query);
     const returns = computed(() => returnGetters.getOrders(userReturn.result.value));
     const returnsPagination = computed(() => returnGetters.getPagination(userReturn.result.value));
 
