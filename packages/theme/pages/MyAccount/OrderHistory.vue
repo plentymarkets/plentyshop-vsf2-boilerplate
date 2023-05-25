@@ -206,8 +206,7 @@ import {
   SfTable,
   SfButton,
   SfProperty,
-  SfLink,
-  SfPagination
+  SfLink
 } from '@storefront-ui/vue';
 import LazyHydrate from 'vue-lazy-hydration';
 import { computed, ref, watch} from '@nuxtjs/composition-api';
