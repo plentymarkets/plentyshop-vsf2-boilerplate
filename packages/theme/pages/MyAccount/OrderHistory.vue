@@ -272,8 +272,8 @@ export default {
       console.log(variationIdsArray);
 
       const returnParams = ref({
-        orderId: currentOrder.value.id,
-        orderAccessKey: currentOrder.value.orderAccessKey,
+        orderId: currentOrder.value.order.id,
+        orderAccessKey: currentOrder.value.order.accessKey,
         variationIds: variationIdsArray,
         returnNote: ''
       });
