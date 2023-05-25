@@ -134,7 +134,11 @@ export default {
         send({ message: app.i18n.t('NewsletterSubscribeForm.Need to accept the privacy policy'), type: 'danger', persist: true });
         return;
       }
-      await subscribeNewsletter(emailAddress.value, firstName.value, lastName.value, '10');
+      await subscribeNewsletter({
+        email: emailAddress.value,
+        firstName: firstName.value,
+        lastName: lastName.value,
+        emailFolder: 10 });
       if (error.value.subscribe) {
         send({ message: error.value.subscribe, type: 'danger', persist: true });
         return;

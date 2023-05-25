@@ -1,8 +1,9 @@
 import {useVSFContext, sharedRef} from '@vue-storefront/core';
 import {computed, Ref} from '@nuxtjs/composition-api';
+import {NewsletterParams} from '@vue-storefront/plentymarkets-api';
 
 export interface UseNewsletterResponse {
-  subscribeNewsletter: (email: string, firstName: string, lastName: string, emailFolder: string) => Promise<void>
+  subscribeNewsletter: (params: NewsletterParams) => Promise<void>
   loading: Ref<boolean>
   error: Ref<object>
 }
@@ -16,14 +17,14 @@ export const useNewsletter = () : UseNewsletterResponse => {
     subscribe: null
   }, 'useNewsletter-error');
 
-  const subscribeNewsletter = async (email: string, firstName: string, lastName: string, emailFolder: string): Promise<void> => {
+  const subscribeNewsletter = async (params: NewsletterParams): Promise<void> => {
     try {
       loading.value = true;
       await context.$plentymarkets.api.subscribeNewsletter({
-        email: email,
-        firstName: firstName,
-        lastName: lastName,
-        emailFolder: emailFolder
+        email: params.email,
+        firstName: params.firstName,
+        lastName: params.lastName,
+        emailFolder: params.emailFolder
       });
       error.value.subscribe = null;
     } catch (err) {
