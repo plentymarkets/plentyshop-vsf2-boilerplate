@@ -219,6 +219,7 @@ export default {
     'My profile': 'My profile',
     'Order details': 'Order details',
     'Order history': 'Order history',
+    'Order returns': 'Order returns',
     'Shipping details': '@:App.shippingDetails',
     'User data': '@:App.userData',
   },
