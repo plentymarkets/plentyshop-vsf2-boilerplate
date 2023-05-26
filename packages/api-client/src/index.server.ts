@@ -22,7 +22,9 @@ import { getActiveShippingCountries } from './api/getActiveShippingCountries';
 import { getPaymentProviders, setPaymentProvider } from './api/getPaymentProvider';
 import { additionalInformation, executePayment, getOrder, placeOrder, preparePayment } from './api/getOrder';
 import { getOrders } from './api/getOrders';
+import { getReturns } from './api/getReturns';
 import { getLegalInformation } from './api/getLegal';
+import { subscribeNewsletter } from './api/getNewsletter';
 import { Settings } from './types/apiMethods';
 type Endpoints = unknown;
 type onCreateResponse = {
@@ -141,8 +143,10 @@ const { createApiClient } = apiClientFactory<Settings, Endpoints>({
     getOrder,
     placeOrder,
     getOrders,
+    getReturns,
     executePayment,
-    getLegalInformation
+    getLegalInformation,
+    subscribeNewsletter
   },
   extensions: [cookieExtension]
 });

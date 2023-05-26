@@ -12,7 +12,8 @@ import {
   GetOrdersResponse,
   Order,
   OrderDetails,
-  OrderSearchParams
+  OrderSearchParams,
+  GetReturnsResponse
 } from './order';
 import { GetPaymentResponse, PaymentProviders, PreparePaymentResult } from './payment';
 import { Product } from './product';
@@ -22,6 +23,7 @@ import { SessionResult } from './session';
 import { ShippingProvider } from './shipping';
 import { UserChangeResponse } from './user';
 import { Wishlist } from './wishlist';
+import { NewsletterParams } from './newsletter';
 
 export type ClientInstance = AxiosInstance;
 
@@ -129,10 +131,13 @@ export interface PlentymarketsApiMethods {
 
     getOrders(params: UseUserOrderSearchParams): Promise<GetOrdersResponse>
 
+    getReturns(params: UseUserOrderSearchParams): Promise<GetReturnsResponse>
+
     executePayment(orderId: number, paymentId: number): Promise<GetPaymentResponse>
 
     getLegalInformation(type: string): Promise<LegalInformationResponse>
 
+    subscribeNewsletter(params: NewsletterParams): Promise<string>
 }
 
 export type Context = IntegrationContext<ClientInstance, Settings, ApiClientMethods<PlentymarketsApiMethods>>;

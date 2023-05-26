@@ -219,6 +219,7 @@ export default {
     'My profile': 'My profile',
     'Order details': 'Order details',
     'Order history': 'Order history',
+    'Order returns': 'Order returns',
     'Shipping details': '@:App.shippingDetails',
     'User data': '@:App.userData',
   },
@@ -242,38 +243,32 @@ export default {
     'Reject All': 'Reject All',
     'Accept Selection': 'Accept Selection'
   },
-  // MyNewsletter
-  'MyNewsletter': {
-    'Commercial information': 'and agree to receive personalised commercial information from Brand by email',
-    'Cookies policy': 'Cookie policy',
-    'I have read and understand': `I've read and understand`,
-    'Kids': 'Kids',
-    'Men': 'Men',
-    'My newsletter': 'My newsletter',
-    'Privacy policy': 'Privacy policy',
-    'Save changes': 'Save changes',
-    'Sections that interest you': 'Sections that interest you',
-    'Set up newsletter': 'Set up your newsletter and we will send you information about new products and trends from the sections you selected every week.',
-    'Women': 'Women'
-  },
   // NewletterModal
   'NewsletterModal': {
+    'Subscribe to our newsletter': 'Subscribe to our newsletter',
+  },
+  // MyNewsletter
+  'MyNewsletter': {
+    'My newsletter': 'My newsletter'
+  },
+  // NewsletterSubscribeForm
+  'NewsletterSubscribeForm': {
     'Email address': 'Email address',
-    'Hide': 'Hide',
-    'Confirm subscription': 'Confirm subscription',
-    'Show more': 'Show more',
+    'First name': 'First name',
+    'Last name': 'Last name',
     'Subscribe': 'Subscribe',
-    'Subscribe to newsletter': 'Subscribe to newsletter',
-    'subscribeToNewsletterModalContent': 'After signing up for the newsletter, you will receive special offers and messages from VSF via email. We will not sell or distribute your email to any third party at any time. Please see our {0}.',
-    'Privacy policy': 'Privacy policy',
-    'You can unsubscribe at any time': 'You can unsubscribe at any time',
-    'Your email': 'Your email'
+    'FormConfirmation': 'I hereby confirm that I have read and accept the <a href="{url}" class="sf-link">privacy policy</a>. I can revoke my consent at any time.',
+    'Need to accept the privacy policy': 'You need to accept our privacy policy.',
+    'subscribeToNewsletterContent': 'After signing up for the newsletter, you will receive special offers and messages from us via email.',
+    'Subscribe successful': 'You successfully subscribed our newsletter.'
   },
   // OrderHistory
   'OrderHistory': {
     'All orders': 'All orders',
+    'All returns': 'All returns',
     'Amount': 'Amount',
     'Details and order status': 'Check the details and status of your orders in the online shop. You can also cancel your order or request a return.',
+    'Details and return status': 'Check the details and status of your returns in the online shop.',
     'My orders': 'My orders',
     'Order date': 'Order date',
     'Order ID': 'Order ID',
@@ -284,6 +279,7 @@ export default {
     'Start shopping': '@:App.startShopping',
     'Status': 'Status',
     'Total orders': 'Total orders',
+    'Total returns': 'Total returns',
     'View details': 'View details',
     'You currently have no orders': 'You currently have no orders'
   },

@@ -208,6 +208,9 @@ module.exports = {
       },
       gridTemplateColumns: {
         '2/1': '2fr 1fr'
+      },
+      gap: {
+        30: '30px'
       }
     }
   },

@@ -21,3 +21,4 @@ export * from './shipping';
 export * from './todo';
 export * from './user';
 export * from './wishlist';
+export * from './newsletter';

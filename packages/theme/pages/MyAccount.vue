@@ -33,6 +33,9 @@
         <SfContentPage :title="$t('MyAccount.Order history')">
           <OrderHistory />
         </SfContentPage>
+        <SfContentPage :title="$t('MyAccount.Order returns')">
+          <OrderReturns />
+        </SfContentPage>
       </SfContentCategory>
 
       <SfContentPage :title="$t('MyAccount.Log out')" />
@@ -45,6 +48,7 @@ import { computed, useRoute, useRouter, useContext } from '@nuxtjs/composition-a
 import { useUser } from '@vue-storefront/plentymarkets';
 import MyNewsletter from './MyAccount/MyNewsletter';
 import OrderHistory from './MyAccount/OrderHistory';
+import OrderReturns from './MyAccount/OrderReturns';
 import ShippingDetails from './MyAccount/ShippingDetails';
 import BillingDetails from './MyAccount/BillingDetails';
 import ProfileDetails from './MyAccount/ProfileDetails';
@@ -58,7 +62,8 @@ export default {
     BillingDetails,
     ProfileDetails,
     MyNewsletter,
-    OrderHistory
+    OrderHistory,
+    OrderReturns
   },
   middleware: [
     'is-authenticated'
