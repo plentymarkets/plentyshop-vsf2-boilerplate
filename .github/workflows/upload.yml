@@ -7,10 +7,13 @@ on:
 jobs:
   create-zip:
     runs-on: ubuntu-latest
-    container:
-      image: node:14.21-alpine3.17
     steps:
       - uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
 
       - name: Install dependencies
         run: yarn install
