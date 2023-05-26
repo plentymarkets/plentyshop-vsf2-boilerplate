@@ -7,8 +7,17 @@ on:
 jobs:
   create-zip:
     runs-on: ubuntu-latest
+    container:
+      image: node:14.21-alpine3.17
     steps:
       - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build
+        run: yarn build
+
       - uses: vimtor/action-zip@v1
         with:
           files: ./
@@ -29,6 +38,7 @@ jobs:
         with:
           name: pwa
           path: ./
+
       - name: Upload File
         id: upload
         uses: JantHsueh/upload-file-action@1.0
