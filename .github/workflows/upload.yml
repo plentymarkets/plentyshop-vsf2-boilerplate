@@ -35,14 +35,14 @@ jobs:
           path: ${{ github.workspace }}/filename.zip
 
       - name: Download Artifact
-        uses: actions/download-artifact@v2.2.4
+        uses: actions/download-artifact@v3
         with:
           name: zipped-artifact
           path: ./
 
       - name: Upload File
         id: upload
-        uses: JantHsueh/upload-file-action@1.0.1
+        uses: JantHsueh/upload-file-action@1.0
         with:
           url: ${{ secrets.S3_UPLOAD_URL }}
           forms: '{ "tokenName": "${{ secrets.S3_UPLOAD_TOKEN }}" }'
