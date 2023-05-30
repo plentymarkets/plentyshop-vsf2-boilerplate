@@ -278,7 +278,7 @@ export interface CreateReturnResponse {
   message: string
 }
 
-export interface MakeOrderReturnParams {
+export interface MakeReturnParams {
   orderId: number
   orderAccessKey: string
   variationIds: object

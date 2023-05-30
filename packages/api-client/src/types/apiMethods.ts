@@ -15,7 +15,7 @@ import {
   OrderSearchParams,
   CreateReturnResponse,
   GetReturnsResponse,
-  MakeOrderReturnParams
+  MakeReturnParams
 } from './order';
 import { GetPaymentResponse, PaymentProviders, PreparePaymentResult } from './payment';
 import { Product } from './product';
@@ -131,7 +131,7 @@ export interface PlentymarketsApiMethods {
 
     placeOrder(): Promise<Order>
 
-    makeOrderReturn(params: MakeOrderReturnParams): Promise<CreateReturnResponse>
+    makeOrderReturn(params: MakeReturnParams): Promise<CreateReturnResponse>
 
     getOrders(params: UseUserOrderSearchParams): Promise<GetOrdersResponse>
 
