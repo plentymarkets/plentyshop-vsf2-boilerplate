@@ -2,13 +2,13 @@
   <SfTabs
     :open-tab="1"
   >
-    <SfTab :title="$t('OrderHistory.Returns')">
+    <SfTab :title="$t('OrderReturn.Returns')">
       <div v-if="currentReturn">
         <SfButton
           class="sf-button--text all-orders"
           @click="currentReturn = null"
         >
-          {{ $t('OrderHistory.All returns') }}
+          {{ $t('OrderReturn.All returns') }}
         </SfButton>
         <div class="highlighted highlighted--total">
           <SfProperty
@@ -56,7 +56,7 @@
       </div>
       <div v-else>
         <p class="message">
-          {{ $t('OrderHistory.Details and return status') }}
+          {{ $t('OrderReturn.Details and return status') }}
         </p>
         <div
           v-if="totalReturns === 0"
@@ -113,7 +113,7 @@
             :visible="5"
           />
         </LazyHydrate>
-        <p>{{ $t('OrderHistory.Total returns') }} - {{ totalReturns }}</p>
+        <p>{{ $t('OrderReturn.Total returns') }} - {{ totalReturns }}</p>
       </div>
     </SfTab>
   </SfTabs>

@@ -6,7 +6,8 @@ import {
   OrderDetails,
   OrderSearchParams,
   Order,
-  CreateReturnResponse
+  CreateReturnResponse,
+  MakeOrderReturnParams
 } from 'src/types';
 
 export async function getOrder(context: Context, params: OrderSearchParams): Promise<OrderDetails> {
@@ -65,16 +66,11 @@ export async function executePayment(context: Context, orderId: number, paymentI
   return data;
 }
 
-export async function makeOrderReturn(context: Context, orderId: number, orderAccessKey:string, variationIds: object, returnNote: string): Promise<CreateReturnResponse> {
+export async function makeOrderReturn(context: Context, params: MakeOrderReturnParams): Promise<CreateReturnResponse> {
   const url: URL = new URL('/rest/io/order/return', context.config.api.url);
 
   try {
-    const { data } = await context.client.post(url.href, {
-      orderId: orderId,
-      orderAccessKey: orderAccessKey,
-      variationIds: variationIds,
-      returnNote: returnNote
-    });
+    const { data } = await context.client.post(url.href, params);
 
     return data;
   } catch (err) {

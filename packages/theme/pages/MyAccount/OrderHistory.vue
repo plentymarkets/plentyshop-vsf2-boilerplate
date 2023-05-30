@@ -196,11 +196,10 @@ import {
   SfPagination
 } from '@storefront-ui/vue';
 import LazyHydrate from 'vue-lazy-hydration';
-import { computed, ref, watch} from '@nuxtjs/composition-api';
-import { getCurrentInstance } from '@nuxtjs/composition-api';
+import { computed, ref, watch, getCurrentInstance, useContext} from '@nuxtjs/composition-api';
 import { useUserOrder, orderGetters, paginationGetters, useMakeReturn } from '@vue-storefront/plentymarkets';
-import { AgnosticOrderStatus } from '@vue-storefront/core';
-import { onSSR } from '@vue-storefront/core';
+import { AgnosticOrderStatus, onSSR } from '@vue-storefront/core';
+import { useUiNotification } from '~/composables';
 
 export default {
   name: 'PersonalDetails',
@@ -221,6 +220,8 @@ export default {
     const orders = computed(() => orderResult.value?.data?.entries);
     const returnOrder = false;
     const allItems = ref([]);
+    const { send } = useUiNotification();
+    const { app } = useContext();
 
     watch(currentOrder, async (selectedOrder) => {
       allItems.value = orderGetters.getItems(selectedOrder).map((item) => {
@@ -243,7 +244,7 @@ export default {
       }
     };
 
-    const { makeReturn, result, error } = useMakeReturn('make-return');
+    const { makeReturn, error } = useMakeReturn('make-return');
 
     const makeReturnAction = async () => {
 
@@ -253,7 +254,6 @@ export default {
         variationIdsArray += 'variationIds[' + item.id + ']=' + item.selectorQuantity + '&';
       });
       variationIdsArray = variationIdsArray.slice(0, -1);
-      console.log(variationIdsArray);
 
       const returnParams = ref({
         orderId: currentOrder.value.order.id,
@@ -264,13 +264,13 @@ export default {
 
       await makeReturn(returnParams.value);
       if (error.value.makeReturn) {
-        console.log('An error occurred:', error.value.makeReturn);
         if (error.value.makeReturn.validation_errors) {
-          console.log('Validation errors:', error.value.makeReturn.validation_errors);
+          send({ message: app.i18n.t('OrderReturn.Error', {error: error.value.makeReturn.validation_errors}), type: 'danger', persist: true });
         }
       } else {
-        console.log('Return successful. Result:', result.value);
+        send({ message: app.i18n.t('OrderReturn.Success'), type: 'success' });
       }
+      currentOrder.value = null;
     };
 
     onSSR(async () => {

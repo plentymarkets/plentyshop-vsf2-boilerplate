@@ -263,24 +263,32 @@ export default {
   // OrderHistory
   'OrderHistory': {
     'All orders': 'Alle Bestellungen',
-    'All returns': 'Alle Rücksendungen',
     'Amount': 'Summe',
     'Details and order status': 'Überprüfen Sie die Details und den Status Ihrer Bestellungen im Online-Shop. Sie können Ihre Bestellung auch stornieren oder eine Rücksendung anfordern.',
-    'Details and return status': 'Details und den Status Ihrer Rücksendungen.',
     'My orders': 'Meine Bestellungen',
     'Order date': 'Bestelldatum',
     'Order ID': 'Bestell-ID',
     'Price': 'Preis',
     'Product': 'Produkt',
     'Quantity': 'Menge',
-    'Returns': 'Rücksendungen',
     'Start shopping': '@:App.startShopping',
     'Status': 'Status',
     'Total orders': 'Gesamtzahl Aufträge',
-    'Total returns': 'Gesamtzahl Retouren',
     'View details': 'Details ansehen',
-    'You currently have no orders': 'Sie haben derzeit keine Bestellungen'
+    'You currently have no orders': 'Sie haben derzeit keine Bestellungen',
+    'Return items': 'Rücksendung'
   },
+
+  // OrderReturn
+  'OrderReturn': {
+    'All returns': 'Alle Rücksendungen',
+    'Details and return status': 'Details und den Status Ihrer Rücksendungen.',
+    'Error': 'Fehler beim versenden der retouren anfrage: {error}',
+    'Returns': 'Rücksendungen',
+    'Success': 'Rücksendungs anfrage erfolgreich versendet',
+    'Total returns': 'Gesamtzahl Retouren'
+  },
+
   // Documents
   'Documents' : {
     'Correction Documents': 'Korrekturbeleg',

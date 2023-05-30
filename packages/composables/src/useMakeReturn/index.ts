@@ -1,7 +1,14 @@
 import { computed } from '@nuxtjs/composition-api';
 import { useVSFContext, sharedRef } from '@vue-storefront/core';
+import { MakeReturnParams } from '@vue-storefront/plentymarkets-api';
+import { ComposableBaseResponse } from 'src/types';
+import { CreateReturnResponse } from '../../../api-client/lib/types/order';
 
-export const useMakeReturn = (id) => {
+interface UseMakeReturnResponse extends ComposableBaseResponse<CreateReturnResponse> {
+  makeReturn(params: MakeReturnParams): Promise<void>
+}
+
+export const useMakeReturn = (id: string): UseMakeReturnResponse => {
   const context = useVSFContext();
   const result = sharedRef(null, `useMakeReturn-${id}`);
   const loading = sharedRef(false, `useMakeReturn-loading-${id}`);
@@ -9,12 +16,10 @@ export const useMakeReturn = (id) => {
     makeReturn: null
   }, `useMakeReturn-error-${id}`);
 
-  const makeReturn = async (params) => {
+  const makeReturn = async (params: MakeReturnParams): Promise<void> => {
     try {
       loading.value = true;
-      result.value = await context.$plentymarkets.api.makeOrderReturn(
-        params.orderId, params.orderAccessKey, params.variationIds, params.returnNote
-      );
+      result.value = await context.$plentymarkets.api.makeOrderReturn(params);
       error.value.makeReturn = null;
     } catch (err) {
       error.value.makeReturn = typeof err === 'object' ? err : { message: err.toString() };

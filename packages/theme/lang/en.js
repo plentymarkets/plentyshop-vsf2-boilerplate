@@ -265,25 +265,32 @@ export default {
   // OrderHistory
   'OrderHistory': {
     'All orders': 'All orders',
-    'All returns': 'All returns',
     'Amount': 'Amount',
     'Details and order status': 'Check the details and status of your orders in the online shop. You can also cancel your order or request a return.',
-    'Details and return status': 'Check the details and status of your returns in the online shop.',
     'My orders': 'My orders',
     'Order date': 'Order date',
     'Order ID': 'Order ID',
     'Price': 'Price',
     'Product': 'Product',
     'Quantity': 'Quantity',
-    'Returns': 'Returns',
     'Start shopping': '@:App.startShopping',
     'Status': 'Status',
     'Total orders': 'Total orders',
-    'Total returns': 'Total returns',
     'View details': 'View details',
     'You currently have no orders': 'You currently have no orders',
     'Return items': 'Return items'
   },
+
+  // OrderReturn
+  'OrderReturn': {
+    'All returns': 'All returns',
+    'Details and return status': 'Check the details and status of your returns in the online shop.',
+    'Error': 'Error while sending the return request: {error}',
+    'Returns': 'Returns',
+    'Success': 'Return request sent successfully.',
+    'Total returns': 'Total returns'
+  },
+
   // Documents
   'Documents' : {
     'Correction Documents': 'Correction Documents',

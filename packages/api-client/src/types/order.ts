@@ -261,8 +261,8 @@ export type GetReturnsResponse = {
 }
 
 export interface AdditionalInformationParams {
-  orderContactWish: string|null,
-  orderCustomerSign: string|null,
+  orderContactWish: string | null,
+  orderCustomerSign: string | null,
   shippingPrivacyHintAccepted: boolean,
   templateType: string
 }
@@ -283,4 +283,11 @@ export interface MakeReturnParams {
 export interface CreateReturnResponse {
   status: number,
   message: string
+}
+
+export interface MakeOrderReturnParams {
+  orderId: number
+  orderAccessKey: string
+  variationIds: object
+  returnNote: string
 }
