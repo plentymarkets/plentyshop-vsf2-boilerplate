@@ -211,7 +211,11 @@ module.exports = {
       },
       gap: {
         30: '30px'
-      }
+      },
+
+      minHeight: (theme) => ({
+        ...theme('spacing')
+      })
     }
   },
   variants: {

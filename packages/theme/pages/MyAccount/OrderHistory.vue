@@ -184,19 +184,6 @@
         <p>{{ $t('OrderHistory.Total orders') }} - {{ totalOrders }}</p>
       </div>
     </SfTab>
-    <SfTab :title="$t('OrderHistory.Returns')">
-      <p class="message">
-        This feature is not implemented yet! Please take a look at
-        <br>
-        <SfLink
-          class="message__link"
-          link="#"
-        >
-          https://github.com/DivanteLtd/vue-storefront/issues
-        </SfLink>
-        for our Roadmap!
-      </p>
-    </SfTab>
   </SfTabs>
 </template>
 
@@ -206,6 +193,7 @@ import {
   SfTable,
   SfButton,
   SfProperty,
+  SfPagination,
   SfLink
 } from '@storefront-ui/vue';
 import LazyHydrate from 'vue-lazy-hydration';
@@ -220,6 +208,7 @@ export default {
   components: {
     SfTabs,
     SfTable,
+    SfTable,
     SfButton,
     SfProperty,
     SfLink,
@@ -228,7 +217,6 @@ export default {
   setup() {
     const ctx = getCurrentInstance().root.proxy;
     const { query } = ctx.$router.currentRoute;
-
     const { orders: orderResult, search, loading } = useUserOrder();
     const currentOrder = ref(null);
     const pagination = computed(() => orderGetters.getPagination(orderResult.value));
@@ -325,7 +313,13 @@ export default {
 
     return {
       tableHeaders,
+      tableHeaders,
       orders,
+      pagination,
+      loading,
+      paginationGetters,
+      totalOrders: computed(() => orderGetters.getOrdersTotal(orderResult.value)),
+      getStatusTextClass,
       pagination,
       loading,
       paginationGetters,
@@ -341,6 +335,7 @@ export default {
       increase,
       decrease
     };
+
   }
 };
 </script>
@@ -371,6 +366,16 @@ export default {
     }
   }
 }
+.orders {
+  @include for-desktop {
+    &__element {
+      &--right {
+        --table-column-flex: 1;
+        text-align: right;
+      }
+    }
+  }
+}
 
 .all-orders {
   --button-padding: var(--spacer-base) 0;
@@ -389,6 +394,35 @@ export default {
 
     &:hover {
       color: var(--c-text);
+    }
+  }
+}
+.product {
+  &__properties {
+    margin: var(--spacer-xl) 0 0 0;
+  }
+  &__property,
+  &__action {
+    font-size: var(--font-size--sm);
+  }
+  &__action {
+    color: var(--c-gray-variant);
+    font-size: var(--font-size--sm);
+    margin: 0 0 var(--spacer-sm) 0;
+    &:last-child {
+      margin: 0;
+    }
+  }
+  &__qty {
+    color: var(--c-text);
+  }
+}
+.products {
+  --table-column-flex: 1;
+  &__name {
+    margin-right: var(--spacer-sm);
+    @include for-desktop {
+      --table-column-flex: 2;
     }
   }
 }
@@ -462,4 +496,5 @@ export default {
     --property-value-font-weight: var(--font-weight--semibold);
   }
 }
+
 </style>

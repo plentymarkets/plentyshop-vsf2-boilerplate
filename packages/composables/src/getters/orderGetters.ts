@@ -82,6 +82,11 @@ function getItemQty(item: OrderItem): number {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getItemVariationId(item: OrderItem): number {
+  return item.itemVariationId || 0;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getItemPrice(item: OrderItem): number {
   return item.amounts[0].priceOriginalGross || 0;
 }
@@ -156,6 +161,7 @@ export const orderGetters: UserOrderGetters<Order, OrderItem> = {
   getItemName,
   getItemPrice,
   getItemQty,
+  getItemVariationId,
   getItems,
   getItemSku,
   getOrderItemLink,
