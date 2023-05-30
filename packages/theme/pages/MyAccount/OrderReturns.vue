@@ -1,32 +1,34 @@
 <template>
-  <SfTabs :open-tab="1">
-    <SfTab :title="$t('OrderHistory.My orders')">
-      <div v-if="currentOrder">
+  <SfTabs
+    :open-tab="1"
+  >
+    <SfTab :title="$t('OrderHistory.Returns')">
+      <div v-if="currentReturn">
         <SfButton
           class="sf-button--text all-orders"
-          @click="currentOrder = null"
+          @click="currentReturn = null"
         >
-          {{ $t('OrderHistory.All orders') }}
+          {{ $t('OrderHistory.All returns') }}
         </SfButton>
         <div class="highlighted highlighted--total">
           <SfProperty
             name="Order ID"
-            :value="orderGetters.getId(currentOrder)"
+            :value="returnGetters.getId(currentReturn)"
             class="sf-property--full-width property"
           />
           <SfProperty
             name="Date"
-            :value="orderGetters.getDate(currentOrder)"
+            :value="returnGetters.getDate(currentReturn)"
             class="sf-property--full-width property"
           />
           <SfProperty
             name="Status"
-            :value="orderGetters.getStatus(currentOrder)"
+            :value="returnGetters.getStatus(currentReturn)"
             class="sf-property--full-width property"
           />
           <SfProperty
             name="Total"
-            :value="$n(orderGetters.getPrice(currentOrder), 'currency')"
+            :value="$n(returnGetters.getPrice(currentReturn), 'currency')"
             class="sf-property--full-width property"
           />
         </div>
@@ -39,25 +41,25 @@
             <SfTableHeader>{{ $t('OrderHistory.Price') }}</SfTableHeader>
           </SfTableHeading>
           <SfTableRow
-            v-for="(item, i) in orderGetters.getItems(currentOrder)"
+            v-for="(item, i) in returnGetters.getItems(currentReturn)"
             :key="i"
           >
             <SfTableData class="products__name">
-              <nuxt-link :to="localePath(orderGetters.getOrderItemLink(currentOrder, orderGetters.getItemVariationId(item)))">
-                {{ orderGetters.getItemName(item) }}
+              <nuxt-link :to="localePath(returnGetters.getOrderItemLink(currentReturn, returnGetters.getItemVariationId(item)))">
+                {{ returnGetters.getItemName(item) }}
               </nuxt-link>
             </SfTableData>
-            <SfTableData>{{ orderGetters.getItemQty(item) }}</SfTableData>
-            <SfTableData>{{ $n(orderGetters.getItemPrice(item), 'currency') }}</SfTableData>
+            <SfTableData>{{ returnGetters.getItemQty(item) }}</SfTableData>
+            <SfTableData>{{ $n(returnGetters.getItemPrice(item), 'currency') }}</SfTableData>
           </SfTableRow>
         </SfTable>
       </div>
       <div v-else>
         <p class="message">
-          {{ $t('OrderHistory.Details and order status') }}
+          {{ $t('OrderHistory.Details and return status') }}
         </p>
         <div
-          v-if="totalOrders === 0"
+          v-if="totalReturns === 0"
           class="no-orders"
         >
           <p class="no-orders__title">
@@ -81,21 +83,21 @@
             <SfTableHeader class="orders__element--right" />
           </SfTableHeading>
           <SfTableRow
-            v-for="order in orders"
-            :key="orderGetters.getId(order)"
+            v-for="orderReturn in returns"
+            :key="returnGetters.getId(orderReturn)"
           >
             <SfTableData v-e2e="'order-number'">
-              {{ orderGetters.getId(order) }}
+              {{ returnGetters.getId(orderReturn) }}
             </SfTableData>
-            <SfTableData>{{ orderGetters.getDate(order) }}</SfTableData>
-            <SfTableData>{{ $n(orderGetters.getPrice(order), 'currency') }}</SfTableData>
+            <SfTableData>{{ returnGetters.getDate(orderReturn) }}</SfTableData>
+            <SfTableData>{{ $n(returnGetters.getPrice(orderReturn), 'currency') }}</SfTableData>
             <SfTableData>
-              <span :class="getStatusTextClass(order)">{{ orderGetters.getStatus(order) }}</span>
+              <span :class="getStatusTextClass(orderReturn)">{{ returnGetters.getStatus(orderReturn) }}</span>
             </SfTableData>
             <SfTableData class="orders__view orders__element--right">
               <SfButton
                 class="sf-button--text desktop-only"
-                @click="currentOrder = order"
+                @click="currentReturn = orderReturn"
               >
                 {{ $t('OrderHistory.View details') }}
               </SfButton>
@@ -104,20 +106,20 @@
         </SfTable>
         <LazyHydrate on-interaction>
           <SfPagination
-            v-show="paginationGetters.getTotalPages(pagination) > 1"
+            v-show="paginationGetters.getTotalPages(returnsPagination) > 1"
             class="products__pagination desktop-only"
-            :current="paginationGetters.getCurrentPage(pagination)"
-            :total="paginationGetters.getTotalPages(pagination)"
+            :current="paginationGetters.getCurrentPage(returnsPagination)"
+            :total="paginationGetters.getTotalPages(returnsPagination)"
             :visible="5"
           />
         </LazyHydrate>
-        <p>{{ $t('OrderHistory.Total orders') }} - {{ totalOrders }}</p>
+        <p>{{ $t('OrderHistory.Total returns') }} - {{ totalReturns }}</p>
       </div>
     </SfTab>
   </SfTabs>
 </template>
 
-<script lang="js">
+<script>
 import {
   SfTabs,
   SfTable,
@@ -128,7 +130,7 @@ import {
 import LazyHydrate from 'vue-lazy-hydration';
 import { computed, ref } from '@nuxtjs/composition-api';
 import { getCurrentInstance } from '@nuxtjs/composition-api';
-import { useUserOrder, orderGetters, returnGetters, paginationGetters } from '@vue-storefront/plentymarkets';
+import { useUserReturn, orderGetters, returnGetters, paginationGetters } from '@vue-storefront/plentymarkets';
 import { AgnosticOrderStatus } from '@vue-storefront/core';
 import { onSSR } from '@vue-storefront/core';
 
@@ -146,13 +148,14 @@ export default {
     const ctx = getCurrentInstance().root.proxy;
     const { query } = ctx.$router.currentRoute;
 
-    const { orders: orderResult, search, loading } = useUserOrder();
-    const currentOrder = ref(null);
-    const pagination = computed(() => orderGetters.getPagination(orderResult.value));
-    const orders = computed(() => orderResult.value?.data?.entries);
+    const userReturn = useUserReturn('user-return');
+    const currentReturn = ref(null);
+
+    const returns = computed(() => returnGetters.getOrders(userReturn.result.value));
+    const returnsPagination = computed(() => returnGetters.getPagination(userReturn.result.value));
 
     onSSR(async () => {
-      await search(query);
+      await userReturn.load(query);
     });
 
     const tableHeaders = [
@@ -177,15 +180,14 @@ export default {
 
     return {
       tableHeaders,
-      orders,
-      pagination,
-      loading,
+      returns,
+      returnsPagination,
       paginationGetters,
-      totalOrders: computed(() => orderGetters.getOrdersTotal(orderResult.value)),
+      totalReturns: computed(() => returnGetters.getOrdersTotal(userReturn.result.value)),
       getStatusTextClass,
       orderGetters,
       returnGetters,
-      currentOrder
+      currentReturn
     };
 
   }

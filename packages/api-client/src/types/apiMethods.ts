@@ -12,7 +12,8 @@ import {
   GetOrdersResponse,
   Order,
   OrderDetails,
-  OrderSearchParams
+  OrderSearchParams,
+  GetReturnsResponse
 } from './order';
 import { GetPaymentResponse, PaymentProviders, PreparePaymentResult } from './payment';
 import { Product } from './product';
@@ -130,6 +131,8 @@ export interface PlentymarketsApiMethods {
 
     getOrders(params: UseUserOrderSearchParams): Promise<GetOrdersResponse>
 
+    getReturns(params: UseUserOrderSearchParams): Promise<GetReturnsResponse>
+
     executePayment(orderId: number, paymentId: number): Promise<GetPaymentResponse>
 
     getLegalInformation(type: string): Promise<LegalInformationResponse>
@@ -137,6 +140,7 @@ export interface PlentymarketsApiMethods {
     subscribeNewsletter(params: NewsletterParams): Promise<string>
 
     unsubscribeNewsletter(params: NewsletterParams): Promise<string>
+  
 }
 
 export type Context = IntegrationContext<ClientInstance, Settings, ApiClientMethods<PlentymarketsApiMethods>>;

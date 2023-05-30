@@ -220,6 +220,7 @@ export default {
     'My profile': 'My profile',
     'Order details': 'Order details',
     'Order history': 'Order history',
+    'Order returns': 'Order returns',
     'Shipping details': '@:App.shippingDetails',
     'User data': '@:App.userData',
   },
@@ -273,8 +274,10 @@ export default {
   // OrderHistory
   'OrderHistory': {
     'All orders': 'All orders',
+    'All returns': 'All returns',
     'Amount': 'Amount',
     'Details and order status': 'Check the details and status of your orders in the online shop. You can also cancel your order or request a return.',
+    'Details and return status': 'Check the details and status of your returns in the online shop.',
     'My orders': 'My orders',
     'Order date': 'Order date',
     'Order ID': 'Order ID',
@@ -285,6 +288,7 @@ export default {
     'Start shopping': '@:App.startShopping',
     'Status': 'Status',
     'Total orders': 'Total orders',
+    'Total returns': 'Total returns',
     'View details': 'View details',
     'You currently have no orders': 'You currently have no orders'
   },
