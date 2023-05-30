@@ -13,11 +13,8 @@ import {
   Order,
   OrderDetails,
   OrderSearchParams,
-<<<<<<< HEAD
-  CreateReturnResponse
-=======
+  CreateReturnResponse,
   GetReturnsResponse
->>>>>>> 5b5d3a4b67de23533bb8afbfafb1ce9d33792f32
 } from './order';
 import { GetPaymentResponse, PaymentProviders, PreparePaymentResult } from './payment';
 import { Product } from './product';

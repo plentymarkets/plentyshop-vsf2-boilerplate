@@ -192,12 +192,10 @@ import {
   SfTabs,
   SfTable,
   SfButton,
-  SfProperty,
-  SfPagination,
-  SfLink
+  SfProperty
 } from '@storefront-ui/vue';
 import LazyHydrate from 'vue-lazy-hydration';
-import { computed, ref, watch, useRouter } from '@nuxtjs/composition-api';
+import { computed, ref, watch} from '@nuxtjs/composition-api';
 import { getCurrentInstance } from '@nuxtjs/composition-api';
 import { useUserOrder, orderGetters, paginationGetters, useMakeReturn } from '@vue-storefront/plentymarkets';
 import { AgnosticOrderStatus } from '@vue-storefront/core';
@@ -208,10 +206,8 @@ export default {
   components: {
     SfTabs,
     SfTable,
-    SfTable,
     SfButton,
     SfProperty,
-    SfLink,
     LazyHydrate
   },
   setup() {
@@ -223,7 +219,6 @@ export default {
     const orders = computed(() => orderResult.value?.data?.entries);
     const returnOrder = false;
     const allItems = ref([]);
-    const router = useRouter();
 
     watch(currentOrder, async (selectedOrder) => {
       allItems.value = orderGetters.getItems(selectedOrder).map((item) => {
@@ -273,9 +268,6 @@ export default {
         }
       } else {
         console.log('Return successful. Result:', result.value);
-        if (confirm('Return succesful!')) {
-          router.push(-1);
-        }
       }
     };
 
@@ -313,13 +305,7 @@ export default {
 
     return {
       tableHeaders,
-      tableHeaders,
       orders,
-      pagination,
-      loading,
-      paginationGetters,
-      totalOrders: computed(() => orderGetters.getOrdersTotal(orderResult.value)),
-      getStatusTextClass,
       pagination,
       loading,
       paginationGetters,
