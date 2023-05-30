@@ -192,7 +192,8 @@ import {
   SfTabs,
   SfTable,
   SfButton,
-  SfProperty
+  SfProperty,
+  SfPagination
 } from '@storefront-ui/vue';
 import LazyHydrate from 'vue-lazy-hydration';
 import { computed, ref, watch} from '@nuxtjs/composition-api';
@@ -208,7 +209,8 @@ export default {
     SfTable,
     SfButton,
     SfProperty,
-    LazyHydrate
+    LazyHydrate,
+    SfPagination
   },
   setup() {
     const ctx = getCurrentInstance().root.proxy;
