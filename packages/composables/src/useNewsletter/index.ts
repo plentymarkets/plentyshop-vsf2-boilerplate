@@ -4,6 +4,7 @@ import {NewsletterParams} from '@vue-storefront/plentymarkets-api';
 
 export interface UseNewsletterResponse {
   subscribeNewsletter: (params: NewsletterParams) => Promise<void>
+  unsubscribeNewsletter: (params: NewsletterParams) => Promise<void>
   loading: Ref<boolean>
   error: Ref<object>
 }
@@ -34,8 +35,26 @@ export const useNewsletter = () : UseNewsletterResponse => {
     }
   };
 
+  const unsubscribeNewsletter = async (params: NewsletterParams): Promise<void> => {
+    try {
+      loading.value = true;
+      await context.$plentymarkets.api.unsubscribeNewsletter({
+        email: params.email,
+        firstName: '',
+        lastName: '',
+        emailFolder: params.emailFolder
+      });
+      error.value.unsubscribe = null;
+    } catch (err) {
+      error.value.unsubscribe = err.message;
+    } finally {
+      loading.value = false;
+    }
+  };
+
   return {
     subscribeNewsletter,
+    unsubscribeNewsletter,
     loading: computed(() => loading.value),
     error: computed(() => error.value)
   };

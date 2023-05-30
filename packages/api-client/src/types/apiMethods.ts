@@ -135,6 +135,8 @@ export interface PlentymarketsApiMethods {
     getLegalInformation(type: string): Promise<LegalInformationResponse>
 
     subscribeNewsletter(params: NewsletterParams): Promise<string>
+
+    unsubscribeNewsletter(params: NewsletterParams): Promise<string>
 }
 
 export type Context = IntegrationContext<ClientInstance, Settings, ApiClientMethods<PlentymarketsApiMethods>>;

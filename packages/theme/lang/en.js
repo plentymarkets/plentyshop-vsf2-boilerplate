@@ -63,7 +63,8 @@ export default {
     'CancellationForm': 'Cancellation form',
     'LegalDisclosure' : 'Legal disclosure',
     'PrivacyPolicy' : 'Privacy policy',
-    'TermsAndConditions': 'Terms and conditions'
+    'TermsAndConditions': 'Terms and conditions',
+    'Unsubscribe': 'Unsubscribe'
 
   },
   // AppHeader
@@ -248,7 +249,8 @@ export default {
   },
   // MyNewsletter
   'MyNewsletter': {
-    'My newsletter': 'My newsletter'
+    'My newsletter': 'My newsletter',
+    'Unsubscribe': 'Unsubscribe'
   },
   // NewsletterSubscribeForm
   'NewsletterSubscribeForm': {
@@ -260,6 +262,13 @@ export default {
     'Need to accept the privacy policy': 'You need to accept our privacy policy.',
     'subscribeToNewsletterContent': 'After signing up for the newsletter, you will receive special offers and messages from us via email.',
     'Subscribe successful': 'You successfully subscribed our newsletter.'
+  },
+  // NewsletterUnubscribeForm
+  'NewsletterUnubscribeForm': {
+    'Email address': 'Email address',
+    'Unsubscribe': 'Unsubscribe',
+    'unsubscribeFromNewsletterContent': 'Please enter the email address to subscribe to our newsletter',
+    'Unsubscribe successful': 'You successfully unsubscribed from our newsletter.'
   },
   // OrderHistory
   'OrderHistory': {
