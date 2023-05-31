@@ -112,6 +112,13 @@ export default {
     'Subtotal': 'Zwischensumme',
     'Total': 'Summe'
   },
+  // OrderTotals
+  'OrderTotals': {
+    'Vat total': 'MwSt.',
+    'Shipping': 'Versand',
+    'Subtotal': 'Zwischensumme',
+    'Total': 'Summe'
+  },
   // Category
   'Category': {
     'Categories': 'Kategorien',
@@ -210,6 +217,7 @@ export default {
     'My profile': 'Mein Profil',
     'Order details': 'Auftragsdetails',
     'Order history': 'Auftragshistorie',
+    'Order returns': 'Rücksendungen',
     'Shipping details': '@:App.shippingDetails',
     'User data': '@:App.userData'
   },
@@ -233,38 +241,32 @@ export default {
     'Reject All': 'Alle ablehnen',
     'Accept Selection': 'Auswahl akzeptieren'
   },
+  // NewletterModal
+  'NewsletterModal': {
+    'Subscribe to our newsletter': 'Abonniere unseren Newsletter',
+  },
   // MyNewsletter
   'MyNewsletter': {
-    'Commercial information': 'und bin damit einverstanden, personalisierte Werbeinformationen von Marke via E-Mail zu erhalten',
-    'Cookies policy': 'Cookie-Erklärung',
-    'I have read and understand': 'Ich habe folgende Informationen gelesen und verstanden',
-    'Kids': 'Kinder',
-    'Men': 'Herren',
-    'My newsletter': 'Mein Newsletter',
-    'Privacy policy': 'Datenschutzerklärung',
-    'Save changes': 'Änderungen speichern',
-    'Sections that interest you': 'Abschnitte, die Sie interessieren',
-    'Set up newsletter': 'Richten Sie Ihren Newsletter ein und wir senden Ihnen wöchentlich Informationen zu neuen Produkten und Trends aus den von Ihnen ausgewählten Bereichen.',
-    'Women': 'Damen'
+    'My newsletter': 'Mein Newsletter'
   },
-  // NewsletterModal
-  'NewsletterModal': {
-    'Email address': 'E-Mail-Adresse',
-    'Hide': 'Verstecken',
-    'Confirm subscription': 'Abonnement bestätigen',
-    'Show more': 'Mehr zeigen',
+  // NewsletterSubscribeForm
+  'NewsletterSubscribeForm': {
+    'Email address': 'E-Mail Adresse',
+    'First name': 'Vorname',
+    'Last name': 'Nachname',
     'Subscribe': 'Abonnieren',
-    'Subscribe to newsletter': 'Newsletter abonnieren',
-    'subscribeToNewsletterModalContent': 'Wenn du den Newsletter abonnierst, erhältst du Sonderangebote und Nachrichten von VSF via E-Mail. Wir werden Ihre E-Mail-Adresse zu keiner Zeit an Dritte verkaufen oder mit Dritten teilen. Weitere Informationen finden Sie in unserer {0}.',
-    'Privacy policy': 'Datenschutzerklärung',
-    'You can unsubscribe at any time': 'Sie können das Abonnement zu jeder Zeit kündigen.',
-    'Your email': 'Ihre E-Mail-Adresse'
+    'FormConfirmation': 'Hiermit bestätige ich, dass ich die <a href="{url}" class="sf-link">Datenschutzerklärung</a> gelesen und eingewilligt habe. Meine Einwilligung kann ich jederzeit widerrufen.',
+    'Need to accept the privacy policy': 'Sie müssen unsere Datenschutzerklärung zustimmen.',
+    'subscribeToNewsletterContent': 'Nach der Anmeldung zum Newsletter erhalten Sie von uns Sonderangebote und Mitteilungen per E-Mail.',
+    'Subscribe successful': 'Sie haben unseren Newsletter erfolgreich abonniert.'
   },
   // OrderHistory
   'OrderHistory': {
-    'All orders': 'All orders',
+    'All orders': 'Alle Bestellungen',
+    'All returns': 'Alle Rücksendungen',
     'Amount': 'Summe',
     'Details and order status': 'Überprüfen Sie die Details und den Status Ihrer Bestellungen im Online-Shop. Sie können Ihre Bestellung auch stornieren oder eine Rücksendung anfordern.',
+    'Details and return status': 'Details und den Status Ihrer Rücksendungen.',
     'My orders': 'Meine Bestellungen',
     'Order date': 'Bestelldatum',
     'Order ID': 'Bestell-ID',
@@ -275,8 +277,26 @@ export default {
     'Start shopping': '@:App.startShopping',
     'Status': 'Status',
     'Total orders': 'Gesamtzahl Aufträge',
+    'Total returns': 'Gesamtzahl Retouren',
     'View details': 'Details ansehen',
     'You currently have no orders': 'Sie haben derzeit keine Bestellungen'
+  },
+  // Documents
+  'Documents' : {
+    'Correction Documents': 'Korrekturbeleg',
+    'Credit Note': 'Gutschrift',
+    'Delivery Note': 'Lieferschein',
+    'Dunning Letter': 'Mahnung',
+    'Invoice External': 'Externe Rechnung',
+    'Invoice': 'Rechnung',
+    'Offer': 'Angebot',
+    'Order Confirmation': 'AuftragsbestÃ¤tigung',
+    'Pickup Delivery': 'Abhollieferung',
+    'Pro Forma Invoice': 'Proformarechnung',
+    'Receipt': 'Kassenbeleg',
+    'Return Note': 'RÃ¼cksendeschein',
+    'Success Confirmation': 'Stornobeleg',
+    'Reversal Document': 'GelangensbestÃ¤tigung',
   },
   // Payment
   'Payment': {
@@ -361,7 +381,19 @@ export default {
     'Thank you for your order!': 'Vielen Dank für Ihre Bestellung!',
     'What can we improve': 'Was können wir verbessern',
     'Your account': 'Ihr Konto',
-    'Your purchase': 'Ihr Kauf'
+    'Your purchase': 'Ihr Kauf',
+    'Order Number': 'Auftrags-ID',
+    'Order Date': 'Auftragsdatum',
+    'Order Summary': 'Auftragsübersicht',
+    'Order Status': 'Auftragsstatus',
+    'Payment Summary': 'Zahlungsübersicht',
+    'Shipping Summary': 'Versandübersicht',
+    'Ship To': 'Versand nach',
+    'Billing address': 'Rechnungsadresse',
+    'Status': 'Status',
+    'Payment method': 'Zahlungsart',
+    'Same As Shipping Address': 'Entspricht Lieferadresse',
+    'Shipping Method': 'Versandart',
   },
   // TopBar
   'TopBar': {
@@ -375,7 +407,9 @@ export default {
   },
   // VsfShippingProvider
   'VsfShippingProvider': {
-    'Shipping method': 'Versandart'
+    'Shipping method': 'Versandart',
+    'ShowDataPrivacyAgreementHint': 'Ich bin damit einverstanden, dass meine E-Mail-Adresse bzw. meine Telefonnummer an {parcelServiceInformation} weitergegeben wird, damit der Paketdienstleister vor der Zustellung der Ware zum Zwecke der Abstimmung eines Liefertermins per E-Mail oder Telefon Kontakt mit mir aufnehmen bzw. Statusinformationen zur Sendungszustellung übermitteln kann. Meine diesbezüglich erteilte Einwilligung kann ich jederzeit widerrufen',
+    'Free': 'Kostenlos',
   },
   // WishlistSidebar
   'WishlistSidebar': {
