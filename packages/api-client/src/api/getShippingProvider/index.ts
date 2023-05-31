@@ -7,9 +7,9 @@ export async function getShippingProvider(context: Context): Promise<ShippingPro
   return { list: data, selected: 0 };
 }
 
-export async function selectShippingProvider(context: Context, shippingId: number): Promise<string> {
+export async function selectShippingProvider(context: Context, shippingId: number): Promise<ShippingProvider> {
   const url: URL = new URL('/rest/storefront/checkout/shipping', context.config.api.url);
   const { data } = await context.client.put(url.href, { shippingProfileId: shippingId });
 
-  return data.data;
+  return { list: data, selected: shippingId };
 }
