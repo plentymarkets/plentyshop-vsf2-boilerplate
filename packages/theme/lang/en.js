@@ -267,6 +267,7 @@ export default {
   // NewsletterUnubscribeForm
   'NewsletterUnubscribeForm': {
     'Email address': 'Email address',
+    'Email address not found': 'Email address not found!',
     'Unsubscribe': 'Unsubscribe',
     'unsubscribeFromNewsletterContent': 'Please enter the email address to subscribe to our newsletter',
     'Unsubscribe successful': 'You successfully unsubscribed from our newsletter.'

@@ -77,18 +77,22 @@ export default {
     const emailAddress = ref(emailPlaceholder);
 
     const submit = async () => {
-      await unsubscribeNewsletter({
+      const result = await unsubscribeNewsletter({
         email: emailAddress.value,
         firstName: '',
         lastName: '',
         emailFolder: 10 });
-      console.log(error.value);
+
+      if (result.data === true) {
+        send({ message: app.i18n.t('NewsletterUnubscribeForm.Unsubscribe successful'), type: 'success' });
+      } else {
+        send({
+          message: app.i18n.t('NewsletterUnubscribeForm.Email address not found'), type: 'danger', persist: false });
+      }
       if (error.value.unsubscribe) {
         send({ message: error.value.unsubscribe, type: 'danger', persist: false });
         return;
       }
-
-      send({ message: app.i18n.t('NewsletterUnubscribeForm.Unsubscribe successful'), type: 'success' });
       emit('onSubscribed');
     };
 
