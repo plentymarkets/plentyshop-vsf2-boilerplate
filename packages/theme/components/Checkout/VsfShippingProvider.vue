@@ -77,9 +77,9 @@ export default {
     };
 
     const providerAmount = (method) => {
-      return shippingProviderGetters.getShippingAmount(method) !== '0'
-        ? shippingProviderGetters.getShippingAmount(method)
-        : app.i18n.t('VsfShippingProvider.Free');
+      const amount = shippingProviderGetters.getShippingAmount(method);
+
+      return amount !== '0' ? amount : app.i18n.t('VsfShippingProvider.Free');
     };
 
     watch(loadingShippingProvider, async (loading) => {
