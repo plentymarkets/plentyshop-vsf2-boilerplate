@@ -108,13 +108,15 @@ export default {
       help: ['AppFooter.Customer service', 'AppFooter.Size guide', 'AppFooter.Contact us'],
       paymentsDelivery: ['AppFooter.Purchase terms', 'AppFooter.Guarantee'],
       social: ['facebook', 'pinterest', 'google', 'twitter', 'youtube'],
-      legal: ['AppFooter.CancellationRights', 'AppFooter.CancellationForm', 'AppFooter.LegalDisclosure', 'AppFooter.PrivacyPolicy', 'AppFooter.TermsAndConditions'],
+      legal: ['AppFooter.CancellationRights', 'AppFooter.CancellationForm', 'AppFooter.LegalDisclosure',
+        'AppFooter.PrivacyPolicy', 'AppFooter.TermsAndConditions', 'AppFooter.Unsubscribe'],
       legalPaths: {
         'AppFooter.CancellationRights': 'CancellationRights',
         'AppFooter.CancellationForm': 'CancellationForm',
         'AppFooter.LegalDisclosure': 'LegalDisclosure',
         'AppFooter.PrivacyPolicy': 'PrivacyPolicy',
-        'AppFooter.TermsAndConditions': 'TermsAndConditions'
+        'AppFooter.TermsAndConditions': 'TermsAndConditions',
+        'AppFooter.Unsubscribe': 'Unsubscribe'
       },
       isMobile: false,
       desktopMin: 1024
