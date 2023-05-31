@@ -409,6 +409,7 @@ export default {
   'VsfShippingProvider': {
     'Shipping method': 'Versandart',
     'ShowDataPrivacyAgreementHint': 'Ich bin damit einverstanden, dass meine E-Mail-Adresse bzw. meine Telefonnummer an {parcelServiceInformation} weitergegeben wird, damit der Paketdienstleister vor der Zustellung der Ware zum Zwecke der Abstimmung eines Liefertermins per E-Mail oder Telefon Kontakt mit mir aufnehmen bzw. Statusinformationen zur Sendungszustellung übermitteln kann. Meine diesbezüglich erteilte Einwilligung kann ich jederzeit widerrufen',
+    'Free': 'Kostenlos',
   },
   // WishlistSidebar
   'WishlistSidebar': {

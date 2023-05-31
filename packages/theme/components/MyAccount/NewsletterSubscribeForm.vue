@@ -65,7 +65,7 @@
       </div> -->
 
       <SfButton
-        class="sf-button form__button mb-3"
+        class="sf-button form__button mb-3 min-h-12"
         type="submit"
         :disabled="loading"
       >
