@@ -11,5 +11,5 @@ export async function selectShippingProvider(context: Context, shippingId: numbe
   const url: URL = new URL('/rest/storefront/checkout/shipping', context.config.api.url);
   const { data } = await context.client.put(url.href, { shippingProfileId: shippingId });
 
-  return { list: data, selected: shippingId };
+  return data;
 }
