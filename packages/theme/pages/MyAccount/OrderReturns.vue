@@ -72,7 +72,7 @@
             {{ $t('OrderReturn.You currently have no returns') }}
           </p>
           <SfButton
-            class="no-orders__button"
+            class="no-orders__button my-12"
             @click="router.push($t('MyAccount.Order history'))"
           >
             {{ $t('OrderReturn.Return your items now') }}
