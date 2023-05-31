@@ -1,5 +1,6 @@
 <template>
   <div id="product">
+    <PaymentPaypalButton/>
     <SfBreadcrumbs
       class="breadcrumbs desktop-only"
       :breadcrumbs="breadcrumbs"
@@ -210,6 +211,7 @@ import {
 import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
 import { addBasePath } from '@vue-storefront/core';
+import PaymentPaypalButton from '@vue-storefront/pp-plentymarkets/src/components/PaymentPaypalButton.vue';
 import { useUiHelpers, useUiState } from '~/composables';
 
 export default {
