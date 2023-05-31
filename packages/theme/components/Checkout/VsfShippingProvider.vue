@@ -10,7 +10,7 @@
       name="shippingMethod"
       class="form__radio shipping"
       :label="shippingProviderGetters.getShippingMethodName(method)"
-      :description="shippingProviderGetters.getShippingAmount(method)"
+      :description="providerAmount(method)"
       @change="selectMethod(method)"
     />
 
@@ -31,7 +31,7 @@
 
 <script>
 import { SfRadio, SfCheckbox } from '@storefront-ui/vue';
-import { ref, computed, watch } from '@nuxtjs/composition-api';
+import { ref, computed, watch, useContext } from '@nuxtjs/composition-api';
 import {
   useShippingProvider,
   shippingProviderGetters,
@@ -49,6 +49,8 @@ export default {
   },
 
   setup(props, { emit }) {
+    const { app } = useContext();
+
     const selectedMethodId = ref(null);
     const selectedMethod = ref(null);
     const shippingPrivacyCheck = ref(false);
@@ -74,6 +76,12 @@ export default {
       await loadPaymentProviders();
     };
 
+    const providerAmount = (method) => {
+      return shippingProviderGetters.getShippingAmount(method) !== '0'
+        ? shippingProviderGetters.getShippingAmount(method)
+        : app.i18n.t('VsfShippingProvider.Free');
+    };
+
     watch(loadingShippingProvider, async (loading) => {
       if (!loading) {
         selectedMethodId.value = shippingProviderGetters.getShippingProfileId(cart?.value);
@@ -94,6 +102,7 @@ export default {
       selectedMethod,
       selectMethod,
       shippingProviderGetters,
+      providerAmount,
       changeHint
     };
   }
