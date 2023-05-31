@@ -1,7 +1,5 @@
 <template>
-  <SfTabs
-    :open-tab="1"
-  >
+  <SfTabs :open-tab="1">
     <SfTab :title="$t('OrderReturn.Returns')">
       <div v-if="currentReturn">
         <SfButton
@@ -45,12 +43,23 @@
             :key="i"
           >
             <SfTableData class="products__name">
-              <nuxt-link :to="localePath(returnGetters.getOrderItemLink(currentReturn, returnGetters.getItemVariationId(item)))">
+              <nuxt-link
+                :to="
+                  localePath(
+                    returnGetters.getOrderItemLink(
+                      currentReturn,
+                      returnGetters.getItemVariationId(item)
+                    )
+                  )
+                "
+              >
                 {{ returnGetters.getItemName(item) }}
               </nuxt-link>
             </SfTableData>
             <SfTableData>{{ returnGetters.getItemQty(item) }}</SfTableData>
-            <SfTableData>{{ $n(returnGetters.getItemPrice(item), 'currency') }}</SfTableData>
+            <SfTableData>{{
+              $n(returnGetters.getItemPrice(item), 'currency')
+            }}</SfTableData>
           </SfTableRow>
         </SfTable>
       </div>
@@ -58,21 +67,18 @@
         <p class="message">
           {{ $t('OrderReturn.Details and return status') }}
         </p>
-        <div
-          v-if="totalReturns === 0"
-          class="no-orders"
-        >
+        <div v-if="totalReturns === 0" class="no-orders">
           <p class="no-orders__title">
-            {{ $t('OrderHistory.You currently have no orders') }}
+            {{ $t('OrderReturn.You currently have no returns') }}
           </p>
-          <SfButton class="no-orders__button">
-            {{ $t('OrderHistory.Start shopping') }}
+          <SfButton
+            class="no-orders__button"
+            @click="router.push($t('MyAccount.Order history'))"
+          >
+            {{ $t('OrderReturn.Return your items now') }}
           </SfButton>
         </div>
-        <SfTable
-          v-else
-          class="orders"
-        >
+        <SfTable v-else class="orders">
           <SfTableHeading>
             <SfTableHeader
               v-for="tableHeader in tableHeaders"
@@ -90,9 +96,13 @@
               {{ returnGetters.getId(orderReturn) }}
             </SfTableData>
             <SfTableData>{{ returnGetters.getDate(orderReturn) }}</SfTableData>
-            <SfTableData>{{ $n(returnGetters.getPrice(orderReturn), 'currency') }}</SfTableData>
+            <SfTableData>{{
+              $n(returnGetters.getPrice(orderReturn), 'currency')
+            }}</SfTableData>
             <SfTableData>
-              <span :class="getStatusTextClass(orderReturn)">{{ returnGetters.getStatus(orderReturn) }}</span>
+              <span :class="getStatusTextClass(orderReturn)">{{
+                returnGetters.getStatus(orderReturn)
+              }}</span>
             </SfTableData>
             <SfTableData class="orders__view orders__element--right">
               <SfButton
@@ -128,9 +138,18 @@ import {
   SfPagination
 } from '@storefront-ui/vue';
 import LazyHydrate from 'vue-lazy-hydration';
-import { computed, ref } from '@nuxtjs/composition-api';
-import { getCurrentInstance } from '@nuxtjs/composition-api';
-import { useUserReturn, orderGetters, returnGetters, paginationGetters } from '@vue-storefront/plentymarkets';
+import {
+  getCurrentInstance,
+  useRouter,
+  ref,
+  computed
+} from '@nuxtjs/composition-api';
+import {
+  useUserReturn,
+  orderGetters,
+  returnGetters,
+  paginationGetters
+} from '@vue-storefront/plentymarkets';
 import { AgnosticOrderStatus } from '@vue-storefront/core';
 import { onSSR } from '@vue-storefront/core';
 
@@ -147,12 +166,17 @@ export default {
   setup() {
     const ctx = getCurrentInstance().root.proxy;
     const { query } = ctx.$router.currentRoute;
+    const router = useRouter();
 
     const userReturn = useUserReturn('user-return');
     const currentReturn = ref(null);
 
-    const returns = computed(() => returnGetters.getOrders(userReturn.result.value));
-    const returnsPagination = computed(() => returnGetters.getPagination(userReturn.result.value));
+    const returns = computed(() =>
+      returnGetters.getOrders(userReturn.result.value)
+    );
+    const returnsPagination = computed(() =>
+      returnGetters.getPagination(userReturn.result.value)
+    );
 
     onSSR(async () => {
       await userReturn.load(query);
@@ -183,27 +207,30 @@ export default {
       returns,
       returnsPagination,
       paginationGetters,
-      totalReturns: computed(() => returnGetters.getOrdersTotal(userReturn.result.value)),
+      totalReturns: computed(() =>
+        returnGetters.getOrdersTotal(userReturn.result.value)
+      ),
       getStatusTextClass,
       orderGetters,
       returnGetters,
-      currentReturn
+      currentReturn,
+      router
     };
-
   }
 };
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .no-orders {
   &__title {
     margin: 0 0 var(--spacer-lg) 0;
-    font: var(--font-weight--normal) var(--font-size--base) / 1.6 var(--font-family--primary);
+    font: var(--font-weight--normal) var(--font-size--base) / 1.6
+      var(--font-family--primary);
   }
   &__button {
     --button-width: 100%;
     @include for-desktop {
-      --button-width: 17,5rem;
+      --button-width: 17, 5rem;
     }
   }
 }
@@ -222,7 +249,8 @@ export default {
 }
 .message {
   margin: 0 0 var(--spacer-xl) 0;
-  font: var(--font-weight--light) var(--font-size--base) / 1.6 var(--font-family--primary);
+  font: var(--font-weight--light) var(--font-size--base) / 1.6
+    var(--font-family--primary);
   &__link {
     color: var(--c-primary);
     font-weight: var(--font-weight--medium);
@@ -290,5 +318,4 @@ export default {
     --property-value-font-weight: var(--font-weight--semibold);
   }
 }
-
 </style>

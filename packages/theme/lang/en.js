@@ -288,7 +288,9 @@ export default {
     'Error': 'Error while sending the return request: {error}',
     'Returns': 'Returns',
     'Success': 'Return request sent successfully.',
-    'Total returns': 'Total returns'
+    'Total returns': 'Total returns',
+    'You currently have no returns': 'You currently have no returns',
+    'Return your items now': 'Return Items'
   },
 
   // Documents

@@ -276,7 +276,7 @@ export default {
     'Total orders': 'Gesamtzahl Aufträge',
     'View details': 'Details ansehen',
     'You currently have no orders': 'Sie haben derzeit keine Bestellungen',
-    'Return items': 'Rücksendung'
+    'Return items': 'Zurücksenden'
   },
 
   // OrderReturn
@@ -286,7 +286,9 @@ export default {
     'Error': 'Fehler beim versenden der retouren anfrage: {error}',
     'Returns': 'Rücksendungen',
     'Success': 'Rücksendungs anfrage erfolgreich versendet',
-    'Total returns': 'Gesamtzahl Retouren'
+    'Total returns': 'Gesamtzahl Retouren',
+    'You currently have no returns': 'Sie haben noch keine rücksendungen aufgegeben',
+    'Return your items now': 'Rücksendung erstellen'
   },
 
   // Documents
