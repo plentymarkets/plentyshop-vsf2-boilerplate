@@ -11,13 +11,14 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Install Node.js
+      - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: '14.x'
+          node-version: '14'
+          cache: 'yarn'
 
       - name: Install Dependencies
-        run: yarn install
+        run: yarn --frozen-lockfile
 
       - name: Build
         run: yarn build
