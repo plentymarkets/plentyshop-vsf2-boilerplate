@@ -160,6 +160,7 @@
                 {{ $t('OrderHistory.View details') }}
               </SfButton>
               <SfButton
+                :disabled="!orderGetters.isReturnable(order)"
                 class="sf-button--text desktop-only"
                 @click="setCurrentOrder(order), (returnOrder = true)"
               >
