@@ -63,7 +63,8 @@ export default {
     'CancellationForm': 'Widerrufsformular',
     'LegalDisclosure' : 'Impressum',
     'PrivacyPolicy' : 'Datenschutzerklärung',
-    'TermsAndConditions': 'AGB'
+    'TermsAndConditions': 'AGB',
+    'Unsubscribe': 'Abbestellen'
   },
   // AppHeader
   'AppHeader': {
@@ -247,7 +248,8 @@ export default {
   },
   // MyNewsletter
   'MyNewsletter': {
-    'My newsletter': 'Mein Newsletter'
+    'My newsletter': 'Mein Newsletter',
+    'Unsubscribe': 'Abbestellen'
   },
   // NewsletterSubscribeForm
   'NewsletterSubscribeForm': {
@@ -259,6 +261,14 @@ export default {
     'Need to accept the privacy policy': 'Sie müssen unsere Datenschutzerklärung zustimmen.',
     'subscribeToNewsletterContent': 'Nach der Anmeldung zum Newsletter erhalten Sie von uns Sonderangebote und Mitteilungen per E-Mail.',
     'Subscribe successful': 'Sie haben unseren Newsletter erfolgreich abonniert.'
+  },
+  // NewsletterUnsubscribeForm
+  'NewsletterUnsubscribeForm': {
+    'Email address': 'E-Mail Adresse',
+    'Email address not found': 'E-Mail Adresse wurde nicht gefunden!',
+    'Unsubscribe': 'Abbestellen',
+    'unsubscribeToNewsletterContent': 'Bitte geben Sie die E-Mail-Adresse ein, um sich von unserem Newsletter abzumelden',
+    'unSubscribe successful': 'Sie haben sich erfolgreich von unserem Newsletter abgemeldet.'
   },
   // OrderHistory
   'OrderHistory': {
