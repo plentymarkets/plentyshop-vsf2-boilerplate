@@ -134,20 +134,18 @@ const useUiHelpers = (): UseUiHelperResponse => {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const isFacetColor = (facet: unknown): boolean => {
-    console.warn('[VSF] please implement useUiHelpers.isFacetColor.');
-
+    // @TODO implement useUiHelpers.isFacetColor
     return false;
   };
 
   // eslint-disable-next-line
   const isFacetCheckbox = (facet): boolean => {
-    console.warn('[VSF] please implement useUiHelpers.isFacetCheckbox.');
-
+    // @TODO implement useUiHelpers.isFacetCheckbox
     return false;
   };
 
   const getSearchTermFromUrl = (): void => {
-    console.warn('[VSF] please implement useUiHelpers.getSearchTermFromUrl.');
+    // @TODO implement useUiHelpers.getSearchTermFromUrl
   };
 
   return {
