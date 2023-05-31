@@ -170,9 +170,6 @@
           </SfTableRow>
         </SfTable>
 
-        <button @click="makeReturnAction">
-          Make Return
-        </button>
         <LazyHydrate on-interaction>
           <SfPagination
             v-show="paginationGetters.getTotalPages(pagination) > 1"
