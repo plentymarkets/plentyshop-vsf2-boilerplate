@@ -9,14 +9,20 @@ import {
   ShippingAddressDetailsParams
 } from '@vue-storefront/plentymarkets-api';
 
+const saveAddress = (context: Context, params: ShippingAddressDetailsParams): Promise<Address[]> => {
+  context.$plentymarkets.api.saveAddress(AddressType.Shipping, params.address);
+
+  const data = context.$plentymarkets.api.loadAddresses(AddressType.Shipping);
+
+  return data ?? null;
+};
+
 const params: UseUserShippingFactoryParams<Address[], Address> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   addAddress: async (context: Context, params: ShippingAddressDetailsParams) => {
-    await context.$plentymarkets.api.saveAddress(AddressType.Shipping, params.address);
+    const data = await saveAddress(context, params);
 
-    const data = await context.$plentymarkets.api.loadAddresses(AddressType.Shipping);
-
-    return data ?? null;
+    return data;
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -29,8 +35,9 @@ const params: UseUserShippingFactoryParams<Address[], Address> = {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   updateAddress: async (context: Context, params: ShippingAddressDetailsParams) => {
-    console.error('use useUserShipping.addAddress to update addresses');
-    return [];
+    const data = await saveAddress(context, params);
+
+    return data;
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

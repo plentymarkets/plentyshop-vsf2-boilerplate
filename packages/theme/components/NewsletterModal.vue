@@ -6,9 +6,9 @@
   >
     <template #modal-bar>
       <SfBar
-        class="modal__title smartphone-only"
+        class="modal__title smartphone-only text-left"
         :close="true"
-        :title="$t('NewsletterModal.Subscribe to newsletter')"
+        :title="$t('NewsletterModal.Subscribe to our newsletter')"
         @click:close="closeModal"
       />
     </template>
@@ -19,55 +19,17 @@
       <div>
         <SfHeading
           :level="3"
-          :title="$t('NewsletterModal.Subscribe to newsletter')"
-          class="modal__title desktop-only"
+          :title="$t('NewsletterModal.Subscribe to our newsletter')"
+          class="modal__title desktop-only text-left"
         />
-        <form @submit.prevent="$emit('email-submitted', emailAddress)">
-          <SfInput
-            v-model="emailAddress"
-            type="email"
-            :label="$t('NewsletterModal.Email address')"
-            class="modal__input"
-          />
-          <SfButton
-            class="modal__button"
-            type="submit"
-          >
-            {{ $t('NewsletterModal.Confirm subscription') }}
-          </SfButton>
-        </form>
-        <SfHeading
-          :description="$t('NewsletterModal.You can unsubscribe at any time')"
-          :level="3"
-        />
-        <SfScrollable
-          max-content-height="3.75rem"
-          :class="{ 'is-open': !isHidden }"
-        >
-          <i18n
-            tag="p"
-            class="modal__content"
-            path="NewsletterModal.subscribeToNewsletterModalContent"
-          >
-            <SfLink link="https://www.vuestorefront.io/privacy-policy">
-              {{ $t('NewsletterModal.Privacy policy') }}
-            </SfLink>
-          </i18n>
-          <template #view-all>
-            <SfButton
-              class="sf-button--text sf-scrollable__view-all desktop-only"
-              @click="isHidden = !isHidden"
-            >
-              <span>{{ isHidden ? $t('NewsletterModal.Show more') : $t('NewsletterModal.Hide') }}</span>
-            </SfButton>
-          </template>
-        </SfScrollable>
+        <NewsletterSubscribeForm @onSubscribed="closeModal" />
       </div>
     </transition>
   </SfModal>
 </template>
 <script>
-import { SfModal, SfHeading, SfInput, SfButton, SfScrollable, SfBar, SfLink } from '@storefront-ui/vue';
+import { SfModal, SfHeading, SfBar } from '@storefront-ui/vue';
+import NewsletterSubscribeForm from '~/components/MyAccount/NewsletterSubscribeForm.vue';
 import { ref } from '@nuxtjs/composition-api';
 import { useUiState } from '~/composables';
 
@@ -76,11 +38,8 @@ export default {
   components: {
     SfModal,
     SfHeading,
-    SfInput,
-    SfButton,
-    SfScrollable,
     SfBar,
-    SfLink
+    NewsletterSubscribeForm
   },
   setup() {
     const { isNewsletterModalOpen, toggleNewsletterModal } = useUiState();

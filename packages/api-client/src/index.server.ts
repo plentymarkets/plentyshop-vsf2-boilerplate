@@ -20,9 +20,11 @@ import { getShippingProvider, selectShippingProvider } from './api/getShippingPr
 import { changePassword, loginAsGuest, loginUser, logoutUser, registerUser } from './api/getUser';
 import { getActiveShippingCountries } from './api/getActiveShippingCountries';
 import { getPaymentProviders, setPaymentProvider } from './api/getPaymentProvider';
-import { additionalInformation, executePayment, placeOrder, preparePayment } from './api/getOrder';
+import { additionalInformation, executePayment, getOrder, placeOrder, preparePayment } from './api/getOrder';
 import { getOrders } from './api/getOrders';
+import { getReturns } from './api/getReturns';
 import { getLegalInformation } from './api/getLegal';
+import {subscribeNewsletter, unsubscribeNewsletter} from './api/getNewsletter';
 import { Settings } from './types/apiMethods';
 type Endpoints = unknown;
 type onCreateResponse = {
@@ -138,10 +140,14 @@ const { createApiClient } = apiClientFactory<Settings, Endpoints>({
     setPaymentProvider,
     additionalInformation,
     preparePayment,
+    getOrder,
     placeOrder,
     getOrders,
+    getReturns,
     executePayment,
-    getLegalInformation
+    getLegalInformation,
+    subscribeNewsletter,
+    unsubscribeNewsletter
   },
   extensions: [cookieExtension]
 });

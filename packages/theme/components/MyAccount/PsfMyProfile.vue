@@ -159,9 +159,8 @@ export default {
     },
     updatePassword() {
 
-      // TODO: add notification for error and success
       if (this.newPassword !== this.repeatPassword) {
-        console.error('Passwords dont match');
+        // @TODO: add notification for error and success
         return;
       }
 

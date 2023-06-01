@@ -35,14 +35,13 @@ const params: UseUserFactoryParams<User, UpdateParams, RegisterParams> = {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   updateUser: async (context: Context, { currentUser, updatedUserData }) => {
-    console.log('Mocked: useUser.updateUser');
+    // @TODO implement useUser.updateUser
     return {};
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   logIn: async (context: Context, { username, password }) => {
-
-    const data = await context.$plentymarkets.api.loginUser(username, password);
+    await context.$plentymarkets.api.loginUser(username, password);
 
     const wishlist = await context.$plentymarkets.api.getWishlist();
 
@@ -52,7 +51,12 @@ const params: UseUserFactoryParams<User, UpdateParams, RegisterParams> = {
 
     context.useCart.setCart(cart);
 
-    return data.events.AfterAccountAuthentication.accountContact || null;
+    // TODO: remove this when events are implemented
+    const data = await context.$plentymarkets.api.getSession(true);
+
+    return data.user;
+
+    // return data.events.AfterAccountAuthentication.accountContact || null;
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

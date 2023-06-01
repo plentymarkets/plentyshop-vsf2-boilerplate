@@ -3,68 +3,36 @@
     :open-tab="1"
     class="tab-orphan"
   >
+    <SfTab :title="$t('MyNewsletter.Unsubscribe')">
+      <NewsletterUnsubscribeForm />
+    </SfTab>
     <SfTab :title="$t('MyNewsletter.My newsletter')">
-      <p class="message">
-        {{ $t('MyNewsletter.Set up newsletter') }}
-      </p>
-      <div class="form">
-        <p class="form__title">
-          {{ $t('MyNewsletter.Sections that interest you') }}
-        </p>
-        <div class="form__checkbox-group">
-          <SfCheckbox
-            v-model="newsletter"
-            :label="$t('MyNewsletter.Women')"
-            value="woman"
-            class="form__element"
-          />
-          <SfCheckbox
-            v-model="newsletter"
-            :label="$t('MyNewsletter.Men')"
-            value="man"
-            class="form__element"
-          />
-          <SfCheckbox
-            v-model="newsletter"
-            :label="$t('MyNewsletter.Kids')"
-            value="kids"
-            class="form__element"
-          />
-        </div>
-        <SfButton class="form__button">
-          {{ $t('MyNewsletter.Save changes') }}
-        </SfButton>
-      </div>
-      <p class="notice">
-        {{ $t('MyNewsletter.I have read and understand') }} <SfLink
-          class="notice__link"
-          link="#"
-        >
-          {{ $t('MyNewsletter.Privacy policy') }}
-        </SfLink> and
-        <SfLink
-          class="notice__link"
-          link="#"
-        >
-          {{ $t('MyNewsletter.Cookies policy') }}
-        </SfLink> {{ $t('MyNewsletter.Commercial information') }}
-      </p>
+      <NewsletterSubscribeForm />
     </SfTab>
   </SfTabs>
 </template>
 
 <script>
-import { SfTabs, SfCheckbox, SfButton, SfLink } from '@storefront-ui/vue';
+import { SfTabs } from '@storefront-ui/vue';
+import NewsletterSubscribeForm from '~/components/MyAccount/NewsletterSubscribeForm.vue';
+import NewsletterUnsubscribeForm from '~/components/MyAccount/NewsletterUnsubscribeForm.vue';
+
 export default {
   name: 'MyNewsletter',
   components: {
     SfTabs,
-    SfCheckbox,
-    SfButton,
-    SfLink
+    NewsletterSubscribeForm,
+    NewsletterUnsubscribeForm
   },
   data() {
-    return { newsletter: [] };
+    return {
+      firstName: '',
+      lastName: '',
+      email: '',
+      newsletter: []
+    };
+  },
+  created() {
   }
 };
 </script>

@@ -70,7 +70,7 @@
             <SfButton
               :v-e2e="'login-modal-submit'"
               type="submit"
-              class="sf-button--full-width form__button"
+              class="sf-button--full-width form__button min-h-12"
               :disabled="loading"
             >
               <SfLoader
@@ -134,7 +134,7 @@
             <SfButton
               :v-e2e="'forgot-modal-submit'"
               type="submit"
-              class="sf-button--full-width form__button"
+              class="sf-button--full-width form__button min-h-12"
               :disabled="forgotPasswordLoading"
             >
               <SfLoader
@@ -211,7 +211,7 @@
             </div>
             <SfButton
               type="submit"
-              class="sf-button--full-width form__button"
+              class="sf-button--full-width form__button min-h-12"
               :disabled="loading"
             >
               <SfLoader

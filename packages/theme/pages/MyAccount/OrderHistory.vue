@@ -43,7 +43,7 @@
             :key="i"
           >
             <SfTableData class="products__name">
-              <nuxt-link :to="localePath(orderGetters.getOrderItemLink(currentOrder, item.itemVariationId))">
+              <nuxt-link :to="localePath(orderGetters.getOrderItemLink(currentOrder, orderGetters.getItemVariationId(item)))">
                 {{ orderGetters.getItemName(item) }}
               </nuxt-link>
             </SfTableData>
@@ -114,19 +114,6 @@
         <p>{{ $t('OrderHistory.Total orders') }} - {{ totalOrders }}</p>
       </div>
     </SfTab>
-    <SfTab :title="$t('OrderHistory.Returns')">
-      <p class="message">
-        This feature is not implemented yet! Please take a look at
-        <br>
-        <SfLink
-          class="message__link"
-          link="#"
-        >
-          https://github.com/DivanteLtd/vue-storefront/issues
-        </SfLink>
-        for our Roadmap!
-      </p>
-    </SfTab>
   </SfTabs>
 </template>
 
@@ -136,13 +123,12 @@ import {
   SfTable,
   SfButton,
   SfProperty,
-  SfLink,
   SfPagination
 } from '@storefront-ui/vue';
 import LazyHydrate from 'vue-lazy-hydration';
 import { computed, ref } from '@nuxtjs/composition-api';
 import { getCurrentInstance } from '@nuxtjs/composition-api';
-import { useUserOrder, orderGetters, paginationGetters } from '@vue-storefront/plentymarkets';
+import { useUserOrder, orderGetters, returnGetters, paginationGetters } from '@vue-storefront/plentymarkets';
 import { AgnosticOrderStatus } from '@vue-storefront/core';
 import { onSSR } from '@vue-storefront/core';
 
@@ -153,7 +139,6 @@ export default {
     SfTable,
     SfButton,
     SfProperty,
-    SfLink,
     SfPagination,
     LazyHydrate
   },
@@ -199,8 +184,10 @@ export default {
       totalOrders: computed(() => orderGetters.getOrdersTotal(orderResult.value)),
       getStatusTextClass,
       orderGetters,
+      returnGetters,
       currentOrder
     };
+
   }
 };
 </script>

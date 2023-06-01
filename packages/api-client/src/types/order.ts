@@ -12,6 +12,13 @@ interface VariationStringMap {
   [variationId: string]: string
 }
 
+export interface OrderSearchParams {
+  orderId: string;
+  accessKey: string;
+  name: string;
+  postcode: string;
+}
+
 export interface AddressRelation {
   id: number;
   orderId: number;
@@ -213,6 +220,11 @@ export interface OrderDetails {
   deliveryAddress: AddressData;
   documents: unknown[];
   accessKey: string;
+  error: {
+    message: string,
+    code: string,
+    data: unknown
+  }
 }
 
 export interface Order {
@@ -235,8 +247,7 @@ export interface Order {
 }
 
 export type CreateOrderResponse = {
-  events: TODO[],
-  data: Order
+  order: Order
 }
 
 export type GetOrdersResponse = {
@@ -244,14 +255,20 @@ export type GetOrdersResponse = {
   data: PaginatedResult<Order>
 }
 
+export type GetReturnsResponse = {
+  events: TODO[],
+  data: PaginatedResult<Order>
+}
+
 export interface AdditionalInformationParams {
-  orderContactWish: null,
-  orderCustomerSign: null,
+  orderContactWish: string|null,
+  orderCustomerSign: string|null,
   shippingPrivacyHintAccepted: boolean,
   templateType: string
 }
 
 export interface MakeOrderParams {
   paymentId: number,
+  shippingPrivacyHintAccepted: boolean,
   customQuery?: CustomQuery;
 }

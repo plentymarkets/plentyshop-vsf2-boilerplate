@@ -32,8 +32,7 @@ const params: UseWishlistFactoryParams<Wishlist, WishlistItem, Product> = {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   clear: async (context: Context, { currentWishlist }) => {
-    console.log('Mocked: useWishlist.clear');
-    // TODO: implement clear method
+    // @TODO: implement useWishlist.clear
     return { items: []};
   },
 
