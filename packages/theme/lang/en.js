@@ -1,6 +1,6 @@
 /* eslint-disable  */
 
-export default {
+const en = {
   // Global
   'App': {
     'addNewAddress': 'Add new address',
@@ -264,8 +264,8 @@ export default {
     'subscribeToNewsletterContent': 'After signing up for the newsletter, you will receive special offers and messages from us via email.',
     'Subscribe successful': 'You successfully subscribed our newsletter.'
   },
-  // NewsletterUnubscribeForm
-  'NewsletterUnubscribeForm': {
+  // NewsletterUnsubscribeForm
+  'NewsletterUnsubscribeForm': {
     'Email address': 'Email address',
     'Email address not found': 'Email address not found!',
     'Unsubscribe': 'Unsubscribe',
@@ -433,3 +433,5 @@ export default {
     'Your bag is empty': 'Your bag is empty'
   },
 };
+
+module.exports = en;

@@ -1,6 +1,6 @@
 /* eslint-disable  */
 
-export default {
+const de = {
   // Global
   'App': {
     'addNewAddress': 'Neue Adresse hinzufügen',
@@ -182,12 +182,12 @@ export default {
     'Enjoy your free account': 'Viel Spaß mit deinem kostenlosen Konto',
     'First name': '@:App.firstName',
     'I want to create an account': 'Ich will ein Konto erstellen',
-    'Log into your account': '@:App.logIntoYourAccount',
+    'Log in now': '@:App.Log in now',
     'or fill in the details below': 'oder füllen Sie die Details unten aus',
     'Last name': '@:App.lastName',
     'Order as guest': 'Als Gast bestellen',
     'User data': '@:App.userData',
-    'Register': '@:App.register',
+    'Register and continue': '@:App.register',
     'Email': '@:App.email'
   },
   // LoginModal
@@ -267,8 +267,8 @@ export default {
     'Email address': 'E-Mail Adresse',
     'Email address not found': 'E-Mail Adresse wurde nicht gefunden!',
     'Unsubscribe': 'Abbestellen',
-    'unsubscribeToNewsletterContent': 'Bitte geben Sie die E-Mail-Adresse ein, um sich von unserem Newsletter abzumelden',
-    'unSubscribe successful': 'Sie haben sich erfolgreich von unserem Newsletter abgemeldet.'
+    'unsubscribeFromNewsletterContent': 'Bitte geben Sie die E-Mail-Adresse ein, um sich von unserem Newsletter abzumelden',
+    'Unsubscribe successful': 'Sie haben sich erfolgreich von unserem Newsletter abgemeldet.'
   },
   // OrderHistory
   'OrderHistory': {
@@ -341,7 +341,7 @@ export default {
     'I want to create an account': 'Ich will ein Konto erstellen',
     'Input too short': 'Das Feld muss mindestens {length} Zeichen lang sein',
     'Last name': '@:App.lastName',
-    'Log into your account': 'In Konto einloggen',
+    'Log in now': '@:App.logInNow',
     'Manage your wishlist': 'Wunschliste verwalten',
     'or fill in the details below:': 'oder füllen Sie die Details unten aus:',
     'Password': 'Passwort',
@@ -404,6 +404,7 @@ export default {
     'Payment method': 'Zahlungsart',
     'Same As Shipping Address': 'Entspricht Lieferadresse',
     'Shipping Method': 'Versandart',
+    'A confirmation has been sent to': 'Eine Bestätigung wurde geschickt an'
   },
   // TopBar
   'TopBar': {
@@ -427,6 +428,8 @@ export default {
     'My wishlist': 'Meine Wunschliste',
     'Start shopping': '@:App.startShopping',
     'Wishlist sidebar close button': 'Schaltfläche zum Schließen der Wunschliste',
-    'Your bag is empty': 'Ihre Tasche ist leer'
+    'Your bag is empty': 'Ihre Tasche ist leer',
   }
 }
+
+module.exports = de;
