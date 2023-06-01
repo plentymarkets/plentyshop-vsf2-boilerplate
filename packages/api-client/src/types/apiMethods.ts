@@ -103,7 +103,7 @@ export interface PlentymarketsApiMethods {
 
     getShippingProvider(): Promise<ShippingProvider>
 
-    selectShippingProvider(shippingId: number): Promise<string>
+    selectShippingProvider(shippingId: number): Promise<ShippingProvider>
 
     loginAsGuest(email: string): Promise<SessionResult>
 
@@ -119,7 +119,7 @@ export interface PlentymarketsApiMethods {
 
     getPaymentProviders(): Promise<PaymentProviders>
 
-    setPaymentProvider(paymentId: number): Promise<string>
+    setPaymentProvider(paymentId: number): Promise<void>
 
     getOrder(params: OrderSearchParams): Promise<OrderDetails>
 
