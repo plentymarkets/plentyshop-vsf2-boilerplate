@@ -9,5 +9,6 @@ export async function getPaymentProviders(context: Context): Promise<PaymentProv
 
 export async function setPaymentProvider(context: Context, paymentId: number): Promise<void> {
   const url: URL = new URL('/rest/storefront/checkout/payment/', context.config.api.url);
+
   await context.client.put(url.href, { paymentMethodId: paymentId });
 }
