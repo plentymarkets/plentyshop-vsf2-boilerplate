@@ -35,7 +35,7 @@ const params: UseUserFactoryParams<User, UpdateParams, RegisterParams> = {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   updateUser: async (context: Context, { currentUser, updatedUserData }) => {
-    console.log('Mocked: useUser.updateUser');
+    // @TODO implement useUser.updateUser
     return {};
   },
 
