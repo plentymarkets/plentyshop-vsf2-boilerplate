@@ -26,7 +26,11 @@ import addContext from 'mochawesome/addContext';
 import failOnConsoleError from 'cypress-fail-on-console-error';
 
 const config= {
-  consoleMessages: [],
+  /**
+   * consoleMessages ignores messages that match a string or pattern
+   * Use only when dealing with messages we have no control over
+   */
+  consoleMessages: [/.*useUser\/login.*/],
   consoleTypes: ['error'],
   debug: false,
 };
