@@ -14,7 +14,13 @@
       class="sf-property--full-width"
     >
       <template #value>
-        <SfPrice :regular="$n(cartGetters.getShippingAmount(totals), 'currency')" />
+        <SfPrice
+          v-if="cartGetters.getShippingAmount(totals) !== 0"
+          :regular="$n(cartGetters.getShippingAmount(totals), 'currency')"
+        />
+        <div v-else>
+          {{ $t('VsfShippingProvider.Free') }}
+        </div>
       </template>
     </SfProperty>
 
