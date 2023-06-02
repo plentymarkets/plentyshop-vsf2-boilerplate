@@ -47,6 +47,7 @@
     "autoprefixer": "^10.3.3",
     "babel-jest": "^27.3.1",
     "cypress": "^10.9.0",
+    "cypress-fail-on-console-error": "^4.0.3",
     "cypress-pipe": "^2.0.0",
     "cypress-tags": "^0.3.0",
     "jest": "^27.5.1",

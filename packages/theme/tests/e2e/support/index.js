@@ -23,6 +23,15 @@ import '@cypress/code-coverage/support';
 // require('./commands')
 
 import addContext from 'mochawesome/addContext';
+import failOnConsoleError from 'cypress-fail-on-console-error';
+
+const config= {
+  consoleMessages: [],
+  consoleTypes: ['error'],
+  debug: false,
+};
+
+failOnConsoleError(config);
 
 Cypress.on('test:after:run', (test, runnable) => {
   if (test.state === 'failed') {
@@ -33,4 +42,3 @@ Cypress.on('test:after:run', (test, runnable) => {
     });
   }
 });
-
