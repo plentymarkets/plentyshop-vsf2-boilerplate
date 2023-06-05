@@ -282,12 +282,12 @@ export default {
   // OrderReturn
   'OrderReturn': {
     'All returns': 'Alle Rücksendungen',
-    'Details and return status': 'Details und den Status Ihrer Rücksendungen.',
-    'Error': 'Fehler beim versenden der retouren anfrage: {error}',
+    'Details and return status': 'Sehen Sie hier die Details und den Status Ihrer Rücksendungen ein.',
+    'Error': 'Fehler beim Versenden der Retourenanfrage: {error}',
     'Returns': 'Rücksendungen',
-    'Success': 'Rücksendungs anfrage erfolgreich versendet',
-    'Total returns': 'Gesamtzahl Retouren',
-    'You currently have no returns': 'Sie haben noch keine rücksendungen aufgegeben',
+    'Success': 'Rücksendungsanfrage erfolgreich versendet',
+    'Total returns': 'Gesamtzahl Rücksendungen',
+    'You currently have no returns': 'Sie haben noch keine Rücksendungen aufgegeben',
     'Return your items now': 'Rücksendung erstellen'
   },
 
