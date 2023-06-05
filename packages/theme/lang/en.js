@@ -285,7 +285,7 @@ export default {
   'OrderReturn': {
     'All returns': 'All returns',
     'Details and return status': 'Check the details and status of your returns in the online shop.',
-    'Error': 'Error while sending the return request: {error}',
+    'Error': 'Error while sending the return request.',
     'Returns': 'Returns',
     'Success': 'Return request sent successfully.',
     'Total returns': 'Total returns',

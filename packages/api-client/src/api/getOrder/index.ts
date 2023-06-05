@@ -68,11 +68,7 @@ export async function executePayment(context: Context, orderId: number, paymentI
 export async function makeOrderReturn(context: Context, params: string): Promise<CreateReturnResponse> {
   const url: URL = new URL('/rest/io/order/return', context.config.api.url);
 
-  try {
-    const { data } = await context.client.post(url.href, params);
+  const { data } = await context.client.post(url.href, params);
 
-    return data;
-  } catch (err) {
-    throw err.response && err.response.data ? err.response.data : err;
-  }
+  return data;
 }

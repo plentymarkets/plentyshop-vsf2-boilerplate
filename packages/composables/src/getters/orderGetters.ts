@@ -130,7 +130,7 @@ function getTotal(totals: OrderTotals): number {
 }
 
 function isReturnable(order: Order): boolean {
-  return order.isReturnable;
+  return order?.isReturnable;
 }
 
 function getPagination(orders: GetOrdersResponse): AgnosticPagination {

@@ -283,7 +283,7 @@ export default {
   'OrderReturn': {
     'All returns': 'Alle Rücksendungen',
     'Details and return status': 'Sehen Sie hier die Details und den Status Ihrer Rücksendungen ein.',
-    'Error': 'Fehler beim Versenden der Retourenanfrage: {error}',
+    'Error': 'Fehler beim Versenden der Retourenanfrage.',
     'Returns': 'Rücksendungen',
     'Success': 'Rücksendungsanfrage erfolgreich versendet',
     'Total returns': 'Gesamtzahl Rücksendungen',

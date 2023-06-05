@@ -263,10 +263,8 @@ export default {
       });
 
       await makeReturn(returnParams);
-      if (error.value.makeReturn) {
-        if (error.value.makeReturn.validation_errors) {
-          send({ message: app.i18n.t('OrderReturn.Error', {error: error.value.makeReturn.validation_errors}), type: 'danger', persist: true });
-        }
+      if (error.value) {
+        send({ message: app.i18n.t('OrderReturn.Error'), type: 'danger', persist: true });
       } else {
         send({ message: app.i18n.t('OrderReturn.Success'), type: 'success' });
         router.push(app.i18n.t('MyAccount.Order returns'));

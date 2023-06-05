@@ -44,7 +44,7 @@ export const useMakeReturn = (id: string): UseMakeReturnResponse => {
       result.value = await context.$plentymarkets.api.makeOrderReturn(makeReturnPayload);
       error.value.makeReturn = null;
     } catch (err) {
-      error.value.makeReturn = typeof err === 'object' ? err : { message: err.toString() };
+      error.value.makeReturn = err;
     } finally {
       loading.value = false;
     }
