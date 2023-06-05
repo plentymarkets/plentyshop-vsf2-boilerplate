@@ -24,7 +24,7 @@ import { additionalInformation, executePayment, makeOrderReturn, placeOrder, pre
 import { getOrders } from './api/getOrders';
 import { getReturns } from './api/getReturns';
 import { getLegalInformation } from './api/getLegal';
-import { subscribeNewsletter } from './api/getNewsletter';
+import {subscribeNewsletter, unsubscribeNewsletter} from './api/getNewsletter';
 import { Settings } from './types/apiMethods';
 type Endpoints = unknown;
 type onCreateResponse = {
@@ -147,7 +147,8 @@ const { createApiClient } = apiClientFactory<Settings, Endpoints>({
     executePayment,
     makeOrderReturn,
     getLegalInformation,
-    subscribeNewsletter
+    subscribeNewsletter,
+    unsubscribeNewsletter
   },
   extensions: [cookieExtension]
 });

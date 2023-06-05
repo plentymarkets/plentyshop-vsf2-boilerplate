@@ -1,6 +1,6 @@
 /* eslint-disable  */
 
-export default {
+const en = {
   // Global
   'App': {
     'addNewAddress': 'Add new address',
@@ -63,7 +63,8 @@ export default {
     'CancellationForm': 'Cancellation form',
     'LegalDisclosure' : 'Legal disclosure',
     'PrivacyPolicy' : 'Privacy policy',
-    'TermsAndConditions': 'Terms and conditions'
+    'TermsAndConditions': 'Terms and conditions',
+    'Unsubscribe': 'Unsubscribe'
 
   },
   // AppHeader
@@ -249,7 +250,8 @@ export default {
   },
   // MyNewsletter
   'MyNewsletter': {
-    'My newsletter': 'My newsletter'
+    'My newsletter': 'My newsletter',
+    'Unsubscribe': 'Unsubscribe'
   },
   // NewsletterSubscribeForm
   'NewsletterSubscribeForm': {
@@ -261,6 +263,14 @@ export default {
     'Need to accept the privacy policy': 'You need to accept our privacy policy.',
     'subscribeToNewsletterContent': 'After signing up for the newsletter, you will receive special offers and messages from us via email.',
     'Subscribe successful': 'You successfully subscribed our newsletter.'
+  },
+  // NewsletterUnsubscribeForm
+  'NewsletterUnsubscribeForm': {
+    'Email address': 'Email address',
+    'Email address not found': 'Email address not found!',
+    'Unsubscribe': 'Unsubscribe',
+    'unsubscribeFromNewsletterContent': 'Please enter the email address to subscribe to our newsletter',
+    'Unsubscribe successful': 'You successfully unsubscribed from our newsletter.'
   },
   // OrderHistory
   'OrderHistory': {
@@ -433,3 +443,5 @@ export default {
     'Your bag is empty': 'Your bag is empty'
   },
 };
+
+module.exports = en;

@@ -3,6 +3,9 @@
     :open-tab="1"
     class="tab-orphan"
   >
+    <SfTab :title="$t('MyNewsletter.Unsubscribe')">
+      <NewsletterUnsubscribeForm />
+    </SfTab>
     <SfTab :title="$t('MyNewsletter.My newsletter')">
       <NewsletterSubscribeForm />
     </SfTab>
@@ -12,12 +15,14 @@
 <script>
 import { SfTabs } from '@storefront-ui/vue';
 import NewsletterSubscribeForm from '~/components/MyAccount/NewsletterSubscribeForm.vue';
+import NewsletterUnsubscribeForm from '~/components/MyAccount/NewsletterUnsubscribeForm.vue';
 
 export default {
   name: 'MyNewsletter',
   components: {
     SfTabs,
-    NewsletterSubscribeForm
+    NewsletterSubscribeForm,
+    NewsletterUnsubscribeForm
   },
   data() {
     return {
