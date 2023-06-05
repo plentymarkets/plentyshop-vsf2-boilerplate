@@ -194,7 +194,7 @@ import {
   SfPagination
 } from '@storefront-ui/vue';
 import LazyHydrate from 'vue-lazy-hydration';
-import { computed, ref, watch, getCurrentInstance, useContext} from '@nuxtjs/composition-api';
+import { computed, ref, watch, getCurrentInstance, useContext, useRouter} from '@nuxtjs/composition-api';
 import { useUserOrder, orderGetters, paginationGetters, useMakeReturn } from '@vue-storefront/plentymarkets';
 import { AgnosticOrderStatus, onSSR } from '@vue-storefront/core';
 import { useUiNotification } from '~/composables';
@@ -213,6 +213,7 @@ export default {
     const ctx = getCurrentInstance().root.proxy;
     const { query } = ctx.$router.currentRoute;
     const { orders: orderResult, search, loading } = useUserOrder();
+    const { makeReturn, error } = useMakeReturn('make-return');
     const currentOrder = ref(null);
     const pagination = computed(() => orderGetters.getPagination(orderResult.value));
     const orders = computed(() => orderResult.value?.data?.entries);
@@ -220,6 +221,7 @@ export default {
     const allItems = ref([]);
     const { send } = useUiNotification();
     const { app } = useContext();
+    const router = useRouter();
 
     watch(currentOrder, async (selectedOrder) => {
       allItems.value = orderGetters.getItems(selectedOrder).map((item) => {
@@ -242,31 +244,32 @@ export default {
       }
     };
 
-    const { makeReturn, error } = useMakeReturn('make-return');
-
     const makeReturnAction = async () => {
 
-      let variationIdsArray = '';
-
-      allItems.value.forEach(item => {
-        variationIdsArray += 'variationIds[' + item.id + ']=' + item.selectorQuantity + '&';
-      });
-      variationIdsArray = variationIdsArray.slice(0, -1);
-
-      const returnParams = ref({
+      const returnParams = {
         orderId: currentOrder.value.order.id,
         orderAccessKey: currentOrder.value.order.accessKey,
-        variationIds: variationIdsArray,
-        returnNote: ''
+        returnNote: '',
+        variationIds: []
+      };
+
+      allItems.value.forEach(item => {
+        if (item.selectorQuantity > 0) {
+          returnParams.variationIds.push({
+            quantity: item.selectorQuantity,
+            id: orderGetters.getItemVariationId(item)
+          });
+        }
       });
 
-      await makeReturn(returnParams.value);
+      await makeReturn(returnParams);
       if (error.value.makeReturn) {
         if (error.value.makeReturn.validation_errors) {
           send({ message: app.i18n.t('OrderReturn.Error', {error: error.value.makeReturn.validation_errors}), type: 'danger', persist: true });
         }
       } else {
         send({ message: app.i18n.t('OrderReturn.Success'), type: 'success' });
+        router.push(app.i18n.t('MyAccount.Order returns'));
       }
       currentOrder.value = null;
     };

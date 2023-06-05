@@ -16,9 +16,32 @@ export const useMakeReturn = (id: string): UseMakeReturnResponse => {
   }, `useMakeReturn-error-${id}`);
 
   const makeReturn = async (params: MakeReturnParams): Promise<void> => {
+
+    const returnParams = {
+      orderId: params.orderId,
+      orderAccessKey: params.orderAccessKey,
+      returnNote: params.returnNote
+    };
+
+    // Todo: Json to FormData mapping will be removed one the endpoint supports json payload
+    params.variationIds.forEach(item => {
+      if (item.quantity > 0) {
+        returnParams['variationIds[' + item.id + ']'] = item.quantity;
+      }
+    });
+
+    // This method returns type FormData the method URLSearchParams is able to work with that type but typescript doesn't allow the interface overlap
+    const objectToFormData = (object: unknown): unknown => {
+      const formData = new FormData();
+
+      Object.keys(object).forEach(key => formData.append(key, object[key]));
+      return formData;
+    };
+    const makeReturnPayload = new URLSearchParams(objectToFormData(returnParams) as string).toString();
+
     try {
       loading.value = true;
-      result.value = await context.$plentymarkets.api.makeOrderReturn(params);
+      result.value = await context.$plentymarkets.api.makeOrderReturn(makeReturnPayload);
       error.value.makeReturn = null;
     } catch (err) {
       error.value.makeReturn = typeof err === 'object' ? err : { message: err.toString() };

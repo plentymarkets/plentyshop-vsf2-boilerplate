@@ -281,6 +281,21 @@ export interface CreateReturnResponse {
 export interface MakeReturnParams {
   orderId: number
   orderAccessKey: string
-  variationIds: object
+  variationIds: [{
+    id: number,
+    quantity: number
+  }]
   returnNote: string
+}
+
+// variationIds[variationId]=quantity
+interface variationIds {
+  [variationIds: string]: number
+}
+
+export interface MakeReturnApiParams {
+  orderId: number,
+  orderAccessKey: string,
+  returnNote: string,
+  variationIds: variationIds
 }
