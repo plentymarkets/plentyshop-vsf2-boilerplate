@@ -7,9 +7,10 @@ import {
 } from './api/_utils';
 import { endpointsExtension } from './serverExtensions/endpoints';
 import getSession from './api/exampleEndpoint';
+import {createOrder} from './api';
 import { PaypalServerConfig } from './types';
 
-const { createApiClient } = apiClientFactory<PaypalServerConfig, any>({
+const { createApiClient } = apiClientFactory<PaypalServerConfig, unknown>({
   onCreate: (config: PaypalServerConfig) => {
     return {
       config,
@@ -23,7 +24,8 @@ const { createApiClient } = apiClientFactory<PaypalServerConfig, any>({
     endpointsExtension
   ],
   api: {
-    getSession
+    getSession,
+    createOrder
   }
 });
 

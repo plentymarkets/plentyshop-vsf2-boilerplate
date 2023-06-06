@@ -1,8 +1,6 @@
-import { useVSFContext, sharedRef, Logger } from '@vue-storefront/core';
-import { VSFContext } from '../../types';
+import { sharedRef} from '@vue-storefront/core';
 import { useCart } from '@vue-storefront/plentymarkets';
 import { computed } from '@nuxtjs/composition-api';
-import { LOGGER_PREFIX } from '../../consts';
 import { loadScript as loadPayPalScript, PayPalNamespace } from '@paypal/paypal-js';
 
 interface UsePaypalErrors {
@@ -37,7 +35,7 @@ const usePaypal = () => {
   //   }
   // };
 
-  const exampleEndpoint = async (): Promise<any> => {
+  const exampleEndpoint = async (): Promise<void> => {
     console.log('pp load cart: ', cart);
   };
 
@@ -45,14 +43,14 @@ const usePaypal = () => {
     paymentObject.value = newPaymentObject;
   };
 
-  const loadScript = async (): Promise<PayPalNamespace> => {
+  const loadScript = async (currency: string): Promise<PayPalNamespace> => {
     if (paypal.value) {
       return paypal.value;
     }
 
     try {
       // TODO get client id somehow
-      paypal.value = await loadPayPalScript({ 'client-id': 'test' });
+      paypal.value = await loadPayPalScript({ 'client-id': 'AU57kSupTeqxhUDNZRKIIuz7hQIluvUwr5eLHdl5FF3nCMduytAMwDqfBwtOXfOPwpEcxAvxTWdWnsX1', currency: currency });
       return paypal.value;
     } catch (error) {
       console.error('failed to load the PayPal JS SDK script', error);
@@ -62,7 +60,7 @@ const usePaypal = () => {
   return {
     error: computed<UsePaypalErrors>(() => error.value),
     loading: computed<boolean>(() => loading.value),
-    paymentObject: computed<any>(() => paymentObject.value),
+    paymentObject: computed<unknown>(() => paymentObject.value),
 
     exampleEndpoint,
     setPaymentObject,
@@ -72,4 +70,4 @@ const usePaypal = () => {
 
 export default usePaypal;
 
-const _getError = (err) => err.response || err.data || err;
+// const _getError = (err) => err.response || err.data || err;

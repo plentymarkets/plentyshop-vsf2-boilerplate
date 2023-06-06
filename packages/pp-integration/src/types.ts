@@ -1,5 +1,6 @@
 import { AxiosInstance } from 'axios';
 import { Request, Response } from 'express';
+import {createOrder} from './api/getSmartButtonOrder';
 
 export type PlentymarketsClient = AxiosInstance;
 export type PaypalClient = AxiosInstance;
@@ -32,7 +33,8 @@ export interface VSFContext {
 }
 
 export type ApiEndpoints = {
-  getSession(initialRestCall: boolean): Promise<any>
+  getSession(initialRestCall: boolean): Promise<any>,
+  createOrder(foundingSource: string): Promise<any>
 }; // TODO
 
 export type PaypalClientConfig = any; // TODO

@@ -15,9 +15,17 @@ const exampleEndpoint = async (
   }
 };
 
+export async function createOrder(context: PaypalIntegrationContext, fundingSource: string) {
+  const url: URL = new URL('/rest/payment/payPal/smart_payment/create/' + fundingSource, context.config.api.url);
+  const { data } = await context.client.pp.get(url.href);
+
+  return data;
+}
+
 export async function getSession(context: PaypalIntegrationContext, initialRestCall: boolean): Promise<any> {
   console.log('getSession: ', context);
   const url: URL = new URL('/rest/io/session/', context.config.api.url);
+
   url.searchParams.set('initialRestCall', initialRestCall.toString());
   const { data } = await context.client.pp.get(url.href);
 
@@ -29,4 +37,4 @@ export async function getSession(context: PaypalIntegrationContext, initialRestC
   };
 }
 
-export default getSession;
+export default createOrder;

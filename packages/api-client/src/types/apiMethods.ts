@@ -24,6 +24,7 @@ import { ShippingProvider } from './shipping';
 import { UserChangeResponse } from './user';
 import { Wishlist } from './wishlist';
 import { NewsletterParams } from './newsletter';
+import {approveOrder} from "../api/getPayPal";
 
 export type ClientInstance = AxiosInstance;
 
@@ -138,6 +139,10 @@ export interface PlentymarketsApiMethods {
     getLegalInformation(type: string): Promise<LegalInformationResponse>
 
     subscribeNewsletter(params: NewsletterParams): Promise<string>
+
+    createOrder(fundingSource: string): Promise<any>
+
+    approveOrder(orderID: string, payerID: string): Promise<any>
 }
 
 export type Context = IntegrationContext<ClientInstance, Settings, ApiClientMethods<PlentymarketsApiMethods>>;

@@ -1,6 +1,5 @@
 <template>
   <div id="product">
-    <PaymentPaypalButton/>
     <SfBreadcrumbs
       class="breadcrumbs desktop-only"
       :breadcrumbs="breadcrumbs"
@@ -86,11 +85,14 @@
                 class="product__add-to-cart"
                 @click="addItem({ product, quantity: parseInt(qty) })"
               />
+
+              <PaymentPaypalButton class="mt-4" />
             </div>
 
             <LazyHydrate when-idle>
               <SfTabs
-                :open-tab="1"
+                :open-tab="
+                  1"
                 class="product__tabs"
               >
                 <SfTab :title="$t('Product.Description')">
@@ -176,6 +178,7 @@
         </SfButton>
       </div>
     </div>
+  </div>
   </div>
 </template>
 <script>

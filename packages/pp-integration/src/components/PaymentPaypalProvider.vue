@@ -1,23 +1,31 @@
 <template>
   <div class="payment-container">
     <transition name="fade">
-      <slot name="price-mismatch" v-if="isMalformed">
+      <slot
+        v-if="isMalformed"
+        name="price-mismatch"
+      >
         <div class="payment-error-container">
           {{ $t('We stopped the payment process as it looks like the total price in your cart changed since the payment was initiated. Please retry and we will create a payment request with the updated price.') }}
         </div>
       </slot>
     </transition>
-    <slot name="loader" v-if="isLoading">
+    <slot
+      v-if="isLoading"
+      name="loader"
+    >
       <PaymentPaypalLoader />
     </slot>
-    <div class="payment" ref="ppDiv" />
+    <div
+      ref="ppDiv"
+      class="payment"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { onMounted, ref } from '@vue/composition-api';
 import { MALFORMED_PRICE_QUERY_STRING, usePaypal } from '@vsf-enterprise/pp-plentymarkets';
-import { useVSFContext } from '@vue-storefront/core';
 import { useCart } from '@vsf-enterprise/plentymarkets';
 import { useRoute } from '@nuxtjs/composition-api';
 import PaymentPaypalLoader from './PaymentPaypalLoader.vue';

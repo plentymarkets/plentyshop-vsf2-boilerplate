@@ -23,7 +23,7 @@ export default [
       typescript({
         // eslint-disable-next-line global-require
         typescript: require('typescript'),
-        objectHashIgnoreUnknownHack: true
+        objectHashIgnoreUnknownHack: false
       })
     ]
   },

@@ -6,7 +6,7 @@
     />
     <VsfPaymentProvider
       class="spacer"
-      @status="isPaymentReady = true"
+      @status="selectionChangedPaymentProvider"
     />
     <SfTable class="sf-table--bordered table">
       <SfTableHeading class="table__row">
@@ -85,12 +85,19 @@
           class="summary__action"
         >
           <SfButton
+            v-if="paymentMethodId !== 6001"
             :disabled="loading || !isPaymentReady || !terms"
             class="summary__action-button"
             @click="processOrder"
           >
             {{ $t('Payment.Make an order') }}
           </SfButton>
+
+          <PaymentPaypalButton
+            v-else
+            :disabled="loading || !isPaymentReady || !terms"
+            class="w-80"
+          />
         </div>
       </div>
     </div>
@@ -110,6 +117,7 @@ import { onSSR } from '@vue-storefront/core';
 import { ref, computed, useRouter } from '@nuxtjs/composition-api';
 import { useMakeOrder, useCart, cartGetters, orderGetters, useShippingProvider, usePaymentProvider } from '@vue-storefront/plentymarkets';
 import { addBasePath } from '@vue-storefront/core';
+import PaymentPaypalButton from '@vue-storefront/pp-plentymarkets/src/components/PaymentPaypalButton.vue';
 
 export default {
   name: 'ReviewOrder',
@@ -122,7 +130,8 @@ export default {
     SfLink,
     VsfPaymentProvider: () => import('~/components/Checkout/VsfPaymentProvider'),
     VsfShippingProvider: () => import('~/components/Checkout/VsfShippingProvider'),
-    CartTotals: () => import('~/components/CartTotals')
+    CartTotals: () => import('~/components/CartTotals'),
+    PaymentPaypalButton
   },
   setup(props, context) {
     const router = useRouter();
@@ -134,6 +143,7 @@ export default {
     const isPaymentReady = ref(false);
     const terms = ref(false);
     const shippingPrivacyHintAccepted = ref(false);
+    const paymentMethodId = ref(0);
 
     onSSR(async () => {
       await load();
@@ -142,10 +152,8 @@ export default {
     });
 
     const processOrder = async () => {
-      const paymentMethodId = cart.value.methodOfPaymentId;
-
       await make({
-        paymentId: paymentMethodId,
+        paymentId: paymentMethodId.value,
         shippingPrivacyHintAccepted: shippingPrivacyHintAccepted.value
       });
 
@@ -159,6 +167,11 @@ export default {
       setCart({items: []});
     };
 
+    const selectionChangedPaymentProvider = (value) => {
+      isPaymentReady.value = true;
+      paymentMethodId.value = parseInt(value);
+    };
+
     return {
       shippingPrivacyHintAccepted,
       addBasePath,
@@ -170,7 +183,9 @@ export default {
       totals: computed(() => cartGetters.getTotals(cart.value)),
       tableHeaders: ['Description', 'Size', 'Color', 'Quantity', 'Amount'],
       cartGetters,
-      processOrder
+      processOrder,
+      paymentMethodId,
+      selectionChangedPaymentProvider
     };
   }
 };

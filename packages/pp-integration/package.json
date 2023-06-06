@@ -1,6 +1,7 @@
 {
   "name": "@vue-storefront/pp-plentymarkets",
   "version": "1.0.0",
+  "license": "MIT",
   "sideEffects": false,
   "server": "server/index.js",
   "main": "lib/index.cjs.js",
@@ -13,8 +14,10 @@
     "prepublish": "yarn build"
   },
   "dependencies": {
+    "@vue-storefront/plentymarkets": "0.0.1",
+    "@vue-storefront/plentymarkets-api": "0.0.1",
     "@nuxtjs/composition-api": "^0.29.3",
-    "@paypal/paypal-js": "^5.1.1",
+    "@paypal/paypal-js": "^5.1.6",
     "@vue-storefront/core": "^2.6.0",
     "axios": "^1.1.3"
   },
