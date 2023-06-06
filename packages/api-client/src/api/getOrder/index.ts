@@ -28,7 +28,11 @@ export async function getOrder(context: Context, params: OrderSearchParams): Pro
     url.searchParams.set('postcode', params.postcode);
   }
 
-  const { data } = await context.client.get(url.href);
+  let { data } = await context.client.get(url.href);
+
+  const newData = data.orderItems.filter(item => item.typeId !== 6);
+
+  data = {...data,...newData}
 
   return data;
 }
