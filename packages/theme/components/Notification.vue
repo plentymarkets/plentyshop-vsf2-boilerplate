@@ -1,8 +1,8 @@
 <template>
-  <h1>AddressPicker</h1>
+  <h1>notification</h1>
 </template>
 
-<script setup lang="ts">
+<script setup>
 </script>
 
 <style>

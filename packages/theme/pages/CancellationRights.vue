@@ -1,30 +1,10 @@
 <template>
-  <div v-html="cancellationRights" />
+  <h1>AddressPicker</h1>
 </template>
 
-<script>
-import { useLegalInformation, legalGetters } from '@vue-storefront/plentymarkets';
-import { onSSR } from '@vue-storefront/core';
-import { computed } from '@nuxtjs/composition-api';
-
-export default {
-  name: 'CancellationRights',
-  setup() {
-    const { result, load } = useLegalInformation('CancellationRights');
-
-    const cancellationRights = computed(() => {
-      return legalGetters.getHtml(result.value);
-    });
-
-    onSSR(async () => {
-      await load('CancellationRights');
-    });
-
-    return { cancellationRights };
-  }
-};
+<script setup lang="ts">
 </script>
 
-<style scoped>
+<style>
 
 </style>

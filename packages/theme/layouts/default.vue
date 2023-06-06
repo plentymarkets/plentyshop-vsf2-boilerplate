@@ -1,77 +1,14 @@
 <template>
   <div>
-    <LazyHydrate when-visible>
-      <TopBar class="desktop-only" />
-    </LazyHydrate>
-
-    <AppHeader />
-
-    <div id="layout">
-      <nuxt :key="route.fullPath" />
-
-      <BottomNavigation />
-      <CartSidebar />
-      <WishlistSidebar />
-      <LoginModal />
-      <Notification />
-    </div>
-    <CookieBar />
-    <LazyHydrate when-visible>
-      <AppFooter />
-    </LazyHydrate>
+    <SfButton type="button" class="w-full"> Hello </SfButton>
   </div>
 </template>
 
-<script>
-import CookieBar from '~/components/CookieBar.vue';
-import AppHeader from '~/components/AppHeader.vue';
-import BottomNavigation from '~/components/BottomNavigation.vue';
-import AppFooter from '~/components/AppFooter.vue';
-import TopBar from '~/components/TopBar.vue';
-import CartSidebar from '~/components/CartSidebar.vue';
-import WishlistSidebar from '~/components/WishlistSidebar.vue';
-import LoginModal from '~/components/LoginModal.vue';
-import LazyHydrate from 'vue-lazy-hydration';
-import Notification from '~/components/Notification';
-import { useRoute, onMounted } from '@nuxtjs/composition-api';
-import { useCart, useUser, useWishlist } from '@vue-storefront/plentymarkets';
-
-export default {
-  name: 'DefaultLayout',
-
-  components: {
-    LazyHydrate,
-    TopBar,
-    CookieBar,
-    AppHeader,
-    BottomNavigation,
-    AppFooter,
-    CartSidebar,
-    WishlistSidebar,
-    LoginModal,
-    Notification
-  },
-
-  setup() {
-    const route = useRoute();
-    const { load: loadUser } = useUser();
-    const { load: loadCart } = useCart();
-    const { load: loadWishlist } = useWishlist();
-
-    onMounted(async () => {
-      await loadUser();
-      await loadCart();
-      await loadWishlist();
-    });
-
-    return {
-      route
-    };
-  }
-};
+<script lang="ts" setup>
+import { SfButton } from '@storefront-ui/vue';
 </script>
 
-<style lang="scss">
+<!-- <style lang="scss">
 @import "~@storefront-ui/vue/styles";
 @import "../assets/scss/theme";
 
@@ -145,3 +82,4 @@ h4 {
   margin: 0;
 }
 </style>
+ -->

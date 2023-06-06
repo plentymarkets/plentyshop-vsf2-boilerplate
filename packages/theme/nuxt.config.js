@@ -43,7 +43,6 @@ const config = {
     // '@nuxtjs/composition-api/module',
     '@nuxtjs/google-fonts',
     '@nuxtjs/style-resources',
-    '@nuxtjs/tailwindcss',
     ['@vue-storefront/nuxt', {
       // @core-development-only-start
       coreDevelopment: true,
@@ -78,6 +77,7 @@ const config = {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/tailwindcss',
     ['nuxt-i18n', {
       baseUrl: process.env.BASE_URL || `http://localhost:${appPort}`
     }],
@@ -131,7 +131,7 @@ const config = {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    babel: {
+    /* babel: {
       plugins: [['babel-plugin-istanbul', {
         extension: [
           '.js',
@@ -139,7 +139,7 @@ const config = {
           '.vue'
         ]
       }]],
-    },
+    }, */
     transpile: [
       'vee-validate/dist/rules'
     ],

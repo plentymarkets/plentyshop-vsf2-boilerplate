@@ -100,3 +100,6 @@ version
 # e2e reports
 tests/e2e/report.json
 tests/e2e/report
+
+
+.output/
