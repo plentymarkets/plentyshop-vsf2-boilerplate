@@ -23,7 +23,7 @@ export const useMakeReturn = (id: string): UseMakeReturnResponse => {
       returnNote: params.returnNote
     };
 
-    // Todo: Json to FormData mapping will be removed one the endpoint supports json payload
+    // @TODO: Json to FormData mapping will be removed once the endpoint supports json payload
     params.variationIds.forEach(item => {
       if (item.quantity > 0) {
         returnParams['variationIds[' + item.id + ']'] = item.quantity;
