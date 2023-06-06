@@ -25,6 +25,11 @@
             class="sf-property--full-width property"
           />
           <SfProperty
+            name="Shipping"
+            :value="$n(orderGetters.getShippingCost(currentOrder), 'currency')"
+            class="sf-property--full-width property"
+          />
+          <SfProperty
             name="Total"
             :value="$n(orderGetters.getPrice(currentOrder), 'currency')"
             class="sf-property--full-width property"

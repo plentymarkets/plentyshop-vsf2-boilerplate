@@ -7,11 +7,11 @@ export async function getOrders(context: Context, params: UseUserOrderSearchPara
   url.searchParams.set('page', params?.page?.toString() ?? '1');
   url.searchParams.set('items', '5');
 
-  let { data } = await context.client.get(url.href);
+  const { data } = await context.client.get(url.href);
 
-  const newData = data.orderItems.filter(item => item.typeId !== 6);
-
-  data = {...data,...newData}
+  data.data.entries.map(entry => {
+    entry.order.orderItems = entry.order.orderItems.filter(item => item.typeId !== 6);
+  });
 
   return data;
 }

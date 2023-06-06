@@ -117,6 +117,9 @@ function getShippingAmount(totals: OrderTotals): number {
   return totals?.shippingGross;
 }
 
+function getShippingCost(order: Order): number | null {
+  return order?.order?.amounts[0]?.shippingCostsGross || 0;
+}
 function getVatRate(totals: OrderTotals): number {
   return totals?.vats[0].rate;
 }
@@ -177,6 +180,7 @@ export const orderGetters: UserOrderGetters<Order, OrderItem> = {
   getPrice,
   getShippingAddress,
   getShippingAmount,
+  getShippingCost,
   getShippingProfileName,
   getStatus,
   getSubTotal,
