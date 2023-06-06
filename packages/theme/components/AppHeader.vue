@@ -2,15 +2,12 @@
   <div>
     <SfHeader
       class="sf-header--has-mobile-search"
-      :class="{'header-on-top': isSearchOpen}"
+      :class="{ 'header-on-top': isSearchOpen }"
       :is-nav-visible="isMobileMenuOpen"
     >
       <!-- TODO: add mobile view buttons after SFUI team PR -->
       <template #logo>
-        <nuxt-link
-          :to="localePath({ name: 'home' })"
-          class="sf-header__logo"
-        >
+        <nuxt-link :to="localePath({ name: 'home' })" class="sf-header__logo">
           <SfImage
             :width="100"
             :height="100"
@@ -27,19 +24,13 @@
         <LocaleSelector class="smartphone-only" />
       </template>
       <template #header-icons>
-        <div
-          :data-e2e="'header-icons'"
-          class="sf-header__icons"
-        >
+        <div :data-e2e="'header-icons'" class="sf-header__icons">
           <SfButton
             class="sf-button--pure sf-header__action"
             :aria-label="$t('AppHeader.Open account button')"
             @click="handleAccountClick"
           >
-            <SfIcon
-              :icon="accountIcon"
-              size="1.25rem"
-            />
+            <SfIcon :icon="accountIcon" size="1.25rem" />
           </SfButton>
           <SfButton
             class="sf-button--pure sf-header__action"
@@ -63,15 +54,8 @@
             :aria-label="$t('AppHeader.Toggle cart sidebar')"
             @click="toggleCartSidebar"
           >
-            <SfIcon
-              class="sf-header__icon"
-              icon="empty_cart"
-              size="1.25rem"
-            />
-            <SfBadge
-              v-if="cartTotalItems"
-              class="sf-badge--number cart-badge"
-            >
+            <SfIcon class="sf-header__icon" icon="empty_cart" size="1.25rem" />
+            <SfBadge v-if="cartTotalItems" class="sf-badge--number cart-badge">
               {{ cartTotalItems }}
             </SfBadge>
           </SfButton>
@@ -98,25 +82,19 @@
               @click="closeOrFocusSearchBar"
             >
               <span class="sf-search-bar__icon">
-                <SfIcon
-                  color="var(--c-text)"
-                  size="18px"
-                  icon="cross"
-                />
+                <SfIcon color="var(--c-text)" size="18px" icon="cross" />
               </span>
             </SfButton>
             <SfButton
               v-else
               :aria-label="$t('AppHeader.Open search')"
               class="sf-search-bar__button sf-button--pure"
-              @click="isSearchOpen ? isSearchOpen = false : isSearchOpen = true"
+              @click="
+                isSearchOpen ? (isSearchOpen = false) : (isSearchOpen = true)
+              "
             >
               <span class="sf-search-bar__icon">
-                <SfIcon
-                  color="var(--c-text)"
-                  size="20px"
-                  icon="search"
-                />
+                <SfIcon color="var(--c-text)" size="20px" icon="search" />
               </span>
             </SfButton>
           </template>
@@ -134,9 +112,23 @@
 </template>
 
 <script>
-import { SfHeader, SfImage, SfIcon, SfButton, SfBadge, SfSearchBar, SfOverlay } from '@storefront-ui/vue';
+import {
+  SfHeader,
+  SfImage,
+  SfIcon,
+  SfButton,
+  SfBadge,
+  SfSearchBar,
+  SfOverlay,
+} from '@storefront-ui/vue';
 import { useUiState } from '~/composables';
-import { useCart, useUser, cartGetters, useSearch, useWishlist, wishlistGetters } from '@vue-storefront/plentymarkets';
+import {
+  useCart,
+  useUser,
+  cartGetters,
+  useSearch,
+  useWishlist,
+} from '@vue-storefront/plentymarkets';
 import { computed, ref, useRouter } from '@nuxtjs/composition-api';
 import { useUiHelpers } from '~/composables';
 import LocaleSelector from './LocaleSelector';
@@ -161,12 +153,17 @@ export default {
     SfSearchBar,
     SearchResults,
     SfOverlay,
-    HeaderNavigation
+    HeaderNavigation,
   },
   directives: { clickOutside },
   setup(props, { root }) {
     const router = useRouter();
-    const { toggleCartSidebar, toggleWishlistSidebar, toggleLoginModal, isMobileMenuOpen } = useUiState();
+    const {
+      toggleCartSidebar,
+      toggleWishlistSidebar,
+      toggleLoginModal,
+      isMobileMenuOpen,
+    } = useUiState();
     const { setTermForUrl, getFacetsFromURL } = useUiHelpers();
     const { search: headerSearch, result } = useSearch();
     const { wishlist } = useWishlist();
@@ -183,7 +180,7 @@ export default {
     });
 
     const wishlistTotalItems = computed(() => {
-      const count = wishlistGetters.getItems(wishlist.value);
+      const count = wishlist?.value?.items;
 
       return count ? count.length : null;
     });
@@ -195,8 +192,12 @@ export default {
       return result.value;
     });
 
-    const accountIcon = computed(() => isAuthenticated.value ? 'profile_fill' : 'profile');
-    const wishlistIcon = computed(() => wishlistTotalItems.value > 0 ? 'heart_fill' : 'heart');
+    const accountIcon = computed(() =>
+      isAuthenticated.value ? 'profile_fill' : 'profile'
+    );
+    const wishlistIcon = computed(() =>
+      wishlistTotalItems.value > 0 ? 'heart_fill' : 'heart'
+    );
 
     // TODO: https://github.com/DivanteLtd/vue-storefront/issues/4927
     const handleAccountClick = async () => {
@@ -211,7 +212,9 @@ export default {
 
     const closeSearch = () => {
       const wishlistClassName = 'sf-product-card__wishlist-icon';
-      const isWishlistIconClicked = event?.path?.find(p => wishlistClassName.search(p.className) > 0);
+      const isWishlistIconClicked = event?.path?.find(
+        (p) => wishlistClassName.search(p.className) > 0
+      );
 
       if (isWishlistIconClicked || !isSearchOpen.value) return;
 
@@ -225,7 +228,7 @@ export default {
       } else {
         term.value = paramValue.target.value;
       }
-      await headerSearch({ term: term.value});
+      await headerSearch({ term: term.value });
     }, 1000);
 
     const closeOrFocusSearchBar = () => {
@@ -254,15 +257,15 @@ export default {
       isMobileMenuOpen,
       addBasePath,
       wishlistTotalItems,
-      wishlistIcon
+      wishlistIcon,
     };
-  }
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .sf-header {
-  --header-padding:  var(--spacer-sm);
+  --header-padding: var(--spacer-sm);
   @include for-desktop {
     --header-padding: 0;
   }
@@ -281,10 +284,10 @@ export default {
 }
 
 @include for-mobile {
-    ::v-deep .sf-header-navigation-item__item--desktop {
-      display: none;
-    }
+  ::v-deep .sf-header-navigation-item__item--desktop {
+    display: none;
   }
+}
 
 .cart-badge {
   position: absolute;

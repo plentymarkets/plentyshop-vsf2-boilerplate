@@ -40,7 +40,7 @@ function getGrouped(params: FacetSearchResult<Facet>, criteria?: FacetSearchCrit
           type: group.type,
           count: filter.count,
           id: filter.id.toString(),
-          value: filter?.name?.toString()
+          value: filter.name.toString()
         };
       })
     };

@@ -38,7 +38,9 @@
             </div>
             <div class="product__price-and-rating">
               <SfPrice
-                :regular="$n(productGetters.getRegularPrice(product), 'currency')"
+                :regular="
+                  $n(productGetters.getRegularPrice(product), 'currency')
+                "
                 :special="
                   productGetters.getSpecialPrice(product) &&
                     $n(productGetters.getSpecialPrice(product), 'currency')
@@ -76,6 +78,13 @@
                 @selection-changed="attributeSelectionChanged($event)"
               />
 
+              <template v-if="product.setComponents">
+                <SetComponents
+                  v-if="product.setComponents.length"
+                  :set-components="product.setComponents"
+                />
+              </template>
+
               <SfAddToCart
                 v-model="qty"
                 :data-e2e="'product_add-to-cart'"
@@ -108,7 +117,9 @@
                       v-if="propertyGetters.getName(property) === 'Category'"
                       #value
                     >
-                      <SfButton class="product__property__button sf-button--text">
+                      <SfButton
+                        class="product__property__button sf-button--text"
+                      >
                         {{ propertyGetters.getValue(property) }}
                       </SfButton>
                     </template>
@@ -211,6 +222,8 @@ import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
 import { addBasePath } from '@vue-storefront/core';
 import { useUiHelpers, useUiState } from '~/composables';
+import { useSetComponents } from '@vue-storefront/plentymarkets';
+import SetComponents from '~/components/Set/SetComponents.vue';
 
 export default {
   name: 'Product',
@@ -231,14 +244,19 @@ export default {
     LazyHydrate,
     AttributeSelection,
     SfImage,
-    SfLoader
+    SfLoader,
+    SetComponents
   },
   transition: 'fade',
   setup() {
     const qty = ref(1);
     const route = useRoute();
     const th = useUiHelpers();
-    const { products, search, loading: productLoadingState } = useProduct('products');
+    const {
+      products,
+      search,
+      loading: productLoadingState
+    } = useProduct('products');
     const {
       products: relatedProducts,
       search: searchRelatedProducts,
@@ -250,18 +268,36 @@ export default {
     const { categories: breadcrumbCategories } = useCategory('categories');
     const { toggleLangModal } = useUiState();
     const id = computed(() => route.value.params.id);
-    const product = computed(
-      () =>
-        productGetters.getFiltered(products.value, {
-          master: true,
-          attributes: route.value.query
-        })[0]
+    const { result: setComponentResult } = useSetComponents();
+
+    const setComponents = computed(() => setComponentResult.value);
+    const setSelections = ref([]);
+    const product = computed(() => {
+      const product = productGetters.getFiltered(products.value, {
+        master: true,
+        attributes: route.value.query
+      })[0];
+
+      return {
+        ...product,
+        // Replace the initial setComponent data (which is minimal) with the full item data for each setComponent
+        // as soon as those are available via the useSetComponents composable
+        setComponents: setComponents.value ?? product.setComponents
+      };
+    });
+
+    const categories = computed(() =>
+      productGetters.getCategoryIds(product.value)
     );
-    const categories = computed(() => productGetters.getCategoryIds(product.value));
-    const reviews = computed(() => reviewGetters.getItems(productReviews.value));
+
+    const reviews = computed(() =>
+      reviewGetters.getItems(productReviews.value)
+    );
 
     // TODO: Breadcrumbs are temporary disabled because productGetters return undefined. We have a mocks in data
-    const breadcrumbs = computed(() => productGetters.getBreadcrumbs(product.value, breadcrumbCategories.value));
+    const breadcrumbs = computed(() =>
+      productGetters.getBreadcrumbs(product.value, breadcrumbCategories.value)
+    );
     const productGallery = computed(() =>
       productGetters.getGallery(product.value).map((img) => ({
         mobile: { url: addBasePath(img.small) },
@@ -284,7 +320,9 @@ export default {
     onSSR(async () => {
       await search({ id: id.value });
       await searchRelatedProducts({ catId: [categories.value[0]], limit: 8 });
-      await searchReviews({ productId: productGetters.getItemId(product.value)});
+      await searchReviews({
+        productId: productGetters.getItemId(product.value)
+      });
     });
 
     return {
@@ -312,7 +350,9 @@ export default {
       isAttributeSelectionValid,
       addBasePath,
       toggleLangModal,
-      productLoading: computed(() => productLoadingState.value)
+      productLoading: computed(() => productLoadingState.value),
+      setSelections,
+      setComponents
     };
   },
   data() {

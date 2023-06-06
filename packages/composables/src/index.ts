@@ -6,6 +6,7 @@ export { useForgotPassword } from './useForgotPassword';
 export { useMakeOrder } from './useMakeOrder';
 export { useMakeReturn } from './useMakeReturn';
 export { useProduct } from './useProduct';
+export { useSetComponents } from './useSetComponents';
 export { useCookieBar } from './useCookieBar';
 export { useReview } from './useReview';
 export { useShippingProvider } from './useShippingProvider';

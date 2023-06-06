@@ -12,7 +12,6 @@ export async function getProduct(context: Context, params: ProductsSearchParams)
     url = new URL('/rest/io/item/search', context.config.api.url);
     url.searchParams.set('query', params.term);
   } else {
-
     const categoryId = params.categoryId?.toString() || '16';
 
     url = new URL('/rest/io/category', context.config.api.url);
@@ -28,7 +27,6 @@ export async function getProduct(context: Context, params: ProductsSearchParams)
   const { data } = await context.client.get(url.href);
 
   if (params.id) {
-
     const products: Product[] = data.item.documents.map(document => document.data);
 
     products[0].feedback = await getFeedbackAvarage(context, [products[0].item.id.toString()]);
