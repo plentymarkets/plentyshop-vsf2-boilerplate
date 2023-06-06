@@ -261,8 +261,8 @@ export type GetReturnsResponse = {
 }
 
 export interface AdditionalInformationParams {
-  orderContactWish: string|null,
-  orderCustomerSign: string|null,
+  orderContactWish: string | null,
+  orderCustomerSign: string | null,
   shippingPrivacyHintAccepted: boolean,
   templateType: string
 }
@@ -271,4 +271,31 @@ export interface MakeOrderParams {
   paymentId: number,
   shippingPrivacyHintAccepted: boolean,
   customQuery?: CustomQuery;
+}
+
+export interface CreateReturnResponse {
+  status: number,
+  message: string
+}
+
+export interface MakeReturnParams {
+  orderId: number
+  orderAccessKey: string
+  variationIds: [{
+    id: number,
+    quantity: number
+  }]
+  returnNote: string
+}
+
+// variationIds[variationId]=quantity
+interface variationIds {
+  [variationIds: string]: number
+}
+
+export interface MakeReturnApiParams {
+  orderId: number,
+  orderAccessKey: string,
+  returnNote: string,
+  variationIds: variationIds
 }
