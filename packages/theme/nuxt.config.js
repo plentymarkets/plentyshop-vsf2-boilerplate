@@ -1,6 +1,8 @@
 import webpack from 'webpack';
 import theme from './themeConfig';
 import cookieGroups from './cookieConfig';
+import { defineNuxtConfig } from '@nuxt/bridge'
+
 
 const appPort = process.env.PORT || 80;
 const appIP = 'localhost';
@@ -37,8 +39,8 @@ const config = {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // to core
-    '@nuxt/typescript-build',
-    '@nuxtjs/composition-api/module',
+    //'@nuxt/typescript-build',
+    // '@nuxtjs/composition-api/module',
     '@nuxtjs/google-fonts',
     '@nuxtjs/style-resources',
     '@nuxtjs/tailwindcss',
@@ -123,9 +125,9 @@ const config = {
     detectBrowserLanguage: false
   },
 
-  styleResources: {
-    scss: [require.resolve('@storefront-ui/shared/styles/_helpers.scss', {paths: [process.cwd()]})]
-  },
+  // styleResources: {
+  //  scss: [require.resolve('@storefront-ui/shared/styles/_helpers.scss', {paths: [process.cwd()]})]
+  // },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
@@ -173,12 +175,6 @@ const config = {
       )
     },
     middleware: ['checkout']
-  },
-
-  publicRuntimeConfig: {
-    middlewareUrl: process.env.MIDDLEWARE_URL || `http://${appIP}:${appPort}/api/`,
-    theme,
-    cookieGroups: cookieGroups
   },
 
   googleFonts: {
@@ -246,13 +242,25 @@ const config = {
         },
       ],
     }
+  },
+  runtimeConfig: {
+    public: {
+      middlewareUrl: process.env.MIDDLEWARE_URL || `http://${appIP}:${appPort}/api/`,
+      theme,
+      cookieGroups: cookieGroups
+    }
   }
 };
 
 if (process.env.MIDDLEWARE_URL) {
-  config.privateRuntimeConfig = {
+  config.runtimeConfig = {
     middlewareUrl: `http://localhost:${appPort}/api/`
   }
 }
 
-export default config;
+
+
+export default defineNuxtConfig({
+  ...config
+})
+
