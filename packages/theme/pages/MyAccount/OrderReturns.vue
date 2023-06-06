@@ -57,9 +57,11 @@
               </nuxt-link>
             </SfTableData>
             <SfTableData>{{ returnGetters.getItemQty(item) }}</SfTableData>
-            <SfTableData>{{
-              $n(returnGetters.getItemPrice(item), 'currency')
-            }}</SfTableData>
+            <SfTableData>
+              {{
+                $n(returnGetters.getItemPrice(item), 'currency')
+              }}
+            </SfTableData>
           </SfTableRow>
         </SfTable>
       </div>
@@ -67,7 +69,10 @@
         <p class="message">
           {{ $t('OrderReturn.Details and return status') }}
         </p>
-        <div v-if="totalReturns === 0" class="no-orders">
+        <div
+          v-if="totalReturns === 0"
+          class="no-orders"
+        >
           <p class="no-orders__title">
             {{ $t('OrderReturn.You currently have no returns') }}
           </p>
@@ -78,7 +83,10 @@
             {{ $t('OrderReturn.Return your items now') }}
           </SfButton>
         </div>
-        <SfTable v-else class="orders">
+        <SfTable
+          v-else
+          class="orders"
+        >
           <SfTableHeading>
             <SfTableHeader
               v-for="tableHeader in tableHeaders"
@@ -96,9 +104,11 @@
               {{ returnGetters.getId(orderReturn) }}
             </SfTableData>
             <SfTableData>{{ returnGetters.getDate(orderReturn) }}</SfTableData>
-            <SfTableData>{{
-              $n(returnGetters.getPrice(orderReturn), 'currency')
-            }}</SfTableData>
+            <SfTableData>
+              {{
+                $n(returnGetters.getPrice(orderReturn), 'currency')
+              }}
+            </SfTableData>
             <SfTableData>
               <span :class="getStatusTextClass(orderReturn)">{{
                 returnGetters.getStatus(orderReturn)
