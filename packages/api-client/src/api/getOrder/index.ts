@@ -30,6 +30,8 @@ export async function getOrder(context: Context, params: OrderSearchParams): Pro
 
   const { data } = await context.client.get(url.href);
 
+  data.orderItems = data.orderItems.filter(item => item.typeId !== 6);
+
   return data;
 }
 
