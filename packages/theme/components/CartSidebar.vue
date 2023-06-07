@@ -118,7 +118,10 @@
                 {{ $t('CartSidebar.Go to checkout') }}
               </SfButton>
             </nuxt-link>
-            <PaymentPaypalButton class="mt-2" />
+            <PaymentPaypalButton
+              :paypalUuid="paypalUuid"
+              class="mt-2"
+            />
           </div>
           <div v-else>
             <SfButton
@@ -170,6 +173,8 @@ export default {
     const products = computed(() => cartGetters.getItems(cart.value));
     const totals = computed(() => cartGetters.getTotals(cart.value));
     const totalItems = computed(() => cartGetters.getTotalItems(cart.value));
+    const uuid = require('uuid');
+    const paypalUuid = uuid.v4();
 
     const updateQuantity = debounce(async ({ product, quantity }) => {
       await updateItemQty({ product, quantity });
@@ -187,7 +192,8 @@ export default {
       toggleCartSidebar,
       totals,
       totalItems,
-      cartGetters
+      cartGetters,
+      paypalUuid: paypalUuid
     };
   }
 };

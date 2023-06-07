@@ -1,6 +1,6 @@
 <template>
   <div
-    :id="'paypal-button'"
+    :id="'paypal' + paypalUuid"
     class="z-0 relative paypal-button"
   />
 </template>
@@ -9,15 +9,18 @@
 import { usePaypal } from '@vue-storefront/pp-plentymarkets';
 import { OnApproveData, CreateOrderData, CreateOrderActions } from '@paypal/paypal-js';
 import { usePayPal } from '@vue-storefront/plentymarkets';
-import {useContext} from '@nuxtjs/composition-api';
+import { useContext } from '@nuxtjs/composition-api';
 
 export default {
   name: 'PaymentPaypalButton',
-  async setup() {
+  props: ['paypalUuid'],
+  async setup(props) {
     const { app } = useContext();
     const { loadScript } = usePaypal();
     const { createOrder, approveOrder } = usePayPal();
     const paypal = await loadScript('EUR');
+
+    const paypalUuid = props.paypalUuid;
 
     console.log('currency', app.i18n);
 
@@ -59,7 +62,7 @@ export default {
 
           // eslint-disable-next-line max-depth
           if (btn.isEligible()) {
-            btn.render('#paypal-button');
+            btn.render('#paypal' + paypalUuid);
           }
         });
       } catch (error) {
