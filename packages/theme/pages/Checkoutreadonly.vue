@@ -1,42 +1,64 @@
 <template>
   <div>
-    <div class="text-2xl mb-5 font-medium">
-      Please Check your order
-    </div>
-    <div class="flex">
+    <h1>Review your order</h1>
+    <SfDivider class="mb-sf-xl" />
+    <div class="flex opacity-80 pointer-events-none">
       <div class="flex-1">
-        <h3>Invoice data</h3>
-        <SfAddressPicker selected="">
-          <SfAddress name="first">
-            <span>Jack Smith</span>
-            <span>Mazowiecka 34</span>
-            <span>02-020</span>
-            <span>Warszawa, Mazowieckie</span>
-            <span>Poland</span>
-            <span>+48 777 777 777</span>
-          </SfAddress>
-        </SfAddressPicker>
-        <h3>Shipping data</h3>
-        <SfAddressPicker selected="">
-          <SfAddress name="first">
-            <span>Jack Smith</span>
-            <span>Mazowiecka 34</span>
-            <span>02-020</span>
-            <span>Warszawa, Mazowieckie</span>
-            <span>Poland</span>
-            <span>+48 777 777 777</span>
-          </SfAddress>
-        </SfAddressPicker>
-        <VsfPaymentProvider
-          class="spacer"
-          :readonly="true"
-          @status="selectionChangedPaymentProvider"
-        />
+        <div class="flex gap-sf-lg flex-col font-sf-secondary">
+          <div>
+            <h3 class="mb-3">
+              Invoice to:
+            </h3>
+            <div class="flex flex-col">
+              <span>Jack Smith</span>
+              <span>Mazowiecka 34</span>
+              <span>02-020</span>
+              <span>Warszawa, Mazowieckie</span>
+              <span>Poland</span>
+              <span>+48 777 777 777</span>
+            </div>
+          </div>
+          <div>
+            <h3 class="mb-3">
+              Shipping to:
+            </h3>
+            <div class="flex flex-col">
+              <span>Jack Smith</span>
+              <span>Mazowiecka 34</span>
+              <span>02-020</span>
+              <span>Warszawa, Mazowieckie</span>
+              <span>Poland</span>
+              <span>+48 777 777 777</span>
+            </div>
+          </div>
+          <div>
+            <h3 class="mb-3">
+              Payment method
+            </h3>
+            <div class="flex items-center gap-5">
+              <img
+                src="https://cdn02.plentymarkets.com/mevofvd5omld/plugin/2/paypal/images/logos/de-pp-logo.png"
+                style="width: 60px"
+              >
+              <span>Paypal</span>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="mb-3">
+              Shipping method
+            </h3>
+            <div class="flex items-center gap-5">
+              <img
+                src="https://assets.dpdhl-brands.com/guides/dhl/guides-de/design-basics/logo-and-claim/logo/versions-01.png"
+                style="width: 60px"
+              >
+              <span>DHL</span>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="flex-1">
-        <div class="text-xl mb-2 font-medium">
-          Shopping Cart
-        </div>
         <div class="p-5">
           <SfTable class="sf-table--bordered table">
             <SfTableRow
@@ -92,28 +114,38 @@
               <CartTotals />
             </div>
           </div>
-          <div class="mb-2">
-            <SfButton
-              disabled
-              style="background: green"
-              type="button"
-              class="w-full"
-              size="lg"
-            >
-              Order now
-            </SfButton>
-          </div>
-          <div>
-            <SfButton
-              disabled
-              variant="secondary"
-              style="background: red"
-              class="w-full"
-            >
-              cancel order
-            </SfButton>
-          </div>
         </div>
+      </div>
+    </div>
+    <div>
+      <SfCheckbox
+        v-e2e="'terms'"
+        name="terms"
+        class="summary__terms my-sf-lg"
+      >
+        <template #label>
+          <div class="sf-checkbox__label">
+            {{ $t('Payment.I agree to') }} <SfLink link="#">
+              {{ $t('Payment.Terms and conditions') }}
+            </SfLink>
+          </div>
+        </template>
+      </SfCheckbox>
+      <div class="my-2">
+        <SfButton
+          type="button"
+          class="w-full color-primary"
+          size="lg"
+        >
+          Order now
+        </SfButton>
+      </div>
+      <div>
+        <SfButton
+          class="w-full color-secondary"
+        >
+          cancel order
+        </SfButton>
       </div>
     </div>
   </div>
@@ -125,7 +157,9 @@ import {
   SfButton,
   SfImage,
   SfPrice,
-  SfAddressPicker
+  SfCheckbox,
+  SfDivider,
+  SfLink
 } from '@storefront-ui/vue';
 import { computed } from '@nuxtjs/composition-api';
 import {
@@ -134,19 +168,18 @@ import {
   usePaymentProvider
 } from '@vue-storefront/plentymarkets';
 import { addBasePath, onSSR } from '@vue-storefront/core';
-import CheckoutAddressDetails from '~/components/Checkout/CheckoutAddressDetails.vue';
 
 export default {
   name: 'ReviewOrder',
   components: {
     SfTable,
-    SfAddressPicker,
     SfButton,
+    SfLink,
     SfImage,
+    SfDivider,
     SfPrice,
-    VsfPaymentProvider: () => import('~/components/Checkout/VsfPaymentProvider'),
-    CartTotals: () => import('~/components/CartTotals'),
-    CheckoutAddressDetails
+    SfCheckbox,
+    CartTotals: () => import('~/components/CartTotals')
   },
   setup() {
     const { cart } = useCart();
