@@ -118,7 +118,7 @@ function getShippingAmount(totals: OrderTotals): number {
 }
 
 function getShippingCost(order: Order): number | null {
-  return order?.order?.amounts[0]?.shippingCostsGross || 0;
+  return order?.order?.amounts?.[0]?.shippingCostsGross || 0;
 }
 
 function getVatRate(totals: OrderTotals): number {
