@@ -32,7 +32,7 @@ export async function getOrder(context: Context, params: OrderSearchParams): Pro
 
   const shippingCostTypeId = 6;
 
-  data.orderItems = data.orderItems.filter(item => item.typeId !== shippingCostTypeId);
+  data.order.orderItems = data.order.orderItems.filter(item => item.typeId !== shippingCostTypeId);
 
   return data;
 }
