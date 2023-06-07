@@ -31,8 +31,8 @@ export async function getOrder(context: Context, params: OrderSearchParams): Pro
   const { data } = await context.client.get(url.href);
 
   const shippingCostTypeId = 6;
-  
-  data.orderItems = data.orderItems.filter(item => item.typeId !==  shippingCostTypeId);
+
+  data.orderItems = data.orderItems.filter(item => item.typeId !== shippingCostTypeId);
 
   return data;
 }
