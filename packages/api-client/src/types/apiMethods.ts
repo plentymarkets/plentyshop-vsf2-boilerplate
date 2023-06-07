@@ -24,7 +24,7 @@ import { ShippingProvider } from './shipping';
 import { UserChangeResponse } from './user';
 import { Wishlist } from './wishlist';
 import { NewsletterParams } from './newsletter';
-import {approveOrder} from "../api/getPayPal";
+import {approveOrder} from '../api/getPayPal';
 
 export type ClientInstance = AxiosInstance;
 

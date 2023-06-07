@@ -9,6 +9,7 @@
       :selected="selectedMethod"
       name="paymentMethod"
       class="form__radio shipping"
+      :disabled="readonly"
       @change="selectMethod(paymentProviderGetters.getId(method))"
     >
       <template
@@ -36,6 +37,9 @@ export default {
 
   components: {
     SfRadio
+  },
+  props: {
+    readonly: true
   },
 
   setup(props, { emit }) {

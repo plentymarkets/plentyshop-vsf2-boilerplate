@@ -133,9 +133,6 @@ export default {
     CartTotals: () => import('~/components/CartTotals'),
     PaymentPaypalButton
   },
-  props: {
-    readonly: false
-  },
   setup(props, context) {
     const router = useRouter();
     const { cart, load, setCart } = useCart();

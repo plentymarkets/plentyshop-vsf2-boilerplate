@@ -9,6 +9,7 @@ const handleWebhook = (client: WebhookClient, config: any /** TODO */) => {
   return async (request: Request, response: Response) => {
     try {
       const webhookHandlerResult = await webhookHandler();
+
       return response.send(webhookHandlerResult);
     } catch (err) {
       Logger.error(LOGGER_PREFIX, err);

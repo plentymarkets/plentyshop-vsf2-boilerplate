@@ -1,7 +1,7 @@
 import handleWebhook from './handleWebhook';
 import { Express } from 'express';
 import { API_WEBHOOK_ENDPOINT } from '../consts';
-import { 
+import {
   buildApiClient, // TODO: Creates plentymarkets API client
   buildPaymentApiClient // TODO: Creates pp API client
 } from '../api/_utils';

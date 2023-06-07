@@ -33,7 +33,7 @@
             </template>
           </SfButton>
           <SfButton
-            v-if="(addressList.length > 0)"
+            v-if="(addressList.length > 0) && !readonly"
             type="button"
             class="action-button color-secondary"
             data-e2e="close-address-button"
@@ -110,7 +110,8 @@ export default {
     headingTitleLevel: {
       type: Number,
       default: 2
-    }
+    },
+    readonly: false
   },
 
   setup(props, { emit, refs }) {

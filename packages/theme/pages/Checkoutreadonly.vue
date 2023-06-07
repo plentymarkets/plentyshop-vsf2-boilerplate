@@ -1,8 +1,11 @@
 <template>
   <div>
-    <div class="text-2xl mb-5 font-medium">Please Check your order</div>
+    <div class="text-2xl mb-5 font-medium">
+      Please Check your order
+    </div>
     <div class="flex">
       <div class="flex-1">
+        <h3>Invoice data</h3>
         <SfAddressPicker selected="">
           <SfAddress name="first">
             <span>Jack Smith</span>
@@ -13,28 +16,27 @@
             <span>+48 777 777 777</span>
           </SfAddress>
         </SfAddressPicker>
-
-        <div class="my-2">
-          <div class="text-xl mb-2 font-medium">Shipping address</div>
-          <div class="bg-gray-100 p-2">
-            <div>John doe</div>
-            <div>123 123</div>
-            <div>test 12312</div>
-            <div>Germany</div>
-            <div>test@plentymarkets.com</div>
-          </div>
-        </div>
-
-        <div class="my-2">
-          <div class="text-xl mb-2 font-medium">Payment method</div>
-          <div class="bg-gray-100 p-2">
-            <div>Paypall</div>
-            <div>Other</div>
-          </div>
-        </div>
+        <h3>Shipping data</h3>
+        <SfAddressPicker selected="">
+          <SfAddress name="first">
+            <span>Jack Smith</span>
+            <span>Mazowiecka 34</span>
+            <span>02-020</span>
+            <span>Warszawa, Mazowieckie</span>
+            <span>Poland</span>
+            <span>+48 777 777 777</span>
+          </SfAddress>
+        </SfAddressPicker>
+        <VsfPaymentProvider
+          class="spacer"
+          :readonly="true"
+          @status="selectionChangedPaymentProvider"
+        />
       </div>
       <div class="flex-1">
-        <div class="text-xl mb-2 font-medium">Shopping Cart</div>
+        <div class="text-xl mb-2 font-medium">
+          Shopping Cart
+        </div>
         <div class="p-5">
           <SfTable class="sf-table--bordered table">
             <SfTableRow
@@ -78,7 +80,7 @@
                   "
                   :special="
                     cartGetters.getSpecialItemPrice(product) &&
-                    $n(cartGetters.getSpecialItemPrice(product), 'currency')
+                      $n(cartGetters.getSpecialItemPrice(product), 'currency')
                   "
                   class="product-price"
                 />
@@ -97,8 +99,9 @@
               type="button"
               class="w-full"
               size="lg"
-              >Order now</SfButton
             >
+              Order now
+            </SfButton>
           </div>
           <div>
             <SfButton
@@ -126,14 +129,12 @@ import {
 } from '@storefront-ui/vue';
 import { computed } from '@nuxtjs/composition-api';
 import {
-  useMakeOrder,
   useCart,
   cartGetters,
-  orderGetters,
-  useShippingProvider,
-  usePaymentProvider,
+  usePaymentProvider
 } from '@vue-storefront/plentymarkets';
-import { addBasePath } from '@vue-storefront/core';
+import { addBasePath, onSSR } from '@vue-storefront/core';
+import CheckoutAddressDetails from '~/components/Checkout/CheckoutAddressDetails.vue';
 
 export default {
   name: 'ReviewOrder',
@@ -143,17 +144,25 @@ export default {
     SfButton,
     SfImage,
     SfPrice,
+    VsfPaymentProvider: () => import('~/components/Checkout/VsfPaymentProvider'),
     CartTotals: () => import('~/components/CartTotals'),
+    CheckoutAddressDetails
   },
-  setup(props, context) {
+  setup() {
     const { cart } = useCart();
+    const { load: loadPaymentProviders } = usePaymentProvider();
+
+    onSSR(async () => {
+      await loadPaymentProviders();
+    });
+
     return {
       addBasePath,
       products: computed(() => cartGetters.getItems(cart.value)),
       totals: computed(() => cartGetters.getTotals(cart.value)),
       tableHeaders: ['Description', 'Size', 'Color', 'Quantity', 'Amount'],
-      cartGetters,
+      cartGetters
     };
-  },
+  }
 };
 </script>

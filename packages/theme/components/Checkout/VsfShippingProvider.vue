@@ -11,6 +11,7 @@
       class="form__radio shipping"
       :label="shippingProviderGetters.getShippingMethodName(method)"
       :description="providerAmount(method)"
+      :disabled="readonly"
       @change="selectMethod(method)"
     />
 
@@ -23,6 +24,7 @@
           parcelServiceInformation: shippingProviderGetters.getShippingMethodName(selectedMethod)
         })"
         :selected="false"
+        :disabled="readonly"
         @change="val => changeHint(val)"
       />
     </div>
@@ -46,6 +48,10 @@ export default {
   components: {
     SfRadio,
     SfCheckbox
+  },
+
+  props: {
+    readonly: true
   },
 
   setup(props, { emit }) {
