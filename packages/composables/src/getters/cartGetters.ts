@@ -68,8 +68,8 @@ function getTotals(cart: Cart): AgnosticTotals {
   return {
     total: cart?.basketAmount ?? 0,
     shippingAmount: cart?.shippingAmount ?? 0,
-    vatValue: (cart?.totalVats ?? [])[0]?.vatValue ?? 0,
-    vatAmount: (cart?.totalVats ?? [])[0]?.vatAmount ?? 0,
+    vatValue: cart?.totalVats?.[0]?.vatValue ?? 0,
+    vatAmount: cart?.totalVats?.[0]?.vatAmount ?? 0,
     subtotal: cart?.itemSum ?? 0,
     special: cart?.basketAmount ?? 0,
     rebate: cart?.basketRebate ?? 0,
