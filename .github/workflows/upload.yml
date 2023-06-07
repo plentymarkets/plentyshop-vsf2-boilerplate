@@ -26,7 +26,7 @@ jobs:
       - name: Create Zip Archive
         uses: vimtor/action-zip@v1
         with:
-          files: .packages
+          files: ./packages/theme
           dest: filename.zip
 
       - name: Upload Artifact
@@ -45,6 +45,6 @@ jobs:
         id: upload
         uses: JantHsueh/upload-file-action@1.0
         with:
-          url: ${{ secrets.S3_UPLOAD_URL }}
-          forms: '{ "tokenName": "${{ secrets.S3_UPLOAD_TOKEN }}" }'
+          url: ${{ secrets.URL_ENDPOINT }}
+          forms: '{ "tokenName": "${{ secrets.URL_ENDPOINT_TOKEN }}" }'
           fileForms: '{ "filename": "${{ github.workspace }}/filename.zip" }'
