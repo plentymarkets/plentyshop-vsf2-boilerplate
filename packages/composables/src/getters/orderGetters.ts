@@ -58,7 +58,7 @@ function getStatus(order: Order): string {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getPrice(order: Order): number | null {
-  return order?.order?.amounts[0]?.grossTotal || 0;
+  return order?.order?.amounts?.[0]?.grossTotal || 0;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
