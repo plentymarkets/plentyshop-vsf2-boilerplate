@@ -6,7 +6,7 @@
     "node": ">=14.17.x"
   },
   "scripts": {
-    "build": "yarn build:api-client && yarn build:composables && yarn build:theme && yarn build:pp-integration",
+    "build": "yarn build:pp-integration && yarn build:api-client && yarn build:composables && yarn build:theme",
     "build:api-client": "cd packages/api-client && yarn build",
     "build:composables": "cd packages/composables && yarn build",
     "build:theme": "cd packages/theme && yarn build",

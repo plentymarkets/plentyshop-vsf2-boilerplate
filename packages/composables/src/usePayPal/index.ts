@@ -9,17 +9,22 @@ export const usePayPal = () => {
     usePayPal: null
   }, 'usePayPal-error');
 
-  const createOrder = async (fundingSource: string): Promise<any> => {
+  const createOrder = async (fundingSource: string): Promise<unknown> => {
     return await context.$plentymarkets.api.createOrder(fundingSource);
   };
 
-  const approveOrder = async (orderID: string, payerID: string): Promise<any> => {
+  const approveOrder = async (orderID: string, payerID: string): Promise<unknown> => {
     return await context.$plentymarkets.api.approveOrder(orderID, payerID);
   };
 
+  const captureOrder = async (orderID: string, payerID: string): Promise<unknown> => {
+    return await context.$plentymarkets.api.captureOrder(orderID, payerID);
+  };
+
   return {
-    createOrder,
     approveOrder,
+    captureOrder,
+    createOrder,
     loading: computed(() => loading.value),
     error: computed(() => error.value)
   };

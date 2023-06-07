@@ -50,7 +50,7 @@ const usePaypal = () => {
 
     try {
       // TODO get client id somehow
-      paypal.value = await loadPayPalScript({ 'client-id': 'AU57kSupTeqxhUDNZRKIIuz7hQIluvUwr5eLHdl5FF3nCMduytAMwDqfBwtOXfOPwpEcxAvxTWdWnsX1', currency: currency });
+      paypal.value = await loadPayPalScript({ 'client-id': 'Ab_wQoMAfzuqCrl4gVfYvkNHmBS_s_rQKMafFJrArKJ4GZU8nbSIn53v4Q8ZZfoHR01kxnjkDF4yVLAv', currency: currency });
       return paypal.value;
     } catch (error) {
       console.error('failed to load the PayPal JS SDK script', error);
