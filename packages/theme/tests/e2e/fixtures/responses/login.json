@@ -309,8 +309,8 @@
                 "number": null,
                 "externalId": "",
                 "typeId": 1,
-                "firstName": "Kevin",
-                "lastName": "Stederoth",
+                "firstName": "John",
+                "lastName": "Doe",
                 "gender": "male",
                 "title": "",
                 "formOfAddress": "",
@@ -336,7 +336,7 @@
                 "isLead": false,
                 "leadStatusKey": "",
                 "plentyId": 60796,
-                "email": "kevin.stederoth+logout@plentymarkets.com",
+                "email": "john.doe@plentymarkets.com",
                 "ebayName": "",
                 "privatePhone": "6123456789",
                 "privateFax": "",
@@ -348,7 +348,7 @@
                 "singleAccess": "",
                 "contactPerson": "",
                 "marketplacePartner": "",
-                "fullName": "Kevin Stederoth",
+                "fullName": "John Doe",
                 "inLeadStatusSince": 0,
                 "options": [
                     {
@@ -366,7 +366,7 @@
                         "contactId": 158,
                         "typeId": 2,
                         "subTypeId": 4,
-                        "value": "kevin.stederoth+logout@plentymarkets.com",
+                        "value": "john.doe@plentymarkets.com",
                         "priority": 0,
                         "createdAt": "2022-11-22T12:09:30+01:00",
                         "updatedAt": "2022-11-22T12:09:30+01:00"
