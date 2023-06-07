@@ -63,7 +63,7 @@ function getPrice(order: Order): number | null {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getItems(order: Order): OrderItem[] {
-  return order.order.orderItems || [];
+  return order?.order?.orderItems || [];
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -129,6 +129,10 @@ function getTotal(totals: OrderTotals): number {
   return totals?.totalGross;
 }
 
+function isReturnable(order: Order): boolean {
+  return order?.isReturnable;
+}
+
 function getPagination(orders: GetOrdersResponse): AgnosticPagination {
   const totalPages = orders?.data?.lastPageNumber || 1;
   const pageOptions = [orders?.data?.itemsPerPage] || [5];
@@ -153,31 +157,32 @@ function getOrderItemLink(order: Order, productId: number): string {
 
 export const orderGetters: UserOrderGetters<Order, OrderItem> = {
   getAccessKey,
+  getBillingAddress,
   getById,
-  getOrderEmail,
   getDate,
   getFormattedPrice,
   getId,
   getItemName,
   getItemPrice,
   getItemQty,
-  getItemVariationId,
   getItems,
   getItemSku,
+  getItemVariationId,
+  getOrderEmail,
   getOrderItemLink,
   getOrdersTotal,
   getPagination,
+  getPaymentMethodName,
+  getPaymentStatus,
   getPrice,
+  getShippingAddress,
   getShippingAmount,
+  getShippingProfileName,
   getStatus,
   getSubTotal,
   getTotal,
   getTotals,
   getVatAmount,
   getVatRate,
-  getBillingAddress,
-  getShippingAddress,
-  getPaymentMethodName,
-  getPaymentStatus,
-  getShippingProfileName
+  isReturnable
 };

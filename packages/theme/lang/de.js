@@ -273,24 +273,34 @@ const de = {
   // OrderHistory
   'OrderHistory': {
     'All orders': 'Alle Bestellungen',
-    'All returns': 'Alle Rücksendungen',
     'Amount': 'Summe',
     'Details and order status': 'Überprüfen Sie die Details und den Status Ihrer Bestellungen im Online-Shop. Sie können Ihre Bestellung auch stornieren oder eine Rücksendung anfordern.',
-    'Details and return status': 'Details und den Status Ihrer Rücksendungen.',
     'My orders': 'Meine Bestellungen',
     'Order date': 'Bestelldatum',
     'Order ID': 'Bestell-ID',
     'Price': 'Preis',
     'Product': 'Produkt',
     'Quantity': 'Menge',
-    'Returns': 'Rücksendungen',
     'Start shopping': '@:App.startShopping',
     'Status': 'Status',
     'Total orders': 'Gesamtzahl Aufträge',
-    'Total returns': 'Gesamtzahl Retouren',
     'View details': 'Details ansehen',
-    'You currently have no orders': 'Sie haben derzeit keine Bestellungen'
+    'You currently have no orders': 'Sie haben derzeit keine Bestellungen',
+    'Return items': 'Zurücksenden'
   },
+
+  // OrderReturn
+  'OrderReturn': {
+    'All returns': 'Alle Rücksendungen',
+    'Details and return status': 'Sehen Sie hier die Details und den Status Ihrer Rücksendungen ein.',
+    'Error': 'Fehler beim Versenden der Retourenanfrage.',
+    'Returns': 'Rücksendungen',
+    'Success': 'Rücksendungsanfrage erfolgreich versendet',
+    'Total returns': 'Gesamtzahl Rücksendungen',
+    'You currently have no returns': 'Sie haben noch keine Rücksendungen aufgegeben',
+    'Return your items now': 'Rücksendung erstellen'
+  },
+
   // Documents
   'Documents' : {
     'Correction Documents': 'Korrekturbeleg',
