@@ -79,6 +79,9 @@ export default {
     AddressInputForm,
     SfHeading
   },
+  props: {
+    readonly: false
+  },
   setup(props, {root, refs}) {
     const sameAsBilling = ref(false);
     const router = useRouter();
