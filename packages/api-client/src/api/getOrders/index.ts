@@ -9,8 +9,9 @@ export async function getOrders(context: Context, params: UseUserOrderSearchPara
 
   const { data } = await context.client.get(url.href);
 
+  const shippingCostTypeId = 6;
   data.data.entries.map(entry => {
-    entry.order.orderItems = entry.order.orderItems.filter(item => item.typeId !== 6);
+    entry.order.orderItems = entry.order.orderItems.filter(item => item.typeId !== shippingCostTypeId);
   });
 
   return data;
