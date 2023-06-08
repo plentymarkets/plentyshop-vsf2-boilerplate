@@ -36,10 +36,8 @@
               Payment method
             </h3>
             <div class="flex items-center gap-5">
-              <img
-                src="https://cdn02.plentymarkets.com/mevofvd5omld/plugin/2/paypal/images/logos/de-pp-logo.png"
-                style="width: 60px"
-              >
+              <img src="https://cdn02.plentymarkets.com/mevofvd5omld/plugin/2/paypal/images/logos/de-pp-logo.png"
+                style="width: 60px">
               <span>Paypal</span>
             </div>
           </div>
@@ -51,28 +49,19 @@
             <div class="flex items-center gap-5">
               <img
                 src="https://assets.dpdhl-brands.com/guides/dhl/guides-de/design-basics/logo-and-claim/logo/versions-01.png"
-                style="width: 60px"
-              >
+                style="width: 60px">
               <span>DHL</span>
             </div>
           </div>
         </div>
       </div>
-      <div class="flex-1">
+      <div class="flex-1 bg-sf-c-light">
         <div class="p-5">
           <SfTable class="sf-table--bordered table">
-            <SfTableRow
-              v-for="(product, index) in products"
-              :key="index"
-              class="table__row"
-            >
+            <SfTableRow v-for="(product, index) in products" :key="index" class="table__row">
               <SfTableData class="table__image">
-                <SfImage
-                  :width="100"
-                  :height="100"
-                  :src="addBasePath(cartGetters.getItemImage(product))"
-                  :alt="cartGetters.getItemName(product)"
-                />
+                <SfImage :width="100" :height="100" :src="addBasePath(cartGetters.getItemImage(product))"
+                  :alt="cartGetters.getItemName(product)" />
               </SfTableData>
               <SfTableData class="table__data table__description table__data">
                 <div class="product-title">
@@ -82,30 +71,22 @@
                   {{ cartGetters.getItemSku(product) }}
                 </div>
               </SfTableData>
-              <SfTableData
-                v-for="(value, key) in cartGetters.getItemAttributes(product, [
-                  'size',
-                  'color',
-                ])"
-                :key="key"
-                class="table__data"
-              >
+              <SfTableData v-for="(value, key) in cartGetters.getItemAttributes(product, [
+                'size',
+                'color',
+              ])" :key="key" class="table__data">
                 {{ value }}
               </SfTableData>
               <SfTableData class="table__data">
                 {{ cartGetters.getItemQty(product) }}
               </SfTableData>
               <SfTableData class="table__data price">
-                <SfPrice
-                  :regular="
-                    $n(cartGetters.getRegularItemPrice(product), 'currency')
-                  "
-                  :special="
-                    cartGetters.getSpecialItemPrice(product) &&
-                      $n(cartGetters.getSpecialItemPrice(product), 'currency')
-                  "
-                  class="product-price"
-                />
+                <SfPrice :regular="
+                  $n(cartGetters.getRegularItemPrice(product), 'currency')
+                " :special="
+  cartGetters.getSpecialItemPrice(product) &&
+  $n(cartGetters.getSpecialItemPrice(product), 'currency')
+" class="product-price" />
               </SfTableData>
             </SfTableRow>
           </SfTable>
@@ -115,37 +96,27 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div>
-      <SfCheckbox
-        v-e2e="'terms'"
-        name="terms"
-        class="summary__terms my-sf-lg"
-      >
-        <template #label>
-          <div class="sf-checkbox__label">
-            {{ $t('Payment.I agree to') }} <SfLink link="#">
-              {{ $t('Payment.Terms and conditions') }}
-            </SfLink>
+        <div class="p-3">
+          <SfCheckbox v-e2e="'terms'" name="terms" class="summary__terms my-sf-lg">
+            <template #label>
+              <div class="sf-checkbox__label">
+                {{ $t('Payment.I agree to') }} <SfLink link="#">
+                  {{ $t('Payment.Terms and conditions') }}
+                </SfLink>
+              </div>
+            </template>
+          </SfCheckbox>
+          <div class="my-2">
+            <SfButton type="button" class="w-full color-primary" size="lg">
+              Order now
+            </SfButton>
           </div>
-        </template>
-      </SfCheckbox>
-      <div class="my-2">
-        <SfButton
-          type="button"
-          class="w-full color-primary"
-          size="lg"
-        >
-          Order now
-        </SfButton>
-      </div>
-      <div>
-        <SfButton
-          class="w-full color-secondary"
-        >
-          cancel order
-        </SfButton>
+          <div>
+            <SfButton class="w-full color-secondary">
+              cancel order
+            </SfButton>
+          </div>
+        </div>
       </div>
     </div>
   </div>
