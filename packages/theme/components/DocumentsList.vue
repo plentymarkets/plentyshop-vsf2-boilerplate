@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="documents && documents.length"
-    v-e2e="'documents-list'"
+    :v-e2e="'documents-list'"
     class="documents-list"
   >
     <SfButton

@@ -1,6 +1,6 @@
 <template>
   <div
-    v-e2e="'order-summary'"
+    :v-e2e="'order-summary'"
     class="order-summary"
   >
     <h3

@@ -1,6 +1,6 @@
 <template>
   <div
-    v-e2e="'payment-summary'"
+    :v-e2e="'payment-summary'"
     class="payment-summary"
   >
     <h3

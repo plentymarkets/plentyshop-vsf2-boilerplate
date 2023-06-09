@@ -86,7 +86,7 @@
             v-for="orderReturn in returns"
             :key="returnGetters.getId(orderReturn)"
           >
-            <SfTableData v-e2e="'order-number'">
+            <SfTableData :v-e2e="'order-number'">
               {{ returnGetters.getId(orderReturn) }}
             </SfTableData>
             <SfTableData>{{ returnGetters.getDate(orderReturn) }}</SfTableData>

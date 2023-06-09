@@ -15,7 +15,7 @@
       >
         <SfInput
           v-model="form.username"
-          v-e2e="'login-modal-email'"
+          :v-e2e="'login-modal-email'"
           :valid="!errors[0]"
           :error-message="errors[0]"
           name="email"
@@ -30,7 +30,7 @@
       >
         <SfInput
           v-model="form.password"
-          v-e2e="'login-modal-password'"
+          :v-e2e="'login-modal-password'"
           :valid="!errors[0]"
           :error-message="errors[0]"
           name="password"
@@ -41,7 +41,7 @@
       </ValidationProvider>
       <SfCheckbox
         v-model="rememberMe"
-        v-e2e="'login-modal-remember-me'"
+        :v-e2e="'login-modal-remember-me'"
         name="remember-me"
         :label="$t('LoginModal.Remember me')"
         class="form__element checkbox mb-10"
@@ -50,7 +50,7 @@
         {{ error.login }}
       </div>
       <SfButton
-        v-e2e="'login-modal-submit'"
+        :v-e2e="'login-modal-submit'"
         type="submit"
         class="sf-button--full-width form__button min-h-12"
         :disabled="loading"

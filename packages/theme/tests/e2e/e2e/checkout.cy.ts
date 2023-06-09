@@ -7,11 +7,7 @@ context('Order placement', () => {
         data: fixture
       };
     });
-    
-    page.home.visit();
-  });
-  it(['happyPath', 'regression'], 'Should successfully place an order as a guest user', function test() {
-    const data = this.fixtures.data;
+
     cy.intercept('/api/plentymarkets/addCartItem').as('addCartItem');
     cy.intercept('/api/plentymarkets/additionalInformation').as('additionalInformation');
     cy.intercept('/api/plentymarkets/deleteCart').as('deleteCart');
@@ -26,17 +22,18 @@ context('Order placement', () => {
     cy.intercept('/api/plentymarkets/preparePayment').as('preparePayment');
     cy.intercept('/api/plentymarkets/saveAddress').as('saveAddress');
     cy.intercept('/api/plentymarkets/registerUser').as('registerUser');
-    
+
     page.home.visit();
   });
+
   it(['happyPath', 'regression'], 'Should successfully place an order as a guest user', function test () {
     const data = this.fixtures.data;
-    
+
     // With the current data, the first category does not have items. Therefore, we need to replace the
     // following selector: page.home.header.categories.first().click();
     cy.get('[v-e2e*="app-header"]').eq(1).find('a').click();
     cy.wait('@getFacet');
-    
+
     page.category.products.first().click();
     cy.wait('@getProduct');
 

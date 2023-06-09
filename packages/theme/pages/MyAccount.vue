@@ -5,7 +5,7 @@
       :breadcrumbs="breadcrumbs"
     />
     <SfContentPages
-      v-e2e="'my-account-content-pages'"
+      :v-e2e="'my-account-content-pages'"
       :title="$t('MyAccount.My account')"
       :active="activePage"
       class="my-account"

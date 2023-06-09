@@ -25,7 +25,7 @@
             :loading="loading"
           >
             <SfAccordion
-              v-e2e="'categories-accordion'"
+              :v-e2e="'categories-accordion'"
               :open="categoryGetters.getCategoryName(category)"
               :show-chevron="true"
             >
