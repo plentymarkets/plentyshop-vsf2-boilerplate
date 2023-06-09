@@ -26,6 +26,7 @@ context('Order placement', () => {
     page.home.visit();
   });
 
+
   it(['happyPath', 'regression'], 'Should successfully place an order as a guest user', function test () {
     const data = this.fixtures.data;
 
