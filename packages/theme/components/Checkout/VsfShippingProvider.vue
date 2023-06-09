@@ -62,7 +62,7 @@ export default {
     } = useShippingProvider();
 
     const { load: loadPaymentProviders } = usePaymentProvider();
-    const { cart } = useCart();
+    const { cart, load: loadCart, setCart } = useCart();
     const shippingMethods = computed(() => shippingProviderGetters.getShippingProviders(shippingProvider.value));
     const shippingMethodsById = computed(() => keyBy(shippingMethods.value, 'parcelServicePresetId'));
 
@@ -73,13 +73,15 @@ export default {
       await save({ shippingMethod: shippingProviderGetters.getValue(method)});
       selectedMethod.value = method;
       selectedMethodId.value = shippingProviderGetters.getParcelServicePresetId(method);
+      setCart(null);
+      await loadCart();
       await loadPaymentProviders();
     };
 
     const providerAmount = (method) => {
       const amount = shippingProviderGetters.getShippingAmount(method);
 
-      return amount !== '0' ? amount : app.i18n.t('VsfShippingProvider.Free');
+      return amount !== '0' ? app.i18n.n(amount, 'currency') : app.i18n.t('VsfShippingProvider.Free');
     };
 
     watch(loadingShippingProvider, async (loading) => {

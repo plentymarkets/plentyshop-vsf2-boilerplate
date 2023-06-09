@@ -8,11 +8,11 @@
       @submit.prevent="handleSubmit(submit)"
     >
       <p class="message mb-2">
-        {{ $t('NewsletterUnubscribeForm.unsubscribeFromNewsletterContent') }}
+        {{ $t('NewsletterUnsubscribeForm.unsubscribeFromNewsletterContent') }}
       </p>
       <ValidationProvider
         v-slot="{ errors }"
-        :name="$t('NewsletterUnubscribeForm.Email address')"
+        :name="$t('NewsletterUnsubscribeForm.Email address')"
         rules="required|email"
         class="mt-4 mb-3"
         tag="div"
@@ -21,7 +21,7 @@
           v-model="emailAddress"
           type="email"
           :name="emailAddress"
-          :label="$t('NewsletterUnubscribeForm.Email address')"
+          :label="$t('NewsletterUnsubscribeForm.Email address')"
           class="modal__input"
           :valid="!errors[0]"
           :error-message="errors[0]"
@@ -84,10 +84,10 @@ export default {
         emailFolder: 10 });
 
       if (result.data === true) {
-        send({ message: app.i18n.t('NewsletterUnubscribeForm.Unsubscribe successful'), type: 'success' });
+        send({ message: app.i18n.t('NewsletterUnsubscribeForm.Unsubscribe successful'), type: 'success' });
       } else {
         send({
-          message: app.i18n.t('NewsletterUnubscribeForm.Email address not found'), type: 'danger', persist: false });
+          message: app.i18n.t('NewsletterUnsubscribeForm.Email address not found'), type: 'danger', persist: false });
       }
       if (error.value.unsubscribe) {
         send({ message: error.value.unsubscribe, type: 'danger', persist: false });
