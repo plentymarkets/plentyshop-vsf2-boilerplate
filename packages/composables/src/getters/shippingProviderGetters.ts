@@ -14,6 +14,12 @@ function getShippingMethodName(shippingMethod: ShippingMethod): string {
   return `${shippingMethod?.parcelServiceName} - ${shippingMethod?.parcelServicePresetName}`;
 }
 
+function getShippingMethodImage(shippingMethod: ShippingMethod): string {
+  console.log(shippingMethod);
+  // TODO: Shipping method should contain brand image!
+  return 'https://assets.dpdhl-brands.com/guides/dhl/guides-de/design-basics/logo-and-claim/logo/versions-01.png';
+}
+
 function getShippingPrivacyInformation(shippingMethod: ShippingMethod): ShippingPrivacyInformation {
   return shippingMethod?.shippingPrivacyInformation[0];
 }
@@ -40,6 +46,7 @@ function getShippingProfileId(cart: Cart): string {
 
 export const shippingProviderGetters: ShippingProviderGetters = {
   getShippingMethodName,
+  getShippingMethodImage,
   getShippingPrivacyInformation,
   getDataPrivacyAgreementHint,
   getShippingAmount,

@@ -31,6 +31,7 @@ export interface ShippingProvider {
 export interface ShippingProviderGetters {
     getShippingProviders(shippingProvider: ShippingProvider): ShippingMethod[]
     getShippingMethodName(shippingMethod: ShippingMethod): string
+    getShippingMethodImage(shippingMethod: ShippingMethod): string
     getShippingPrivacyInformation(shippingMethod: ShippingMethod): ShippingPrivacyInformation
     getDataPrivacyAgreementHint(shippingMethod: ShippingMethod): boolean
     getShippingAmount(shippingMethod: ShippingMethod): string
