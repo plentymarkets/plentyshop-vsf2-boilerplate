@@ -90,11 +90,11 @@ jobs:
           config-file: tests/e2e/cypress.config.js
           install: false
           project: ${{ github.workspace }}/packages/theme/
-          start: yarn start --port 8080
+          start: chmod -R +x packages/theme/node_modules/.bin && chmod +x packages/theme/nuxt.config.js && /usr/bin/dumb-init -- yarn start
           wait-on: 'http://127.0.0.1/:8080'
         env:
           CYPRESS_BASE_URL: 'http://127.0.0.1/:8080'
-          
+
       - name: Upload code coverage report
         if: ${{ always() && !cancelled() }}
         uses: actions/upload-artifact@v3
