@@ -77,7 +77,7 @@ const config = {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     ['nuxt-i18n', {
-      baseUrl: process.env.BASE_URL || `http://localhost:${appPort}`
+      baseUrl: process.env.BASE_URL || `http://127.0.0.1:${appPort}`
     }],
     'cookie-universal-nuxt',
     'vue-scrollto/nuxt',
@@ -251,7 +251,7 @@ const config = {
 
 if (process.env.MIDDLEWARE_URL) {
   config.privateRuntimeConfig = {
-    middlewareUrl: `http://localhost:${appPort}/api/`
+    middlewareUrl: `http://127.0.0.1:${appPort}/api/`
   }
 }
 
