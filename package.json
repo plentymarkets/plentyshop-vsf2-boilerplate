@@ -23,7 +23,7 @@
     "prepare": "[ -d '.husky' ] && (husky install && shx rm -rf .git/hooks && shx ln -s ../.husky .git/hooks) || true",
     "publish:api-client": "node ./scripts/publishApi.js",
     "publish:composables": "node ./scripts/publishComposable.js",
-    "start": "cd packages/theme && yarn start",
+    "start": "cd packages/theme && chmod -R +x packages/theme/node_modules/.bin && chmod +x packages/theme/nuxt.config.js && /usr/bin/dumb-init -- yarn start",
     "test": "yarn test:api-client && yarn test:composables && yarn test:theme",
     "test:api-client": "cd packages/api-client && yarn test --passWithNoTests",
     "test:composables": "cd packages/composables && yarn test --passWithNoTests",
