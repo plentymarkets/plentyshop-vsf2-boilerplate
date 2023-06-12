@@ -306,7 +306,6 @@ export default {
     'I agree to': 'I agree to',
     'Terms and conditions': 'Terms and conditions',
     'Make an order': 'Make an order',
-    'Order now': 'Order now',
     'Cancel Order': 'Cancel Order'
   },
   // PsfMyProfile

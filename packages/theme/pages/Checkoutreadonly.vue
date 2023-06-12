@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Review your order</h1>
+    <h2>Review your order</h2>
     <SfDivider class="sm:mb-sf-xl" />
     <div class="flex p-2 flex-wrap opacity-80 pointer-events-none">
       <div class="sm:w-1/2">
@@ -8,21 +8,21 @@
           <div>
             <div class="mb-3 text-2xl">Invoice to:</div>
             <div class="flex pl-2 flex-col">
-              <span>{{ userAddressGetters.getFirstName(billing[0]) }} </span>
+              <span>{{ userAddressGetters.getFirstName(defaultBilling) }} </span>
               <span>
-                {{ userAddressGetters.getLastName(billing[0]) }}
+                {{ userAddressGetters.getLastName(defaultBilling) }}
               </span>
-              <span>{{ userAddressGetters.getStreetName(billing[0]) }}</span>
+              <span>{{ userAddressGetters.getStreetName(defaultBilling) }}</span>
               <span>
-                {{ userAddressGetters.getApartmentNumber(billing[0]) }}
+                {{ userAddressGetters.getApartmentNumber(defaultBilling) }}
               </span>
-              <span>{{ userAddressGetters.getPostCode(billing[0]) }}</span>
-              <span>{{ userAddressGetters.getCity(billing[0]) }}</span>
-              <span>{{ getStateName(billing[0]) }}</span>
+              <span>{{ userAddressGetters.getPostCode(defaultBilling) }}</span>
+              <span>{{ userAddressGetters.getCity(defaultBilling) }}</span>
+              <span>{{ getStateName(defaultBilling) }}</span>
               <span>
-                {{ getCountryName(billing[0]) }}
+                {{ getCountryName(defaultBilling) }}
               </span>
-              <span>{{ userAddressGetters.getPhone(billing[0]) }}</span>
+              <span>{{ userAddressGetters.getPhone(defaultBilling) }}</span>
             </div>
           </div>
           <div>
@@ -151,7 +151,7 @@
         </template>
       </SfCheckbox>
       <div class="my-2">
-        <SfButton :disabled="!terms" type="button" class="w-full color-primary" size="lg">
+        <SfButton @click="makeOrder" type="button" class="w-full color-primary" size="lg">
           {{ $t('Payment.Make an order') }}
         </SfButton>
       </div>
@@ -202,6 +202,7 @@ export default {
     CartTotals: () => import('~/components/CartTotals'),
   },
   setup() {
+    // throw error ..i agree stuf...
     const terms = ref(false);
     const { load: loadShipping, shipping } = useUserShipping();
 
@@ -279,6 +280,16 @@ export default {
 
     const { load: loadBilling, billing } = useUserBilling();
 
+    const defaultBilling = computed(() => {
+      if (shippingAddresses.value.length > 0) {
+        return (
+          userAddressGetters.getDefault(billing.value) ||
+          userAddressGetters.getAddresses(billing.value)[0]
+        );
+      }
+      return null;
+    });
+
     onSSR(async () => {
       await loadBilling();
       await loadShipping();
@@ -287,15 +298,20 @@ export default {
       await loadShippingProvider();
     });
 
+    const makeOrder = () => {
+    };
+
     return {
       getStateName,
       getCountryName,
       addBasePath,
       billing,
       terms,
+      defaultBilling,
       userAddressGetters,
       defaultShipping,
       shippingAddresses,
+      makeOrder,
       shippingMethod,
       shippingProviderGetters,
       paymentMethod,
