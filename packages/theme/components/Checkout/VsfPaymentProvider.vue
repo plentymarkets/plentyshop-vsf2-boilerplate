@@ -37,6 +37,7 @@ export default {
   components: {
     SfRadio
   },
+
   setup(props, { emit }) {
     const selectedMethod = ref(null);
     const { result: paymentProviders, save: setPaymentProvider } = usePaymentProvider();
