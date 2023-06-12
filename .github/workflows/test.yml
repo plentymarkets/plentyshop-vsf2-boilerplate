@@ -82,6 +82,9 @@ jobs:
       - name: Test theme
         run: yarn test:theme
 
+      - name: Get IP4 address
+        run: echo "ip_address=localhost" >> $GITHUB_ENV
+
       - name: Run all end-to-end tests
         if: ${{ matrix.os == 'ubuntu-latest' }}
         uses: cypress-io/github-action@v5.0.5
@@ -90,10 +93,10 @@ jobs:
           config-file: tests/e2e/cypress.config.js
           install: false
           project: ${{ github.workspace }}/packages/theme/
-          start: ${{ github.workspace }}/node_modules/.bin/concurrently --kill-others "yarn dev:api-client" "yarn dev:composables" "yarn dev:theme --hostname 'http://127.0.0.1/' --port 3000"
-          wait-on: 'http://127.0.0.1/:8080'
+          start: yarn start --hostname '${{ env.ip_address }}' --port 3000"
+          wait-on: 'http://${{ env.ip_address }}:3000'
         env:
-          CYPRESS_BASE_URL: 'http://127.0.0.1/:8080'
+          CYPRESS_BASE_URL: 'http://${{ env.ip_address }}:3000'
           
       - name: Upload code coverage report
         if: ${{ always() && !cancelled() }}
