@@ -1,61 +1,56 @@
 <template>
   <div>
     <h1>Review your order</h1>
-    <SfDivider class="mb-sf-xl" />
-    <div class="flex opacity-80 pointer-events-none">
-      <div class="flex-1">
+    <SfDivider class="sm:mb-sf-xl" />
+    <div class="flex p-2 flex-wrap opacity-80 pointer-events-none">
+      <div class="sm:w-1/2">
         <div class="flex gap-sf-lg flex-col font-sf-secondary">
           <div>
-            <h3 class="mb-3">Invoice to:</h3>
-            <div class="flex flex-col">
-              <span
-                >{{ userAddressGetters.getFirstName(billing[0]) }}
-                {{ userAddressGetters.getLastName(billing[0]) }}</span
-              >
-              <span
-                >{{ userAddressGetters.getStreetName(billing[0]) }}
-                {{
-                  userAddressGetters.getApartmentNumber(billing[0])
-                }}</span
-              >
+            <div class="mb-3 text-2xl">Invoice to:</div>
+            <div class="flex pl-2 flex-col">
+              <span>{{ userAddressGetters.getFirstName(billing[0]) }} </span>
+              <span>
+                {{ userAddressGetters.getLastName(billing[0]) }}
+              </span>
+              <span>{{ userAddressGetters.getStreetName(billing[0]) }}</span>
+              <span>
+                {{ userAddressGetters.getApartmentNumber(billing[0]) }}
+              </span>
               <span>{{ userAddressGetters.getPostCode(billing[0]) }}</span>
               <span>{{ userAddressGetters.getCity(billing[0]) }}</span>
-              <span
-                >{{ getStateName(billing[0]) }}
-                {{ getCountryName(billing[0]) }}</span
-              >
+              <span>{{ getStateName(billing[0]) }}</span>
+              <span>
+                {{ getCountryName(billing[0]) }}
+              </span>
               <span>{{ userAddressGetters.getPhone(billing[0]) }}</span>
             </div>
           </div>
           <div>
-            <h3 class="mb-3">Shipping to:</h3>
-            <div class="flex flex-col">
+            <div class="mb-3 text-2xl">Shipping to:</div>
+            <div class="flex pl-2 flex-col">
               <span
                 >{{ userAddressGetters.getFirstName(defaultShipping) }}
-                {{ userAddressGetters.getLastName(defaultShipping) }}</span
-              >
+              </span>
               <span
                 >{{ userAddressGetters.getStreetName(defaultShipping) }}
-                {{
-                  userAddressGetters.getApartmentNumber(defaultShipping)
-                }}</span
-              >
+              </span>
+              <span>
+                {{ userAddressGetters.getApartmentNumber(defaultShipping) }}
+              </span>
               <span>{{ userAddressGetters.getPostCode(defaultShipping) }}</span>
               <span>{{ userAddressGetters.getCity(defaultShipping) }}</span>
-              <span
-                >{{ getStateName(defaultShipping) }}
-                a:
-                {{ getCountryName(defaultShipping) }}</span
-              >
+              <span>{{ getStateName(defaultShipping) }}</span>
+              <span>
+                {{ getCountryName(defaultShipping) }}
+              </span>
               <span>{{ userAddressGetters.getPhone(defaultShipping) }}</span>
             </div>
           </div>
-
           <div v-if="paymentMethod">
-            <h4>{{ $t('VsfPaymentProvider.Payment method') }}</h4>
-            <div class="flex row mt-5">
+            <div class="text-2xl">{{ $t('VsfPaymentProvider.Payment method') }}</div>
+            <div class="flex row mt-5 pl-2 sm:pl-0">
               <img
-                width="40px"
+                style="width: 60px"
                 :src="paymentProviderGetters.getIcon(paymentMethod)"
               />
               <div class="ml-2">
@@ -66,8 +61,8 @@
           <div v-else>No Payment Method Selected</div>
 
           <div v-if="shippingMethod">
-            <h4>{{ $t('VsfShippingProvider.Shipping method') }}</h4>
-            <div class="flex row mt-5">
+            <div class="text-2xl">{{ $t('VsfShippingProvider.Shipping method') }}</div>
+            <div class="flex row mt-5 pl-2 sm:pl-0">
               <img
                 :src="
                   shippingProviderGetters.getShippingMethodImage(shippingMethod)
@@ -84,15 +79,16 @@
           <div v-else>No Shipping Method Selected</div>
         </div>
       </div>
-      <div class="flex-1 bg-sf-c-light">
-        <div class="p-5">
+
+      <div class="sm:w-1/2">
+        <div class="px-5 pt-5 sm:pt-0">
           <SfTable class="sf-table--bordered table">
             <SfTableRow
               v-for="(product, index) in products"
               :key="index"
               class="table__row"
             >
-              <SfTableData class="table__image">
+              <SfTableData>
                 <SfImage
                   :width="100"
                   :height="100"
@@ -141,30 +137,26 @@
             </div>
           </div>
         </div>
-        <div class="p-3">
-          <SfCheckbox
-            v-e2e="'terms'"
-            name="terms"
-            class="summary__terms my-sf-lg"
-          >
-            <template #label>
-              <div class="sf-checkbox__label">
-                {{ $t('Payment.I agree to') }}
-                <SfLink link="#">
-                  {{ $t('Payment.Terms and conditions') }}
-                </SfLink>
-              </div>
-            </template>
-          </SfCheckbox>
-          <div class="my-2">
-            <SfButton type="button" class="w-full color-primary" size="lg">
-              Order now
-            </SfButton>
+      </div>
+    </div>
+    <div class="p-3">
+      <SfCheckbox v-model="terms" v-e2e="'terms'" name="terms" class="summary__terms my-sf-lg">
+        <template #label>
+          <div class="sf-checkbox__label">
+            {{ $t('Payment.I agree to') }}
+            <SfLink link="#">
+              {{ $t('Payment.Terms and conditions') }}
+            </SfLink>
           </div>
-          <div>
-            <SfButton class="w-full color-secondary"> cancel order </SfButton>
-          </div>
-        </div>
+        </template>
+      </SfCheckbox>
+      <div class="my-2">
+        <SfButton :disabled="!terms" type="button" class="w-full color-primary" size="lg">
+          {{ $t('Payment.Make an order') }}
+        </SfButton>
+      </div>
+      <div>
+        <SfButton class="w-full color-secondary">{{ $t('Payment.Cancel Order') }}</SfButton>
       </div>
     </div>
   </div>
@@ -180,8 +172,7 @@ import {
   SfDivider,
   SfLink,
 } from '@storefront-ui/vue';
-import { ref, computed, toRef } from '@nuxtjs/composition-api';
-// import AddressPicker from '~/components/AddressPicker';
+
 import {
   useCart,
   cartGetters,
@@ -196,6 +187,7 @@ import {
   countryGetters
 } from '@vue-storefront/plentymarkets';
 import { addBasePath, onSSR } from '@vue-storefront/core';
+import { computed, ref } from '@nuxtjs/composition-api';
 import { keyBy } from 'lodash';
 export default {
   name: 'ReviewOrder',
@@ -210,6 +202,7 @@ export default {
     CartTotals: () => import('~/components/CartTotals'),
   },
   setup() {
+    const terms = ref(false);
     const { load: loadShipping, shipping } = useUserShipping();
 
     const shippingAddresses = computed(() =>
@@ -273,8 +266,7 @@ export default {
 
     const selectedMethodId = computed(() => {
       if (shippingProviderGetters.getShippingProfileId(cart?.value)) {
-        return (selectedMethodId.value =
-          shippingProviderGetters.getShippingProfileId(cart?.value));
+        return shippingProviderGetters.getShippingProfileId(cart?.value);
       }
       return null;
     });
@@ -288,33 +280,30 @@ export default {
     const { load: loadBilling, billing } = useUserBilling();
 
     onSSR(async () => {
-      // should refactor how we handle default billing addreses
       await loadBilling();
-      // user shipping address
       await loadShipping();
       await loadActiveShippingCountries();
-      // payment method
       await loadPaymentProviders();
-      // shipping method
       await loadShippingProvider();
     });
 
     return {
-      billing,
       getStateName,
       getCountryName,
+      addBasePath,
+      billing,
+      terms,
+      userAddressGetters,
       defaultShipping,
       shippingAddresses,
       shippingMethod,
-      userAddressGetters,
-      paymentMethod,
       shippingProviderGetters,
+      paymentMethod,
       paymentProviderGetters,
-      addBasePath,
+      cartGetters,
       products: computed(() => cartGetters.getItems(cart.value)),
-      totals: computed(() => cartGetters.getTotals(cart.value)),
-      cartGetters
+      totals: computed(() => cartGetters.getTotals(cart.value))
     };
-  },
+  }
 };
 </script>

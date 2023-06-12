@@ -303,7 +303,9 @@ export default {
     'Item': 'Artikel',
     'I agree to': 'Ich stimme folgenden Bedingungen zu',
     'Terms and conditions': 'Allgemeinen Geschäftsbedingungen',
-    'Make an order': 'Bestellung aufgeben'
+    'Make an order': 'Bestellung aufgeben',
+    'Order now': 'Jetzt bestellen',
+    'Cancel Order': 'Bestellung stornieren'
   },
   // PsfMyProfile
   'PsfMyProfile': {
