@@ -90,7 +90,7 @@ jobs:
           config-file: tests/e2e/cypress.config.js
           install: false
           project: ${{ github.workspace }}/packages/theme/
-          start: ls -al
+          start: cd packages/theme && ./node_modules/nuxt/bin/nuxt.js start --port 8080
           wait-on: 'http://127.0.0.1/:8080'
         env:
           CYPRESS_BASE_URL: 'http://127.0.0.1/:8080'
