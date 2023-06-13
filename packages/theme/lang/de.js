@@ -419,5 +419,13 @@ export default {
     'Start shopping': '@:App.startShopping',
     'Wishlist sidebar close button': 'Schaltfläche zum Schließen der Wunschliste',
     'Your bag is empty': 'Ihre Tasche ist leer'
+  },
+  //Checkoutreadonly
+  'Checkoutreadonly': {
+    'Review your order': 'überprüfen Sie ihre Bestellungüberprüfen Sie ihre Bestellung',
+    'Invoice to': 'Rechnung an',
+    'Shipping to': 'Versand nach',
+    'No payment method selected': 'Keine Zahlungsmethode ausgewählt',
+    'No shipping method selected': 'Keine Versandart ausgewählt'
   }
 }

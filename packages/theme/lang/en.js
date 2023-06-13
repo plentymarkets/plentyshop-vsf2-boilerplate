@@ -423,4 +423,12 @@ export default {
     'Wishlist sidebar close button': 'Wishlist sidebar close button',
     'Your bag is empty': 'Your bag is empty'
   },
+  //Checkoutreadonly
+  'Checkoutreadonly': {
+    'Review your order': 'Review your order',
+    'Invoice to': 'Invoice to',
+    'Shipping to': 'Shipping to',
+    'No payment method selected': 'No payment method selected',
+    'No shipping method selected': 'No shipping method selected'
+  }
 };

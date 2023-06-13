@@ -1,12 +1,12 @@
 <template>
   <div>
-    <h2>Review your order</h2>
+    <h2>{{ $t('Checkoutreadonly.Review your order') }}</h2>
     <SfDivider class="sm:mb-sf-xl" />
     <div class="flex p-2 flex-wrap opacity-80 pointer-events-none">
       <div class="sm:w-1/2">
         <div class="flex gap-sf-lg flex-col font-sf-secondary">
           <div>
-            <div class="mb-3 text-2xl">Invoice to:</div>
+            <div class="mb-3 text-2xl">{{ $t('Checkoutreadonly.Invoice to') }}</div>
             <div class="flex pl-2 flex-col">
               <span>{{ userAddressGetters.getFirstName(defaultBilling) }} </span>
               <span>
@@ -26,7 +26,7 @@
             </div>
           </div>
           <div>
-            <div class="mb-3 text-2xl">Shipping to:</div>
+            <div class="mb-3 text-2xl">{{ $t('Checkoutreadonly.Shipping to') }}</div>
             <div class="flex pl-2 flex-col">
               <span
                 >{{ userAddressGetters.getFirstName(defaultShipping) }}
@@ -53,12 +53,12 @@
                 style="width: 60px"
                 :src="paymentProviderGetters.getIcon(paymentMethod)"
               />
-              <div class="ml-2">
+              <div class="ml-2 mt-2">
                 {{ paymentProviderGetters.getName(paymentMethod) }}
               </div>
             </div>
           </div>
-          <div v-else>No Payment Method Selected</div>
+          <div v-else>{{ $t('Checkoutreadonly.No payment method selected') }}</div>
 
           <div v-if="shippingMethod">
             <div class="text-2xl">{{ $t('VsfShippingProvider.Shipping method') }}</div>
@@ -76,7 +76,7 @@
               </span>
             </div>
           </div>
-          <div v-else>No Shipping Method Selected</div>
+          <div v-else>{{ $t('Checkoutreadonly.No shipping method selected') }}</div>
         </div>
       </div>
 
