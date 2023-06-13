@@ -422,7 +422,7 @@ export default {
   },
   //Checkoutreadonly
   'Checkoutreadonly': {
-    'Review your order': 'überprüfen Sie ihre Bestellungüberprüfen Sie ihre Bestellung',
+    'Review your order': 'Bitte Bestellung prüfen.',
     'Invoice to': 'Rechnung an',
     'Shipping to': 'Versand nach',
     'No payment method selected': 'Keine Zahlungsmethode ausgewählt',
