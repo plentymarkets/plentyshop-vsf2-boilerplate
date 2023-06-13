@@ -28,11 +28,9 @@
           <div>
             <div class="mb-3 text-2xl">{{ $t('Checkoutreadonly.Shipping to') }}</div>
             <div class="flex pl-2 flex-col">
-              <span
-                >{{ userAddressGetters.getFirstName(defaultShipping) }}
+              <span>{{ userAddressGetters.getFirstName(defaultShipping) }}
               </span>
-              <span
-                >{{ userAddressGetters.getStreetName(defaultShipping) }}
+              <span>{{ userAddressGetters.getStreetName(defaultShipping) }}
               </span>
               <span>
                 {{ userAddressGetters.getApartmentNumber(defaultShipping) }}
@@ -49,10 +47,7 @@
           <div v-if="paymentMethod">
             <div class="text-2xl">{{ $t('VsfPaymentProvider.Payment method') }}</div>
             <div class="flex row mt-5 pl-2 sm:pl-0">
-              <img
-                style="width: 60px"
-                :src="paymentProviderGetters.getIcon(paymentMethod)"
-              />
+              <img style="width: 60px" :src="paymentProviderGetters.getIcon(paymentMethod)" />
               <div class="ml-2 mt-2">
                 {{ paymentProviderGetters.getName(paymentMethod) }}
               </div>
@@ -63,12 +58,9 @@
           <div v-if="shippingMethod">
             <div class="text-2xl">{{ $t('VsfShippingProvider.Shipping method') }}</div>
             <div class="flex row mt-5 pl-2 sm:pl-0">
-              <img
-                :src="
-                  shippingProviderGetters.getShippingMethodImage(shippingMethod)
-                "
-                style="width: 60px"
-              />
+              <img :src="
+                shippingProviderGetters.getShippingMethodImage(shippingMethod)
+              " style="width: 60px" />
               <span class="mt-2 ml-2">
                 {{
                   shippingProviderGetters.getShippingMethodName(shippingMethod)
@@ -83,18 +75,10 @@
       <div class="sm:w-1/2">
         <div class="px-5 pt-5 sm:pt-0">
           <SfTable class="sf-table--bordered table">
-            <SfTableRow
-              v-for="(product, index) in products"
-              :key="index"
-              class="table__row"
-            >
+            <SfTableRow v-for="(product, index) in products" :key="index" class="table__row">
               <SfTableData>
-                <SfImage
-                  :width="100"
-                  :height="100"
-                  :src="addBasePath(cartGetters.getItemImage(product))"
-                  :alt="cartGetters.getItemName(product)"
-                />
+                <SfImage :width="100" :height="100" :src="addBasePath(cartGetters.getItemImage(product))"
+                  :alt="cartGetters.getItemName(product)" />
               </SfTableData>
               <SfTableData class="table__data table__description table__data">
                 <div class="product-title">
@@ -104,30 +88,22 @@
                   {{ cartGetters.getItemSku(product) }}
                 </div>
               </SfTableData>
-              <SfTableData
-                v-for="(value, key) in cartGetters.getItemAttributes(product, [
-                  'size',
-                  'color',
-                ])"
-                :key="key"
-                class="table__data"
-              >
+              <SfTableData v-for="(value, key) in cartGetters.getItemAttributes(product, [
+                'size',
+                'color',
+              ])" :key="key" class="table__data">
                 {{ value }}
               </SfTableData>
               <SfTableData class="table__data">
                 {{ cartGetters.getItemQty(product) }}
               </SfTableData>
               <SfTableData class="table__data price">
-                <SfPrice
-                  :regular="
-                    $n(cartGetters.getRegularItemPrice(product), 'currency')
-                  "
-                  :special="
-                    cartGetters.getSpecialItemPrice(product) &&
-                    $n(cartGetters.getSpecialItemPrice(product), 'currency')
-                  "
-                  class="product-price"
-                />
+                <SfPrice :regular="
+                  $n(cartGetters.getRegularItemPrice(product), 'currency')
+                " :special="
+  cartGetters.getSpecialItemPrice(product) &&
+  $n(cartGetters.getSpecialItemPrice(product), 'currency')
+" class="product-price" />
               </SfTableData>
             </SfTableRow>
           </SfTable>
@@ -140,24 +116,34 @@
       </div>
     </div>
     <div class="p-3">
-      <SfCheckbox v-model="terms" v-e2e="'terms'" name="terms" class="summary__terms my-sf-lg">
-        <template #label>
-          <div class="sf-checkbox__label">
-            {{ $t('Payment.I agree to') }}
-            <SfLink link="#">
-              {{ $t('Payment.Terms and conditions') }}
-            </SfLink>
+
+      <ValidationObserver key="subscribe-newsletter" v-slot="{ handleSubmit }">
+        <form @submit.prevent="handleSubmit(makeOrder)">
+          <ValidationProvider v-slot="{ errors }" :name="$t('NewsletterSubscribeForm.Email address')" class="mt-4 mb-3"
+            tag="div">
+            {{ errors }}
+            <SfCheckbox v-model="terms" v-e2e="'terms'" name="terms" class="summary__terms my-sf-lg">
+              <template #label>
+                <div class="sf-checkbox__label">
+                  {{ $t('Payment.I agree to') }}
+                  <SfLink link="#">
+                    {{ $t('Payment.Terms and conditions') }}
+                  </SfLink>
+                </div>
+              </template>
+            </SfCheckbox>
+          </ValidationProvider>
+          <div class="my-2">
+            <!-- <span class="text-sf-c-danger" v-if="showWarning">You must agree to the terms and conditions first!</span> -->
+            <SfButton type="submit" class="w-full color-primary" size="lg">
+              {{ $t('Payment.Make an order') }}
+            </SfButton>
           </div>
-        </template>
-      </SfCheckbox>
-      <div class="my-2">
-        <SfButton @click="makeOrder" type="button" class="w-full color-primary" size="lg">
-          {{ $t('Payment.Make an order') }}
-        </SfButton>
-      </div>
-      <div>
-        <SfButton class="w-full color-secondary">{{ $t('Payment.Cancel Order') }}</SfButton>
-      </div>
+          <div>
+            <SfButton class="w-full color-secondary">{{ $t('Payment.Cancel Order') }}</SfButton>
+          </div>
+        </form>
+      </ValidationObserver>
     </div>
   </div>
 </template>
@@ -189,6 +175,13 @@ import {
 import { addBasePath, onSSR } from '@vue-storefront/core';
 import { computed, ref } from '@nuxtjs/composition-api';
 import { keyBy } from 'lodash';
+import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
+import { required } from 'vee-validate/dist/rules';
+
+extend('required', {
+  ...required
+});
+
 export default {
   name: 'ReviewOrder',
   components: {
@@ -199,12 +192,15 @@ export default {
     SfDivider,
     SfPrice,
     SfCheckbox,
+    ValidationProvider,
+    ValidationObserver,
     CartTotals: () => import('~/components/CartTotals'),
   },
   setup() {
     // throw error ..i agree stuf...
     const terms = ref(false);
     const { load: loadShipping, shipping } = useUserShipping();
+    let showWarning = false;
 
     const shippingAddresses = computed(() =>
       userAddressGetters.getAddresses(shipping.value)
@@ -251,7 +247,7 @@ export default {
     const paymentMethod = computed(
       () =>
         paymentMethodsById.value[
-          paymentProviderGetters.getMethodOfPaymentId(cart.value)
+        paymentProviderGetters.getMethodOfPaymentId(cart.value)
         ]
     );
 
@@ -299,6 +295,11 @@ export default {
     });
 
     const makeOrder = () => {
+      console.log('terms: ', terms)
+      console.log('showWarning: ', showWarning)
+      if (!terms.value) {
+        showWarning = true;
+      }
     };
 
     return {
