@@ -86,7 +86,10 @@
                 @click="addItem({ product, quantity: parseInt(qty) })"
               />
 
-              <PaymentPaypalButton class="mt-4" />
+              <PaymentPaypalButton
+                :paypalUuid="paypalUuid"
+                class="mt-4"
+              />
             </div>
 
             <LazyHydrate when-idle>
@@ -286,6 +289,8 @@ export default {
         isAttributeSelectionValid.value = false;
       }
     };
+    const uuid = require('uuid');
+    const paypalUuid = uuid.v4();
 
     onSSR(async () => {
       await search({ id: id.value });
@@ -296,6 +301,7 @@ export default {
     return {
       product,
       reviews,
+      paypalUuid: paypalUuid,
       reviewGetters,
       averageRating: computed(() =>
         productGetters.getAverageRating(product.value)

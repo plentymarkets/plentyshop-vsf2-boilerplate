@@ -227,10 +227,12 @@ import {
   shippingProviderGetters,
   useUserShipping,
   useUserBilling,
-  countryGetters
+  countryGetters,
+  useMakeOrder,
+  usePayPal
 } from '@vue-storefront/plentymarkets';
 import { addBasePath, onSSR } from '@vue-storefront/core';
-import { computed, ref } from '@nuxtjs/composition-api';
+import { computed, ref, useRoute } from '@nuxtjs/composition-api';
 import { keyBy } from 'lodash';
 import { ValidationProvider, ValidationObserver } from 'vee-validate';
 
@@ -251,6 +253,10 @@ export default {
   setup() {
     const terms = ref(false);
     const { load: loadShipping, shipping } = useUserShipping();
+    const { cart } = useCart();
+    const { make } = useMakeOrder();
+    const { captureOrder } = usePayPal();
+    const route = useRoute();
 
     const shippingAddresses = computed(() =>
       userAddressGetters.getAddresses(shipping.value)
@@ -288,7 +294,6 @@ export default {
       return countryGetters.getCountryName(country);
     };
 
-    const { cart } = useCart();
     const { load: loadPaymentProviders, result: paymentProviders } =
       usePaymentProvider();
     const paymentMethodsById = computed(() =>
@@ -344,8 +349,13 @@ export default {
       await loadShippingProvider();
     });
 
-    const makeOrder = () => {
-      console.log('Make order');
+    const makeOrder = async () => {
+      await make({
+        paymentId: cart.value.methodOfPaymentId,
+        shippingPrivacyHintAccepted: true
+      });
+
+      await captureOrder(route.value.query.orderId, route.value.query.payerId);
     };
 
     return {
@@ -367,6 +377,5 @@ export default {
       products: computed(() => cartGetters.getItems(cart.value)),
       totals: computed(() => cartGetters.getTotals(cart.value))
     };
-  }
-};
+  }};
 </script>

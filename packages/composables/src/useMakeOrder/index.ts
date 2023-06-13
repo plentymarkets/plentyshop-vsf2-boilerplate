@@ -25,7 +25,7 @@ const factoryParams: UseMakeOrderFactoryParams<Order> = {
         const data: Order = await context.$plentymarkets.api.placeOrder();
 
         await context.$plentymarkets.api.executePayment(data.order.id, params.paymentId);
-        await context.$plentymarkets.api.deleteCart(context);
+        // await context.$plentymarkets.api.deleteCart(context);
 
         return data;
       case 'redirectUrl':
