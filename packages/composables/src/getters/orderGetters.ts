@@ -58,12 +58,12 @@ function getStatus(order: Order): string {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getPrice(order: Order): number | null {
-  return order?.order?.amounts[0]?.grossTotal || 0;
+  return order?.order?.amounts?.[0]?.grossTotal || 0;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getItems(order: Order): OrderItem[] {
-  return order.order.orderItems || [];
+  return order?.order?.orderItems || [];
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -117,6 +117,10 @@ function getShippingAmount(totals: OrderTotals): number {
   return totals?.shippingGross;
 }
 
+function getShippingCost(order: Order): number | null {
+  return order?.order?.amounts?.[0]?.shippingCostsGross || 0;
+}
+
 function getVatRate(totals: OrderTotals): number {
   return totals?.vats[0].rate;
 }
@@ -127,6 +131,10 @@ function getVatAmount(totals: OrderTotals): number {
 
 function getTotal(totals: OrderTotals): number {
   return totals?.totalGross;
+}
+
+function isReturnable(order: Order): boolean {
+  return order?.isReturnable;
 }
 
 function getPagination(orders: GetOrdersResponse): AgnosticPagination {
@@ -153,31 +161,33 @@ function getOrderItemLink(order: Order, productId: number): string {
 
 export const orderGetters: UserOrderGetters<Order, OrderItem> = {
   getAccessKey,
+  getBillingAddress,
   getById,
-  getOrderEmail,
   getDate,
   getFormattedPrice,
   getId,
   getItemName,
   getItemPrice,
   getItemQty,
-  getItemVariationId,
   getItems,
   getItemSku,
+  getItemVariationId,
+  getOrderEmail,
   getOrderItemLink,
   getOrdersTotal,
   getPagination,
+  getPaymentMethodName,
+  getPaymentStatus,
   getPrice,
+  getShippingAddress,
   getShippingAmount,
+  getShippingCost,
+  getShippingProfileName,
   getStatus,
   getSubTotal,
   getTotal,
   getTotals,
   getVatAmount,
   getVatRate,
-  getBillingAddress,
-  getShippingAddress,
-  getPaymentMethodName,
-  getPaymentStatus,
-  getShippingProfileName
+  isReturnable
 };

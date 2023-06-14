@@ -1,6 +1,6 @@
 /* eslint-disable  */
 
-export default {
+const de = {
   // Global
   'App': {
     'addNewAddress': 'Neue Adresse hinzufügen',
@@ -63,7 +63,8 @@ export default {
     'CancellationForm': 'Widerrufsformular',
     'LegalDisclosure' : 'Impressum',
     'PrivacyPolicy' : 'Datenschutzerklärung',
-    'TermsAndConditions': 'AGB'
+    'TermsAndConditions': 'AGB',
+    'Unsubscribe': 'Abbestellen'
   },
   // AppHeader
   'AppHeader': {
@@ -181,12 +182,12 @@ export default {
     'Enjoy your free account': 'Viel Spaß mit deinem kostenlosen Konto',
     'First name': '@:App.firstName',
     'I want to create an account': 'Ich will ein Konto erstellen',
-    'Log into your account': '@:App.logIntoYourAccount',
+    'Log in now': '@:App.Log in now',
     'or fill in the details below': 'oder füllen Sie die Details unten aus',
     'Last name': '@:App.lastName',
     'Order as guest': 'Als Gast bestellen',
     'User data': '@:App.userData',
-    'Register': '@:App.register',
+    'Register and continue': '@:App.register',
     'Email': '@:App.email'
   },
   // LoginModal
@@ -247,7 +248,8 @@ export default {
   },
   // MyNewsletter
   'MyNewsletter': {
-    'My newsletter': 'Mein Newsletter'
+    'My newsletter': 'Mein Newsletter',
+    'Unsubscribe': 'Abbestellen'
   },
   // NewsletterSubscribeForm
   'NewsletterSubscribeForm': {
@@ -260,27 +262,45 @@ export default {
     'subscribeToNewsletterContent': 'Nach der Anmeldung zum Newsletter erhalten Sie von uns Sonderangebote und Mitteilungen per E-Mail.',
     'Subscribe successful': 'Sie haben unseren Newsletter erfolgreich abonniert.'
   },
+  // NewsletterUnsubscribeForm
+  'NewsletterUnsubscribeForm': {
+    'Email address': 'E-Mail Adresse',
+    'Email address not found': 'E-Mail Adresse wurde nicht gefunden!',
+    'Unsubscribe': 'Abbestellen',
+    'unsubscribeFromNewsletterContent': 'Bitte geben Sie die E-Mail-Adresse ein, um sich von unserem Newsletter abzumelden',
+    'Unsubscribe successful': 'Sie haben sich erfolgreich von unserem Newsletter abgemeldet.'
+  },
   // OrderHistory
   'OrderHistory': {
     'All orders': 'Alle Bestellungen',
-    'All returns': 'Alle Rücksendungen',
     'Amount': 'Summe',
     'Details and order status': 'Überprüfen Sie die Details und den Status Ihrer Bestellungen im Online-Shop. Sie können Ihre Bestellung auch stornieren oder eine Rücksendung anfordern.',
-    'Details and return status': 'Details und den Status Ihrer Rücksendungen.',
     'My orders': 'Meine Bestellungen',
     'Order date': 'Bestelldatum',
     'Order ID': 'Bestell-ID',
     'Price': 'Preis',
     'Product': 'Produkt',
     'Quantity': 'Menge',
-    'Returns': 'Rücksendungen',
     'Start shopping': '@:App.startShopping',
     'Status': 'Status',
     'Total orders': 'Gesamtzahl Aufträge',
-    'Total returns': 'Gesamtzahl Retouren',
     'View details': 'Details ansehen',
-    'You currently have no orders': 'Sie haben derzeit keine Bestellungen'
+    'You currently have no orders': 'Sie haben derzeit keine Bestellungen',
+    'Return items': 'Zurücksenden'
   },
+
+  // OrderReturn
+  'OrderReturn': {
+    'All returns': 'Alle Rücksendungen',
+    'Details and return status': 'Sehen Sie hier die Details und den Status Ihrer Rücksendungen ein.',
+    'Error': 'Fehler beim Versenden der Retourenanfrage.',
+    'Returns': 'Rücksendungen',
+    'Success': 'Rücksendungsanfrage erfolgreich versendet',
+    'Total returns': 'Gesamtzahl Rücksendungen',
+    'You currently have no returns': 'Sie haben noch keine Rücksendungen aufgegeben',
+    'Return your items now': 'Rücksendung erstellen'
+  },
+
   // Documents
   'Documents' : {
     'Correction Documents': 'Korrekturbeleg',
@@ -331,7 +351,7 @@ export default {
     'I want to create an account': 'Ich will ein Konto erstellen',
     'Input too short': 'Das Feld muss mindestens {length} Zeichen lang sein',
     'Last name': '@:App.lastName',
-    'Log into your account': 'In Konto einloggen',
+    'Log in now': '@:App.logInNow',
     'Manage your wishlist': 'Wunschliste verwalten',
     'or fill in the details below:': 'oder füllen Sie die Details unten aus:',
     'Password': 'Passwort',
@@ -394,6 +414,7 @@ export default {
     'Payment method': 'Zahlungsart',
     'Same As Shipping Address': 'Entspricht Lieferadresse',
     'Shipping Method': 'Versandart',
+    'A confirmation has been sent to': 'Eine Bestätigung wurde geschickt an'
   },
   // TopBar
   'TopBar': {
@@ -417,6 +438,8 @@ export default {
     'My wishlist': 'Meine Wunschliste',
     'Start shopping': '@:App.startShopping',
     'Wishlist sidebar close button': 'Schaltfläche zum Schließen der Wunschliste',
-    'Your bag is empty': 'Ihre Tasche ist leer'
+    'Your bag is empty': 'Ihre Tasche ist leer',
   }
 }
+
+module.exports = de;

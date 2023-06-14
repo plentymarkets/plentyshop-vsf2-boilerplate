@@ -13,6 +13,7 @@ import {
   Order,
   OrderDetails,
   OrderSearchParams,
+  CreateReturnResponse,
   GetReturnsResponse
 } from './order';
 import { GetPaymentResponse, PaymentProviders, PreparePaymentResult } from './payment';
@@ -104,7 +105,7 @@ export interface PlentymarketsApiMethods {
 
     getShippingProvider(): Promise<ShippingProvider>
 
-    selectShippingProvider(shippingId: number): Promise<string>
+    selectShippingProvider(shippingId: number): Promise<ShippingProvider>
 
     loginAsGuest(email: string): Promise<SessionResult>
 
@@ -120,7 +121,7 @@ export interface PlentymarketsApiMethods {
 
     getPaymentProviders(): Promise<PaymentProviders>
 
-    setPaymentProvider(paymentId: number): Promise<string>
+    setPaymentProvider(paymentId: number): Promise<void>
 
     getOrder(params: OrderSearchParams): Promise<OrderDetails>
 
@@ -129,6 +130,8 @@ export interface PlentymarketsApiMethods {
     preparePayment(): Promise<PreparePaymentResult>
 
     placeOrder(): Promise<Order>
+
+    makeOrderReturn(params: string): Promise<CreateReturnResponse>
 
     getOrders(params: UseUserOrderSearchParams): Promise<GetOrdersResponse>
 
@@ -139,13 +142,14 @@ export interface PlentymarketsApiMethods {
     getLegalInformation(type: string): Promise<LegalInformationResponse>
 
     subscribeNewsletter(params: NewsletterParams): Promise<string>
-
+  
+    unsubscribeNewsletter(params: NewsletterParams): Promise<string>
+  
     createOrder(fundingSource: string): Promise<PayPalCreateOrder>
 
     approveOrder(orderID: string, payerID: string): Promise<PayPalApproveOrder>
 
     executePayPalOrder(mode: string, orderID: number, paypalOrderID: string, merchantId: string): Promise<unknown>
-
 }
 
 export type Context = IntegrationContext<ClientInstance, Settings, ApiClientMethods<PlentymarketsApiMethods>>;

@@ -4,6 +4,7 @@ import {NewsletterParams} from '@vue-storefront/plentymarkets-api';
 
 export interface UseNewsletterResponse {
   subscribeNewsletter: (params: NewsletterParams) => Promise<void>
+  unsubscribeNewsletter: (params: NewsletterParams) => Promise<string>
   loading: Ref<boolean>
   error: Ref<object>
 }
@@ -14,7 +15,8 @@ export const useNewsletter = () : UseNewsletterResponse => {
   const loading = sharedRef(false, 'useNewsletter-loading');
 
   const error = sharedRef({
-    subscribe: null
+    subscribe: null,
+    unsubscribe: null
   }, 'useNewsletter-error');
 
   const subscribeNewsletter = async (params: NewsletterParams): Promise<void> => {
@@ -34,8 +36,29 @@ export const useNewsletter = () : UseNewsletterResponse => {
     }
   };
 
+  const unsubscribeNewsletter = async (params: NewsletterParams): Promise<string> => {
+    try {
+      loading.value = true;
+
+      const data = await context.$plentymarkets.api.unsubscribeNewsletter({
+        email: params.email,
+        firstName: '',
+        lastName: '',
+        emailFolder: params.emailFolder
+      });
+
+      error.value.unsubscribe = null;
+      return data;
+    } catch (err) {
+      error.value.unsubscribe = err.message;
+    } finally {
+      loading.value = false;
+    }
+  };
+
   return {
     subscribeNewsletter,
+    unsubscribeNewsletter,
     loading: computed(() => loading.value),
     error: computed(() => error.value)
   };

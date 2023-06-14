@@ -7,9 +7,8 @@ export async function getPaymentProviders(context: Context): Promise<PaymentProv
   return { list: data, selected: 0 };
 }
 
-export async function setPaymentProvider(context: Context, paymentId: number): Promise<string> {
-  const url: URL = new URL('/rest/io/checkout/paymentId/', context.config.api.url);
-  const { data } = await context.client.post(url.href, { paymentId: paymentId });
+export async function setPaymentProvider(context: Context, paymentId: number): Promise<void> {
+  const url: URL = new URL('/rest/storefront/checkout/payment/', context.config.api.url);
 
-  return data;
+  await context.client.put(url.href, { paymentMethodId: paymentId });
 }

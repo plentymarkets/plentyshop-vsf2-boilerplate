@@ -23,6 +23,19 @@ import '@cypress/code-coverage/support';
 // require('./commands')
 
 import addContext from 'mochawesome/addContext';
+import failOnConsoleError from 'cypress-fail-on-console-error';
+
+const config= {
+  /**
+   * consoleMessages ignores messages that match a string or pattern
+   * Use only when dealing with messages we have no control over
+   */
+  consoleMessages: [/.*useUser\/login.*/],
+  consoleTypes: ['error'],
+  debug: false,
+};
+
+failOnConsoleError(config);
 
 Cypress.on('test:after:run', (test, runnable) => {
   if (test.state === 'failed') {
@@ -33,4 +46,3 @@ Cypress.on('test:after:run', (test, runnable) => {
     });
   }
 });
-

@@ -233,8 +233,8 @@ export default {
       }
     ];
 
-    const onSubscribe = (emailAddress) => {
-      console.log(`Email ${emailAddress} was added to newsletter.`);
+    const onSubscribe = () => {
+      // @TODO success notification
       toggleNewsletterModal();
     };
 

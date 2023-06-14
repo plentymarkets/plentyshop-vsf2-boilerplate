@@ -20,11 +20,11 @@ import { getShippingProvider, selectShippingProvider } from './api/getShippingPr
 import { changePassword, loginAsGuest, loginUser, logoutUser, registerUser } from './api/getUser';
 import { getActiveShippingCountries } from './api/getActiveShippingCountries';
 import { getPaymentProviders, setPaymentProvider } from './api/getPaymentProvider';
-import { additionalInformation, executePayment, getOrder, placeOrder, preparePayment } from './api/getOrder';
+import { additionalInformation, executePayment, makeOrderReturn, placeOrder, preparePayment, getOrder } from './api/getOrder';
 import { getOrders } from './api/getOrders';
 import { getReturns } from './api/getReturns';
 import { getLegalInformation } from './api/getLegal';
-import { subscribeNewsletter } from './api/getNewsletter';
+import {subscribeNewsletter, unsubscribeNewsletter} from './api/getNewsletter';
 import { createOrder, approveOrder, executePayPalOrder } from './api/getPayPal';
 import { Settings } from './types/apiMethods';
 type Endpoints = unknown;
@@ -146,8 +146,10 @@ const { createApiClient } = apiClientFactory<Settings, Endpoints>({
     getOrders,
     getReturns,
     executePayment,
+    makeOrderReturn,
     getLegalInformation,
     subscribeNewsletter,
+    unsubscribeNewsletter,
     createOrder,
     approveOrder,
     executePayPalOrder
