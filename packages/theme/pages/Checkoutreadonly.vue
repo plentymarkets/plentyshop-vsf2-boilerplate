@@ -143,9 +143,15 @@
               type="button"
               class="w-full bg-sf-c-primary"
               size="lg"
-              @click="order"
+              :disabled="loading"
+              @click="checkout"
             >
-              Order now
+              <SfLoader
+                :class="{ loader: loading }"
+                :loading="loading"
+              >
+                <div>Order now</div>
+              </SfLoader>
             </SfButton>
           </div>
           <div>
@@ -166,45 +172,59 @@
 <script>
 import {
   SfTable,
-  SfCheckbox,
   SfButton,
   SfImage,
   SfPrice,
-  SfLink
+  SfLoader
 } from '@storefront-ui/vue';
-import { computed, useRoute } from '@nuxtjs/composition-api';
-import { useMakeOrder, useCart, cartGetters, usePayPal } from '@vue-storefront/plentymarkets';
-import { addBasePath } from '@vue-storefront/core';
+import {computed, useRoute, useRouter} from '@nuxtjs/composition-api';
+import {useMakeOrder, useCart, cartGetters, orderGetters, usePayPal} from '@vue-storefront/plentymarkets';
+import {addBasePath, sharedRef} from '@vue-storefront/core';
 
 export default {
   name: 'ReviewOrder',
   components: {
     SfTable,
-    SfCheckbox,
     SfButton,
     SfImage,
     SfPrice,
-    SfLink,
+    SfLoader,
     CartTotals: () => import('~/components/CartTotals')
   },
   setup(props, context) {
-    const { cart } = useCart();
-    const { make } = useMakeOrder();
-    const { captureOrder } = usePayPal();
+    const { cart, setCart } = useCart();
+    const { make, order } = useMakeOrder();
+    const { executePayPalOrder } = usePayPal();
+    const router = useRouter();
     const route = useRoute();
+    const loading = sharedRef(false, 'useCheckout-loading');
 
-    const order = async () => {
+    const checkout = async () => {
+      loading.value = true;
+
       await make({
-        paymentId: cart.value.methodOfPaymentId,
+        paymentId: 6001,
         shippingPrivacyHintAccepted: true
       });
 
-      await captureOrder(route.value.query.orderId, route.value.query.payerId);
+      await executePayPalOrder('paypal', parseInt(orderGetters.getId(order.value)), route.value.query.orderId ?? '', 'N94FCPY5FXPMC');
+
+      const thankYouPath = { name: 'thank-you',
+        query: {
+          orderId: orderGetters.getId(order.value),
+          accessKey: orderGetters.getAccessKey(order.value)
+        }};
+
+      router.push(context.root.localePath(thankYouPath));
+      setCart({items: []});
+
+      loading.value = false;
     };
 
     return {
-      order,
+      checkout,
       addBasePath,
+      loading: computed(() => loading.value),
       products: computed(() => cartGetters.getItems(cart.value)),
       totals: computed(() => cartGetters.getTotals(cart.value)),
       tableHeaders: ['Description', 'Size', 'Color', 'Quantity', 'Amount'],

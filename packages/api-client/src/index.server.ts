@@ -25,7 +25,7 @@ import { getOrders } from './api/getOrders';
 import { getReturns } from './api/getReturns';
 import { getLegalInformation } from './api/getLegal';
 import { subscribeNewsletter } from './api/getNewsletter';
-import { createOrder, approveOrder, captureOrder } from './api/getPayPal';
+import { createOrder, approveOrder, executePayPalOrder } from './api/getPayPal';
 import { Settings } from './types/apiMethods';
 type Endpoints = unknown;
 type onCreateResponse = {
@@ -150,7 +150,7 @@ const { createApiClient } = apiClientFactory<Settings, Endpoints>({
     subscribeNewsletter,
     createOrder,
     approveOrder,
-    captureOrder
+    executePayPalOrder
   },
   extensions: [cookieExtension]
 });

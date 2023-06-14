@@ -86,8 +86,8 @@
                 @click="addItem({ product, quantity: parseInt(qty) })"
               />
 
-              <PaymentPaypalButton
-                :paypalUuid="paypalUuid"
+              <SmartButton
+                :uuid="paypalUuid"
                 class="mt-4"
               />
             </div>
@@ -182,7 +182,6 @@
       </div>
     </div>
   </div>
-  </div>
 </template>
 <script>
 import {
@@ -217,8 +216,9 @@ import {
 import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
 import { addBasePath } from '@vue-storefront/core';
-import PaymentPaypalButton from '@vue-storefront/pp-plentymarkets/src/components/PaymentPaypalButton.vue';
+import SmartButton from '~/components/PayPal/SmartButton';
 import { useUiHelpers, useUiState } from '~/composables';
+import { v4 as uuid } from 'uuid';
 
 export default {
   name: 'Product',
@@ -240,7 +240,7 @@ export default {
     AttributeSelection,
     SfImage,
     SfLoader,
-    PaymentPaypalButton
+    SmartButton
   },
   transition: 'fade',
   setup() {
@@ -289,8 +289,8 @@ export default {
         isAttributeSelectionValid.value = false;
       }
     };
-    const uuid = require('uuid');
-    const paypalUuid = uuid.v4();
+
+    const paypalUuid = uuid();
 
     onSSR(async () => {
       await search({ id: id.value });

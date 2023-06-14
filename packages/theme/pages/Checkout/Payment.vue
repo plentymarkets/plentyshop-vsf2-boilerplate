@@ -93,9 +93,10 @@
             {{ $t('Payment.Make an order') }}
           </SfButton>
 
-          <PaymentPaypalButton
+          <SmartButton
             v-else
             :disabled="loading || !isPaymentReady || !terms"
+            :uuid="paypalUuid"
             class="w-80"
           />
         </div>
@@ -117,7 +118,8 @@ import { onSSR } from '@vue-storefront/core';
 import { ref, computed, useRouter } from '@nuxtjs/composition-api';
 import { useMakeOrder, useCart, cartGetters, orderGetters, useShippingProvider, usePaymentProvider } from '@vue-storefront/plentymarkets';
 import { addBasePath } from '@vue-storefront/core';
-import PaymentPaypalButton from '@vue-storefront/pp-plentymarkets/src/components/PaymentPaypalButton.vue';
+import SmartButton from '~/components/PayPal/SmartButton';
+import { v4 as uuid } from 'uuid';
 
 export default {
   name: 'ReviewOrder',
@@ -131,7 +133,7 @@ export default {
     VsfPaymentProvider: () => import('~/components/Checkout/VsfPaymentProvider'),
     VsfShippingProvider: () => import('~/components/Checkout/VsfShippingProvider'),
     CartTotals: () => import('~/components/CartTotals'),
-    PaymentPaypalButton
+    SmartButton
   },
   setup(props, context) {
     const router = useRouter();
@@ -139,6 +141,7 @@ export default {
     const { order, make, loading } = useMakeOrder();
     const { load: loadShippingProvider } = useShippingProvider();
     const { load: loadPaymentProviders } = usePaymentProvider();
+    const paypalUuid = uuid();
 
     const isPaymentReady = ref(false);
     const terms = ref(false);
@@ -185,6 +188,7 @@ export default {
       cartGetters,
       processOrder,
       paymentMethodId,
+      paypalUuid,
       selectionChangedPaymentProvider
     };
   }
