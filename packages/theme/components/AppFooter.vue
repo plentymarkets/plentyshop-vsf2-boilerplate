@@ -1,17 +1,33 @@
 <template>
-  <SfFooter :column="4" multiple class="footer">
+  <SfFooter
+    :column="4"
+    multiple
+    class="footer"
+  >
     <SfFooterColumn :title="$t('AppFooter.Departments')">
       <SfList>
-        <SfListItem v-for="(category, index) in categoryTree.slice(0, 5)" :key="index">
-          <SfMenuItem :label="categoryTreeGetters.getLabel(category)" class="sf-header-navigation-item__menu-item"
-            :link="localePath(`/c/${categoryTreeGetters.getSlug(category)}`)" />
+        <SfListItem
+          v-for="(category, index) in categoryTree.slice(0, 5)"
+          :key="index"
+        >
+          <SfMenuItem
+            :label="categoryTreeGetters.getLabel(category)"
+            class="sf-header-navigation-item__menu-item"
+            :link="localePath(`/c/${categoryTreeGetters.getSlug(category)}`)"
+          />
         </SfListItem>
       </SfList>
     </SfFooterColumn>
     <SfFooterColumn title="Legal">
       <SfList>
-        <SfListItem v-for="item in legal" :key="item">
-          <SfMenuItem :label="$t(item)" :link="localePath(legalPaths[item])" />
+        <SfListItem
+          v-for="item in legal"
+          :key="item"
+        >
+          <SfMenuItem
+            :label="$t(item)"
+            :link="localePath(legalPaths[item])"
+          />
         </SfListItem>
       </SfList>
     </SfFooterColumn>
@@ -39,7 +55,7 @@ export default {
       router,
       addBasePath,
       categoryTreeGetters,
-      categoryTree,
+      categoryTree
     };
   },
   data() {
@@ -58,7 +74,7 @@ export default {
       isMobile: false,
       desktopMin: 1024
     };
-  },
+  }
 };
 </script>
 
