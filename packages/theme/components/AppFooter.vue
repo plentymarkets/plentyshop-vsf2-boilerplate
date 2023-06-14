@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { SfFooter, SfList, SfImage, SfMenuItem } from '@storefront-ui/vue';
+import { SfFooter, SfList, SfMenuItem } from '@storefront-ui/vue';
 import { addBasePath } from '@vue-storefront/core';
 import { computed, useRouter } from '@nuxtjs/composition-api';
 import { categoryTreeGetters, useCategory } from '@vue-storefront/plentymarkets';
@@ -28,7 +28,6 @@ export default {
   components: {
     SfFooter,
     SfList,
-    SfImage,
     SfMenuItem
   },
   setup() {
