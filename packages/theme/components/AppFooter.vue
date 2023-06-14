@@ -2,10 +2,9 @@
   <SfFooter :column="4" multiple class="footer">
     <SfFooterColumn :title="$t('AppFooter.Departments')">
       <SfList>
-        <SfListItem v-for="(category, index) in categoryTree.slice(0, 5)" :key="index" 
->
+        <SfListItem v-for="(category, index) in categoryTree.slice(0, 5)" :key="index">
           <SfMenuItem :label="categoryTreeGetters.getLabel(category)" class="sf-header-navigation-item__menu-item"
-          :link="localePath(`/c/${categoryTreeGetters.getSlug(category)}`)"/>
+            :link="localePath(`/c/${categoryTreeGetters.getSlug(category)}`)" />
         </SfListItem>
       </SfList>
     </SfFooterColumn>
@@ -70,23 +69,6 @@ export default {
 
   @include for-desktop {
     margin-bottom: 0;
-  }
-
-  &__socials {
-    display: flex;
-    justify-content: space-between;
-    margin: 0 auto var(--spacer-lg);
-    padding: var(--spacer-base) var(--spacer-xl);
-
-    @include for-desktop {
-      justify-content: flex-start;
-      padding: var(--spacer-xs) 0;
-      margin: 0 auto;
-    }
-  }
-
-  &__social-image {
-    margin: 0 var(--spacer-2xs) 0 0;
   }
 }
 
