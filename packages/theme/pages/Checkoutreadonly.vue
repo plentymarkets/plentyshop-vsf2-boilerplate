@@ -146,12 +146,7 @@
               :disabled="loading"
               @click="checkout"
             >
-              <SfLoader
-                :class="{ loader: loading }"
-                :loading="loading"
-              >
-                <div>Order now</div>
-              </SfLoader>
+              <div>Order now</div>
             </SfButton>
           </div>
           <div>
@@ -174,8 +169,7 @@ import {
   SfTable,
   SfButton,
   SfImage,
-  SfPrice,
-  SfLoader
+  SfPrice
 } from '@storefront-ui/vue';
 import {computed, useRoute, useRouter} from '@nuxtjs/composition-api';
 import {useMakeOrder, useCart, cartGetters, orderGetters, usePayPal} from '@vue-storefront/plentymarkets';
@@ -188,7 +182,6 @@ export default {
     SfButton,
     SfImage,
     SfPrice,
-    SfLoader,
     CartTotals: () => import('~/components/CartTotals')
   },
   setup(props, context) {

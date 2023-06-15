@@ -93,12 +93,14 @@
             {{ $t('Payment.Make an order') }}
           </SfButton>
 
+          <!--
           <SmartButton
             v-else
             :disabled="loading || !isPaymentReady || !terms"
             :uuid="paypalUuid"
             class="w-80"
           />
+          -->
         </div>
       </div>
     </div>
@@ -118,7 +120,6 @@ import { onSSR } from '@vue-storefront/core';
 import { ref, computed, useRouter } from '@nuxtjs/composition-api';
 import { useMakeOrder, useCart, cartGetters, orderGetters, useShippingProvider, usePaymentProvider } from '@vue-storefront/plentymarkets';
 import { addBasePath } from '@vue-storefront/core';
-import SmartButton from '~/components/PayPal/SmartButton';
 import { v4 as uuid } from 'uuid';
 
 export default {
@@ -132,8 +133,7 @@ export default {
     SfLink,
     VsfPaymentProvider: () => import('~/components/Checkout/VsfPaymentProvider'),
     VsfShippingProvider: () => import('~/components/Checkout/VsfShippingProvider'),
-    CartTotals: () => import('~/components/CartTotals'),
-    SmartButton
+    CartTotals: () => import('~/components/CartTotals')
   },
   setup(props, context) {
     const router = useRouter();

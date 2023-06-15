@@ -25,13 +25,14 @@ export default {
     const { isCartSidebarOpen, toggleCartSidebar } = useUiState();
 
     const paypalUuid = props.uuid;
+
+    // console.log('props.paypalUuid', paypalUuid);
     const currency = app.$cookies.get('vsf-currency') ?? 'EUR';
 
     onMounted(async () => {
       const paypal = await loadScript(currency);
       const FUNDING_SOURCES = [
-        paypal.FUNDING.PAYPAL,
-        paypal.FUNDING.PAYLATER
+        paypal.FUNDING.PAYPAL
       ];
 
       if (paypal) {
@@ -54,11 +55,12 @@ export default {
 
                 return res.id ?? '';
               },
-              onClick(data) {
-                console.log('onClick', data);
+              onClick() {
+                // console.log('onClick', data);
               },
               style: {
-                layout: 'vertical'
+                layout: 'vertical',
+                label: 'buynow'
               },
               fundingSource: fundingSource
             });
@@ -69,7 +71,7 @@ export default {
             }
           });
         } catch (error) {
-          console.error('failed to render the PayPal Buttons', error);
+          // console.error('failed to render the PayPal Buttons', error);
         }
       }
     });

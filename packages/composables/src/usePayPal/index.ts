@@ -1,11 +1,15 @@
 import {useVSFContext, sharedRef} from '@vue-storefront/core';
 import { loadScript as loadPayPalScript, PayPalNamespace } from '@paypal/paypal-js';
-import {PayPalApproveOrder, PayPalCreateOrder} from '@vue-storefront/plentymarkets-api/lib/types/paypal';
+import {
+  PayPalApproveOrder,
+  PayPalCreateOrder,
+  PayPalExecutePayment
+} from '@vue-storefront/plentymarkets-api/lib/types/paypal';
 
 export interface UsePayPalResponse {
   createOrder: (fundingSource: string) => Promise<PayPalCreateOrder>
   approveOrder: (orderID: string, payerID: string) => Promise<PayPalApproveOrder>
-  executePayPalOrder: (mode: string, orderID: number, payPalOrderID: string, merchantID: string) => Promise<unknown>
+  executePayPalOrder: (mode: string, orderID: number, payPalOrderID: string, merchantID: string) => Promise<PayPalExecutePayment>
   loadScript: (currency: string) => Promise<PayPalNamespace>
 }
 
@@ -21,7 +25,7 @@ export const usePayPal = () : UsePayPalResponse => {
     return await context.$plentymarkets.api.approveOrder(orderID, payerID);
   };
 
-  const executePayPalOrder = async (mode: string, orderID: number, payPalOrderID: string, merchantID = ''): Promise<unknown> => {
+  const executePayPalOrder = async (mode: string, orderID: number, payPalOrderID: string, merchantID = ''): Promise<PayPalExecutePayment> => {
     return await context.$plentymarkets.api.executePayPalOrder(mode, orderID, payPalOrderID, merchantID);
   };
 
@@ -35,7 +39,7 @@ export const usePayPal = () : UsePayPalResponse => {
       paypal.value = await loadPayPalScript({ clientId: 'Ab_wQoMAfzuqCrl4gVfYvkNHmBS_s_rQKMafFJrArKJ4GZU8nbSIn53v4Q8ZZfoHR01kxnjkDF4yVLAv', currency: currency });
       return paypal.value;
     } catch (error) {
-      console.error('failed to load the PayPal JS SDK script', error);
+      // console.error('failed to load the PayPal JS SDK script', error);
     }
   };
 

@@ -86,10 +86,12 @@
                 @click="addItem({ product, quantity: parseInt(qty) })"
               />
 
+              <!--
               <SmartButton
                 :uuid="paypalUuid"
                 class="mt-4"
               />
+              -->
             </div>
 
             <LazyHydrate when-idle>
@@ -216,7 +218,6 @@ import {
 import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
 import { addBasePath } from '@vue-storefront/core';
-import SmartButton from '~/components/PayPal/SmartButton';
 import { useUiHelpers, useUiState } from '~/composables';
 import { v4 as uuid } from 'uuid';
 
@@ -239,8 +240,7 @@ export default {
     LazyHydrate,
     AttributeSelection,
     SfImage,
-    SfLoader,
-    SmartButton
+    SfLoader
   },
   transition: 'fade',
   setup() {
@@ -290,13 +290,13 @@ export default {
       }
     };
 
-    const paypalUuid = uuid();
-
     onSSR(async () => {
       await search({ id: id.value });
       await searchRelatedProducts({ catId: [categories.value[0]], limit: 8 });
       await searchReviews({ productId: productGetters.getItemId(product.value)});
     });
+
+    const paypalUuid = uuid();
 
     return {
       product,
