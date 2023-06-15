@@ -271,7 +271,6 @@ export interface MakeOrderParams {
   paymentId: number,
   shippingPrivacyHintAccepted: boolean,
   customQuery?: CustomQuery;
-  paypalOrderId?: string;
 }
 
 export interface CreateReturnResponse {

@@ -12,6 +12,7 @@
               {{ $t('Checkoutreadonly.Invoice to') }}
             </div>
             <readonly-address
+              v-if="defaultBilling"
               class="pl-2"
               :address="defaultBilling"
               :countries="countries"
@@ -22,6 +23,7 @@
               {{ $t('Checkoutreadonly.Shipping to') }}
             </div>
             <readonly-address
+              v-if="defaultShipping"
               class="pl-2"
               :address="defaultShipping"
               :countries="countries"
