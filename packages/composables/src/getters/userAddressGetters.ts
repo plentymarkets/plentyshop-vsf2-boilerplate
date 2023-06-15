@@ -4,6 +4,7 @@ import type {
   UserAddressGetters,
   Country
 } from '@vue-storefront/plentymarkets-api';
+import { countryGetters } from './countryGetters';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getAddresses(addresses: Address[], criteria?: UserShippingAddressSearchCriteria): Address[] {
@@ -115,6 +116,21 @@ function getStateId(address: Address): string {
   return address?.state?.toString() ?? '0';
 }
 
+const getCountryName = (address: Address, countries: Country[]): string => {
+  const country = countryGetters.getCountryById(countries, getCountryId(address));
+
+  return countryGetters.getCountryName(country);
+};
+
+const getStateName = (address: Address, countries: Country[]): string => {
+  const countryId = getCountryId(address);
+  const country = countryGetters.getCountryById(countries, countryId);
+  const stateId = getStateId(address);
+  const state = countryGetters.getStateById(country, stateId);
+
+  return countryGetters.getStateName(state) ? `${countryGetters.getStateName(state)}, ` : '';
+};
+
 export const userAddressGetters: UserAddressGetters = {
   getAddresses,
   getDefault,
@@ -135,5 +151,7 @@ export const userAddressGetters: UserAddressGetters = {
   isDefault,
   getAddressWithoutId,
   getCountryId,
-  getStateId
+  getStateId,
+  getCountryName,
+  getStateName
 };

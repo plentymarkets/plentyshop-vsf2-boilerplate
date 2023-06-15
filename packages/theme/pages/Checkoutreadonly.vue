@@ -11,58 +11,32 @@
             <div class="mb-3 text-2xl">
               {{ $t('Checkoutreadonly.Invoice to') }}
             </div>
-            <div class="flex pl-2 flex-col">
-              <span>{{ userAddressGetters.getFirstName(defaultBilling) }}
-              </span>
-              <span>
-                {{ userAddressGetters.getLastName(defaultBilling) }}
-              </span>
-              <span>{{
-                userAddressGetters.getStreetName(defaultBilling)
-              }}</span>
-              <span>
-                {{ userAddressGetters.getApartmentNumber(defaultBilling) }}
-              </span>
-              <span>{{ userAddressGetters.getPostCode(defaultBilling) }}</span>
-              <span>{{ userAddressGetters.getCity(defaultBilling) }}</span>
-              <span>{{ getStateName(defaultBilling) }}</span>
-              <span>
-                {{ getCountryName(defaultBilling) }}
-              </span>
-              <span>{{ userAddressGetters.getPhone(defaultBilling) }}</span>
-            </div>
+            <readonly-address
+              class="pl-2"
+              :address="defaultBilling"
+              :countries="countries"
+            />
           </div>
           <div>
             <div class="mb-3 text-2xl">
               {{ $t('Checkoutreadonly.Shipping to') }}
             </div>
-            <div class="flex pl-2 flex-col">
-              <span>{{ userAddressGetters.getFirstName(defaultShipping) }}
-              </span>
-              <span>{{ userAddressGetters.getStreetName(defaultShipping) }}
-              </span>
-              <span>
-                {{ userAddressGetters.getApartmentNumber(defaultShipping) }}
-              </span>
-              <span>{{ userAddressGetters.getPostCode(defaultShipping) }}</span>
-              <span>{{ userAddressGetters.getCity(defaultShipping) }}</span>
-              <span>{{ getStateName(defaultShipping) }}</span>
-              <span>
-                {{ getCountryName(defaultShipping) }}
-              </span>
-              <span>{{ userAddressGetters.getPhone(defaultShipping) }}</span>
-            </div>
+            <readonly-address
+              class="pl-2"
+              :address="defaultShipping"
+              :countries="countries"
+            />
           </div>
           <div v-if="paymentMethod">
             <div class="text-2xl">
               {{ $t('VsfPaymentProvider.Payment method') }}
             </div>
-            <div class="flex row mt-5">
+            <div class="flex items-center gap-sf-xs row mt-5 pl-2">
               <img
                 style="width: 60px"
                 :src="paymentProviderGetters.getIcon(paymentMethod)"
               >
-              <div class="ml-2 mt-2">
+              <div>
                 {{ paymentProviderGetters.getName(paymentMethod) }}
               </div>
             </div>
@@ -75,14 +49,14 @@
             <div class="text-2xl">
               {{ $t('VsfShippingProvider.Shipping method') }}
             </div>
-            <div class="flex row mt-5">
+            <div class="flex items-center gap-sf-xs row mt-5 pl-2">
               <img
                 :src="
                   shippingProviderGetters.getShippingMethodImage(shippingMethod)
                 "
                 style="width: 60px"
               >
-              <span class="mt-2 ml-2">
+              <span>
                 {{
                   shippingProviderGetters.getShippingMethodName(shippingMethod)
                 }}
@@ -234,7 +208,6 @@ import {
   shippingProviderGetters,
   useUserShipping,
   useUserBilling,
-  countryGetters,
   useMakeOrder,
   usePayPal,
   orderGetters
@@ -262,7 +235,8 @@ export default {
     SfLoader,
     ValidationProvider,
     ValidationObserver,
-    CartTotals: () => import('~/components/CartTotals')
+    CartTotals: () => import('~/components/CartTotals'),
+    ReadonlyAddress: () => import('~/components/Checkout/Readonly/ReadonlyAddress')
   },
   setup(props, context) {
     const terms = ref(false);
@@ -270,13 +244,21 @@ export default {
     const { cart, setCart } = useCart();
     const { make, order } = useMakeOrder();
     const { executePayPalOrder } = usePayPal();
+    const { load: loadBilling, billing } = useUserBilling();
     const route = useRoute();
     const makeOrderLoading = ref(false);
     const router = useRouter();
+    const { load: loadShippingProvider, state: shippingProvider } =
+      useShippingProvider();
+    const { load: loadActiveShippingCountries, result: countries } =
+      useActiveShippingCountries();
+    const { load: loadPaymentProviders, result: paymentProviders } =
+      usePaymentProvider();
 
     const shippingAddresses = computed(() =>
       userAddressGetters.getAddresses(shipping.value)
     );
+
     const defaultShipping = computed(() => {
       if (shippingAddresses.value.length > 0) {
         return (
@@ -287,31 +269,6 @@ export default {
       return null;
     });
 
-    const { load: loadActiveShippingCountries, result: countries } =
-      useActiveShippingCountries();
-
-    const getStateName = (address) => {
-      const countryId = userAddressGetters.getCountryId(address);
-      const country = countryGetters.getCountryById(countries.value, countryId);
-      const stateId = userAddressGetters.getStateId(address);
-      const state = countryGetters.getStateById(country, stateId);
-
-      return countryGetters.getStateName(state)
-        ? `${countryGetters.getStateName(state)}, `
-        : '';
-    };
-
-    const getCountryName = (address) => {
-      const country = countryGetters.getCountryById(
-        countries.value,
-        userAddressGetters.getCountryId(address)
-      );
-
-      return countryGetters.getCountryName(country);
-    };
-
-    const { load: loadPaymentProviders, result: paymentProviders } =
-      usePaymentProvider();
     const paymentMethodsById = computed(() =>
       keyBy(paymentProviders?.value?.list, 'id')
     );
@@ -321,9 +278,6 @@ export default {
           paymentProviderGetters.getMethodOfPaymentId(cart.value)
         ]
     );
-
-    const { load: loadShippingProvider, state: shippingProvider } =
-      useShippingProvider();
 
     const shippingMethodsById = computed(() =>
       keyBy(
@@ -344,8 +298,6 @@ export default {
         ? shippingMethodsById.value[selectedMethodId.value]
         : null
     );
-
-    const { load: loadBilling, billing } = useUserBilling();
 
     const defaultBilling = computed(() => {
       if (shippingAddresses.value.length > 0) {
@@ -399,25 +351,24 @@ export default {
     };
 
     return {
-      getStateName,
-      getCountryName,
       addBasePath,
-      loading: computed(() => makeOrderLoading.value),
-      invalidCheckoutData,
-      makeOrder,
       billing,
-      terms,
+      cartGetters,
+      countries,
       defaultBilling,
-      userAddressGetters,
       defaultShipping,
+      invalidCheckoutData,
+      loading: computed(() => makeOrderLoading.value),
+      makeOrder,
+      paymentMethod,
+      paymentProviderGetters,
+      products: computed(() => cartGetters.getItems(cart.value)),
       shippingAddresses,
       shippingMethod,
       shippingProviderGetters,
-      paymentMethod,
-      paymentProviderGetters,
-      cartGetters,
-      products: computed(() => cartGetters.getItems(cart.value)),
-      totals: computed(() => cartGetters.getTotals(cart.value))
+      terms,
+      totals: computed(() => cartGetters.getTotals(cart.value)),
+      userAddressGetters
     };
   }
 };

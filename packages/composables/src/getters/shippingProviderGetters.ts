@@ -17,7 +17,7 @@ function getShippingMethodName(shippingMethod: ShippingMethod): string {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getShippingMethodImage(shippingMethod: ShippingMethod): string {
   // TODO: Shipping method should contain brand image!
-  return '';
+  return 'https://placehold.co/60x60';
 }
 
 function getShippingPrivacyInformation(shippingMethod: ShippingMethod): ShippingPrivacyInformation {
