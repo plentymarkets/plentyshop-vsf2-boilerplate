@@ -20,7 +20,5 @@ export async function executePayPalOrder(context: Context, mode: string, orderID
   const url: URL = new URL(`rest/payment/payPal/${mode}/${orderID}/${paypalOrderID}/${merchantId}/execute-payment`, context.config.api.url);
   const { data } = await context.client.get(url.href);
 
-  // console.log('executePayPalOrder', data);
-
   return data;
 }

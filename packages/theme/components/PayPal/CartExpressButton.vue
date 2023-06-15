@@ -25,8 +25,6 @@ export default {
     const { isCartSidebarOpen, toggleCartSidebar } = useUiState();
 
     const paypalUuid = props.uuid;
-
-    // console.log('props.paypalUuid', paypalUuid);
     const currency = app.$cookies.get('vsf-currency') ?? 'EUR';
 
     onMounted(async () => {
@@ -56,7 +54,6 @@ export default {
                 return res.id ?? '';
               },
               onClick() {
-                // console.log('onClick', data);
               },
               style: {
                 layout: 'vertical',
