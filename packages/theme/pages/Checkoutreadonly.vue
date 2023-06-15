@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h2>{{ $t('Checkoutreadonly.Review your order') }}</h2>
+  <div class="p-3 lg:p-0">
+    <h2 class="mb-8">{{ $t('Checkoutreadonly.Review your order') }}</h2>
     <SfDivider class="sm:mb-sf-xl" />
     <div class="flex p-2 flex-wrap opacity-80 pointer-events-none">
       <div class="sm:w-1/2">
@@ -55,7 +55,7 @@
             <div class="text-2xl">
               {{ $t('VsfPaymentProvider.Payment method') }}
             </div>
-            <div class="flex row mt-5 pl-2 sm:pl-0">
+            <div class="flex row mt-5">
               <img
                 style="width: 60px"
                 :src="paymentProviderGetters.getIcon(paymentMethod)"
@@ -73,7 +73,7 @@
             <div class="text-2xl">
               {{ $t('VsfShippingProvider.Shipping method') }}
             </div>
-            <div class="flex row mt-5 pl-2 sm:pl-0">
+            <div class="flex row mt-5">
               <img
                 :src="
                   shippingProviderGetters.getShippingMethodImage(shippingMethod)
@@ -93,8 +93,8 @@
         </div>
       </div>
 
-      <div class="sm:w-1/2">
-        <div class="px-5 pt-5 sm:pt-0">
+      <div class="sm:w-1/2 mt-3 lg:mt-5">
+        <div class="pt-5 sm:pt-0">
           <SfTable class="sf-table--bordered table">
             <SfTableRow
               v-for="(product, index) in products"
