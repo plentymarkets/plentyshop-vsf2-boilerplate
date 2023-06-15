@@ -19,13 +19,14 @@ export default {
     }
   },
   setup (props, context) {
-    const { app } = useContext();
+    const { app, $config } = useContext();
     const { loadScript, createOrder, approveOrder } = usePayPal();
     const router = useRouter();
     const { isCartSidebarOpen, toggleCartSidebar } = useUiState();
 
     const paypalUuid = props.uuid;
-    const currency = app.$cookies.get('vsf-currency') ?? 'EUR';
+    console.log( $config.defaultCurrency);
+    const currency = app.$cookies.get('vsf-currency') ?? $config.defaultCurrency;
 
     onMounted(async () => {
       const { save: savePaymentProvider } = usePaymentProvider('paypal_express_button');
