@@ -5,7 +5,8 @@ import {
   PreparePaymentResult,
   OrderDetails,
   OrderSearchParams,
-  Order
+  Order,
+  CreateReturnResponse
 } from 'src/types';
 
 export async function getOrder(context: Context, params: OrderSearchParams): Promise<OrderDetails> {
@@ -28,6 +29,10 @@ export async function getOrder(context: Context, params: OrderSearchParams): Pro
   }
 
   const { data } = await context.client.get(url.href);
+
+  const shippingCostTypeId = 6;
+
+  data.order.orderItems = data.order.orderItems.filter(item => item.typeId !== shippingCostTypeId);
 
   return data;
 }
@@ -60,6 +65,14 @@ export async function executePayment(context: Context, orderId: number, paymentI
     orderId: orderId,
     paymentMethodId: paymentId
   });
+
+  return data;
+}
+
+export async function makeOrderReturn(context: Context, params: string): Promise<CreateReturnResponse> {
+  const url: URL = new URL('/rest/io/order/return', context.config.api.url);
+
+  const { data } = await context.client.post(url.href, params);
 
   return data;
 }

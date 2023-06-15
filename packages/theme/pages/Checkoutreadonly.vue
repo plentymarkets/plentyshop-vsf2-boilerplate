@@ -188,6 +188,8 @@
               type="submit"
               class="w-full color-primary"
               size="lg"
+              :disabled="loading"
+              @click="checkout"
             >
               {{ $t('Payment.Make an order') }}
             </SfButton>
@@ -257,6 +259,10 @@ export default {
     const { make } = useMakeOrder();
     const { captureOrder } = usePayPal();
     const route = useRoute();
+    const loading = sharedRef(false, 'useCheckout-loading');
+
+    const checkout = async () => {
+      loading.value = true;
 
     const shippingAddresses = computed(() =>
       userAddressGetters.getAddresses(shipping.value)
@@ -351,17 +357,30 @@ export default {
 
     const makeOrder = async () => {
       await make({
-        paymentId: cart.value.methodOfPaymentId,
+        paymentId: 6001,
         shippingPrivacyHintAccepted: true
       });
 
-      await captureOrder(route.value.query.orderId, route.value.query.payerId);
+      await executePayPalOrder('paypal', parseInt(orderGetters.getId(order.value)), route.value.query.orderId ?? '', 'N94FCPY5FXPMC');
+
+      const thankYouPath = { name: 'thank-you',
+        query: {
+          orderId: orderGetters.getId(order.value),
+          accessKey: orderGetters.getAccessKey(order.value)
+        }};
+
+      router.push(context.root.localePath(thankYouPath));
+      setCart({items: []});
+
+      loading.value = false;
     };
 
     return {
+      checkout,
       getStateName,
       getCountryName,
       addBasePath,
+      loading: computed(() => loading.value),
       makeOrder,
       billing,
       terms,

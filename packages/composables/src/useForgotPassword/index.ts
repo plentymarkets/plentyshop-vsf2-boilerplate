@@ -7,13 +7,13 @@ import {
 const factoryParams: UseForgotPasswordFactoryParams<unknown> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   resetPassword: async (context: Context, { email, customQuery }) => {
-    console.log('Mocked: resetPassword');
+    // @TODO implement resetPassword
     return {};
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setNewPassword: async (context: Context, { tokenValue, newPassword, customQuery }) => {
-    console.log('Mocked: setNewPassword');
+    // @TODO implement setNewPassword
     return {};
   }
 };

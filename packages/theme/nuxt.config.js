@@ -49,13 +49,11 @@ const config = {
       useRawSource: {
         dev: [
           '@vue-storefront/plentymarkets',
-          '@vue-storefront/core',
-          '@vue-storefront/pp-plentymarkets'
+          '@vue-storefront/core'
         ],
         prod: [
           '@vue-storefront/plentymarkets',
-          '@vue-storefront/core',
-          '@vue-storefront/pp-plentymarkets'
+          '@vue-storefront/core'
         ]
       }
     }],
@@ -78,7 +76,6 @@ const config = {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    ['@vue-storefront/pp-plentymarkets/nuxt', {}],
     ['nuxt-i18n', {
       baseUrl: process.env.BASE_URL || `http://localhost:${appPort}`
     }],
@@ -109,7 +106,7 @@ const config = {
     seo: true,
     langDir: 'lang/',
     vueI18n: {
-      fallbackLocale: 'en',
+      fallbackLocale: 'de',
       numberFormats: {
         en: {
           currency: {

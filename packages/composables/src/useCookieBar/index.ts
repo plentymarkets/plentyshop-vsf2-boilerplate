@@ -58,7 +58,7 @@ export const useCookieBar = (
                     (0, eval)(script);
                   }
                 } catch (error) {
-                  console.log(error);
+                  // @TODO error handling
                 }
               });
             }

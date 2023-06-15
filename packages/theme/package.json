@@ -30,7 +30,6 @@
     "@vue-storefront/nuxt": "~2.7.5",
     "@vue-storefront/nuxt-theme": "~2.7.5",
     "@vue-storefront/plentymarkets": "0.0.1",
-    "@vue-storefront/pp-plentymarkets": "^1.0.0",
     "cookie-universal-nuxt": "^2.1.5",
     "core-js": "^3.19.0",
     "nuxt": "^2.15.8",
@@ -48,6 +47,7 @@
     "autoprefixer": "^10.3.3",
     "babel-jest": "^27.3.1",
     "cypress": "^10.9.0",
+    "cypress-fail-on-console-error": "^4.0.3",
     "cypress-pipe": "^2.0.0",
     "cypress-tags": "^0.3.0",
     "jest": "^27.5.1",
@@ -56,6 +56,7 @@
     "mochawesome-report-generator": "^5.2.0",
     "postcss": "^8.3.6",
     "ts-loader": "^8.1.0",
+    "uuid": "^9.0.0",
     "vue-jest": "^4.0.0-0"
   }
 }
