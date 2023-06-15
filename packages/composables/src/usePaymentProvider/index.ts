@@ -33,7 +33,7 @@ export const usePaymentProvider = (id: string): useActiveShippingCountriesRespon
   const save = async (paymentId: number): Promise<void> => {
     await context.$plentymarkets.api.setPaymentProvider(paymentId);
 
-    if(result.value)
+    if (result.value)
       result.value.selected = paymentId;
   };
 

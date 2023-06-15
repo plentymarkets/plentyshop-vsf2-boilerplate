@@ -241,7 +241,7 @@ export default {
   setup(props, context) {
     const terms = ref(false);
     const { load: loadShipping, shipping } = useUserShipping();
-    const { cart, setCart } = useCart();
+    const { cart, setCart, load: loadCart} = useCart();
     const { make, order } = useMakeOrder();
     const { executePayPalOrder } = usePayPal();
     const { load: loadBilling, billing } = useUserBilling();
@@ -269,15 +269,12 @@ export default {
       return null;
     });
 
-    const paymentMethodsById = computed(() =>
-      keyBy(paymentProviders?.value?.list, 'id')
-    );
     const paymentMethod = computed(
-      () =>
-        paymentMethodsById.value[
-          paymentProviderGetters.getMethodOfPaymentId(cart.value)
-        ]
-    );
+      () => {
+        return paymentProviders?.value?.list.find((method) => {
+          return method.id === Number(paymentProviderGetters.getMethodOfPaymentId(cart?.value));
+        });
+      });
 
     const shippingMethodsById = computed(() =>
       keyBy(
@@ -315,6 +312,8 @@ export default {
     });
 
     onSSR(async () => {
+      setCart(null);
+      await loadCart();
       await loadBilling();
       await loadShipping();
       await loadActiveShippingCountries();
