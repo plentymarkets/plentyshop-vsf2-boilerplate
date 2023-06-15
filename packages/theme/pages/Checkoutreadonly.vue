@@ -223,7 +223,7 @@ import { keyBy } from 'lodash';
 import { ValidationProvider, ValidationObserver } from 'vee-validate';
 
 export default {
-  name: 'ReviewOrder',
+  name: 'CheckoutReadonly',
   components: {
     SfTable,
     SfButton,

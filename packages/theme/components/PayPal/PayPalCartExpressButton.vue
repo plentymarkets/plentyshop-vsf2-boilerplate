@@ -6,19 +6,19 @@
 </template>
 
 <script>
-import { usePayPal } from '@vue-storefront/plentymarkets';
+import { usePayPal, usePaymentProvider } from '@vue-storefront/plentymarkets';
 import { onMounted, useContext, useRouter} from '@nuxtjs/composition-api';
 import { useUiState } from '~/composables';
 
 export default {
-  name: 'SmartButton',
+  name: 'PayPalCartExpressButton',
   props: {
     uuid: {
       type: String,
       required: true
     }
   },
-  setup (props) {
+  setup (props, context) {
     const { app } = useContext();
     const { loadScript, createOrder, approveOrder } = usePayPal();
     const router = useRouter();
@@ -28,6 +28,7 @@ export default {
     const currency = app.$cookies.get('vsf-currency') ?? 'EUR';
 
     onMounted(async () => {
+      const { save: savePaymentProvider } = usePaymentProvider('paypal_express_button');
       const paypal = await loadScript(currency);
       const FUNDING_SOURCES = [
         paypal.FUNDING.PAYPAL
@@ -41,7 +42,7 @@ export default {
                 const res = await approveOrder(data.orderID, data.payerID);
 
                 if (res.url) {
-                  router.push(`/CheckoutReadOnly?payerId=${data.payerID}&orderId=${data.orderID}`);
+                  router.push(context.root.localePath(`/CheckoutReadOnly?payerId=${data.payerID}&orderId=${data.orderID}`));
                   if (isCartSidebarOpen.value) {
                     toggleCartSidebar();
                   }
@@ -49,12 +50,16 @@ export default {
               },
 
               async createOrder() {
+                await savePaymentProvider(6001);
                 const res = await createOrder(fundingSource);
 
                 return res.id ?? '';
               },
-              onClick() {
+
+              async onClick() {
+
               },
+
               style: {
                 layout: 'vertical',
                 label: 'buynow'

@@ -5,7 +5,7 @@ import { ComposableBaseResponse } from 'src/types';
 
 export interface useActiveShippingCountriesResponse extends ComposableBaseResponse<PaymentProviders> {
   load: (type: string) => Promise<void>
-  save: (aymentId: number) => Promise<void>
+  save: (paymentId: number) => Promise<void>
 }
 
 export const usePaymentProvider = (id: string): useActiveShippingCountriesResponse => {
@@ -32,7 +32,9 @@ export const usePaymentProvider = (id: string): useActiveShippingCountriesRespon
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const save = async (paymentId: number): Promise<void> => {
     await context.$plentymarkets.api.setPaymentProvider(paymentId);
-    result.value.selected = paymentId;
+
+    if(result.value)
+      result.value.selected = paymentId;
   };
 
   return {
