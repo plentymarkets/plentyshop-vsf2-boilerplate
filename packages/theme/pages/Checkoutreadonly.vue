@@ -248,7 +248,6 @@ import {
 } from '@nuxtjs/composition-api';
 import { keyBy } from 'lodash';
 import { ValidationProvider, ValidationObserver } from 'vee-validate';
-import { onMounted } from '@nuxtjs/composition-api';
 
 export default {
   name: 'ReviewOrder',
@@ -382,7 +381,7 @@ export default {
         'paypal',
         parseInt(orderGetters.getId(order.value)),
         route.value.query.orderId ?? '',
-        'N94FCPY5FXPMC'
+        '999JUBU6WMRWU'
       );
 
       const thankYouPath = {
