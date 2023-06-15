@@ -217,7 +217,7 @@ import {
 import { addBasePath, onSSR } from '@vue-storefront/core';
 import {
   computed,
-  ref,
+  ref, useContext,
   useRoute,
   useRouter
 } from '@nuxtjs/composition-api';
@@ -241,6 +241,7 @@ export default {
     ReadonlyAddress: () => import('~/components/Checkout/Readonly/ReadonlyAddress')
   },
   setup(props, context) {
+    const { $config } = useContext();
     const terms = ref(false);
     const { load: loadShipping, shipping } = useUserShipping();
     const { cart, setCart, load: loadCart} = useCart();
@@ -326,7 +327,7 @@ export default {
     const makeOrder = async () => {
       makeOrderLoading.value = true;
       await make({
-        paymentId: 6001,
+        paymentId: $config.integrationConfig.payment.paypal.paymentId,
         shippingPrivacyHintAccepted: true
       });
 
@@ -334,7 +335,7 @@ export default {
         'paypal',
         parseInt(orderGetters.getId(order.value)),
         route.value.query.orderId ?? '',
-        '999JUBU6WMRWU'
+        $config.integrationConfig.payment.paypal.merchantId
       );
 
       const thankYouPath = {

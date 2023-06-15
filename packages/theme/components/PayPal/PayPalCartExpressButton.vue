@@ -23,9 +23,7 @@ export default {
     const { loadScript, createOrder, approveOrder } = usePayPal();
     const router = useRouter();
     const { isCartSidebarOpen, toggleCartSidebar } = useUiState();
-
     const paypalUuid = props.uuid;
-    console.log( $config.defaultCurrency);
     const currency = app.$cookies.get('vsf-currency') ?? $config.defaultCurrency;
 
     onMounted(async () => {
@@ -51,7 +49,7 @@ export default {
               },
 
               async createOrder() {
-                await savePaymentProvider(6001);
+                await savePaymentProvider($config.integrationConfig.payment.paypal.paymentId);
                 const res = await createOrder(fundingSource);
 
                 return res.id ?? '';
