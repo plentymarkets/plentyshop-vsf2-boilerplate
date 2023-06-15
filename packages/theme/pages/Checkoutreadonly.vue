@@ -1,6 +1,8 @@
 <template>
   <div class="p-3 lg:p-0">
-    <h2 class="mb-8">{{ $t('Checkoutreadonly.Review your order') }}</h2>
+    <h2 class="mb-8">
+      {{ $t('Checkoutreadonly.Review your order') }}
+    </h2>
     <SfDivider class="sm:mb-sf-xl" />
     <div class="flex p-2 flex-wrap opacity-80 pointer-events-none">
       <div class="sm:w-1/2">
@@ -56,7 +58,10 @@
               {{ $t('VsfPaymentProvider.Payment method') }}
             </div>
             <div class="flex row mt-5">
-              <img style="width: 60px" :src="paymentProviderGetters.getIcon(paymentMethod)">
+              <img
+                style="width: 60px"
+                :src="paymentProviderGetters.getIcon(paymentMethod)"
+              >
               <div class="ml-2 mt-2">
                 {{ paymentProviderGetters.getName(paymentMethod) }}
               </div>
@@ -71,9 +76,12 @@
               {{ $t('VsfShippingProvider.Shipping method') }}
             </div>
             <div class="flex row mt-5">
-              <img :src="
-                shippingProviderGetters.getShippingMethodImage(shippingMethod)
-              " style="width: 60px">
+              <img
+                :src="
+                  shippingProviderGetters.getShippingMethodImage(shippingMethod)
+                "
+                style="width: 60px"
+              >
               <span class="mt-2 ml-2">
                 {{
                   shippingProviderGetters.getShippingMethodName(shippingMethod)
@@ -90,10 +98,18 @@
       <div class="sm:w-1/2 mt-3 lg:mt-5">
         <div class="pt-5 sm:pt-0">
           <SfTable class="sf-table--bordered table">
-            <SfTableRow v-for="(product, index) in products" :key="index" class="table__row">
+            <SfTableRow
+              v-for="(product, index) in products"
+              :key="index"
+              class="table__row"
+            >
               <SfTableData>
-                <SfImage :width="100" :height="100" :src="addBasePath(cartGetters.getItemImage(product))"
-                  :alt="cartGetters.getItemName(product)" />
+                <SfImage
+                  :width="100"
+                  :height="100"
+                  :src="addBasePath(cartGetters.getItemImage(product))"
+                  :alt="cartGetters.getItemName(product)"
+                />
               </SfTableData>
               <SfTableData class="table__data table__description table__data">
                 <div class="product-title">
@@ -103,22 +119,30 @@
                   {{ cartGetters.getItemSku(product) }}
                 </div>
               </SfTableData>
-              <SfTableData v-for="(value, key) in cartGetters.getItemAttributes(product, [
-                'size',
-                'color',
-              ])" :key="key" class="table__data">
+              <SfTableData
+                v-for="(value, key) in cartGetters.getItemAttributes(product, [
+                  'size',
+                  'color',
+                ])"
+                :key="key"
+                class="table__data"
+              >
                 {{ value }}
               </SfTableData>
               <SfTableData class="table__data">
                 {{ cartGetters.getItemQty(product) }}
               </SfTableData>
               <SfTableData class="table__data price">
-                <SfPrice :regular="
-                  $n(cartGetters.getRegularItemPrice(product), 'currency')
-                " :special="
-  cartGetters.getSpecialItemPrice(product) &&
-  $n(cartGetters.getSpecialItemPrice(product), 'currency')
-" class="product-price" />
+                <SfPrice
+                  :regular="
+                    $n(cartGetters.getRegularItemPrice(product), 'currency')
+                  "
+                  :special="
+                    cartGetters.getSpecialItemPrice(product) &&
+                      $n(cartGetters.getSpecialItemPrice(product), 'currency')
+                  "
+                  class="product-price"
+                />
               </SfTableData>
             </SfTableRow>
           </SfTable>
@@ -131,12 +155,26 @@
       </div>
     </div>
     <div class="p-3">
-      <ValidationObserver key="submitOrder" v-slot="{ handleSubmit }">
+      <ValidationObserver
+        key="submitOrder"
+        v-slot="{ handleSubmit }"
+      >
         <form @submit.prevent="handleSubmit(makeOrder)">
-          <ValidationProvider v-slot="{ errors }" :rules="{ required: { allowFalse: false } }"
-            :name="$t('Payment.Terms and conditions')" class="mt-4 mb-3" tag="div">
-            <SfCheckbox v-model="terms" v-e2e="'terms'" name="terms" class="summary__terms my-sf-lg" :valid="!errors[0]"
-              :error-message="errors[0]">
+          <ValidationProvider
+            v-slot="{ errors }"
+            :rules="{ required: { allowFalse: false } }"
+            :name="$t('Payment.Terms and conditions')"
+            class="mt-4 mb-3"
+            tag="div"
+          >
+            <SfCheckbox
+              v-model="terms"
+              v-e2e="'terms'"
+              name="terms"
+              class="summary__terms my-sf-lg"
+              :valid="!errors[0]"
+              :error-message="errors[0]"
+            >
               <template #label>
                 <div class="sf-checkbox__label">
                   {{ $t('Payment.I agree to') }}
@@ -148,15 +186,23 @@
             </SfCheckbox>
           </ValidationProvider>
           <div class="my-2">
-            <SfButton type="submit" class="w-full color-primary" size="lg" :disabled="loading" @click="checkout">
-              {{ $t('Payment.Make an order') }}
+            <SfButton
+              type="submit"
+              class="w-full color-primary min-h-12"
+              size="lg"
+              :disabled="loading || invalidCheckoutData"
+            >
+              <SfLoader
+                :class="{ loader: loading }"
+                :loading="loading"
+              >
+                <div>{{ $t('Payment.Make an order') }}</div>
+              </SfLoader>
             </SfButton>
           </div>
           <div>
             <SfButton class="w-full color-secondary">
-              {{
-                $t('Payment.Cancel Order')
-              }}
+              {{ $t('Payment.Cancel Order') }}
             </SfButton>
           </div>
         </form>
@@ -173,7 +219,8 @@ import {
   SfPrice,
   SfCheckbox,
   SfDivider,
-  SfLink
+  SfLink,
+  SfLoader
 } from '@storefront-ui/vue';
 
 import {
@@ -189,12 +236,19 @@ import {
   useUserBilling,
   countryGetters,
   useMakeOrder,
-  usePayPal
+  usePayPal,
+  orderGetters
 } from '@vue-storefront/plentymarkets';
 import { addBasePath, onSSR } from '@vue-storefront/core';
-import { computed, ref, useRoute } from '@nuxtjs/composition-api';
+import {
+  computed,
+  ref,
+  useRoute,
+  useRouter
+} from '@nuxtjs/composition-api';
 import { keyBy } from 'lodash';
 import { ValidationProvider, ValidationObserver } from 'vee-validate';
+import { onMounted } from '@nuxtjs/composition-api';
 
 export default {
   name: 'ReviewOrder',
@@ -206,157 +260,166 @@ export default {
     SfDivider,
     SfPrice,
     SfCheckbox,
+    SfLoader,
     ValidationProvider,
     ValidationObserver,
     CartTotals: () => import('~/components/CartTotals')
   },
-  setup() {
+  setup(props, context) {
     const terms = ref(false);
     const { load: loadShipping, shipping } = useUserShipping();
-    const { cart } = useCart();
-    const { make } = useMakeOrder();
-    const { captureOrder } = usePayPal();
+    const { cart, setCart } = useCart();
+    const { make, order } = useMakeOrder();
+    const { executePayPalOrder } = usePayPal();
     const route = useRoute();
-    const loading = sharedRef(false, 'useCheckout-loading');
+    const makeOrderLoading = ref(false);
+    const router = useRouter();
 
-    const checkout = async () => {
-      loading.value = true;
-
-      const shippingAddresses = computed(() =>
-        userAddressGetters.getAddresses(shipping.value)
-      );
-      const defaultShipping = computed(() => {
-        if (shippingAddresses.value.length > 0) {
-          return (
-            userAddressGetters.getDefault(shippingAddresses.value) ||
-            userAddressGetters.getAddresses(shippingAddresses.value)[0]
-          );
-        }
-        return null;
-      });
-
-      const { load: loadActiveShippingCountries, result: countries } =
-        useActiveShippingCountries();
-
-      const getStateName = (address) => {
-        const countryId = userAddressGetters.getCountryId(address);
-        const country = countryGetters.getCountryById(countries.value, countryId);
-        const stateId = userAddressGetters.getStateId(address);
-        const state = countryGetters.getStateById(country, stateId);
-
-        return countryGetters.getStateName(state)
-          ? `${countryGetters.getStateName(state)}, `
-          : '';
-      };
-
-      const getCountryName = (address) => {
-        const country = countryGetters.getCountryById(
-          countries.value,
-          userAddressGetters.getCountryId(address)
+    const shippingAddresses = computed(() =>
+      userAddressGetters.getAddresses(shipping.value)
+    );
+    const defaultShipping = computed(() => {
+      if (shippingAddresses.value.length > 0) {
+        return (
+          userAddressGetters.getDefault(shippingAddresses.value) ||
+          userAddressGetters.getAddresses(shippingAddresses.value)[0]
         );
+      }
+      return null;
+    });
 
-        return countryGetters.getCountryName(country);
-      };
+    const { load: loadActiveShippingCountries, result: countries } =
+      useActiveShippingCountries();
 
-      const { load: loadPaymentProviders, result: paymentProviders } =
-        usePaymentProvider();
-      const paymentMethodsById = computed(() =>
-        keyBy(paymentProviders?.value?.list, 'id')
+    const getStateName = (address) => {
+      const countryId = userAddressGetters.getCountryId(address);
+      const country = countryGetters.getCountryById(countries.value, countryId);
+      const stateId = userAddressGetters.getStateId(address);
+      const state = countryGetters.getStateById(country, stateId);
+
+      return countryGetters.getStateName(state)
+        ? `${countryGetters.getStateName(state)}, `
+        : '';
+    };
+
+    const getCountryName = (address) => {
+      const country = countryGetters.getCountryById(
+        countries.value,
+        userAddressGetters.getCountryId(address)
       );
-      const paymentMethod = computed(
-        () =>
-          paymentMethodsById.value[
+
+      return countryGetters.getCountryName(country);
+    };
+
+    const { load: loadPaymentProviders, result: paymentProviders } =
+      usePaymentProvider();
+    const paymentMethodsById = computed(() =>
+      keyBy(paymentProviders?.value?.list, 'id')
+    );
+    const paymentMethod = computed(
+      () =>
+        paymentMethodsById.value[
           paymentProviderGetters.getMethodOfPaymentId(cart.value)
-          ]
+        ]
+    );
+
+    const { load: loadShippingProvider, state: shippingProvider } =
+      useShippingProvider();
+
+    const shippingMethodsById = computed(() =>
+      keyBy(
+        shippingProviderGetters.getShippingProviders(shippingProvider.value),
+        'parcelServicePresetId'
+      )
+    );
+
+    const selectedMethodId = computed(() => {
+      if (shippingProviderGetters.getShippingProfileId(cart?.value)) {
+        return shippingProviderGetters.getShippingProfileId(cart?.value);
+      }
+      return null;
+    });
+
+    const shippingMethod = computed(() =>
+      selectedMethodId.value
+        ? shippingMethodsById.value[selectedMethodId.value]
+        : null
+    );
+
+    const { load: loadBilling, billing } = useUserBilling();
+
+    const defaultBilling = computed(() => {
+      if (shippingAddresses.value.length > 0) {
+        return (
+          userAddressGetters.getDefault(billing.value) ||
+          userAddressGetters.getAddresses(billing.value)[0]
+        );
+      }
+      return null;
+    });
+
+    const invalidCheckoutData = computed(() => {
+      return !defaultBilling.value || !defaultShipping.value || !cartGetters.getItems(cart.value).length ||
+          !paymentMethod.value || !shippingMethod.value || !route.value.query.orderId;
+    });
+
+    onSSR(async () => {
+      await loadBilling();
+      await loadShipping();
+      await loadActiveShippingCountries();
+      await loadPaymentProviders();
+      await loadShippingProvider();
+    });
+
+    const makeOrder = async () => {
+      makeOrderLoading.value = true;
+      await make({
+        paymentId: 6001,
+        shippingPrivacyHintAccepted: true
+      });
+
+      await executePayPalOrder(
+        'paypal',
+        parseInt(orderGetters.getId(order.value)),
+        route.value.query.orderId ?? '',
+        'N94FCPY5FXPMC'
       );
 
-      const { load: loadShippingProvider, state: shippingProvider } =
-        useShippingProvider();
-
-      const shippingMethodsById = computed(() =>
-        keyBy(
-          shippingProviderGetters.getShippingProviders(shippingProvider.value),
-          'parcelServicePresetId'
-        )
-      );
-
-      const selectedMethodId = computed(() => {
-        if (shippingProviderGetters.getShippingProfileId(cart?.value)) {
-          return shippingProviderGetters.getShippingProfileId(cart?.value);
+      const thankYouPath = {
+        name: 'thank-you',
+        query: {
+          orderId: orderGetters.getId(order.value),
+          accessKey: orderGetters.getAccessKey(order.value)
         }
-        return null;
-      });
-
-      const shippingMethod = computed(() =>
-        selectedMethodId.value
-          ? shippingMethodsById.value[selectedMethodId.value]
-          : null
-      );
-
-      const { load: loadBilling, billing } = useUserBilling();
-
-      const defaultBilling = computed(() => {
-        if (shippingAddresses.value.length > 0) {
-          return (
-            userAddressGetters.getDefault(billing.value) ||
-            userAddressGetters.getAddresses(billing.value)[0]
-          );
-        }
-        return null;
-      });
-
-      onSSR(async () => {
-        await loadBilling();
-        await loadShipping();
-        await loadActiveShippingCountries();
-        await loadPaymentProviders();
-        await loadShippingProvider();
-      });
-
-      const makeOrder = async () => {
-        await make({
-          paymentId: 6001,
-          shippingPrivacyHintAccepted: true
-        });
-
-        await executePayPalOrder('paypal', parseInt(orderGetters.getId(order.value)), route.value.query.orderId ?? '', 'N94FCPY5FXPMC');
-
-        const thankYouPath = {
-          name: 'thank-you',
-          query: {
-            orderId: orderGetters.getId(order.value),
-            accessKey: orderGetters.getAccessKey(order.value)
-          }
-        };
-
-        router.push(context.root.localePath(thankYouPath));
-        setCart({ items: [] });
-
-        loading.value = false;
       };
 
-      return {
-        checkout,
-        getStateName,
-        getCountryName,
-        addBasePath,
-        loading: computed(() => loading.value),
-        makeOrder,
-        billing,
-        terms,
-        defaultBilling,
-        userAddressGetters,
-        defaultShipping,
-        shippingAddresses,
-        shippingMethod,
-        shippingProviderGetters,
-        paymentMethod,
-        paymentProviderGetters,
-        cartGetters,
-        products: computed(() => cartGetters.getItems(cart.value)),
-        totals: computed(() => cartGetters.getTotals(cart.value))
-      };
-    }
+      router.push(context.root.localePath(thankYouPath));
+      setCart({ items: [] });
+
+      makeOrderLoading.value = false;
+    };
+
+    return {
+      getStateName,
+      getCountryName,
+      addBasePath,
+      loading: computed(() => makeOrderLoading.value),
+      invalidCheckoutData,
+      makeOrder,
+      billing,
+      terms,
+      defaultBilling,
+      userAddressGetters,
+      defaultShipping,
+      shippingAddresses,
+      shippingMethod,
+      shippingProviderGetters,
+      paymentMethod,
+      paymentProviderGetters,
+      cartGetters,
+      products: computed(() => cartGetters.getItems(cart.value)),
+      totals: computed(() => cartGetters.getTotals(cart.value))
+    };
   }
 };
 </script>

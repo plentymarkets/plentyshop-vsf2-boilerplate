@@ -14,10 +14,10 @@ function getShippingMethodName(shippingMethod: ShippingMethod): string {
   return `${shippingMethod?.parcelServiceName} - ${shippingMethod?.parcelServicePresetName}`;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getShippingMethodImage(shippingMethod: ShippingMethod): string {
-  console.log(shippingMethod);
   // TODO: Shipping method should contain brand image!
-  return 'https://assets.dpdhl-brands.com/guides/dhl/guides-de/design-basics/logo-and-claim/logo/versions-01.png';
+  return '';
 }
 
 function getShippingPrivacyInformation(shippingMethod: ShippingMethod): ShippingPrivacyInformation {
