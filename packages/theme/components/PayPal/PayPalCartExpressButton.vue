@@ -26,18 +26,15 @@ export default {
     const paypalUuid = props.uuid;
     const currency = app.$cookies.get('vsf-currency') ?? $config.fallbackCurrency;
 
-    if (!$config?.integrationConfig?.payment?.paypal) {
-      return;
-    }
-
     onMounted(async () => {
       const { save: savePaymentProvider } = usePaymentProvider('paypal_express_button');
       const paypal = await loadScript(currency);
-      const FUNDING_SOURCES = [
-        paypal.FUNDING.PAYPAL
-      ];
 
       if (paypal) {
+        const FUNDING_SOURCES = [
+          paypal.FUNDING.PAYPAL
+        ];
+
         try {
           FUNDING_SOURCES.forEach((fundingSource) => {
             const btn = paypal.Buttons({

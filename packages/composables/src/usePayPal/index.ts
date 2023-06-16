@@ -36,13 +36,17 @@ export const usePayPal = () : UsePayPalResponse => {
       return paypal.value;
     }
 
-    try {
-      // TODO get client id somehow
-      paypal.value = await loadPayPalScript({ clientId: $config.integrationConfig.payment.paypal.clientId, currency: currency });
-      return paypal.value;
-    } catch (error) {
-      // console.error('failed to load the PayPal JS SDK script', error);
+    if($config?.integrationConfig?.payment?.paypal) {
+      try {
+        // TODO get client id somehow
+        paypal.value = await loadPayPalScript({ clientId: $config.integrationConfig.payment.paypal.clientId, currency: currency });
+        return paypal.value;
+      } catch (error) {
+        // console.error('failed to load the PayPal JS SDK script', error);
+      }
     }
+
+    return null;
   };
 
   return {
