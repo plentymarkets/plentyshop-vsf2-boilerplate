@@ -85,6 +85,13 @@
                 class="product__add-to-cart"
                 @click="addItem({ product, quantity: parseInt(qty) })"
               />
+
+              <PayPalProductExpressButton
+                v-if="paypalUuid"
+                :uuid="paypalUuid"
+                :product="{ product, quantity: parseInt(qty) }"
+                class="mt-4"
+              />
             </div>
 
             <LazyHydrate when-idle>
@@ -197,7 +204,7 @@ import {
 import AttributeSelection from '~/components/AttributeSelection.vue';
 import InstagramFeed from '~/components/InstagramFeed.vue';
 import RelatedProducts from '~/components/RelatedProducts.vue';
-import { ref, computed, useRoute } from '@nuxtjs/composition-api';
+import { ref, computed, useRoute, onMounted } from '@nuxtjs/composition-api';
 import {
   useProduct,
   useCart,
@@ -211,10 +218,12 @@ import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
 import { addBasePath } from '@vue-storefront/core';
 import { useUiHelpers, useUiState } from '~/composables';
+import { v4 as uuid } from 'uuid';
 
 export default {
   name: 'Product',
   components: {
+    PayPalProductExpressButton,
     SfProperty,
     SfHeading,
     SfPrice,
@@ -286,6 +295,8 @@ export default {
       await searchRelatedProducts({ catId: [categories.value[0]], limit: 8 });
       await searchReviews({ productId: productGetters.getItemId(product.value)});
     });
+
+    const paypalUuid = uuid();
 
     return {
       product,
