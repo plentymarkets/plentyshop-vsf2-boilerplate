@@ -419,7 +419,7 @@ const de = {
     'payment status fullyPaid': 'Bezahlt',
     'payment status overpaid': 'Überzahlt',
     'payment status partlyPaid': 'Teilweise bezahlt',
-    'payment status repaid': 'Im Voraus bezahlt',
+    'payment status prepaid': 'Im Voraus bezahlt',
     'payment status unpaid': 'Nicht bezahlt'
   },
   // TopBar
