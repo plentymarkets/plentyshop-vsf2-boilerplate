@@ -418,6 +418,11 @@ const en = {
     'Same As Shipping Address': 'Same As Shipping Address',
     'Shipping Method': 'Shipping Method',
     'A confirmation has been sent to': 'A confirmation has been sent to',
+    'payment status fullyPaid': 'Paid',
+    'payment status overpaid': 'Overpaid',
+    'payment status partlyPaid': 'Partially paid',
+    'payment status prepaid': 'Prepaid',
+    'payment status unpaid': 'Not paid'
   },
   // TopBar
   'TopBar': {

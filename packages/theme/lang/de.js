@@ -415,7 +415,12 @@ const de = {
     'Payment method': 'Zahlungsart',
     'Same As Shipping Address': 'Entspricht Lieferadresse',
     'Shipping Method': 'Versandart',
-    'A confirmation has been sent to': 'Eine Bestätigung wurde geschickt an'
+    'A confirmation has been sent to': 'Eine Bestätigung wurde geschickt an',
+    'payment status fullyPaid': 'Bezahlt',
+    'payment status overpaid': 'Überzahlt',
+    'payment status partlyPaid': 'Teilweise bezahlt',
+    'payment status repaid': 'Im Voraus bezahlt',
+    'payment status unpaid': 'Nicht bezahlt'
   },
   // TopBar
   'TopBar': {
