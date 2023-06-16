@@ -1,15 +1,15 @@
 export default {
-  currency: 'USD',
-  country: 'US',
+  currency: 'GBP',
+  country: 'UK',
   countries: [
-    {name: 'US', label: 'United States', states: ['California', 'Nevada']},
+    {name: 'UK', label: 'United Kingdom'},
     {name: 'AT', label: 'Austria'},
     {name: 'DE', label: 'Germany'},
     {name: 'NL', label: 'Netherlands'}
   ],
   currencies: [
     {name: 'EUR', label: 'Euro'},
-    {name: 'USD', label: 'Dollar'}
+    {name: 'GBP', label: 'Pounds'}
   ],
   locales: [
     {code: 'en', label: 'English', file: 'en.js', iso: 'en'},
@@ -24,7 +24,7 @@ export default {
     numberFormats: {
       en: {
         currency: {
-          style: 'currency', currency: 'USD', currencyDisplay: 'symbol'
+          style: 'currency', currency: 'GBP', currencyDisplay: 'symbol'
         }
       },
       de: {
