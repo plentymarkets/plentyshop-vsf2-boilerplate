@@ -144,7 +144,7 @@ const config = {
     middlewareUrl: process.env.MIDDLEWARE_URL || `http://${appIP}:${appPort}/api/`,
     theme,
     cookieGroups: cookieGroups,
-    defaultCurrency: i18nConfig.currency,
+    fallbackCurrency: i18nConfig.currency,
     integrationConfig
   },
 
