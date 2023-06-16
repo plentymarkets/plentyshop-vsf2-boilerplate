@@ -177,7 +177,10 @@
             </SfButton>
           </div>
           <div>
-            <SfButton class="w-full color-secondary">
+            <SfButton
+              class="w-full color-secondary"
+              @click="cancelOrder"
+            >
               {{ $t('Payment.Cancel Order') }}
             </SfButton>
           </div>
@@ -352,9 +355,14 @@ export default {
       makeOrderLoading.value = false;
     };
 
+    const cancelOrder = () => {
+      router.push(context.root.localePath('/checkout/payment'));
+    };
+
     return {
       addBasePath,
       billing,
+      cancelOrder,
       cartGetters,
       countries,
       defaultBilling,

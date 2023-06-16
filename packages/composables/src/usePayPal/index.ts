@@ -36,7 +36,7 @@ export const usePayPal = () : UsePayPalResponse => {
       return paypal.value;
     }
 
-    if($config?.integrationConfig?.payment?.paypal) {
+    if ($config?.integrationConfig?.payment?.paypal) {
       try {
         // TODO get client id somehow
         paypal.value = await loadPayPalScript({ clientId: $config.integrationConfig.payment.paypal.clientId, currency: currency });
