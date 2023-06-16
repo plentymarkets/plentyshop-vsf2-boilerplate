@@ -244,7 +244,9 @@ export default {
     };
 
     const getDocumentLink = (doc) => {
-      return `https://msql6u6bz7bl.c14-01.plentymarkets.com/en/order-document/preview/${doc.pivot.plenty_document_reference_document_id}/?orderId=${doc.pivot.plenty_document_reference_value}`
+      // should use link from api when backend route is ready
+      // we have access key somewere in the seesion or cookie..
+      return `https://shop.local.plenty.rocks/rest/storefront/order_document/preview/${doc.pivot.plenty_document_reference_document_id}/?orderId=${doc.pivot.plenty_document_reference_value}`
     }
 
     return {
