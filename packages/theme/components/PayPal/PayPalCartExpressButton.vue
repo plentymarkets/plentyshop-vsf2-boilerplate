@@ -24,7 +24,11 @@ export default {
     const router = useRouter();
     const { isCartSidebarOpen, toggleCartSidebar } = useUiState();
     const paypalUuid = props.uuid;
-    const currency = app.$cookies.get('vsf-currency') ?? $config.defaultCurrency;
+    const currency = app.$cookies.get('vsf-currency') ?? $config.fallbackCurrency;
+
+    if (!$config?.integrationConfig?.payment?.paypal) {
+      return;
+    }
 
     onMounted(async () => {
       const { save: savePaymentProvider } = usePaymentProvider('paypal_express_button');
