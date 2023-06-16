@@ -2,38 +2,24 @@
   <SfTabs :open-tab="1">
     <SfTab :title="$t('OrderHistory.My orders')">
       <div v-if="currentOrder">
-        <SfButton
-          class="sf-button--text all-orders"
-          @click="(currentOrder = null), (returnOrder = false)"
-        >
+        <div class="flex row">
+          <div v-for="doc in currentOrder.order.documents" :key="doc.id" class="mr-1">
+            <SfButton class="w-full" :link="getDocumentLink(doc)"> {{ doc.type }} </SfButton>
+          </div>
+        </div>
+        <SfButton class="sf-button--text all-orders" @click="(currentOrder = null), (returnOrder = false)">
           {{ $t('OrderHistory.All orders') }}
         </SfButton>
         <div class="highlighted highlighted--total">
-          <SfProperty
-            name="Order ID"
-            :value="orderGetters.getId(currentOrder)"
-            class="sf-property--full-width property"
-          />
-          <SfProperty
-            name="Date"
-            :value="orderGetters.getDate(currentOrder)"
-            class="sf-property--full-width property"
-          />
-          <SfProperty
-            name="Status"
-            :value="orderGetters.getStatus(currentOrder)"
-            class="sf-property--full-width property"
-          />
-          <SfProperty
-            name="Shipping"
-            :value="$n(orderGetters.getShippingCost(currentOrder), 'currency')"
-            class="sf-property--full-width property"
-          />
-          <SfProperty
-            name="Total"
-            :value="$n(orderGetters.getPrice(currentOrder), 'currency')"
-            class="sf-property--full-width property"
-          />
+          <SfProperty name="Order ID" :value="orderGetters.getId(currentOrder)"
+            class="sf-property--full-width property" />
+          <SfProperty name="Date" :value="orderGetters.getDate(currentOrder)" class="sf-property--full-width property" />
+          <SfProperty name="Status" :value="orderGetters.getStatus(currentOrder)"
+            class="sf-property--full-width property" />
+          <SfProperty name="Shipping" :value="$n(orderGetters.getShippingCost(currentOrder), 'currency')"
+            class="sf-property--full-width property" />
+          <SfProperty name="Total" :value="$n(orderGetters.getPrice(currentOrder), 'currency')"
+            class="sf-property--full-width property" />
         </div>
         <SfTable class="products">
           <SfTableHeading>
@@ -44,21 +30,15 @@
             <SfTableHeader>{{ $t('OrderHistory.Price') }}</SfTableHeader>
             <SfTableHeader v-if="returnOrder" />
           </SfTableHeading>
-          <SfTableRow
-            v-for="item of allItems"
-            :key="item.id"
-          >
+          <SfTableRow v-for="item of allItems" :key="item.id">
             <SfTableData class="products__name">
-              <nuxt-link
-                :to="
-                  localePath(
-                    orderGetters.getOrderItemLink(
-                      currentOrder,
-                      item.itemVariationId
-                    )
-                  )
-                "
-              >
+              <nuxt-link :to="localePath(
+                orderGetters.getOrderItemLink(
+                  currentOrder,
+                  item.itemVariationId
+                )
+              )
+                ">
                 {{ orderGetters.getItemName(item) }}
               </nuxt-link>
             </SfTableData>
@@ -68,46 +48,22 @@
                 $n(orderGetters.getItemPrice(item), 'currency')
               }}
             </SfTableData>
-            <SfTableData
-              v-if="returnOrder"
-              class="flex"
-            >
-              <div
-                class="sf-quantity-selector flex justify-around"
-                aria-label="Quantity"
-              >
-                <button
-                  class="sf-button--pure sf-quantity-selector__button sf-button"
-                  :aria-disabled="false"
-                  :link="null"
-                  type="button"
-                  aria-label="button"
-                  data-testid="decrease"
-                  @click="decrease(item)"
-                >
+            <SfTableData v-if="returnOrder" class="flex">
+              <div class="sf-quantity-selector flex justify-around" aria-label="Quantity">
+                <button class="sf-button--pure sf-quantity-selector__button sf-button" :aria-disabled="false" :link="null"
+                  type="button" aria-label="button" data-testid="decrease" @click="decrease(item)">
                   −
                 </button>
                 <span>{{ item.selectorQuantity }}</span>
-                <button
-                  class="sf-button--pure sf-quantity-selector__button sf-button"
-                  :aria-disabled="false"
-                  :link="null"
-                  type="button"
-                  aria-label="button"
-                  data-testid="increase"
-                  @click="increase(item)"
-                >
+                <button class="sf-button--pure sf-quantity-selector__button sf-button" :aria-disabled="false" :link="null"
+                  type="button" aria-label="button" data-testid="increase" @click="increase(item)">
                   +
                 </button>
               </div>
             </SfTableData>
           </SfTableRow>
         </SfTable>
-        <SfButton
-          v-if="returnOrder"
-          class="sf-button--full-width sf-c-light-primary-lighten"
-          @click="makeReturnAction"
-        >
+        <SfButton v-if="returnOrder" class="sf-button--full-width sf-c-light-primary-lighten" @click="makeReturnAction">
           {{ $t('OrderHistory.Return items') }}
         </SfButton>
       </div>
@@ -115,10 +71,7 @@
         <p class="message">
           {{ $t('OrderHistory.Details and order status') }}
         </p>
-        <div
-          v-if="totalOrders === 0"
-          class="no-orders"
-        >
+        <div v-if="totalOrders === 0" class="no-orders">
           <p class="no-orders__title">
             {{ $t('OrderHistory.You currently have no orders') }}
           </p>
@@ -126,23 +79,14 @@
             {{ $t('OrderHistory.Start shopping') }}
           </SfButton>
         </div>
-        <SfTable
-          v-else
-          class="orders"
-        >
+        <SfTable v-else class="orders">
           <SfTableHeading>
-            <SfTableHeader
-              v-for="tableHeader in tableHeaders"
-              :key="tableHeader"
-            >
+            <SfTableHeader v-for="tableHeader in tableHeaders" :key="tableHeader">
               {{ $t(tableHeader) }}
             </SfTableHeader>
             <SfTableHeader class="orders__element--right" />
           </SfTableHeading>
-          <SfTableRow
-            v-for="order in orders"
-            :key="orderGetters.getId(order)"
-          >
+          <SfTableRow v-for="order in orders" :key="orderGetters.getId(order)">
             <SfTableData v-e2e="'order-number'">
               {{ orderGetters.getId(order) }}
             </SfTableData>
@@ -158,17 +102,11 @@
               }}</span>
             </SfTableData>
             <SfTableData class="orders__view orders__element--right">
-              <SfButton
-                class="sf-button--text desktop-only"
-                @click="setCurrentOrder(order)"
-              >
+              <SfButton class="sf-button--text desktop-only" @click="setCurrentOrder(order)">
                 {{ $t('OrderHistory.View details') }}
               </SfButton>
-              <SfButton
-                :disabled="!orderGetters.isReturnable(order)"
-                class="sf-button--text desktop-only"
-                @click="setCurrentOrder(order), (returnOrder = true)"
-              >
+              <SfButton :disabled="!orderGetters.isReturnable(order)" class="sf-button--text desktop-only"
+                @click="setCurrentOrder(order), (returnOrder = true)">
                 {{ $t('OrderHistory.Return items') }}
               </SfButton>
             </SfTableData>
@@ -176,13 +114,9 @@
         </SfTable>
 
         <LazyHydrate on-interaction>
-          <SfPagination
-            v-show="paginationGetters.getTotalPages(pagination) > 1"
-            class="products__pagination desktop-only"
-            :current="paginationGetters.getCurrentPage(pagination)"
-            :total="paginationGetters.getTotalPages(pagination)"
-            :visible="5"
-          />
+          <SfPagination v-show="paginationGetters.getTotalPages(pagination) > 1" class="products__pagination desktop-only"
+            :current="paginationGetters.getCurrentPage(pagination)" :total="paginationGetters.getTotalPages(pagination)"
+            :visible="5" />
         </LazyHydrate>
         <p>{{ $t('OrderHistory.Total orders') }} - {{ totalOrders }}</p>
       </div>
@@ -199,7 +133,7 @@ import {
   SfPagination
 } from '@storefront-ui/vue';
 import LazyHydrate from 'vue-lazy-hydration';
-import { computed, ref, watch, getCurrentInstance, useContext, useRouter} from '@nuxtjs/composition-api';
+import { computed, ref, watch, getCurrentInstance, useContext, useRouter } from '@nuxtjs/composition-api';
 import { useUserOrder, orderGetters, paginationGetters, useMakeReturn } from '@vue-storefront/plentymarkets';
 import { AgnosticOrderStatus, onSSR } from '@vue-storefront/core';
 import { useUiNotification } from '~/composables';
@@ -309,6 +243,10 @@ export default {
       }
     };
 
+    const getDocumentLink = (doc) => {
+      return `https://msql6u6bz7bl.c14-01.plentymarkets.com/en/order-document/preview/${doc.pivot.plenty_document_reference_document_id}/?orderId=${doc.pivot.plenty_document_reference_value}`
+    }
+
     return {
       tableHeaders,
       orders,
@@ -316,12 +254,13 @@ export default {
       loading,
       paginationGetters,
       totalOrders: computed(() => orderGetters.getOrdersTotal(orderResult.value)),
-      getStatusTextClass,
       orderGetters,
       currentOrder,
       returnOrder,
-      updateQuantity,
       allItems,
+      getStatusTextClass,
+      updateQuantity,
+      getDocumentLink,
       setCurrentOrder,
       makeReturnAction,
       increase,
@@ -358,6 +297,7 @@ export default {
     }
   }
 }
+
 .orders {
   @include for-desktop {
     &__element {
@@ -389,30 +329,38 @@ export default {
     }
   }
 }
+
 .product {
   &__properties {
     margin: var(--spacer-xl) 0 0 0;
   }
+
   &__property,
   &__action {
     font-size: var(--font-size--sm);
   }
+
   &__action {
     color: var(--c-gray-variant);
     font-size: var(--font-size--sm);
     margin: 0 0 var(--spacer-sm) 0;
+
     &:last-child {
       margin: 0;
     }
   }
+
   &__qty {
     color: var(--c-text);
   }
 }
+
 .products {
   --table-column-flex: 1;
+
   &__name {
     margin-right: var(--spacer-sm);
+
     @include for-desktop {
       --table-column-flex: 2;
     }
@@ -488,5 +436,4 @@ export default {
     --property-value-font-weight: var(--font-weight--semibold);
   }
 }
-
 </style>
