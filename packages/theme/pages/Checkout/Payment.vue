@@ -85,22 +85,12 @@
           class="summary__action"
         >
           <SfButton
-            v-if="paymentMethodId !== 6001"
-            :disabled="loading || !isPaymentReady || !terms"
+            :disabled="loading || !terms"
             class="summary__action-button"
             @click="processOrder"
           >
             {{ $t('Payment.Make an order') }}
           </SfButton>
-
-          <!--
-          <SmartButton
-            v-else
-            :disabled="loading || !isPaymentReady || !terms"
-            :uuid="paypalUuid"
-            class="w-80"
-          />
-          -->
         </div>
       </div>
     </div>
