@@ -238,7 +238,7 @@ export default {
     ValidationProvider,
     ValidationObserver,
     CartTotals: () => import('~/components/CartTotals'),
-    ReadonlyAddress: () => import('~/components/Checkout/Readonly/ReadonlyAddress')
+    ReadonlyAddress: () => import('~/components/Checkout/Readonly/ReadOnlyAddress')
   },
   setup(props, context) {
     const { $config } = useContext();
