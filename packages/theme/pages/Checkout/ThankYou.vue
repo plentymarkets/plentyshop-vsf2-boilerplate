@@ -19,7 +19,6 @@
         </div>
       </template>
     </SfCallToAction>
-
     <SoftLogin
       v-if="error.load"
       :error="error"
@@ -45,11 +44,10 @@
 
         <div class="right">
           <OrderShippingSummary class="mb-10" />
-
           <OrderPaymentSummary class="mb-10" />
-
           <DocumentsList
             v-if="getOrder"
+            :accesskey="getOrder.order.accessKey"
             :documents="getOrder.order.documents"
           />
         </div>

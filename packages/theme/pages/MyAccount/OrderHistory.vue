@@ -10,7 +10,7 @@
           >
             <SfButton
               class="w-full"
-              :link="getDocumentLink(doc)"
+              :link="getDocumentLink(doc, currentOrder.accessKey)"
             >
               {{ doc.type }}
             </SfButton>
@@ -322,10 +322,10 @@ export default {
       }
     };
 
-    const getDocumentLink = (doc) => {
-      // should use link from api when backend route is ready
-      // we have access key somewere in the seesion or cookie..
-      return `https://shop.local.plenty.rocks/rest/storefront/order_document/preview/${doc.pivot.plenty_document_reference_document_id}/?orderId=${doc.pivot.plenty_document_reference_value}`;
+    const getDocumentLink = (doc, accessKey) => {
+      // shoud use some getter ?
+      const baseUrl = 'https://shop.local.plenty.rocks'
+      return `${baseUrl}/rest/storefront/order_document/preview/${doc.pivot.plenty_document_reference_document_id}/?orderId=${doc.pivot.plenty_document_reference_value}&accessKey=${accessKey}`;
     };
 
     return {

@@ -7,6 +7,7 @@
     <SfButton
       v-for="(document, key) in documents"
       :key="key"
+      :link="getDocumentLink(document)"
       class="sf-button--full-width color-primary mb-2"
     >
       {{ getTypeName(document.type) }}
@@ -25,6 +26,10 @@ export default {
     documents: {
       type: Array,
       default: () => []
+    },
+    accessKey: {
+      type: String,
+      default: ''
     }
   },
 
@@ -53,6 +58,12 @@ export default {
 
     const getTypeName = (type) => {
       return translations[type];
+    };
+
+    const getDocumentLink = (doc, accessKey) => {
+      // shoud use some getter ?
+      const baseUrl = 'https://shop.local.plenty.rocks'
+      return `${baseUrl}/rest/storefront/order_document/preview/${doc.pivot.plenty_document_reference_document_id}/?orderId=${doc.pivot.plenty_document_reference_value}&accessKey=${accessKey}`;
     };
 
     return {
