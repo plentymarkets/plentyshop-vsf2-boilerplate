@@ -118,8 +118,7 @@
                 {{ $t('CartSidebar.Go to checkout') }}
               </SfButton>
             </nuxt-link>
-            <PayPalCartExpressButton
-              :uuid="uuid"
+            <PayPalExpressButton
               class="mt-2"
             />
           </div>
@@ -151,7 +150,7 @@ import { useCart, cartGetters, useUser } from '@vue-storefront/plentymarkets';
 import { useUiState } from '~/composables';
 import debounce from 'lodash.debounce';
 import { addBasePath } from '@vue-storefront/core';
-import PayPalCartExpressButton from '~/components/PayPal/PayPalCartExpressButton';
+import PayPalExpressButton from '~/components/PayPal/PayPalExpressButton';
 import { v4 } from 'uuid';
 
 export default {
@@ -164,7 +163,7 @@ export default {
     SfCollectedProduct,
     SfImage,
     SfQuantitySelector,
-    PayPalCartExpressButton,
+    PayPalExpressButton,
     CartTotals: () => import('~/components/CartTotals')
   },
   setup() {

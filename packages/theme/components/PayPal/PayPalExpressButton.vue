@@ -1,21 +1,30 @@
 <template>
   <div
-    :id="'paypal' + uuid"
+    v-if="paypalUuid"
+    :id="'paypal-' + paypalUuid"
     class="z-0 relative paypal-button"
+    :class="{ disabled: disabledButton }"
   />
 </template>
 
 <script>
-import { usePayPal, usePaymentProvider } from '@vue-storefront/plentymarkets';
-import { onMounted, useContext, useRouter} from '@nuxtjs/composition-api';
+import {usePayPal, usePaymentProvider, useCart} from '@vue-storefront/plentymarkets';
+import {ref, onMounted, useContext, useRouter, computed, watch} from '@nuxtjs/composition-api';
 import { useUiState } from '~/composables';
+import { v4 as uuid } from 'uuid';
 
 export default {
-  name: 'PayPalCartExpressButton',
+  name: 'PayPalExpressButton',
   props: {
-    uuid: {
-      type: String,
-      required: true
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    product: {
+      type: Object,
+      required: false,
+      default: null
     }
   },
   setup (props, context) {
@@ -23,11 +32,21 @@ export default {
     const { loadScript, createOrder, approveOrder } = usePayPal();
     const router = useRouter();
     const { isCartSidebarOpen, toggleCartSidebar } = useUiState();
-    const paypalUuid = props.uuid;
+    const paypalUuid = ref(null);
+    const disabled = ref(props.disabled);
     const currency = app.$cookies.get('vsf-currency') ?? $config.fallbackCurrency;
+
+    watch(() => props.disabled, (selection) => {
+      disabled.value = selection;
+    });
+
+    onMounted(() => {
+      paypalUuid.value = uuid();
+    });
 
     onMounted(async () => {
       const { save: savePaymentProvider } = usePaymentProvider('paypal_express_button');
+      const { addItem } = useCart();
       const paypal = await loadScript(currency);
 
       if (paypal) {
@@ -57,7 +76,13 @@ export default {
               },
 
               async onClick() {
+                if (disabled.value) {
+                  return false;
+                }
 
+                if (props.product) {
+                  await addItem(props.product);
+                }
               },
 
               style: {
@@ -68,8 +93,8 @@ export default {
             });
 
             // eslint-disable-next-line max-depth
-            if (btn.isEligible()) {
-              btn.render('#paypal' + paypalUuid);
+            if (btn.isEligible() && document.getElementById('paypal-' + paypalUuid.value)) {
+              btn.render('#paypal-' + paypalUuid.value);
             }
           });
         } catch (error) {
@@ -77,6 +102,17 @@ export default {
         }
       }
     });
+
+    return {
+      paypalUuid: computed(() => paypalUuid.value),
+      disabledButton: computed(() => disabled.value)
+    };
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.disabled {
+  opacity: 0.5;
+}
+</style>

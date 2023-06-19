@@ -86,18 +86,16 @@
                 @click="addItem({ product, quantity: parseInt(qty) })"
               />
 
-              <PayPalProductExpressButton
-                v-if="paypalUuid"
-                :uuid="paypalUuid"
-                :product="{ product, quantity: parseInt(qty) }"
+              <PayPalExpressButton
                 class="mt-4"
+                :product="{ product, quantity: parseInt(qty) }"
+                :disabled="loading || !isAttributeSelectionValid"
               />
             </div>
 
             <LazyHydrate when-idle>
               <SfTabs
-                :open-tab="
-                  1"
+                :open-tab="1"
                 class="product__tabs"
               >
                 <SfTab :title="$t('Product.Description')">
@@ -205,7 +203,7 @@ import {
 import AttributeSelection from '~/components/AttributeSelection.vue';
 import InstagramFeed from '~/components/InstagramFeed.vue';
 import RelatedProducts from '~/components/RelatedProducts.vue';
-import { ref, computed, useRoute, onMounted } from '@nuxtjs/composition-api';
+import { ref, computed, useRoute } from '@nuxtjs/composition-api';
 import {
   useProduct,
   useCart,
@@ -219,13 +217,12 @@ import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
 import { addBasePath } from '@vue-storefront/core';
 import { useUiHelpers, useUiState } from '~/composables';
-import { v4 as uuid } from 'uuid';
-import PayPalProductExpressButton from '~/components/PayPal/PayPalProductExpressButton.vue';
+import PayPalExpressButton from '~/components/PayPal/PayPalExpressButton.vue';
 
 export default {
   name: 'Product',
   components: {
-    PayPalProductExpressButton,
+    PayPalExpressButton,
     SfProperty,
     SfHeading,
     SfPrice,
@@ -298,16 +295,9 @@ export default {
       await searchReviews({ productId: productGetters.getItemId(product.value)});
     });
 
-    const paypalUuid = ref(null);
-
-    onMounted(() => {
-      paypalUuid.value = uuid();
-    });
-
     return {
       product,
       reviews,
-      paypalUuid: computed(() => paypalUuid.value),
       reviewGetters,
       averageRating: computed(() =>
         productGetters.getAverageRating(product.value)
