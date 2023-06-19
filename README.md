@@ -47,6 +47,22 @@ This section walks you through the first steps of working with the app.
 * To update the available locales and currencies, open `packages/theme/nuxt.config.js` and edit `i18n`. Note that when editing internationalisation, you also have to configure your plentymarkets system accordingly. When adding languages, you also have to add new translations in `packages/theme/lang`.
 * To update cookie groups and decide when to load additional scripts, edit `packages/theme/cookieConfig.js`.
 
+### Integrations
+
+- Paypal
+    - Add this to your `packages/theme/integration.config.js`
+
+    ```
+    payment: {
+      paypal: {
+        paymentId: backendPaymentId,
+        clientId: 'PaypalClientId',
+        merchantId: 'PaypalMerchantId'
+      }
+    }
+    ```
+  
+
 <!-- ### Publishing the project (TBA) -->
 
 ## Project overview

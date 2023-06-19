@@ -326,6 +326,7 @@ const en = {
     'I agree to': 'I agree to',
     'Terms and conditions': 'Terms and conditions',
     'Make an order': 'Make an order',
+    'Cancel Order': 'Cancel Order'
   },
   // PsfMyProfile
   'PsfMyProfile': {
@@ -417,6 +418,11 @@ const en = {
     'Same As Shipping Address': 'Same As Shipping Address',
     'Shipping Method': 'Shipping Method',
     'A confirmation has been sent to': 'A confirmation has been sent to',
+    'payment status fullyPaid': 'Paid',
+    'payment status overpaid': 'Overpaid',
+    'payment status partlyPaid': 'Partially paid',
+    'payment status prepaid': 'Prepaid',
+    'payment status unpaid': 'Not paid'
   },
   // TopBar
   'TopBar': {
@@ -442,6 +448,14 @@ const en = {
     'Wishlist sidebar close button': 'Wishlist sidebar close button',
     'Your bag is empty': 'Your bag is empty'
   },
+  //Checkoutreadonly
+  'Checkoutreadonly': {
+    'Review your order': 'Review your order',
+    'Invoice to': 'Invoice to',
+    'Shipping to': 'Shipping to',
+    'No payment method selected': 'No payment method selected',
+    'No shipping method selected': 'No shipping method selected'
+  }
 };
 
 module.exports = en;

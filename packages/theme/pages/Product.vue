@@ -96,7 +96,8 @@
 
             <LazyHydrate when-idle>
               <SfTabs
-                :open-tab="1"
+                :open-tab="
+                  1"
                 class="product__tabs"
               >
                 <SfTab :title="$t('Product.Description')">
@@ -301,6 +302,7 @@ export default {
     return {
       product,
       reviews,
+      paypalUuid: paypalUuid,
       reviewGetters,
       averageRating: computed(() =>
         productGetters.getAverageRating(product.value)

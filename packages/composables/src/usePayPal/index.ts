@@ -11,12 +11,12 @@ export interface UsePayPalResponse {
   createOrder: (fundingSource: string) => Promise<PayPalCreateOrder>
   approveOrder: (orderID: string, payerID: string) => Promise<PayPalApproveOrder>
   executePayPalOrder: (mode: string, orderID: number, payPalOrderID: string, merchantID: string) => Promise<PayPalExecutePayment>
-  loadScript: (currency: string, locale: string) => Promise<PayPalNamespace>
+  loadScript: (currency: string) => Promise<PayPalNamespace>
 }
 
 export const usePayPal = () : UsePayPalResponse => {
   const context = useVSFContext();
-  const { app, $config } = useContext();
+  const { $config } = useContext();
   const paypal = sharedRef<PayPalNamespace>(null, 'usePaypal-paypalsdk');
 
   const createOrder = async (fundingSource: string): Promise<PayPalCreateOrder> => {
