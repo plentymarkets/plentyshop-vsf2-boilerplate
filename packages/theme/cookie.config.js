@@ -25,7 +25,7 @@ export default {
           Status:
             'The consent cookies stores the user’s state of consent for cookies on our page.',
           'Privacy policy': '/PrivacyPolicy',
-          Lifespan: '100 days',
+          Lifespan: '100 days'
         },
         {
           name: 'Session2',
@@ -34,8 +34,8 @@ export default {
             'The consent cookies stores the user’s state of consent for cookies on our page.',
           'Privacy policy': '/PrivacyPolicy',
           Lifespan: '100 days'
-        },
-      ],
+        }
+      ]
     },
     {
       id: 1,
@@ -62,7 +62,7 @@ export default {
           Status:
             'The consent cookies stores the user’s state of consent for cookies on our page.',
           'Privacy policy': '/PrivacyPolicy',
-          Lifespan: '100 days',
+          Lifespan: '100 days'
         },
         {
           name: 'Session2',
@@ -70,9 +70,9 @@ export default {
           Status:
             'The consent cookies stores the user’s state of consent for cookies on our page.',
           'Privacy policy': '/PrivacyPolicy',
-          Lifespan: '100 days',
-        },
-      ],
+          Lifespan: '100 days'
+        }
+      ]
     },
     {
       id: 2,
@@ -87,7 +87,7 @@ export default {
           Status:
             'The consent cookies stores the user’s state of consent for cookies on our page.',
           'Privacy policy': '/PrivacyPolicy',
-          Lifespan: '100 days',
+          Lifespan: '100 days'
         },
         {
           name: 'Consent',
@@ -95,7 +95,7 @@ export default {
           Status:
             'The consent cookies stores the user’s state of consent for cookies on our page.',
           'Privacy policy': '/PrivacyPolicy',
-          Lifespan: '100 days',
+          Lifespan: '100 days'
         },
         {
           name: 'Session2',
@@ -103,9 +103,9 @@ export default {
           Status:
             'The consent cookies stores the user’s state of consent for cookies on our page.',
           'Privacy policy': '/PrivacyPolicy',
-          Lifespan: '100 days',
-        },
-      ],
+          Lifespan: '100 days'
+        }
+      ]
     },
     {
       id: 3,
@@ -120,7 +120,7 @@ export default {
           Status:
             'The consent cookies stores the user’s state of consent for cookies on our page.',
           'Privacy policy': '/PrivacyPolicy',
-          Lifespan: '100 days',
+          Lifespan: '100 days'
         },
         {
           name: 'Consent',
@@ -128,7 +128,7 @@ export default {
           Status:
             'The consent cookies stores the user’s state of consent for cookies on our page.',
           'Privacy policy': '/PrivacyPolicy',
-          Lifespan: '100 days',
+          Lifespan: '100 days'
         },
         {
           name: 'Session2',
@@ -136,9 +136,9 @@ export default {
           Status:
             'The consent cookies stores the user’s state of consent for cookies on our page.',
           'Privacy policy': '/PrivacyPolicy',
-          Lifespan: '100 days',
-        },
-      ],
-    },
-  ],
+          Lifespan: '100 days'
+        }
+      ]
+    }
+  ]
 };

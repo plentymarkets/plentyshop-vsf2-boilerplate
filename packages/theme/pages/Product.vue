@@ -85,11 +85,19 @@
                 class="product__add-to-cart"
                 @click="addItem({ product, quantity: parseInt(qty) })"
               />
+
+              <!--
+              <SmartButton
+                :uuid="paypalUuid"
+                class="mt-4"
+              />
+              -->
             </div>
 
             <LazyHydrate when-idle>
               <SfTabs
-                :open-tab="1"
+                :open-tab="
+                  1"
                 class="product__tabs"
               >
                 <SfTab :title="$t('Product.Description')">
@@ -211,6 +219,7 @@ import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
 import { addBasePath } from '@vue-storefront/core';
 import { useUiHelpers, useUiState } from '~/composables';
+import { v4 as uuid } from 'uuid';
 
 export default {
   name: 'Product',
@@ -287,9 +296,12 @@ export default {
       await searchReviews({ productId: productGetters.getItemId(product.value)});
     });
 
+    const paypalUuid = uuid();
+
     return {
       product,
       reviews,
+      paypalUuid: paypalUuid,
       reviewGetters,
       averageRating: computed(() =>
         productGetters.getAverageRating(product.value)

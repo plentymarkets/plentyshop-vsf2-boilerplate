@@ -347,7 +347,7 @@ export default {
           type: 'danger',
           persist: true
         });
-        send({ message: error.login, type: 'danger', persist: true });
+        send({ message: error?.login?.message || '', type: 'danger', persist: true });
         return;
       }
 
@@ -357,7 +357,7 @@ export default {
           type: 'danger',
           persist: true
         });
-        send({ message: error.register, type: 'danger', persist: true });
+        send({ message: error?.register?.message || '', type: 'danger', persist: true });
         return;
       }
 
