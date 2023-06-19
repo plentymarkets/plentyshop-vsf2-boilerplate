@@ -2,20 +2,6 @@
   <SfTabs :open-tab="1">
     <SfTab :title="$t('OrderHistory.My orders')">
       <div v-if="currentOrder">
-        <div class="flex row">
-          <div
-            v-for="doc in currentOrder.order.documents"
-            :key="doc.id"
-            class="mr-1"
-          >
-            <SfButton
-              class="w-full"
-              :link="getDocumentLink(doc, currentOrder.accessKey)"
-            >
-              {{ doc.type }}
-            </SfButton>
-          </div>
-        </div>
         <SfButton
           class="sf-button--text all-orders"
           @click="(currentOrder = null), (returnOrder = false)"
@@ -123,6 +109,12 @@
         >
           {{ $t('OrderHistory.Return items') }}
         </SfButton>
+        <DocumentsList
+          v-if="currentOrder.order.documents"
+          class="mt-5"
+          :accesskey="currentOrder.accessKey"
+          :documents="currentOrder.order.documents"
+        />
       </div>
       <div v-else>
         <p class="message">
@@ -216,7 +208,7 @@ import { computed, ref, watch, getCurrentInstance, useContext, useRouter } from 
 import { useUserOrder, orderGetters, paginationGetters, useMakeReturn } from '@vue-storefront/plentymarkets';
 import { AgnosticOrderStatus, onSSR } from '@vue-storefront/core';
 import { useUiNotification } from '~/composables';
-
+import DocumentsList from '~/components/DocumentsList.vue';
 export default {
   name: 'PersonalDetails',
   components: {
@@ -225,7 +217,8 @@ export default {
     SfButton,
     SfProperty,
     LazyHydrate,
-    SfPagination
+    SfPagination,
+    DocumentsList
   },
   setup() {
     const ctx = getCurrentInstance().root.proxy;
@@ -322,12 +315,6 @@ export default {
       }
     };
 
-    const getDocumentLink = (doc, accessKey) => {
-      // shoud use some getter ?
-      const baseUrl = 'https://shop.local.plenty.rocks'
-      return `${baseUrl}/rest/storefront/order_document/preview/${doc.pivot.plenty_document_reference_document_id}/?orderId=${doc.pivot.plenty_document_reference_value}&accessKey=${accessKey}`;
-    };
-
     return {
       tableHeaders,
       orders,
@@ -341,7 +328,6 @@ export default {
       allItems,
       getStatusTextClass,
       updateQuantity,
-      getDocumentLink,
       setCurrentOrder,
       makeReturnAction,
       increase,

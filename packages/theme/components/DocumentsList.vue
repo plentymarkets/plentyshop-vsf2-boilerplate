@@ -62,12 +62,14 @@ export default {
 
     const getDocumentLink = (doc, accessKey) => {
       // shoud use some getter ?
-      const baseUrl = 'https://shop.local.plenty.rocks'
+      const baseUrl = 'https://shop.local.plenty.rocks';
+
       return `${baseUrl}/rest/storefront/order_document/preview/${doc.pivot.plenty_document_reference_document_id}/?orderId=${doc.pivot.plenty_document_reference_value}&accessKey=${accessKey}`;
     };
 
     return {
-      getTypeName
+      getTypeName,
+      getDocumentLink
     };
   }
 };
