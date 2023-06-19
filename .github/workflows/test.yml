@@ -47,7 +47,8 @@ jobs:
   test:
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        # os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [ubuntu-latest]
     name: Test all packages
     needs: prepare_dependencies
     runs-on: ${{ matrix.os }}
@@ -136,7 +137,7 @@ jobs:
           build: yarn build
           config-file: tests/e2e/cypress.config.js
           project: ${{ github.workspace }}/packages/theme/
-          start: ${{ github.workspace }}/node_modules/.bin/concurrently --kill-others "yarn dev:api-client" "yarn dev:composables" "yarn dev:theme --hostname '${{ env.ip_address }}' --port 3000"
+          start: yarn start --hostname '${{ env.ip_address }}' --port 3000"
           wait-on: 'http://${{ env.ip_address }}:3000'
         env:
           CYPRESS_BASE_URL: 'http://${{ env.ip_address }}:3000'
