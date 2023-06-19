@@ -91,6 +91,11 @@
                 :value="{ type: 'SingleItem', data: { product, quantity: parseInt(qty) } }"
                 :disabled="loading || !isAttributeSelectionValid"
               />
+
+              <PayPalExpressButton
+                class="mt-4"
+                :value="{ type: 'Checkout' }"
+              />
             </div>
 
             <LazyHydrate when-idle>

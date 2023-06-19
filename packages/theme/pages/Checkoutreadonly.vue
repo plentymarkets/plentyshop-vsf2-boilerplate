@@ -329,6 +329,7 @@ export default {
 
     const makeOrder = async () => {
       makeOrderLoading.value = true;
+
       await make({
         paymentId: $config.integrationConfig.payment.paypal.paymentId,
         shippingPrivacyHintAccepted: true

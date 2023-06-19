@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import {usePayPal, usePaymentProvider, useCart} from '@vue-storefront/plentymarkets';
+import {usePayPal, usePaymentProvider, useCart, orderGetters, useMakeOrder} from '@vue-storefront/plentymarkets';
 import {ref, onMounted, useContext, useRouter, computed, watch} from '@nuxtjs/composition-api';
 import { useUiState } from '~/composables';
 import { v4 as uuid } from 'uuid';
@@ -28,13 +28,15 @@ export default {
   },
   setup (props, context) {
     const { app, $config } = useContext();
-    const { loadScript, createOrder, approveOrder } = usePayPal();
-    const router = useRouter();
+    const { loadScript, createOrder, approveOrder, executePayPalOrder } = usePayPal();
+    const { setCart } = useCart();
+    const { make, order } = useMakeOrder();
     const { isCartSidebarOpen, toggleCartSidebar } = useUiState();
     const paypalUuid = ref(null);
     const disabled = ref(props.disabled);
     const currency = app.$cookies.get('vsf-currency') ?? $config.fallbackCurrency;
     const type = props.value.type ?? 'CartPreview';
+    const router = useRouter();
 
     watch(() => props.disabled, (selection) => {
       disabled.value = selection;
@@ -62,6 +64,31 @@ export default {
 
                 if (res.url && (type === 'CartPreview' || type === 'SingleItem')) {
                   router.push(context.root.localePath(`/CheckoutReadOnly?payerId=${data.payerID}&orderId=${data.orderID}`));
+                }
+
+                if (type === 'Checkout') {
+                  await make({
+                    paymentId: $config.integrationConfig.payment.paypal.paymentId,
+                    shippingPrivacyHintAccepted: true
+                  });
+
+                  await executePayPalOrder(
+                    'paypal',
+                    parseInt(orderGetters.getId(order.value)),
+                    data.orderID,
+                    $config.integrationConfig.payment.paypal.merchantId
+                  );
+
+                  const thankYouPath = {
+                    name: 'thank-you',
+                    query: {
+                      orderId: orderGetters.getId(order.value),
+                      accessKey: orderGetters.getAccessKey(order.value)
+                    }
+                  };
+
+                  router.push(context.root.localePath(thankYouPath));
+                  setCart({ items: [] });
                 }
 
                 if (isCartSidebarOpen.value) {
