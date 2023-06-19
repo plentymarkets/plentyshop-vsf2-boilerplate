@@ -88,7 +88,7 @@
 
               <PayPalExpressButton
                 class="mt-4"
-                :product="{ product, quantity: parseInt(qty) }"
+                :value="{ type: 'SingleItem', data: { product, quantity: parseInt(qty) } }"
                 :disabled="loading || !isAttributeSelectionValid"
               />
             </div>

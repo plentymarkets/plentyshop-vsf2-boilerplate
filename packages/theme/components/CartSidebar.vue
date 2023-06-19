@@ -120,6 +120,7 @@
             </nuxt-link>
             <PayPalExpressButton
               class="mt-2"
+              :value="{type: 'CartPreview'}"
             />
           </div>
           <div v-else>

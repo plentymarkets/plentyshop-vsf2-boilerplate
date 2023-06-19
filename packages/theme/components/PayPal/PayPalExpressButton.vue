@@ -21,10 +21,9 @@ export default {
       required: false,
       default: false
     },
-    product: {
+    value: {
       type: Object,
-      required: false,
-      default: null
+      required: true
     }
   },
   setup (props, context) {
@@ -35,6 +34,7 @@ export default {
     const paypalUuid = ref(null);
     const disabled = ref(props.disabled);
     const currency = app.$cookies.get('vsf-currency') ?? $config.fallbackCurrency;
+    const type = props.value.type ?? 'CartPreview';
 
     watch(() => props.disabled, (selection) => {
       disabled.value = selection;
@@ -60,11 +60,12 @@ export default {
               async onApprove(data) {
                 const res = await approveOrder(data.orderID, data.payerID);
 
-                if (res.url) {
+                if (res.url && (type === 'CartPreview' || type === 'SingleItem')) {
                   router.push(context.root.localePath(`/CheckoutReadOnly?payerId=${data.payerID}&orderId=${data.orderID}`));
-                  if (isCartSidebarOpen.value) {
-                    toggleCartSidebar();
-                  }
+                }
+
+                if (isCartSidebarOpen.value) {
+                  toggleCartSidebar();
                 }
               },
 
@@ -80,8 +81,8 @@ export default {
                   return false;
                 }
 
-                if (props.product) {
-                  await addItem(props.product);
+                if (type === 'SingleItem') {
+                  await addItem(props.value.data);
                 }
               },
 
@@ -114,5 +115,6 @@ export default {
 <style lang="scss" scoped>
 .disabled {
   opacity: 0.5;
+  pointer-events: none;
 }
 </style>
