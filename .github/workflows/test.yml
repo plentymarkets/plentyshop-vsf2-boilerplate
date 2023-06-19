@@ -137,7 +137,7 @@ jobs:
           build: yarn build
           config-file: tests/e2e/cypress.config.js
           project: ${{ github.workspace }}/packages/theme/
-          start: yarn start --hostname '${{ env.ip_address }}' --port 3000"
+          start: yarn start --hostname '${{ env.ip_address }}' --port 3000
           wait-on: 'http://${{ env.ip_address }}:3000'
         env:
           CYPRESS_BASE_URL: 'http://${{ env.ip_address }}:3000'
