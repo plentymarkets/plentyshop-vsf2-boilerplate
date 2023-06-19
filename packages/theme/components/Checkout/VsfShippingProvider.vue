@@ -4,7 +4,7 @@
     <SfRadio
       v-for="method in shippingMethods"
       :key="shippingProviderGetters.getParcelServicePresetId(method)"
-      v-e2e="'shipping-method'"
+      :v-e2e="'shipping-method'"
       :value="shippingProviderGetters.getParcelServicePresetId(method)"
       :selected="selectedMethodId"
       name="shippingMethod"

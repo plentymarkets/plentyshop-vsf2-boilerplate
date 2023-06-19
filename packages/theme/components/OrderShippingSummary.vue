@@ -1,6 +1,6 @@
 <template>
   <div
-    v-e2e="'shipping-summary'"
+    :v-e2e="'shipping-summary'"
     class="shipping-summary"
   >
     <h3

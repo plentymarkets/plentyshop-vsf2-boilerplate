@@ -67,7 +67,7 @@
         <CartTotals />
         <SfCheckbox
           v-model="terms"
-          v-e2e="'terms'"
+          :v-e2e="'terms'"
           name="terms"
           class="summary__terms"
         >
@@ -81,7 +81,7 @@
         </SfCheckbox>
 
         <div
-          v-e2e="'payment-summary-buttons'"
+          :v-e2e="'payment-summary-buttons'"
           class="summary__action"
         >
           <SfButton

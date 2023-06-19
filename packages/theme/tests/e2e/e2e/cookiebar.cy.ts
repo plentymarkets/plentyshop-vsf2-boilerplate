@@ -1,19 +1,18 @@
 import page from '../pages/factory';
 context('CookieBar functionality', () => {
-  // default script for testing also defined in cookieConfig.js
-  const externalCookieScriptForTest = 'https://www.plentymarkets.com';
+  const externalTestScript = 'https://cdn01.plentymarkets.com/avw8j9fg70hi/frontend/layout/plentycom/js/jquery-3_5_1.min.js';
   const cookieName = 'consent-cookie';
 
   beforeEach(function init() {
+    cy.intercept(externalTestScript).as('testCookieLoad');
+
+    cy.clearCookies();
     page.home.visit();
   });
+
   it('Should successfully accept all cookies', function test() {
-    cy.intercept(externalCookieScriptForTest).as('testcookieload');
-    // 1. Accept all
-    cy.get('[data-e2e*="accept-all"]').click();
-    // exists and all are checked
+    cy.get('[v-e2e*="accept-all"]').click();
     cy.getCookie(cookieName).should('exist');
-    // check that all coookies saved in memory are updated to true
     cy.getCookie(cookieName).then((cookie) => {
       const decodedGroup = JSON.parse(decodeURIComponent(cookie.value));
       decodedGroup.forEach((group) => {
@@ -22,17 +21,14 @@ context('CookieBar functionality', () => {
         expect(isConsented).to.equal(true);
       });
     });
-    // check if the request for the external Cookie Script is made
-    cy.wait('@testcookieload');
-    // if we have set cookies check if the cookie banner is in hidden state
-    cy.get('[data-e2e*="cookie-show-banner-button"]').click();
+
+    cy.wait('@testCookieLoad');
+
+    cy.get('[v-e2e*="cookie-show-banner-button"]').click();
   });
   it('Should successfully check second checkbox and click on accept selection button', function test() {
-    cy.intercept(externalCookieScriptForTest).as('testcookieload');
-    // check second checkbox
-    cy.get('[data-e2e*="checkbox-1"]').click();
-    cy.get('[data-e2e*="accept-selection"]').click();
-    // check if cookies from first group are true and the rest are false
+    cy.get('[v-e2e*="checkbox-1"]').click();
+    cy.get('[v-e2e*="accept-selection"]').click();
     cy.getCookie(cookieName).then((cookie) => {
       const decodedGroup = JSON.parse(decodeURIComponent(cookie.value));
       decodedGroup.forEach((group, index) => {
@@ -45,13 +41,11 @@ context('CookieBar functionality', () => {
         }
       });
     });
-    // check if the request for the external Cookie Script is made
-    cy.wait('@testcookieload');
+    
+    cy.wait('@testCookieLoad');
   });
   it('Should successfully reject all cookies', function test() {
-    cy.intercept(externalCookieScriptForTest).as('testcookieload');
-    cy.get('[data-e2e*="reject-all"]').click();
-    // check that all coookies saved in memory except the first one are updated to false
+    cy.get('[v-e2e*="reject-all"]').click();
     cy.getCookie(cookieName).then((cookie) => {
       const decodedGroup = JSON.parse(decodeURIComponent(cookie.value));
       decodedGroup.forEach((group, index) => {
@@ -64,9 +58,9 @@ context('CookieBar functionality', () => {
         }
       });
     });
-    // check if the request for the external Cookie Script is not made
-    cy.wait(2000);
-    cy.get('@testcookieload.all').then((interceptions) => {
+    
+    cy.wait(1000);
+    cy.get('@testCookieLoad.all').then((interceptions) => {
       expect(interceptions).to.have.length(0);
     });
   });

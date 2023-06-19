@@ -1,6 +1,6 @@
 <template>
   <div
-    v-e2e="'order-totals'"
+    :v-e2e="'order-totals'"
     class="order-totals"
   >
     <SfProperty

@@ -4,7 +4,7 @@ import cookieGroups from './cookie.config';
 import i18nConfig from './i18n.config';
 import integrationConfig from './integration.config';
 
-const appPort = process.env.PORT || 80;
+const appPort = process.env.PORT || 8080;
 const appIP = 'localhost';
 const config = {
   server: {

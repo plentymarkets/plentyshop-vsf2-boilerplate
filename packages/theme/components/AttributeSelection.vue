@@ -3,7 +3,7 @@
     <SfSelect
       v-for="(option, key) in options"
       :key="key"
-      v-e2e="'size-select'"
+      :v-e2e="'size-select'"
       class="sf-select--underlined product__select-size"
       :label="option.label"
       :value="selectedAttributes[key]"
@@ -30,7 +30,7 @@
     <SfSelect
       v-if="Object.keys(units).length > 1"
       v-model="selectedUnit"
-      v-e2e="'content-select'"
+      :v-e2e="'content-select'"
       class="sf-select--underlined product__select-size"
       :label="$t('AttributeSelection.Content')"
       :required="true"

@@ -78,7 +78,7 @@
 
               <SfAddToCart
                 v-model="qty"
-                :data-e2e="'product_add-to-cart'"
+                :v-e2e="'product_add-to-cart'"
                 :stock="stock"
                 :disabled="loading || !isAttributeSelectionValid"
                 :can-add-to-cart="stock > 0"

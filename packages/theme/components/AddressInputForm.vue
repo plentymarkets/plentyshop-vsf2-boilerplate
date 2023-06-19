@@ -11,7 +11,7 @@
           >
             <SfInput
               v-model="internalForm.firstName"
-              v-e2e="type + '-firstName'"
+              :v-e2e="`${type}-firstName`"
               :label="$t('AddressInputForm.First name')"
               :name="type + '-firstName'"
               required
@@ -28,7 +28,7 @@
           >
             <SfInput
               v-model="internalForm.lastName"
-              v-e2e="type + '-lastName'"
+              :v-e2e="`${type}-lastName`"
               :name="type + '-lastName'"
               :label="$t('AddressInputForm.Last name')"
               required
@@ -45,7 +45,7 @@
           >
             <SfInput
               v-model="internalForm.streetName"
-              v-e2e="type + '-streetName'"
+              :v-e2e="`${type}-streetName`"
               :name="type + '-streetName'"
               :label="$t('AddressInputForm.Street')"
               required
@@ -62,7 +62,7 @@
           >
             <SfInput
               v-model="internalForm.apartment"
-              v-e2e="type + '-apartment'"
+              :v-e2e="`${type}-apartment`"
               :name="type + '-apartment'"
               :label="$t('AddressInputForm.Address no')"
               required
@@ -79,7 +79,7 @@
           >
             <SfInput
               v-model="internalForm.city"
-              v-e2e="type + '-city'"
+              :v-e2e="`${type}-city`"
               :name="type + '-city'"
               :label="$t('AddressInputForm.City')"
               required
@@ -96,7 +96,7 @@
           >
             <SfComponentSelect
               v-model="internalForm.country"
-              :data-e2e="type + '-country'"
+              :v-e2e="`${type}-country`"
               :name="type + '-country'"
               :label="$t('AddressInputForm.Country')"
               required
@@ -108,7 +108,7 @@
                 v-for="country in countries"
                 :key="countryGetters.getCountryId(country)"
                 :value="countryGetters.getCountryId(country)"
-                :data-e2e="type + '-country-' + countryGetters.getCountryName(country)"
+                :v-e2e="`${type}-country-` + countryGetters.getCountryName(country)"
               >
                 {{ countryGetters.getCountryName(country) }}
               </SfComponentSelectOption>
@@ -122,7 +122,7 @@
           >
             <SfInput
               v-model="internalForm.zipCode"
-              v-e2e="type + '-zipCode'"
+              :v-e2e="`${type}-zipCode`"
               :name="type + '-zipCode'"
               :label="$t('AddressInputForm.ZIP code')"
               required
@@ -140,7 +140,7 @@
           >
             <SfComponentSelect
               v-model="internalForm.state"
-              :data-e2e="type + '-state'"
+              :v-e2e="`${type}-state`"
               :name="type + '-state'"
               :label="$t('AddressInputForm.State/Province')"
               :disabled="states.length <= 0"
@@ -153,7 +153,7 @@
                 v-for="state in states"
                 :key="countryGetters.getStateId(state)"
                 :value="countryGetters.getStateId(state)"
-                :data-e2e="type + '-state-' + countryGetters.getStateName(state)"
+                :v-e2e="`${type}-state-` + countryGetters.getStateName(state)"
               >
                 {{ countryGetters.getStateName(state) }}
               </SfComponentSelectOption>
@@ -166,7 +166,7 @@
           >
             <SfInput
               v-model="internalForm.phoneNumber"
-              v-e2e="type + '-phoneNumber'"
+              :v-e2e="`${type}-phoneNumber`"
               :name="type + '-phoneNumber'"
               :label="$t('AddressInputForm.Phone no')"
               :valid="!errors[0]"

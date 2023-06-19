@@ -4,7 +4,7 @@
     <SfRadio
       v-for="method in paymentMethods"
       :key="paymentProviderGetters.getId(method)"
-      v-e2e="'payment-method'"
+      :v-e2e="'payment-method'"
       :value="paymentProviderGetters.getId(method)"
       :selected="selectedMethod"
       name="paymentMethod"

@@ -77,7 +77,7 @@
           class="carousel__item"
         >
           <SfProductCard
-            :data-e2e="'category-product-card'"
+            :v-e2e="'category-product-card'"
             :title="productGetters.getName(product)"
             :image-width="100"
             :image-height="100"
@@ -106,7 +106,7 @@
         <template #button>
           <SfButton
             class="sf-call-to-action__button"
-            data-testid="cta-button"
+            :v-e2e="'cta-button'"
             @click="toggleNewsletterModal"
           >
             {{ $t('Home.Subscribe') }}

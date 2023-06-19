@@ -1,7 +1,7 @@
 <template>
   <PsfMyProfile
     :account="user"
-    data-testid="my-profile-tabs"
+    :v-e2e="'my-profile-tabs'"
     @update:personal="user = { ...user, ...$event }"
     @update:password="changePassword({ currentUser: user, current: $event.currentPassword, new: $event.newPassword })"
   />
