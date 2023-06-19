@@ -7,6 +7,7 @@
     <SfButton
       v-for="(document, key) in documents"
       :key="key"
+      target=”_blank” 
       :link="getDocumentLink(document)"
       class="sf-button--full-width color-primary mb-2"
     >
@@ -17,7 +18,8 @@
 
 <script>
 import { SfButton } from '@storefront-ui/vue';
-import { useContext } from '@nuxtjs/composition-api';
+import { useContext, computed } from '@nuxtjs/composition-api';
+import { orderGetters } from '@vue-storefront/plentymarkets';
 
 export default {
   name: 'DocumentsList',
@@ -33,7 +35,7 @@ export default {
     }
   },
 
-  setup() {
+  setup(props, {emit}) {
     const { app } = useContext();
 
     // disable eslint this mapping cant use camelcase
@@ -60,11 +62,8 @@ export default {
       return translations[type];
     };
 
-    const getDocumentLink = (doc, accessKey) => {
-      // shoud use some getter ?
-      const baseUrl = 'https://shop.local.plenty.rocks';
-
-      return `${baseUrl}/rest/storefront/order_document/preview/${doc.pivot.plenty_document_reference_document_id}/?orderId=${doc.pivot.plenty_document_reference_value}&accessKey=${accessKey}`;
+    const getDocumentLink = (doc) => {
+      return orderGetters.getDocumentLink(doc, props.accessKey);
     };
 
     return {

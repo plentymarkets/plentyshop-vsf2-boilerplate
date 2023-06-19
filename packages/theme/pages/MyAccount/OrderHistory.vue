@@ -112,7 +112,7 @@
         <DocumentsList
           v-if="currentOrder.order.documents"
           class="mt-5"
-          :accesskey="currentOrder.accessKey"
+          :accessKey="currentOrder.order.accessKey"
           :documents="currentOrder.order.documents"
         />
       </div>

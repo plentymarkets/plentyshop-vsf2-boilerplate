@@ -1,6 +1,7 @@
 import webpack from 'webpack';
 import theme from './themeConfig';
 import cookieGroups from './cookieConfig';
+const { integrations } = require('./middleware.config');
 
 const appPort = process.env.PORT || 80;
 const appIP = 'localhost';
@@ -178,6 +179,7 @@ const config = {
   publicRuntimeConfig: {
     middlewareUrl: process.env.MIDDLEWARE_URL || `http://${appIP}:${appPort}/api/`,
     theme,
+    apiUrl: integrations.plentymarkets.configuration.api.url,
     cookieGroups: cookieGroups
   },
 
