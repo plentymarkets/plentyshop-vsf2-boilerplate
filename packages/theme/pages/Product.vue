@@ -220,6 +220,7 @@ import LazyHydrate from 'vue-lazy-hydration';
 import { addBasePath } from '@vue-storefront/core';
 import { useUiHelpers, useUiState } from '~/composables';
 import { v4 as uuid } from 'uuid';
+import PayPalProductExpressButton from '~/components/PayPal/PayPalProductExpressButton.vue';
 
 export default {
   name: 'Product',
@@ -297,12 +298,16 @@ export default {
       await searchReviews({ productId: productGetters.getItemId(product.value)});
     });
 
-    const paypalUuid = uuid();
+    const paypalUuid = ref(null);
+
+    onMounted(() => {
+      paypalUuid.value = uuid();
+    });
 
     return {
       product,
       reviews,
-      paypalUuid: paypalUuid,
+      paypalUuid: computed(() => paypalUuid.value),
       reviewGetters,
       averageRating: computed(() =>
         productGetters.getAverageRating(product.value)
