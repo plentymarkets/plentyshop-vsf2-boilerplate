@@ -151,7 +151,6 @@ import { useUiState } from '~/composables';
 import debounce from 'lodash.debounce';
 import { addBasePath } from '@vue-storefront/core';
 import PayPalExpressButton from '~/components/PayPal/PayPalExpressButton';
-import { v4 } from 'uuid';
 
 export default {
   name: 'CartSidebar',
@@ -173,7 +172,6 @@ export default {
     const products = computed(() => cartGetters.getItems(cart.value));
     const totals = computed(() => cartGetters.getTotals(cart.value));
     const totalItems = computed(() => cartGetters.getTotalItems(cart.value));
-    const uuid = v4();
 
     const updateQuantity = debounce(async ({ product, quantity }) => {
       await updateItemQty({ product, quantity });
@@ -191,8 +189,7 @@ export default {
       toggleCartSidebar,
       totals,
       totalItems,
-      cartGetters,
-      uuid
+      cartGetters
     };
   }
 };
