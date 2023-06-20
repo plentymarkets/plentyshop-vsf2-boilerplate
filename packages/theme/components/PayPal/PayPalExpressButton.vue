@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import {usePayPal, usePaymentProvider, useCart, orderGetters, useMakeOrder} from '@vue-storefront/plentymarkets';
+import {usePayPal, usePaymentProvider, useCart, orderGetters, useMakeOrder, paypalGetters} from '@vue-storefront/plentymarkets';
 import {ref, onMounted, useContext, useRouter, computed} from '@nuxtjs/composition-api';
 import { useUiState } from '~/composables';
 import { v4 as uuid } from 'uuid';
@@ -41,6 +41,9 @@ export default {
     const type = props.value.type ?? TypeCartPreview;
     const router = useRouter();
 
+    const paymentId = paypalGetters.getPaymentId();
+    const merchantId = paypalGetters.getMerchantId();
+
     onMounted(async () => {
       paypalUuid.value = uuid();
       const { save: savePaymentProvider } = usePaymentProvider('paypal_express_button');
@@ -64,7 +67,7 @@ export default {
 
                 if (type === TypeCheckout) {
                   await make({
-                    paymentId: $config.integrationConfig.payment.paypal.paymentId,
+                    paymentId: paymentId,
                     shippingPrivacyHintAccepted: true
                   });
 
@@ -72,7 +75,7 @@ export default {
                     'paypal',
                     parseInt(orderGetters.getId(order.value)),
                     data.orderID,
-                    $config.integrationConfig.payment.paypal.merchantId
+                    merchantId
                   );
 
                   const thankYouPath = {
@@ -93,7 +96,7 @@ export default {
               },
 
               async createOrder() {
-                await savePaymentProvider($config.integrationConfig.payment.paypal.paymentId);
+                await savePaymentProvider(paymentId);
                 const res = await createOrder(fundingSource);
 
                 return res.id ?? '';
