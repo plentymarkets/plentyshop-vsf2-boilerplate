@@ -47,13 +47,13 @@ export default {
 
     if (paymentProviderGetters.getMethodOfPaymentId(cart?.value)) {
       selectedMethod.value = paymentProviderGetters.getMethodOfPaymentId(cart?.value);
-      emit('status');
+      emit('status', selectedMethod.value);
     }
 
     const selectMethod = async (paymentId) => {
       await setPaymentProvider(paymentId);
       selectedMethod.value = paymentId;
-      emit('status');
+      emit('status', paymentId);
       await loadShippingProfiles();
     };
 

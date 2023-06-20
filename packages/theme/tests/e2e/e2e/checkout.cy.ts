@@ -13,7 +13,6 @@ context('Order placement', () => {
     const data = this.fixtures.data;
     cy.intercept('/api/plentymarkets/addCartItem').as('addCartItem');
     cy.intercept('/api/plentymarkets/additionalInformation').as('additionalInformation');
-    cy.intercept('/api/plentymarkets/deleteCart').as('deleteCart');
     cy.intercept('/api/plentymarkets/executePayment').as('executePayment');
     cy.intercept('/api/plentymarkets/getActiveShippingCountries').as('getActiveShippingCountries');
     cy.intercept('/api/plentymarkets/getFacet').as('getFacet');
@@ -56,10 +55,10 @@ context('Order placement', () => {
     cy.get('[data-e2e*="shipping-method"]').should('exist');
     cy.get('[data-e2e*="payment-method"]').should('exist');
 
-    page.checkout.payment.paymentMethods.first().click();
+    page.checkout.payment.paymentMethods.eq(1).click();
     page.checkout.payment.terms.click();
     page.checkout.payment.makeAnOrderButton.click();
-    cy.wait(['@additionalInformation', '@preparePayment', '@placeOrder', '@executePayment', '@deleteCart']);
+    cy.wait(['@additionalInformation', '@preparePayment', '@placeOrder', '@executePayment']);
 
     page.checkout.thankyou.heading.should('be.visible');
 
