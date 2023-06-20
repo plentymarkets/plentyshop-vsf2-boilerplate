@@ -85,12 +85,20 @@
           class="summary__action"
         >
           <SfButton
+            v-if="paymentMethodId !== paypalPaymentId"
             :disabled="loading || !terms"
             class="summary__action-button"
             @click="processOrder"
           >
             {{ $t('Payment.Make an order') }}
           </SfButton>
+
+          <PayPalExpressButton
+            v-if="paymentMethodId === paypalPaymentId"
+            :value="{type: 'Checkout'}"
+            :disabled="loading || !terms"
+            class="m"
+          />
         </div>
       </div>
     </div>
@@ -107,10 +115,9 @@ import {
   SfLink
 } from '@storefront-ui/vue';
 import { onSSR } from '@vue-storefront/core';
-import { ref, computed, useRouter } from '@nuxtjs/composition-api';
-import { useMakeOrder, useCart, cartGetters, orderGetters, useShippingProvider, usePaymentProvider } from '@vue-storefront/plentymarkets';
+import {ref, computed, useRouter, useContext} from '@nuxtjs/composition-api';
+import { useMakeOrder, useCart, cartGetters, orderGetters, useShippingProvider, usePaymentProvider, paypalGetters } from '@vue-storefront/plentymarkets';
 import { addBasePath } from '@vue-storefront/core';
-import { v4 as uuid } from 'uuid';
 
 export default {
   name: 'ReviewOrder',
@@ -123,20 +130,23 @@ export default {
     SfLink,
     VsfPaymentProvider: () => import('~/components/Checkout/VsfPaymentProvider'),
     VsfShippingProvider: () => import('~/components/Checkout/VsfShippingProvider'),
-    CartTotals: () => import('~/components/CartTotals')
+    CartTotals: () => import('~/components/CartTotals'),
+    PayPalExpressButton: () => import('~/components/PayPal/PayPalExpressButton')
   },
-  setup(props, context) {
+  setup() {
+    const { app } = useContext();
     const router = useRouter();
     const { cart, load, setCart } = useCart();
     const { order, make, loading } = useMakeOrder();
     const { load: loadShippingProvider } = useShippingProvider();
     const { load: loadPaymentProviders } = usePaymentProvider();
-    const paypalUuid = uuid();
 
     const isPaymentReady = ref(false);
     const terms = ref(false);
     const shippingPrivacyHintAccepted = ref(false);
     const paymentMethodId = ref(0);
+
+    const paypalPaymentId = paypalGetters.getPaymentId() ?? -1;
 
     onSSR(async () => {
       await load();
@@ -156,7 +166,7 @@ export default {
           accessKey: orderGetters.getAccessKey(order.value)
         }};
 
-      router.push(context.root.localePath(thankYouPath));
+      router.push(app.localePath(thankYouPath));
       setCart({items: []});
     };
 
@@ -178,7 +188,7 @@ export default {
       cartGetters,
       processOrder,
       paymentMethodId,
-      paypalUuid,
+      paypalPaymentId,
       selectionChangedPaymentProvider
     };
   }
