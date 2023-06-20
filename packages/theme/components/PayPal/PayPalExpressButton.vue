@@ -3,13 +3,13 @@
     v-if="paypalUuid"
     :id="'paypal-' + paypalUuid"
     class="z-0 relative paypal-button"
-    :class="{ 'opacity-50 pointer-events-none': disabledButton }"
+    :class="{ 'opacity-50 pointer-events-none': disabled }"
   />
 </template>
 
 <script>
 import {usePayPal, usePaymentProvider, useCart, orderGetters, useMakeOrder} from '@vue-storefront/plentymarkets';
-import {ref, onMounted, useContext, useRouter, computed, watch} from '@nuxtjs/composition-api';
+import {ref, onMounted, useContext, useRouter, computed} from '@nuxtjs/composition-api';
 import { useUiState } from '~/composables';
 import { v4 as uuid } from 'uuid';
 
@@ -33,14 +33,9 @@ export default {
     const { make, order } = useMakeOrder();
     const { isCartSidebarOpen, toggleCartSidebar } = useUiState();
     const paypalUuid = ref(null);
-    const disabled = ref(props.disabled);
     const currency = app.$cookies.get('vsf-currency') ?? $config.fallbackCurrency;
     const type = props.value.type ?? 'CartPreview';
     const router = useRouter();
-
-    watch(() => props.disabled, (selection) => {
-      disabled.value = selection;
-    });
 
     onMounted(async () => {
       paypalUuid.value = uuid();
@@ -101,7 +96,7 @@ export default {
               },
 
               async onClick() {
-                if (disabled.value) {
+                if (props.disabled) {
                   return false;
                 }
 
@@ -129,8 +124,7 @@ export default {
     });
 
     return {
-      paypalUuid: computed(() => paypalUuid.value),
-      disabledButton: computed(() => disabled.value)
+      paypalUuid: computed(() => paypalUuid.value)
     };
   }
 };
