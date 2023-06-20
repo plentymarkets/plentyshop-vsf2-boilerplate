@@ -42,11 +42,8 @@ export default {
       disabled.value = selection;
     });
 
-    onMounted(() => {
-      paypalUuid.value = uuid();
-    });
-
     onMounted(async () => {
+      paypalUuid.value = uuid();
       const { save: savePaymentProvider } = usePaymentProvider('paypal_express_button');
       const { addItem } = useCart();
       const paypal = await loadScript(currency);
