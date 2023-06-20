@@ -27,6 +27,10 @@ export default {
     }
   },
   setup (props) {
+    const TypeCartPreview = 'CartPreview';
+    const TypeSingleItem = 'SingleItem';
+    const TypeCheckout = 'Checkout';
+
     const { app, $config } = useContext();
     const { loadScript, createOrder, approveOrder, executePayPalOrder } = usePayPal();
     const { setCart } = useCart();
@@ -34,7 +38,7 @@ export default {
     const { isCartSidebarOpen, toggleCartSidebar } = useUiState();
     const paypalUuid = ref(null);
     const currency = app.$cookies.get('vsf-currency') ?? $config.fallbackCurrency;
-    const type = props.value.type ?? 'CartPreview';
+    const type = props.value.type ?? TypeCartPreview;
     const router = useRouter();
 
     onMounted(async () => {
@@ -54,11 +58,11 @@ export default {
               async onApprove(data) {
                 const res = await approveOrder(data.orderID, data.payerID);
 
-                if (res.url && (type === 'CartPreview' || type === 'SingleItem')) {
+                if (res.url && (type === TypeCartPreview || type === TypeSingleItem)) {
                   router.push(app.localePath(`/CheckoutReadOnly?payerId=${data.payerID}&orderId=${data.orderID}`));
                 }
 
-                if (type === 'Checkout') {
+                if (type === TypeCheckout) {
                   await make({
                     paymentId: $config.integrationConfig.payment.paypal.paymentId,
                     shippingPrivacyHintAccepted: true
@@ -100,7 +104,7 @@ export default {
                   return false;
                 }
 
-                if (type === 'SingleItem') {
+                if (type === TypeSingleItem) {
                   await addItem(props.value.data);
                 }
               },
