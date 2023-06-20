@@ -26,7 +26,7 @@ export default {
       required: true
     }
   },
-  setup (props, context) {
+  setup (props) {
     const { app, $config } = useContext();
     const { loadScript, createOrder, approveOrder, executePayPalOrder } = usePayPal();
     const { setCart } = useCart();
@@ -55,7 +55,7 @@ export default {
                 const res = await approveOrder(data.orderID, data.payerID);
 
                 if (res.url && (type === 'CartPreview' || type === 'SingleItem')) {
-                  router.push(context.root.localePath(`/CheckoutReadOnly?payerId=${data.payerID}&orderId=${data.orderID}`));
+                  router.push(app.localePath(`/CheckoutReadOnly?payerId=${data.payerID}&orderId=${data.orderID}`));
                 }
 
                 if (type === 'Checkout') {
@@ -79,7 +79,7 @@ export default {
                     }
                   };
 
-                  router.push(context.root.localePath(thankYouPath));
+                  router.push(app.localePath(thankYouPath));
                   setCart({ items: [] });
                 }
 
