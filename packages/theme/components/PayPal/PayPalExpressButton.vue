@@ -3,7 +3,7 @@
     v-if="paypalUuid"
     :id="'paypal-' + paypalUuid"
     class="z-0 relative paypal-button"
-    :class="{ disabled: disabledButton }"
+    :class="{ 'opacity-50 pointer-events-none': disabledButton }"
   />
 </template>
 
@@ -138,10 +138,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.disabled {
-  opacity: 0.5;
-  pointer-events: none;
-}
-</style>
