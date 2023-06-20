@@ -5,8 +5,8 @@ require('dotenv').config();
 
 module.exports = defineConfig({
   fixturesFolder: 'tests/e2e/fixtures',
-  viewportHeight: 1080,
-  viewportWidth: 1920,
+  viewportHeight: 667,
+  viewportWidth: 375,
   pageLoadTimeout: 180000,
   screenshotOnRunFailure: true,
   screenshotsFolder: 'tests/e2e/report/assets/screenshots',
