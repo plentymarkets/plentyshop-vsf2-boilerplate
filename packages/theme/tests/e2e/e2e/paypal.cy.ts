@@ -3,7 +3,6 @@ import page from '../pages/factory';
 const PAYPAL_EMAIL = 'sb-fiqc015598959@personal.example.com';
 const PAYPAL_PASSWORD = 'CA2Oo&y7';
 
-/*
 context('PayPal buttons rendering', () => {
   beforeEach(function init() {
     cy.intercept('/api/plentymarkets/getFacet').as('getFacet');
@@ -31,7 +30,6 @@ context('PayPal buttons rendering', () => {
     cy.get('[data-e2e="paypal-button"]').should('exist');
   });
 });
-*/
 
 context('PayPal express checkout', () => {
   beforeEach(function init() {
@@ -52,6 +50,11 @@ context('PayPal express checkout', () => {
     cy.intercept('/api/plentymarkets/getActiveShippingCountries').as('getActiveShippingCountries');
     cy.intercept('/api/plentymarkets/getPaymentProviders').as('getPaymentProviders');
     cy.intercept('/api/plentymarkets/getShippingProvider').as('getShippingProvider');
+
+    cy.intercept('/api/plentymarkets/additionalInformation').as('additionalInformation');
+    cy.intercept('/api/plentymarkets/preparePayment').as('preparePayment');
+    cy.intercept('/api/plentymarkets/placeOrder').as('placeOrder');
+    cy.intercept('/api/plentymarkets/executePayment').as('executePayment');
     cy.intercept('/api/plentymarkets/executePayPalOrder').as('executePayPalOrder');
 
     cy.paypalFlow(PAYPAL_EMAIL, PAYPAL_PASSWORD)
@@ -64,6 +67,22 @@ context('PayPal express checkout', () => {
     page.checkout.checkoutReadyOnly.terms.click();
     page.checkout.checkoutReadyOnly.makeOrderButton.click();
 
-    cy.wait(['@executePayPalOrder']);
+    cy.wait(['@additionalInformation', '@preparePayment', '@placeOrder', '@executePayment', '@executePayPalOrder']);
+
+    page.checkout.thankyou.heading.should('be.visible');
+
+    page.checkout.thankyou.itemsTable.should('be.visible');
+    cy.get('[data-e2e*="order-item-product-name"]').should('be.visible');
+
+    page.checkout.thankyou.orderSummary.should('be.visible');
+    page.checkout.thankyou.paymentSummary.should('be.visible');
+    page.checkout.thankyou.shippingSummary.should('be.visible');
+    page.checkout.thankyou.orderTotals.should('be.visible');
+
+    cy.get('head meta[name="robots"]').should(
+      'have.attr',
+      'content',
+      'noindex'
+    );
   });
 });
