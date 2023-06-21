@@ -300,4 +300,7 @@ export default {
     font-weight: var(--font-weight--normal);
   }
 }
+.sf-price {
+  justify-content: flex-end;
+}
 </style>
