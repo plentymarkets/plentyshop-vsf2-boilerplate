@@ -22,7 +22,8 @@ context('PayPal buttons rendering', () => {
     page.product.addToCartButton.click();
     cy.wait('@addCartItem');
 
+    cy.get('[data-e2e*="app-header"]').eq(1).find('a').click();
     page.product.header.openCart();
-    cy.get('[data-e2e="collected-product"]').should('exist');
+    cy.get('[data-e2e="paypal-button"]').should('exist');
   });
 });
