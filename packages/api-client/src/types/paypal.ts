@@ -161,3 +161,9 @@ export interface PayPalExecutePayment {
     };
   };
 }
+
+export interface PayPalConfig {
+  paymentId: number;
+  clientId: string;
+  merchantId: string;
+}

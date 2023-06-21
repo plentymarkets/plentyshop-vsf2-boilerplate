@@ -215,7 +215,8 @@ import {
   useUserBilling,
   useMakeOrder,
   usePayPal,
-  orderGetters
+  orderGetters,
+  paypalGetters
 } from '@vue-storefront/plentymarkets';
 import { addBasePath, onSSR } from '@vue-storefront/core';
 import {
@@ -243,8 +244,8 @@ export default {
     CartTotals: () => import('~/components/CartTotals'),
     ReadonlyAddress: () => import('~/components/Checkout/Readonly/ReadOnlyAddress')
   },
-  setup(props, context) {
-    const { $config } = useContext();
+  setup() {
+    const { app } = useContext();
     const terms = ref(false);
     const { load: loadShipping, shipping } = useUserShipping();
     const { cart, setCart, load: loadCart} = useCart();
@@ -260,6 +261,9 @@ export default {
       useActiveShippingCountries();
     const { load: loadPaymentProviders, result: paymentProviders } =
       usePaymentProvider();
+
+    const paymentId = paypalGetters.getPaymentId();
+    const merchantId = paypalGetters.getMerchantId();
 
     const shippingAddresses = computed(() =>
       userAddressGetters.getAddresses(shipping.value)
@@ -329,8 +333,9 @@ export default {
 
     const makeOrder = async () => {
       makeOrderLoading.value = true;
+
       await make({
-        paymentId: $config.integrationConfig.payment.paypal.paymentId,
+        paymentId: paymentId,
         shippingPrivacyHintAccepted: true
       });
 
@@ -338,7 +343,7 @@ export default {
         'paypal',
         parseInt(orderGetters.getId(order.value)),
         route.value.query.orderId ?? '',
-        $config.integrationConfig.payment.paypal.merchantId
+        merchantId
       );
 
       const thankYouPath = {
@@ -349,14 +354,14 @@ export default {
         }
       };
 
-      router.push(context.root.localePath(thankYouPath));
+      router.push(app.localePath(thankYouPath));
       setCart({ items: [] });
 
       makeOrderLoading.value = false;
     };
 
     const cancelOrder = () => {
-      router.push(context.root.localePath('/checkout/payment'));
+      router.push(app.localePath('/checkout/payment'));
     };
 
     return {
