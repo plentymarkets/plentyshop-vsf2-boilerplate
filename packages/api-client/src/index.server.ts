@@ -20,9 +20,12 @@ import { getShippingProvider, selectShippingProvider } from './api/getShippingPr
 import { changePassword, loginAsGuest, loginUser, logoutUser, registerUser } from './api/getUser';
 import { getActiveShippingCountries } from './api/getActiveShippingCountries';
 import { getPaymentProviders, setPaymentProvider } from './api/getPaymentProvider';
-import { additionalInformation, executePayment, placeOrder, preparePayment } from './api/getOrder';
+import { additionalInformation, executePayment, makeOrderReturn, placeOrder, preparePayment, getOrder } from './api/getOrder';
 import { getOrders } from './api/getOrders';
+import { getReturns } from './api/getReturns';
 import { getLegalInformation } from './api/getLegal';
+import {subscribeNewsletter, unsubscribeNewsletter} from './api/getNewsletter';
+import { createOrder, approveOrder, executePayPalOrder } from './api/getPayPal';
 import { Settings } from './types/apiMethods';
 type Endpoints = unknown;
 type onCreateResponse = {
@@ -40,18 +43,12 @@ type onCreateResponse = {
 
 let cookies: string | string[] = '';
 
-const cookieBlacklist = ['domain', 'secure', 'httponly'];
+const getPlentyIdCookie = (cookies: string): string => {
+  const cookieMatch = cookies.match(/plentyID=[^;]+;/);
 
-// Filter list of cookie names that should be removed
-const filterCookies = (cookies: string): string => {
-  cookieBlacklist.forEach((blacklistedCookie) => {
-    if (cookies.includes(blacklistedCookie)) {
-      const start = cookies.indexOf(blacklistedCookie);
-      const end = cookies.indexOf(';', start) + 1;
+  if (cookieMatch)
+    return cookieMatch[0] + 'path=/; secure; httponly;';
 
-      cookies = cookies.replace(cookies.slice(start, end), '');
-    }
-  });
   return cookies;
 };
 
@@ -67,10 +64,12 @@ function onCreate(settings: Settings): onCreateResponse {
   // Add a response interceptor
   // Triggered after middleware gets a response from connected apis
   client.interceptors.response.use((response) => {
+
+    // takes the set-cookie header from the incomming request (plentymarkets backend)
     const headers = response.headers['set-cookie'];
 
     if (headers && headers?.length > 0) {
-      cookies = filterCookies(headers[0]);
+      cookies = getPlentyIdCookie(headers[0]);
     }
     return response;
   }, (error) => {
@@ -142,10 +141,18 @@ const { createApiClient } = apiClientFactory<Settings, Endpoints>({
     setPaymentProvider,
     additionalInformation,
     preparePayment,
+    getOrder,
     placeOrder,
     getOrders,
+    getReturns,
     executePayment,
-    getLegalInformation
+    makeOrderReturn,
+    getLegalInformation,
+    subscribeNewsletter,
+    unsubscribeNewsletter,
+    createOrder,
+    approveOrder,
+    executePayPalOrder
   },
   extensions: [cookieExtension]
 });

@@ -26,19 +26,19 @@
           >
             <SfAccordion
               v-e2e="'categories-accordion'"
-              :open="activeCategory"
+              :open="categoryGetters.getCategoryName(category)"
               :show-chevron="true"
             >
               <SfAccordionItem
-                v-for="(cat, i) in categoryTree && categoryGetters.getTreeItems(categoryTree)"
+                v-for="(cat, i) in categoryTree && categoryTreeGetters.getTreeItems(categoryTree)"
                 :key="i"
-                :header="categoryGetters.getLabel(cat)"
+                :header="categoryTreeGetters.getLabel(cat)"
               >
                 <SfList class="list">
                   <SfListItem class="list__item">
                     <SfMenuItem
-                      :count="categoryGetters.getCount(cat)"
-                      :label="categoryGetters.getLabel(cat)"
+                      :count="categoryTreeGetters.getCount(cat)"
+                      :label="categoryTreeGetters.getLabel(cat)"
                     >
                       <template #label>
                         <nuxt-link
@@ -51,13 +51,13 @@
                     </SfMenuItem>
                   </SfListItem>
                   <SfListItem
-                    v-for="(subCat, j) in categoryGetters.getItems(cat)"
+                    v-for="(subCat, j) in categoryTreeGetters.getItems(cat)"
                     :key="j"
                     class="list__item"
                   >
                     <SfMenuItem
-                      :count="categoryGetters.getCount(subCat)"
-                      :label="categoryGetters.getLabel(subCat)"
+                      :count="categoryTreeGetters.getCount(subCat)"
+                      :label="categoryTreeGetters.getLabel(subCat)"
                     >
                       <template #label="{ label }">
                         <nuxt-link
@@ -226,7 +226,7 @@ import {
   SfProperty
 } from '@storefront-ui/vue';
 import { computed, ref } from '@nuxtjs/composition-api';
-import { useCart, useWishlist, useCategory, productGetters, categoryGetters, paginationGetters, useFacet, facetGetters, wishlistGetters } from '@vue-storefront/plentymarkets';
+import { useCart, useWishlist, useCategory, productGetters, categoryGetters, categoryTreeGetters, paginationGetters, useFacet, facetGetters, wishlistGetters } from '@vue-storefront/plentymarkets';
 import { useUiHelpers, useUiState } from '~/composables';
 import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
@@ -265,17 +265,7 @@ export default {
     const categoryTree = computed(() => facetGetters.getCategoryTree(result.value));
     const breadcrumbs = computed(() => facetGetters.getBreadcrumbs(result.value, categories.value));
     const pagination = computed(() => facetGetters.getPagination(result.value));
-    const activeCategory = computed(() => {
-      const items = categoryTree.value.items;
-
-      if (!items || !items.length) {
-        return '';
-      }
-
-      const category = items.find(({ isCurrent, items }) => isCurrent || items.find(({ isCurrent }) => isCurrent));
-
-      return category?.label || items[0].label;
-    });
+    const category = computed(() => facetGetters.getCategory(result.value));
 
     const removeProductFromWishlist = (productItem) => {
       const productsInWhishlist = computed(() => wishlistGetters.getItems(wishlist.value));
@@ -305,9 +295,10 @@ export default {
       loading,
       paginationGetters,
       categoryGetters,
+      categoryTreeGetters,
       productGetters,
       pagination,
-      activeCategory,
+      category,
       breadcrumbs,
       addItemToWishlist,
       removeProductFromWishlist,

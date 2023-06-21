@@ -8,13 +8,14 @@
     <SfAddress
       v-for="(address, key) in addresses"
       :key="userAddressGetters.getId(address)"
+      class="w-80"
       :name="userAddressGetters.getId(address)"
     >
       <span>{{ userAddressGetters.getFirstName(address) }} {{ userAddressGetters.getLastName(address) }}</span>
       <span>{{ userAddressGetters.getStreetName(address) }} {{ userAddressGetters.getApartmentNumber(address) }}</span>
       <span>{{ userAddressGetters.getPostCode(address) }}</span>
       <span>{{ userAddressGetters.getCity(address) }}</span>
-      <span>{{ getStateName(address) }} {{ getCountryName(address) }}</span>
+      <span>{{ userAddressGetters.getStateName(address, countries) }} {{ userAddressGetters.getCountryName(address, countries) }}</span>
       <span>{{ userAddressGetters.getPhone(address) }}</span>
       <a
         class="sf-link text-primary"
@@ -38,7 +39,7 @@
 
 <script>
 import { SfAddressPicker } from '@storefront-ui/vue';
-import { countryGetters, userAddressGetters } from '@vue-storefront/plentymarkets';
+import { userAddressGetters } from '@vue-storefront/plentymarkets';
 import { ref, onUpdated } from '@nuxtjs/composition-api';
 
 export default {
@@ -79,21 +80,6 @@ export default {
       getDefaultAddress();
     });
 
-    const getCountryName = (address) => {
-      const country = countryGetters.getCountryById(props.countries, userAddressGetters.getCountryId(address));
-
-      return countryGetters.getCountryName(country);
-    };
-
-    const getStateName = (address) => {
-      const countryId = userAddressGetters.getCountryId(address);
-      const country = countryGetters.getCountryById(props.countries, countryId);
-      const stateId = userAddressGetters.getStateId(address);
-      const state = countryGetters.getStateById(country, stateId);
-
-      return countryGetters.getStateName(state) ? `${countryGetters.getStateName(state)}, ` : '';
-    };
-
     const deleteAddress = (address) => {
       emit('delete-address', address);
     };
@@ -110,8 +96,6 @@ export default {
       deleteAddress,
       changeAddress,
       setDefaultAddress,
-      getCountryName,
-      getStateName,
       isDefaultAddress,
       userAddressGetters,
       defaultAddressId

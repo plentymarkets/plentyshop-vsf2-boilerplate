@@ -85,6 +85,12 @@
                 class="product__add-to-cart"
                 @click="addItem({ product, quantity: parseInt(qty) })"
               />
+
+              <PayPalExpressButton
+                class="mt-4"
+                :value="{ type: 'SingleItem', data: { product, quantity: parseInt(qty) } }"
+                :disabled="loading || !isAttributeSelectionValid"
+              />
             </div>
 
             <LazyHydrate when-idle>
@@ -211,10 +217,12 @@ import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
 import { addBasePath } from '@vue-storefront/core';
 import { useUiHelpers, useUiState } from '~/composables';
+import PayPalExpressButton from '~/components/PayPal/PayPalExpressButton.vue';
 
 export default {
   name: 'Product',
   components: {
+    PayPalExpressButton,
     SfProperty,
     SfHeading,
     SfPrice,

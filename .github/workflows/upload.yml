@@ -1,0 +1,50 @@
+name: Add zip file to S3 bucket
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build-and-send-zip:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+          cache: 'yarn'
+
+      - name: Install Dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Build
+        run: yarn build
+
+      - name: Create Zip Archive
+        uses: vimtor/action-zip@v1
+        with:
+          files: ./packages/theme
+          dest: filename.zip
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: zipped-artifact
+          path: ${{ github.workspace }}/filename.zip
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: zipped-artifact
+          path: ./
+
+      - name: Upload File
+        id: upload
+        uses: JantHsueh/upload-file-action@1.0
+        with:
+          url: ${{ secrets.URL_ENDPOINT }}
+          forms: '{ "tokenName": "${{ secrets.URL_ENDPOINT_TOKEN }}" }'
+          fileForms: '{ "filename": "${{ github.workspace }}/filename.zip" }'

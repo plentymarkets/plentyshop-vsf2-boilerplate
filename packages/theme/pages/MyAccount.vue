@@ -9,7 +9,7 @@
       :title="$t('MyAccount.My account')"
       :active="activePage"
       class="my-account"
-      @click:change="changeActivePage"
+      @click:change="changeActivePage($event)"
     >
       <SfContentCategory :title="$t('MyAccount.User data')">
         <SfContentPage :title="$t('MyAccount.My profile')">
@@ -33,6 +33,9 @@
         <SfContentPage :title="$t('MyAccount.Order history')">
           <OrderHistory />
         </SfContentPage>
+        <SfContentPage :title="$t('MyAccount.Order returns')">
+          <OrderReturns />
+        </SfContentPage>
       </SfContentCategory>
 
       <SfContentPage :title="$t('MyAccount.Log out')" />
@@ -41,10 +44,11 @@
 </template>
 <script>
 import { SfBreadcrumbs, SfContentPages } from '@storefront-ui/vue';
-import { computed, useRoute, useRouter } from '@nuxtjs/composition-api';
+import { computed, useRoute, useRouter, useContext } from '@nuxtjs/composition-api';
 import { useUser } from '@vue-storefront/plentymarkets';
 import MyNewsletter from './MyAccount/MyNewsletter';
 import OrderHistory from './MyAccount/OrderHistory';
+import OrderReturns from './MyAccount/OrderReturns';
 import ShippingDetails from './MyAccount/ShippingDetails';
 import BillingDetails from './MyAccount/BillingDetails';
 import ProfileDetails from './MyAccount/ProfileDetails';
@@ -58,7 +62,8 @@ export default {
     BillingDetails,
     ProfileDetails,
     MyNewsletter,
-    OrderHistory
+    OrderHistory,
+    OrderReturns
   },
   middleware: [
     'is-authenticated'
@@ -66,6 +71,7 @@ export default {
   setup(props, {root}) {
     const route = useRoute();
     const router = useRouter();
+    const { app } = useContext();
 
     const { logout } = useUser();
 
@@ -73,14 +79,16 @@ export default {
       const { pageName } = route.value.params;
 
       if (pageName) {
-        return (pageName.charAt(0).toUpperCase() + pageName.slice(1)).replace('-', ' ');
-      } else {
-        return 'My profile';
+        const transformUrlToPageName = pageName.charAt(0).toUpperCase() + pageName.slice(1).replace('-', ' ');
+
+        return transformUrlToPageName;
       }
+
+      return '';
     });
 
     const changeActivePage = async (title) => {
-      if (title === 'Log out') {
+      if (title === app.i18n.t('MyAccount.Log out')) {
         await logout();
         window.location.reload();
       }

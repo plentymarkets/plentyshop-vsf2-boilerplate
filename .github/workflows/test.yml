@@ -99,7 +99,7 @@ jobs:
         run: yarn --frozen-lockfile
 
       - name: Get IP4 address
-        run: echo "ip_address=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | head -1)" >> $GITHUB_ENV
+        run: echo "ip_address=localhost" >> $GITHUB_ENV
 
       - name: E2E in Chrome
         uses: cypress-io/github-action@v5.0.5
@@ -112,3 +112,15 @@ jobs:
           wait-on: 'http://${{ env.ip_address }}:3000'
         env:
           CYPRESS_BASE_URL: 'http://${{ env.ip_address }}:3000'
+
+      - name: Upload code coverage report
+        if: ${{ always() && !cancelled() }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: Code Coverage Report
+          path: ${{ github.workspace }}/packages/theme/tests/e2e/coverage/lcov-report/
+
+      - name: Add code coverage summary
+        if: ${{ always() && !cancelled() }}
+        run: |
+          jq '.total' ${{ github.workspace }}/packages/theme/tests/e2e/coverage/coverage-summary.json  >> $GITHUB_STEP_SUMMARY

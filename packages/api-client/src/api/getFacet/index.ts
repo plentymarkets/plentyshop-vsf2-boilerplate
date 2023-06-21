@@ -1,7 +1,8 @@
-import { Context, FacetSearchCriteria, CategoryPage, FacetResponse } from 'src/types';
+import { AgnosticFacetSearchParams } from '@vue-storefront/core';
+import { Context, FacetApiResponse } from 'src/types';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export async function getFacet(context: Context, params: FacetSearchCriteria): Promise<CategoryPage> {
+export async function getFacet(context: Context, params: AgnosticFacetSearchParams): Promise<FacetApiResponse> {
   // TODO: use default category id
   const categoryId = params.categoryId?.toString() || '16';
   const url = new URL('/rest/storefront/items', context.config.api.url);
@@ -23,15 +24,6 @@ export async function getFacet(context: Context, params: FacetSearchCriteria): P
   }
   const { data } = await context.client.get(url.href);
 
-  const facetData: FacetResponse = data;
-
-  return {
-    products: facetData.itemList.documents.map(document => document.data),
-    pagination: {
-      totals: facetData.itemList.total
-    },
-    facets: facetData.facets,
-    languageUrls: facetData.urls
-  };
+  return data;
 }
 

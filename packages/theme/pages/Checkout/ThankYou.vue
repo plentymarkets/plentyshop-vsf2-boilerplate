@@ -9,73 +9,115 @@
         desktop: addBasePath('/thankyou/bannerD.png'),
       }"
     >
-      <template #description>
+      <template
+        v-if="orderEmail"
+        #description
+      >
         <div class="banner__order-number">
-          <span>{{ $t('ThankYou.Order no') }}</span>
-          <strong>{{ orderNumber }}</strong>
+          <span class="pr-1">{{ $t('ThankYou.A confirmation has been sent to') }}</span>
+          <strong>{{ orderEmail }}</strong>
         </div>
       </template>
     </SfCallToAction>
-    <section class="section">
-      <div class="order">
-        <SfHeading
-          :title="$t('ThankYou.Your purchase')"
-          class="order__heading heading sf-heading--left"
-          :level="3"
-        />
-        <p class="order__paragraph paragraph">
-          {{ $t('ThankYou.Successfully placed order') }}
-        </p>
-        <div class="order__contact">
-          <SfHeading
-            :level="6"
-            class="heading sf-heading--left sf-heading--no-underline"
-            :title="$t('ThankYou.Primary contacts for any questions')"
+
+    <SoftLogin
+      v-if="error.load"
+      :error="error"
+      @submit="loadOrder"
+    />
+
+    <div v-else>
+      <div class="order-info sm:grid gap-20 grid-cols-2/1 mb-10 xs-sm:pl-5 xs-sm:pr-5 sm:pl-20 sm:pr-20">
+        <div class="left">
+          <OrderSummary class="mb-20" />
+
+          <OrderItems
+            v-if="getOrder"
+            :order="getOrder"
+            class="mb-20"
           />
-          <div class="contact">
-            <p class="contact__name">
-              {{ companyGetters.getName(companyDetails) }}
-            </p>
-            <p class="contact__street">
-              {{ companyGetters.getStreet(companyDetails) }}
-            </p>
-            <p class="contact__city">
-              {{ companyGetters.getCity(companyDetails) }}
-            </p>
-            <p class="contact__email">
-              {{ companyGetters.getEmail(companyDetails) }}
-            </p>
+
+          <OrderTotals
+            v-if="getOrder"
+            :order="getOrder"
+          />
+        </div>
+
+        <div class="right">
+          <OrderShippingSummary class="mb-10" />
+
+          <OrderPaymentSummary class="mb-10" />
+
+          <DocumentsList
+            v-if="getOrder"
+            :documents="getOrder.order.documents"
+          />
+        </div>
+      </div>
+
+      <section
+        class="section"
+      >
+        <div class="order mb-10">
+          <SfHeading
+            :title="$t('ThankYou.Your purchase')"
+            class="order__heading heading sf-heading--left"
+            :level="3"
+          />
+          <p class="order__paragraph paragraph">
+            {{ $t('ThankYou.Successfully placed order') }}
+          </p>
+          <div class="order__contact">
+            <SfHeading
+              :level="6"
+              class="heading sf-heading--left sf-heading--no-underline"
+              :title="$t('ThankYou.Primary contacts for any questions')"
+            />
+            <div class="contact">
+              <p class="contact__name">
+                {{ companyGetters.getName(companyDetails) }}
+              </p>
+              <p class="contact__street">
+                {{ companyGetters.getStreet(companyDetails) }}
+              </p>
+              <p class="contact__city">
+                {{ companyGetters.getCity(companyDetails) }}
+              </p>
+              <p class="contact__email">
+                {{ companyGetters.getEmail(companyDetails) }}
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="additional-info">
-        <div>
-          <SfHeading
-            :title="$t('ThankYou.Your account')"
-            class="heading sf-heading--left"
-            :level="3"
-          />
-          <p class="paragraph">
-            {{ $t('ThankYou.Info after order') }}
-          </p>
+        <div class="additional-info">
+          <div>
+            <SfHeading
+              :title="$t('ThankYou.Your account')"
+              class="heading sf-heading--left"
+              :level="3"
+            />
+            <p class="paragraph">
+              {{ $t('ThankYou.Info after order') }}
+            </p>
+          </div>
+          <div>
+            <SfHeading
+              :title="$t('ThankYou.What can we improve')"
+              class="heading sf-heading--left"
+              :level="3"
+            />
+            <p class="paragraph">
+              {{ $t('ThankYou.Feedback') }}
+            </p>
+            <SfButton
+              class="feedback-button color-secondary sf-button--full-width button-size"
+            >
+              {{ $t('ThankYou.Send feedback') }}
+            </SfButton>
+          </div>
         </div>
-        <div>
-          <SfHeading
-            :title="$t('ThankYou.What can we improve')"
-            class="heading sf-heading--left"
-            :level="3"
-          />
-          <p class="paragraph">
-            {{ $t('ThankYou.Feedback') }}
-          </p>
-          <SfButton
-            class="feedback-button color-secondary sf-button--full-width button-size"
-          >
-            {{ $t('ThankYou.Send feedback') }}
-          </SfButton>
-        </div>
-      </div>
-    </section>
+      </section>
+    </div>
     <SfButton class="back-button color-secondary button-size">
       {{ $t('ThankYou.Go back to shop') }}
     </SfButton>
@@ -84,11 +126,26 @@
 
 <script>
 import { SfHeading, SfButton, SfCallToAction } from '@storefront-ui/vue';
-import { ref } from '@nuxtjs/composition-api';
+import { computed, ref, useRoute, onMounted } from '@nuxtjs/composition-api';
 import { addBasePath } from '@vue-storefront/core';
-import {companyGetters} from '@vue-storefront/plentymarkets';
+import { useOrder, orderGetters, companyGetters } from '@vue-storefront/plentymarkets';
+import SoftLogin from '~/components/SoftLogin.vue';
+import OrderItems from '~/components/Orders/OrderItems.vue';
+import DocumentsList from '~/components/DocumentsList.vue';
+import OrderShippingSummary from '~/components/OrderShippingSummary.vue';
+import OrderPaymentSummary from '~/components/OrderPaymentSummary.vue';
+import OrderSummary from '~/components/OrderSummary.vue';
+import OrderTotals from '~/components/OrderTotals.vue';
+
 export default {
   components: {
+    OrderSummary,
+    OrderPaymentSummary,
+    OrderShippingSummary,
+    DocumentsList,
+    OrderItems,
+    SoftLogin,
+    OrderTotals,
     SfHeading,
     SfButton,
     SfCallToAction
@@ -102,14 +159,53 @@ export default {
       city: 'Kassel, Germany',
       email: 'sales@plentymarkets.com'
     });
-    const orderNumber = ref('80932031-030-00');
+
+    const route = useRoute();
+    const { order, load, error: orderError } = useOrder();
+
+    const error = computed(() => orderError.value);
+
+    onMounted(async () => {
+      await load({
+        orderId: route.value.query.orderId,
+        accessKey: route.value.query.accessKey
+      });
+    });
+
+    const loadOrder = async (data) => {
+      await load({
+        orderId: route.value.query.orderId,
+        accessKey: route.value.query.accessKey,
+        ...data
+      });
+    };
+
+    const orderEmail = computed(() => {
+      return orderGetters.getOrderEmail(order.value);
+    });
+
+    const getOrder = computed(() => {
+      return order.value;
+    });
 
     return {
+      error,
       addBasePath,
+      loadOrder,
       companyGetters,
       companyDetails,
-      orderNumber
+      getOrder,
+      orderEmail
     };
+  },
+  head: {
+    meta: [
+      {
+        hid: 'description',
+        name: 'robots',
+        content: 'noindex'
+      }
+    ]
   }
 };
 </script>
@@ -127,6 +223,9 @@ export default {
   @include for-desktop {
     --heading-padding: var(--spacer-sm) 0 var(--spacer-xs) 0;
   }
+}
+.order-summary-title .sf-heading__title {
+  color: var(--c-primary);
 }
 .paragraph {
   margin: 0;
@@ -169,7 +268,6 @@ export default {
   }
 }
 .order {
-  background: var(--c-light);
   padding-bottom: var(--spacer-sm);
   @include for-desktop {
     width: 100%;
@@ -210,6 +308,15 @@ export default {
     @include for-desktop {
       margin: var(--spacer-xl) 0 0 0;
     }
+  }
+}
+.order-summary-table {
+  width: 50%;
+  .title {
+    font-weight: bold;
+  }
+  tr {
+    line-height: 28px;
   }
 }
 .contact {
