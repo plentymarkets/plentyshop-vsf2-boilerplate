@@ -5,6 +5,7 @@ require('dotenv').config();
 
 module.exports = defineConfig({
   fixturesFolder: 'tests/e2e/fixtures',
+  chromeWebSecurity: false,
   viewportHeight: 1080,
   viewportWidth: 1920,
   pageLoadTimeout: 180000,

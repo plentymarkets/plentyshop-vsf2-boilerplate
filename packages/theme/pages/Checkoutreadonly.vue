@@ -1,5 +1,7 @@
 <template>
-  <div class="p-3 lg:p-0">
+  <div
+    class="p-3 lg:p-0"
+  >
     <h2 class="mb-8">
       {{ $t('Checkoutreadonly.Review your order') }}
     </h2>
@@ -169,6 +171,7 @@
               :disabled="loading || invalidCheckoutData"
             >
               <SfLoader
+                v-e2e="'order-button'"
                 :class="{ loader: loading }"
                 :loading="loading"
               >

@@ -16,6 +16,7 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands.js';
+import './paypal.ts';
 import 'cypress-pipe';
 import '@cypress/code-coverage/support';
 

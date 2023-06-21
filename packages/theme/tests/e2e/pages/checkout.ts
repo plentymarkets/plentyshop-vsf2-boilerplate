@@ -193,10 +193,21 @@ class ThankYou {
   }
 }
 
+class ReadyOnlyCheckout {
+  get terms(): Cypress.Chainable {
+    return el('terms');
+  }
+
+  get makeOrderButton(): Cypress.Chainable {
+    return el('order-button');
+  }
+}
+
 export {
   CheckoutLogin,
   Shipping,
   Billing,
   Payment,
-  ThankYou
+  ThankYou,
+  ReadyOnlyCheckout
 };
