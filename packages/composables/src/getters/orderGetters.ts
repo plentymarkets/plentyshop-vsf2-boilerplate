@@ -139,7 +139,7 @@ function isReturnable(order: Order): boolean {
 
 function getDocumentLink(doc: OrderDocument, accessKey: String): String {
   const context = getCurrentInstance().root.proxy;
-  return `${context.context.$config.apiUrl}/rest/storefront/order_document/preview/${doc.pivot.plenty_document_reference_document_id}/?orderId=${doc.pivot.plenty_document_reference_value}&accessKey=${accessKey}`;
+  return `${context.context.$config.apiUrl}/rest/storefront/order/document/preview/${doc.pivot.plenty_document_reference_document_id}/?orderId=${doc.pivot.plenty_document_reference_value}&accessKey=${accessKey}`;
 }
 
 function getPagination(orders: GetOrdersResponse): AgnosticPagination {
