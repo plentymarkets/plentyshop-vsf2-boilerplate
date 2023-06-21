@@ -118,9 +118,9 @@
                 {{ $t('CartSidebar.Go to checkout') }}
               </SfButton>
             </nuxt-link>
-            <PayPalCartExpressButton
-              :uuid="uuid"
+            <PayPalExpressButton
               class="mt-2"
+              :value="{type: 'CartPreview'}"
             />
           </div>
           <div v-else>
@@ -151,8 +151,7 @@ import { useCart, cartGetters, useUser } from '@vue-storefront/plentymarkets';
 import { useUiState } from '~/composables';
 import debounce from 'lodash.debounce';
 import { addBasePath } from '@vue-storefront/core';
-import PayPalCartExpressButton from '~/components/PayPal/PayPalCartExpressButton';
-import { v4 } from 'uuid';
+import PayPalExpressButton from '~/components/PayPal/PayPalExpressButton';
 
 export default {
   name: 'CartSidebar',
@@ -164,7 +163,7 @@ export default {
     SfCollectedProduct,
     SfImage,
     SfQuantitySelector,
-    PayPalCartExpressButton,
+    PayPalExpressButton,
     CartTotals: () => import('~/components/CartTotals')
   },
   setup() {
@@ -174,7 +173,6 @@ export default {
     const products = computed(() => cartGetters.getItems(cart.value));
     const totals = computed(() => cartGetters.getTotals(cart.value));
     const totalItems = computed(() => cartGetters.getTotalItems(cart.value));
-    const uuid = v4();
 
     const updateQuantity = debounce(async ({ product, quantity }) => {
       await updateItemQty({ product, quantity });
@@ -192,8 +190,7 @@ export default {
       toggleCartSidebar,
       totals,
       totalItems,
-      cartGetters,
-      uuid
+      cartGetters
     };
   }
 };

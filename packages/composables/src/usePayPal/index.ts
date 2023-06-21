@@ -4,8 +4,8 @@ import {
   PayPalApproveOrder,
   PayPalCreateOrder,
   PayPalExecutePayment
-} from '@vue-storefront/plentymarkets-api/lib/types/paypal';
-import {useContext} from '@nuxtjs/composition-api';
+} from '@vue-storefront/plentymarkets-api';
+import { paypalGetters } from '../getters/paypalGetters';
 
 export interface UsePayPalResponse {
   createOrder: (fundingSource: string) => Promise<PayPalCreateOrder>
@@ -16,7 +16,6 @@ export interface UsePayPalResponse {
 
 export const usePayPal = () : UsePayPalResponse => {
   const context = useVSFContext();
-  const { $config } = useContext();
   const paypal = sharedRef<PayPalNamespace>(null, 'usePaypal-paypalsdk');
 
   const createOrder = async (fundingSource: string): Promise<PayPalCreateOrder> => {
@@ -36,10 +35,10 @@ export const usePayPal = () : UsePayPalResponse => {
       return paypal.value;
     }
 
-    if ($config?.integrationConfig?.payment?.paypal) {
+    if (paypalGetters.getConfig()) {
       try {
         // TODO get client id somehow
-        paypal.value = await loadPayPalScript({ clientId: $config.integrationConfig.payment.paypal.clientId, currency: currency });
+        paypal.value = await loadPayPalScript({ clientId: paypalGetters.getClientId(), currency: currency });
         return paypal.value;
       } catch (error) {
         // console.error('failed to load the PayPal JS SDK script', error);
