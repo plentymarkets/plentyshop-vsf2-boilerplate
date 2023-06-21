@@ -33,9 +33,8 @@ import WishlistSidebar from '~/components/WishlistSidebar.vue';
 import LoginModal from '~/components/LoginModal.vue';
 import LazyHydrate from 'vue-lazy-hydration';
 import Notification from '~/components/Notification';
-import { onSSR } from '@vue-storefront/core';
-import { useRoute } from '@nuxtjs/composition-api';
-import { useCart, useStore, useUser, useWishlist } from '@vue-storefront/plentymarkets';
+import { useRoute, onMounted } from '@nuxtjs/composition-api';
+import { useCart, useUser, useWishlist } from '@vue-storefront/plentymarkets';
 
 export default {
   name: 'DefaultLayout',
@@ -55,18 +54,14 @@ export default {
 
   setup() {
     const route = useRoute();
-    const { load: loadStores } = useStore();
     const { load: loadUser } = useUser();
     const { load: loadCart } = useCart();
     const { load: loadWishlist } = useWishlist();
 
-    onSSR(async () => {
-      await Promise.all([
-        loadStores(),
-        loadUser(),
-        loadCart(),
-        loadWishlist()
-      ]);
+    onMounted(async () => {
+      await loadUser();
+      await loadCart();
+      await loadWishlist();
     });
 
     return {

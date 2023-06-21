@@ -58,7 +58,7 @@ export const useCookieBar = (
                     (0, eval)(script);
                   }
                 } catch (error) {
-                  console.log(error);
+                  // @TODO error handling
                 }
               });
             }
@@ -119,7 +119,7 @@ export const useCookieBar = (
     }
     const toSave = convertToSaveableJson(cookieJson.value);
 
-    saveCookies('plenty-shop-cookie', toSave, appCookies);
+    saveCookies('consent-cookie', toSave, appCookies);
     bannerIsHidden.value = true;
     loadThirdPartyScripts();
   }

@@ -2,12 +2,20 @@ import { ApiClientMethods, IntegrationContext, ProductsSearchParams, UseUserOrde
 import { AxiosInstance } from 'axios';
 import { AddressType, DeleteAddressResponse, SetAddressDefaultResponse, SaveAddressResponse, Address } from './address';
 import { Cart } from './cart';
-import { Category } from './category';
+import { CategoryTreeItem } from './categoryTree';
 import { ActiveShippingCountry } from './country';
 import { FacetSearchCriteria, FacetApiResponse } from './facet';
 import { ItemSearchParams, ItemSearchResult } from './itemSearch';
 import { LegalInformationResponse } from './legal';
-import { AdditionalInformationParams, CreateOrderResponse, GetOrdersResponse } from './order';
+import {
+  AdditionalInformationParams,
+  GetOrdersResponse,
+  Order,
+  OrderDetails,
+  OrderSearchParams,
+  CreateReturnResponse,
+  GetReturnsResponse
+} from './order';
 import { GetPaymentResponse, PaymentProviders, PreparePaymentResult } from './payment';
 import { Product } from './product';
 import { RegisterParams } from './register';
@@ -16,6 +24,8 @@ import { SessionResult } from './session';
 import { ShippingProvider } from './shipping';
 import { UserChangeResponse } from './user';
 import { Wishlist } from './wishlist';
+import { NewsletterParams } from './newsletter';
+import {PayPalApproveOrder, PayPalCreateOrder, PayPalExecutePayment} from './paypal';
 
 export type ClientInstance = AxiosInstance;
 
@@ -41,7 +51,7 @@ export interface PlentymarketsApiMethods {
         params: ProductsSearchParams
     ): Promise<Product[]>,
 
-    getCategory(): Promise<Category[]>,
+    getCategory(): Promise<CategoryTreeItem[]>,
 
     getFacet(
         params: FacetSearchCriteria
@@ -85,7 +95,7 @@ export interface PlentymarketsApiMethods {
 
     getSession(initialRestCall: boolean): Promise<SessionResult>
 
-    loginUser(email: string, password: string): Promise<SessionResult>
+    loginUser(email: string, password: string): Promise<UserChangeResponse>
 
     registerUser(params: RegisterParams): Promise<UserChangeResponse>
 
@@ -95,7 +105,7 @@ export interface PlentymarketsApiMethods {
 
     getShippingProvider(): Promise<ShippingProvider>
 
-    selectShippingProvider(shippingId: number): Promise<string>
+    selectShippingProvider(shippingId: number): Promise<ShippingProvider>
 
     loginAsGuest(email: string): Promise<SessionResult>
 
@@ -111,20 +121,35 @@ export interface PlentymarketsApiMethods {
 
     getPaymentProviders(): Promise<PaymentProviders>
 
-    setPaymentProvider(paymentId: number): Promise<string>
+    setPaymentProvider(paymentId: number): Promise<void>
+
+    getOrder(params: OrderSearchParams): Promise<OrderDetails>
 
     additionalInformation(params: AdditionalInformationParams): Promise<void>
 
     preparePayment(): Promise<PreparePaymentResult>
 
-    placeOrder(): Promise<CreateOrderResponse>
+    placeOrder(): Promise<Order>
+
+    makeOrderReturn(params: string): Promise<CreateReturnResponse>
 
     getOrders(params: UseUserOrderSearchParams): Promise<GetOrdersResponse>
+
+    getReturns(params: UseUserOrderSearchParams): Promise<GetReturnsResponse>
 
     executePayment(orderId: number, paymentId: number): Promise<GetPaymentResponse>
 
     getLegalInformation(type: string): Promise<LegalInformationResponse>
 
+    subscribeNewsletter(params: NewsletterParams): Promise<string>
+
+    unsubscribeNewsletter(params: NewsletterParams): Promise<string>
+
+    createOrder(fundingSource: string): Promise<PayPalCreateOrder>
+
+    approveOrder(orderID: string, payerID: string): Promise<PayPalApproveOrder>
+
+    executePayPalOrder(mode: string, orderID: number, paypalOrderID: string, merchantId: string): Promise<PayPalExecutePayment>
 }
 
 export type Context = IntegrationContext<ClientInstance, Settings, ApiClientMethods<PlentymarketsApiMethods>>;

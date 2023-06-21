@@ -1,6 +1,6 @@
 /* eslint-disable  */
 
-export default {
+const en = {
   // Global
   'App': {
     'addNewAddress': 'Add new address',
@@ -63,7 +63,8 @@ export default {
     'CancellationForm': 'Cancellation form',
     'LegalDisclosure' : 'Legal disclosure',
     'PrivacyPolicy' : 'Privacy policy',
-    'TermsAndConditions': 'Terms and conditions'
+    'TermsAndConditions': 'Terms and conditions',
+    'Unsubscribe': 'Unsubscribe'
 
   },
   // AppHeader
@@ -110,6 +111,14 @@ export default {
     'Vat total': 'VAT',
     'Coupon Discount': 'Discount on value of items',
     'To be payed': 'Outstanding amount',
+    'Subtotal': 'Subtotal',
+    'Total': 'Total',
+  },
+
+   // OrderTotals
+   'OrderTotals': {
+    'Shipping': 'Shipping',
+    'Vat total': 'VAT',
     'Subtotal': 'Subtotal',
     'Total': 'Total',
   },
@@ -211,6 +220,7 @@ export default {
     'My profile': 'My profile',
     'Order details': 'Order details',
     'Order history': 'Order history',
+    'Order returns': 'Order returns',
     'Shipping details': '@:App.shippingDetails',
     'User data': '@:App.userData',
   },
@@ -234,32 +244,33 @@ export default {
     'Reject All': 'Reject All',
     'Accept Selection': 'Accept Selection'
   },
-  // MyNewsletter
-  'MyNewsletter': {
-    'Commercial information': 'and agree to receive personalised commercial information from Brand by email',
-    'Cookies policy': 'Cookie policy',
-    'I have read and understand': `I've read and understand`,
-    'Kids': 'Kids',
-    'Men': 'Men',
-    'My newsletter': 'My newsletter',
-    'Privacy policy': 'Privacy policy',
-    'Save changes': 'Save changes',
-    'Sections that interest you': 'Sections that interest you',
-    'Set up newsletter': 'Set up your newsletter and we will send you information about new products and trends from the sections you selected every week.',
-    'Women': 'Women'
-  },
   // NewletterModal
   'NewsletterModal': {
+    'Subscribe to our newsletter': 'Subscribe to our newsletter',
+  },
+  // MyNewsletter
+  'MyNewsletter': {
+    'My newsletter': 'My newsletter',
+    'Unsubscribe': 'Unsubscribe'
+  },
+  // NewsletterSubscribeForm
+  'NewsletterSubscribeForm': {
     'Email address': 'Email address',
-    'Hide': 'Hide',
-    'Confirm subscription': 'Confirm subscription',
-    'Show more': 'Show more',
+    'First name': 'First name',
+    'Last name': 'Last name',
     'Subscribe': 'Subscribe',
-    'Subscribe to newsletter': 'Subscribe to newsletter',
-    'subscribeToNewsletterModalContent': 'After signing up for the newsletter, you will receive special offers and messages from VSF via email. We will not sell or distribute your email to any third party at any time. Please see our {0}.',
-    'Privacy policy': 'Privacy policy',
-    'You can unsubscribe at any time': 'You can unsubscribe at any time',
-    'Your email': 'Your email'
+    'FormConfirmation': 'I hereby confirm that I have read and accept the <a href="{url}" class="sf-link">privacy policy</a>. I can revoke my consent at any time.',
+    'Need to accept the privacy policy': 'You need to accept our privacy policy.',
+    'subscribeToNewsletterContent': 'After signing up for the newsletter, you will receive special offers and messages from us via email.',
+    'Subscribe successful': 'You successfully subscribed our newsletter.'
+  },
+  // NewsletterUnsubscribeForm
+  'NewsletterUnsubscribeForm': {
+    'Email address': 'Email address',
+    'Email address not found': 'Email address not found!',
+    'Unsubscribe': 'Unsubscribe',
+    'unsubscribeFromNewsletterContent': 'Please enter the email address to subscribe to our newsletter',
+    'Unsubscribe successful': 'You successfully unsubscribed from our newsletter.'
   },
   // OrderHistory
   'OrderHistory': {
@@ -272,12 +283,42 @@ export default {
     'Price': 'Price',
     'Product': 'Product',
     'Quantity': 'Quantity',
-    'Returns': 'Returns',
     'Start shopping': '@:App.startShopping',
     'Status': 'Status',
     'Total orders': 'Total orders',
     'View details': 'View details',
-    'You currently have no orders': 'You currently have no orders'
+    'You currently have no orders': 'You currently have no orders',
+    'Return items': 'Return items'
+  },
+
+  // OrderReturn
+  'OrderReturn': {
+    'All returns': 'All returns',
+    'Details and return status': 'Check the details and status of your returns in the online shop.',
+    'Error': 'Error while sending the return request.',
+    'Returns': 'Returns',
+    'Success': 'Return request sent successfully.',
+    'Total returns': 'Total returns',
+    'You currently have no returns': 'You currently have no returns',
+    'Return your items now': 'Return Items'
+  },
+
+  // Documents
+  'Documents' : {
+    'Correction Documents': 'Correction Documents',
+    'Credit Note': 'Credit Note',
+    'Delivery Note': 'Delivery Note',
+    'Dunning Letter': 'Dunning Letter',
+    'Invoice External': 'Invoice External',
+    'Invoice': 'Invoice',
+    'Offer': 'Offer',
+    'Order Confirmation': 'Order Confirmation',
+    'Pickup Delivery': 'Pickup Delivery',
+    'Pro Forma Invoice': 'Pro Forma Invoice',
+    'Receipt': 'Receipt',
+    'Return Note': 'Return Note',
+    'Success Confirmation': 'Success Confirmation',
+    'Reversal Document': 'Reversal Document',
   },
   // Payment
   'Payment': {
@@ -285,6 +326,7 @@ export default {
     'I agree to': 'I agree to',
     'Terms and conditions': 'Terms and conditions',
     'Make an order': 'Make an order',
+    'Cancel Order': 'Cancel Order'
   },
   // PsfMyProfile
   'PsfMyProfile': {
@@ -362,7 +404,25 @@ export default {
     'Thank you for your order!': 'Thank you for your order!',
     'What can we improve': 'What can we improve',
     'Your account': 'Your account',
-    'Your purchase': 'Your purchase'
+    'Your purchase': 'Your purchase',
+    'Order Number': 'Order Number',
+    'Order Date': 'Order Date',
+    'Order Summary': 'Order Summary',
+    'Order Status': 'Order Status',
+    'Payment Summary': 'Payment Summary',
+    'Shipping Summary': 'Shipping Summary',
+    'Ship To': 'Ship To',
+    'Billing address': 'Billing address',
+    'Status': 'Status',
+    'Payment method': 'Payment method',
+    'Same As Shipping Address': 'Same As Shipping Address',
+    'Shipping Method': 'Shipping Method',
+    'A confirmation has been sent to': 'A confirmation has been sent to',
+    'payment status fullyPaid': 'Paid',
+    'payment status overpaid': 'Overpaid',
+    'payment status partlyPaid': 'Partially paid',
+    'payment status prepaid': 'Prepaid',
+    'payment status unpaid': 'Not paid'
   },
   // TopBar
   'TopBar': {
@@ -376,7 +436,9 @@ export default {
   },
   //VsfShippingProvider
   'VsfShippingProvider': {
-    'Shipping method': 'Shipping method'
+    'Shipping method': 'Shipping method',
+    'ShowDataPrivacyAgreementHint': 'I agree that my email address and my phone number will be transmitted to {parcelServiceInformation}, so that they can contact me via email or phone in order to determine a delivery date or to communicate status information about the delivery of the shipment. I can revoke this agreement at any time.',
+    'Free': 'Free',
   },
   // WishlistSidebar
   'WishlistSidebar': {
@@ -386,4 +448,14 @@ export default {
     'Wishlist sidebar close button': 'Wishlist sidebar close button',
     'Your bag is empty': 'Your bag is empty'
   },
+  //Checkoutreadonly
+  'Checkoutreadonly': {
+    'Review your order': 'Review your order',
+    'Invoice to': 'Invoice to',
+    'Shipping to': 'Shipping to',
+    'No payment method selected': 'No payment method selected',
+    'No shipping method selected': 'No shipping method selected'
+  }
 };
+
+module.exports = en;

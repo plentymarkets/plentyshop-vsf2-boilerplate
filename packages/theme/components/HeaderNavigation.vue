@@ -5,9 +5,9 @@
         v-for="(category, index) in categoryTree"
         :key="index"
         class="nav-item"
-        :data-e2e="`app-header-url_${categoryGetters.getSlug(category)}`"
-        :label="categoryGetters.getLabel(category)"
-        :link="localePath(`/c/${categoryGetters.getSlug(category)}`)"
+        :data-e2e="`app-header-url_${categoryTreeGetters.getSlug(category)}`"
+        :label="categoryTreeGetters.getLabel(category)"
+        :link="localePath(`/c/${categoryTreeGetters.getSlug(category)}`)"
       />
     </div>
     <SfModal
@@ -18,11 +18,11 @@
         v-for="(category, index) in categoryTree"
         :key="index"
         class="nav-item"
-        :data-e2e="`app-header-url_${categoryGetters.getSlug(category)}`"
+        :data-e2e="`app-header-url_${categoryTreeGetters.getSlug(category)}`"
       >
         <template #mobile-navigation-item>
           <SfMenuItem
-            :label="categoryGetters.getLabel(category)"
+            :label="categoryTreeGetters.getLabel(category)"
             class="sf-header-navigation-item__menu-item"
             @click="routeToCategory(category)"
           />
@@ -35,7 +35,7 @@
 <script>
 import { SfMenuItem, SfModal } from '@storefront-ui/vue';
 import { useUiState } from '~/composables';
-import { categoryGetters, useCategory } from '@vue-storefront/plentymarkets';
+import { categoryTreeGetters, useCategory } from '@vue-storefront/plentymarkets';
 import { onSSR } from '@vue-storefront/core';
 import { computed, useRouter } from '@nuxtjs/composition-api';
 
@@ -56,7 +56,7 @@ export default {
     const router = useRouter();
     // eslint-disable-next-line prefer-const
     const { categories, search, loading } = useCategory('categories');
-    const categoryTree = computed(() => loading && categories.value.map((cat) => categoryGetters.getTree(cat)));
+    const categoryTree = computed(() => loading && categories.value.map((cat) => categoryTreeGetters.getTree(cat)));
 
     onSSR(async () => {
       await search();
@@ -67,7 +67,7 @@ export default {
     };
 
     return {
-      categoryGetters,
+      categoryTreeGetters,
       categoryTree,
       isMobileMenuOpen,
       toggleMobileMenu,

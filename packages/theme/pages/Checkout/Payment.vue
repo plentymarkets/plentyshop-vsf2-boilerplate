@@ -1,9 +1,12 @@
 <template>
   <div>
-    <VsfShippingProvider class="spacer" />
+    <VsfShippingProvider
+      class="spacer"
+      @shippingPrivacyHintAccepted="shippingPrivacyHintAccepted = $event"
+    />
     <VsfPaymentProvider
       class="spacer"
-      @status="isPaymentReady = true"
+      @status="selectionChangedPaymentProvider"
     />
     <SfTable class="sf-table--bordered table">
       <SfTableHeading class="table__row">
@@ -82,7 +85,7 @@
           class="summary__action"
         >
           <SfButton
-            :disabled="loading || !isPaymentReady || !terms"
+            :disabled="loading || !terms"
             class="summary__action-button"
             @click="processOrder"
           >
@@ -107,6 +110,7 @@ import { onSSR } from '@vue-storefront/core';
 import { ref, computed, useRouter } from '@nuxtjs/composition-api';
 import { useMakeOrder, useCart, cartGetters, orderGetters, useShippingProvider, usePaymentProvider } from '@vue-storefront/plentymarkets';
 import { addBasePath } from '@vue-storefront/core';
+import { v4 as uuid } from 'uuid';
 
 export default {
   name: 'ReviewOrder',
@@ -127,9 +131,12 @@ export default {
     const { order, make, loading } = useMakeOrder();
     const { load: loadShippingProvider } = useShippingProvider();
     const { load: loadPaymentProviders } = usePaymentProvider();
+    const paypalUuid = uuid();
 
     const isPaymentReady = ref(false);
     const terms = ref(false);
+    const shippingPrivacyHintAccepted = ref(false);
+    const paymentMethodId = ref(0);
 
     onSSR(async () => {
       await load();
@@ -138,16 +145,28 @@ export default {
     });
 
     const processOrder = async () => {
-      const paymentMethodId = cart.value.methodOfPaymentId;
+      await make({
+        paymentId: paymentMethodId.value,
+        shippingPrivacyHintAccepted: shippingPrivacyHintAccepted.value
+      });
 
-      await make({paymentId: paymentMethodId});
-      const thankYouPath = { name: 'thank-you', query: { order: orderGetters.getId(order.value) }};
+      const thankYouPath = { name: 'thank-you',
+        query: {
+          orderId: orderGetters.getId(order.value),
+          accessKey: orderGetters.getAccessKey(order.value)
+        }};
 
       router.push(context.root.localePath(thankYouPath));
       setCart({items: []});
     };
 
+    const selectionChangedPaymentProvider = (value) => {
+      isPaymentReady.value = true;
+      paymentMethodId.value = parseInt(value);
+    };
+
     return {
+      shippingPrivacyHintAccepted,
       addBasePath,
       router,
       isPaymentReady,
@@ -157,7 +176,10 @@ export default {
       totals: computed(() => cartGetters.getTotals(cart.value)),
       tableHeaders: ['Description', 'Size', 'Color', 'Quantity', 'Amount'],
       cartGetters,
-      processOrder
+      processOrder,
+      paymentMethodId,
+      paypalUuid,
+      selectionChangedPaymentProvider
     };
   }
 };

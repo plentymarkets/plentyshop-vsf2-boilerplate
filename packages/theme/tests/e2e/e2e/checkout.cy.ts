@@ -1,7 +1,7 @@
 import page from '../pages/factory';
 
 context('Order placement', () => {
-  beforeEach(function init () {
+  beforeEach(function init() {
     cy.fixture('customer').then((fixture) => {
       this.fixtures = {
         data: fixture
@@ -9,11 +9,10 @@ context('Order placement', () => {
     });
     page.home.visit();
   });
-  it(['happyPath', 'regression'], 'Should successfully place an order as a guest user', function test () {
+  it(['happyPath', 'regression'], 'Should successfully place an order as a guest user', function test() {
     const data = this.fixtures.data;
     cy.intercept('/api/plentymarkets/addCartItem').as('addCartItem');
     cy.intercept('/api/plentymarkets/additionalInformation').as('additionalInformation');
-    cy.intercept('/api/plentymarkets/deleteCart').as('deleteCart');
     cy.intercept('/api/plentymarkets/executePayment').as('executePayment');
     cy.intercept('/api/plentymarkets/getActiveShippingCountries').as('getActiveShippingCountries');
     cy.intercept('/api/plentymarkets/getFacet').as('getFacet');
@@ -21,7 +20,6 @@ context('Order placement', () => {
     cy.intercept('/api/plentymarkets/getProduct').as('getProduct');
     cy.intercept('/api/plentymarkets/getShippingProvider').as('getShippingProvider');
     cy.intercept('/api/plentymarkets/loadAddresses').as('loadAddresses');
-    cy.intercept('/api/plentymarkets/loginUser').as('loginUser');
     cy.intercept('/api/plentymarkets/placeOrder').as('placeOrder');
     cy.intercept('/api/plentymarkets/preparePayment').as('preparePayment');
     cy.intercept('/api/plentymarkets/saveAddress').as('saveAddress');
@@ -43,7 +41,7 @@ context('Order placement', () => {
     page.cart.goToCheckoutButton.click();
 
     page.checkout.checkoutlogin.continueAsUser(data.customer);
-    cy.wait(['@registerUser', '@loginUser', '@getActiveShippingCountries']);
+    cy.wait(['@registerUser', '@getActiveShippingCountries']);
 
     page.checkout.billing.fillForm(data.customer);
     page.checkout.billing.continueToShipping.click();
@@ -57,12 +55,26 @@ context('Order placement', () => {
     cy.get('[data-e2e*="shipping-method"]').should('exist');
     cy.get('[data-e2e*="payment-method"]').should('exist');
 
-    page.checkout.payment.paymentMethods.first().click();
+    page.checkout.payment.paymentMethods.eq(1).click();
     page.checkout.payment.terms.click();
     page.checkout.payment.makeAnOrderButton.click();
-    cy.wait(['@additionalInformation', '@preparePayment', '@placeOrder', '@executePayment', '@deleteCart']);
+    cy.wait(['@additionalInformation', '@preparePayment', '@placeOrder', '@executePayment']);
 
     page.checkout.thankyou.heading.should('be.visible');
+
+    page.checkout.thankyou.itemsTable.should('be.visible');
+    cy.get('[data-e2e*="order-item-product-name"]').should('be.visible');
+
+    page.checkout.thankyou.orderSummary.should('be.visible');
+    page.checkout.thankyou.paymentSummary.should('be.visible');
+    page.checkout.thankyou.shippingSummary.should('be.visible');
+    page.checkout.thankyou.orderTotals.should('be.visible');
+
+    cy.get('head meta[name="robots"]').should(
+      'have.attr',
+      'content',
+      'noindex'
+    );
 
     // TODO: #40624
     // cy.reload()
@@ -70,3 +82,37 @@ context('Order placement', () => {
     // Assert that cart is empty
   });
 });
+
+context('Check Thank You Page', () => {
+  beforeEach(function init() {
+    cy.fixture('order').then((fixture) => {
+      this.fixtures = {
+        data: fixture
+      };
+    });
+  });
+  it(['happyPath', 'regression'], 'Should successfully see order items data in thank you page', function test() {
+    cy.intercept('/api/plentymarkets/getOrder', { fixture: 'order.json' }).as('getOrder');
+
+    page.checkout.thankyou.visit('', '', '');
+
+    cy.wait('@getOrder');
+
+    page.checkout.thankyou.itemsTable.should('be.visible');
+    cy.get('[data-e2e*="order-item-product-name"]').should('be.visible');
+
+    page.checkout.thankyou.documentsList.should('be.visible');
+    page.checkout.thankyou.orderSummary.should('be.visible');
+    page.checkout.thankyou.paymentSummary.should('be.visible');
+    page.checkout.thankyou.shippingSummary.should('be.visible');
+    page.checkout.thankyou.orderTotals.should('be.visible');
+
+    cy.get('head meta[name="robots"]').should(
+      'have.attr',
+      'content',
+      'noindex'
+    );
+  });
+});
+
+

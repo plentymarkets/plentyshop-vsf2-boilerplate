@@ -1,4 +1,10 @@
-import { Cart, ShippingMethod, ShippingProvider, ShippingProviderGetters } from '@vue-storefront/plentymarkets-api';
+import {
+  Cart,
+  ShippingMethod,
+  ShippingPrivacyInformation,
+  ShippingProvider,
+  ShippingProviderGetters
+} from '@vue-storefront/plentymarkets-api';
 
 function getShippingProviders(shippingProvider: ShippingProvider): ShippingMethod[] {
   return shippingProvider?.list ?? [];
@@ -6,6 +12,20 @@ function getShippingProviders(shippingProvider: ShippingProvider): ShippingMetho
 
 function getShippingMethodName(shippingMethod: ShippingMethod): string {
   return `${shippingMethod?.parcelServiceName} - ${shippingMethod?.parcelServicePresetName}`;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getShippingMethodImage(shippingMethod: ShippingMethod): string {
+  // TODO: Shipping method should contain brand image!
+  return 'https://placehold.co/60x60';
+}
+
+function getShippingPrivacyInformation(shippingMethod: ShippingMethod): ShippingPrivacyInformation {
+  return shippingMethod?.shippingPrivacyInformation[0];
+}
+
+function getDataPrivacyAgreementHint(shippingMethod: ShippingMethod): boolean {
+  return shippingMethod?.shippingPrivacyInformation[0]?.showDataPrivacyAgreementHint;
 }
 
 function getShippingAmount(shippingMethod: ShippingMethod): string {
@@ -26,6 +46,9 @@ function getShippingProfileId(cart: Cart): string {
 
 export const shippingProviderGetters: ShippingProviderGetters = {
   getShippingMethodName,
+  getShippingMethodImage,
+  getShippingPrivacyInformation,
+  getDataPrivacyAgreementHint,
   getShippingAmount,
   getShippingProviders,
   getParcelServicePresetId,
