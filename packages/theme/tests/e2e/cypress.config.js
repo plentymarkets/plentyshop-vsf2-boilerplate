@@ -5,9 +5,11 @@ require('dotenv').config();
 
 module.exports = defineConfig({
   fixturesFolder: 'tests/e2e/fixtures',
+  chromeWebSecurity: false,
   viewportHeight: 1080,
   viewportWidth: 1920,
   pageLoadTimeout: 180000,
+  requestTimeout: 15000,
   screenshotOnRunFailure: true,
   screenshotsFolder: 'tests/e2e/report/assets/screenshots',
   video: false,
@@ -38,6 +40,8 @@ module.exports = defineConfig({
 
   env: {
     CYPRESS_DEFAULT_ACCOUNT_EMAIL: process.env.CYPRESS_DEFAULT_ACCOUNT_EMAIL,
-    CYPRESS_DEFAULT_ACCOUNT_PASSWORD: process.env.CYPRESS_DEFAULT_ACCOUNT_PASSWORD
+    CYPRESS_DEFAULT_ACCOUNT_PASSWORD: process.env.CYPRESS_DEFAULT_ACCOUNT_PASSWORD,
+    PAYPAL_EMAIL: process.env.PAYPAL_EMAIL,
+    PAYPAL_PASSWORD: process.env.PAYPAL_PASSWORD
   }
 });

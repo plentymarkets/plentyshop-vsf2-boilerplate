@@ -18,7 +18,7 @@
     "test": "jest",
     "test:e2e": "cypress open --config-file tests/e2e/cypress.config.js",
     "test:e2e:generate:report": "yarn -s mochawesome-merge \"tests/e2e/report/*.json\" > \"tests/e2e/report.json\" && yarn -s marge tests/e2e/report.json -o \"tests/e2e/report\"",
-    "test:e2e:hl": "cypress run --headless --config-file tests/e2e/cypress.config.js",
+    "test:e2e:hl": "cypress run --browser chrome --headless --config-file tests/e2e/cypress.config.js",
     "update:check": "ncu",
     "update:update": "ncu -u",
     "dev-debug": "node --inspect node_modules/.bin/nuxt"

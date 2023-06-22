@@ -10,8 +10,7 @@ const hasCartProducts = (): void => {
 
 context('Cart', () => {
   beforeEach(function init () {
-    Cypress.Cookies.debug(true);
-    cy.setCookie("vsf-locale", "en");
+    cy.setLocaleCookie('en');
 
     page.home.visit();
     page.home.addCartItem(1100, 1);
