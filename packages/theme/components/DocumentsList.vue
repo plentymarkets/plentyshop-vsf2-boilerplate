@@ -7,7 +7,7 @@
     <SfButton
       v-for="(document, key) in documents"
       :key="key"
-      target=”_blank” 
+      target="”_blank”"
       :link="getDocumentLink(document)"
       class="sf-button--full-width color-primary mb-2"
     >
@@ -18,7 +18,7 @@
 
 <script>
 import { SfButton } from '@storefront-ui/vue';
-import { useContext, computed } from '@nuxtjs/composition-api';
+import { useContext } from '@nuxtjs/composition-api';
 import { orderGetters } from '@vue-storefront/plentymarkets';
 
 export default {
@@ -35,7 +35,7 @@ export default {
     }
   },
 
-  setup(props, {emit}) {
+  setup(props) {
     const { app } = useContext();
 
     // disable eslint this mapping cant use camelcase
