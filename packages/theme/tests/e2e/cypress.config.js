@@ -41,7 +41,7 @@ module.exports = defineConfig({
   env: {
     CYPRESS_DEFAULT_ACCOUNT_EMAIL: process.env.CYPRESS_DEFAULT_ACCOUNT_EMAIL,
     CYPRESS_DEFAULT_ACCOUNT_PASSWORD: process.env.CYPRESS_DEFAULT_ACCOUNT_PASSWORD,
-    PAYPAL_EMAIL: 'sb-fiqc015598959@personal.example.com',
-    PAYPAL_PASSWORD: 'CA2Oo&y7'
+    PAYPAL_EMAIL: process.env.PAYPAL_EMAIL,
+    PAYPAL_PASSWORD: process.env.PAYPAL_PASSWORD
   }
 });
