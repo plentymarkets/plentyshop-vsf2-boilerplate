@@ -10,7 +10,6 @@ module.exports = defineConfig({
   viewportWidth: 1920,
   pageLoadTimeout: 180000,
   requestTimeout: 15000,
-  responseTimeout: 30000,
   screenshotOnRunFailure: true,
   screenshotsFolder: 'tests/e2e/report/assets/screenshots',
   video: false,

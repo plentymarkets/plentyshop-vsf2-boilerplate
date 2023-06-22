@@ -33,7 +33,6 @@ context('PayPal buttons rendering', () => {
 
 context('PayPal express checkout', () => {
   beforeEach(function init() {
-    Cypress.Cookies.debug(true);
     cy.setConsentCookie();
 
     page.home.visit();
