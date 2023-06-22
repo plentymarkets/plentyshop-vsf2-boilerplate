@@ -97,7 +97,7 @@
             v-if="paymentMethodId === paypalPaymentId"
             :value="{type: 'Checkout'}"
             :disabled="loading || !terms"
-            class="m"
+            class="min-w-full"
           />
         </div>
       </div>

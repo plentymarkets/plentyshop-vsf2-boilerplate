@@ -12,5 +12,7 @@ declare namespace Cypress {
     paypalFlow(email: string, password: string);
     paypalPrice(): any;
     paypalComplete(): void;
+    setConsentCookie(): void;
+    setLocaleCookie(locale: string): void;
   }
 }

@@ -49,7 +49,7 @@ Cypress.Commands.add('paypalFlow', (email, password) => {
   // Click on the PayPal button inside PayPal's iframe
   cy.get('iframe').iframe().find('div[data-funding-source="paypal"]').click()
   // It will first inject a loader, wait until it changes to the real content
-  cy.wait('@createOrder', {timeout: 100000});
+  cy.wait('@createOrder');
 
   cy
     .popup()
@@ -71,6 +71,7 @@ Cypress.Commands.add('paypalFlow', (email, password) => {
           .find('button:visible')
           .first()
           .click()
+        cy.wait(1500);
         cy.popup()
           .find('input#password')
           .clear()

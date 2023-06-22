@@ -5,6 +5,10 @@ const PAYPAL_PASSWORD = 'CA2Oo&y7';
 
 context('PayPal buttons rendering', () => {
   beforeEach(function init() {
+    cy.setConsentCookie();
+  });
+
+  it(['happyPath', 'regression'], 'Single item page', function test() {
     cy.intercept('/api/plentymarkets/getFacet').as('getFacet');
     cy.intercept('/api/plentymarkets/getProduct').as('getProduct');
 
@@ -14,18 +18,14 @@ context('PayPal buttons rendering', () => {
 
     page.category.products.first().click();
     cy.wait('@getProduct');
-  });
 
-  it(['happyPath', 'regression'], 'Single item page', function test() {
     cy.get('[data-e2e="paypal-button"]').should('exist');
   });
 
   it(['happyPath', 'regression'], 'Cart preview', function test() {
-    cy.intercept('/api/plentymarkets/addCartItem').as('addCartItem');
-    page.product.addToCartButton.click();
-    cy.wait('@addCartItem');
+    page.home.visit();
+    page.home.addCartItem(1100, 1);
 
-    cy.get('[data-e2e*="app-header"]').eq(1).find('a').click();
     page.product.header.openCart();
     cy.get('[data-e2e="paypal-button"]').should('exist');
   });
@@ -33,15 +33,13 @@ context('PayPal buttons rendering', () => {
 
 context('PayPal express checkout', () => {
   beforeEach(function init() {
-    cy.intercept('/api/plentymarkets/getFacet').as('getFacet');
-    cy.intercept('/api/plentymarkets/getProduct').as('getProduct');
+    Cypress.Cookies.debug(true);
+    cy.setConsentCookie();
 
     page.home.visit();
-    cy.get('[data-e2e*="app-header"]').eq(1).find('a').click();
-    cy.wait('@getFacet');
+    page.home.addCartItem(1100, 1);
 
-    page.category.products.first().click();
-    cy.wait('@getProduct');
+    page.product.header.openCart();
   });
 
 
@@ -56,18 +54,17 @@ context('PayPal express checkout', () => {
     cy.intercept('/api/plentymarkets/placeOrder').as('placeOrder');
     cy.intercept('/api/plentymarkets/executePayment').as('executePayment');
     cy.intercept('/api/plentymarkets/executePayPalOrder').as('executePayPalOrder');
+    cy.intercept('/api/plentymarkets/getOrder').as('getOrder');
 
     cy.paypalFlow(PAYPAL_EMAIL, PAYPAL_PASSWORD)
     cy.paypalComplete()
 
-    cy.wait(['@loadAddresses', '@getActiveShippingCountries', '@getPaymentProviders', '@getShippingProvider'], {
-      timeout: 20000
-    });
+    cy.wait(['@loadAddresses', '@getActiveShippingCountries', '@getPaymentProviders', '@getShippingProvider']);
 
     page.checkout.checkoutReadyOnly.terms.click();
     page.checkout.checkoutReadyOnly.makeOrderButton.click();
 
-    cy.wait(['@additionalInformation', '@preparePayment', '@placeOrder', '@executePayment', '@executePayPalOrder']);
+    cy.wait(['@additionalInformation', '@preparePayment', '@placeOrder', '@executePayment', '@executePayPalOrder', '@getOrder']);
 
     page.checkout.thankyou.heading.should('be.visible');
 
