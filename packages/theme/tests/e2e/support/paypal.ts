@@ -23,7 +23,6 @@ Cypress.Commands.add('capturePopup', () => {
     cy
       .stub(win, 'open')
       .callsFake((...params) => {
-        // Capture the reference to the popup
         state.popup = open(...params)
         return state.popup
       })
@@ -44,7 +43,6 @@ Cypress.Commands.add('popup', (): any => {
 Cypress.Commands.add('paypalFlow', (email, password) => {
   cy.intercept('/api/plentymarkets/createOrder').as('createOrder');
 
-  // Enable popup capture
   cy.capturePopup()
   cy.get('iframe').iframe().find('div[data-funding-source="paypal"]').click()
   // It will first inject a loader, wait until it changes to the real content

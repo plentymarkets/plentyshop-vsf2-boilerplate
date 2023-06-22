@@ -146,7 +146,7 @@ export default {
     const shippingPrivacyHintAccepted = ref(false);
     const paymentMethodId = ref(0);
 
-    const paypalPaymentId = paypalGetters.getPaymentId() ?? -1;
+    const paypalPaymentId = paypalGetters.getPaymentId();
 
     onSSR(async () => {
       await load();

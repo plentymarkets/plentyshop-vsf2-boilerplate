@@ -1,5 +1,6 @@
 import { Customer } from '../types/customer';
 import { el, uniquePlentyMarketsEmail } from './utils/element';
+import page from "~/tests/e2e/pages/factory";
 
 class Checkout {
   protected step: string;
@@ -189,7 +190,25 @@ class ThankYou {
   }
 
   visit(orderId, accesskey, postcode): Cypress.Chainable {
-  return cy.visit('/checkout/thank-you?orderId=' + orderId + '&orderAccessKey=' + accesskey + '&postcode=' + postcode);
+    return cy.visit('/checkout/thank-you?orderId=' + orderId + '&orderAccessKey=' + accesskey + '&postcode=' + postcode);
+  }
+
+  validate() {
+    this.heading.should('be.visible');
+
+    this.itemsTable.should('be.visible');
+    cy.get('[data-e2e*="order-item-product-name"]').should('be.visible');
+
+    this.orderSummary.should('be.visible');
+    this.paymentSummary.should('be.visible');
+    this.shippingSummary.should('be.visible');
+    this.orderTotals.should('be.visible');
+
+    cy.get('head meta[name="robots"]').should(
+      'have.attr',
+      'content',
+      'noindex'
+    );
   }
 }
 
