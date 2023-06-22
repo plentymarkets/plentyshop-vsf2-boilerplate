@@ -10,7 +10,7 @@ const hasCartProducts = (): void => {
 
 context('Cart', () => {
   beforeEach(function init () {
-    page.home.setDefaultCookies();
+    cy.setLocaleCookie('en');
 
     page.home.visit();
     
