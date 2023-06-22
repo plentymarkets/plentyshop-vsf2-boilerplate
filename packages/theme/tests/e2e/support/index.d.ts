@@ -6,11 +6,11 @@ declare namespace Cypress {
   interface Chainable {
     fixtures?: any;
     login(email: string, password: string, isRememberChecked?: boolean): void;
-    iframe(): unknown;
+    iframe(): any;
     capturePopup(): void;
-    popup(): unknown;
+    popup(): any;
     paypalFlow(email: string, password: string): void;
-    paypalPrice(): unknown;
+    paypalPrice(): any;
     paypalComplete(): void;
     setConsentCookie(): void;
     setLocaleCookie(locale: string): void;
