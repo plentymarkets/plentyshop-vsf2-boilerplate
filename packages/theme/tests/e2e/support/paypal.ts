@@ -2,11 +2,14 @@
  * Returns an iframe content
  */
 Cypress.Commands.add('iframe', { prevSubject: 'element' }, $iframe => {
-  return new Cypress.Promise(resolve => {
+  const data = new Cypress.Promise(resolve => {
     $iframe.ready(function () {
       resolve($iframe.contents().find('body'));
     });
   });
+
+  console.log('iframe_type', typeof(data), data);
+  return data;
 });
 
 // Used to keep the reference to the popup window
@@ -40,7 +43,7 @@ Cypress.Commands.add('popup', (): any => {
 /**
  * Clicks on PayPal button and signs in
  */
-Cypress.Commands.add('paypalFlow', (email, password) => {
+Cypress.Commands.add('paypalFlow', (email: string, password: string) => {
   cy.intercept('/api/plentymarkets/createOrder').as('createOrder');
 
   cy.capturePopup()
@@ -56,26 +59,23 @@ Cypress.Commands.add('paypalFlow', (email, password) => {
   cy
     .popup()
     .then($body => {
-      if ($body.find('input#email').length) {
-        cy
-          .popup()
-          .find('input#email')
-          .clear()
-          .type(email)
-        // Click on the button in case it's a 2-step flow
-        cy.popup()
-          .find('button:visible')
-          .first()
-          .click()
-        cy.wait(1500);
-        cy.popup()
-          .find('input#password')
-          .clear()
-          .type(password)
-        cy.popup()
-          .find('button#btnLogin')
-          .click()
-      }
+      cy
+        .popup()
+        .find('input#email')
+        .clear()
+        .type(email)
+      cy.popup()
+        .find('button:visible')
+        .first()
+        .click()
+      cy.wait(1500);
+      cy.popup()
+        .find('input#password')
+        .clear()
+        .type(password)
+      cy.popup()
+        .find('button#btnLogin')
+        .click()
     })
   cy
     .popup()
