@@ -258,7 +258,6 @@ export type CreateOrderResponse = {
 }
 
 export type GetOrdersResponse = {
-  events: TODO[],
   data: PaginatedResult<Order>
 }
 

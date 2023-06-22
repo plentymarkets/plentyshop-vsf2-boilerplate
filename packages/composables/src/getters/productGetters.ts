@@ -79,12 +79,12 @@ function getFiltered(products: Product[], filters: ProductFilter): Product[] {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function getAttributes(products: Product[] | Product, filterByAttributeName?: string[]): Record<string, AgnosticAttribute | string> {
-  const isSingleProduct = !Array.isArray(products);
-  const productList = isSingleProduct ? [products] : products;
+function getAttributes(products: Product[], filterByAttributeName?: string[]): Record<string, AgnosticAttribute | string> {
+  // const isSingleProduct = !Array.isArray(products);
+  // const productList = isSingleProduct ? [products] : products;
   const attributes = {};
 
-  productList.forEach(product => {
+  products.forEach(product => {
     product.variationAttributeMap?.attributes.forEach(attribute => {
       attribute.values.forEach(attributeValue => {
         if (!attributes[attribute.attributeId]) {
@@ -103,12 +103,12 @@ function getAttributes(products: Product[] | Product, filterByAttributeName?: st
   return attributes;
 }
 
-function getUnits(products: Product[] | Product): Record<number, string> {
-  const isSingleProduct = !Array.isArray(products);
-  const productList = isSingleProduct ? [products] : products;
+function getUnits(products: Product[]): Record<number, string> {
+  // const isSingleProduct = !Array.isArray(products);
+  // const productList = isSingleProduct ? [products] : products;
   const units = {};
 
-  productList.forEach(product => {
+  products.forEach(product => {
     if (product.variationAttributeMap?.variations) {
       for (const variation of product.variationAttributeMap.variations) {
         units[variation.unitCombinationId] = variation.unitName;

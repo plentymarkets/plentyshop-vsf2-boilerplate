@@ -39,7 +39,7 @@
         {{ paymentMethodName }}
       </div>
       <div class="font-light">
-        {{ $t('ThankYou.Status') }}: {{ paymentStatus }}
+        {{ $t('ThankYou.Status') }}: {{ $t('ThankYou.payment status ' + paymentStatus) }}
       </div>
     </div>
   </div>

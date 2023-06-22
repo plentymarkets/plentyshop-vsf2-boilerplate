@@ -24,6 +24,7 @@ export { useAddressForm } from './useAddressForm';
 export { useLegalInformation } from './useLegalInformation';
 export { useLocaleSwitchHelper } from './useLocaleSwitchHelper';
 export { useNewsletter } from './useNewsletter';
+export { usePayPal } from './usePayPal';
 
 // Getters
 export { cartGetters } from './getters/cartGetters';
@@ -42,6 +43,7 @@ export { userShippingGetters } from './getters/userShippingGetters';
 export { wishlistGetters } from './getters/wishlistGetters';
 export { shippingProviderGetters } from './getters/shippingProviderGetters';
 export { paymentProviderGetters } from './getters/paymentProviderGetters';
+export { paypalGetters } from './getters/paypalGetters';
 export { userAddressGetters } from './getters/userAddressGetters';
 export { countryGetters } from './getters/countryGetters';
 export { cookieBarGetters } from './getters/cookieBarGetters';

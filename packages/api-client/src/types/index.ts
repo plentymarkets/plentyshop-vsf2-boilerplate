@@ -13,6 +13,7 @@ export * from './itemSearch';
 export * from './legal';
 export * from './order';
 export * from './payment';
+export * from './paypal';
 export * from './product';
 export * from './register';
 export * from './review';

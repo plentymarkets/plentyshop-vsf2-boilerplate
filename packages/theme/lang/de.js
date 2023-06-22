@@ -323,7 +323,8 @@ const de = {
     'Item': 'Artikel',
     'I agree to': 'Ich stimme folgenden Bedingungen zu',
     'Terms and conditions': 'Allgemeinen Geschäftsbedingungen',
-    'Make an order': 'Bestellung aufgeben'
+    'Make an order': 'Bestellung aufgeben',
+    'Cancel Order': 'Bestellung stornieren'
   },
   // PsfMyProfile
   'PsfMyProfile': {
@@ -414,7 +415,12 @@ const de = {
     'Payment method': 'Zahlungsart',
     'Same As Shipping Address': 'Entspricht Lieferadresse',
     'Shipping Method': 'Versandart',
-    'A confirmation has been sent to': 'Eine Bestätigung wurde geschickt an'
+    'A confirmation has been sent to': 'Eine Bestätigung wurde geschickt an',
+    'payment status fullyPaid': 'Bezahlt',
+    'payment status overpaid': 'Überzahlt',
+    'payment status partlyPaid': 'Teilweise bezahlt',
+    'payment status prepaid': 'Im Voraus bezahlt',
+    'payment status unpaid': 'Nicht bezahlt'
   },
   // TopBar
   'TopBar': {
@@ -438,7 +444,15 @@ const de = {
     'My wishlist': 'Meine Wunschliste',
     'Start shopping': '@:App.startShopping',
     'Wishlist sidebar close button': 'Schaltfläche zum Schließen der Wunschliste',
-    'Your bag is empty': 'Ihre Tasche ist leer',
+    'Your bag is empty': 'Ihre Tasche ist leer'
+  },
+  //Checkoutreadonly
+  'Checkoutreadonly': {
+    'Review your order': 'Bestellung prüfen',
+    'Invoice to': 'Rechnung an',
+    'Shipping to': 'Versand nach',
+    'No payment method selected': 'Keine Zahlungsmethode ausgewählt',
+    'No shipping method selected': 'Keine Versandart ausgewählt'
   }
 }
 

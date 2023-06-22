@@ -1,7 +1,10 @@
 import webpack from 'webpack';
 import theme from './themeConfig';
+
 import cookieGroups from './cookieConfig';
 const { integrations } = require('./middleware.config');
+import i18nConfig from './i18n.config';
+import integrationConfig from './integration.config';
 
 const appPort = process.env.PORT || 80;
 const appIP = 'localhost';
@@ -85,44 +88,7 @@ const config = {
     '@vue-storefront/middleware/nuxt'
   ],
 
-  i18n: {
-    currency: 'USD',
-    country: 'US',
-    countries: [
-      {name: 'US', label: 'United States', states: ['California', 'Nevada']},
-      {name: 'AT', label: 'Austria'},
-      {name: 'DE', label: 'Germany'},
-      {name: 'NL', label: 'Netherlands'}
-    ],
-    currencies: [
-      {name: 'EUR', label: 'Euro'},
-      {name: 'USD', label: 'Dollar'}
-    ],
-    locales: [
-      {code: 'en', label: 'English', file: 'en.js', iso: 'en'},
-      {code: 'de', label: 'German', file: 'de.js', iso: 'de'}
-    ],
-    defaultLocale: 'en',
-    lazy: true,
-    seo: true,
-    langDir: 'lang/',
-    vueI18n: {
-      fallbackLocale: 'en',
-      numberFormats: {
-        en: {
-          currency: {
-            style: 'currency', currency: 'USD', currencyDisplay: 'symbol'
-          }
-        },
-        de: {
-          currency: {
-            style: 'currency', currency: 'EUR', currencyDisplay: 'symbol'
-          }
-        }
-      }
-    },
-    detectBrowserLanguage: false
-  },
+  i18n: i18nConfig,
 
   styleResources: {
     scss: [require.resolve('@storefront-ui/shared/styles/_helpers.scss', {paths: [process.cwd()]})]
@@ -180,7 +146,9 @@ const config = {
     middlewareUrl: process.env.MIDDLEWARE_URL || `http://${appIP}:${appPort}/api/`,
     theme,
     apiUrl: integrations.plentymarkets.configuration.api.url,
-    cookieGroups: cookieGroups
+    cookieGroups: cookieGroups,
+    fallbackCurrency: i18nConfig.currency,
+    integrationConfig
   },
 
   googleFonts: {

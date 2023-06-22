@@ -1,6 +1,7 @@
 import { UserShippingAddressSearchCriteria } from './todo';
 import { AfterBasketChanged, CheckoutChanged } from './events';
 import { CustomQuery } from '@vue-storefront/core';
+import { Country } from './country';
 export enum AddressType {
     Billing = 1,
     Shipping = 2
@@ -103,6 +104,8 @@ export interface UserAddressGetters {
     getAddressWithoutId(address: Address): Address;
     getCountryId(address: Address): string;
     getStateId(address: Address): string;
+    getCountryName(address: Address, countries: Country[]): string;
+    getStateName(address: Address, countries: Country[]):string;
 }
 
 export interface BillingAddressDetailsParams {
