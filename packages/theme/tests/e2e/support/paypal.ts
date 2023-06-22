@@ -46,7 +46,6 @@ Cypress.Commands.add('paypalFlow', (email, password) => {
 
   // Enable popup capture
   cy.capturePopup()
-  // Click on the PayPal button inside PayPal's iframe
   cy.get('iframe').iframe().find('div[data-funding-source="paypal"]').click()
   // It will first inject a loader, wait until it changes to the real content
   cy.wait('@createOrder');
@@ -59,7 +58,6 @@ Cypress.Commands.add('paypalFlow', (email, password) => {
   cy
     .popup()
     .then($body => {
-      // Check if we need to sign in
       if ($body.find('input#email').length) {
         cy
           .popup()
