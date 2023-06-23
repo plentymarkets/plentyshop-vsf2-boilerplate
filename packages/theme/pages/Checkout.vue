@@ -55,11 +55,12 @@ export default {
     const currentStep = computed(() => route.value.path.split('/').pop());
     const currentStepIndex = computed(() => Object.keys(STEPS).findIndex(s => s === currentStep.value));
     const isThankYou = computed(() => currentStep.value === 'thank-you');
+    const { app } = useContext();
 
     const handleStepClick = (stepIndex) => {
       const key = Object.keys(STEPS)[stepIndex];
 
-      router.push(context.root.localePath(key));
+      router.push(app.localePath(key));
     };
 
     return {

@@ -107,7 +107,7 @@ import {
   SfLink
 } from '@storefront-ui/vue';
 import { onSSR } from '@vue-storefront/core';
-import { ref, computed, useRouter } from '@nuxtjs/composition-api';
+import { ref, computed, useRouter, useContext } from '@nuxtjs/composition-api';
 import { useMakeOrder, useCart, cartGetters, orderGetters, useShippingProvider, usePaymentProvider } from '@vue-storefront/plentymarkets';
 import { addBasePath } from '@vue-storefront/core';
 import { v4 as uuid } from 'uuid';
@@ -137,6 +137,7 @@ export default {
     const terms = ref(false);
     const shippingPrivacyHintAccepted = ref(false);
     const paymentMethodId = ref(0);
+    const { app } = useContext();
 
     onSSR(async () => {
       await load();
@@ -156,7 +157,7 @@ export default {
           accessKey: orderGetters.getAccessKey(order.value)
         }};
 
-      router.push(context.root.localePath(thankYouPath));
+      router.push(app.localePath(thankYouPath));
       setCart({items: []});
     };
 

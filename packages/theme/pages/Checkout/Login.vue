@@ -37,7 +37,7 @@
   </div>
 </template>
 <script>
-import { useRouter, watch, ref } from '@nuxtjs/composition-api';
+import { useRouter, watch, ref, useContext } from '@nuxtjs/composition-api';
 import { SfButton } from '@storefront-ui/vue';
 import { useUiState } from '~/composables';
 import { useUser } from '@vue-storefront/plentymarkets';
@@ -65,7 +65,7 @@ export default {
 
     watch(isAuthenticated, () => {
       if (isAuthenticated) {
-        router.push(root.localePath('billing'));
+        router.push(app.localePath('billing'));
       }
     });
 
@@ -82,10 +82,12 @@ export default {
         await register({ user });
 
         if (isAuthenticated) {
-          router.push(root.localePath('billing'));
+          router.push(app.localePath('billing'));
         }
       }
     };
+
+    const { app } = useContext();
 
     return {
       user,

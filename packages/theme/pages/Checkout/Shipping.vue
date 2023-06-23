@@ -59,7 +59,7 @@
 <script>
 import { onSSR } from '@vue-storefront/core';
 import { SfButton, SfCheckbox, SfHeading, SfLoader } from '@storefront-ui/vue';
-import { ref, useRouter, computed, watch } from '@nuxtjs/composition-api';
+import { ref, useRouter, computed, watch, useContext } from '@nuxtjs/composition-api';
 import {
   useActiveShippingCountries,
   useUserShipping,
@@ -104,7 +104,7 @@ export default {
 
     const saveAddress = async (address) => {
       await addAddress(address);
-      router.push(root.localePath({name: 'payment'}));
+      router.push(app.localePath({name: 'payment'}));
     };
 
     watch(sameAsBilling, async () => {
@@ -120,7 +120,7 @@ export default {
 
         if (valid) {
           await saveAddress({address: sameAsBillingForm.value });
-          router.push(root.localePath({name: 'payment' }));
+          router.push(app.localePath({name: 'payment' }));
         }
         return;
       }
@@ -128,9 +128,11 @@ export default {
       if (refs.CheckoutAddressDetailsRef.isFormOpen) {
         refs.CheckoutAddressDetailsRef.submit();
       } else {
-        router.push(root.localePath({name: 'payment' }));
+        router.push(app.localePath({name: 'payment' }));
       }
     };
+
+    const { app } = useContext();
 
     return {
       shippingAddresses,
