@@ -50,13 +50,12 @@
           >
             <SfTableData class="products__name">
               <nuxt-link
-                :to="
-                  localePath(
-                    orderGetters.getOrderItemLink(
-                      currentOrder,
-                      item.itemVariationId
-                    )
+                :to="localePath(
+                  orderGetters.getOrderItemLink(
+                    currentOrder,
+                    item.itemVariationId
                   )
+                )
                 "
               >
                 {{ orderGetters.getItemName(item) }}
@@ -110,6 +109,12 @@
         >
           {{ $t('OrderHistory.Return items') }}
         </SfButton>
+        <DocumentsList
+          v-if="currentOrder.order.documents"
+          class="mt-5"
+          :access-key="currentOrder.order.accessKey"
+          :documents="currentOrder.order.documents"
+        />
       </div>
       <div v-else>
         <p class="message">
@@ -199,11 +204,11 @@ import {
   SfPagination
 } from '@storefront-ui/vue';
 import LazyHydrate from 'vue-lazy-hydration';
-import { computed, ref, watch, getCurrentInstance, useContext, useRouter} from '@nuxtjs/composition-api';
+import { computed, ref, watch, getCurrentInstance, useContext, useRouter } from '@nuxtjs/composition-api';
 import { useUserOrder, orderGetters, paginationGetters, useMakeReturn } from '@vue-storefront/plentymarkets';
 import { AgnosticOrderStatus, onSSR } from '@vue-storefront/core';
 import { useUiNotification } from '~/composables';
-
+import DocumentsList from '~/components/DocumentsList.vue';
 export default {
   name: 'PersonalDetails',
   components: {
@@ -212,7 +217,8 @@ export default {
     SfButton,
     SfProperty,
     LazyHydrate,
-    SfPagination
+    SfPagination,
+    DocumentsList
   },
   setup() {
     const ctx = getCurrentInstance().root.proxy;
@@ -316,12 +322,12 @@ export default {
       loading,
       paginationGetters,
       totalOrders: computed(() => orderGetters.getOrdersTotal(orderResult.value)),
-      getStatusTextClass,
       orderGetters,
       currentOrder,
       returnOrder,
-      updateQuantity,
       allItems,
+      getStatusTextClass,
+      updateQuantity,
       setCurrentOrder,
       makeReturnAction,
       increase,
@@ -358,6 +364,7 @@ export default {
     }
   }
 }
+
 .orders {
   @include for-desktop {
     &__element {
@@ -389,30 +396,38 @@ export default {
     }
   }
 }
+
 .product {
   &__properties {
     margin: var(--spacer-xl) 0 0 0;
   }
+
   &__property,
   &__action {
     font-size: var(--font-size--sm);
   }
+
   &__action {
     color: var(--c-gray-variant);
     font-size: var(--font-size--sm);
     margin: 0 0 var(--spacer-sm) 0;
+
     &:last-child {
       margin: 0;
     }
   }
+
   &__qty {
     color: var(--c-text);
   }
 }
+
 .products {
   --table-column-flex: 1;
+
   &__name {
     margin-right: var(--spacer-sm);
+
     @include for-desktop {
       --table-column-flex: 2;
     }
@@ -488,5 +503,4 @@ export default {
     --property-value-font-weight: var(--font-weight--semibold);
   }
 }
-
 </style>

@@ -172,7 +172,9 @@
                 :class="{ loader: loading }"
                 :loading="loading"
               >
-                <div>{{ $t('Payment.Make an order') }}</div>
+                <div v-e2e="'order-button'">
+                  {{ $t('Payment.Make an order') }}
+                </div>
               </SfLoader>
             </SfButton>
           </div>

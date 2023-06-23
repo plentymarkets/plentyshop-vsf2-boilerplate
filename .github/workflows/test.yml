@@ -112,6 +112,8 @@ jobs:
           wait-on: 'http://${{ env.ip_address }}:3000'
         env:
           CYPRESS_BASE_URL: 'http://${{ env.ip_address }}:3000'
+          PAYPAL_EMAIL: ${{ secrets.PAYPAL_EMAIL }}
+          PAYPAL_PASSWORD: ${{ secrets.PAYPAL_PASSWORD }}
 
       - name: Upload code coverage report
         if: ${{ always() && !cancelled() }}
