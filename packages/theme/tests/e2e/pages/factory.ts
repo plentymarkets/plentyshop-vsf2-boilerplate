@@ -1,5 +1,5 @@
 import Category from './category';
-import { CheckoutLogin, Billing, Payment, Shipping, ThankYou } from './checkout';
+import {CheckoutLogin, Billing, Payment, Shipping, ThankYou, ReadyOnlyCheckout} from './checkout';
 import Cart from './components/cart-sidebar';
 import Home from './home';
 import Product from './product';
@@ -17,7 +17,8 @@ const page = {
       shipping: new Shipping(),
       billing: new Billing(),
       payment: new Payment(),
-      thankyou: new ThankYou()
+      thankyou: new ThankYou(),
+      checkoutReadyOnly: new ReadyOnlyCheckout()
     };
   },
   get home(): any {

@@ -1,7 +1,7 @@
 import { AgnosticPagination, UserOrderGetters } from '@vue-storefront/core';
-import type { AddressData, GetOrdersResponse, Order, OrderItem, OrderTotals } from '@vue-storefront/plentymarkets-api';
+import type { AddressData, GetOrdersResponse, Order, OrderDocument, OrderItem, OrderTotals } from '@vue-storefront/plentymarkets-api';
 import { productGetters } from './productGetters';
-
+import { useContext } from '@nuxtjs/composition-api';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getDate(order: Order): string {
   if (order && order.order) {
@@ -137,6 +137,12 @@ function isReturnable(order: Order): boolean {
   return order?.isReturnable;
 }
 
+function getDocumentLink(doc: OrderDocument, accessKey: String): String {
+  const { $config } = useContext();
+
+  return `${$config?.apiUrl}/rest/storefront/order/document/preview/${doc.pivot.plenty_document_reference_document_id}/?orderId=${doc.pivot.plenty_document_reference_value}&accessKey=${accessKey}`;
+}
+
 function getPagination(orders: GetOrdersResponse): AgnosticPagination {
   const totalPages = orders?.data?.lastPageNumber || 1;
   const pageOptions = [orders?.data?.itemsPerPage] || [5];
@@ -163,6 +169,7 @@ export const orderGetters: UserOrderGetters<Order, OrderItem> = {
   getAccessKey,
   getBillingAddress,
   getById,
+  getDocumentLink,
   getDate,
   getFormattedPrice,
   getId,

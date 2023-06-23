@@ -2,6 +2,7 @@
   <div
     v-if="paypalUuid"
     :id="'paypal-' + paypalUuid"
+    :v-e2e="'paypal-button'"
     class="z-0 relative paypal-button"
     :class="{ 'opacity-50 pointer-events-none': disabled }"
   />

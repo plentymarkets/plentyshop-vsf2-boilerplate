@@ -19,10 +19,10 @@ function getMerchantId(): string|null {
   return config?.merchantId;
 }
 
-function getPaymentId(): number|null {
+function getPaymentId(): number {
   const config = getConfig();
 
-  return config?.paymentId;
+  return config?.paymentId ?? -1;
 }
 
 export const paypalGetters = {

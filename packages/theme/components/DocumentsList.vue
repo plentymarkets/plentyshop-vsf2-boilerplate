@@ -7,6 +7,8 @@
     <SfButton
       v-for="(document, key) in documents"
       :key="key"
+      target="”_blank”"
+      :link="getDocumentLink(document)"
       class="sf-button--full-width color-primary mb-2"
     >
       {{ getTypeName(document.type) }}
@@ -17,6 +19,7 @@
 <script>
 import { SfButton } from '@storefront-ui/vue';
 import { useContext } from '@nuxtjs/composition-api';
+import { orderGetters } from '@vue-storefront/plentymarkets';
 
 export default {
   name: 'DocumentsList',
@@ -25,10 +28,14 @@ export default {
     documents: {
       type: Array,
       default: () => []
+    },
+    accessKey: {
+      type: String,
+      default: ''
     }
   },
 
-  setup() {
+  setup(props) {
     const { app } = useContext();
 
     // disable eslint this mapping cant use camelcase
@@ -55,8 +62,13 @@ export default {
       return translations[type];
     };
 
+    const getDocumentLink = (doc) => {
+      return orderGetters.getDocumentLink(doc, props.accessKey);
+    };
+
     return {
-      getTypeName
+      getTypeName,
+      getDocumentLink
     };
   }
 };
