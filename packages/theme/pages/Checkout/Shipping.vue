@@ -79,13 +79,14 @@ export default {
     AddressInputForm,
     SfHeading
   },
-  setup(props, {root, refs}) {
+  setup(props, {refs}) {
     const sameAsBilling = ref(false);
     const router = useRouter();
     const { load, loading: loadingShipping, shipping, setDefaultAddress, deleteAddress, addAddress } = useUserShipping();
     const { load: loadActiveShippingCountries, loading: loadingCountries, result: countries } = useActiveShippingCountries();
     const { load: loadBilling, loading: loadingBilling, billing } = useUserBilling();
     const shippingAddresses = computed(() => userAddressGetters.getAddresses(shipping.value));
+    const { app } = useContext();
 
     const sameAsBillingForm = computed(() => {
       const newAddress = userAddressGetters.getDefault(userAddressGetters.getAddresses(billing.value)) || userAddressGetters.getAddresses(billing.value)[0];
@@ -131,8 +132,6 @@ export default {
         router.push(app.localePath({name: 'payment' }));
       }
     };
-
-    const { app } = useContext();
 
     return {
       shippingAddresses,

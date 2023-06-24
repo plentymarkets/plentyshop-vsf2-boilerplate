@@ -49,12 +49,13 @@ export default {
     SfButton,
     PsfPersonalDetails
   },
-  setup(props, {refs, root}) {
+  setup(props, {refs}) {
 
     const { isLoginModalOpen, toggleLoginModal } = useUiState();
     const router = useRouter();
     const { isAuthenticated, register } = useUser();
     const createAccountCheckbox = ref(false);
+    const { app } = useContext();
 
     let user = {
       email: '',
@@ -86,8 +87,6 @@ export default {
         }
       }
     };
-
-    const { app } = useContext();
 
     return {
       user,

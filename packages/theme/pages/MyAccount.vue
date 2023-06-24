@@ -68,7 +68,7 @@ export default {
   middleware: [
     'is-authenticated'
   ],
-  setup(props, {root}) {
+  setup() {
     const route = useRoute();
     const router = useRouter();
     const { app } = useContext();

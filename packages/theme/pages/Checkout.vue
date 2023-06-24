@@ -34,7 +34,7 @@
 
 import { SfSteps } from '@storefront-ui/vue';
 import CartPreview from '~/components/Checkout/CartPreview';
-import { computed, useRoute, useRouter } from '@nuxtjs/composition-api';
+import { computed, useRoute, useRouter, useContext } from '@nuxtjs/composition-api';
 
 const STEPS = {
   login: 'User data',
@@ -49,7 +49,7 @@ export default {
     SfSteps,
     CartPreview
   },
-  setup(props, context) {
+  setup() {
     const route = useRoute();
     const router = useRouter();
     const currentStep = computed(() => route.value.path.split('/').pop());

@@ -48,11 +48,11 @@ export default {
     SfButton,
     CheckoutAddressDetails
   },
-  setup(props, {refs, root}) {
+  setup({refs}) {
     const router = useRouter();
     const { load, loading: loadingBilling, billing, setDefaultAddress, deleteAddress, addAddress } = useUserBilling();
     const { load: loadActiveShippingCountries, loading: loadingCountry, result: countries } = useActiveShippingCountries();
-
+    const { app } = useContext();
     const loading = computed(() => {
       return loadingBilling.value && loadingCountry.value;
     });
@@ -74,8 +74,6 @@ export default {
         router.push(app.localePath({name: 'shipping'}));
       }
     };
-
-    const { app } = useContext();
 
     return {
       continueToNextStep,
