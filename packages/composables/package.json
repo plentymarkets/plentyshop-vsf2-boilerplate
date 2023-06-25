@@ -23,13 +23,13 @@
     "update:update": "ncu -u"
   },
   "dependencies": {
-    "@vue-storefront/plentymarkets-api": "0.0.1",
-    "@vue-storefront/core": "~2.7.5"
+    "@vue-storefront/core": "~2.7.5",
+    "@vue-storefront/plentymarkets-api": "0.0.1"
   },
   "devDependencies": {
+    "@paypal/paypal-js": "6.0.0",
     "@rollup/plugin-node-resolve": "^13.0.6",
-    "rollup-plugin-typescript2": "^0.30.0",
-    "@paypal/paypal-js": "6.0.0"
+    "rollup-plugin-typescript2": "^0.30.0"
   },
   "peerDependencies": {
     "@nuxtjs/composition-api": "^0.29.3"

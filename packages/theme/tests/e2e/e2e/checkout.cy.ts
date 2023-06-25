@@ -61,7 +61,7 @@ context('Order placement', () => {
     cy.get('[data-e2e*="payment-method"]').should('exist');
 
     page.checkout.payment.paymentMethods.eq(1).click();
-    page.checkout.payment.terms.click();
+    page.checkout.payment.terms.check({ force: true });
     page.checkout.payment.makeAnOrderButton.click();
     cy.wait(['@additionalInformation', '@preparePayment', '@placeOrder', '@executePayment']);
 
