@@ -360,7 +360,7 @@ const de = {
   },
   // Product
   'Product': {
-    'Additional information': 'Weitere Informationen',
+    'Technical Data': 'Technische Daten',
     'Description': 'Beschreibung',
     'Match it with': 'Kombiniere es mit',
     'Read all reviews': 'Alle Bewertungen lesen',

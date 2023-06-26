@@ -362,7 +362,7 @@ const en = {
   },
   // Product
   'Product': {
-    'Additional information': 'Additional information',
+    'Technical Data': 'Technical data',
     'Description': 'Description',
     'Match it with': 'Match it with',
     'Read all reviews': 'Read all reviews',

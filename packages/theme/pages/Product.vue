@@ -106,7 +106,7 @@
                   />
                 </SfTab>
                 <SfTab
-                  :title="$t('Product.Additional information')"
+                  :title="$t('Product.Technical Data')"
                   class="product__additional-info"
                 >
                   <div
@@ -118,7 +118,10 @@
             </LazyHydrate>
           </div>
         </div>
-        <LazyHydrate when-visible>
+        <LazyHydrate
+          v-if="!!totalReviews"
+          when-visible
+        >
           <div class="p-sf-sm">
             <SfHeading
               id="reviews"
