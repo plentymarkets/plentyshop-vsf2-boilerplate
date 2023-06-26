@@ -119,28 +119,27 @@
           </div>
         </div>
         <LazyHydrate when-visible>
-          <div class="p p-sf-sm">
+          <div class="p-sf-sm">
             <SfHeading
               id="reviews"
               :title="$t('Product.Reviews')"
               class="text text-sf-xl"
-            >
-              <div class="mt-sf-sm">
-                <SfReview
-                  v-for="review in reviews"
-                  :key="reviewGetters.getReviewId(review)"
-                  :author="reviewGetters.getReviewAuthor(review)"
-                  :date="reviewGetters.getReviewDate(review)"
-                  :message="reviewGetters.getReviewMessage(review)"
-                  :max-rating="5"
-                  :rating="reviewGetters.getReviewRating(review)"
-                  :char-limit="250"
-                  read-more-text="Read more"
-                  hide-full-text="Read less"
-                  class="product__review"
-                />
-              </div>
-            </sfheading>
+            />
+            <div class="mt-sf-sm">
+              <SfReview
+                v-for="review in reviews"
+                :key="reviewGetters.getReviewId(review)"
+                :author="reviewGetters.getReviewAuthor(review)"
+                :date="reviewGetters.getReviewDate(review)"
+                :message="reviewGetters.getReviewMessage(review)"
+                :max-rating="5"
+                :rating="reviewGetters.getReviewRating(review)"
+                :char-limit="250"
+                read-more-text="Read more"
+                hide-full-text="Read less"
+                class="product__review"
+              />
+            </div>
           </div>
         </LazyHydrate>
 
@@ -150,10 +149,6 @@
             :loading="relatedLoading"
             :title="$t('Product.Match it with')"
           />
-        </LazyHydrate>
-
-        <LazyHydrate when-visible>
-          <InstagramFeed />
         </LazyHydrate>
       </div>
       <div
@@ -195,7 +190,6 @@ import {
 } from '@storefront-ui/vue';
 
 import AttributeSelection from '~/components/AttributeSelection.vue';
-import InstagramFeed from '~/components/InstagramFeed.vue';
 import RelatedProducts from '~/components/RelatedProducts.vue';
 import { ref, computed, useRoute } from '@nuxtjs/composition-api';
 import {
@@ -227,7 +221,6 @@ export default {
     SfReview,
     SfBreadcrumbs,
     SfButton,
-    InstagramFeed,
     RelatedProducts,
     LazyHydrate,
     AttributeSelection,
