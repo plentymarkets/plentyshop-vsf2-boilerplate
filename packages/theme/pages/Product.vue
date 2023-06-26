@@ -58,9 +58,13 @@
                     ({{ totalReviews }})
                   </a>
                 </div>
-                <SfButton class="sf-button--text">
+                <a
+                  v-if="!!totalReviews"
+                  class="sf-link sf-button--text"
+                  href="#reviews"
+                >
                   {{ $t('Product.Read all reviews') }}
-                </SfButton>
+                </a>
               </div>
             </div>
             <div>
@@ -68,9 +72,6 @@
                 class="product__description desktop-only"
                 v-html="productGetters.getShortDescription(product)"
               />
-              <SfButton class="sf-button--text desktop-only product__guide">
-                {{ $t('Product.Size guide') }}
-              </SfButton>
 
               <AttributeSelection
                 @selection-changed="attributeSelectionChanged($event)"
@@ -120,21 +121,6 @@
                     </template>
                   </SfProperty>
                 </SfTab>
-                <SfTab :title="$t('Product.Read reviews')">
-                  <SfReview
-                    v-for="review in reviews"
-                    :key="reviewGetters.getReviewId(review)"
-                    :author="reviewGetters.getReviewAuthor(review)"
-                    :date="reviewGetters.getReviewDate(review)"
-                    :message="reviewGetters.getReviewMessage(review)"
-                    :max-rating="5"
-                    :rating="reviewGetters.getReviewRating(review)"
-                    :char-limit="250"
-                    read-more-text="Read more"
-                    hide-full-text="Read less"
-                    class="product__review"
-                  />
-                </SfTab>
                 <SfTab
                   :title="$t('Product.Additional information')"
                   class="product__additional-info"
@@ -148,6 +134,29 @@
             </LazyHydrate>
           </div>
         </div>
+        <LazyHydrate when-visible>
+          <div class="p p-sf-sm">
+            <SfHeading
+              id="reviews"
+              :title="$t('Product.Reviews')"
+            />
+            <div class="mt-sf-sm">
+              <SfReview
+                v-for="review in reviews"
+                :key="reviewGetters.getReviewId(review)"
+                :author="reviewGetters.getReviewAuthor(review)"
+                :date="reviewGetters.getReviewDate(review)"
+                :message="reviewGetters.getReviewMessage(review)"
+                :max-rating="5"
+                :rating="reviewGetters.getReviewRating(review)"
+                :char-limit="250"
+                read-more-text="Read more"
+                hide-full-text="Read less"
+                class="product__review"
+              />
+            </div>
+          </div>
+        </LazyHydrate>
 
         <LazyHydrate when-visible>
           <RelatedProducts
@@ -197,7 +206,8 @@ import {
   SfBreadcrumbs,
   SfButton,
   SfImage,
-  SfLoader
+  SfLoader,
+  SfLink
 } from '@storefront-ui/vue';
 
 import AttributeSelection from '~/components/AttributeSelection.vue';
@@ -239,7 +249,8 @@ export default {
     LazyHydrate,
     AttributeSelection,
     SfImage,
-    SfLoader
+    SfLoader,
+    SfLink
   },
   transition: 'fade',
   setup() {
