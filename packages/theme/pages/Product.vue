@@ -106,6 +106,7 @@
                   />
                 </SfTab>
                 <SfTab
+                  v-if="!!productGetters.getTechnicalData(product)"
                   :title="$t('Product.Technical Data')"
                   class="product__additional-info"
                 >
