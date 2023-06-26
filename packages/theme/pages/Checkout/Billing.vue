@@ -48,7 +48,7 @@ export default {
     SfButton,
     CheckoutAddressDetails
   },
-  setup({refs}) {
+  setup(props, {refs}) {
     const router = useRouter();
     const { load, loading: loadingBilling, billing, setDefaultAddress, deleteAddress, addAddress } = useUserBilling();
     const { load: loadActiveShippingCountries, loading: loadingCountry, result: countries } = useActiveShippingCountries();
