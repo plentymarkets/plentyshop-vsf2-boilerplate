@@ -336,7 +336,7 @@ export default {
 
     const handleForm = (fn) => async () => {
       resetErrorValues();
-      await fn({ user: form.value });
+      await fn(form.value);
 
       error.login = userError.value.login;
       error.register = userError.value.register;
