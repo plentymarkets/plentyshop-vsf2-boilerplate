@@ -104,22 +104,6 @@
                     class="product__description"
                     v-html="productGetters.getDescription(product)"
                   />
-                  <SfProperty
-                    v-for="(property, i) in properties"
-                    :key="i"
-                    :name="propertyGetters.getName(property)"
-                    :value="propertyGetters.getValue(property)"
-                    class="product__property"
-                  >
-                    <template
-                      v-if="propertyGetters.getName(property) === 'Category'"
-                      #value
-                    >
-                      <SfButton class="product__property__button sf-button--text">
-                        {{ propertyGetters.getValue(property) }}
-                      </SfButton>
-                    </template>
-                  </SfProperty>
                 </SfTab>
                 <SfTab
                   :title="$t('Product.Additional information')"
@@ -139,22 +123,24 @@
             <SfHeading
               id="reviews"
               :title="$t('Product.Reviews')"
-            />
-            <div class="mt-sf-sm">
-              <SfReview
-                v-for="review in reviews"
-                :key="reviewGetters.getReviewId(review)"
-                :author="reviewGetters.getReviewAuthor(review)"
-                :date="reviewGetters.getReviewDate(review)"
-                :message="reviewGetters.getReviewMessage(review)"
-                :max-rating="5"
-                :rating="reviewGetters.getReviewRating(review)"
-                :char-limit="250"
-                read-more-text="Read more"
-                hide-full-text="Read less"
-                class="product__review"
-              />
-            </div>
+              class="text text-sf-xl"
+            >
+              <div class="mt-sf-sm">
+                <SfReview
+                  v-for="review in reviews"
+                  :key="reviewGetters.getReviewId(review)"
+                  :author="reviewGetters.getReviewAuthor(review)"
+                  :date="reviewGetters.getReviewDate(review)"
+                  :message="reviewGetters.getReviewMessage(review)"
+                  :max-rating="5"
+                  :rating="reviewGetters.getReviewRating(review)"
+                  :char-limit="250"
+                  read-more-text="Read more"
+                  hide-full-text="Read less"
+                  class="product__review"
+                />
+              </div>
+            </sfheading>
           </div>
         </LazyHydrate>
 
@@ -194,7 +180,6 @@
 </template>
 <script>
 import {
-  SfProperty,
   SfHeading,
   SfPrice,
   SfRating,
@@ -206,8 +191,7 @@ import {
   SfBreadcrumbs,
   SfButton,
   SfImage,
-  SfLoader,
-  SfLink
+  SfLoader
 } from '@storefront-ui/vue';
 
 import AttributeSelection from '~/components/AttributeSelection.vue';
@@ -233,7 +217,6 @@ export default {
   name: 'Product',
   components: {
     PayPalExpressButton,
-    SfProperty,
     SfHeading,
     SfPrice,
     SfRating,
@@ -249,8 +232,7 @@ export default {
     LazyHydrate,
     AttributeSelection,
     SfImage,
-    SfLoader,
-    SfLink
+    SfLoader
   },
   transition: 'fade',
   setup() {
@@ -278,6 +260,7 @@ export default {
     );
     const categories = computed(() => productGetters.getCategoryIds(product.value));
     const reviews = computed(() => reviewGetters.getItems(productReviews.value));
+    const stock = ref(5);
 
     // TODO: Breadcrumbs are temporary disabled because productGetters return undefined. We have a mocks in data
     const breadcrumbs = computed(() => productGetters.getBreadcrumbs(product.value, breadcrumbCategories.value));
@@ -331,36 +314,8 @@ export default {
       isAttributeSelectionValid,
       addBasePath,
       toggleLangModal,
+      stock,
       productLoading: computed(() => productLoadingState.value)
-    };
-  },
-  data() {
-    return {
-      stock: 5,
-      properties: [
-        {
-          name: 'Product Code',
-          value: '578902-00'
-        },
-        {
-          name: 'Category',
-          value: 'Pants'
-        },
-        {
-          name: 'Material',
-          value: 'Cotton'
-        },
-        {
-          name: 'Country',
-          value: 'Germany'
-        }
-      ],
-      description:
-        'Find stunning women cocktail and party dresses. Stand out in lace and metallic cocktail dresses and party dresses from all your favorite brands.',
-      detailsIsActive: false,
-      brand:
-        'Brand name is the perfect pairing of quality and design. This label creates major everyday vibes with its collection of modern brooches, silver and gold jewellery, or clips it back with hair accessories in geo styles.',
-      careInstructions: 'Do not wash!'
     };
   }
 };
