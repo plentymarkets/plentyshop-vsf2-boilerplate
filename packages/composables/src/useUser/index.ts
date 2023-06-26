@@ -45,6 +45,7 @@ export const useUser = (): any => {
 
   const login = async ({ username, password }) => {
     loading.value = true;
+    resetErrors();
 
     try {
       await context.$plentymarkets.api.loginUser(username, password);
@@ -54,10 +55,9 @@ export const useUser = (): any => {
 
       setWishlist(wishlist);
       setCart(cart);
-      error.value.login = null;
     }
     catch (e) {
-      error.value.login = e;
+      error.value.login = e.message;
     }
 
     // TODO: remove this when events are implemented
@@ -88,16 +88,25 @@ export const useUser = (): any => {
   const register = async (params: UserRegisterParams): Promise<User> => {
     let data;
     loading.value = true;
+    resetErrors();
 
     if (!params.password || params.password.length === 0) {
       await context.$plentymarkets.api.loginAsGuest(params.email);
       isAuthenticated.value = false;
       isGuest.value = true;
+      loading.value = false;
 
       return null;
     } else {
       try {
         data = await context.$plentymarkets.api.registerUser(params);
+
+        if(data.status !== 200) {
+          error.value.register = data.message;
+          loading.value = false;
+          return null;
+        }
+
         const wishlist = await context.$plentymarkets.api.getWishlist();
         const cart = await context.$plentymarkets.api.getCart();
 
@@ -106,7 +115,6 @@ export const useUser = (): any => {
 
         isGuest.value = false;
         isAuthenticated.value = !!data.data;
-        error.value.register = null;
       }
       catch (e) {
         error.value.register = e;
@@ -119,12 +127,26 @@ export const useUser = (): any => {
     }
   };
 
-  const changePassword = async ({ currentPassword, newPassword }) => {
-    await context.$plentymarkets.api.changePassword(currentPassword, newPassword);
+  const changePassword = async (params) => {
+    loading.value = true;
+
+    try {
+      await context.$plentymarkets.api.changePassword(params.current, params.new);
+    } catch (e) {
+      console.log(e);
+    }
+
+    loading.value = false;
+
     const data = await context.$plentymarkets.api.getSession(false);
 
     return data.user;
-  }
+  };
+
+  const resetErrors = () => {
+    error.value.login = null;
+    error.value.register = null;
+  };
 
   return {
     load,

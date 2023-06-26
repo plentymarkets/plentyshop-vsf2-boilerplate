@@ -53,7 +53,7 @@ export default {
 
     const { isLoginModalOpen, toggleLoginModal } = useUiState();
     const router = useRouter();
-    const { isAuthenticated, register } = useUser();
+    const { isAuthenticated, isGuest, register } = useUser();
     const createAccountCheckbox = ref(false);
 
     let user = {
@@ -65,6 +65,12 @@ export default {
 
     watch(isAuthenticated, () => {
       if (isAuthenticated) {
+        router.push(root.localePath('billing'));
+      }
+    });
+
+    watch(isGuest, () => {
+      if (isGuest) {
         router.push(root.localePath('billing'));
       }
     });
@@ -81,7 +87,7 @@ export default {
       if (isValid) {
         await register({ user });
 
-        if (isAuthenticated) {
+        if (isAuthenticated || isGuest) {
           router.push(root.localePath('billing'));
         }
       }
