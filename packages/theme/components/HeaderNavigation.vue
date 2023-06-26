@@ -37,7 +37,7 @@ import { SfMenuItem, SfModal } from '@storefront-ui/vue';
 import { useUiState } from '~/composables';
 import { categoryTreeGetters, useCategory } from '@vue-storefront/plentymarkets';
 import { onSSR } from '@vue-storefront/core';
-import { computed, useRouter } from '@nuxtjs/composition-api';
+import { computed, useRouter, useContext } from '@nuxtjs/composition-api';
 
 export default {
   name: 'HeaderNavigation',
@@ -51,18 +51,19 @@ export default {
       default: false
     }
   },
-  setup(props, context) {
+  setup(props, {refs}) {
     const { isMobileMenuOpen, toggleMobileMenu } = useUiState();
     const router = useRouter();
     // eslint-disable-next-line prefer-const
     const { categories, search, loading } = useCategory('categories');
     const categoryTree = computed(() => loading && categories.value.map((cat) => categoryTreeGetters.getTree(cat)));
+    const { app } = useContext();
 
     onSSR(async () => {
       await search();
     });
     const routeToCategory = (category) => {
-      router.push(context.root.localePath(`/c/${category.slug}`));
+      router.push(app.localePath(`/c/${category.slug}`));
       toggleMobileMenu();
     };
 
