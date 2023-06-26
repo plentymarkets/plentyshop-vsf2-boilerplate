@@ -51,7 +51,7 @@ export default {
       default: false
     }
   },
-  setup(props, {refs}) {
+  setup() {
     const { isMobileMenuOpen, toggleMobileMenu } = useUiState();
     const router = useRouter();
     // eslint-disable-next-line prefer-const
