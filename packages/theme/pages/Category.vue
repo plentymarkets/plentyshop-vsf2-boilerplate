@@ -31,7 +31,7 @@
             >
               <SfAccordionItem
                 v-for="(cat, i) in categoryTree &&
-                categoryTreeGetters.getTreeItems(categoryTree)"
+                  categoryTreeGetters.getTreeItems(categoryTree)"
                 :key="i"
                 :header="categoryTreeGetters.getLabel(cat)"
               >
@@ -45,8 +45,7 @@
                         <nuxt-link
                           :to="localePath(th.getCatLink(cat))"
                           :class="cat.isCurrent ? 'sidebar--cat-selected' : ''"
-                        >
-                        </nuxt-link>
+                        />
                       </template>
                     </SfMenuItem>
                   </SfListItem>
@@ -77,8 +76,14 @@
           </SfLoader>
         </LazyHydrate>
       </div>
-      <SfLoader :class="{ loading }" :loading="loading">
-        <div v-if="!loading" class="products">
+      <SfLoader
+        :class="{ loading }"
+        :loading="loading"
+      >
+        <div
+          v-if="!loading"
+          class="products"
+        >
           <transition-group
             v-if="isCategoryGridView"
             appear
@@ -100,7 +105,7 @@
               "
               :special-price="
                 productGetters.getSpecialPrice(product) &&
-                $n(productGetters.getSpecialPrice(product), 'currency')
+                  $n(productGetters.getSpecialPrice(product), 'currency')
               "
               :max-rating="5"
               :score-rating="productGetters.getAverageRating(product)"
@@ -123,12 +128,7 @@
               @click:add-to-cart="addToCart({ product, quantity: 1 })"
             >
               <template
-                v-if="
-                  !(
-                    product.unit.unitOfMeasurement === 'C62' &&
-                    product.unit.content === 1
-                  )
-                "
+                v-if="productGetters.showPricePerUnit(product)"
                 #price
               >
                 <div>
@@ -141,7 +141,7 @@
                     }}</del>
                     <ins class="sf-price__special">{{
                       productGetters.getSpecialPrice(product) &&
-                      $n(productGetters.getSpecialPrice(product), 'currency')
+                        $n(productGetters.getSpecialPrice(product), 'currency')
                     }}</ins>
                   </div>
                 </div>
@@ -178,7 +178,7 @@
                 "
                 :special-price="
                   productGetters.getSpecialPrice(product) &&
-                  $n(productGetters.getSpecialPrice(product), 'currency')
+                    $n(productGetters.getSpecialPrice(product), 'currency')
                 "
                 :max-rating="5"
                 :score-rating="3"
@@ -205,12 +205,7 @@
                 "
               >
                 <template
-                  v-if="
-                    !(
-                      product.unit.unitOfMeasurement === 'C62' &&
-                      product.unit.content === 1
-                    )
-                  "
+                  v-if="productGetters.showPricePerUnit(product)"
                   #price
                 >
                   <div>
@@ -223,7 +218,7 @@
                       }}</del>
                       <ins class="sf-price__special">{{
                         productGetters.getSpecialPrice(product) &&
-                        $n(productGetters.getSpecialPrice(product), 'currency')
+                          $n(productGetters.getSpecialPrice(product), 'currency')
                       }}</ins>
                     </div>
                   </div>
@@ -234,14 +229,17 @@
                   </div>
                 </template>
                 <template #configuration>
-                  111
                   <SfProperty
                     class="desktop-only"
                     name="Size"
                     value="XS"
                     style="margin: 0 0 1rem 0"
                   />
-                  <SfProperty class="desktop-only" name="Color" value="white" />
+                  <SfProperty
+                    class="desktop-only"
+                    name="Color"
+                    value="white"
+                  />
                 </template>
                 <template #actions>
                   <SfButton
@@ -257,7 +255,10 @@
           </transition-group>
 
           <LazyHydrate on-interaction>
-            <SfLoader :class="{ loading }" :loading="loading">
+            <SfLoader
+              :class="{ loading }"
+              :loading="loading"
+            >
               <SfPagination
                 v-if="!loading"
                 v-show="paginationGetters.getTotalPages(pagination) > 1"
@@ -312,7 +313,7 @@ import {
   SfSelect,
   SfBreadcrumbs,
   SfLoader,
-  SfProperty,
+  SfProperty
 } from '@storefront-ui/vue';
 import { computed, ref } from '@nuxtjs/composition-api';
 import {
@@ -325,7 +326,7 @@ import {
   paginationGetters,
   useFacet,
   facetGetters,
-  wishlistGetters,
+  wishlistGetters
 } from '@vue-storefront/plentymarkets';
 import { useUiHelpers, useUiState } from '~/composables';
 import { onSSR } from '@vue-storefront/core';
@@ -349,7 +350,7 @@ export default {
     SfLoader,
     SfHeading,
     SfProperty,
-    LazyHydrate,
+    LazyHydrate
   },
   transition: 'fade',
   setup(props, context) {
@@ -361,7 +362,7 @@ export default {
       addItem: addItemToWishlist,
       isInWishlist,
       removeItem: removeItemFromWishlist,
-      wishlist,
+      wishlist
     } = useWishlist();
     const { categories } = useCategory('categories');
 
@@ -393,7 +394,7 @@ export default {
       addItemToCart({
         // TODO only pass needed attrs?
         product,
-        quantity,
+        quantity
       });
     };
 
@@ -421,9 +422,9 @@ export default {
       addToCart,
       isInCart,
       productsQuantity,
-      addBasePath,
+      addBasePath
     };
-  },
+  }
 };
 </script>
 

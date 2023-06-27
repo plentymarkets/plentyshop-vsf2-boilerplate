@@ -112,7 +112,7 @@ export type Product = {
         lang: string,
     },
     unit: {
-        names: { "unitId": Number, "lang": String, "name": String },
+        names: { 'unitId': Number, 'lang': String, 'name': String },
         unitOfMeasurement: String,
         content: Number
     },
