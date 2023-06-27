@@ -145,7 +145,7 @@
                     }}</ins>
                   </div>
                 </div>
-                <div class="sf-price__special">
+                <div class="priceOnUnit">
                   {{ productGetters.getUnitId(product) }}
                   {{ productGetters.getUnitName(product) }} -
                   {{ productGetters.getDefaultBasePrice(product) }}
@@ -619,5 +619,9 @@ export default {
       margin-top: 3.75rem;
     }
   }
+}
+.priceOnUnit {
+  font-size: 75%;
+  font-weight: 400;
 }
 </style>
