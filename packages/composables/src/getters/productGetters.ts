@@ -187,6 +187,18 @@ function getTotalReviews(product: Product): number {
   return Number(product?.feedback?.counts?.ratingsCountTotal);
 }
 
+function getUnitId(product: Product): number {
+  return Number(product?.unit?.names?.unitId);
+}
+
+function getUnitName(product: Product): String {
+  return product?.unit?.names?.name;
+}
+
+function getDefaultBasePrice(product: Product): String {
+  return String(product.prices.default.basePrice);
+}
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getAverageRating(product: Product): number {
   return Number(product?.feedback?.counts?.averageValue);
@@ -198,6 +210,9 @@ function getMaxRating(product: Product): number {
 }
 
 export const productGetters: ProductGetters<Product, ProductFilter> = {
+  getUnitId,
+  getUnitName,
+  getDefaultBasePrice,
   getName,
   getSlug,
   getPrice,

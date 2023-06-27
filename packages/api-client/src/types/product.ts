@@ -111,6 +111,11 @@ export type Product = {
         urlPath: string,
         lang: string,
     },
+    unit: {
+        names: { "unitId": Number, "lang": String, "name": String },
+        unitOfMeasurement: String,
+        content: Number
+    },
     images: {
         all: {
             position: string,
