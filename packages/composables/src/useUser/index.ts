@@ -2,14 +2,23 @@ import type { User, UserRegisterParams } from '@vue-storefront/plentymarkets-api
 import { useCart } from 'src/useCart';
 import { useWishlist } from 'src/useWishlist';
 
-import type {
-  UseUserUpdateParams as UpdateParams,
-  UseUserRegisterParams as RegisterParams
-} from '../types';
-import {Context, sharedRef, useVSFContext} from "@vue-storefront/core";
-import {computed, ref} from "@nuxtjs/composition-api";
+import {sharedRef, useVSFContext} from '@vue-storefront/core';
+import {computed, Ref} from '@nuxtjs/composition-api';
 
-export const useUser = (): any => {
+interface useUserInterface {
+  load: () => Promise<User|null>
+  login: ({ username, password }) => Promise<User>
+  logout: () => Promise<void>
+  register: (params: UserRegisterParams) => Promise<User>
+  changePassword: (params) => Promise<User>
+  loading: Ref<boolean>
+  error: Ref<object>
+  user: Ref<User>
+  isGuest: Ref<boolean>
+  isAuthenticated: Ref<boolean>
+}
+
+export const useUser = (): useUserInterface => {
   const context = useVSFContext();
   const { setWishlist } = useWishlist();
   const { setCart } = useCart();
@@ -19,23 +28,26 @@ export const useUser = (): any => {
   const isAuthenticated = sharedRef(false, 'useUser-isAuthenticated');
   const error = sharedRef({
     login: null,
-    register: null
+    register: null,
+    changePassword: null
   }, 'useUser-error');
-  const loading = ref(false);
+  const loading = sharedRef(false, 'useUser-loading');
 
-  const load = async () => {
+  const resetErrors = (): void => {
+    error.value.login = null;
+    error.value.register = null;
+    error.value.changePassword = null;
+  };
+
+  const load = async (): Promise<User|null> => {
     const data = await context.$plentymarkets.api.getSession(true);
 
     if (data.user && data.user.guestMail) {
       isGuest.value = true;
       return null;
-    }
-    else
-    {
-      if (data.user) {
-        isGuest.value = false;
-        isAuthenticated.value = true;
-      }
+    } else if (data.user) {
+      isGuest.value = false;
+      isAuthenticated.value = true;
     }
 
     user.value = data.user;
@@ -43,7 +55,7 @@ export const useUser = (): any => {
     return data.user;
   };
 
-  const login = async ({ username, password }) => {
+  const login = async ({ username, password }): Promise<User> => {
     loading.value = true;
     resetErrors();
 
@@ -55,8 +67,7 @@ export const useUser = (): any => {
 
       setWishlist(wishlist);
       setCart(cart);
-    }
-    catch (e) {
+    } catch (e) {
       error.value.login = e.message;
     }
 
@@ -65,28 +76,22 @@ export const useUser = (): any => {
 
     user.value = data.user;
     isGuest.value = false;
-    isAuthenticated.value = !!data.user;
+    isAuthenticated.value = Boolean(data.user);
     loading.value = false;
 
     return data.user;
   };
 
-  const logout = async () => {
+  const logout = async (): Promise<void> => {
     await context.$plentymarkets.api.logoutUser();
 
     user.value = null;
     setWishlist({ items: [] });
-    // @ts-ignore
-    setCart({ items: [] });
-  };
-
-  const updateUser = async ({ currentUser, updatedUserData }) => {
-    // @TODO implement useUser.updateUser
-    return {};
   };
 
   const register = async (params: UserRegisterParams): Promise<User> => {
     let data;
+
     loading.value = true;
     resetErrors();
 
@@ -101,7 +106,7 @@ export const useUser = (): any => {
       try {
         data = await context.$plentymarkets.api.registerUser(params);
 
-        if(data.status !== 200) {
+        if (data.status !== 200) {
           error.value.register = data.message;
           loading.value = false;
           return null;
@@ -114,9 +119,8 @@ export const useUser = (): any => {
         setCart(cart);
 
         isGuest.value = false;
-        isAuthenticated.value = !!data.data;
-      }
-      catch (e) {
+        isAuthenticated.value = Boolean(data.data);
+      } catch (e) {
         error.value.register = e;
       }
 
@@ -127,25 +131,20 @@ export const useUser = (): any => {
     }
   };
 
-  const changePassword = async (params) => {
+  const changePassword = async (params): Promise<User> => {
+    resetErrors();
     loading.value = true;
 
     try {
       await context.$plentymarkets.api.changePassword(params.current, params.new);
     } catch (e) {
-      console.log(e);
+      error.value.changePassword = e;
     }
-
-    loading.value = false;
 
     const data = await context.$plentymarkets.api.getSession(false);
 
+    loading.value = false;
     return data.user;
-  };
-
-  const resetErrors = () => {
-    error.value.login = null;
-    error.value.register = null;
   };
 
   return {
@@ -154,11 +153,10 @@ export const useUser = (): any => {
     logout,
     user: computed(() => user.value),
     loading: computed(() => loading.value),
-    updateUser,
     register,
     changePassword,
     error: computed(() => error.value),
     isGuest: computed(() => isGuest.value),
     isAuthenticated: computed(() => isAuthenticated.value)
-  }
-}
+  };
+};
