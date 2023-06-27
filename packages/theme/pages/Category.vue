@@ -62,9 +62,7 @@
                 @click:add-to-cart="addToCart({ product, quantity: 1 })">
               </SfProductCard>
               <div>
-                <!-- {{ product.unit }} -->
                 {{ productGetters.getUnitId(product) }}  {{  productGetters.getUnitName(product)  }} - {{ productGetters.getDefaultBasePrice(product)   }}
-                <!-- {{product.unit.names.unitId}}  {{product.unit.names.name}} | {{ product.prices.default.basePrice }} -->
               </div>
             </div>
           </transition-group>
