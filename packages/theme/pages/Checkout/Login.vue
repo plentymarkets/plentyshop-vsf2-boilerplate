@@ -66,18 +66,18 @@ export default {
 
     watch(isAuthenticated, () => {
       if (isAuthenticated.value) {
-        router.push(root.localePath('billing'));
+        router.push(app.localePath('billing'));
       }
     });
 
     watch(isGuest, () => {
       if (isGuest.value) {
-        router.push(root.localePath('billing'));
+        router.push(app.localePath('billing'));
       }
     });
 
     if (isAuthenticated.value || isGuest.value) {
-      router.push(root.localePath('billing'));
+      router.push(app.localePath('billing'));
     }
 
     const logInput = (event) => {
@@ -93,7 +93,7 @@ export default {
         await register(user);
 
         if (isAuthenticated.value || isGuest.value) {
-          router.push(root.localePath('billing'));
+          router.push(app.localePath('billing'));
         }
       }
     };
