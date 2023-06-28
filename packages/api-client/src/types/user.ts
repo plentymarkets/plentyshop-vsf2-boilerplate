@@ -67,5 +67,7 @@ export interface UserChangeResponse {
         CheckoutChanged: CheckoutChanged,
         AfterAccountAuthentication: AfterAccountAuthentication,
         FrontendUpdateCustomerSettings: FrontendUpdateCustomerSettings
-    }
+    },
+    status?: number;
+    message?: string;
 }

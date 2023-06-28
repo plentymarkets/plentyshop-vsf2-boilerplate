@@ -1,7 +1,6 @@
 import type { User, UserRegisterParams } from '@vue-storefront/plentymarkets-api';
 import { useCart } from 'src/useCart';
 import { useWishlist } from 'src/useWishlist';
-
 import {sharedRef, useVSFContext} from '@vue-storefront/core';
 import {computed, Ref} from '@nuxtjs/composition-api';
 
@@ -90,8 +89,6 @@ export const useUser = (): useUserInterface => {
   };
 
   const register = async (params: UserRegisterParams): Promise<User> => {
-    let data;
-
     loading.value = true;
     resetErrors();
 
@@ -104,13 +101,18 @@ export const useUser = (): useUserInterface => {
       return null;
     } else {
       try {
-        data = await context.$plentymarkets.api.registerUser(params);
+        const data = await context.$plentymarkets.api.registerUser(params);
 
-        if (data.status !== 200) {
+        // catch 226 email already exists
+        if (data.status && data.status !== 200) {
           error.value.register = data.message;
           loading.value = false;
           return null;
         }
+
+        isGuest.value = false;
+        isAuthenticated.value = true;
+        user.value = data.data;
 
         const wishlist = await context.$plentymarkets.api.getWishlist();
         const cart = await context.$plentymarkets.api.getCart();
@@ -118,16 +120,12 @@ export const useUser = (): useUserInterface => {
         setWishlist(wishlist);
         setCart(cart);
 
-        isGuest.value = false;
-        isAuthenticated.value = Boolean(data.data);
+        return data.data || null;
       } catch (e) {
         error.value.register = e;
+      } finally {
+        loading.value = false;
       }
-
-      loading.value = false;
-      user.value = data.data;
-
-      return data.data || null;
     }
   };
 

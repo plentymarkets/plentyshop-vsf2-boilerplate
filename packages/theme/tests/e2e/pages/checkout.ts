@@ -61,6 +61,10 @@ class CheckoutLogin {
     return el('register-mail-input');
   }
 
+  get step(): Cypress.Chainable {
+    return cy.get('[data-testid=steps-button]').eq(0);
+  }
+
   get continueToBilling(): Cypress.Chainable {
     return el('continue-to-billing');
   }
@@ -81,8 +85,7 @@ class CheckoutLogin {
     this.continueToBilling.click();
   }
 
-  public continueAsGuest(customer: Customer): void {
-    const mail = uniquePlentyMarketsEmail(customer.email);
+  public continueAsGuest(mail: string): void {
     this.email.type(mail);
     this.continueToBilling.click();
   }

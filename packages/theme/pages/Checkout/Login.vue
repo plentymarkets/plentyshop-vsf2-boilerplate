@@ -89,7 +89,7 @@ export default {
       const { isValid } = await refs.PersonalDetails.validate();
 
       if (isValid) {
-        await register({ user });
+        await register(user);
 
         if (isAuthenticated.value || isGuest.value) {
           router.push(root.localePath('billing'));
