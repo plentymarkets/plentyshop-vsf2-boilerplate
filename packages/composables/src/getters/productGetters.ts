@@ -90,10 +90,7 @@ function getFiltered(products: Product[], filters: ProductFilter): Product[] {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function getAttributes(
-  products: Product[],
-  filterByAttributeName?: string[]
-): Record<string, AgnosticAttribute | string> {
+function getAttributes(products: Product[], filterByAttributeName?: string[]): Record<string, AgnosticAttribute | string> {
   // const isSingleProduct = !Array.isArray(products);
   // const productList = isSingleProduct ? [products] : products;
   const attributes = {};

@@ -73,10 +73,10 @@
               }}</del>
               <ins class="sf-price__special">{{
                 productGetters.getSpecialPrice(product.variation) &&
-                $n(
-                  productGetters.getSpecialPrice(product.variation),
-                  'currency'
-                )
+                  $n(
+                    productGetters.getSpecialPrice(product.variation),
+                    'currency'
+                  )
               }}</ins>
             </div>
             <BasePrice :product="product.variation" />
@@ -86,7 +86,7 @@
             :regular="$n(cartGetters.getRegularItemPrice(product), 'currency')"
             :special="
               cartGetters.getSpecialItemPrice(product) &&
-              $n(cartGetters.getSpecialItemPrice(product), 'currency')
+                $n(cartGetters.getSpecialItemPrice(product), 'currency')
             "
             class="product-price"
           />
@@ -112,7 +112,10 @@
           </template>
         </SfCheckbox>
 
-        <div v-e2e="'payment-summary-buttons'" class="summary__action">
+        <div
+          v-e2e="'payment-summary-buttons'"
+          class="summary__action"
+        >
           <SfButton
             v-if="paymentMethodId !== paypalPaymentId"
             :disabled="loading || !terms"
@@ -141,7 +144,7 @@ import {
   SfButton,
   SfImage,
   SfPrice,
-  SfLink,
+  SfLink
 } from '@storefront-ui/vue';
 import { onSSR } from '@vue-storefront/core';
 import { ref, computed, useRouter, useContext } from '@nuxtjs/composition-api';
@@ -153,7 +156,7 @@ import {
   orderGetters,
   useShippingProvider,
   usePaymentProvider,
-  paypalGetters,
+  paypalGetters
 } from '@vue-storefront/plentymarkets';
 import { addBasePath } from '@vue-storefront/core';
 
@@ -199,15 +202,15 @@ export default {
     const processOrder = async () => {
       await make({
         paymentId: paymentMethodId.value,
-        shippingPrivacyHintAccepted: shippingPrivacyHintAccepted.value,
+        shippingPrivacyHintAccepted: shippingPrivacyHintAccepted.value
       });
 
       const thankYouPath = {
         name: 'thank-you',
         query: {
           orderId: orderGetters.getId(order.value),
-          accessKey: orderGetters.getAccessKey(order.value),
-        },
+          accessKey: orderGetters.getAccessKey(order.value)
+        }
       };
 
       router.push(app.localePath(thankYouPath));
@@ -234,9 +237,9 @@ export default {
       processOrder,
       paymentMethodId,
       paypalPaymentId,
-      selectionChangedPaymentProvider,
+      selectionChangedPaymentProvider
     };
-  },
+  }
 };
 </script>
 
