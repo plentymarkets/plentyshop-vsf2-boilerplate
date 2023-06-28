@@ -55,7 +55,7 @@ Cypress.Commands.add('paypalFlow', (email: string, password: string) => {
     .popup()
     .find('div')
     .should('not.exist')
-    .wait(1000) // Not recommended, but the only way I found to wait for the real content
+    .wait(2000) // Not recommended, but the only way I found to wait for the real content
   cy
     .popup()
     .then($body => {
@@ -74,7 +74,9 @@ Cypress.Commands.add('paypalFlow', (email: string, password: string) => {
         .clear()
         .type(password)
       cy.popup()
-        .find('button#btnLogin')
+        .find('button#btnLogin', {
+        timeout: 5000
+      })
         .click()
     })
   cy
@@ -101,10 +103,12 @@ Cypress.Commands.add('paypalComplete', () => {
     .popup()
     .find('ul.charges')
     .should('not.to.be.empty')
-  cy.wait(1000)
+  cy.wait(1000);
   cy
     .popup()
-    .find('button#payment-submit-btn')
+    .find('button#payment-submit-btn', {
+      timeout: 10000
+    })
     .click()
 
   cy.wait('@approveOrder');
