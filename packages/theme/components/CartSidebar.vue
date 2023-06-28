@@ -75,33 +75,31 @@
                   </div>
                 </template>
                 <template
-                  v-if="productGetters.showPricePerUnit(product)"
+                  v-if="productGetters.showPricePerUnit(product.variation)"
                   #price
                 >
-                  <div>
-                    <div class="sf-price">
-                      <span class="sf-price__regular display-none">{{
+                  <div class="sf-price">
+                    <span class="sf-price__regular display-none">{{
+                      $n(
+                        productGetters.getRegularPrice(product.variation),
+                        'currency'
+                      )
+                    }}</span>
+                    <del class="sf-price__old">{{
+                      $n(
+                        productGetters.getRegularPrice(product.variation),
+                        'currency'
+                      )
+                    }}</del>
+                    <ins class="sf-price__special">{{
+                      productGetters.getSpecialPrice(product.variation) &&
                         $n(
-                          productGetters.getRegularPrice(product.variation),
+                          productGetters.getSpecialPrice(product.variation),
                           'currency'
                         )
-                      }}</span>
-                      <del class="sf-price__old">{{
-                        $n(
-                          productGetters.getRegularPrice(product.variation),
-                          'currency'
-                        )
-                      }}</del>
-                      <ins class="sf-price__special">{{
-                        productGetters.getSpecialPrice(product.variation) &&
-                          $n(
-                            productGetters.getSpecialPrice(product.variation),
-                            'currency'
-                          )
-                      }}</ins>
-                    </div>
+                    }}</ins>
                   </div>
-                  <div style="font-size: 75%; font-weight: 400">
+                  <div>
                     {{ productGetters.getUnitId(product.variation) }}
                     {{ productGetters.getUnitName(product.variation) }} -
                     {{ productGetters.getDefaultBasePrice(product.variation) }}

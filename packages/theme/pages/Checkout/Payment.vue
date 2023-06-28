@@ -44,7 +44,10 @@
           </div>
         </SfTableData>
         <SfTableData
-          v-for="(value, key) in cartGetters.getItemAttributes(product, ['size', 'color'])"
+          v-for="(value, key) in cartGetters.getItemAttributes(product, [
+            'size',
+            'color',
+          ])"
           :key="key"
           class="table__data"
         >
@@ -54,9 +57,41 @@
           {{ cartGetters.getItemQty(product) }}
         </SfTableData>
         <SfTableData class="table__data price">
+          <div class="priceOnUnit" v-if="productGetters.showPricePerUnit(product.variation)">
+            <div class="sf-price">
+              <span class="sf-price__regular display-none">{{
+                $n(
+                  productGetters.getRegularPrice(product.variation),
+                  'currency'
+                )
+              }}</span>
+              <del class="sf-price__old">{{
+                $n(
+                  productGetters.getRegularPrice(product.variation),
+                  'currency'
+                )
+              }}</del>
+              <ins class="sf-price__special">{{
+                productGetters.getSpecialPrice(product.variation) &&
+                $n(
+                  productGetters.getSpecialPrice(product.variation),
+                  'currency'
+                )
+              }}</ins>
+            </div>
+            <div>
+              {{ productGetters.getUnitId(product.variation) }}
+              {{ productGetters.getUnitName(product.variation) }} -
+              {{ productGetters.getDefaultBasePrice(product.variation) }}
+            </div>
+          </div>
           <SfPrice
+            v-else
             :regular="$n(cartGetters.getRegularItemPrice(product), 'currency')"
-            :special="cartGetters.getSpecialItemPrice(product) && $n(cartGetters.getSpecialItemPrice(product), 'currency')"
+            :special="
+              cartGetters.getSpecialItemPrice(product) &&
+              $n(cartGetters.getSpecialItemPrice(product), 'currency')
+            "
             class="product-price"
           />
         </SfTableData>
@@ -73,17 +108,15 @@
         >
           <template #label>
             <div class="sf-checkbox__label">
-              {{ $t('Payment.I agree to') }} <SfLink link="#">
+              {{ $t('Payment.I agree to') }}
+              <SfLink link="#">
                 {{ $t('Payment.Terms and conditions') }}
               </SfLink>
             </div>
           </template>
         </SfCheckbox>
 
-        <div
-          v-e2e="'payment-summary-buttons'"
-          class="summary__action"
-        >
+        <div v-e2e="'payment-summary-buttons'" class="summary__action">
           <SfButton
             v-if="paymentMethodId !== paypalPaymentId"
             :disabled="loading || !terms"
@@ -95,7 +128,7 @@
 
           <PayPalExpressButton
             v-if="paymentMethodId === paypalPaymentId"
-            :value="{type: 'Checkout'}"
+            :value="{ type: 'Checkout' }"
             :disabled="loading || !terms"
             class="min-w-full"
           />
@@ -112,11 +145,20 @@ import {
   SfButton,
   SfImage,
   SfPrice,
-  SfLink
+  SfLink,
 } from '@storefront-ui/vue';
 import { onSSR } from '@vue-storefront/core';
-import {ref, computed, useRouter, useContext} from '@nuxtjs/composition-api';
-import { useMakeOrder, useCart, cartGetters, orderGetters, useShippingProvider, usePaymentProvider, paypalGetters } from '@vue-storefront/plentymarkets';
+import { ref, computed, useRouter, useContext } from '@nuxtjs/composition-api';
+import {
+  useMakeOrder,
+  useCart,
+  cartGetters,
+  productGetters,
+  orderGetters,
+  useShippingProvider,
+  usePaymentProvider,
+  paypalGetters,
+} from '@vue-storefront/plentymarkets';
 import { addBasePath } from '@vue-storefront/core';
 
 export default {
@@ -128,10 +170,13 @@ export default {
     SfImage,
     SfPrice,
     SfLink,
-    VsfPaymentProvider: () => import('~/components/Checkout/VsfPaymentProvider'),
-    VsfShippingProvider: () => import('~/components/Checkout/VsfShippingProvider'),
+    VsfPaymentProvider: () =>
+      import('~/components/Checkout/VsfPaymentProvider'),
+    VsfShippingProvider: () =>
+      import('~/components/Checkout/VsfShippingProvider'),
     CartTotals: () => import('~/components/CartTotals'),
-    PayPalExpressButton: () => import('~/components/PayPal/PayPalExpressButton')
+    PayPalExpressButton: () =>
+      import('~/components/PayPal/PayPalExpressButton'),
   },
   setup() {
     const { app } = useContext();
@@ -157,17 +202,19 @@ export default {
     const processOrder = async () => {
       await make({
         paymentId: paymentMethodId.value,
-        shippingPrivacyHintAccepted: shippingPrivacyHintAccepted.value
+        shippingPrivacyHintAccepted: shippingPrivacyHintAccepted.value,
       });
 
-      const thankYouPath = { name: 'thank-you',
+      const thankYouPath = {
+        name: 'thank-you',
         query: {
           orderId: orderGetters.getId(order.value),
-          accessKey: orderGetters.getAccessKey(order.value)
-        }};
+          accessKey: orderGetters.getAccessKey(order.value),
+        },
+      };
 
       router.push(app.localePath(thankYouPath));
-      setCart({items: []});
+      setCart({ items: [] });
     };
 
     const selectionChangedPaymentProvider = (value) => {
@@ -186,12 +233,13 @@ export default {
       totals: computed(() => cartGetters.getTotals(cart.value)),
       tableHeaders: ['Description', 'Size', 'Color', 'Quantity', 'Amount'],
       cartGetters,
+      productGetters,
       processOrder,
       paymentMethodId,
       paypalPaymentId,
-      selectionChangedPaymentProvider
+      selectionChangedPaymentProvider,
     };
-  }
+  },
 };
 </script>
 
@@ -272,9 +320,9 @@ export default {
       margin: 0 var(--spacer-xl) 0 0;
       width: auto;
     }
-    color:  var(--c-white);
+    color: var(--c-white);
     &:hover {
-      color:  var(--c-white);
+      color: var(--c-white);
     }
   }
   &__property-total {
@@ -309,5 +357,9 @@ export default {
   &__label {
     font-weight: var(--font-weight--normal);
   }
+}
+.priceOnUnit {
+  font-size: 75%;
+  font-weight: 400;
 }
 </style>
