@@ -145,11 +145,7 @@
                     }}</ins>
                   </div>
                 </div>
-                <div class="priceOnUnit">
-                  {{ productGetters.getUnitId(product) }}
-                  {{ productGetters.getUnitName(product) }} |
-                  {{ productGetters.getDefaultBasePrice(product) }}
-                </div>
+                <BasePrice :product="product" />
               </template>
             </SfProductCard>
           </transition-group>
@@ -350,7 +346,8 @@ export default {
     SfLoader,
     SfHeading,
     SfProperty,
-    LazyHydrate
+    LazyHydrate,
+    BasePrice: () => import('~/components/BasePrice')
   },
   transition: 'fade',
   setup(props, context) {

@@ -86,18 +86,7 @@
                       )
                     }}</ins>
                   </div>
-                  <div class="priceOnUnit">
-                    <div>
-                      {{
-                        productGetters.getDefaultBasePrice(product.variation)
-                      }}
-                    </div>
-                    <div>
-                      <span class="font-bold"> {{ $t('Content') }}: </span>
-                      {{ productGetters.getUnitId(product.variation) }}
-                      {{ productGetters.getUnitName(product.variation) }}
-                    </div>
-                  </div>
+                  <BasePrice :product="product.variation" />
                 </template>
                 <template #input>
                   <div
@@ -213,6 +202,7 @@ export default {
     SfImage,
     SfQuantitySelector,
     PayPalExpressButton,
+    BasePrice: () => import('~/components/BasePrice'),
     CartTotals: () => import('~/components/CartTotals'),
   },
   setup() {

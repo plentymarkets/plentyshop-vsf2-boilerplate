@@ -47,16 +47,7 @@
                     $n(productGetters.getSpecialPrice(product), 'currency')
                   "
                 />
-                <div class="priceOnUnit">
-                  <div>
-                    <span class="font-bold"> {{ $t('Content') }}: </span>
-                    {{ productGetters.getUnitId(product) }}
-                    {{ productGetters.getUnitName(product) }}
-                  </div>
-                  <div>
-                    {{ productGetters.getDefaultBasePrice(product) }}
-                  </div>
-                </div>
+                <BasePrice :product="product" />
               </div>
               <div>
                 <div class="product__rating">
@@ -246,6 +237,7 @@ export default {
     AttributeSelection,
     SfImage,
     SfLoader,
+    BasePrice: () => import('~/components/BasePrice')
   },
   transition: 'fade',
   setup() {

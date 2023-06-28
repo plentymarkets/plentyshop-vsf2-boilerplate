@@ -144,9 +144,4 @@ h4 {
   line-height: 1.6;
   margin: 0;
 }
-.priceOnUnit {
-  font-size: 75%;
-  text-align: left;
-  font-weight: 400;
-}
 </style>

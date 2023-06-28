@@ -79,16 +79,7 @@
                 )
               }}</ins>
             </div>
-            <div class="priceOnUnit">
-              <div>
-                {{ productGetters.getDefaultBasePrice(product.variation) }}
-              </div>
-              <div>
-                <span class="font-bold"> {{ $t('Content') }}: </span>
-                {{ productGetters.getUnitId(product.variation) }}
-                {{ productGetters.getUnitName(product.variation) }}
-              </div>
-            </div>
+            <BasePrice :product="product.variation" />
           </div>
           <SfPrice
             v-else
@@ -182,6 +173,7 @@ export default {
     CartTotals: () => import('~/components/CartTotals'),
     PayPalExpressButton: () =>
       import('~/components/PayPal/PayPalExpressButton'),
+    BasePrice: () => import('~/components/BasePrice')
   },
   setup() {
     const { app } = useContext();
