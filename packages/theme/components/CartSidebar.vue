@@ -352,9 +352,4 @@ export default {
 ::v-deep .sf-collected-product__image {
   background: var(--c-light--variant);
 }
-.priceOnUnit {
-  font-size: 75%;
-  text-align: left;
-  font-weight: 400;
-}
 </style>

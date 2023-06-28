@@ -620,8 +620,4 @@ export default {
     }
   }
 }
-.priceOnUnit {
-  font-size: 75%;
-  font-weight: 400;
-}
 </style>

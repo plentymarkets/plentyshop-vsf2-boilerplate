@@ -363,9 +363,4 @@ export default {
     font-weight: var(--font-weight--normal);
   }
 }
-.priceOnUnit {
-  font-size: 75%;
-  text-align: left;
-  font-weight: 400;
-}
 </style>

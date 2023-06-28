@@ -540,9 +540,4 @@ export default {
     transform: translate3d(0, 0, 0);
   }
 }
-.priceOnUnit {
-  font-size: 75%;
-  text-align: left;
-  font-weight: 400;
-}
 </style>
