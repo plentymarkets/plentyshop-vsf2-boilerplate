@@ -57,7 +57,7 @@
           {{ cartGetters.getItemQty(product) }}
         </SfTableData>
         <SfTableData class="table__data price">
-          <div class="priceOnUnit" v-if="productGetters.showPricePerUnit(product.variation)">
+          <div v-if="productGetters.showPricePerUnit(product.variation)">
             <div class="sf-price">
               <span class="sf-price__regular display-none">{{
                 $n(
@@ -79,10 +79,15 @@
                 )
               }}</ins>
             </div>
-            <div>
-              {{ productGetters.getUnitId(product.variation) }}
-              {{ productGetters.getUnitName(product.variation) }} -
-              {{ productGetters.getDefaultBasePrice(product.variation) }}
+            <div class="priceOnUnit">
+              <div>
+                {{ productGetters.getDefaultBasePrice(product.variation) }}
+              </div>
+              <div>
+                <span class="font-bold"> {{ $t('Content') }}: </span>
+                {{ productGetters.getUnitId(product.variation) }}
+                {{ productGetters.getUnitName(product.variation) }}
+              </div>
             </div>
           </div>
           <SfPrice
@@ -360,6 +365,7 @@ export default {
 }
 .priceOnUnit {
   font-size: 75%;
+  text-align: left;
   font-weight: 400;
 }
 </style>

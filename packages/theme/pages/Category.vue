@@ -147,7 +147,7 @@
                 </div>
                 <div class="priceOnUnit">
                   {{ productGetters.getUnitId(product) }}
-                  {{ productGetters.getUnitName(product) }} -
+                  {{ productGetters.getUnitName(product) }} |
                   {{ productGetters.getDefaultBasePrice(product) }}
                 </div>
               </template>

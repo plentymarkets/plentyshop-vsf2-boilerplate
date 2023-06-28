@@ -8,10 +8,7 @@
       @close="toggleCartSidebar"
     >
       <template #content-top>
-        <div
-          v-if="totalItems"
-          class="sf-sidebar__top__summary desktop-only"
-        >
+        <div v-if="totalItems" class="sf-sidebar__top__summary desktop-only">
           <SfProperty
             class="sf-property--large cart-summary"
             name="Total items"
@@ -26,20 +23,10 @@
           </SfButton>
         </div>
       </template>
-      <transition
-        name="sf-fade"
-        mode="out-in"
-      >
-        <div
-          v-if="totalItems"
-          key="my-cart"
-          class="my-cart"
-        >
+      <transition name="sf-fade" mode="out-in">
+        <div v-if="totalItems" key="my-cart" class="my-cart">
           <div class="collected-product-list">
-            <transition-group
-              name="sf-fade"
-              tag="div"
-            >
+            <transition-group name="sf-fade" tag="div">
               <SfCollectedProduct
                 v-for="product in products"
                 :key="cartGetters.getItemId(product)"
@@ -53,7 +40,7 @@
                 "
                 :special-price="
                   cartGetters.getSpecialItemPrice(product) &&
-                    $n(cartGetters.getSpecialItemPrice(product), 'currency')
+                  $n(cartGetters.getSpecialItemPrice(product), 'currency')
                 "
                 :stock="99999"
                 class="collected-product"
@@ -93,16 +80,23 @@
                     }}</del>
                     <ins class="sf-price__special">{{
                       productGetters.getSpecialPrice(product.variation) &&
-                        $n(
-                          productGetters.getSpecialPrice(product.variation),
-                          'currency'
-                        )
+                      $n(
+                        productGetters.getSpecialPrice(product.variation),
+                        'currency'
+                      )
                     }}</ins>
                   </div>
-                  <div>
-                    {{ productGetters.getUnitId(product.variation) }}
-                    {{ productGetters.getUnitName(product.variation) }} -
-                    {{ productGetters.getDefaultBasePrice(product.variation) }}
+                  <div class="priceOnUnit">
+                    <div>
+                      {{
+                        productGetters.getDefaultBasePrice(product.variation)
+                      }}
+                    </div>
+                    <div>
+                      <span class="font-bold"> {{ $t('Content') }}: </span>
+                      {{ productGetters.getUnitId(product.variation) }}
+                      {{ productGetters.getUnitName(product.variation) }}
+                    </div>
                   </div>
                 </template>
                 <template #input>
@@ -131,11 +125,7 @@
             </transition-group>
           </div>
         </div>
-        <div
-          v-else
-          key="empty-cart"
-          class="empty-cart"
-        >
+        <div v-else key="empty-cart" class="empty-cart">
           <div class="empty-cart__banner">
             <SfImage
               :width="100"
@@ -198,14 +188,14 @@ import {
   SfProperty,
   SfCollectedProduct,
   SfImage,
-  SfQuantitySelector
+  SfQuantitySelector,
 } from '@storefront-ui/vue';
 import { computed } from '@nuxtjs/composition-api';
 import {
   useCart,
   cartGetters,
   useUser,
-  productGetters
+  productGetters,
 } from '@vue-storefront/plentymarkets';
 import { useUiState } from '~/composables';
 import debounce from 'lodash.debounce';
@@ -223,7 +213,7 @@ export default {
     SfImage,
     SfQuantitySelector,
     PayPalExpressButton,
-    CartTotals: () => import('~/components/CartTotals')
+    CartTotals: () => import('~/components/CartTotals'),
   },
   setup() {
     const { isAuthenticated } = useUser();
@@ -250,9 +240,9 @@ export default {
       toggleCartSidebar,
       totals,
       totalItems,
-      cartGetters
+      cartGetters,
     };
-  }
+  },
 };
 </script>
 
@@ -361,5 +351,10 @@ export default {
 }
 ::v-deep .sf-collected-product__image {
   background: var(--c-light--variant);
+}
+.priceOnUnit {
+  font-size: 75%;
+  text-align: left;
+  font-weight: 400;
 }
 </style>

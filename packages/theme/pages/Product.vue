@@ -44,29 +44,24 @@
                   "
                   :special="
                     productGetters.getSpecialPrice(product) &&
-                      $n(productGetters.getSpecialPrice(product), 'currency')
+                    $n(productGetters.getSpecialPrice(product), 'currency')
                   "
                 />
-                <div
-                  v-if="productGetters.showPricePerUnit(product)"
-                  style="font-size: 75%; font-weight: 400"
-                >
-                  {{ productGetters.getUnitId(product) }}
-                  {{ productGetters.getUnitName(product) }} -
-                  {{ productGetters.getDefaultBasePrice(product) }}
+                <div class="priceOnUnit">
+                  <div>
+                    <span class="font-bold"> {{ $t('Content') }}: </span>
+                    {{ productGetters.getUnitId(product) }}
+                    {{ productGetters.getUnitName(product) }}
+                  </div>
+                  <div>
+                    {{ productGetters.getDefaultBasePrice(product) }}
+                  </div>
                 </div>
               </div>
               <div>
                 <div class="product__rating">
-                  <SfRating
-                    :score="averageRating"
-                    :max="5"
-                  />
-                  <a
-                    v-if="!!totalReviews"
-                    href="#"
-                    class="product__count"
-                  >
+                  <SfRating :score="averageRating" :max="5" />
+                  <a v-if="!!totalReviews" href="#" class="product__count">
                     ({{ totalReviews }})
                   </a>
                 </div>
@@ -109,10 +104,7 @@
             </div>
 
             <LazyHydrate when-idle>
-              <SfTabs
-                :open-tab="1"
-                class="product__tabs"
-              >
+              <SfTabs :open-tab="1" class="product__tabs">
                 <SfTab :title="$t('Product.Description')">
                   <div
                     class="product__description"
@@ -178,10 +170,7 @@
           <InstagramFeed />
         </LazyHydrate>
       </div>
-      <div
-        v-else
-        class="flex flex-col justify-center items-center gap-sf-lg"
-      >
+      <div v-else class="flex flex-col justify-center items-center gap-sf-lg">
         <SfImage
           :width="412"
           :height="412"
@@ -214,7 +203,7 @@ import {
   SfBreadcrumbs,
   SfButton,
   SfImage,
-  SfLoader
+  SfLoader,
 } from '@storefront-ui/vue';
 
 import AttributeSelection from '~/components/AttributeSelection.vue';
@@ -228,7 +217,7 @@ import {
   useReview,
   reviewGetters,
   propertyGetters,
-  useCategory
+  useCategory,
 } from '@vue-storefront/plentymarkets';
 import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
@@ -256,7 +245,7 @@ export default {
     LazyHydrate,
     AttributeSelection,
     SfImage,
-    SfLoader
+    SfLoader,
   },
   transition: 'fade',
   setup() {
@@ -266,12 +255,12 @@ export default {
     const {
       products,
       search,
-      loading: productLoadingState
+      loading: productLoadingState,
     } = useProduct('products');
     const {
       products: relatedProducts,
       search: searchRelatedProducts,
-      loading: relatedLoading
+      loading: relatedLoading,
     } = useProduct('relatedProducts');
     const { addItem, loading } = useCart();
     const { reviews: productReviews, search: searchReviews } =
@@ -283,7 +272,7 @@ export default {
       () =>
         productGetters.getFiltered(products.value, {
           master: true,
-          attributes: route.value.query
+          attributes: route.value.query,
         })[0]
     );
     const categories = computed(() =>
@@ -302,7 +291,7 @@ export default {
         mobile: { url: addBasePath(img.small) },
         desktop: { url: addBasePath(img.normal) },
         big: { url: addBasePath(img.big) },
-        alt: productGetters.getName(product.value)
+        alt: productGetters.getName(product.value),
       }))
     );
 
@@ -320,7 +309,7 @@ export default {
       await search({ id: id.value });
       await searchRelatedProducts({ catId: [categories.value[0]], limit: 8 });
       await searchReviews({
-        productId: productGetters.getItemId(product.value)
+        productId: productGetters.getItemId(product.value),
       });
     });
 
@@ -349,7 +338,7 @@ export default {
       isAttributeSelectionValid,
       addBasePath,
       toggleLangModal,
-      productLoading: computed(() => productLoadingState.value)
+      productLoading: computed(() => productLoadingState.value),
     };
   },
   data() {
@@ -358,29 +347,29 @@ export default {
       properties: [
         {
           name: 'Product Code',
-          value: '578902-00'
+          value: '578902-00',
         },
         {
           name: 'Category',
-          value: 'Pants'
+          value: 'Pants',
         },
         {
           name: 'Material',
-          value: 'Cotton'
+          value: 'Cotton',
         },
         {
           name: 'Country',
-          value: 'Germany'
-        }
+          value: 'Germany',
+        },
       ],
       description:
         'Find stunning women cocktail and party dresses. Stand out in lace and metallic cocktail dresses and party dresses from all your favorite brands.',
       detailsIsActive: false,
       brand:
         'Brand name is the perfect pairing of quality and design. This label creates major everyday vibes with its collection of modern brooches, silver and gold jewellery, or clips it back with hair accessories in geo styles.',
-      careInstructions: 'Do not wash!'
+      careInstructions: 'Do not wash!',
     };
-  }
+  },
 };
 </script>
 
@@ -550,5 +539,10 @@ export default {
   100% {
     transform: translate3d(0, 0, 0);
   }
+}
+.priceOnUnit {
+  font-size: 75%;
+  text-align: left;
+  font-weight: 400;
 }
 </style>
