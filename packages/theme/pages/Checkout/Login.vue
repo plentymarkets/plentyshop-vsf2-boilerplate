@@ -37,7 +37,7 @@
   </div>
 </template>
 <script>
-import { useRouter, watch, ref } from '@nuxtjs/composition-api';
+import { useRouter, watch, ref, useContext } from '@nuxtjs/composition-api';
 import { SfButton } from '@storefront-ui/vue';
 import { useUiState } from '~/composables';
 import { useUser } from '@vue-storefront/plentymarkets';
@@ -49,12 +49,13 @@ export default {
     SfButton,
     PsfPersonalDetails
   },
-  setup(props, {refs, root}) {
+  setup(props, {refs}) {
 
     const { isLoginModalOpen, toggleLoginModal } = useUiState();
     const router = useRouter();
     const { isAuthenticated, isGuest, register } = useUser();
     const createAccountCheckbox = ref(false);
+    const { app } = useContext();
 
     let user = {
       email: '',

@@ -36,7 +36,7 @@ import {
   SfButton,
   SfLoader
 } from '@storefront-ui/vue';
-import { computed, useRouter } from '@nuxtjs/composition-api';
+import { computed, useRouter, useContext } from '@nuxtjs/composition-api';
 import { onSSR } from '@vue-storefront/core';
 import { useActiveShippingCountries, useUserBilling } from '@vue-storefront/plentymarkets';
 import CheckoutAddressDetails from '~/components/Checkout/CheckoutAddressDetails';
@@ -48,11 +48,11 @@ export default {
     SfButton,
     CheckoutAddressDetails
   },
-  setup(props, {refs, root}) {
+  setup(props, {refs}) {
     const router = useRouter();
     const { load, loading: loadingBilling, billing, setDefaultAddress, deleteAddress, addAddress } = useUserBilling();
     const { load: loadActiveShippingCountries, loading: loadingCountry, result: countries } = useActiveShippingCountries();
-
+    const { app } = useContext();
     const loading = computed(() => {
       return loadingBilling.value && loadingCountry.value;
     });
@@ -64,14 +64,14 @@ export default {
 
     const saveAddress = async (address) => {
       await addAddress(address);
-      router.push(root.localePath({name: 'shipping'}));
+      router.push(app.localePath({name: 'shipping'}));
     };
 
     const continueToNextStep = () => {
       if (refs.CheckoutAddressDetailsRef.isFormOpen) {
         refs.CheckoutAddressDetailsRef.submit();
       } else {
-        router.push(root.localePath({name: 'shipping'}));
+        router.push(app.localePath({name: 'shipping'}));
       }
     };
 

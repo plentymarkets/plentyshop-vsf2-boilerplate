@@ -59,7 +59,7 @@
 <script>
 import { onSSR } from '@vue-storefront/core';
 import { SfButton, SfCheckbox, SfHeading, SfLoader } from '@storefront-ui/vue';
-import { ref, useRouter, computed, watch } from '@nuxtjs/composition-api';
+import { ref, useRouter, computed, watch, useContext } from '@nuxtjs/composition-api';
 import {
   useActiveShippingCountries,
   useUserShipping,
@@ -79,13 +79,14 @@ export default {
     AddressInputForm,
     SfHeading
   },
-  setup(props, {root, refs}) {
+  setup(props, {refs}) {
     const sameAsBilling = ref(false);
     const router = useRouter();
     const { load, loading: loadingShipping, shipping, setDefaultAddress, deleteAddress, addAddress } = useUserShipping();
     const { load: loadActiveShippingCountries, loading: loadingCountries, result: countries } = useActiveShippingCountries();
     const { load: loadBilling, loading: loadingBilling, billing } = useUserBilling();
     const shippingAddresses = computed(() => userAddressGetters.getAddresses(shipping.value));
+    const { app } = useContext();
 
     const sameAsBillingForm = computed(() => {
       const newAddress = userAddressGetters.getDefault(userAddressGetters.getAddresses(billing.value)) || userAddressGetters.getAddresses(billing.value)[0];
@@ -104,7 +105,7 @@ export default {
 
     const saveAddress = async (address) => {
       await addAddress(address);
-      router.push(root.localePath({name: 'payment'}));
+      router.push(app.localePath({name: 'payment'}));
     };
 
     watch(sameAsBilling, async () => {
@@ -120,7 +121,7 @@ export default {
 
         if (valid) {
           await saveAddress({address: sameAsBillingForm.value });
-          router.push(root.localePath({name: 'payment' }));
+          router.push(app.localePath({name: 'payment' }));
         }
         return;
       }
@@ -128,7 +129,7 @@ export default {
       if (refs.CheckoutAddressDetailsRef.isFormOpen) {
         refs.CheckoutAddressDetailsRef.submit();
       } else {
-        router.push(root.localePath({name: 'payment' }));
+        router.push(app.localePath({name: 'payment' }));
       }
     };
 

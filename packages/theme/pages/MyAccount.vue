@@ -68,7 +68,7 @@ export default {
   middleware: [
     'is-authenticated'
   ],
-  setup(props, {root}) {
+  setup() {
     const route = useRoute();
     const router = useRouter();
     const { app } = useContext();
@@ -95,7 +95,7 @@ export default {
 
       const slugifiedTitle = (title || '').toLowerCase().replace(' ', '-');
       const transformedPath = `/my-account/${slugifiedTitle}`;
-      const localeTransformedPath = root.localePath(transformedPath);
+      const localeTransformedPath = app.localePath(transformedPath);
 
       router.push(localeTransformedPath);
     };
