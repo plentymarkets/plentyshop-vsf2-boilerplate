@@ -75,12 +75,7 @@
                   </div>
                 </template>
                 <template
-                  v-if="
-                    !(
-                      product.variation.unit.unitOfMeasurement === 'C62' &&
-                      product.variation.unit.content === 1
-                    )
-                  "
+                  v-if="productGetters.showPricePerUnit(product)"
                   #price
                 >
                   <div>
