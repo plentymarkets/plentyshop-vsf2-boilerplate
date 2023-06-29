@@ -83,7 +83,7 @@ Cypress.Commands.add('paypalFlow', (email: string, password: string) => {
     .popup()
     .find('button[name="btnLogin"]')
     .should('not.exist')
-  cy.wait(15000)
+  cy.wait(30000)
 })
 
 /**
