@@ -93,10 +93,15 @@ export const useUser = (): useUserInterface => {
     resetErrors();
 
     if (!params.password || params.password.length === 0) {
-      await context.$plentymarkets.api.loginAsGuest(params.email);
-      isAuthenticated.value = false;
-      isGuest.value = true;
-      loading.value = false;
+      try {
+        await context.$plentymarkets.api.loginAsGuest(params.email);
+        isAuthenticated.value = false;
+        isGuest.value = true;
+      } catch (e) {
+        isGuest.value = false;
+      } finally {
+        loading.value = false;
+      }
 
       return null;
     } else {
