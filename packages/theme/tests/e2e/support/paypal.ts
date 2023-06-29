@@ -64,17 +64,10 @@ Cypress.Commands.add('paypalFlow', (email: string, password: string) => {
         .find('input#email')
         .clear()
         .type(email)
-
-
-      const btnNext = cy.popup()
-        .find('button[name="btnNext"]')
-        .first();
-
-      if(btnNext.length > 0) {
-        btnNext.click()
-        cy.wait(3000);
-      }
-
+      cy.popup()
+        .find('button:visible')
+        .first()
+        .click()
       cy.popup()
         .find('input#password')
         .clear()
