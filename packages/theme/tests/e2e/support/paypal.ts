@@ -68,7 +68,7 @@ Cypress.Commands.add('paypalFlow', (email: string, password: string) => {
         .find('button:visible')
         .first()
         .click()
-      cy.wait(1500);
+      cy.wait(3000);
       cy.popup()
         .find('input#password')
         .clear()
@@ -83,7 +83,7 @@ Cypress.Commands.add('paypalFlow', (email: string, password: string) => {
     .popup()
     .find('button#btnLogin')
     .should('not.exist')
-  cy.wait(5000)
+  cy.wait(15000)
 })
 
 /**
@@ -104,6 +104,10 @@ Cypress.Commands.add('paypalComplete', () => {
     .find('ul.charges')
     .should('not.to.be.empty')
   cy.wait(1000);
+  Cypress.log({
+    name: "getPayPalCompleteButton",
+    message: cy.popup().find("button")
+  });
   cy
     .popup()
     .find('button#payment-submit-btn', {
