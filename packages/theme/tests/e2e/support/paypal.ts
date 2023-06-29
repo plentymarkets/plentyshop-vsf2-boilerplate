@@ -8,7 +8,6 @@ Cypress.Commands.add('iframe', { prevSubject: 'element' }, $iframe => {
     });
   });
 
-  console.log('iframe_type', typeof(data), data);
   return data;
 });
 
@@ -55,7 +54,7 @@ Cypress.Commands.add('paypalFlow', (email: string, password: string) => {
     .popup()
     .find('div')
     .should('not.exist')
-    .wait(2000) // Not recommended, but the only way I found to wait for the real content
+    .wait(5000) // Not recommended, but the only way I found to wait for the real content
   cy
     .popup()
     .then($body => {
@@ -68,6 +67,7 @@ Cypress.Commands.add('paypalFlow', (email: string, password: string) => {
         .find('button:visible')
         .first()
         .click()
+      cy.wait(5000);
       cy.popup()
         .find('input#password')
         .clear()
@@ -78,7 +78,7 @@ Cypress.Commands.add('paypalFlow', (email: string, password: string) => {
       })
         .click()
     })
-  cy.wait(1000);
+  cy.wait(3000);
   cy
     .popup()
     .find('button[name="btnLogin"]')
