@@ -79,7 +79,7 @@
                   )
               }}</ins>
             </div>
-            <BasePrice :product="product.variation" />
+            <BasePrice :product="product.variation" :contentLineFirst="false"  />
           </div>
           <SfPrice
             v-else

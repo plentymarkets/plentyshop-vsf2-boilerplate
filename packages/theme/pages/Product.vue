@@ -47,7 +47,7 @@
                       $n(productGetters.getSpecialPrice(product), 'currency')
                   "
                 />
-                <BasePrice :product="product" />
+                <BasePrice :product="product" :contentLineFirst="true" />
               </div>
               <div>
                 <div class="product__rating">

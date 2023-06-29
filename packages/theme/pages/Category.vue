@@ -131,21 +131,19 @@
                 v-if="productGetters.showPricePerUnit(product)"
                 #price
               >
-                <div>
-                  <div class="sf-price">
-                    <span class="sf-price__regular display-none">{{
-                      $n(productGetters.getRegularPrice(product), 'currency')
-                    }}</span>
-                    <del class="sf-price__old">{{
-                      $n(productGetters.getRegularPrice(product), 'currency')
-                    }}</del>
-                    <ins class="sf-price__special">{{
-                      productGetters.getSpecialPrice(product) &&
-                        $n(productGetters.getSpecialPrice(product), 'currency')
-                    }}</ins>
-                  </div>
+                <div class="sf-price">
+                  <span class="sf-price__regular display-none">{{
+                    $n(productGetters.getRegularPrice(product), 'currency')
+                  }}</span>
+                  <del class="sf-price__old">{{
+                    $n(productGetters.getRegularPrice(product), 'currency')
+                  }}</del>
+                  <ins class="sf-price__special">{{
+                    productGetters.getSpecialPrice(product) &&
+                      $n(productGetters.getSpecialPrice(product), 'currency')
+                  }}</ins>
                 </div>
-                <BasePrice :product="product" />
+                <BasePrice :product="product" :oneline="true" :contentLineFirst="true" />
               </template>
             </SfProductCard>
           </transition-group>
