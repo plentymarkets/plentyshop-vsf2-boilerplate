@@ -99,7 +99,10 @@
                         )
                     }}</ins>
                   </div>
-                  <BasePrice :product="product.variation" :contentLineFirst="false"  />
+                  <BasePrice
+                    :product="product.variation"
+                    :content-line-first="false"
+                  />
                 </template>
                 <template #input>
                   <div

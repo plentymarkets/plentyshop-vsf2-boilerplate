@@ -1,13 +1,24 @@
 <template>
   <div>
     <div :class="basePriceCss">
-      <div v-if="oneline" id="spacer"></div>
+      <div
+        v-if="oneline"
+        id="spacer"
+      />
       <div id="basePrice">
         {{ productGetters.getDefaultBasePrice(product) }}
       </div>
-      <div v-if="oneline" id="lineSeparator">|</div>
+      <div
+        v-if="oneline"
+        id="lineSeparator"
+      >
+        |
+      </div>
       <div id="content">
-        <span v-if="!oneline" class="font-bold"> {{ $t('Content') }}: </span>
+        <span
+          v-if="!oneline"
+          class="font-bold"
+        > {{ $t('Content') }}: </span>
         <span class="mr-1">
           {{ productGetters.getUnitId(product) }}
           {{ productGetters.getUnitName(product) }}
@@ -37,9 +48,10 @@ export default {
     }
   },
   setup(props) {
-    let basePriceCss = !props.oneline ? 'twolineItems' : 'inlineItems rearangeByRow'
-    if(!props.oneline && props.contentLineFirst) {
-        basePriceCss += ' rearangeByColumn'
+    let basePriceCss = !props.oneline ? 'twolineItems' : 'inlineItems rearangeByRow';
+
+    if (!props.oneline && props.contentLineFirst) {
+      basePriceCss += ' rearangeByColumn';
     }
 
     return {

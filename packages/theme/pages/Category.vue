@@ -143,7 +143,11 @@
                       $n(productGetters.getSpecialPrice(product), 'currency')
                   }}</ins>
                 </div>
-                <BasePrice :product="product" :oneline="true" :contentLineFirst="true" />
+                <BasePrice
+                  :product="product"
+                  :oneline="true"
+                  :content-line-first="true"
+                />
               </template>
             </SfProductCard>
           </transition-group>
