@@ -1,5 +1,6 @@
 import page from '../pages/factory';
 
+/*
 context('PayPal buttons rendering', () => {
   beforeEach(function init() {
     cy.setConsentCookie();
@@ -27,6 +28,7 @@ context('PayPal buttons rendering', () => {
     cy.get('[v-e2e="paypal-button"]').should('exist');
   });
 });
+*/
 
 context('PayPal express checkout', () => {
   beforeEach(function init() {

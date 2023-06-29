@@ -106,7 +106,7 @@ Cypress.Commands.add('paypalComplete', () => {
   cy.wait(1000);
   cy
     .popup()
-    .find('button:visible', {
+    .find('button[data-testid="submit-button-initial"]', {
       timeout: 10000
     })
     .click()
