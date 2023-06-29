@@ -104,13 +104,9 @@ Cypress.Commands.add('paypalComplete', () => {
     .find('ul.charges')
     .should('not.to.be.empty')
   cy.wait(1000);
-  Cypress.log({
-    name: "getPayPalCompleteButton",
-    message: cy.popup().find("button")
-  });
   cy
     .popup()
-    .find('button#payment-submit-btn', {
+    .find('button', {
       timeout: 10000
     })
     .click()
