@@ -55,7 +55,7 @@ context('PayPal express checkout', () => {
   });
 
 
-  it(['happyPath', 'regression'], 'Shpuld place an order from cart preview', function test() {
+  it(['happyPath', 'regression'], 'Should place an order from cart preview', function test() {
     cy.paypalFlow(Cypress.env('PAYPAL_EMAIL'), Cypress.env('PAYPAL_PASSWORD'))
     cy.paypalComplete()
 
