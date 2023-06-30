@@ -164,7 +164,7 @@ export default {
     HeaderNavigation
   },
   directives: { clickOutside },
-  setup(props, { root }) {
+  setup() {
     const router = useRouter();
     const { toggleCartSidebar, toggleWishlistSidebar, toggleLoginModal, isMobileMenuOpen } = useUiState();
     const { setTermForUrl, getFacetsFromURL } = useUiHelpers();
@@ -175,6 +175,7 @@ export default {
     const term = ref(getFacetsFromURL().term);
     const isSearchOpen = ref(false);
     const searchBarRef = ref(null);
+    const { app } = useContext();
 
     const cartTotalItems = computed(() => {
       const count = cartGetters.getTotalItems(cart.value);
@@ -201,7 +202,7 @@ export default {
     // TODO: https://github.com/DivanteLtd/vue-storefront/issues/4927
     const handleAccountClick = async () => {
       if (isAuthenticated.value) {
-        const localeAccountPath = root.localePath('/my-account/my-profile');
+        const localeAccountPath = app.localePath('/my-account/my-profile');
 
         return router.push(localeAccountPath);
       }
@@ -232,8 +233,6 @@ export default {
       term.value = '';
       return searchBarRef.value.$el.children[0]?.children[0]?.focus();
     };
-
-    const { app } = useContext();
 
     app.i18n.locale === 'de' ? localize('de', de) : localize('en', en);
 
