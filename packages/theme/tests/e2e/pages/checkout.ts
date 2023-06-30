@@ -189,6 +189,10 @@ class ThankYou {
     return el('order-totals');
   }
 
+  get orderPaymentStatus(): Cypress.Chainable {
+    return cy.get('[v-e2e="payment-status"]');
+  }
+
   visit(orderId, accesskey, postcode): Cypress.Chainable {
     return cy.visit('/checkout/thank-you?orderId=' + orderId + '&orderAccessKey=' + accesskey + '&postcode=' + postcode);
   }

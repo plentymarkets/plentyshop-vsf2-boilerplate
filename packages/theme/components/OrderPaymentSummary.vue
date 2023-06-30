@@ -38,7 +38,10 @@
       <div class="font-light">
         {{ paymentMethodName }}
       </div>
-      <div class="font-light">
+      <div
+        class="font-light"
+        :v-e2e="'payment-status'"
+      >
         {{ $t('ThankYou.Status') }}: {{ $t('ThankYou.payment status ' + paymentStatus) }}
       </div>
     </div>

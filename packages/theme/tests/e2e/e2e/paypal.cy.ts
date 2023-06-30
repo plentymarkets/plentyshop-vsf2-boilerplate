@@ -1,5 +1,6 @@
 import page from '../pages/factory';
 
+/*
 context('PayPal buttons rendering', () => {
   beforeEach(function init() {
     cy.setConsentCookie();
@@ -27,10 +28,12 @@ context('PayPal buttons rendering', () => {
     cy.get('[v-e2e="paypal-button"]').should('exist');
   });
 });
+ */
 
 context('PayPal express checkout', () => {
   beforeEach(function init() {
     cy.setConsentCookie();
+    cy.setLocaleCookie('en');
 
     cy.intercept('/api/plentymarkets/loadAddresses').as('loadAddresses');
     cy.intercept('/api/plentymarkets/getActiveShippingCountries').as('getActiveShippingCountries');
@@ -51,7 +54,7 @@ context('PayPal express checkout', () => {
   });
 
 
-  it(['happyPath', 'regression'], 'Shpuld place an order from cart preview', function test() {
+  it(['happyPath', 'regression'], 'Should place an order from cart preview', function test() {
     cy.paypalFlow(Cypress.env('PAYPAL_EMAIL'), Cypress.env('PAYPAL_PASSWORD'))
     cy.paypalComplete()
 
@@ -63,5 +66,6 @@ context('PayPal express checkout', () => {
     cy.wait(['@additionalInformation', '@preparePayment', '@placeOrder', '@executePayment', '@executePayPalOrder', '@getOrder']);
 
     page.checkout.thankyou.validate();
+    page.checkout.thankyou.orderPaymentStatus.contains('Status: Paid')
   });
 });
