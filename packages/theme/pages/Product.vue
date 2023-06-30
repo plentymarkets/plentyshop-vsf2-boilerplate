@@ -60,11 +60,11 @@
                 </div>
                 <SfButton
                   v-if="!!totalReviews"
-                  class="sf-link sf-button--text"
                   v-e2e="read-all-reviews"
+                  class="sf-link sf-button--text"
                   @click="scrollToReviews"
                 >
-                {{ $t('Product.Read all reviews') }}
+                  {{ $t('Product.Read all reviews') }}
                 </SfButton>
               </div>
             </div>
@@ -283,9 +283,9 @@ export default {
 
     const scrollToReviews = () => {
       document
-        .getElementById("reviews")
-        .scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
-    }
+        .getElementById('reviews')
+        .scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+    };
 
     onSSR(async () => {
       await search({ id: id.value });
