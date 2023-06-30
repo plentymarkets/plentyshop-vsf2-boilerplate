@@ -85,7 +85,7 @@ jobs:
   test-e2e:
     name: Run all end-to-end tests
     needs: prepare_dependencies
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, 2xlarge]
     steps:
       - uses: actions/checkout@v3
 
