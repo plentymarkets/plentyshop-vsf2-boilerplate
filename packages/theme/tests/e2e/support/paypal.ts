@@ -55,7 +55,7 @@ Cypress.Commands.add('paypalFlow', (email: string, password: string) => {
     .popup()
     .find('div')
     .should('not.exist')
-    .wait(1000) // Not recommended, but the only way I found to wait for the real content
+    .wait(5000) // Not recommended, but the only way I found to wait for the real content
   cy
     .popup()
     .then($body => {
