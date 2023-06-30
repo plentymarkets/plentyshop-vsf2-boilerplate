@@ -58,13 +58,14 @@
                     ({{ totalReviews }})
                   </a>
                 </div>
-                <a
+                <SfButton
                   v-if="!!totalReviews"
                   class="sf-link sf-button--text"
-                  href="#reviews"
+                  v-e2e="read-all-reviews"
+                  @click="scrollToReviews"
                 >
-                  {{ $t('Product.Read all reviews') }}
-                </a>
+                {{ $t('Product.Read all reviews') }}
+                </SfButton>
               </div>
             </div>
             <div>
@@ -280,6 +281,12 @@ export default {
       }
     };
 
+    const scrollToReviews = () => {
+      document
+        .getElementById("reviews")
+        .scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+    }
+
     onSSR(async () => {
       await search({ id: id.value });
       await searchRelatedProducts({ catId: [categories.value[0]], limit: 8 });
@@ -290,6 +297,7 @@ export default {
       product,
       reviews,
       reviewGetters,
+      scrollToReviews,
       averageRating: computed(() =>
         productGetters.getAverageRating(product.value)
       ),
