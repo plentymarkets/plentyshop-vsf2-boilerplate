@@ -66,7 +66,12 @@
                     ({{ totalReviews }})
                   </a>
                 </div>
-                <SfButton class="sf-button--text">
+                <SfButton
+                  v-if="!!totalReviews"
+                  v-e2e="read-all-reviews"
+                  class="sf-link sf-button--text"
+                  @click="scrollToReviews"
+                >
                   {{ $t('Product.Read all reviews') }}
                 </SfButton>
               </div>
@@ -76,9 +81,6 @@
                 class="product__description desktop-only"
                 v-html="productGetters.getShortDescription(product)"
               />
-              <SfButton class="sf-button--text desktop-only product__guide">
-                {{ $t('Product.Size guide') }}
-              </SfButton>
 
               <AttributeSelection
                 @selection-changed="attributeSelectionChanged($event)"
@@ -114,42 +116,10 @@
                     class="product__description"
                     v-html="productGetters.getDescription(product)"
                   />
-                  <SfProperty
-                    v-for="(property, i) in properties"
-                    :key="i"
-                    :name="propertyGetters.getName(property)"
-                    :value="propertyGetters.getValue(property)"
-                    class="product__property"
-                  >
-                    <template
-                      v-if="propertyGetters.getName(property) === 'Category'"
-                      #value
-                    >
-                      <SfButton
-                        class="product__property__button sf-button--text"
-                      >
-                        {{ propertyGetters.getValue(property) }}
-                      </SfButton>
-                    </template>
-                  </SfProperty>
-                </SfTab>
-                <SfTab :title="$t('Product.Read reviews')">
-                  <SfReview
-                    v-for="review in reviews"
-                    :key="reviewGetters.getReviewId(review)"
-                    :author="reviewGetters.getReviewAuthor(review)"
-                    :date="reviewGetters.getReviewDate(review)"
-                    :message="reviewGetters.getReviewMessage(review)"
-                    :max-rating="5"
-                    :rating="reviewGetters.getReviewRating(review)"
-                    :char-limit="250"
-                    read-more-text="Read more"
-                    hide-full-text="Read less"
-                    class="product__review"
-                  />
                 </SfTab>
                 <SfTab
-                  :title="$t('Product.Additional information')"
+                  v-if="!!productGetters.getTechnicalData(product)"
+                  :title="$t('Product.Technical Data')"
                   class="product__additional-info"
                 >
                   <div
@@ -161,6 +131,33 @@
             </LazyHydrate>
           </div>
         </div>
+        <LazyHydrate
+          v-if="!!totalReviews"
+          when-visible
+        >
+          <div class="p-sf-sm">
+            <SfHeading
+              id="reviews"
+              :title="$t('Product.Reviews')"
+              class="text text-sf-xl"
+            />
+            <div class="mt-sf-sm">
+              <SfReview
+                v-for="review in reviews"
+                :key="reviewGetters.getReviewId(review)"
+                :author="reviewGetters.getReviewAuthor(review)"
+                :date="reviewGetters.getReviewDate(review)"
+                :message="reviewGetters.getReviewMessage(review)"
+                :max-rating="5"
+                :rating="reviewGetters.getReviewRating(review)"
+                :char-limit="250"
+                read-more-text="Read more"
+                hide-full-text="Read less"
+                class="product__review"
+              />
+            </div>
+          </div>
+        </LazyHydrate>
 
         <LazyHydrate when-visible>
           <RelatedProducts
@@ -168,10 +165,6 @@
             :loading="relatedLoading"
             :title="$t('Product.Match it with')"
           />
-        </LazyHydrate>
-
-        <LazyHydrate when-visible>
-          <InstagramFeed />
         </LazyHydrate>
       </div>
       <div
@@ -198,7 +191,6 @@
 </template>
 <script>
 import {
-  SfProperty,
   SfHeading,
   SfPrice,
   SfRating,
@@ -214,7 +206,6 @@ import {
 } from '@storefront-ui/vue';
 
 import AttributeSelection from '~/components/AttributeSelection.vue';
-import InstagramFeed from '~/components/InstagramFeed.vue';
 import RelatedProducts from '~/components/RelatedProducts.vue';
 import { ref, computed, useRoute } from '@nuxtjs/composition-api';
 import {
@@ -236,7 +227,6 @@ export default {
   name: 'Product',
   components: {
     PayPalExpressButton,
-    SfProperty,
     SfHeading,
     SfPrice,
     SfRating,
@@ -247,7 +237,6 @@ export default {
     SfReview,
     SfBreadcrumbs,
     SfButton,
-    InstagramFeed,
     RelatedProducts,
     LazyHydrate,
     AttributeSelection,
@@ -283,12 +272,9 @@ export default {
           attributes: route.value.query
         })[0]
     );
-    const categories = computed(() =>
-      productGetters.getCategoryIds(product.value)
-    );
-    const reviews = computed(() =>
-      reviewGetters.getItems(productReviews.value)
-    );
+    const categories = computed(() => productGetters.getCategoryIds(product.value));
+    const reviews = computed(() => reviewGetters.getItems(productReviews.value));
+    const stock = ref(5);
 
     // TODO: Breadcrumbs are temporary disabled because productGetters return undefined. We have a mocks in data
     const breadcrumbs = computed(() =>
@@ -313,6 +299,12 @@ export default {
       }
     };
 
+    const scrollToReviews = () => {
+      document
+        .getElementById('reviews')
+        .scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+    };
+
     onSSR(async () => {
       await search({ id: id.value });
       await searchRelatedProducts({ catId: [categories.value[0]], limit: 8 });
@@ -325,6 +317,7 @@ export default {
       product,
       reviews,
       reviewGetters,
+      scrollToReviews,
       averageRating: computed(() =>
         productGetters.getAverageRating(product.value)
       ),
@@ -346,36 +339,8 @@ export default {
       isAttributeSelectionValid,
       addBasePath,
       toggleLangModal,
+      stock,
       productLoading: computed(() => productLoadingState.value)
-    };
-  },
-  data() {
-    return {
-      stock: 5,
-      properties: [
-        {
-          name: 'Product Code',
-          value: '578902-00'
-        },
-        {
-          name: 'Category',
-          value: 'Pants'
-        },
-        {
-          name: 'Material',
-          value: 'Cotton'
-        },
-        {
-          name: 'Country',
-          value: 'Germany'
-        }
-      ],
-      description:
-        'Find stunning women cocktail and party dresses. Stand out in lace and metallic cocktail dresses and party dresses from all your favorite brands.',
-      detailsIsActive: false,
-      brand:
-        'Brand name is the perfect pairing of quality and design. This label creates major everyday vibes with its collection of modern brooches, silver and gold jewellery, or clips it back with hair accessories in geo styles.',
-      careInstructions: 'Do not wash!'
     };
   }
 };

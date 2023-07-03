@@ -362,11 +362,12 @@ const en = {
   },
   // Product
   'Product': {
-    'Additional information': 'Additional information',
+    'Technical Data': 'Technical data',
     'Description': 'Description',
     'Match it with': 'Match it with',
     'Read all reviews': 'Read all reviews',
     'Read reviews': 'Read reviews',
+    'Reviews': 'Reviews',
     'Size guide': '@:App.sizeGuide',
     'Try a different language': 'Try a different language',
     'Content': 'Content'

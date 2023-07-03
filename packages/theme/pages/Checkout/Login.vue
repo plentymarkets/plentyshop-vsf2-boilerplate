@@ -53,7 +53,7 @@ export default {
 
     const { isLoginModalOpen, toggleLoginModal } = useUiState();
     const router = useRouter();
-    const { isAuthenticated, register } = useUser();
+    const { isAuthenticated, isGuest, register } = useUser();
     const createAccountCheckbox = ref(false);
     const { app } = useContext();
 
@@ -65,10 +65,20 @@ export default {
     };
 
     watch(isAuthenticated, () => {
-      if (isAuthenticated) {
+      if (isAuthenticated.value) {
         router.push(app.localePath('billing'));
       }
     });
+
+    watch(isGuest, () => {
+      if (isGuest.value) {
+        router.push(app.localePath('billing'));
+      }
+    });
+
+    if (isAuthenticated.value || isGuest.value) {
+      router.push(app.localePath('billing'));
+    }
 
     const logInput = (event) => {
       user = event;
@@ -80,9 +90,9 @@ export default {
       const { isValid } = await refs.PersonalDetails.validate();
 
       if (isValid) {
-        await register({ user });
+        await register(user);
 
-        if (isAuthenticated) {
+        if (isAuthenticated.value || isGuest.value) {
           router.push(app.localePath('billing'));
         }
       }
@@ -92,6 +102,7 @@ export default {
       user,
       router,
       isAuthenticated,
+      isGuest,
       isLoginModalOpen,
       toggleLoginModal,
       logInput,

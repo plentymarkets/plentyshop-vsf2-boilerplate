@@ -360,11 +360,12 @@ const de = {
   },
   // Product
   'Product': {
-    'Additional information': 'Weitere Informationen',
+    'Technical Data': 'Technische Daten',
     'Description': 'Beschreibung',
     'Match it with': 'Kombiniere es mit',
     'Read all reviews': 'Alle Bewertungen lesen',
     'Read reviews': 'Bewertungen lesen',
+    'Reviews': 'Bewertungen',
     'Size guide': '@:App.sizeGuide',
     'Try a different language': 'Versuche die Sprache zu wechseln',
     'Content': 'Inhalt'
