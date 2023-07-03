@@ -3,7 +3,7 @@
     <div :class="basePriceCss">
       <div
         v-if="oneline"
-        id="spacer"
+        class="flex-1"
       />
       <div id="basePrice">
         {{ productGetters.getDefaultBasePrice(product) }}
@@ -76,10 +76,6 @@ export default {
   width: 100%;
 }
 
-.inline div {
-  flex: 1;
-}
-
 .twolineItems {
   display: flex;
   flex-direction: column;
@@ -89,9 +85,6 @@ export default {
 }
 .twolineItems #basePrice {
   width: 100%;
-}
-#spacer {
-  flex:1;
 }
 #lineSeparator {
   margin-right:2px;
