@@ -1,14 +1,12 @@
 <template>
   <SfTopBar class="topbar">
-    <template #left>
-      <SfButton class="sf-button--text">
-        {{ $t('TopBar.Help & FAQs') }}
-      </SfButton>
-    </template>
     <template #center>
-      <p>{{ $t('TopBar.Download') }}</p>
-      <SfButton class="topbar__button sf-button--text">
-        {{ $t('TopBar.Find out more') }}
+      <SfButton
+        id="downloadPwa"
+        class="topbar__button sf-button--text"
+        @click="installPwa"
+      >
+        {{ $t('TopBar.Download') }}
       </SfButton>
     </template>
     <template #right>
@@ -20,12 +18,49 @@
 <script>
 import { SfButton, SfTopBar } from '@storefront-ui/vue';
 import LocaleSelector from './LocaleSelector';
+import { ref, onMounted } from '@nuxtjs/composition-api';
 
 export default {
   components: {
     SfTopBar,
     SfButton,
     LocaleSelector
+  },
+  setup() {
+    let installPrompt = null;
+    const downloadPwa = ref(null);
+
+    onMounted(() => {
+      window.addEventListener('beforeinstallprompt', (event) => {
+        event.preventDefault();
+        installPrompt = event;
+        if (downloadPwa.value) {
+          downloadPwa.value.removeAttribute('hidden');
+        }
+      });
+    });
+
+    const disableInAppInstallPrompt = () => {
+      installPrompt = null;
+      if (downloadPwa.value) {
+        downloadPwa.value.setAttribute('hidden', '');
+      }
+    };
+
+    const installPwa = async () => {
+      if (!installPrompt) {
+        return;
+      }
+      const result = await installPrompt.prompt();
+
+      if (result) {
+        disableInAppInstallPrompt();
+      }
+    };
+
+    return {
+      installPwa
+    };
   }
 };
 
