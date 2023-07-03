@@ -230,8 +230,8 @@ function showPricePerUnit(product: Product): Boolean {
   );
 }
 
-function getUnitId(product: Product): number {
-  return Number(product?.unit?.names?.unitId);
+function getUnitContent(product: Product): number {
+  return Number(product?.unit?.content);
 }
 
 function getUnitName(product: Product): String {
@@ -253,7 +253,7 @@ function getMaxRating(product: Product): number {
 }
 
 export const productGetters: ProductGetters<Product, ProductFilter> = {
-  getUnitId,
+  getUnitContent,
   showPricePerUnit,
   getUnitName,
   getDefaultBasePrice,

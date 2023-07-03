@@ -20,7 +20,7 @@
           class="font-bold"
         > {{ $t('Content') }}: </span>
         <span class="mr-1">
-          {{ productGetters.getUnitId(product) }}
+          {{ productGetters.getUnitContent(product) }}
           {{ productGetters.getUnitName(product) }}
         </span>
       </div>

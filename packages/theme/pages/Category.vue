@@ -220,11 +220,10 @@
                       }}</ins>
                     </div>
                   </div>
-                  <div style="font-size: 75%; font-weight: 400">
-                    {{ productGetters.getUnitId(product) }}
-                    {{ productGetters.getUnitName(product) }} -
-                    {{ productGetters.getDefaultBasePrice(product) }}
-                  </div>
+                  <BasePrice
+                    :product="product"
+                    :content-line-first="true"
+                  />
                 </template>
                 <template #configuration>
                   <SfProperty
