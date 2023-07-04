@@ -59,7 +59,7 @@
 <script>
 import { onSSR } from '@vue-storefront/core';
 import { SfButton, SfCheckbox, SfHeading, SfLoader } from '@storefront-ui/vue';
-import { ref, useRouter, computed, watch, useContext } from '@nuxtjs/composition-api';
+import { ref, useRouter, computed, useContext } from '@nuxtjs/composition-api';
 import {
   useActiveShippingCountries,
   useUserShipping,
@@ -80,7 +80,7 @@ export default {
     SfHeading
   },
   setup(props, {refs}) {
-    const sameAsBilling = ref(false);
+    const sameAsBilling = ref(true);
     const router = useRouter();
     const { load, loading: loadingShipping, shipping, setDefaultAddress, deleteAddress, addAddress } = useUserShipping();
     const { load: loadActiveShippingCountries, loading: loadingCountries, result: countries } = useActiveShippingCountries();
@@ -101,18 +101,13 @@ export default {
     onSSR(async () => {
       await load();
       await loadActiveShippingCountries();
+      await loadBilling();
     });
 
     const saveAddress = async (address) => {
       await addAddress(address);
       router.push(app.localePath({name: 'payment'}));
     };
-
-    watch(sameAsBilling, async () => {
-      if (sameAsBilling) {
-        await loadBilling();
-      }
-    });
 
     const continueToNextStep = async () => {
 
