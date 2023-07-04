@@ -340,7 +340,15 @@ const en = {
     'Personal data': 'Personal data',
     'Repeat password': 'Repeat password',
     'Save changes': 'Save changes',
-    'Update password': 'Update password'
+    'Update password': 'Update password',
+    'Password requirements': 'Password minimum requirements: At least 8 characters long and must contain at least one letter and one number',
+    'If you want to change the password to access your account': 'If you want to change the password to access your account, enter the following information:',
+    'Your current email is': 'Your current email address is {email}',
+    'The passwords do not match': 'The passwords do not match.'
+  },
+  // ProfileDetails
+  'ProfileDetails': {
+    'Successfully changed your password': 'You successfully changed your password.'
   },
   // PsfPersonalDetails
   'PsfPersonalDetails': {
