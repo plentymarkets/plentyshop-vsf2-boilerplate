@@ -28,7 +28,7 @@
         />
       </ValidationProvider>
       <SfButton
-        class="sf-button--full-width form__button"
+        class="sf-button--full-width form__button min-h-12"
         type="submit"
         :disabled="loading"
       >
