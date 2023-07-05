@@ -456,7 +456,9 @@ const en = {
     'Invoice to': 'Invoice to',
     'Shipping to': 'Shipping to',
     'No payment method selected': 'No payment method selected',
-    'No shipping method selected': 'No shipping method selected'
+    'No shipping method selected': 'No shipping method selected',
+    'Order now': 'Order now',
+    'Check your data and finish the order': 'Check your data and finish the order by clicking the "{button}" button below.'
   }
 };
 

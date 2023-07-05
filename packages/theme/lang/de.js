@@ -454,7 +454,9 @@ const de = {
     'Invoice to': 'Rechnung an',
     'Shipping to': 'Versand nach',
     'No payment method selected': 'Keine Zahlungsmethode ausgewählt',
-    'No shipping method selected': 'Keine Versandart ausgewählt'
+    'No shipping method selected': 'Keine Versandart ausgewählt',
+    'Order now': 'Kostenpflichtig bestellen',
+    'Check your data and finish the order': 'Überprüfen Sie Ihre Daten und schließen Sie die Bestellung ab, indem Sie unten auf die Schaltfläche "{button}" klicken.'
   }
 }
 
