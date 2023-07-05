@@ -164,14 +164,14 @@
             </SfTableData>
             <SfTableData class="orders__view orders__element--right">
               <SfButton
-                class="sf-button--text desktop-only"
+                class="sf-button--text"
                 @click="setCurrentOrder(order)"
               >
                 {{ $t('OrderHistory.View details') }}
               </SfButton>
               <SfButton
                 :disabled="!orderGetters.isReturnable(order)"
-                class="sf-button--text desktop-only"
+                class="sf-button--text"
                 @click="setCurrentOrder(order), (returnOrder = true)"
               >
                 {{ $t('OrderHistory.Return items') }}
