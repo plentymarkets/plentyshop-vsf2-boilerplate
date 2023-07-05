@@ -10,7 +10,6 @@
       <div class="spacer-top">
         <SfCheckbox
           v-model="sameAsBilling"
-          v-e2e="'copy-address'"
           :label="$t('Shipping.My billing and shipping address are the same')"
           name="copyShippingAddress"
           class="form__element"

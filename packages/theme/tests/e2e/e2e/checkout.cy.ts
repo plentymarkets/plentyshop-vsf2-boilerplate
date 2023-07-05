@@ -48,9 +48,6 @@ context('Order placement', () => {
     page.checkout.billing.continueToShipping.click();
     cy.wait(['@saveAddress', '@loadAddresses', '@getActiveShippingCountries']);
 
-    cy.get('[data-e2e*="copy-address"]').click();
-    cy.wait('@loadAddresses');
-
     page.checkout.shipping.continueToPaymentButton.click();
     cy.wait(['@saveAddress', '@loadAddresses', '@getShippingProvider', '@getPaymentProviders']);
     cy.get('[data-e2e*="shipping-method"]').should('exist');
