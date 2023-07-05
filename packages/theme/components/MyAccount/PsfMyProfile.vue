@@ -257,7 +257,7 @@ export default {
     flex-direction: column !important;
   }
   .new-password {
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem !important;
   }
 }
 </style>
