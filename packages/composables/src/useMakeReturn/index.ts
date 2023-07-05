@@ -1,9 +1,9 @@
 import { computed } from '@nuxtjs/composition-api';
 import { useVSFContext, sharedRef } from '@vue-storefront/core';
-import { CreateReturnResponse, MakeReturnParams } from '@vue-storefront/plentymarkets-api';
+import { MakeReturnParams, Order } from '@vue-storefront/plentymarkets-api';
 import { ComposableBaseResponse } from 'src/types';
 
-interface UseMakeReturnResponse extends ComposableBaseResponse<CreateReturnResponse> {
+interface UseMakeReturnResponse extends ComposableBaseResponse<Order> {
   makeReturn(params: MakeReturnParams): Promise<void>
 }
 
@@ -42,9 +42,9 @@ export const useMakeReturn = (id: string): UseMakeReturnResponse => {
     try {
       loading.value = true;
       result.value = await context.$plentymarkets.api.makeOrderReturn(makeReturnPayload);
-      error.value.makeReturn = null;
+      error.value = null;
     } catch (err) {
-      error.value.makeReturn = err;
+      error.value = err;
     } finally {
       loading.value = false;
     }

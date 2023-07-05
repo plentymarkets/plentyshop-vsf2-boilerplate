@@ -116,7 +116,7 @@
             </SfTableData>
             <SfTableData class="orders__view orders__element--right">
               <SfButton
-                class="sf-button--text desktop-only"
+                class="sf-button--text"
                 @click="currentReturn = orderReturn"
               >
                 {{ $t('OrderHistory.View details') }}

@@ -5,8 +5,7 @@ import {
   PreparePaymentResult,
   OrderDetails,
   OrderSearchParams,
-  Order,
-  CreateReturnResponse
+  Order
 } from 'src/types';
 
 export async function getOrder(context: Context, params: OrderSearchParams): Promise<OrderDetails> {
@@ -65,8 +64,8 @@ export async function executePayment(context: Context, orderId: number, paymentI
   return data;
 }
 
-export async function makeOrderReturn(context: Context, params: string): Promise<CreateReturnResponse> {
-  const url: URL = new URL('/rest/io/order/return', context.config.api.url);
+export async function makeOrderReturn(context: Context, params: string): Promise<Order> {
+  const url: URL = new URL('/rest/storefront/returns', context.config.api.url);
 
   const { data } = await context.client.post(url.href, params);
 
