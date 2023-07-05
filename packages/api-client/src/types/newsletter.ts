@@ -9,7 +9,6 @@ export type SubscribeNewsletterResponse = {
     data: string
 }
 
-
 export type UnsubscribeNewsletterResponse = {
     data: boolean
 }
