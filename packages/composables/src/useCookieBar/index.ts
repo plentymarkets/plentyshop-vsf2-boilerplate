@@ -16,7 +16,7 @@ export const useCookieBar = (
   initCheckboxIndex: number,
   initialCookieJsonFromConfig: CookieGroupFromNuxtConfig
 ): cookieGetter => {
-  const bannerIsHidden = sharedRef('bannerIsHidden', false);
+  const bannerIsHidden = sharedRef('useCookieBar-bannerIsHidden', false);
   const defaultCheckboxIndex = initCheckboxIndex;
   const cookieJsonFromConfig = initialCookieJsonFromConfig;
   const appCookies = appContext;
