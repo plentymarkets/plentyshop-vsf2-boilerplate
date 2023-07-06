@@ -34,7 +34,6 @@
             :label="$t('CookieBar.Privacy Settings')"
             @click="bannerIsHidden = false"
           />
-          A={{ bannerIsHidden }}
         </SfListItem>
       </SfList>
     </SfFooterColumn>
