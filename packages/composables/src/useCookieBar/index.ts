@@ -1,4 +1,5 @@
 import { ref, onMounted } from '@nuxtjs/composition-api';
+import { sharedRef } from '@vue-storefront/core';
 import type {
   cookieGetter,
   appContext,
@@ -15,7 +16,7 @@ export const useCookieBar = (
   initCheckboxIndex: number,
   initialCookieJsonFromConfig: CookieGroupFromNuxtConfig
 ): cookieGetter => {
-  const bannerIsHidden = ref(false);
+  const bannerIsHidden = sharedRef('useCookieBar-bannerIsHidden', false);
   const defaultCheckboxIndex = initCheckboxIndex;
   const cookieJsonFromConfig = initialCookieJsonFromConfig;
   const appCookies = appContext;

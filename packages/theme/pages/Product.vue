@@ -441,7 +441,6 @@ export default {
     margin: 0 var(--spacer-2xs);
   }
   &__add-to-cart {
-    margin: var(--spacer-base) var(--spacer-sm) 0;
     @include for-desktop {
       margin-top: var(--spacer-2xl);
     }

@@ -60,61 +60,129 @@
     <SfTab :title="$t('PsfMyProfile.Change password')">
       <slot name="password-change-description">
         <p class="message">
-          If you want to change the password to access your account, enter the
-          following information:<br>
-          Your current email address is
-          <span class="message__label">{{ userGetters.getEmailAddress(account) }}</span>
+          {{ $t('PsfMyProfile.If you want to change the password to access your account') }}<br>
+          {{ $t('PsfMyProfile.Your current email is', { email: userGetters.getEmailAddress(account) }) }}
         </p>
       </slot>
       <div class="form">
         <slot
           name="password-change-form"
         >
-          <SfInput
-            v-model="currentPassword"
-            type="password"
-            name="currentPassword"
-            :label="$t('PsfMyProfile.Current password')"
-            required
-            class="form__element"
-          />
-          <SfInput
-            v-model="newPassword"
-            type="password"
-            name="newPassword"
-            :label="$t('PsfMyProfile.New password')"
-            required
-            class="form__element form__element--half"
-          />
-          <SfInput
-            v-model="repeatPassword"
-            type="password"
-            name="repeatPassword"
-            :label="$t('PsfMyProfile.Repeat password')"
-            required
-            class="form__element form__element--half form__element--half-even"
-          />
-          <SfButton
-            class="form__button"
-            data-testid="update-password-button"
-            @click="updatePassword"
+          <ValidationObserver
+            ref="validationObserver"
+            v-slot="{ handleSubmit }"
+            class="w-full"
           >
-            {{ $t('PsfMyProfile.Update password') }}
-          </SfButton>
+            <form
+              class="form-width"
+              @submit.prevent="handleSubmit(updatePassword)"
+            >
+              <ValidationProvider
+                v-slot="{ errors }"
+                rules="required|min:1"
+                :name="$t('PsfMyProfile.Current password')"
+              >
+                <SfInput
+                  v-model="currentPassword"
+                  type="password"
+                  name="currentPassword"
+                  :label="$t('PsfMyProfile.Current password')"
+                  required
+                  class="form__element"
+                  :valid="!errors[0]"
+                  :error-message="errors[0]"
+                />
+              </ValidationProvider>
+              <div class="flex-col lg:flex-row flex w-full">
+                <ValidationProvider
+                  v-slot="{ errors }"
+                  rules="required|min:8|regex"
+                  :name="$t('PsfMyProfile.New password')"
+                  class="form__element--half"
+                >
+                  <SfInput
+                    v-model="newPassword"
+                    type="password"
+                    name="newPassword"
+                    :label="$t('PsfMyProfile.New password')"
+                    required
+                    class="m-0 mb-2 lg:mb-0 form__element form__element--half"
+                    :valid="!errors[0]"
+                    :error-message="errors[0]"
+                  />
+                </ValidationProvider>
+                <ValidationProvider
+                  v-slot="{ errors }"
+                  rules="required|min:8|regex"
+                  :name="$t('PsfMyProfile.Repeat password')"
+                  class="form__element--half form__element--half-even"
+                >
+                  <SfInput
+                    v-model="repeatPassword"
+                    type="password"
+                    name="repeatPassword"
+                    :label="$t('PsfMyProfile.Repeat password')"
+                    required
+                    class="form__element m-0"
+                    :valid="!errors[0]"
+                    :error-message="errors[0]"
+                  />
+                </ValidationProvider>
+              </div>
+              <small>* {{ $t('PsfMyProfile.Password requirements') }}</small>
+              <SfButton
+                class="sf-button form__button mb-3 min-h-12 mt-3"
+                data-testid="update-password-button"
+                type="submit"
+                :disabled="loading"
+              >
+                <SfLoader
+                  :class="{ loader: loading }"
+                  :loading="loading"
+                >
+                  <div>{{ $t('PsfMyProfile.Update password') }}</div>
+                </SfLoader>
+              </SfButton>
+            </form>
+          </ValidationObserver>
         </slot>
       </div>
     </SfTab>
   </SfTabs>
 </template>
 <script>
-import { SfTabs, SfInput, SfButton } from '@storefront-ui/vue';
-import { userGetters } from '@vue-storefront/plentymarkets';
+import { SfTabs, SfInput, SfButton, SfLoader } from '@storefront-ui/vue';
+import { userGetters, useUser } from '@vue-storefront/plentymarkets';
+import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
+import {required, min} from 'vee-validate/dist/rules';
+import { useUiNotification } from '~/composables';
+import {useContext} from '@nuxtjs/composition-api';
+
+extend('min', {
+  ...min
+});
+
+extend('required', {
+  ...required
+});
+
+extend('regex', {
+  validate(value) {
+    const tester = /^(?=.*[A-Za-z])(?=.*\d)\S{8,}$/;
+
+    return tester.test(String(value));
+  }
+});
+
 export default {
   name: 'PsfMyProfile',
   components: {
     SfTabs,
     SfInput,
-    SfButton
+    SfButton,
+    SfLoader,
+    ValidationProvider,
+    ValidationObserver
   },
   props: {
     account: {
@@ -123,7 +191,14 @@ export default {
     }
   },
   setup() {
+    const { app } = useContext();
+    const { loading } = useUser();
+    const { send } = useUiNotification();
+
     return {
+      app,
+      loading,
+      send,
       userGetters
     };
   },
@@ -158,9 +233,8 @@ export default {
       this.$emit('update:personal', personal);
     },
     updatePassword() {
-
       if (this.newPassword !== this.repeatPassword) {
-        // @TODO: add notification for error and success
+        this.send({ message: this.app.i18n.t('PsfMyProfile.The passwords do not match'), type: 'danger' });
         return;
       }
 
