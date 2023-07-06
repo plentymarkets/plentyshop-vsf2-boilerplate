@@ -3,7 +3,7 @@
     class="address-list"
     v-bind="{addresses, countries}"
     :selected="defaultAddressId"
-    @change="setDefaultAddress($event)"
+    @change="handleSetDefaultAddress($event)"
   >
     <SfAddress
       v-for="(address, key) in addresses"
@@ -19,11 +19,12 @@
       <span>{{ userAddressGetters.getPhone(address) }}</span>
       <a
         class="sf-link text-primary"
-        @click="changeAddress(key)"
+        @click="handleChangeAddress(key)"
       >{{ $t('AddressPicker.Change') }}</a> <b>|</b>
       <a
+        :v-e2e="'deleteAddress'"
         class="sf-link text-primary"
-        @click="deleteAddress(address)"
+        @click="handleDeleteAddress(address)"
       >{{ $t('AddressPicker.Delete') }}</a>
       <b v-if="!isDefaultAddress(address)">|</b>
       <a
@@ -56,11 +57,11 @@ export default {
       default: () => []
     }
   },
+  emits: ['delete-address', 'change-address', 'set-default-address'],
 
   setup(props, {emit}) {
 
     const defaultAddressId = ref('');
-
     const getDefaultAddress = () => {
       if (props.addresses.length > 0) {
         const defaultAddress = userAddressGetters.getDefault(props.addresses) || userAddressGetters.getAddresses(props.addresses)[0];
@@ -80,22 +81,22 @@ export default {
       getDefaultAddress();
     });
 
-    const deleteAddress = (address) => {
+    const handleDeleteAddress = (address) => {
       emit('delete-address', address);
     };
 
-    const changeAddress = (address) => {
+    const handleChangeAddress = (address) => {
       emit('change-address', address);
     };
 
-    const setDefaultAddress = (addressId) => {
+    const handleSetDefaultAddress = (addressId) => {
       emit('set-default-address', addressId);
     };
 
     return {
-      deleteAddress,
-      changeAddress,
-      setDefaultAddress,
+      handleDeleteAddress,
+      handleChangeAddress,
+      handleSetDefaultAddress,
       isDefaultAddress,
       userAddressGetters,
       defaultAddressId
