@@ -84,7 +84,7 @@ export default {
 
   .sf-link:hover {
     .sf-menu-item__label{
-      color: white !important;
+      color: var(--c-white) !important;
       text-decoration: underline;
     }
   }
