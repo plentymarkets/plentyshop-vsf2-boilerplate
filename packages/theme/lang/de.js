@@ -188,7 +188,8 @@ const de = {
     'Order as guest': 'Als Gast bestellen',
     'User data': '@:App.userData',
     'Register and continue': '@:App.register',
-    'Email': '@:App.email'
+    'Email': '@:App.email',
+    'Email exists': 'Email existiert bereits.'
   },
   // LoginModal
   'LoginModal': {
