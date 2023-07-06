@@ -93,7 +93,7 @@
                   :error-message="errors[0]"
                 />
               </ValidationProvider>
-              <div class="flex-passwords flex w-full">
+              <div class="flex-col lg:flex-row flex w-full">
                 <ValidationProvider
                   v-slot="{ errors }"
                   rules="required|min:8|regex"
@@ -106,7 +106,7 @@
                     name="newPassword"
                     :label="$t('PsfMyProfile.New password')"
                     required
-                    class="new-password form__element form__element--half m-0"
+                    class="m-0 mb-2 lg:mb-0 form__element form__element--half"
                     :valid="!errors[0]"
                     :error-message="errors[0]"
                   />
@@ -251,13 +251,4 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "~@storefront-ui/shared/styles/components/templates/SfMyProfile.scss";
-
-@include for-mobile {
-  .flex-passwords {
-    flex-direction: column !important;
-  }
-  .new-password {
-    margin-bottom: 0.5rem !important;
-  }
-}
 </style>
