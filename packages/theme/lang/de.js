@@ -339,7 +339,15 @@ const de = {
     'Personal data': 'Persönliche Daten',
     'Repeat password': 'Passwort wiederholen',
     'Save changes': 'Änderungen speichern',
-    'Update password': 'Password aktualisieren'
+    'Update password': 'Passwort aktualisieren',
+    'Password requirements': 'Passwort Mindestanforderungen: Mindestens 8 Zeichen lang und muss mindestens einen Buchstaben und eine Zahl enthalten',
+    'If you want to change the password to access your account': 'Wenn Sie das Passwort für den Zugriff auf Ihr Konto ändern möchten, geben Sie die folgenden Informationen ein:',
+    'Your current email is': 'Ihre aktuelle E-Mail Adresse ist {email}',
+    'The passwords do not match': 'Die Passwörter stimmen nicht überein.'
+  },
+  // ProfileDetails
+  'ProfileDetails': {
+    'Successfully changed your password': 'Sie haben erfolgreich Ihr Passwort geändert.'
   },
   // PsfPersonalDetails
   'PsfPersonalDetails': {
