@@ -39,28 +39,11 @@ export const useForgotPassword = (id: string): ForgotPassword => {
       loading.value = false;
     }
   };
-  const verifyHash = async (contactId, hash): Promise<string> => {
-    try {
-      loading.value = true;
-      const response = await context.$plentymarkets.api.verifyHash(contactId, hash);
-
-      if (response && response.error) {
-        error.value.load = response.error;
-        return;
-      }
-      return response.email;
-    } catch (err) {
-      error.value.load = err;
-    } finally {
-      loading.value = false;
-    }
-  };
 
   return {
     loading,
     error,
     resetPassword,
-    setNewPassword,
-    verifyHash
+    setNewPassword
   };
 };

@@ -1,4 +1,4 @@
-import { Context, RegisterParams, UserChangeResponse, UserEmailResponse, ForgotPasswordResponse } from 'src/types';
+import { Context, RegisterParams, UserChangeResponse, ForgotPasswordResponse } from 'src/types';
 
 export async function loginUser(context: Context, email: string, password: string): Promise<UserChangeResponse> {
   const url: URL = new URL('/rest/io/customer/login/', context.config.api.url);
@@ -75,16 +75,6 @@ export async function changePassword(context: Context, currentPassword: string, 
     oldPassword: currentPassword,
     password: newPassword,
     password2: newPassword
-  });
-
-  return data;
-}
-
-export async function verifyHash(context: Context, contactId: string, hash: string): Promise<UserEmailResponse> {
-  const url: URL = new URL('/rest/storefront/customer/verify_hash', context.config.api.url);
-  const { data } = await context.client.post(url.href, {
-    contactId: contactId,
-    hash: hash
   });
 
   return data;

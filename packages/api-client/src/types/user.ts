@@ -97,5 +97,4 @@ export interface ForgotPassword {
     }>;
     resetPassword:(email:String) => Promise<void>;
     setNewPassword:(hash:String, newPassword:String, newPassword2:String, contactId:String) => Promise<void>;
-    verifyHash(contactId:String, hash:String): Promise<string>
 }

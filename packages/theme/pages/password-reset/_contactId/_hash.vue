@@ -65,7 +65,6 @@ export default {
     const { toggleLoginModal } = useUiState();
     const {
       setNewPassword,
-      verifyHash,
       error: forgotPasswordError
     } = useForgotPassword();
 
@@ -89,13 +88,13 @@ export default {
 
     const resetPassword = async () => {
       try {
-        await verifyHash(route.value.params.contactId, route.value.params.hash);
+        updatePassword();
         if (forgotPasswordError.value.load) {
           router.push('/');
           send({ message: app.i18n.t('LoginModal.Your hash has expired!'), type: 'danger' });
           toggleLoginModal();
         }
-        updatePassword();
+
       } catch (error) {
         send({ message: app.i18n.t('LoginModal.Your hash has expired!'), type: 'danger' });
       }
