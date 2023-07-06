@@ -194,7 +194,7 @@
     <button
       v-else
       v-e2e="'cookie-show-banner-button'"
-      class="color-sf-c-primary sf-button z-10 fixed bottom-sf-2xl xl:bottom-sf-xs xl:left-auto xl:right-sf-xs"
+      class="color-sf-c-primary sf-button z-10 fixed bottom-sf-2xl xl:bottom-sf-xs xl:left-auto xl:right-sf-xs invisible xl:visible"
       aria-label="Cookie control"
       @click="bannerIsHidden = false"
     >
