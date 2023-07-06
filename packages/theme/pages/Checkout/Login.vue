@@ -39,7 +39,7 @@
 <script>
 import { useRouter, watch, ref, useContext } from '@nuxtjs/composition-api';
 import { SfButton } from '@storefront-ui/vue';
-import { useUiState } from '~/composables';
+import { useUiState, useUiNotification } from '~/composables';
 import { useUser } from '@vue-storefront/plentymarkets';
 import PsfPersonalDetails from '~/components/Checkout/PsfPersonalDetails';
 
@@ -53,9 +53,10 @@ export default {
 
     const { isLoginModalOpen, toggleLoginModal } = useUiState();
     const router = useRouter();
-    const { isAuthenticated, isGuest, register } = useUser();
+    const { isAuthenticated, isGuest, register, error } = useUser();
     const createAccountCheckbox = ref(false);
     const { app } = useContext();
+    const { send } = useUiNotification();
 
     let user = {
       email: '',
@@ -92,6 +93,9 @@ export default {
       if (isValid) {
         await register(user);
 
+        if (error.value.register) {
+          send({ message: app.i18n.t('Login.Email exists'), type: 'info', persist: true });
+        }
         if (isAuthenticated.value || isGuest.value) {
           router.push(app.localePath('billing'));
         }

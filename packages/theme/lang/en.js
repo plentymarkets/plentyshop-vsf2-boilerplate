@@ -191,6 +191,7 @@ const en = {
     'User data': '@:App.userData',
     'Register and continue': '@:App.register',
     'Email': '@:App.email',
+    'Email exists': 'Email already exists.'
   },
   // LoginModal
   'LoginModal': {
