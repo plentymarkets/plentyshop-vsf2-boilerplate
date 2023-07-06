@@ -9,7 +9,7 @@ export async function getProduct(context: Context, params: ProductsSearchParams)
     url.searchParams.set('variationIds[]', params.id);
     url.searchParams.set('resultFieldTemplate', 'SingleItem');
   } else if (params.term) {
-    url = new URL('/rest/io/item/search', context.config.api.url);
+    url = new URL('/rest/storefront/items', context.config.api.url);
     url.searchParams.set('query', params.term);
   } else {
 
