@@ -116,6 +116,15 @@ export default {
         }
       ]
     };
+  },
+  head: {
+    meta: [
+      {
+        hid: 'description',
+        name: 'robots',
+        content: 'noindex'
+      }
+    ]
   }
 };
 </script>

@@ -1,8 +1,11 @@
 <template>
   <div class="p-3 lg:p-0">
-    <h2 class="mb-8">
+    <h2>
       {{ $t('Checkoutreadonly.Review your order') }}
     </h2>
+    <h5 class="mb-8">
+      {{ $t('Checkoutreadonly.Check your data and finish the order', { button: $t('Checkoutreadonly.Order now') }) }}
+    </h5>
     <SfDivider class="sm:mb-sf-xl" />
     <div class="flex p-2 flex-wrap opacity-80 pointer-events-none">
       <div class="sm:w-1/2">
@@ -173,7 +176,7 @@
                 :loading="loading"
               >
                 <div v-e2e="'order-button'">
-                  {{ $t('Payment.Make an order') }}
+                  {{ $t('Checkoutreadonly.Order now') }}
                 </div>
               </SfLoader>
             </SfButton>
@@ -387,6 +390,15 @@ export default {
       totals: computed(() => cartGetters.getTotals(cart.value)),
       userAddressGetters
     };
+  },
+  head: {
+    meta: [
+      {
+        hid: 'description',
+        name: 'robots',
+        content: 'noindex'
+      }
+    ]
   }
 };
 </script>

@@ -96,6 +96,13 @@ export default {
 .footer {
   margin-bottom: 3.75rem;
 
+  .sf-link:hover {
+    .sf-menu-item__label{
+      color: var(--c-white) !important;
+      text-decoration: underline;
+    }
+  }
+
   @include for-desktop {
     margin-bottom: 0;
   }
