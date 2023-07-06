@@ -207,7 +207,7 @@
               />
             </ValidationProvider>
             <div v-if="error.register">
-              {{ error.register }}
+              {{ $t('Login.Email exists') }}
             </div>
             <SfButton
               type="submit"
@@ -352,12 +352,7 @@ export default {
       }
 
       if (error.register) {
-        send({
-          message: app.i18n.t('An error occurred during the registration'),
-          type: 'danger',
-          persist: true
-        });
-        send({ message: error?.register || '', type: 'danger', persist: true });
+        send({ message: app.i18n.t('Login.Email exists'), type: 'info', persist: true });
         return;
       }
 
