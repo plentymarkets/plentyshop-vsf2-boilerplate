@@ -341,7 +341,15 @@ const en = {
     'Personal data': 'Personal data',
     'Repeat password': 'Repeat password',
     'Save changes': 'Save changes',
-    'Update password': 'Update password'
+    'Update password': 'Update password',
+    'Password requirements': 'Password minimum requirements: At least 8 characters long and must contain at least one letter and one number',
+    'If you want to change the password to access your account': 'If you want to change the password to access your account, enter the following information:',
+    'Your current email is': 'Your current email address is {email}',
+    'The passwords do not match': 'The passwords do not match.'
+  },
+  // ProfileDetails
+  'ProfileDetails': {
+    'Successfully changed your password': 'You successfully changed your password.'
   },
   // PsfPersonalDetails
   'PsfPersonalDetails': {
@@ -457,7 +465,9 @@ const en = {
     'Invoice to': 'Invoice to',
     'Shipping to': 'Shipping to',
     'No payment method selected': 'No payment method selected',
-    'No shipping method selected': 'No shipping method selected'
+    'No shipping method selected': 'No shipping method selected',
+    'Order now': 'Order now',
+    'Check your data and finish the order': 'Check your data and finish the order by clicking the "{button}" button below.'
   }
 };
 

@@ -29,6 +29,12 @@
             :link="localePath(legalPaths[item])"
           />
         </SfListItem>
+        <SfListItem class="xl:invisible">
+          <SfMenuItem
+            :label="$t('CookieBar.Privacy Settings')"
+            @click="bannerIsHidden = false"
+          />
+        </SfListItem>
       </SfList>
     </SfFooterColumn>
   </SfFooter>
@@ -37,8 +43,8 @@
 <script>
 import { SfFooter, SfList, SfMenuItem } from '@storefront-ui/vue';
 import { addBasePath } from '@vue-storefront/core';
-import { computed, useRouter } from '@nuxtjs/composition-api';
-import { categoryTreeGetters, useCategory } from '@vue-storefront/plentymarkets';
+import { computed, useRouter, useContext } from '@nuxtjs/composition-api';
+import { categoryTreeGetters, useCategory, useCookieBar } from '@vue-storefront/plentymarkets';
 
 export default {
   components: {
@@ -50,12 +56,20 @@ export default {
     const router = useRouter();
     const { categories, loading } = useCategory('categories');
     const categoryTree = computed(() => loading && categories.value.map((cat) => categoryTreeGetters.getTree(cat)));
+    const { $config, app } = useContext();
+    const { bannerIsHidden } = useCookieBar(
+      app.$cookies,
+      'consent-cookie',
+      0,
+      $config.cookieGroups
+    );
 
     return {
       router,
       addBasePath,
       categoryTreeGetters,
-      categoryTree
+      categoryTree,
+      bannerIsHidden
     };
   },
   data() {
@@ -81,6 +95,13 @@ export default {
 <style lang="scss">
 .footer {
   margin-bottom: 3.75rem;
+
+  .sf-link:hover {
+    .sf-menu-item__label{
+      color: var(--c-white) !important;
+      text-decoration: underline;
+    }
+  }
 
   @include for-desktop {
     margin-bottom: 0;
