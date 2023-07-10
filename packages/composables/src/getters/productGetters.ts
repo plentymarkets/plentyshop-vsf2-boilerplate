@@ -238,8 +238,8 @@ function getUnitName(product: Product): String {
   return product?.unit?.names?.name;
 }
 
-function getDefaultBasePrice(product: Product): String {
-  return String(product.prices.default.basePrice);
+function getDefaultBasePrice(product: Product): number {
+  return product?.prices?.default?.data?.basePrice;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
