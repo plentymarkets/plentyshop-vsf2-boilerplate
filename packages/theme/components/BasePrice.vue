@@ -4,9 +4,10 @@
       <div
         v-if="oneline"
         class="flex-1"
-      >
+      />
+      <div id="basePrice">
+        {{ $n(productGetters.getDefaultBaseSinglePrice(product), 'currency') }} / {{ productGetters.getUnitName(product) }}
       </div>
-      <div id="basePrice">{{ $n(productGetters.getDefaultBaseSinglePrice(product), 'currency') }} / {{ productGetters.getUnitName(product) }} </div>
       <div
         v-if="oneline"
         id="lineSeparator"
@@ -17,7 +18,7 @@
         <span
           v-if="!oneline"
           class="font-bold"
-        > {{ $t('Content') }}: </span>
+        > {{ $t('Product.Content') }}: </span>
         <span class="mr-1">
           {{ productGetters.getUnitContent(product) }}
           {{ productGetters.getUnitName(product) }}
