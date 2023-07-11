@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="productGetters.showPricePerUnit(product)">
     <div :class="basePriceCss">
       <div
         v-if="oneline"
