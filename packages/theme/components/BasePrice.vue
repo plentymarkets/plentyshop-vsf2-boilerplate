@@ -4,10 +4,9 @@
       <div
         v-if="oneline"
         class="flex-1"
-      />
-      <div id="basePrice">
-        {{ productGetters.getDefaultBasePrice(product) }}
+      >
       </div>
+      <div id="basePrice">{{ $n(productGetters.getDefaultBaseSinglePrice(product), 'currency') }} / {{ productGetters.getUnitName(product) }} </div>
       <div
         v-if="oneline"
         id="lineSeparator"
@@ -87,7 +86,6 @@ export default {
   width: 100%;
 }
 #lineSeparator {
-  margin-right:2px;
-  margin-left:2px;
+  margin-right:4px;
 }
 </style>
