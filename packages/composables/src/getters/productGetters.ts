@@ -238,8 +238,8 @@ function getUnitName(product: Product): String {
   return product?.unit?.names?.name;
 }
 
-function getDefaultBasePrice(product: Product): String {
-  return String(product.prices.default.basePrice);
+function getDefaultBaseSinglePrice(product: Product): number {
+  return product?.prices?.default?.baseSinglePrice;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -256,7 +256,7 @@ export const productGetters: ProductGetters<Product, ProductFilter> = {
   getUnitContent,
   showPricePerUnit,
   getUnitName,
-  getDefaultBasePrice,
+  getDefaultBaseSinglePrice,
   getName,
   getSlug,
   getPrice,
