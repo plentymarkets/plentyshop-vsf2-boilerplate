@@ -2,15 +2,15 @@ import { ItemSearchResult } from './../../types';
 import { Context, ItemSearchParams } from 'src/types';
 
 export async function getSearch(context: Context, params: ItemSearchParams): Promise<ItemSearchResult> {
-  const url: URL = new URL('/rest/io/item/search/', context.config.api.url);
+  const url: URL = new URL('/rest/storefront/items', context.config.api.url);
 
   if (!params.term) {
     // @TODO error handling
   }
+
   url.searchParams.set('query', params.term);
-  url.searchParams.set('types[]', 'item');
-  url.searchParams.set('templateType', 'home');
+
   const { data } = await context.client.get(url.href);
 
-  return { products: data.data.itemList.documents.map((item) => item.data) };
+  return { products: data.itemList.documents.map((item) => item.data) };
 }

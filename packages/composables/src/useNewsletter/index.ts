@@ -1,10 +1,14 @@
 import {useVSFContext, sharedRef} from '@vue-storefront/core';
 import {computed, Ref} from '@nuxtjs/composition-api';
-import {NewsletterParams} from '@vue-storefront/plentymarkets-api';
+import {
+  NewsletterParams,
+  SubscribeNewsletterResponse,
+  UnsubscribeNewsletterResponse
+} from '@vue-storefront/plentymarkets-api';
 
 export interface UseNewsletterResponse {
-  subscribeNewsletter: (params: NewsletterParams) => Promise<void>
-  unsubscribeNewsletter: (params: NewsletterParams) => Promise<string>
+  subscribeNewsletter: (params: NewsletterParams) => Promise<SubscribeNewsletterResponse>
+  unsubscribeNewsletter: (params: NewsletterParams) => Promise<UnsubscribeNewsletterResponse>
   loading: Ref<boolean>
   error: Ref<object>
 }
@@ -19,16 +23,18 @@ export const useNewsletter = () : UseNewsletterResponse => {
     unsubscribe: null
   }, 'useNewsletter-error');
 
-  const subscribeNewsletter = async (params: NewsletterParams): Promise<void> => {
+  const subscribeNewsletter = async (params: NewsletterParams): Promise<SubscribeNewsletterResponse> => {
     try {
       loading.value = true;
-      await context.$plentymarkets.api.subscribeNewsletter({
+      const data = await context.$plentymarkets.api.subscribeNewsletter({
         email: params.email,
         firstName: params.firstName,
         lastName: params.lastName,
         emailFolder: params.emailFolder
       });
       error.value.subscribe = null;
+
+      return data;
     } catch (err) {
       error.value.subscribe = err.message;
     } finally {
@@ -36,7 +42,7 @@ export const useNewsletter = () : UseNewsletterResponse => {
     }
   };
 
-  const unsubscribeNewsletter = async (params: NewsletterParams): Promise<string> => {
+  const unsubscribeNewsletter = async (params: NewsletterParams): Promise<UnsubscribeNewsletterResponse> => {
     try {
       loading.value = true;
 
