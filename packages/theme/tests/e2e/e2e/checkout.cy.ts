@@ -7,6 +7,9 @@ context('Order placement', () => {
         data: fixture
       };
     });
+
+    page.home.setDefaultCookies();
+
     page.home.visit();
   });
   it(['happyPath', 'regression'], 'Should successfully place an order as a guest user', function test() {
@@ -26,9 +29,11 @@ context('Order placement', () => {
     cy.intercept('/api/plentymarkets/registerUser').as('registerUser');
     cy.intercept('/api/plentymarkets/getOrder').as('getOrder');
 
+    cy.get('*[class^="sf-bottom-navigation navigation-bottom smartphone-only"]').find('button').eq(1).click();
+
     // With the current data, the first category does not have items. Therefore, we need to replace the
     // following selector: page.home.header.categories.first().click();
-    cy.get('[data-e2e*="app-header"]').eq(1).find('a').click();
+    cy.get('.sf-modal.smartphone-only').find('.sf-menu-item__label').eq(1).click();
     cy.wait('@getFacet');
 
     page.category.products.first().click();
@@ -54,7 +59,7 @@ context('Order placement', () => {
     cy.get('[data-e2e*="payment-method"]').should('exist');
 
     page.checkout.payment.paymentMethods.eq(1).click();
-    page.checkout.payment.terms.click();
+    page.checkout.payment.terms.check({ force: true });
     page.checkout.payment.makeAnOrderButton.click();
     cy.wait(['@additionalInformation', '@preparePayment', '@placeOrder', '@executePayment', '@getOrder']);
 
@@ -85,5 +90,3 @@ context('Check Thank You Page', () => {
     page.checkout.thankyou.validate();
   });
 });
-
-

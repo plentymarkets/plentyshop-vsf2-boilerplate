@@ -160,7 +160,7 @@ class Payment {
   }
 
   get terms(): Cypress.Chainable {
-    return el('terms', 'label');
+    return el('terms', 'input');
   }
 }
 

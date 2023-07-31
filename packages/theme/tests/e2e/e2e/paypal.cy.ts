@@ -2,15 +2,20 @@ import page from '../pages/factory';
 
 context('PayPal buttons rendering', () => {
   beforeEach(function init() {
-    cy.setConsentCookie();
-
     cy.intercept('/api/plentymarkets/getFacet').as('getFacet');
     cy.intercept('/api/plentymarkets/getProduct').as('getProduct');
+
+    cy.setConsentCookie();
+
+    page.home.visit();
   });
 
   it(['happyPath', 'regression'], 'Should exist on single item page', function test() {
-    page.home.visit();
-    cy.get('[data-e2e*="app-header"]').eq(1).find('a').click();
+    cy.get('*[class^="sf-bottom-navigation navigation-bottom smartphone-only"]').find('button').eq(1).click();
+
+    // With the current data, the first category does not have items. Therefore, we need to replace the
+    // following selector: page.home.header.categories.first().click();
+    cy.get('.sf-modal.smartphone-only').find('.sf-menu-item__label').eq(1).click();
     cy.wait('@getFacet');
 
     page.category.products.first().click();
@@ -20,7 +25,6 @@ context('PayPal buttons rendering', () => {
   });
 
   it(['happyPath', 'regression'], 'Should exist in cart preview', function test() {
-    page.home.visit();
     page.home.addCartItem(1100, 1);
 
     page.product.header.openCart();
@@ -51,7 +55,7 @@ context('PayPal express checkout', () => {
   });
 
 
-  it(['happyPath', 'regression'], 'Shpuld place an order from cart preview', function test() {
+  it(['happyPath', 'regression'], 'Should place an order from cart preview', function test() {
     cy.paypalFlow(Cypress.env('PAYPAL_EMAIL'), Cypress.env('PAYPAL_PASSWORD'))
     cy.paypalComplete()
 

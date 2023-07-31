@@ -13,11 +13,15 @@ context('Cart', () => {
     cy.setLocaleCookie('en');
 
     page.home.visit();
+    
     page.home.addCartItem(1100, 1);
   });
 
   it(['happyPath', 'regression'], 'Should clear the cart', function test() {
     cy.intercept('/api/plentymarkets/clearCart').as('clearCart');
+
+    // Clear cart is only available on Desktop
+    cy.viewport(1920, 1080);
 
     hasCartProducts();
 

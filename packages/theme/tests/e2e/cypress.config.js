@@ -5,9 +5,12 @@ require('dotenv').config();
 
 module.exports = defineConfig({
   fixturesFolder: 'tests/e2e/fixtures',
+
+  //Size of an iPhone SE
+  viewportHeight: 667,
+  viewportWidth: 375,
+  
   chromeWebSecurity: false,
-  viewportHeight: 1080,
-  viewportWidth: 1920,
   pageLoadTimeout: 180000,
   requestTimeout: 15000,
   screenshotOnRunFailure: true,
