@@ -324,7 +324,7 @@ const de = {
     'Item': 'Artikel',
     'I agree to': 'Ich stimme folgenden Bedingungen zu',
     'Terms and conditions': 'Allgemeinen Geschäftsbedingungen',
-    'Make an order': 'Bestellung aufgeben',
+    'Make an order': 'Jetzt kaufen',
     'Cancel Order': 'Bestellung stornieren'
   },
   // PsfMyProfile
