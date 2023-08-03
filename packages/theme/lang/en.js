@@ -326,7 +326,7 @@ const en = {
     'Item': 'Item',
     'I agree to': 'I agree to',
     'Terms and conditions': 'Terms and conditions',
-    'Make an order': 'Make an order',
+    'Buy now': 'Buy now',
     'Cancel Order': 'Cancel Order'
   },
   // PsfMyProfile

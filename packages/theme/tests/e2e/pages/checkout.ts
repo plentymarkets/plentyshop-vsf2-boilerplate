@@ -152,7 +152,7 @@ class Billing extends Checkout {
 
 class Payment {
   get makeAnOrderButton(): Cypress.Chainable {
-    return cy.contains('Make an order');
+    return cy.contains('Buy now');
   }
 
   get paymentMethods(): Cypress.Chainable {

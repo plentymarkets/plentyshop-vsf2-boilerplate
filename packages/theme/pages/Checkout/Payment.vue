@@ -125,7 +125,7 @@
             class="summary__action-button"
             @click="processOrder"
           >
-            {{ $t('Payment.Make an order') }}
+            {{ $t('Payment.Buy now') }}
           </SfButton>
 
           <PayPalExpressButton
