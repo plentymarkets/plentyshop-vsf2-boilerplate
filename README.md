@@ -1,3 +1,6 @@
+# This repository is deprecated
+### Use https://github.com/plentymarkets/plentyshop-pwa instead
+---
 <div align="center">
   <img src="https://user-images.githubusercontent.com/1626923/137092657-fb398d20-b592-4661-a1f9-4135db0b61d5.png" alt="Vue Storefront" height="80px" />
 
